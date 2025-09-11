@@ -113,7 +113,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思與注音，輸入正確的英文拼寫。共15題，順序隨機，結束後顯示錯誤的單字。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -126,21 +126,21 @@
 
     <script>
         const words = [
-            { en: 'family member', zh: '家庭成員' },
-            { en: 'meal', zh: '餐' },
-            { en: 'holiday', zh: '假期' },
-            { en: 'home', zh: '家' },
-            { en: 'routine', zh: '例行公事' },
-            { en: 'skate', zh: '溜冰' },
-            { en: 'black', zh: '黑色' },
-            { en: 'blanket', zh: '毯子' },
-            { en: 'clock', zh: '時鐘' },
-            { en: 'club', zh: '俱樂部' },
-            { en: 'above', zh: '在...之上' },
-            { en: 'back', zh: '背部' },
-            { en: 'face', zh: '臉' },
-            { en: 'date', zh: '日期' },
-            { en: 'hair', zh: '頭髮' }
+            { en: 'family member', zh: '家庭成員 (ㄐㄧㄚ ㄊㄧㄥ ㄔㄥˊ ㄩㄢˊ)' },
+            { en: 'meal', zh: '餐 (ㄘㄢ)' },
+            { en: 'holiday', zh: '假期 (ㄐㄧㄚˋ ㄑㄧˊ)' },
+            { en: 'home', zh: '家 (ㄐㄧㄚ)' },
+            { en: 'routine', zh: '例行公事 (ㄌㄧˋ ㄒㄧㄥˊ ㄍㄨㄥ ㄕˋ)' },
+            { en: 'skate', zh: '溜冰 (ㄌㄧㄡ ㄅㄧㄥ)' },
+            { en: 'black', zh: '黑色 (ㄏㄟ ㄙㄜˋ)' },
+            { en: 'blanket', zh: '毯子 (ㄊㄢˇ ㄗ˙)' },
+            { en: 'clock', zh: '時鐘 (ㄕˊ ㄓㄨㄥ)' },
+            { en: 'club', zh: '俱樂部 (ㄐㄩˋ ㄌㄜˋ ㄅㄨˋ)' },
+            { en: 'above', zh: '在...之上 (ㄗㄞˋ ... ㄓ ㄕㄤˋ)' },
+            { en: 'back', zh: '背部 (ㄅㄟˋ ㄅㄨˋ)' },
+            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)' },
+            { en: 'date', zh: '日期 (ㄖˋ ㄑㄧˊ)' },
+            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)' }
         ];
 
         let currentQuestion = 0;
