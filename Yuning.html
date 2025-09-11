@@ -1,0 +1,269 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字拼寫測驗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+        }
+        #game-image {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        #question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #wrong-words {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Game Scene">
+        <h1>單字拼寫測驗</h1>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共35題，順序隨機，結束後顯示錯誤的單字。</p>
+        <div id="question"></div>
+        <input type="text" id="answer" placeholder="輸入英文拼寫">
+        <button id="submit">提交</button>
+        <div id="result"></div>
+        <div id="score">分數: 0 / 0</div>
+        <div id="wrong-words"></div>
+        <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
+        <button id="retest-wrong" style="display: none; margin-top: 20px;">重測錯題</button>
+    </div>
+
+    <script>
+        const words = [
+            { en: 'culture', zh: '文化' },
+            { en: 'curve', zh: '曲線' },
+            { en: 'custom', zh: '習俗' },
+            { en: 'danger', zh: '危險' },
+            { en: 'data', zh: '資料' },
+            { en: 'date', zh: '日期' },
+            { en: 'December', zh: '十二月' },
+            { en: 'decision', zh: '決定' },
+            { en: 'diary', zh: '日記' },
+            { en: 'dictionary', zh: '字典' },
+            { en: 'diet', zh: '飲食' },
+            { en: 'difference', zh: '差異' },
+            { en: 'difficulty', zh: '困難' },
+            { en: 'diplomat', zh: '外交官' },
+            { en: 'direction', zh: '方向' },
+            { en: 'discussion', zh: '討論' },
+            { en: 'doll', zh: '玩偶' },
+            { en: 'dollar', zh: '美元' },
+            { en: 'drama', zh: '戲劇' },
+            { en: 'dream', zh: '夢想' },
+            { en: 'drug', zh: '藥物' },
+            { en: 'drum', zh: '鼓' },
+            { en: 'dryer', zh: '乾衣機' },
+            { en: 'duty', zh: '責任' },
+            { en: 'edge', zh: '邊緣' },
+            { en: 'education', zh: '教育' },
+            { en: 'effect', zh: '效果' },
+            { en: 'effort', zh: '努力' },
+            { en: 'emotion', zh: '情感' },
+            { en: 'enemy', zh: '敵人' },
+            { en: 'energy', zh: '能量' },
+            { en: 'engine', zh: '引擎' },
+            { en: 'entrance', zh: '入口' },
+            { en: 'envelope', zh: '信封' },
+            { en: 'eraser', zh: '橡皮擦' }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = words.length;
+        let questions = [];
+        let wrongWords = [];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(wordList = words) {
+            questions = [...wordList];
+            totalQuestions = questions.length;
+            shuffle(questions);
+            currentQuestion = 0;
+            score = 0;
+            wrongWords = [];
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('retest-wrong').style.display = 'none';
+            document.getElementById('wrong-words').textContent = '';
+            document.getElementById('answer').style.display = 'block';
+            document.getElementById('submit').style.display = 'block';
+            document.getElementById('game-image').src = 'initial.png';
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = `輸入 "${q.zh}" 的英文拼寫：`;
+            document.getElementById('answer').value = '';
+            document.getElementById('result').textContent = '';
+            updateScore();
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+            const q = questions[currentQuestion];
+            const correctAnswer = q.en.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById('result').textContent = '正確！';
+                document.getElementById('result').style.color = 'green';
+                document.getElementById('game-image').src = 'correct.png';
+            } else {
+                document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
+                document.getElementById('result').style.color = 'red';
+                document.getElementById('game-image').src = 'incorrect.png';
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+            }
+
+            currentQuestion++;
+            updateScore();
+            setTimeout(nextQuestion, 1500);
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `分數: ${score} / ${currentQuestion}`;
+        }
+
+        function endGame() {
+            document.getElementById('question').textContent = '測驗結束！';
+            document.getElementById('answer').style.display = 'none';
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            if (score === totalQuestions) {
+                document.getElementById('game-image').src = 'all_correct.png';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+            } else {
+                document.getElementById('game-image').src = 'not_all_correct.png';
+                let wrongText = '你答錯的單字：\n';
+                wrongWords.forEach(w => {
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                });
+                document.getElementById('wrong-words').textContent = wrongText;
+                document.getElementById('retest-wrong').style.display = 'block';
+            }
+            document.getElementById('restart').style.display = 'block';
+            updateScore();
+        }
+
+        document.getElementById('submit').addEventListener('click', checkAnswer);
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        document.getElementById('restart').addEventListener('click', () => startGame(words));
+        document.getElementById('retest-wrong').addEventListener('click', () => {
+            if (wrongWords.length > 0) {
+                startGame(wrongWords);
+            }
+        });
+
+        startGame();
+    </script>
+</body>
+</html>
