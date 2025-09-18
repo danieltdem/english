@@ -1,0 +1,276 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字拼寫測驗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+        }
+        #game-image {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        #question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #wrong-words {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Game Scene">
+        <h1>單字拼寫測驗</h1>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共29題，順序隨機，結束後顯示錯誤的單字。</p>
+        <div id="question"></div>
+        <input type="text" id="answer" placeholder="輸入英文拼寫">
+        <button id="submit">提交</button>
+        <div id="result"></div>
+        <div id="score">分數: 0 / 0</div>
+        <div id="wrong-words"></div>
+        <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
+        <button id="retest-wrong" style="display: none; margin-top: 20px;">重測錯題</button>
+    </div>
+
+    <script>
+        const words = [
+            { en: 'appear', zh: '出現 (ㄔㄨ ㄒㄧㄢˋ)' },
+            { en: 'motion', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)' },
+            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄔㄚˊ)' },
+            { en: 'pattern', zh: '模式 (ㄇㄛˊ ㄕˋ)' },
+            { en: 'repeat', zh: '重複 (ㄔㄨㄥˊ ㄈㄨˋ)' },
+            { en: 'exit', zh: '出口 (ㄔㄨ ㄎㄡˇ)' },
+            { en: 'bottom', zh: '底部 (ㄉㄧˇ ㄅㄨˋ)' },
+            { en: 'electric', zh: '電的 (ㄉㄧㄢˋ ㄉㄜ)' },
+            { en: 'suggest', zh: '建議 (ㄐㄧㄢˋ ㄧˋ)' },
+            { en: 'polish', zh: '擦亮 (ㄘㄚ ㄌㄧㄤˋ)' },
+            { en: 'until', zh: '直到 (ㄓˊ ㄉㄠˋ)' },
+            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)' },
+            { en: 'closet', zh: '壁櫥 (ㄅㄧˋ ㄔㄨˊ)' },
+            { en: 'disappointed', zh: '失望 (ㄕ ㄨㄤˋ)' },
+            { en: 'inspect', zh: '檢查 (ㄐㄧㄢˇ ㄔㄚˊ)' },
+            { en: 'possible', zh: '可能 (ㄎㄜˇ ㄋㄥˊ)' },
+            { en: 'distance', zh: '距離 (ㄐㄩˋ ㄌㄧˊ)' },
+            { en: 'umbrella', zh: '雨傘 (ㄩˇ ㄙㄢˇ)' },
+            { en: 'window', zh: '窗戶 (ㄔㄨㄤ ㄏㄨˋ)' },
+            { en: 'finish', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)' },
+            { en: 'foolish', zh: '愚蠢 (ㄩˊ ㄔㄨㄣˇ)' },
+            { en: 'impolite', zh: '無禮 (ㄨˊ ㄌㄧˇ)' },
+            { en: 'hospital', zh: '醫院 (ㄧ ㄩㄢˋ)' },
+            { en: 'foreign', zh: '外國 (ㄨㄞˋ ㄍㄨㄛˊ)' },
+            { en: 'grandfather', zh: '祖父 (ㄗㄨˇ ㄈㄨˋ)' },
+            { en: 'knowledge', zh: '知識 (ㄓ ㄕˋ)' },
+            { en: 'grandmother', zh: '祖母 (ㄗㄨˇ ㄇㄨˇ)' },
+            { en: 'horrible', zh: '可怕 (ㄎㄜˇ ㄆㄚˋ)' },
+            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)' }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = words.length;
+        let questions = [];
+        let wrongWords = [];
+        let isWaitingToContinue = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(wordList = words) {
+            questions = [...wordList];
+            totalQuestions = questions.length;
+            shuffle(questions);
+            currentQuestion = 0;
+            score = 0;
+            wrongWords = [];
+            isWaitingToContinue = false;
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('retest-wrong').style.display = 'none';
+            document.getElementById('wrong-words').textContent = '';
+            document.getElementById('answer').style.display = 'block';
+            document.getElementById('submit').style.display = 'block';
+            document.getElementById('submit').textContent = '提交';
+            document.getElementById('game-image').src = 'initial.png';
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
+
+            isWaitingToContinue = false;
+            document.getElementById('submit').textContent = '提交';
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = `輸入 "${q.zh}" 的英文拼寫：`;
+            document.getElementById('answer').value = '';
+            document.getElementById('result').textContent = '';
+            updateScore();
+        }
+
+        function checkAnswer() {
+            if (isWaitingToContinue) {
+                currentQuestion++;
+                nextQuestion();
+                return;
+            }
+
+            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+            const q = questions[currentQuestion];
+            const correctAnswer = q.en.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById('result').textContent = '正確！';
+                document.getElementById('result').style.color = 'green';
+                document.getElementById('game-image').src = 'correct.png';
+                currentQuestion++;
+                setTimeout(nextQuestion, 1500);
+            } else {
+                document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
+                document.getElementById('result').style.color = 'red';
+                document.getElementById('game-image').src = 'incorrect.png';
+                document.getElementById('submit').textContent = '繼續';
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+                isWaitingToContinue = true;
+            }
+
+            updateScore();
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `分數: ${score} / ${currentQuestion}`;
+        }
+
+        function endGame() {
+            document.getElementById('question').textContent = '測驗結束！';
+            document.getElementById('answer').style.display = 'none';
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            if (score === totalQuestions) {
+                document.getElementById('game-image').src = 'all_correct.png';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+            } else {
+                document.getElementById('game-image').src = 'not_all_correct.png';
+                let wrongText = '你答錯的單字：\n';
+                wrongWords.forEach(w => {
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                });
+                document.getElementById('wrong-words').textContent = wrongText;
+                document.getElementById('retest-wrong').style.display = 'block';
+            }
+            document.getElementById('restart').style.display = 'block';
+            updateScore();
+        }
+
+        document.getElementById('submit').addEventListener('click', checkAnswer);
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        document.getElementById('restart').addEventListener('click', () => startGame(words));
+        document.getElementById('retest-wrong').addEventListener('click', () => {
+            if (wrongWords.length > 0) {
+                startGame(wrongWords);
+            }
+        });
+
+        startGame();
+    </script>
+</body>
+</html>
