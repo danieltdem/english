@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -106,6 +67,7 @@
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
+            white-space: pre-wrap; /* 讓換行符號生效 */
         }
     </style>
 </head>
@@ -126,21 +88,21 @@
 
     <script>
         const words = [
-            { en: 'photo', zh: '照片 (ㄓㄢˋ ㄆㄧㄢˋ)' },
-            { en: 'show', zh: '展示 (ㄓㄨㄥˋ ㄕˋ)' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)' },
-            { en: 'learn', zh: '學習 (ㄒㄩㄝˊ ㄒㄧ)' },
-            { en: 'live', zh: '生活 (ㄕㄥ ㄏㄨㄛˊ)' },
-            { en: 'laugh', zh: '笑 (ㄒㄧㄠˋ)' },
-            { en: 'flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)' },
-            { en: 'fly', zh: '飛 (ㄈㄟ)' },
-            { en: 'glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)' },
-            { en: 'globe', zh: '地球儀 (ㄉㄧˋ ㄑㄧㄡˊ ㄧˊ)' },
-            { en: 'lazy', zh: '懶惰 (ㄌㄢˇ ㄉㄨˋ)' },
-            { en: 'sunny', zh: '晴朗 (ㄑㄧㄥˊ ㄌㄤˋ)' },
-            { en: 'bear', zh: '熊 (ㄒㄩㄥˊ)' },
-            { en: 'dish', zh: '盤子 (ㄆㄢˊ ㄗ)' },
-            { en: 'alone', zh: '獨自 (ㄉㄨˊ ㄗˋ)' }
+            { en: 'Photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)' },
+            { en: 'Show', zh: '展示 (ㄓㄢˇ ㄕˋ)' },
+            { en: 'Purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)' },
+            { en: 'Learn', zh: '學習 (ㄒㄩㄝˊ ㄒㄧˊ)' },
+            { en: 'Live', zh: '生活 (ㄕㄥ ㄏㄨㄛˊ)' },
+            { en: 'Laugh', zh: '笑 (ㄒㄧㄠˋ)' },
+            { en: 'Flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)' },
+            { en: 'Fly', zh: '飛 (ㄈㄟ)' },
+            { en: 'Glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)' },
+            { en: 'Globe', zh: '地球儀 (ㄉㄧˋ ㄑㄧㄡˊ ㄧˊ)' },
+            { en: 'Lazy', zh: '懶惰 (ㄌㄢˇ ㄉㄨㄛˋ)' },
+            { en: 'Sunny', zh: '晴朗的 (ㄑㄧㄥˊ ㄌㄤˇ ㄉㄜ˙)' },
+            { en: 'Bear', zh: '熊 (ㄒㄩㄥˊ)' },
+            { en: 'Dish', zh: '盤子 (ㄆㄢˊ ㄗˇ)' },
+            { en: 'Alone', zh: '獨自 (ㄉㄨˊ ㄗˋ)' }
         ];
 
         let currentQuestion = 0;
@@ -169,7 +131,7 @@
             document.getElementById('retest-wrong').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
             document.getElementById('answer').style.display = 'block';
-            document.getElementById('submit').style.display = 'block';
+            document.getElementById('submit').style.display = 'inline-block';
             document.getElementById('submit').textContent = '提交';
             document.getElementById('game-image').src = 'initial.png';
             nextQuestion();
@@ -206,8 +168,11 @@
                 document.getElementById('result').textContent = '正確！';
                 document.getElementById('result').style.color = 'green';
                 document.getElementById('game-image').src = 'correct.png';
-                currentQuestion++;
-                setTimeout(nextQuestion, 1500);
+                // 答對後自動進入下一題
+                setTimeout(() => {
+                    currentQuestion++;
+                    nextQuestion();
+                }, 1500);
             } else {
                 document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('result').style.color = 'red';
@@ -221,7 +186,8 @@
         }
 
         function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${currentQuestion}`;
+            // 在答題過程中，顯示當前進度
+            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
         }
 
         function endGame() {
@@ -229,6 +195,7 @@
             document.getElementById('answer').style.display = 'none';
             document.getElementById('submit').style.display = 'none';
             document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
                 document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
@@ -239,10 +206,9 @@
                     wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
-                document.getElementById('retest-wrong').style.display = 'block';
+                document.getElementById('retest-wrong').style.display = 'inline-block';
             }
-            document.getElementById('restart').style.display = 'block';
-            updateScore();
+            document.getElementById('restart').style.display = 'inline-block';
         }
 
         document.getElementById('submit').addEventListener('click', checkAnswer);
@@ -252,7 +218,9 @@
         document.getElementById('restart').addEventListener('click', () => startGame(words));
         document.getElementById('retest-wrong').addEventListener('click', () => {
             if (wrongWords.length > 0) {
-                startGame(wrongWords);
+                // 將錯題轉換回遊戲需要的格式
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh }));
+                startGame(retestWords);
             }
         });
 
