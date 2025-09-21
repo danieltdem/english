@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英文文法測驗：Will vs. Going To</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        #game-image {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        #progress {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        #question {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .option-btn {
+            padding: 15px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        .option-btn.correct {
+            background-color: #2ecc71 !important;
+        }
+        .option-btn.incorrect {
+            background-color: #e74c3c !important;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #explanation-container {
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fffbe6;
+            border-left: 5px solid #f39c12;
+            border-radius: 5px;
+            text-align: left;
+            line-height: 1.6;
+            color: #5f4c0a;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #333;
+        }
+        #wrong-questions {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        #next-btn, #restart-btn, #retest-wrong-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background-color 0.3s ease;
+        }
+        #next-btn { background-color: #f39c12; }
+        #next-btn:hover { background-color: #e67e22; }
+        #restart-btn { background-color: #1abc9c; }
+        #restart-btn:hover { background-color: #16a085; }
+        #retest-wrong-btn { background-color: #9b59b6; }
+        #retest-wrong-btn:hover { background-color: #8e44ad; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Game Scene">
+        <h1>文法測驗：Will vs. Be Going To</h1>
+        <p>請根據句子情境，選擇最適合的答案。</p>
+        
+        <div id="quiz-area">
+            <div id="progress"></div>
+            <div id="question"></div>
+            <div id="options-container"></div>
+            <div id="result"></div>
+            <div id="explanation-container" style="display: none;"></div>
+            <button id="next-btn" style="display: none;">下一題</button>
+        </div>
+
+        <div id="end-screen" style="display: none;">
+            <h2>測驗結束！</h2>
+            <div id="score"></div>
+            <div id="wrong-questions"></div>
+            <button id="restart-btn">全部重測</button>
+            <button id="retest-wrong-btn" style="display: none;">重測錯題</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            { question: "Oh, the phone is ringing. Don't worry, I _______ get it.", options: ["am going to", "will"], answer: 1, explanation: "對於「當下臨時決定」要做的事，應使用 'will'。" },
+            { question: "Look at those dark clouds! It _______ rain soon.", options: ["will", "is going to"], answer: 1, explanation: "根據「眼前的跡象」來預測即將發生的事，要用 'be going to'。" },
+            { question: "I've already decided. I _______ study abroad next year.", options: ["am going to", "will"], answer: 0, explanation: "對於「說話前就已經計畫好的事」，要用 'be going to'。" },
+            { question: "A: 'This bag looks heavy.' B: 'I _______ help you carry it.'", options: ["will", "am going to"], answer: 0, explanation: "「臨時起意」提供幫助或做出承諾，要用 'will'。" },
+            { question: "The train _______ leave at 3:30 PM, according to the schedule.", options: ["is going to", "will"], answer: 1, explanation: "描述根據「時刻表」或行程安排的未來事件，常用 'will' 表示客觀事實。" },
+            { question: "He has been practicing all year. He _______ win the competition.", options: ["is going to", "will"], answer: 0, explanation: "根據「現有證據」（練習了一整年）來推斷未來，要用 'be going to'。" },
+            { question: "I think the new restaurant _______ be very popular.", options: ["will", "is going to"], answer: 0, explanation: "表達「個人看法或猜測」的預測，尤其搭配 'I think'，要用 'will'。" },
+            { question: "We've run out of milk. I _______ buy some when I go to the store.", options: ["am going to", "will"], answer: 1, explanation: "因應「當下情況」（牛奶沒了）而「臨時決定」去做的事，要用 'will'。" },
+            { question: "My hands are dirty. I _______ wash them before dinner.", options: ["will", "am going to"], answer: 0, explanation: "根據「當下的狀況」(手髒了) 做出「立即的反應或意圖」，應使用 'will'。這是一種自然的、非預先計畫的決定。" },
+            { question: "She bought paint and brushes yesterday. She _______ paint her room this weekend.", options: ["will", "is going to"], answer: 1, explanation: "根據「已經準備好的動作」（買了油漆）來推斷「有計畫的未來」，要用 'be going to'。" },
+            { question: "Promise me you _______ tell anyone my secret.", options: ["are not going to", "won't"], answer: 1, explanation: "在請求「承諾」時，通常使用 'will' 或其否定形式 'won't'。" },
+            { question: "A: 'Why did you buy so many eggs?' B: 'I _______ make a big cake for the party.'", options: ["will", "am going to"], answer: 1, explanation: "解釋一個「事先存在的計畫或意圖」（買蛋的目的），要用 'be going to'。" },
+            { question: "If you don't study, you _______ pass the exam.", options: ["are not going to", "won't"], answer: 1, explanation: "在條件句中預測「未來可能的結果」，通常使用 'will' 或 'won't'。" },
+            { question: "Be careful! That glass is about to fall. It _______ break.", options: ["will", "is going to"], answer: 1, explanation: "根據「眼前非常明顯的跡象」預測即將發生的事，要用 'be going to'。" },
+            { question: "They have booked their flights. They _______ travel to Japan next month.", options: ["are going to", "will"], answer: 0, explanation: "提到「已經安排好的計畫」（訂了機票），要用 'be going to'。" },
+            { question: "Perhaps I _______ see you at the meeting tomorrow.", options: ["will", "am going to"], answer: 0, explanation: "表達「不確定的預測」，特別是與 'perhaps' 或 'maybe' 連用時，要用 'will'。" },
+            { question: "A: 'The office is cold.' B: 'You're right. I _______ turn up the heat.'", options: ["will", "am going to"], answer: 0, explanation: "因應他人提出的情況而「當下決定」要做的事，要用 'will'。" },
+            { question: "What _______ you do after you graduate? Have you made any plans?", options: ["will", "are you going to"], answer: 1, explanation: "詢問對方「已經存在的計畫」，要用 'be going to'。" },
+            { question: "I'm not feeling well. I think I _______ stay home today.", options: ["am going to", "will"], answer: 1, explanation: "根據「當下的身體狀況」做出決定，屬於「臨時決定」，要用 'will'。" },
+            { question: "Our team is playing terribly. We _______ lose this game.", options: ["are going to", "will"], answer: 0, explanation: "根據「比賽當下的情況」（打得很糟）來預測結果，要用 'be going to'。" }
+        ];
+
+        // ... 後續的 JavaScript 邏輯與之前相同 ...
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let wrongQuestions = [];
+
+        const quizArea = document.getElementById('quiz-area');
+        const endScreen = document.getElementById('end-screen');
+        const questionEl = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const resultEl = document.getElementById('result');
+        const explanationEl = document.getElementById('explanation-container');
+        const progressEl = document.getElementById('progress');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const retestWrongBtn = document.getElementById('retest-wrong-btn');
+        const gameImage = document.getElementById('game-image');
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(questionList) {
+            questions = [...questionList];
+            shuffle(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            
+            quizArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            gameImage.src = 'initial.png';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
+            questionEl.textContent = currentQuestion.question;
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            resultEl.textContent = '';
+            explanationEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            gameImage.src = 'initial.png';
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctIndex = currentQuestion.answer;
+
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+                resultEl.textContent = '正確！';
+                resultEl.style.color = '#2ecc71';
+                gameImage.src = 'correct.png';
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        endGame();
+                    }
+                }, 1500);
+            } else {
+                selectedBtn.classList.add('incorrect');
+                optionsContainer.children[correctIndex].classList.add('correct');
+                resultEl.textContent = '錯誤！';
+                resultEl.style.color = '#e74c3c';
+                gameImage.src = 'incorrect.png';
+                
+                explanationEl.textContent = `文法解析：${currentQuestion.explanation}`;
+                explanationEl.style.display = 'block';
+
+                wrongQuestions.push({
+                    ...currentQuestion,
+                    userAnswer: currentQuestion.options[selectedIndex]
+                });
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function endGame() {
+            quizArea.style.display = 'none';
+            endScreen.style.display = 'block';
+            
+            const scoreEl = document.getElementById('score');
+            scoreEl.textContent = `你的最終分數：${score} / ${questions.length}`;
+
+            const wrongQuestionsEl = document.getElementById('wrong-questions');
+            if (score === questions.length) {
+                gameImage.src = 'all_correct.png';
+                wrongQuestionsEl.textContent = '太棒了！你全部答對了！';
+                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'none';
+            } else {
+                gameImage.src = 'not_all_correct.png';
+                let wrongText = '你答錯的題目：\n\n';
+                wrongQuestions.forEach(q => {
+                    wrongText += `Q: ${q.question}\n`;
+                    wrongText += `你的答案: "${q.userAnswer}" (正確答案: "${q.options[q.answer]}")\n\n`;
+                });
+                wrongQuestionsEl.textContent = wrongText;
+                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'inline-block';
+            }
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                endGame();
+            }
+        });
+
+        restartBtn.addEventListener('click', () => startGame(allQuestions));
+        retestWrongBtn.addEventListener('click', () => {
+            if (wrongQuestions.length > 0) {
+                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
+                startGame(retestList);
+            }
+        });
+
+        startGame(allQuestions);
+    </script>
+</body>
+</html>
