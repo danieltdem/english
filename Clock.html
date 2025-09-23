@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>即時時鐘</title>
+</head>
+<body>
+
+    <h1>瀏覽器分頁即時時鐘</h1>
+    <p>這個網頁的分頁標籤會顯示當前時間。</p>
+
+    <script>
+        // 定義一個函數來更新網頁標題
+        function updateTabTitle() {
+            // 取得當前的時間物件
+            const now = new Date();
+            // 將時間格式化為本地時間字串（例如：上午 9:30:00）
+            const timeString = now.toLocaleTimeString();
+            // 將網頁標題設定為格式化後的時間
+            document.title = timeString;
+        }
+
+        // 第一次立即執行函數，讓分頁一打開就顯示時間
+        updateTabTitle();
+
+        // 每隔1000毫秒（即1秒）執行一次更新函數
+        setInterval(updateTabTitle, 1000);
+    </script>
+
+</body>
+</html>
