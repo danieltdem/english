@@ -75,7 +75,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機，結束後顯示錯誤的單字。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -88,21 +88,23 @@
 
     <script>
         const words = [
-            { en: 'Photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)' },
-            { en: 'Show', zh: '展示 (ㄓㄢˇ ㄕˋ)' },
-            { en: 'Purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)' },
-            { en: 'Learn', zh: '學習 (ㄒㄩㄝˊ ㄒㄧˊ)' },
-            { en: 'Live', zh: '生活 (ㄕㄥ ㄏㄨㄛˊ)' },
-            { en: 'Laugh', zh: '笑 (ㄒㄧㄠˋ)' },
-            { en: 'Flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)' },
-            { en: 'Fly', zh: '飛 (ㄈㄟ)' },
-            { en: 'Glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)' },
-            { en: 'Globe', zh: '地球儀 (ㄉㄧˋ ㄑㄧㄡˊ ㄧˊ)' },
-            { en: 'Lazy', zh: '懶惰 (ㄌㄢˇ ㄉㄨㄛˋ)' },
-            { en: 'Sunny', zh: '晴朗的 (ㄑㄧㄥˊ ㄌㄤˇ ㄉㄜ˙)' },
-            { en: 'Bear', zh: '熊 (ㄒㄩㄥˊ)' },
-            { en: 'Dish', zh: '盤子 (ㄆㄢˊ ㄗˇ)' },
-            { en: 'Alone', zh: '獨自 (ㄉㄨˊ ㄗˋ)' }
+            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ ㄉㄜ˙)' },
+            { en: 'story', zh: '故事 (ㄍㄨˋ ㄕˋ)' },
+            { en: 'many', zh: '很多 (ㄏㄣˇ ㄉㄨㄛ)' },
+            { en: 'culture', zh: '文化 (ㄨㄣˊ ㄏㄨㄚˋ)' },
+            { en: 'person', zh: '人 (ㄖㄣˊ)' },
+            { en: 'people', zh: '人們 (ㄖㄣˊ ㄇㄣˊ)' },
+            { en: 'black', zh: '黑色 (ㄏㄟ ㄙㄜˋ)' },
+            { en: 'flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)' },
+            { en: 'crab', zh: '螃蟹 (ㄆㄤˊ ㄒㄧㄝˋ)' },
+            { en: 'broom', zh: '掃帚 (ㄙㄠˋ ㄓㄡˇ)' },
+            { en: 'bride', zh: '新娘 (ㄒㄧㄣ ㄋㄧㄤˊ)' },
+            { en: 'glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)' },
+            { en: 'enter', zh: '進入 (ㄐㄧㄣˋ ㄖㄨˋ)' },
+            { en: 'kite', zh: '風箏 (ㄈㄥ ㄓㄥ)' },
+            { en: 'jog', zh: '慢跑 (ㄇㄢˋ ㄆㄠˇ)' },
+            { en: 'fail', zh: '失敗 (ㄕ ㄅㄞˋ)' },
+            { en: 'lie', zh: '說謊 (ㄕㄨㄛ ㄏㄨㄤˇ)' }
         ];
 
         let currentQuestion = 0;
