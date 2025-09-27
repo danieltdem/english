@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文文法測驗：Will vs. Going To</title>
+    <title>英文文法測驗：形容詞比較級與最高級</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             box-sizing: border-box;
         }
@@ -21,38 +21,91 @@
             background: white;
             padding: 30px 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 100%;
             max-width: 600px;
+            transition: all 0.3s ease;
         }
         h1 {
             color: #333;
             margin-top: 10px;
             margin-bottom: 10px;
+            font-size: 28px;
         }
         p {
             color: #666;
             margin-bottom: 20px;
+            font-size: 16px;
         }
         #game-image {
-            width: 300px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.5s ease;
+        }
+        #game-image.correct {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+        #game-image.incorrect {
+            animation: shake 0.5s;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+        #game-image.all-correct {
+            animation: celebration 1s ease-in-out;
+            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
+        }
+        #game-status {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+        #game-status.correct {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            transform: scale(1.1);
+        }
+        #game-status.incorrect {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            animation: shake 0.5s;
+        }
+        #game-status.all-correct {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            animation: celebration 1s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        @keyframes celebration {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
         }
         #progress {
             font-size: 16px;
             color: #555;
             margin-bottom: 15px;
             font-weight: bold;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            display: inline-block;
         }
         #question {
             font-size: 22px;
             margin: 20px 0;
             color: #2c3e50;
             line-height: 1.5;
+            background: #f1f3f4;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #74b9ff;
         }
         #options-container {
             display: flex;
@@ -63,83 +116,113 @@
         .option-btn {
             padding: 15px 20px;
             font-size: 18px;
-            background-color: #3498db;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
             text-align: center;
+            transform: translateY(0);
         }
         .option-btn:hover:not(:disabled) {
-            background-color: #2980b9;
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .option-btn.correct {
-            background-color: #2ecc71 !important;
+            background: linear-gradient(135deg, #00b894, #00a085) !important;
+            transform: scale(1.05);
         }
         .option-btn.incorrect {
-            background-color: #e74c3c !important;
+            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
+            animation: shake 0.5s;
         }
         .option-btn:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         #result {
-            font-size: 20px;
+            font-size: 24px;
             margin-top: 20px;
             font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
         }
         #explanation-container {
             font-size: 16px;
             margin-top: 15px;
-            padding: 15px;
-            background-color: #fffbe6;
+            padding: 20px;
+            background: linear-gradient(135deg, #fffbe6, #fff3cd);
             border-left: 5px solid #f39c12;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: left;
             line-height: 1.6;
             color: #5f4c0a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         #score {
-            font-size: 18px;
+            font-size: 24px;
             margin-top: 10px;
             color: #333;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-weight: bold;
         }
         #wrong-questions {
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
             white-space: pre-wrap;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
             border-left: 5px solid #e74c3c;
             max-height: 250px;
             overflow-y: auto;
+            line-height: 1.5;
         }
         #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 18px;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             margin: 10px 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
-        #next-btn { background-color: #f39c12; }
-        #next-btn:hover { background-color: #e67e22; }
-        #restart-btn { background-color: #1abc9c; }
-        #restart-btn:hover { background-color: #16a085; }
-        #retest-wrong-btn { background-color: #9b59b6; }
-        #retest-wrong-btn:hover { background-color: #8e44ad; }
+        #next-btn { 
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        }
+        #next-btn:hover { 
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+            transform: translateY(-2px);
+        }
+        #restart-btn { 
+            background: linear-gradient(135deg, #00cec9, #00b894);
+        }
+        #restart-btn:hover { 
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            transform: translateY(-2px);
+        }
+        #retest-wrong-btn { 
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+        #retest-wrong-btn:hover { 
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene">
-        <h1>文法測驗：Will vs. Be Going To</h1>
+        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
+        <div id="game-status" style="display: none;">🎯</div>
+        <h1>文法測驗：形容詞比較級與最高級</h1>
         <p>請根據句子情境，選擇最適合的答案。</p>
         
         <div id="quiz-area">
@@ -148,49 +231,45 @@
             <div id="options-container"></div>
             <div id="result"></div>
             <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;">下一題</button>
+            <button id="next-btn" style="display: none;">下一題 ➡️</button>
         </div>
 
         <div id="end-screen" style="display: none;">
-            <h2>測驗結束！</h2>
+            <h2>🎊 測驗結束！ 🎊</h2>
             <div id="score"></div>
             <div id="wrong-questions"></div>
-            <button id="restart-btn">全部重測</button>
-            <button id="retest-wrong-btn" style="display: none;">重測錯題</button>
+            <button id="restart-btn">🔄 全部重測</button>
+            <button id="retest-wrong-btn" style="display: none;">❌ 重測錯題</button>
         </div>
     </div>
 
     <script>
+        // 存放所有題目的題庫
         const allQuestions = [
-            { question: "Oh, the phone is ringing. Don't worry, I _______ get it.", options: ["am going to", "will"], answer: 1, explanation: "對於「當下臨時決定」要做的事，應使用 'will'。" },
-            { question: "Look at those dark clouds! It _______ rain soon.", options: ["will", "is going to"], answer: 1, explanation: "根據「眼前的跡象」來預測即將發生的事，要用 'be going to'。" },
-            { question: "I've already decided. I _______ study abroad next year.", options: ["am going to", "will"], answer: 0, explanation: "對於「說話前就已經計畫好的事」，要用 'be going to'。" },
-            { question: "A: 'This bag looks heavy.' B: 'I _______ help you carry it.'", options: ["will", "am going to"], answer: 0, explanation: "「臨時起意」提供幫助或做出承諾，要用 'will'。" },
-            { question: "The train _______ leave at 3:30 PM, according to the schedule.", options: ["is going to", "will"], answer: 1, explanation: "描述根據「時刻表」或行程安排的未來事件，常用 'will' 表示客觀事實。" },
-            { question: "He has been practicing all year. He _______ win the competition.", options: ["is going to", "will"], answer: 0, explanation: "根據「現有證據」（練習了一整年）來推斷未來，要用 'be going to'。" },
-            { question: "I think the new restaurant _______ be very popular.", options: ["will", "is going to"], answer: 0, explanation: "表達「個人看法或猜測」的預測，尤其搭配 'I think'，要用 'will'。" },
-            { question: "We've run out of milk. I _______ buy some when I go to the store.", options: ["am going to", "will"], answer: 1, explanation: "因應「當下情況」（牛奶沒了）而「臨時決定」去做的事，要用 'will'。" },
-            { question: "My hands are dirty. I _______ wash them before dinner.", options: ["will", "am going to"], answer: 0, explanation: "根據「當下的狀況」(手髒了) 做出「立即的反應或意圖」，應使用 'will'。這是一種自然的、非預先計畫的決定。" },
-            { question: "She bought paint and brushes yesterday. She _______ paint her room this weekend.", options: ["will", "is going to"], answer: 1, explanation: "根據「已經準備好的動作」（買了油漆）來推斷「有計畫的未來」，要用 'be going to'。" },
-            { question: "Promise me you _______ tell anyone my secret.", options: ["are not going to", "won't"], answer: 1, explanation: "在請求「承諾」時，通常使用 'will' 或其否定形式 'won't'。" },
-            { question: "A: 'Why did you buy so many eggs?' B: 'I _______ make a big cake for the party.'", options: ["will", "am going to"], answer: 1, explanation: "解釋一個「事先存在的計畫或意圖」（買蛋的目的），要用 'be going to'。" },
-            { question: "If you don't study, you _______ pass the exam.", options: ["are not going to", "won't"], answer: 1, explanation: "在條件句中預測「未來可能的結果」，通常使用 'will' 或 'won't'。" },
-            { question: "Be careful! That glass is about to fall. It _______ break.", options: ["will", "is going to"], answer: 1, explanation: "根據「眼前非常明顯的跡象」預測即將發生的事，要用 'be going to'。" },
-            { question: "They have booked their flights. They _______ travel to Japan next month.", options: ["are going to", "will"], answer: 0, explanation: "提到「已經安排好的計畫」（訂了機票），要用 'be going to'。" },
-            { question: "Perhaps I _______ see you at the meeting tomorrow.", options: ["will", "am going to"], answer: 0, explanation: "表達「不確定的預測」，特別是與 'perhaps' 或 'maybe' 連用時，要用 'will'。" },
-            { question: "A: 'The office is cold.' B: 'You're right. I _______ turn up the heat.'", options: ["will", "am going to"], answer: 0, explanation: "因應他人提出的情況而「當下決定」要做的事，要用 'will'。" },
-            { question: "What _______ you do after you graduate? Have you made any plans?", options: ["will", "are you going to"], answer: 1, explanation: "詢問對方「已經存在的計畫」，要用 'be going to'。" },
-            { question: "I'm not feeling well. I think I _______ stay home today.", options: ["am going to", "will"], answer: 1, explanation: "根據「當下的身體狀況」做出決定，屬於「臨時決定」，要用 'will'。" },
-            { question: "Our team is playing terribly. We _______ lose this game.", options: ["are going to", "will"], answer: 0, explanation: "根據「比賽當下的情況」（打得很糟）來預測結果，要用 'be going to'。" }
+            { question: "My brother is much _______ than I am.", options: ["tall", "taller", "the tallest", "more tall"], answer: 1, explanation: "比較兩個人時，單音節形容詞 tall 的比較級是 taller。" },
+            { question: "This is _______ movie I have ever seen. It was terrible!", options: ["bad", "worse", "the worst", "the baddest"], answer: 2, explanation: "在「所有看過的電影」中比較，要用最高級。bad 的最高級是不規則變化 the worst。" },
+            { question: "Your new car is _______ than your old one.", options: ["good", "gooder", "the best", "better"], answer: 3, explanation: "比較兩樣東西時，要用比較級。good 的比較級是不規則變化 better。" },
+            { question: "This book is _______ than the movie.", options: ["interesting", "more interesting", "the most interesting", "interestinger"], answer: 1, explanation: "interesting 是長音節單字，比較級要在前面加 more。" },
+            { question: "Of the three sisters, she is _______.", options: ["the oldest", "older", "old", "more old"], answer: 0, explanation: "比較三個人時，要用最高級 the oldest。" },
+            { question: "A bicycle is _______ than a car.", options: ["less expensive", "the least expensive", "not expensive", "expensiver"], answer: 0, explanation: "表示「比較不昂貴」，應使用 less expensive than 的句型。" },
+            { question: "Today is _______ than yesterday. I need to turn on the AC.", options: ["hoter", "the hottest", "hotter", "more hot"], answer: 2, explanation: "hot 是「子音-母音-子音」結尾，比較級要重複字尾 t 再加 er。" },
+            { question: "My suitcase is _______ than yours. Mine is 20kg, and yours is 15kg.", options: ["heavy", "the heaviest", "heavier", "more heavy"], answer: 2, explanation: "heavy 字尾是 y，比較級要去 y 再加 ier。" },
+            { question: "Tom is as _______ as his brother. They are both 170cm.", options: ["tall", "taller", "the tallest", "so tall"], answer: 0, explanation: "表示「兩者程度相同」的 as...as 句型中，要使用形容詞的原級。" },
+            { question: "She is _______ girl in our school. Everyone likes her.", options: ["popular", "more popular", "the most popular", "popularest"], answer: 2, explanation: "在「全校」範圍比較，要用最高級。popular 是長音節單字，最高級是 the most popular。" },
+            { question: "The library is _______ from my house than the park is.", options: ["farther", "farrer", "the farthest", "further"], answer: 0, explanation: "比較兩地「實際距離」的遠近，要用 far 的比較級 farther。" },
+            { question: "Of all the fruits, the lemon is _______.", options: ["sour", "sourer", "the sourest", "more sour"], answer: 2, explanation: "在「所有水果」中比較，要用最高級 the sourest。" },
+            { question: "My phone is not as _______ as the new model.", options: ["powerful", "more powerful", "so powerful", "the most powerful"], answer: 0, explanation: "在 not as...as 的句型中，要使用形容詞的原級。" },
+            { question: "I have _______ time than you, so I must hurry.", options: ["little", "less", "the least", "littler"], answer: 1, explanation: "Time 是不可數名詞，比較「更少」的時間要用 little 的比較級 less。" },
+            { question: "Of all my classes, English is _______.", options: ["easy", "the easiest", "easier", "the most easy"], answer: 1, explanation: "在「所有課程」中比較，要用最高級。easy 的最高級是 the easiest。" }
         ];
 
-        // ... 後續的 JavaScript 邏輯與之前相同 ...
-
+        // 宣告遊戲會用到的變數
         let currentQuestionIndex = 0;
         let score = 0;
         let questions = [];
         let wrongQuestions = [];
 
+        // 取得 HTML 頁面上的各個元素
         const quizArea = document.getElementById('quiz-area');
         const endScreen = document.getElementById('end-screen');
         const questionEl = document.getElementById('question');
@@ -202,7 +281,9 @@
         const restartBtn = document.getElementById('restart-btn');
         const retestWrongBtn = document.getElementById('retest-wrong-btn');
         const gameImage = document.getElementById('game-image');
+        const gameStatus = document.getElementById('game-status');
 
+        // 打亂題目順序的函式
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -210,6 +291,7 @@
             }
         }
 
+        // 開始遊戲的函式
         function startGame(questionList) {
             questions = [...questionList];
             shuffle(questions);
@@ -220,10 +302,14 @@
             quizArea.style.display = 'block';
             endScreen.style.display = 'none';
             gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
             
             showQuestion();
         }
 
+        // 顯示一道題目的函式
         function showQuestion() {
             resetState();
             const currentQuestion = questions[currentQuestionIndex];
@@ -240,6 +326,7 @@
             });
         }
 
+        // 重置畫面狀態的函式 (換到下一題前)
         function resetState() {
             resultEl.textContent = '';
             explanationEl.style.display = 'none';
@@ -248,8 +335,12 @@
                 optionsContainer.removeChild(optionsContainer.firstChild);
             }
             gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
         }
 
+        // 選擇答案時觸發的函式
         function selectAnswer(e) {
             const selectedBtn = e.target;
             const selectedIndex = parseInt(selectedBtn.dataset.index);
@@ -263,9 +354,13 @@
             if (selectedIndex === correctIndex) {
                 score++;
                 selectedBtn.classList.add('correct');
-                resultEl.textContent = '正確！';
+                resultEl.textContent = '✅ 正確！太棒了！';
                 resultEl.style.color = '#2ecc71';
                 gameImage.src = 'correct.png';
+                gameImage.classList.add('correct');
+                gameStatus.textContent = '🎉';
+                gameStatus.classList.add('correct');
+                
                 setTimeout(() => {
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
@@ -277,11 +372,14 @@
             } else {
                 selectedBtn.classList.add('incorrect');
                 optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.textContent = '錯誤！';
+                resultEl.textContent = '❌ 答錯了，再接再厲！';
                 resultEl.style.color = '#e74c3c';
                 gameImage.src = 'incorrect.png';
+                gameImage.classList.add('incorrect');
+                gameStatus.textContent = '😅';
+                gameStatus.classList.add('incorrect');
                 
-                explanationEl.textContent = `文法解析：${currentQuestion.explanation}`;
+                explanationEl.textContent = `💡 文法解析：${currentQuestion.explanation}`;
                 explanationEl.style.display = 'block';
 
                 wrongQuestions.push({
@@ -292,34 +390,46 @@
             }
         }
 
+        // 遊戲結束時呼叫的函式
         function endGame() {
             quizArea.style.display = 'none';
             endScreen.style.display = 'block';
             
             const scoreEl = document.getElementById('score');
-            scoreEl.textContent = `你的最終分數：${score} / ${questions.length}`;
+            scoreEl.textContent = `🎯 你的最終分數：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
 
             const wrongQuestionsEl = document.getElementById('wrong-questions');
             if (score === questions.length) {
                 gameImage.src = 'all_correct.png';
-                wrongQuestionsEl.textContent = '太棒了！你全部答對了！';
+                gameImage.classList.add('all-correct');
+                gameStatus.textContent = '🏆';
+                gameStatus.classList.add('all-correct');
+                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握形容詞比較級與最高級的用法！ 🎊';
                 wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.background = '#d4edda';
+                wrongQuestionsEl.style.color = '#155724';
                 wrongQuestionsEl.style.display = 'block';
                 retestWrongBtn.style.display = 'none';
             } else {
                 gameImage.src = 'not_all_correct.png';
-                let wrongText = '你答錯的題目：\n\n';
-                wrongQuestions.forEach(q => {
-                    wrongText += `Q: ${q.question}\n`;
-                    wrongText += `你的答案: "${q.userAnswer}" (正確答案: "${q.options[q.answer]}")\n\n`;
+                gameStatus.textContent = '📝';
+                let wrongText = '📋 你答錯的題目回顧：\n\n';
+                wrongQuestions.forEach((q, index) => {
+                    wrongText += `${index + 1}. ${q.question}\n`;
+                    wrongText += `   你的答案: "${q.userAnswer}" ❌\n`;
+                    wrongText += `   正確答案: "${q.options[q.answer]}" ✅\n`;
+                    wrongText += `   解析: ${q.explanation}\n\n`;
                 });
                 wrongQuestionsEl.textContent = wrongText;
                 wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.background = '#f8d7da';
+                wrongQuestionsEl.style.color = '#721c24';
                 wrongQuestionsEl.style.display = 'block';
                 retestWrongBtn.style.display = 'inline-block';
             }
         }
         
+        // 點擊「下一題」按鈕
         nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
@@ -329,7 +439,10 @@
             }
         });
 
+        // 點擊「全部重測」按鈕
         restartBtn.addEventListener('click', () => startGame(allQuestions));
+
+        // 點擊「重測錯題」按鈕
         retestWrongBtn.addEventListener('click', () => {
             if (wrongQuestions.length > 0) {
                 const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
@@ -337,6 +450,7 @@
             }
         });
 
+        // 網頁載入後，自動開始遊戲
         startGame(allQuestions);
     </script>
 </body>
