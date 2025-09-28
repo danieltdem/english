@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -106,6 +67,7 @@
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
+            white-space: pre-wrap; /* 讓換行符號生效 */
         }
     </style>
 </head>
@@ -113,7 +75,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共55題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共31題，順序隨機，結束後顯示錯誤的單字。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -126,66 +88,37 @@
 
     <script>
         const words = [
-            { en: 'glowing', zh: '發光 (ㄈㄚ ㄍㄨㄤ)' },
-            { en: 'pale', zh: '蒼白 (ㄘㄤˊ ㄅㄞˊ)' },
-            { en: 'silver', zh: '銀色 (ㄧㄣˊ ㄙㄜˋ)' },
-            { en: 'blow away', zh: '吹走 (ㄔㄨㄟ ㄗㄡˇ)' },
-            { en: 'dandelion', zh: '蒲公英 (ㄆㄨˊ ㄍㄨㄥ ㄧㄥ)' },
-            { en: 'throne', zh: '王座 (ㄨㄤˊ ㄗㄨㄛˋ)' },
-            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄣˊ)' },
-            { en: 'squirm', zh: '扭動 (ㄋㄧㄡˇ ㄉㄨㄥˋ)' },
-            { en: 'throw', zh: '丟 (ㄉㄧㄡ)' },
-            { en: 'strap', zh: '帶子 (ㄉㄞˋ ㄗˇ)' },
-            { en: 'through', zh: '通過 (ㄊㄨㄛˊ ㄍㄨㄛˋ)' },
-            { en: 'scream', zh: '尖叫 (ㄐㄧㄢ ㄐㄧㄠˋ)' },
-            { en: 'streak', zh: '一條線 (ㄧ ㄊㄠˊ ㄒㄧㄢˋ)' },
-            { en: 'squeaky', zh: '吱吱響 (ㄓ ㄓ ㄒㄧㄤˇ)' },
-            { en: 'strength', zh: '力量 (ㄌㄧㄤˋ ㄌㄧㄤˋ)' },
-            { en: 'thrill', zh: '興奮 (ㄒㄧㄥ ㄈㄣˋ)' },
-            { en: 'scrape', zh: '刮 (ㄍㄨㄚ)' },
-            { en: 'threat', zh: '威脅 (ㄨㄟ ㄒㄧˊ)' },
-            { en: 'screw', zh: '螺絲 (ㄌㄡˊ ㄙ)' },
-            { en: 'string', zh: '繩子 (ㄕㄥˊ ㄗˇ)' },
-            { en: 'building', zh: '建築 (ㄐㄧㄢˋ ㄓㄨˋ)' },
-            { en: 'channel', zh: '頻道 (ㄆㄧㄣˊ ㄉㄠˋ)' },
-            { en: 'difficult', zh: '困難 (ㄎㄢˊ ㄋㄢˊ)' },
-            { en: 'excellent', zh: '優秀 (ㄧㄡ¹ ㄒㄧㄡˋ)' },
-            { en: 'example', zh: '例子 (ㄌㄧˋ ㄗˇ)' },
-            { en: 'different', zh: '不同的 (ㄅㄛˊ ㄧㄤˊ ㄉㄜ)' },
-            { en: 'chapter', zh: '章節 (ㄓㄤ ㄐㄧㄝˊ)' },
-            { en: 'bundle', zh: '捆綁 (ㄎㄨㄣˇ ㄅㄤˇ)' },
-            { en: 'aircraft', zh: '飛機 (ㄈㄟ ㄐㄧ)' },
             { en: 'fluff', zh: '絨毛 (ㄖㄨㄥˊ ㄇㄠˊ)' },
             { en: 'lawn', zh: '草坪 (ㄘㄠˇ ㄆㄧㄥˊ)' },
-            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˊ)' },
+            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)' },
             { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)' },
-            { en: 'disappear', zh: '消失 (ㄒㄧㄢˊ ㄕˊ)' },
+            { en: 'disappear', zh: '消失 (ㄒㄧㄠ ㄕ)' },
             { en: 'bunch', zh: '一束 (ㄧ ㄕㄨˋ)' },
             { en: 'cheese', zh: '起司 (ㄑㄧˇ ㄙ)' },
             { en: 'hunch', zh: '直覺 (ㄓˊ ㄐㄩㄝˊ)' },
-            { en: 'shift', zh: '轉換 (ㄓㄨㄢˇ ㄏㄨㄚˋ)' },
-            { en: 'charge', zh: '電荷 (ㄉㄧㄢˋ ㄏㄜˊ)' },
+            { en: 'shift', zh: '轉換 (ㄓㄨㄢˇ ㄏㄨㄢˋ)' },
+            { en: 'charge', zh: '充電 (ㄔㄨㄥ ㄉㄧㄢˋ)' },
             { en: 'perch', zh: '棲息 (ㄑㄧ ㄒㄧ)' },
             { en: 'ranch', zh: '牧場 (ㄇㄨˋ ㄔㄤˇ)' },
-            { en: 'pinch', zh: '捏 (ㄋㄧㄝˋ)' },
-            { en: 'cherry', zh: '櫻桃 (ㄧㄥ ㄊㄠ)' },
+            { en: 'pinch', zh: '捏 (ㄋㄧㄝ)' },
+            { en: 'cherry', zh: '櫻桃 (ㄧㄥ ㄊㄠˊ)' },
             { en: 'sheep', zh: '羊 (ㄧㄤˊ)' },
-            { en: 'punch', zh: '一拳 (ㄧ ㄑㄩㄢˊ)' },
-            { en: 'cheap', zh: '便宜 (ㄅㄧㄢ ㄧˊ)' },
+            { en: 'punch', zh: '一拳 (ㄧˋ ㄑㄩㄢˊ)' },
+            { en: 'cheap', zh: '便宜 (ㄆㄧㄢˊ ㄧˊ)' },
             { en: 'shelter', zh: '庇護所 (ㄅㄧˋ ㄏㄨˋ ㄙㄨㄛˇ)' },
-            { en: 'chief', zh: '首領 (ㄕㄡˋ ㄌㄧㄥˇ)' },
+            { en: 'chief', zh: '首領 (ㄕㄡˇ ㄌㄧㄥˇ)' },
             { en: 'chance', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)' },
             { en: 'football', zh: '足球 (ㄗㄨˊ ㄑㄧㄡˊ)' },
             { en: 'industry', zh: '產業 (ㄔㄢˇ ㄧㄝˋ)' },
-            { en: 'information', zh: '資訊 (ㄓㄥ ㄒㄧㄣˋ)' },
-            { en: 'force', zh: '力量 (ㄌㄧㄤˋ ㄌㄧㄤˋ)' },
+            { en: 'information', zh: '資訊 (ㄗ ㄒㄩㄣˋ)' },
+            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)' },
             { en: 'Good-bye', zh: '再見 (ㄗㄞˋ ㄐㄧㄢˋ)' },
-            { en: 'imagine', zh: '想像 (ㄒㄧㄤ ㄒㄧㄤˊ)' },
+            { en: 'imagine', zh: '想像 (ㄒㄧㄤˇ ㄒㄧㄤˋ)' },
             { en: 'humble', zh: '謙虛 (ㄑㄧㄢ ㄒㄩ)' },
             { en: 'sound', zh: '聲音 (ㄕㄥ ㄧㄣ)' },
-            { en: 'however', zh: '然而 (ㄖㄖㄥˊ)' },
+            { en: 'however', zh: '然而 (ㄖㄢˊ ㄦˊ)' },
             { en: 'Kaohsiung', zh: '高雄 (ㄍㄠ ㄒㄩㄥˊ)' },
-            { en: 'government', zh: '政府 (ㄓㄥ ㄈㄨˇ)' }
+            { en: 'government', zh: '政府 (ㄓㄥˋ ㄈㄨˇ)' }
         ];
 
         let currentQuestion = 0;
@@ -214,7 +147,7 @@
             document.getElementById('retest-wrong').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
             document.getElementById('answer').style.display = 'block';
-            document.getElementById('submit').style.display = 'block';
+            document.getElementById('submit').style.display = 'inline-block';
             document.getElementById('submit').textContent = '提交';
             document.getElementById('game-image').src = 'initial.png';
             nextQuestion();
@@ -251,8 +184,11 @@
                 document.getElementById('result').textContent = '正確！';
                 document.getElementById('result').style.color = 'green';
                 document.getElementById('game-image').src = 'correct.png';
-                currentQuestion++;
-                setTimeout(nextQuestion, 1500);
+                // 答對後自動進入下一題
+                setTimeout(() => {
+                    currentQuestion++;
+                    nextQuestion();
+                }, 1500);
             } else {
                 document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('result').style.color = 'red';
@@ -266,14 +202,18 @@
         }
 
         function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${currentQuestion}`;
+            // 在答題過程中，顯示當前進度
+            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
         }
+
+
 
         function endGame() {
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('answer').style.display = 'none';
             document.getElementById('submit').style.display = 'none';
             document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
                 document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
@@ -284,10 +224,9 @@
                     wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
-                document.getElementById('retest-wrong').style.display = 'block';
+                document.getElementById('retest-wrong').style.display = 'inline-block';
             }
-            document.getElementById('restart').style.display = 'block';
-            updateScore();
+            document.getElementById('restart').style.display = 'inline-block';
         }
 
         document.getElementById('submit').addEventListener('click', checkAnswer);
@@ -297,7 +236,9 @@
         document.getElementById('restart').addEventListener('click', () => startGame(words));
         document.getElementById('retest-wrong').addEventListener('click', () => {
             if (wrongWords.length > 0) {
-                startGame(wrongWords);
+                // 將錯題轉換回遊戲需要的格式
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh }));
+                startGame(retestWords);
             }
         });
 
