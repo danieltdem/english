@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：a/an <ruby>和<rt>ㄏㄢˋ</rt></ruby> this/that</title>
+    <style>
+        /* CSS styles remain the same, no changes needed here */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        ruby { /* Added style for better ruby/zhuyin readability */
+            ruby-position: over;
+        }
+        rt { /* Added style for zhuyin font size */
+            font-size: 0.7em;
+            opacity: 0.9;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 600px;
+            transition: all 0.3s ease;
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        #game-image {
+            transition: all 0.5s ease;
+        }
+        #game-image.correct {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+        #game-image.incorrect {
+            animation: shake 0.5s;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+        #game-image.all-correct {
+            animation: celebration 1s ease-in-out;
+            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
+        }
+        #game-status {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+        #game-status.correct {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            transform: scale(1.1);
+        }
+        #game-status.incorrect {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            animation: shake 0.5s;
+        }
+        #game-status.all-correct {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            animation: celebration 1s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        @keyframes celebration {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+        }
+        #progress {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        #question {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #2c3e50;
+            line-height: 2; /* Increased line-height for zhuyin */
+            background: #f1f3f4;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #74b9ff;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .option-btn {
+            padding: 15px 20px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            transform: translateY(0);
+        }
+        .option-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .option-btn.correct {
+            background: linear-gradient(135deg, #00b894, #00a085) !important;
+            transform: scale(1.05);
+        }
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
+            animation: shake 0.5s;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            line-height: 2; /* Increased line-height for zhuyin */
+        }
+        #explanation-container {
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fffbe6, #fff3cd);
+            border-left: 5px solid #f39c12;
+            border-radius: 10px;
+            text-align: left;
+            line-height: 2.2; /* Increased line-height for zhuyin */
+            color: #5f4c0a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        #score {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #333;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-weight: bold;
+            line-height: 2; /* Increased line-height for zhuyin */
+        }
+        #wrong-questions {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+            max-height: 250px;
+            overflow-y: auto;
+            line-height: 2.5; /* Increased line-height for zhuyin */
+        }
+        #next-btn, #restart-btn, #retest-wrong-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        #next-btn { 
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        }
+        #next-btn:hover { 
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+            transform: translateY(-2px);
+        }
+        #restart-btn { 
+            background: linear-gradient(135deg, #00cec9, #00b894);
+        }
+        #restart-btn:hover { 
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            transform: translateY(-2px);
+        }
+        #retest-wrong-btn { 
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+        #retest-wrong-btn:hover { 
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
+        <div id="game-status" style="display: none;">🎯</div>
+        
+        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：a / an / this / that</h1>
+        <p><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>圖<rt>ㄊㄨˊ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby>，<ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
+        
+        <div id="quiz-area">
+            <div id="progress"></div>
+            <div id="question"></div>
+            <div id="options-container"></div>
+            <div id="result"></div>
+            <div id="explanation-container" style="display: none;"></div>
+            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
+        </div>
+
+        <div id="end-screen" style="display: none;">
+            <h2>🎊 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！ 🎊</h2>
+            <div id="score"></div>
+            <div id="wrong-questions"></div>
+            <button id="restart-btn">🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby></button>
+            <button id="retest-wrong-btn" style="display: none;">❌ <ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
+        </div>
+    </div>
+
+    <script>
+        // MODIFIED: All Chinese strings now have Zhuyin using <ruby> tags.
+        const allQuestions = [
+            { question: "It is ___ apple.", options: ["a", "an"], answer: 1, explanation: "<ruby>蘋<rt>ㄆㄧㄥˊ</rt>果<rt>ㄍㄨㄛˇ</rt></ruby> (apple) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>母<rt>ㄇㄨˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> an <ruby>喔<rt>˙ㄛ</rt></ruby>！" },
+            { question: "It is ___ car.", options: ["a", "an"], answer: 0, explanation: "<ruby>車<rt>ㄔㄜ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby> (car) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a <ruby>喔<rt>˙ㄛ</rt></ruby>！" },
+            { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>書<rt>ㄕㄨ</rt></ruby>) ___ is a book.", options: ["This", "That"], answer: 0, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>靠<rt>ㄎㄠˋ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> This (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)！" },
+            { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>船<rt>ㄔㄨㄢˊ</rt></ruby>) ___ is a boat.", options: ["This", "That"], answer: 1, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>比<rt>ㄅㄧˇ</rt></ruby><ruby>較<rt>ㄐㄧㄠˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> That (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)！" },
+            { question: "Look! It is ___ elephant.", options: ["an", "a"], answer: 0, explanation: "<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>象<rt>ㄒㄧㄤˋ</rt></ruby> (elephant) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>母<rt>ㄇㄨˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> an！" },
+            { question: "I see ___ bird.", options: ["a", "an"], answer: 0, explanation: "<ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>鳥<rt>ㄋㄧㄠˇ</rt></ruby> (bird) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a <ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>。" },
+            { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>旁<rt>ㄆㄤˊ</rt></ruby><ruby>邊<rt>ㄅㄧㄢ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>橘<rt>ㄐㄩˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) This is ___ orange.", options: ["an", "a"], answer: 0, explanation: "<ruby>橘<rt>ㄐㄩˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby> (orange) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>母<rt>ㄇㄨˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> an <ruby>喔<rt>˙ㄛ</rt></ruby>！" },
+            { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>樹<rt>ㄕㄨˋ</rt></ruby>) That is ___ tree.", options: ["a", "an"], answer: 0, explanation: "<ruby>樹<rt>ㄕㄨˋ</rt></ruby> (tree) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a。" },
+            { question: "I have ___ banana.", options: ["an", "a"], answer: 1, explanation: "<ruby>香<rt>ㄒㄧㄤ</rt></ruby><ruby>蕉<rt>ㄐㄧㄠ</rt></ruby> (banana) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a <ruby>喔<rt>˙ㄛ</rt></ruby>！" },
+            { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>魚<rt>ㄩˊ</rt></ruby>) ___ is a fish.", options: ["That", "This"], answer: 1, explanation: "<ruby>魚<rt>ㄩˊ</rt></ruby><ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby>，<ruby>是<rt>ㄕˋ</rt></ruby><ruby>靠<rt>ㄎㄠˋ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> This (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)！" },
+            { question: "It is ___ rabbit.", options: ["a", "an"], answer: 0, explanation: "<ruby>兔<rt>ㄊㄨˋ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby> (rabbit) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a。" },
+            { question: "That is ___ school.", options: ["an", "a"], answer: 1, explanation: "<ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>校<rt>ㄒㄧㄠˋ</rt></ruby> (school) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>第<rt>ㄉㄧˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> a。" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let wrongQuestions = [];
+
+        const quizArea = document.getElementById('quiz-area');
+        const endScreen = document.getElementById('end-screen');
+        const questionEl = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const resultEl = document.getElementById('result');
+        const explanationEl = document.getElementById('explanation-container');
+        const progressEl = document.getElementById('progress');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const retestWrongBtn = document.getElementById('retest-wrong-btn');
+        const gameImage = document.getElementById('game-image');
+        const gameStatus = document.getElementById('game-status');
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(questionList) {
+            questions = [...questionList];
+            shuffle(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            
+            quizArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            // MODIFIED: Use .innerHTML to render ruby tags
+            progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
+            questionEl.innerHTML = currentQuestion.question;
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option; // Options are in English, so textContent is fine
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            resultEl.innerHTML = ''; // Use .innerHTML
+            explanationEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctIndex = currentQuestion.answer;
+
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！'; // Use .innerHTML
+                resultEl.style.color = '#2ecc71';
+                gameImage.src = 'correct.png';
+                gameImage.classList.add('correct');
+                gameStatus.textContent = '🎉';
+                gameStatus.classList.add('correct');
+                
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        endGame();
+                    }
+                }, 1500);
+            } else {
+                selectedBtn.classList.add('incorrect');
+                optionsContainer.children[correctIndex].classList.add('correct');
+                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！'; // Use .innerHTML
+                resultEl.style.color = '#e74c3c';
+                gameImage.src = 'incorrect.png';
+                gameImage.classList.add('incorrect');
+                gameStatus.textContent = '😅';
+                gameStatus.classList.add('incorrect');
+                
+                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`; // Use .innerHTML
+                explanationEl.style.display = 'block';
+
+                wrongQuestions.push({
+                    ...currentQuestion,
+                    userAnswer: currentQuestion.options[selectedIndex]
+                });
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function endGame() {
+            quizArea.style.display = 'none';
+            endScreen.style.display = 'block';
+            
+            const scoreEl = document.getElementById('score');
+            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`; // Use .innerHTML
+
+            const wrongQuestionsEl = document.getElementById('wrong-questions');
+            if (score === questions.length) {
+                gameImage.src = 'all_correct.png';
+                gameImage.classList.add('all-correct');
+                gameStatus.textContent = '🏆';
+                gameStatus.classList.add('all-correct');
+                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> a/an <ruby>和<rt>ㄏㄢˋ</rt></ruby> this/that <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊'; // Use .innerHTML
+                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.background = '#d4edda';
+                wrongQuestionsEl.style.color = '#155724';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'none';
+            } else {
+                gameImage.src = 'not_all_correct.png';
+                gameStatus.textContent = '📝';
+                let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
+                wrongQuestions.forEach((q, index) => {
+                    wrongText += `<p>`;
+                    wrongText += `${index + 1}. ${q.question}<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
+                    wrongText += `</p>`;
+                });
+                wrongQuestionsEl.innerHTML = wrongText; // Use .innerHTML
+                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.background = '#f8d7da';
+                wrongQuestionsEl.style.color = '#721c24';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'inline-block';
+            }
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                endGame();
+            }
+        });
+
+        restartBtn.addEventListener('click', () => startGame(allQuestions));
+
+        retestWrongBtn.addEventListener('click', () => {
+            if (wrongQuestions.length > 0) {
+                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
+                startGame(retestList);
+            }
+        });
+
+        startGame(allQuestions);
+    </script>
+</body>
+</html>
