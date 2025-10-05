@@ -75,7 +75,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共30題，順序隨機，結束後顯示錯誤的單字。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -88,23 +88,36 @@
 
     <script>
         const words = [
-            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ ㄉㄜ˙)' },
-            { en: 'story', zh: '故事 (ㄍㄨˋ ㄕˋ)' },
-            { en: 'many', zh: '很多 (ㄏㄣˇ ㄉㄨㄛ)' },
-            { en: 'culture', zh: '文化 (ㄨㄣˊ ㄏㄨㄚˋ)' },
-            { en: 'person', zh: '人 (ㄖㄣˊ)' },
-            { en: 'people', zh: '人們 (ㄖㄣˊ ㄇㄣˊ)' },
-            { en: 'black', zh: '黑色 (ㄏㄟ ㄙㄜˋ)' },
-            { en: 'flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)' },
-            { en: 'crab', zh: '螃蟹 (ㄆㄤˊ ㄒㄧㄝˋ)' },
-            { en: 'broom', zh: '掃帚 (ㄙㄠˋ ㄓㄡˇ)' },
-            { en: 'bride', zh: '新娘 (ㄒㄧㄣ ㄋㄧㄤˊ)' },
-            { en: 'glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)' },
-            { en: 'enter', zh: '進入 (ㄐㄧㄣˋ ㄖㄨˋ)' },
-            { en: 'kite', zh: '風箏 (ㄈㄥ ㄓㄥ)' },
-            { en: 'jog', zh: '慢跑 (ㄇㄢˋ ㄆㄠˇ)' },
-            { en: 'fail', zh: '失敗 (ㄕ ㄅㄞˋ)' },
-            { en: 'lie', zh: '說謊 (ㄕㄨㄛ ㄏㄨㄤˇ)' }
+            { en: 'magazine', zh: '雜誌 (ㄗㄚˊ ㄓˋ)' },
+            { en: 'article', zh: '文章 (ㄨㄣˊ ㄓㄤ)' },
+            { en: 'message', zh: '訊息 (ㄒㄩㄣˋ ㄒㄧˊ)' },
+            { en: 'important', zh: '重要的 (ㄓㄨㄥˋ ㄧㄠˋ ㄉㄜ˙)' },
+            { en: 'build', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)' },
+            { en: 'all over', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)' },
+            { en: 'Friday', zh: '星期五 (ㄒㄧㄥ ㄑㄧˊ ㄨˇ)' },
+            { en: 'frog', zh: '青蛙 (ㄑㄧㄥ ㄨㄚ)' },
+            { en: 'grass', zh: '草 (ㄘㄠˇ)' },
+            { en: 'green', zh: '綠色 (ㄌㄩˋ ㄙㄜˋ)' },
+            { en: 'end', zh: '結束 (ㄐㄧㄝˊ ㄕㄨˋ)' },
+            { en: 'dirty', zh: '髒的 (ㄗㄤ ㄉㄜ˙)' },
+            { en: 'bell', zh: '鈴鐺 (ㄌㄧㄥˊ ㄉㄤ)' },
+            { en: 'age', zh: '年齡 (ㄋㄧㄢˊ ㄌㄧㄥˊ)' },
+            { en: 'July', zh: '七月 (ㄑㄧ ㄩㄝˋ)' },
+            { en: 'text', zh: '文字 (ㄨㄣˊ ㄗˋ)' },
+            { en: 'think', zh: '思考 (ㄙ ㄎㄠˇ)' },
+            { en: 'around', zh: '周圍 (ㄓㄡ ㄨㄟˊ)' },
+            { en: 'another', zh: '另一個 (ㄌㄧㄥˋ ㄧˊ ㄍㄜˋ)' },
+            { en: 'author', zh: '作者 (ㄗㄨㄛˋ ㄓㄜˇ)' },
+            { en: 'write', zh: '寫 (ㄒㄧㄝˇ)' },
+            { en: 'sleep', zh: '睡覺 (ㄕㄨㄟˋ ㄐㄧㄠˋ)' },
+            { en: 'slide', zh: '溜滑梯 (ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ)' }, // <--- 就是這裡改動了
+            { en: 'plate', zh: '盤子 (ㄆㄢˊ ㄗ˙)' },
+            { en: 'play', zh: '玩 (ㄨㄢˊ)' },
+            { en: 'kind', zh: '親切的 (ㄑㄧㄣ ㄑㄧㄝˋ ㄉㄜ˙)' },
+            { en: 'best', zh: '最好的 (ㄗㄨㄟˋ ㄏㄠˇ ㄉㄜ˙)' },
+            { en: 'cheap', zh: '便宜的 (ㄆㄧㄢˊ ㄧˊ ㄉㄜ˙)' },
+            { en: 'fix', zh: '修理 (ㄒㄧㄡ ㄌㄧˇ)' },
+            { en: 'guy', zh: '傢伙 (ㄐㄧㄚ ㄏㄨㄛ˙)' }
         ];
 
         let currentQuestion = 0;
