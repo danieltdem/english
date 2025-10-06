@@ -245,7 +245,8 @@
 
     <script>
         // 存放所有題目的題庫
-        const allQuestions = [
+        // --- 原有的形容詞題目 ---
+        const originalAdjectiveQuestions = [
             { question: "My brother is much _______ than I am.", options: ["tall", "taller", "the tallest", "more tall"], answer: 1, explanation: "比較兩個人時，單音節形容詞 tall 的比較級是 taller。" },
             { question: "This is _______ movie I have ever seen. It was terrible!", options: ["bad", "worse", "the worst", "the baddest"], answer: 2, explanation: "在「所有看過的電影」中比較，要用最高級。bad 的最高級是不規則變化 the worst。" },
             { question: "Your new car is _______ than your old one.", options: ["good", "gooder", "the best", "better"], answer: 3, explanation: "比較兩樣東西時，要用比較級。good 的比較級是不規則變化 better。" },
@@ -262,6 +263,33 @@
             { question: "I have _______ time than you, so I must hurry.", options: ["little", "less", "the least", "littler"], answer: 1, explanation: "Time 是不可數名詞，比較「更少」的時間要用 little 的比較級 less。" },
             { question: "Of all my classes, English is _______.", options: ["easy", "the easiest", "easier", "the most easy"], answer: 1, explanation: "在「所有課程」中比較，要用最高級。easy 的最高級是 the easiest。" }
         ];
+
+        // --- 新增的副詞題目 (共20題) ---
+        const newAdverbQuestions = [
+            { question: "He is a good singer. He sings very ______.", options: ["good", "goodly", "well", "better"], answer: 2, explanation: "修飾動詞 sings 要用副詞。good 的副詞是不規則的 well。" },
+            { question: "To win the championship, Daniel practises very ______.", options: ["hard", "hardly", "harder", "more hard"], answer: 0, explanation: "修飾動詞 practises 要用副詞 hard (努力地)。hardly 的意思是「幾乎不」。" },
+            { question: "Antonio is running ______ so he's going to win the race.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "修飾動詞 running 要用副詞 fast。fastly 是錯誤的用法。" },
+            { question: "He has a problem with his leg and can't run ______ as Philip.", options: ["good", "well", "better", "best"], answer: 1, explanation: "在 as...as 的句型中，要用副詞的原級來修飾動詞 run，所以是 well。" },
+            { question: "The people are cheering ______ for the skaters.", options: ["loud", "loudly", "louder", "loudest"], answer: 1, explanation: "修飾動詞 cheering 要用副詞 loudly (大聲地)。" },
+            { question: "Which sentence has the correct adverb order?", options: ["She danced last night beautifully at the party.", "She danced beautifully last night at the party.", "She danced at the party beautifully last night.", "She danced beautifully at the party last night."], answer: 3, explanation: "副詞的黃金順序是：情態 (beautifully) → 地方 (at the party) → 時間 (last night)。" },
+            { question: "I haven't seen you ______. How have you been?", options: ["late", "lately", "later", "latest"], answer: 1, explanation: "lately 的意思是「最近」，符合句意。late 的意思是「遲到」。" },
+            { question: "He ______ eats breakfast; he always says he's not hungry.", options: ["hard", "hardly", "often", "neverly"], answer: 1, explanation: "hardly 的意思是「幾乎不」，符合句意。hard 是「努力地」。" },
+            { question: "A car goes quickly, but a plane flies ______.", options: ["quick", "more quickly", "quicker", "the most quickly"], answer: 1, explanation: "quickly 是長音節副詞，比較級要用 more quickly。" },
+            { question: "Anne drives badly, Paul drives worse, but Denise drives ______ of all.", options: ["bad", "the baddest", "worst", "the worst"], answer: 3, explanation: "比較三個人，要用最高級。badly 的最高級是不規則變化 the worst。" },
+            { question: "My father always works ______ in his office.", options: ["hard", "hardly", "late", "lately"], answer: 0, explanation: "修飾動詞 works 要用副詞 hard (努力地)。" },
+            { question: "Which word is an adjective, NOT an adverb?", options: ["slowly", "friendly", "quickly", "early"], answer: 1, explanation: "friendly (友善的) 是形容詞。副詞用法是 in a friendly way。" },
+            { question: "He arrived ______ for the meeting.", options: ["earlily", "earlier", "early", "more early"], answer: 2, explanation: "修飾動詞 arrived 要用副詞 early。early 的副詞與形容詞同形。" },
+            { question: "She speaks English more ______ than I do.", options: ["fluent", "fluently", "fluentlier", "most fluently"], answer: 1, explanation: "修飾動詞 speaks，且是比較級，要用 more + 副詞 (fluently)。" },
+            { question: "Of all the students, Jenny works ______.", options: ["the hardest", "hardest", "the most hard", "the most hardly"], answer: 0, explanation: "在「所有學生」中比較，要用最高級 the hardest。" },
+            { question: "Please drive ______! The road is icy.", options: ["careful", "more careful", "carefully", "caredully"], answer: 2, explanation: "修飾動詞 drive 要用副詞 carefully。" },
+            { question: "I ______ go to the cinema, maybe once or twice a year.", options: ["usually", "always", "never", "rarely"], answer: 3, explanation: "rarely (很少) 最符合「一年一兩次」的頻率。" },
+            { question: "He does not swim as ______ as his brother.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "在 as...as 的句型中，要使用副詞的原級 fast。" },
+            { question: "Kathy did well on the test, but Betty did ______.", options: ["best", "better", "good", "weller"], answer: 1, explanation: "比較 Kathy 和 Betty 兩人，要用 well 的比較級 better。" },
+            { question: "The children played ______ in the garden yesterday.", options: ["happy", "happily", "happier", "happiest"], answer: 1, explanation: "修飾動詞 played 要用副詞 happily。" }
+        ];
+
+        // --- 將新舊題庫合併 ---
+        const allQuestions = [...originalAdjectiveQuestions, ...newAdverbQuestions];
 
         // 宣告遊戲會用到的變數
         let currentQuestionIndex = 0;
@@ -282,6 +310,7 @@
         const retestWrongBtn = document.getElementById('retest-wrong-btn');
         const gameImage = document.getElementById('game-image');
         const gameStatus = document.getElementById('game-status');
+        const titleEl = document.querySelector('.container h1');
 
         // 打亂題目順序的函式
         function shuffle(array) {
@@ -298,6 +327,9 @@
             currentQuestionIndex = 0;
             score = 0;
             wrongQuestions = [];
+            
+            // 更新標題
+            titleEl.textContent = '文法測驗：形容詞與副詞';
             
             quizArea.style.display = 'block';
             endScreen.style.display = 'none';
@@ -404,7 +436,7 @@
                 gameImage.classList.add('all-correct');
                 gameStatus.textContent = '🏆';
                 gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握形容詞比較級與最高級的用法！ 🎊';
+                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握形容詞與副詞的用法！ 🎊';
                 wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
                 wrongQuestionsEl.style.background = '#d4edda';
                 wrongQuestionsEl.style.color = '#155724';
@@ -416,9 +448,9 @@
                 let wrongText = '📋 你答錯的題目回顧：\n\n';
                 wrongQuestions.forEach((q, index) => {
                     wrongText += `${index + 1}. ${q.question}\n`;
-                    wrongText += `   你的答案: "${q.userAnswer}" ❌\n`;
-                    wrongText += `   正確答案: "${q.options[q.answer]}" ✅\n`;
-                    wrongText += `   解析: ${q.explanation}\n\n`;
+                    wrongText += `    你的答案: "${q.userAnswer}" ❌\n`;
+                    wrongText += `    正確答案: "${q.options[q.answer]}" ✅\n`;
+                    wrongText += `    解析: ${q.explanation}\n\n`;
                 });
                 wrongQuestionsEl.textContent = wrongText;
                 wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
