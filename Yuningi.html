@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>單字拼寫測驗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 450px; /* 稍微加寬以容納新內容 */
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+        }
+        #game-image {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        #question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        /* 新增記憶提示的樣式 */
+        #mnemonic {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #3d5afe; /* 提示文字使用藍色 */
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            background-color: #f3f4ff;
+            line-height: 1.5; /* 增加行高 */
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #wrong-words {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Game Scene">
+        <h1>單字拼寫測驗</h1>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共19題，順序隨機，結束後顯示錯誤的單字。</p>
+        <div id="question"></div>
+        <input type="text" id="answer" placeholder="輸入英文拼寫">
+        <button id="submit">提交</button>
+        <div id="result"></div>
+        <div id="mnemonic" style="display: none;"></div> <div id="score">分數: 0 / 0</div>
+        <div id="wrong-words"></div>
+        <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
+        <button id="retest-wrong" style="display: none; margin-top: 20px;">重測錯題</button>
+    </div>
+
+    <script>
+        const words = [
+            { en: 'effort', zh: '努力 (ㄋㄨˇ ㄌㄧˋ)', mnemonic: '可以拆成 e + fort (堡壘)。要攻下一個堡壘需要付出很多努力 (effort)。' },
+            { en: 'festival', zh: '節日 (ㄐㄧㄝˊ ㄖˋ)', mnemonic: 'festival 聽起來像 feast (盛宴)。節日 (festival) 通常都會有盛大的宴會。' },
+            { en: 'discussion', zh: '討論 (ㄊㄠˇ ㄌㄨㄣˋ)', mnemonic: '可以想成 discuss + on (在...上面)。我們可以在 (on) 某個主題上進行討論 (discussion)。' },
+            { en: 'decision', zh: '決定 (ㄐㄩㄝˊ ㄉㄧㄥˋ)', mnemonic: '中間的 \'cis\' 聽起來像 scissors (剪刀)。當你做決定 (decision) 時，就像用剪刀剪掉所有其他的選項。' },
+            { en: 'energy', zh: '能量 (ㄋㄥˊ ㄌㄧㄤˋ)', mnemonic: '可以聯想成 inner-g (內在的G)。能量 (energy) 來自於內在 (inner) 的力量。' },
+            { en: 'effect', zh: '效果；影響 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: 'effect 的 \'e\' 來自 \'end-result\' (最終結果)，所以 effect 是指一個動作造成的結果或影響。' },
+            { en: 'experience', zh: '經驗 (ㄐㄧㄥ ㄧㄢˋ)', mnemonic: '這個字來自 expert (專家)。一位專家 (expert) 必定擁有豐富的經驗 (experience)。' },
+            { en: 'fool', zh: '傻瓜 (ㄕㄚˇ ㄍㄨㄚ)', mnemonic: 'fool 聽起來像 fall (跌倒、上當)。一個傻瓜 (fool) 很容易就上當 (fall for a trick)。' },
+            { en: 'error', zh: '錯誤 (ㄘㄨㄛˋ ㄨˋ)', mnemonic: 'error 聽起來像 arrow (箭)。如果你的箭 (arrow) 射錯了方向，那就是一個錯誤 (error)。' },
+            { en: 'fear', zh: '害怕 (ㄏㄞˋ ㄆㄚˋ)', mnemonic: '可以拆成 f + ear (耳朵)。想像如果你考試拿到 F，你的耳朵 (ear) 就會遭殃，所以你會感到害怕 (fear)。' },
+            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '可以聯想到 Air Force (空軍)。空軍用它的力量 (force) 來保衛國家。' },
+            { en: 'except', zh: '除了 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '可以看作 EX (出去) + CEPT (接受)。從一群被接受的東西裡，把某個東西排除出去，就是「除了」(except) 這個東西之外。' },
+            { en: 'strap', zh: '帶子 (ㄉㄞˋ ㄗ˙)', mnemonic: 'strap 和 strip (條、帶) 很像。一長條 (strip) 的布可以用來當作帶子 (strap)。' },
+            { en: 'industry', zh: '工業；產業 (ㄍㄨㄥ ㄧㄝˋ)', mnemonic: '聯想成 in-dust-try (在灰塵中嘗試)。在工廠 (一種產業, industry) 裡，工人們常需要在充滿灰塵 (dust) 的環境中努力嘗試 (try)。' },
+            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: 'stretch 聽起來有點像 stress (壓力)。當你感到有壓力 (stress) 時，你會伸展 (stretch) 身體來放鬆一下。' },
+            { en: 'string', zh: '細繩 (ㄒㄧˋ ㄕㄥˊ)', mnemonic: '可以聯想成 s + tring。tring-tring 是吉他的聲音，而吉他上面有好幾條弦/細繩 (strings)。' },
+            { en: 'hunch', zh: '直覺；預感 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: 'hunch 聽起來像 lunch (午餐)。你有一種預感 (hunch)，你朋友今天午餐 (lunch) 不會付錢。' },
+            { en: 'streak', zh: '條紋 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '聯想成 s-treak，聽起來像 see track (看見軌道)。軌道 (track) 就是一條長長的線條或條紋 (streak)。' },
+            { en: 'trace', zh: '追蹤；痕跡 (ㄓㄨㄟ ㄗㄨㄥ)', mnemonic: 'trace 聽起來像 trespass (非法入侵)。如果有人非法入侵 (trespass)，你可以追蹤 (trace) 他們留下的足跡。' }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = words.length;
+        let questions = [];
+        let wrongWords = [];
+        let isWaitingToContinue = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(wordList = words) {
+            questions = [...wordList];
+            totalQuestions = questions.length;
+            shuffle(questions);
+            currentQuestion = 0;
+            score = 0;
+            wrongWords = [];
+            isWaitingToContinue = false;
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('retest-wrong').style.display = 'none';
+            document.getElementById('wrong-words').textContent = '';
+            document.getElementById('answer').style.display = 'block';
+            document.getElementById('submit').style.display = 'inline-block';
+            document.getElementById('submit').textContent = '提交';
+            document.getElementById('game-image').src = 'initial.png';
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
+            // 清空並隱藏記憶提示區塊
+            const mnemonicEl = document.getElementById('mnemonic');
+            mnemonicEl.textContent = '';
+            mnemonicEl.style.display = 'none';
+
+            isWaitingToContinue = false;
+            document.getElementById('submit').textContent = '提交';
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = `輸入 "${q.zh}" 的英文拼寫：`;
+            document.getElementById('answer').value = '';
+            document.getElementById('result').textContent = '';
+            updateScore();
+        }
+
+        function checkAnswer() {
+            if (isWaitingToContinue) {
+                currentQuestion++;
+                nextQuestion();
+                return;
+            }
+
+            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+            const q = questions[currentQuestion];
+            const correctAnswer = q.en.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById('result').textContent = '正確！';
+                document.getElementById('result').style.color = 'green';
+                document.getElementById('game-image').src = 'correct.png';
+                setTimeout(() => {
+                    currentQuestion++;
+                    nextQuestion();
+                }, 1500);
+            } else {
+                document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
+                document.getElementById('result').style.color = 'red';
+                document.getElementById('game-image').src = 'incorrect.png';
+                
+                // 顯示記憶提示
+                const mnemonicEl = document.getElementById('mnemonic');
+                mnemonicEl.textContent = `💡 記憶提示：${q.mnemonic}`;
+                mnemonicEl.style.display = 'block';
+                
+                document.getElementById('submit').textContent = '繼續';
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
+                isWaitingToContinue = true;
+            }
+            updateScore();
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
+        }
+
+        function endGame() {
+            // 結束時也隱藏記憶提示區
+            document.getElementById('mnemonic').style.display = 'none';
+            document.getElementById('question').textContent = '測驗結束！';
+            document.getElementById('answer').style.display = 'none';
+            document.getElementById('submit').style.display = 'none';
+            document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            
+            if (score === totalQuestions) {
+                document.getElementById('game-image').src = 'all_correct.png';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+            } else {
+                document.getElementById('game-image').src = 'not_all_correct.png';
+                let wrongText = '你答錯的單字：\n';
+                wrongWords.forEach(w => {
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                });
+                document.getElementById('wrong-words').textContent = wrongText;
+                document.getElementById('retest-wrong').style.display = 'inline-block';
+            }
+            document.getElementById('restart').style.display = 'inline-block';
+        }
+
+        document.getElementById('submit').addEventListener('click', checkAnswer);
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        document.getElementById('restart').addEventListener('click', () => startGame(words));
+        document.getElementById('retest-wrong').addEventListener('click', () => {
+            if (wrongWords.length > 0) {
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
+                startGame(retestWords);
+            }
+        });
+
+        startGame();
+    </script>
+</body>
+</html>
