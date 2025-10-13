@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 400px;
+            width: 450px;
         }
         h1 {
             color: #333;
@@ -67,7 +67,7 @@
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
-            white-space: pre-wrap; /* 讓換行符號生效 */
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -75,7 +75,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共30題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共30題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -88,36 +88,38 @@
 
     <script>
         const words = [
-            { en: 'magazine', zh: '雜誌 (ㄗㄚˊ ㄓˋ)' },
-            { en: 'article', zh: '文章 (ㄨㄣˊ ㄓㄤ)' },
-            { en: 'message', zh: '訊息 (ㄒㄩㄣˋ ㄒㄧˊ)' },
-            { en: 'important', zh: '重要的 (ㄓㄨㄥˋ ㄧㄠˋ ㄉㄜ˙)' },
-            { en: 'build', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)' },
-            { en: 'all over', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)' },
-            { en: 'Friday', zh: '星期五 (ㄒㄧㄥ ㄑㄧˊ ㄨˇ)' },
-            { en: 'frog', zh: '青蛙 (ㄑㄧㄥ ㄨㄚ)' },
-            { en: 'grass', zh: '草 (ㄘㄠˇ)' },
-            { en: 'green', zh: '綠色 (ㄌㄩˋ ㄙㄜˋ)' },
-            { en: 'end', zh: '結束 (ㄐㄧㄝˊ ㄕㄨˋ)' },
-            { en: 'dirty', zh: '髒的 (ㄗㄤ ㄉㄜ˙)' },
-            { en: 'bell', zh: '鈴鐺 (ㄌㄧㄥˊ ㄉㄤ)' },
-            { en: 'age', zh: '年齡 (ㄋㄧㄢˊ ㄌㄧㄥˊ)' },
-            { en: 'July', zh: '七月 (ㄑㄧ ㄩㄝˋ)' },
-            { en: 'text', zh: '文字 (ㄨㄣˊ ㄗˋ)' },
-            { en: 'think', zh: '思考 (ㄙ ㄎㄠˇ)' },
-            { en: 'around', zh: '周圍 (ㄓㄡ ㄨㄟˊ)' },
-            { en: 'another', zh: '另一個 (ㄌㄧㄥˋ ㄧˊ ㄍㄜˋ)' },
-            { en: 'author', zh: '作者 (ㄗㄨㄛˋ ㄓㄜˇ)' },
-            { en: 'write', zh: '寫 (ㄒㄧㄝˇ)' },
-            { en: 'sleep', zh: '睡覺 (ㄕㄨㄟˋ ㄐㄧㄠˋ)' },
-            { en: 'slide', zh: '溜滑梯 (ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ)' }, // <--- 就是這裡改動了
+            // 原有的單字
+            { en: 'group', zh: '團體 (ㄊㄨㄢˊ ㄊㄧˇ)' },
+            { en: 'idea', zh: '想法 (ㄒㄧㄤˇ ㄈㄚˇ)' },
+            { en: 'place', zh: '地方 (ㄉㄧˋ ㄈㄤ)' },
+            { en: 'share', zh: '分享 (ㄈㄣ ㄒㄧㄤˇ)' },
+            { en: 'trip', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)' },
+            { en: 'movie theater', zh: '電影院 (ㄉㄧㄢˋ ㄧㄥˇ ㄩㄢˋ)' },
             { en: 'plate', zh: '盤子 (ㄆㄢˊ ㄗ˙)' },
-            { en: 'play', zh: '玩 (ㄨㄢˊ)' },
-            { en: 'kind', zh: '親切的 (ㄑㄧㄣ ㄑㄧㄝˋ ㄉㄜ˙)' },
-            { en: 'best', zh: '最好的 (ㄗㄨㄟˋ ㄏㄠˇ ㄉㄜ˙)' },
-            { en: 'cheap', zh: '便宜的 (ㄆㄧㄢˊ ㄧˊ ㄉㄜ˙)' },
-            { en: 'fix', zh: '修理 (ㄒㄧㄡ ㄌㄧˇ)' },
-            { en: 'guy', zh: '傢伙 (ㄐㄧㄚ ㄏㄨㄛ˙)' }
+            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)' },
+            { en: 'grass', zh: '草 (ㄘㄠˇ)' },
+            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)' },
+            { en: 'slide', zh: '溜滑梯 (ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ)' },
+            { en: 'frog', zh: '青蛙 (ㄑㄧㄥ ㄨㄚ)' },
+            { en: 'flat', zh: '平的 (ㄆㄧㄥˊ ㄉㄜ˙)' },
+            { en: 'ink', zh: '墨水 (ㄇㄛˋ ㄕㄨㄟˇ)' },
+            { en: 'kiss', zh: '親吻 (ㄑㄧㄣ ㄨㄣˇ)' },
+            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)' },
+            { en: 'clock', zh: '時鐘 (ㄕˊ ㄓㄨㄥ)' },
+            // 新加入的單字
+            { en: 'special', zh: '特別的 (ㄊㄜˋ ㄅㄧㄝˊ ㄉㄜ˙)' },
+            { en: 'parents', zh: '父母 (ㄈㄨˋ ㄇㄨˇ)' },
+            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)' },
+            { en: 'fun', zh: '有趣的 (ㄧㄡˇ ㄑㄩˋ ㄉㄜ˙)' },
+            { en: 'extended', zh: '延伸的 (ㄧㄢˊ ㄕㄣ ㄉㄜ˙)' },
+            { en: 'visit', zh: '拜訪 (ㄅㄞˋ ㄈㄤˇ)' },
+            { en: 'tree', zh: '樹 (ㄕㄨˋ)' },
+            { en: 'drum', zh: '鼓 (ㄍㄨˇ)' },
+            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)' },
+            { en: 'Japan', zh: '日本 (ㄖˋ ㄅㄣˇ)' },
+            { en: 'cheer', zh: '歡呼 (ㄏㄨㄢ ㄏㄨ)' },
+            { en: 'clap', zh: '拍手 (ㄆㄞ ㄕㄡˇ)' },
+            { en: 'dig', zh: '挖掘 (ㄨㄚ ㄐㄩㄝˊ)' }
         ];
 
         let currentQuestion = 0;
@@ -157,7 +159,7 @@
                 endGame();
                 return;
             }
-
+            
             isWaitingToContinue = false;
             document.getElementById('submit').textContent = '提交';
             const q = questions[currentQuestion];
@@ -183,7 +185,6 @@
                 document.getElementById('result').textContent = '正確！';
                 document.getElementById('result').style.color = 'green';
                 document.getElementById('game-image').src = 'correct.png';
-                // 答對後自動進入下一題
                 setTimeout(() => {
                     currentQuestion++;
                     nextQuestion();
@@ -192,16 +193,15 @@
                 document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
+                
                 document.getElementById('submit').textContent = '繼續';
                 wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
                 isWaitingToContinue = true;
             }
-
             updateScore();
         }
 
         function updateScore() {
-            // 在答題過程中，顯示當前進度
             document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
         }
 
@@ -233,7 +233,6 @@
         document.getElementById('restart').addEventListener('click', () => startGame(words));
         document.getElementById('retest-wrong').addEventListener('click', () => {
             if (wrongWords.length > 0) {
-                // 將錯題轉換回遊戲需要的格式
                 const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh }));
                 startGame(retestWords);
             }
