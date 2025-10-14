@@ -10,8 +10,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh; /* 使用 min-height 確保內容多時可以滾動 */
+            margin: 20px 0; /* 增加上下邊距 */
             background-color: #f0f0f0;
         }
         .container {
@@ -20,21 +20,24 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 450px; /* 稍微加寬以容納新內容 */
+            width: 90%; /* 使用百分比寬度 */
+            max-width: 500px; /* 設定最大寬度 */
         }
         h1 {
             color: #333;
             margin-top: 10px;
         }
         #game-image {
-            width: 300px;
-            height: 200px;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
             object-fit: contain;
             margin-bottom: 10px;
         }
         #question {
             font-size: 24px;
             margin: 20px 0;
+            line-height: 1.4;
         }
         input {
             padding: 10px;
@@ -59,17 +62,16 @@
             font-size: 20px;
             margin-top: 20px;
         }
-        /* 新增記憶提示的樣式 */
         #mnemonic {
             font-size: 16px;
             margin-top: 10px;
-            color: #3d5afe; /* 提示文字使用藍色 */
+            color: #3d5afe;
             text-align: left;
             padding: 10px;
             border: 1px solid #e0e0e0;
             border-radius: 5px;
             background-color: #f3f4ff;
-            line-height: 1.5; /* 增加行高 */
+            line-height: 1.5;
         }
         #score {
             font-size: 18px;
@@ -87,12 +89,13 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共19題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共75題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
         <div id="result"></div>
-        <div id="mnemonic" style="display: none;"></div> <div id="score">分數: 0 / 0</div>
+        <div id="mnemonic" style="display: none;"></div>
+        <div id="score">分數: 0 / 0</div>
         <div id="wrong-words"></div>
         <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
         <button id="retest-wrong" style="display: none; margin-top: 20px;">重測錯題</button>
@@ -100,25 +103,81 @@
 
     <script>
         const words = [
-            { en: 'effort', zh: '努力 (ㄋㄨˇ ㄌㄧˋ)', mnemonic: '可以拆成 e + fort (堡壘)。要攻下一個堡壘需要付出很多努力 (effort)。' },
-            { en: 'festival', zh: '節日 (ㄐㄧㄝˊ ㄖˋ)', mnemonic: 'festival 聽起來像 feast (盛宴)。節日 (festival) 通常都會有盛大的宴會。' },
-            { en: 'discussion', zh: '討論 (ㄊㄠˇ ㄌㄨㄣˋ)', mnemonic: '可以想成 discuss + on (在...上面)。我們可以在 (on) 某個主題上進行討論 (discussion)。' },
-            { en: 'decision', zh: '決定 (ㄐㄩㄝˊ ㄉㄧㄥˋ)', mnemonic: '中間的 \'cis\' 聽起來像 scissors (剪刀)。當你做決定 (decision) 時，就像用剪刀剪掉所有其他的選項。' },
-            { en: 'energy', zh: '能量 (ㄋㄥˊ ㄌㄧㄤˋ)', mnemonic: '可以聯想成 inner-g (內在的G)。能量 (energy) 來自於內在 (inner) 的力量。' },
-            { en: 'effect', zh: '效果；影響 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: 'effect 的 \'e\' 來自 \'end-result\' (最終結果)，所以 effect 是指一個動作造成的結果或影響。' },
-            { en: 'experience', zh: '經驗 (ㄐㄧㄥ ㄧㄢˋ)', mnemonic: '這個字來自 expert (專家)。一位專家 (expert) 必定擁有豐富的經驗 (experience)。' },
-            { en: 'fool', zh: '傻瓜 (ㄕㄚˇ ㄍㄨㄚ)', mnemonic: 'fool 聽起來像 fall (跌倒、上當)。一個傻瓜 (fool) 很容易就上當 (fall for a trick)。' },
-            { en: 'error', zh: '錯誤 (ㄘㄨㄛˋ ㄨˋ)', mnemonic: 'error 聽起來像 arrow (箭)。如果你的箭 (arrow) 射錯了方向，那就是一個錯誤 (error)。' },
-            { en: 'fear', zh: '害怕 (ㄏㄞˋ ㄆㄚˋ)', mnemonic: '可以拆成 f + ear (耳朵)。想像如果你考試拿到 F，你的耳朵 (ear) 就會遭殃，所以你會感到害怕 (fear)。' },
-            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '可以聯想到 Air Force (空軍)。空軍用它的力量 (force) 來保衛國家。' },
-            { en: 'except', zh: '除了 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '可以看作 EX (出去) + CEPT (接受)。從一群被接受的東西裡，把某個東西排除出去，就是「除了」(except) 這個東西之外。' },
-            { en: 'strap', zh: '帶子 (ㄉㄞˋ ㄗ˙)', mnemonic: 'strap 和 strip (條、帶) 很像。一長條 (strip) 的布可以用來當作帶子 (strap)。' },
-            { en: 'industry', zh: '工業；產業 (ㄍㄨㄥ ㄧㄝˋ)', mnemonic: '聯想成 in-dust-try (在灰塵中嘗試)。在工廠 (一種產業, industry) 裡，工人們常需要在充滿灰塵 (dust) 的環境中努力嘗試 (try)。' },
-            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: 'stretch 聽起來有點像 stress (壓力)。當你感到有壓力 (stress) 時，你會伸展 (stretch) 身體來放鬆一下。' },
-            { en: 'string', zh: '細繩 (ㄒㄧˋ ㄕㄥˊ)', mnemonic: '可以聯想成 s + tring。tring-tring 是吉他的聲音，而吉他上面有好幾條弦/細繩 (strings)。' },
-            { en: 'hunch', zh: '直覺；預感 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: 'hunch 聽起來像 lunch (午餐)。你有一種預感 (hunch)，你朋友今天午餐 (lunch) 不會付錢。' },
-            { en: 'streak', zh: '條紋 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '聯想成 s-treak，聽起來像 see track (看見軌道)。軌道 (track) 就是一條長長的線條或條紋 (streak)。' },
-            { en: 'trace', zh: '追蹤；痕跡 (ㄓㄨㄟ ㄗㄨㄥ)', mnemonic: 'trace 聽起來像 trespass (非法入侵)。如果有人非法入侵 (trespass)，你可以追蹤 (trace) 他們留下的足跡。' }
+            { en: 'fluff', zh: '絨毛 (ㄖㄨㄥˊ ㄇㄠˊ)', mnemonic: '專注在 flu (流感)。當一個人得流感時，他會喜歡待在柔軟(fluff)的羽毛床上。' },
+            { en: 'lawn', zh: '草坪 (ㄘㄠˇ ㄆㄧㄥˊ)', mnemonic: 'lawn 聽起來像 loan (貸款)。你貸了一筆款 (loan) 來在你家門前蓋一座漂亮的草坪 (lawn)。' },
+            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)', mnemonic: 'valley 聽起來像 wall-ey (牆壁)。山谷 (valley) 就像是兩面牆壁之間的路徑。' },
+            { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)', mnemonic: '拆成 ME + LET。所以你「讓(let)我(me)」從固態變成液態，也就是融化(melt)。' },
+            { en: 'disappear', zh: '消失 (ㄒㄧㄠ ㄕ)', mnemonic: '拆成 dis (否定字首) + appear (出現)。出現 (appear) 的相反就是消失 (disappear)。' },
+            { en: 'bunch', zh: '一束 (ㄧ ㄕㄨˋ)', mnemonic: 'bunch 聽起來像 lunch (午餐)。我們的午餐 (lunch) 是一串 (bunch) 香蕉。' },
+            { en: 'cheese', zh: '起司 (ㄑㄧˇ ㄙ)', mnemonic: '當你要拍照時，你會說 "cheese" 來讓你微笑。' },
+            { en: 'hunch', zh: '直覺 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: 'hunch 和 lunch (午餐) 押韻。我有一種預感 (hunch)，我朋友今天午餐 (lunch) 不會付錢。' },
+            { en: 'shift', zh: '轉換 (ㄓㄨㄢˇ ㄏㄨㄢˋ)', mnemonic: '當你按鍵盤上的 SHIFT 鍵時，字母會從小寫轉換(shift)成大寫。' },
+            { en: 'charge', zh: '費用 (ㄈㄟˋ ㄩㄥˋ)', mnemonic: '你負責 (in charge of) 支付電費 (charges)。' },
+            { en: 'perch', zh: '棲息 (ㄑㄧ ㄒㄧ)', mnemonic: 'perch 聽起來像 search (搜尋)。鳥兒在棲息(perch)前會先搜尋(search)一個好地方。' },
+            { en: 'ranch', zh: '牧場 (ㄇㄨˋ ㄔㄤˇ)', mnemonic: 'ranch 聽起來像 branch (樹枝)。牧場(ranch)工人會用樹枝(branch)來趕牛。' },
+            { en: 'pinch', zh: '捏 (ㄋㄧㄝ)', mnemonic: 'pinch 和 punch (用拳猛擊) 相似。捏(pinch)一下就像是小力地捶(punch)一下。' },
+            { en: 'cherry', zh: '櫻桃 (ㄧㄥ ㄊㄠˊ)', mnemonic: '聯想 cheer (歡呼)。吃到美味的櫻桃(cherry)會讓人想歡呼(cheer)。' },
+            { en: 'sheep', zh: '羊 (ㄧㄤˊ)', mnemonic: '當你睡不著時，你會數羊(sheep)來幫助入睡(sleep)。' },
+            { en: 'punch', zh: '一拳 (ㄧˋ ㄑㄩㄢˊ)', mnemonic: '想像在午餐(LUNCH)時間，為了搶食物而打了一拳(PUNCH)。' },
+            { en: 'cheap', zh: '便宜 (ㄆㄧㄢˊ ㄧˊ)', mnemonic: '可以聯想成 cheat (欺騙)。有些便宜的(cheap)東西品質很差，讓你感覺被欺騙(cheat)了。' },
+            { en: 'shelter', zh: '庇護所 (ㄅㄧˋ ㄏㄨˋ ㄙㄨㄛˇ)', mnemonic: '拆成 she + later。她(she)稍後(later)會去庇護所(shelter)。' },
+            { en: 'chief', zh: '首領 (ㄕㄡˇ ㄌㄧㄥˇ)', mnemonic: '首領(chief)是團體中最主要(chief)的人物。' },
+            { en: 'chance', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)', mnemonic: '如果你有機會(chance)，你會想學跳舞(dance)嗎？' },
+            { en: 'football', zh: '足球 (ㄗㄨˊ ㄑㄧㄡˊ)', mnemonic: '用腳(foot)踢的球(ball)就是足球(football)。' },
+            { en: 'industry', zh: '工業 (ㄍㄨㄥ ㄧㄝˋ)', mnemonic: '聯想 in-dust-try (在灰塵中嘗試)。在工業(industry)區，工人們常在充滿灰塵(dust)的環境中努力(try)。' },
+            { en: 'information', zh: '資訊 (ㄗ ㄒㄩㄣˋ)', mnemonic: '資訊(information)是為了(for)國家(nation)而形成的(in)。' },
+            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '聯想 Air Force (空軍)。空軍用它的力量(force)來保衛國家。' },
+            { en: 'Good-bye', zh: '再見 (ㄗㄞˋ ㄐㄧㄢˋ)', mnemonic: '說再見(Good-bye)時，我們會祝福對方一切都好(good)。' },
+            { en: 'imagine', zh: '想像 (ㄒㄧㄤˇ ㄒㄧㄤˋ)', mnemonic: '你可以想像(imagine)一張魔法(magic)的圖片(image)。' },
+            { en: 'humble', zh: '謙虛 (ㄑㄧㄢ ㄒㄩ)', mnemonic: 'humble 聽起來像 umbrella (雨傘)。一個謙虛的人就像普通人用的雨傘一樣樸實無華。' },
+            { en: 'sound', zh: '聲音 (ㄕㄥ ㄧㄣ)', mnemonic: '聲音(sound)是從我們四周(around)傳來的。' },
+            { en: 'however', zh: '然而 (ㄖㄢˊ ㄦˊ)', mnemonic: 'how + ever (無論如何)。無論如何(however)，我們還是要繼續。' },
+            { en: 'Kaohsiung', zh: '高雄 (ㄍㄠ ㄒㄩㄥˊ)', mnemonic: '這是一個專有名詞，直接記憶即可。' },
+            { en: 'government', zh: '政府 (ㄓㄥˋ ㄈㄨˇ)', mnemonic: '政府(government)負責治理(govern)人民。' },
+            { en: 'experiment', zh: '實驗 (ㄕˊ ㄧㄢˋ)', mnemonic: '專家(expert)會做很多實驗(experiment)。' },
+            { en: 'still', zh: '仍然 (ㄖㄥˊ ㄖㄢˊ)', mnemonic: 's + till (直到)。s代表複數，直到(till)現在，事情仍然(still)是這樣。' },
+            { en: 'rotate', zh: '旋轉 (ㄒㄩㄢˊ ㄓㄨㄢˇ)', mnemonic: '地球繞著太陽旋轉(rotate)的速率(rate)是固定的。' },
+            { en: 'move along', zh: '前進 (ㄑㄧㄢˊ ㄐㄧㄣˋ)', mnemonic: '警察會說「向前走(move along)」，意思是不要停在這裡。' },
+            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '富人(rich)可以輕易到達(reach)任何地方。' },
+            { en: 'rise', zh: '上升 (ㄕㄤˋ ㄕㄥ)', mnemonic: '太陽從東方升起(rise)，給我們光線(rays)。' },
+            { en: 'fetch', zh: '拿來 (ㄋㄚˊ ㄌㄞˊ)', mnemonic: '拆成 f(or) + e(very) + t(hing), ch(oose)。為了所有事情去選擇，然後拿來(fetch)。' },
+            { en: 'wren', zh: '鷦鷯 (ㄐㄧㄠ ㄌㄧㄠˊ)', mnemonic: 'wren 和 when (何時) 只差一個字母。你何時(when)才要去看那隻鳥(wren)？' },
+            { en: 'sketch', zh: '素描 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '用你的技巧(skill)來畫一張草圖/素描(sketch)。' },
+            { en: 'design', zh: '設計 (ㄕㄜˋ ㄐㄧˋ)', mnemonic: '一個好的設計(design)是成功的標誌(sign)。' },
+            { en: 'wreck', zh: '殘骸 (ㄘㄢˊ ㄏㄞˊ)', mnemonic: 'Wreck 聽起來像 break (打破)。當你打破某樣東西後，剩下的就是殘骸 (wreck)。' },
+            { en: 'comb', zh: '梳子 (ㄕㄨ ㄗ˙)', mnemonic: '把頭髮梳(comb)理好，再去轟炸(bomb)敵人。' },
+            { en: 'twitch', zh: '抽搐 (ㄔㄡ ㄔㄨˋ)', mnemonic: '女巫(witch)施了魔法，讓他的臉開始抽搐(twitch)。' },
+            { en: 'wrinkle', zh: '皺紋 (ㄓㄡˋ ㄨㄣˊ)', mnemonic: 'w + RINKLE (聽起來像 tinkle, 閃爍)。當年老的叔叔(uncle)眼睛閃爍(tinkle)時，你可以看到他的皺紋(wrinkle)。' },
+            { en: 'ditch', zh: '溝渠 (ㄍㄡ ㄑㄩˊ)', mnemonic: 'ditch 聽起來像 dig (挖掘)。挖掘(dig)出來的就是溝渠(ditch)。' },
+            { en: 'patch', zh: '補丁 (ㄅㄨˇ ㄉㄧㄥ)', mnemonic: 'patch 和 match (相配) 押韻。找一個能相配(match)的補丁(patch)來補衣服。' },
+            { en: 'limb', zh: '四肢 (ㄙˋ ㄓ)', mnemonic: 'limb 和 climb (攀爬) 押韻。我們用四肢(limb)來攀爬(climb)。' },
+            { en: 'align', zh: '對齊 (ㄉㄨㄟˋ ㄑㄧˊ)', mnemonic: 'a + line (一條線)。讓所有東西排成一條線(line)，就是對齊(align)。' },
+            { en: 'wrench', zh: '扳手 (ㄅㄢˇ ㄕㄡˇ)', mnemonic: 'Wrench 聽起來像 wring (擰)。用扳手(wrench)來擰緊螺絲。' },
+            { en: 'clutch', zh: '緊握 (ㄐㄧㄣˇ ㄨㄛˋ)', mnemonic: '當你開手排車時，你需要緊握(clutch)方向盤並踩離合器(clutch)。' },
+            { en: 'snatch', zh: '搶奪 (ㄑㄧㄤˇ ㄉㄨㄛˊ)', mnemonic: 'snatch 和 match (比賽) 押韻。在比賽(match)中，你要試圖搶奪(snatch)球。' },
+            { en: 'life', zh: '生活 (ㄕㄥ ㄏㄨㄛˊ)', mnemonic: '生活(life)就像一把刀(knife)，有時很鋒利。' },
+            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '用任何(any)方式(way)都可以，無論如何(anyway)都要完成。' },
+            { en: 'break', zh: '打破 (ㄉㄚˇ ㄆㄛˋ)', mnemonic: '踩剎車(brake)是為了避免發生車禍而撞破(break)東西。' },
+            { en: 'desert', zh: '沙漠 (ㄕㄚ ㄇㄛˋ)', mnemonic: '在沙漠(desert)裡，你會非常渴望甜點(dessert)。' },
+            { en: 'cereal', zh: '麥片 (ㄇㄞˋ ㄆㄧㄢˋ)', mnemonic: 'cereal 聽起來像 serial (連續的)。我每天早上都吃同樣的麥片(cereal)，像在看連續劇(serial)。' },
+            { en: 'brave', zh: '勇敢的 (ㄩㄥˇ ㄍㄢˇ ㄉㄜ˙)', mnemonic: '一個勇敢的(brave)人會拯救(save)他人。' },
+            { en: 'anywhere', zh: '任何地方 (ㄖㄣˋ ㄏㄜˊ ㄉㄧˋ ㄈㄤ)', mnemonic: '你可以穿(wear)這件衣服去任何地方(anywhere)。' },
+            { en: 'loaf', zh: '一條 (ㄧ ㄊㄧㄠˊ)', mnemonic: 'loaf 和 leaf (葉子) 相似。想像用一片大葉子(leaf)包著一條(loaf)麵包。' },
+            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '在春天(spring)，萬物像彈簧(spring)一樣向上跳躍生長。' },
+            { en: 'summer', zh: '夏天 (ㄒㄧㄚˋ ㄊㄧㄢ)', mnemonic: '夏天(summer)的總結(summary)就是熱。' },
+            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '冬天(winter)時，風(wind)會變得更冷。' },
+            { en: 'fall', zh: '秋天 (ㄑㄧㄡ ㄊㄧㄢ)', mnemonic: '秋天(fall)時，葉子會落下(fall)。' },
+            { en: 'autumn', zh: '秋天 (ㄑㄧㄡ ㄊㄧㄢ)', mnemonic: '秋天(autumn)時，汽車(auto)的引擎聲聽起來都變得不一樣了。' },
+            { en: 'exciting', zh: '令人興奮的 (ㄌㄧㄥˋ ㄖㄣˊ ㄒㄧㄥ ㄈㄣˋ ㄉㄜ˙)', mnemonic: '一場令人興奮的(exciting)電影會讓你從座位上跳起來。' },
+            { en: 'horse', zh: '馬 (ㄇㄚˇ)', mnemonic: '當然(of course)，那是一匹馬(horse)。' },
+            { en: 'hotel', zh: '旅館 (ㄌㄩˇ ㄍㄨㄢˇ)', mnemonic: '旅館(hotel)通常都很熱(hot)。' },
+            { en: 'exercise', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)', mnemonic: '運動(exercise)是控制你體型(size)的最佳方式。' },
+            { en: 'follow', zh: '跟隨 (ㄍㄣ ㄙㄨㄟˊ)', mnemonic: '當你跟隨(follow)別人時，你的腳步會變得很低(low)。' },
+            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: 'in + dictate (口述)。在口述(dictate)中指出(indicate)重點。' },
+            { en: 'grandson', zh: '孫子 (ㄙㄨㄣ ㄗ˙)', mnemonic: '宏偉的(grand)兒子(son)就是孫子(grandson)。' },
+            { en: 'granddaughter', zh: '孫女 (ㄙㄨㄣ ㄋㄩˇ)', mnemonic: '宏偉的(grand)女兒(daughter)就是孫女(granddaughter)。' },
+            { en: 'inspire', zh: '鼓舞 (ㄍㄨˇ ㄨˇ)', mnemonic: 'in + spire (尖塔)。想登上人生的尖塔(spire)，就要不斷鼓舞(inspire)自己。' },
+            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '花(flower)在水中流動(flow)。' }
         ];
 
         let currentQuestion = 0;
@@ -158,7 +217,6 @@
                 endGame();
                 return;
             }
-            // 清空並隱藏記憶提示區塊
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
             mnemonicEl.style.display = 'none';
@@ -197,9 +255,8 @@
                 document.getElementById('result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 顯示記憶提示
                 const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.textContent = `💡 記憶提示：${q.mnemonic}`;
+                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
                 mnemonicEl.style.display = 'block';
                 
                 document.getElementById('submit').textContent = '繼續';
@@ -214,7 +271,6 @@
         }
 
         function endGame() {
-            // 結束時也隱藏記憶提示區
             document.getElementById('mnemonic').style.display = 'none';
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('answer').style.display = 'none';
