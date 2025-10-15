@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文文法測驗：形容詞比較級與最高級</title>
+    <title>英文文法測驗：過去簡單式與過去進行式</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -222,7 +222,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
         <div id="game-status" style="display: none;">🎯</div>
-        <h1>文法測驗：形容詞比較級與最高級</h1>
+        <h1>文法測驗：過去簡單式與過去進行式</h1>
         <p>請根據句子情境，選擇最適合的答案。</p>
         
         <div id="quiz-area">
@@ -244,52 +244,29 @@
     </div>
 
     <script>
-        // 存放所有題目的題庫
-        // --- 原有的形容詞題目 ---
-        const originalAdjectiveQuestions = [
-            { question: "My brother is much _______ than I am.", options: ["tall", "taller", "the tallest", "more tall"], answer: 1, explanation: "比較兩個人時，單音節形容詞 tall 的比較級是 taller。" },
-            { question: "This is _______ movie I have ever seen. It was terrible!", options: ["bad", "worse", "the worst", "the baddest"], answer: 2, explanation: "在「所有看過的電影」中比較，要用最高級。bad 的最高級是不規則變化 the worst。" },
-            { question: "Your new car is _______ than your old one.", options: ["good", "gooder", "the best", "better"], answer: 3, explanation: "比較兩樣東西時，要用比較級。good 的比較級是不規則變化 better。" },
-            { question: "This book is _______ than the movie.", options: ["interesting", "more interesting", "the most interesting", "interestinger"], answer: 1, explanation: "interesting 是長音節單字，比較級要在前面加 more。" },
-            { question: "Of the three sisters, she is _______.", options: ["the oldest", "older", "old", "more old"], answer: 0, explanation: "比較三個人時，要用最高級 the oldest。" },
-            { question: "A bicycle is _______ than a car.", options: ["less expensive", "the least expensive", "not expensive", "expensiver"], answer: 0, explanation: "表示「比較不昂貴」，應使用 less expensive than 的句型。" },
-            { question: "Today is _______ than yesterday. I need to turn on the AC.", options: ["hoter", "the hottest", "hotter", "more hot"], answer: 2, explanation: "hot 是「子音-母音-子音」結尾，比較級要重複字尾 t 再加 er。" },
-            { question: "My suitcase is _______ than yours. Mine is 20kg, and yours is 15kg.", options: ["heavy", "the heaviest", "heavier", "more heavy"], answer: 2, explanation: "heavy 字尾是 y，比較級要去 y 再加 ier。" },
-            { question: "Tom is as _______ as his brother. They are both 170cm.", options: ["tall", "taller", "the tallest", "so tall"], answer: 0, explanation: "表示「兩者程度相同」的 as...as 句型中，要使用形容詞的原級。" },
-            { question: "She is _______ girl in our school. Everyone likes her.", options: ["popular", "more popular", "the most popular", "popularest"], answer: 2, explanation: "在「全校」範圍比較，要用最高級。popular 是長音節單字，最高級是 the most popular。" },
-            { question: "The library is _______ from my house than the park is.", options: ["farther", "farrer", "the farthest", "further"], answer: 0, explanation: "比較兩地「實際距離」的遠近，要用 far 的比較級 farther。" },
-            { question: "Of all the fruits, the lemon is _______.", options: ["sour", "sourer", "the sourest", "more sour"], answer: 2, explanation: "在「所有水果」中比較，要用最高級 the sourest。" },
-            { question: "My phone is not as _______ as the new model.", options: ["powerful", "more powerful", "so powerful", "the most powerful"], answer: 0, explanation: "在 not as...as 的句型中，要使用形容詞的原級。" },
-            { question: "I have _______ time than you, so I must hurry.", options: ["little", "less", "the least", "littler"], answer: 1, explanation: "Time 是不可數名詞，比較「更少」的時間要用 little 的比較級 less。" },
-            { question: "Of all my classes, English is _______.", options: ["easy", "the easiest", "easier", "the most easy"], answer: 1, explanation: "在「所有課程」中比較，要用最高級。easy 的最高級是 the easiest。" }
+        // --- 新的過去式題庫 (共20題) ---
+        const allQuestions = [
+            { question: "While I ___ my homework, the phone ___.", options: ["was doing / rang", "did / was ringing", "was doing / was ringing", "did / rang"], answer: 0, explanation: "一個持續的動作（做功課）被一個短暫的動作（電話響）打斷。長動作用過去進行式，短動作用過去簡單式。" },
+            { question: "What ___ you ___ at 8 p.m. last night?", options: ["did ... do", "were ... doing", "was ... doing", "do ... do"], answer: 1, explanation: "詢問在過去某個特定時間點「正在」做什麼，要用過去進行式 (were doing)。" },
+            { question: "He fell and hurt himself when he ___ down the stairs.", options: ["ran", "was running", "runs", "is running"], answer: 1, explanation: "「跑下樓」是背景中持續的動作，在這個動作期間發生了「跌倒」這件事。背景動作用過去進行式。" },
+            { question: "I ___ to the cinema yesterday.", options: ["went", "was going", "go", "gone"], answer: 0, explanation: "時間副詞 'yesterday' 指過去一個已完成的動作，要用過去簡單式。go 的過去式是 went。" }, // <-- 這一題已修正！
+            { question: "She ___ like the movie, so she left early.", options: ["wasn't", "not", "didn't", "don't"], answer: 2, explanation: "過去簡單式的否定句要用助動詞 didn't + 原形動詞。" },
+            { question: "They ___ paying attention when the teacher explained the rule.", options: ["weren't", "didn't", "wasn't", "not"], answer: 0, explanation: "過去進行式的否定句是在 was/were 後面加 not。" },
+            { question: "___ you ___ the party last weekend?", options: ["Were ... enjoying", "Did ... enjoy", "Was ... enjoy", "Do ... enjoy"], answer: 1, explanation: "過去簡單式的問句要用助動詞 Did + 主詞 + 原形動詞。" },
+            { question: "My family ___ to Japan for vacation last year.", options: ["go", "went", "was going", "gone"], answer: 1, explanation: "時間副詞 'last year' 指過去一個已完成的動作，要用過去簡單式。go 的過去式是 went。" },
+            { question: "When the lights ___ out, I ___ a book.", options: ["went / was reading", "were going / read", "went / read", "was going / was reading"], answer: 0, explanation: "短動作「熄燈」(went out) 打斷了長動作「讀書」(was reading)。" },
+            { question: "At this time yesterday, we ___ on the beach.", options: ["sat", "were sitting", "sit", "sits"], answer: 1, explanation: "指明過去的特定時間點 'at this time yesterday' 正在進行的動作，用過去進行式。" },
+            { question: "The postman arrived while I ___ breakfast.", options: ["had", "have", "was having", "am having"], answer: 2, explanation: "「吃早餐」(was having) 是背景中持續的動作，郵差在這期間抵達。" },
+            { question: "The Titanic ___ in 1912.", options: ["sank", "was sinking", "sink", "sinks"], answer: 0, explanation: "描述一個在過去特定時間點發生並完成的歷史事件，用過去簡單式。" },
+            { question: "The sun ___ and the birds ___ when I woke up.", options: ["shone / sang", "was shining / were singing", "shone / were singing", "was shining / sang"], answer: 1, explanation: "當我醒來時，太陽「正照耀著」、鳥兒「正歌唱著」。這些是描述背景情況的持續動作，用過去進行式。" },
+            { question: "Where ___ you buy that beautiful dress?", options: ["did", "were", "was", "do"], answer: 0, explanation: "過去簡單式的 Wh- 問句結構是 Wh- + did + 主詞 + 原形動詞。" },
+            { question: "I ___ the window and saw that it ___.", options: ["opened / was raining", "was opening / rained", "opened / rained", "was opening / was raining"], answer: 0, explanation: "我做了一個短動作「打開窗戶」(opened)，然後看到一個正在持續的狀況「正在下雨」(was raining)。" },
+            { question: "He ___ for the bus when I saw him; he was walking home.", options: ["wasn't waiting", "didn't wait", "not waited", "weren't waiting"], answer: 0, explanation: "描述我看到他時，他「沒有正在」等的狀況。用過去進行式的否定。" },
+            { question: "They ___ here three years ago.", options: ["moved", "were moving", "move", "moves"], answer: 0, explanation: "時間副詞 '... ago' 是過去簡單式的典型標誌，表示很久以前完成的動作。" },
+            { question: "As she ___ the street, a car suddenly ___.", options: ["was crossing / appeared", "crossed / was appearing", "was crossing / was appearing", "crossed / appeared"], answer: 0, explanation: "當她「正過馬路時」(was crossing)，一輛車「突然出現」(appeared)。長動作被短動作打斷。" },
+            { question: "Sorry, I ___ what you said. Could you repeat it?", options: ["wasn't hearing", "didn't hear", "not heard", "don't hear"], answer: 1, explanation: "Hear (聽到) 通常是瞬間動作，在此表示「我剛沒聽到」，用過去簡單式的否定。" },
+            { question: "___ they ___ tennis when it started to rain?", options: ["Did ... play", "Do ... play", "Were ... playing", "Was ... playing"], answer: 2, explanation: "詢問下雨這個動作發生時，他們是否「正在」打網球。用過去進行式的問句。" }
         ];
-
-        // --- 新增的副詞題目 (共20題) ---
-        const newAdverbQuestions = [
-            { question: "He is a good singer. He sings very ______.", options: ["good", "goodly", "well", "better"], answer: 2, explanation: "修飾動詞 sings 要用副詞。good 的副詞是不規則的 well。" },
-            { question: "To win the championship, Daniel practises very ______.", options: ["hard", "hardly", "harder", "more hard"], answer: 0, explanation: "修飾動詞 practises 要用副詞 hard (努力地)。hardly 的意思是「幾乎不」。" },
-            { question: "Antonio is running ______ so he's going to win the race.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "修飾動詞 running 要用副詞 fast。fastly 是錯誤的用法。" },
-            { question: "He has a problem with his leg and can't run ______ as Philip.", options: ["good", "well", "better", "best"], answer: 1, explanation: "在 as...as 的句型中，要用副詞的原級來修飾動詞 run，所以是 well。" },
-            { question: "The people are cheering ______ for the skaters.", options: ["loud", "loudly", "louder", "loudest"], answer: 1, explanation: "修飾動詞 cheering 要用副詞 loudly (大聲地)。" },
-            { question: "Which sentence has the correct adverb order?", options: ["She danced last night beautifully at the party.", "She danced beautifully last night at the party.", "She danced at the party beautifully last night.", "She danced beautifully at the party last night."], answer: 3, explanation: "副詞的黃金順序是：情態 (beautifully) → 地方 (at the party) → 時間 (last night)。" },
-            { question: "I haven't seen you ______. How have you been?", options: ["late", "lately", "later", "latest"], answer: 1, explanation: "lately 的意思是「最近」，符合句意。late 的意思是「遲到」。" },
-            { question: "He ______ eats breakfast; he always says he's not hungry.", options: ["hard", "hardly", "often", "neverly"], answer: 1, explanation: "hardly 的意思是「幾乎不」，符合句意。hard 是「努力地」。" },
-            { question: "A car goes quickly, but a plane flies ______.", options: ["quick", "more quickly", "quicker", "the most quickly"], answer: 1, explanation: "quickly 是長音節副詞，比較級要用 more quickly。" },
-            { question: "Anne drives badly, Paul drives worse, but Denise drives ______ of all.", options: ["bad", "the baddest", "worst", "the worst"], answer: 3, explanation: "比較三個人，要用最高級。badly 的最高級是不規則變化 the worst。" },
-            { question: "My father always works ______ in his office.", options: ["hard", "hardly", "late", "lately"], answer: 0, explanation: "修飾動詞 works 要用副詞 hard (努力地)。" },
-            { question: "Which word is an adjective, NOT an adverb?", options: ["slowly", "friendly", "quickly", "early"], answer: 1, explanation: "friendly (友善的) 是形容詞。副詞用法是 in a friendly way。" },
-            { question: "He arrived ______ for the meeting.", options: ["earlily", "earlier", "early", "more early"], answer: 2, explanation: "修飾動詞 arrived 要用副詞 early。early 的副詞與形容詞同形。" },
-            { question: "She speaks English more ______ than I do.", options: ["fluent", "fluently", "fluentlier", "most fluently"], answer: 1, explanation: "修飾動詞 speaks，且是比較級，要用 more + 副詞 (fluently)。" },
-            { question: "Of all the students, Jenny works ______.", options: ["the hardest", "harder", "the most hard", "the most hardly"], answer: 0, explanation: "在「所有學生」中比較，要用最高級 the hardest。" },
-            { question: "Please drive ______! The road is icy.", options: ["careful", "more careful", "carefully", "caredully"], answer: 2, explanation: "修飾動詞 drive 要用副詞 carefully。" },
-            { question: "I ______ go to the cinema, maybe once or twice a year.", options: ["usually", "always", "never", "rarely"], answer: 3, explanation: "rarely (很少) 最符合「一年一兩次」的頻率。" },
-            { question: "He does not swim as ______ as his brother.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "在 as...as 的句型中，要使用副詞的原級 fast。" },
-            { question: "Kathy did well on the test, but Betty did ______.", options: ["best", "better", "good", "weller"], answer: 1, explanation: "比較 Kathy 和 Betty 兩人，要用 well 的比較級 better。" },
-            { question: "The children played ______ in the garden yesterday.", options: ["happy", "happily", "happier", "happiest"], answer: 1, explanation: "修飾動詞 played 要用副詞 happily。" }
-        ];
-
-        // --- 將新舊題庫合併 ---
-        const allQuestions = [...originalAdjectiveQuestions, ...newAdverbQuestions];
 
         // 宣告遊戲會用到的變數
         let currentQuestionIndex = 0;
@@ -329,7 +306,7 @@
             wrongQuestions = [];
             
             // 更新標題
-            titleEl.textContent = '文法測驗：形容詞與副詞';
+            titleEl.textContent = '文法測驗：過去簡單式與過去進行式';
             
             quizArea.style.display = 'block';
             endScreen.style.display = 'none';
@@ -436,7 +413,7 @@
                 gameImage.classList.add('all-correct');
                 gameStatus.textContent = '🏆';
                 gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握形容詞與副詞的用法！ 🎊';
+                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握過去簡單式與進行式的用法！ 🎊';
                 wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
                 wrongQuestionsEl.style.background = '#d4edda';
                 wrongQuestionsEl.style.color = '#155724';
