@@ -10,8 +10,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            margin: 20px 0;
             background-color: #f0f0f0;
         }
         .container {
@@ -20,21 +20,24 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 400px;
+            width: 90%;
+            max-width: 500px;
         }
         h1 {
             color: #333;
             margin-top: 10px;
         }
         #game-image {
-            width: 300px;
-            height: 200px;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
             object-fit: contain;
             margin-bottom: 10px;
         }
         #question {
             font-size: 24px;
             margin: 20px 0;
+            line-height: 1.4;
         }
         input {
             padding: 10px;
@@ -59,6 +62,17 @@
             font-size: 20px;
             margin-top: 20px;
         }
+        #mnemonic {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #3d5afe;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            background-color: #f3f4ff;
+            line-height: 1.5;
+        }
         #score {
             font-size: 18px;
             margin-top: 10px;
@@ -67,7 +81,7 @@
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
-            white-space: pre-wrap; /* 讓換行符號生效 */
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -75,11 +89,12 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共31題，順序隨機，結束後顯示錯誤的單字。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共11題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
         <div id="result"></div>
+        <div id="mnemonic" style="display: none;"></div>
         <div id="score">分數: 0 / 0</div>
         <div id="wrong-words"></div>
         <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
@@ -88,37 +103,17 @@
 
     <script>
         const words = [
-            { en: 'fluff', zh: '絨毛 (ㄖㄨㄥˊ ㄇㄠˊ)' },
-            { en: 'lawn', zh: '草坪 (ㄘㄠˇ ㄆㄧㄥˊ)' },
-            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)' },
-            { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)' },
-            { en: 'disappear', zh: '消失 (ㄒㄧㄠ ㄕ)' },
-            { en: 'bunch', zh: '一束 (ㄧ ㄕㄨˋ)' },
-            { en: 'cheese', zh: '起司 (ㄑㄧˇ ㄙ)' },
-            { en: 'hunch', zh: '直覺 (ㄓˊ ㄐㄩㄝˊ)' },
-            { en: 'shift', zh: '移動 (ㄧˊ ㄉㄨㄥˋ)' },
-            { en: 'charge', zh: '充電 (ㄔㄨㄥ ㄉㄧㄢˋ)' },
-            { en: 'perch', zh: '棲息 (ㄑㄧ ㄒㄧ)' },
-            { en: 'ranch', zh: '牧場 (ㄇㄨˋ ㄔㄤˇ)' },
-            { en: 'pinch', zh: '捏 (ㄋㄧㄝ)' },
-            { en: 'cherry', zh: '櫻桃 (ㄧㄥ ㄊㄠˊ)' },
-            { en: 'sheep', zh: '羊 (ㄧㄤˊ)' },
-            { en: 'punch', zh: '一拳 (ㄧˋ ㄑㄩㄢˊ)' },
-            { en: 'cheap', zh: '便宜 (ㄆㄧㄢˊ ㄧˊ)' },
-            { en: 'shelter', zh: '庇護所 (ㄅㄧˋ ㄏㄨˋ ㄙㄨㄛˇ)' },
-            { en: 'chief', zh: '首領 (ㄕㄡˇ ㄌㄧㄥˇ)' },
-            { en: 'chance', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)' },
-            { en: 'football', zh: '足球 (ㄗㄨˊ ㄑㄧㄡˊ)' },
-            { en: 'industry', zh: '產業 (ㄔㄢˇ ㄧㄝˋ)' },
-            { en: 'information', zh: '資訊 (ㄗ ㄒㄩㄣˋ)' },
-            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)' },
-            { en: 'Good-bye', zh: '再見 (ㄗㄞˋ ㄐㄧㄢˋ)' },
-            { en: 'imagine', zh: '想像 (ㄒㄧㄤˇ ㄒㄧㄤˋ)' },
-            { en: 'humble', zh: '謙虛 (ㄑㄧㄢ ㄒㄩ)' },
-            { en: 'sound', zh: '聲音 (ㄕㄥ ㄧㄣ)' },
-            { en: 'however', zh: '然而 (ㄖㄢˊ ㄦˊ)' },
-            { en: 'Kaohsiung', zh: '高雄 (ㄍㄠ ㄒㄩㄥˊ)' },
-            { en: 'government', zh: '政府 (ㄓㄥˋ ㄈㄨˇ)' }
+            { en: 'block', zh: '阻擋 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (BLOCK)，它會阻擋 (BLOCK) 交通。' },
+            { en: 'tourist', zh: '遊客 (ㄧㄡˊ ㄎㄜˋ)', mnemonic: '去旅行 (TOUR) 的人就是遊客 (TOURIST)。' },
+            { en: 'alike', zh: '相似的 (ㄒㄧㄤ ㄙˋ ㄉㄜ˙)', mnemonic: '拆解成 `a` + `like` (像)。 `a-like` 就是指彼此相像 (look like each other)。' },
+            { en: 'steam', zh: '蒸氣 (ㄓㄥ ㄑㄧˋ)', mnemonic: '拆解成 `s` + `team` (團隊)。當一個團隊 (team) 非常努力工作時，他們身上會冒出蒸氣 (steam)。' },
+            { en: 'sweet', zh: '甜的 (ㄊㄧㄢˊ ㄉㄜ˙)', mnemonic: '聯想 `sweat` (流汗)。流了很多汗 (sweat) 之後，你需要來點甜的 (sweet) 東西補充能量。' },
+            { en: 'honey', zh: '蜂蜜 (ㄈㄥ ㄇㄧˋ)', mnemonic: '`honey` (蜂蜜) 聽起來像 `money` (金錢)。蜂蜜和金錢對某些人來說都是甜美 (sweet) 的。' },
+            { en: 'shield', zh: '盾牌 (ㄉㄨㄣˋ ㄆㄞˊ)', mnemonic: '`shield` 的 `hield` 聽起來像 `held` (握住)。盾牌 (shield) 就是被握 (held) 在手上用來保護的東西。' },
+            { en: 'treat', zh: '請客 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`treat` (請客) 聽起來像 `eat` (吃)。我請客 (treat) ... 所以我們去吃 (eat) 吧！' },
+            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭)。`screech` 就是指像哭喊一樣的尖叫聲。' },
+            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` (最少的) 聽起來像 `leave` (留下) + `st`。把最不重要 (least important) 的東西留下 (leave)。' },
+            { en: 'beetle', zh: '甲蟲 (ㄐㄧㄚˇ ㄔㄨㄥˊ)', mnemonic: '`beetle` (甲蟲) 聽起來像 `beat all` (打敗所有)。一隻甲蟲 (beetle) 可以在力量上打敗所有 (beat all) 其他昆蟲。' }
         ];
 
         let currentQuestion = 0;
@@ -158,6 +153,9 @@
                 endGame();
                 return;
             }
+            const mnemonicEl = document.getElementById('mnemonic');
+            mnemonicEl.textContent = '';
+            mnemonicEl.style.display = 'none';
 
             isWaitingToContinue = false;
             document.getElementById('submit').textContent = '提交';
@@ -184,7 +182,6 @@
                 document.getElementById('result').textContent = '正確！';
                 document.getElementById('result').style.color = 'green';
                 document.getElementById('game-image').src = 'correct.png';
-                // 答對後自動進入下一題
                 setTimeout(() => {
                     currentQuestion++;
                     nextQuestion();
@@ -193,22 +190,24 @@
                 document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
+                
+                const mnemonicEl = document.getElementById('mnemonic');
+                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
+                mnemonicEl.style.display = 'block';
+                
                 document.getElementById('submit').textContent = '繼續';
-                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
                 isWaitingToContinue = true;
             }
-
             updateScore();
         }
 
         function updateScore() {
-            // 在答題過程中，顯示當前進度
             document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
         }
 
-
-
         function endGame() {
+            document.getElementById('mnemonic').style.display = 'none';
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('answer').style.display = 'none';
             document.getElementById('submit').style.display = 'none';
@@ -236,8 +235,7 @@
         document.getElementById('restart').addEventListener('click', () => startGame(words));
         document.getElementById('retest-wrong').addEventListener('click', () => {
             if (wrongWords.length > 0) {
-                // 將錯題轉換回遊戲需要的格式
-                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh }));
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
                 startGame(retestWords);
             }
         });
