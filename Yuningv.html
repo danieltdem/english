@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共11題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共10題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,17 +103,16 @@
 
     <script>
         const words = [
-            { en: 'block', zh: '阻擋 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (BLOCK)，它會阻擋 (BLOCK) 交通。' },
-            { en: 'tourist', zh: '遊客 (ㄧㄡˊ ㄎㄜˋ)', mnemonic: '去旅行 (TOUR) 的人就是遊客 (TOURIST)。' },
-            { en: 'alike', zh: '相似的 (ㄒㄧㄤ ㄙˋ ㄉㄜ˙)', mnemonic: '拆解成 `a` + `like` (像)。 `a-like` 就是指彼此相像 (look like each other)。' },
-            { en: 'steam', zh: '蒸氣 (ㄓㄥ ㄑㄧˋ)', mnemonic: '拆解成 `s` + `team` (團隊)。當一個團隊 (team) 非常努力工作時，他們身上會冒出蒸氣 (steam)。' },
-            { en: 'sweet', zh: '甜的 (ㄊㄧㄢˊ ㄉㄜ˙)', mnemonic: '聯想 `sweat` (流汗)。流了很多汗 (sweat) 之後，你需要來點甜的 (sweet) 東西補充能量。' },
-            { en: 'honey', zh: '蜂蜜 (ㄈㄥ ㄇㄧˋ)', mnemonic: '`honey` (蜂蜜) 聽起來像 `money` (金錢)。蜂蜜和金錢對某些人來說都是甜美 (sweet) 的。' },
-            { en: 'shield', zh: '盾牌 (ㄉㄨㄣˋ ㄆㄞˊ)', mnemonic: '`shield` 的 `hield` 聽起來像 `held` (握住)。盾牌 (shield) 就是被握 (held) 在手上用來保護的東西。' },
-            { en: 'treat', zh: '請客 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`treat` (請客) 聽起來像 `eat` (吃)。我請客 (treat) ... 所以我們去吃 (eat) 吧！' },
-            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭)。`screech` 就是指像哭喊一樣的尖叫聲。' },
-            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` (最少的) 聽起來像 `leave` (留下) + `st`。把最不重要 (least important) 的東西留下 (leave)。' },
-            { en: 'beetle', zh: '甲蟲 (ㄐㄧㄚˇ ㄔㄨㄥˊ)', mnemonic: '`beetle` (甲蟲) 聽起來像 `beat all` (打敗所有)。一隻甲蟲 (beetle) 可以在力量上打敗所有 (beat all) 其他昆蟲。' }
+            { en: 'reason', zh: '理由 (ㄌㄧˇ ㄧㄡˊ)', mnemonic: '拆解成 `rea` (real, 真的) + `son` (兒子)。一個「真正的兒子」(real son) 是他父親快樂的理由 (reason)。' },
+            { en: 'breathe', zh: '呼吸 (ㄏㄨ ㄒㄧ)', mnemonic: '拆解成 `b` + `rest` (休息) + `he` (他)。當他 (he) 休息 (rest) 時，他會順暢地呼吸 (breathe)。' },
+            { en: 'field', zh: '田野 (ㄊㄧㄢˊ ㄧㄝˇ)', mnemonic: '`field` (田野) 聽起來像 `filled` (充滿)。田野 (field) 裡充滿 (filled) 了草。' },
+            { en: 'beast', zh: '野獸 (ㄧㄝˇ ㄕㄡˋ)', mnemonic: '`beast` (野獸) 和 `least` (最少) 押韻。一隻野獸 (beast) 至少 (at least) 比人類強壯十倍。' },
+            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)', mnemonic: '`valley` (山谷) 聽起來像 `wall-ey` (牆壁)。山谷 (valley) 就像是兩面高牆 (wall) 之間的通道。' },
+            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '聯想到 `special` (特別的)。每一個物種 (species) 都是獨一無二且特別的 (special)。' },
+            { en: 'monkey', zh: '猴子 (ㄏㄡˊ ㄗ˙)', mnemonic: '`monkey` (猴子) 和 `donkey` (驢子) 押韻。想像一隻猴子 (monkey) 騎在驢子 (donkey) 身上。' },
+            { en: 'desk', zh: '書桌 (ㄕㄨ ㄓㄨㄛ)', mnemonic: '`desk` (書桌) 聽起來像 `discuss` (討論) 的開頭。書桌 (desk) 是我們用來討論 (discuss) 工作的地方。' },
+            { en: 'growth', zh: '成長 (ㄔㄥˊ ㄓㄤˇ)', mnemonic: '`growth` (成長) 來自於 `grow` (生長)。`growth` = `grow` + `th` (think, 思考)。要成長 (growth)，你必須思考 (think)。' },
+            { en: 'guide', zh: '嚮導 (ㄒㄧㄤˋ ㄉㄠˇ)', mnemonic: '`guide` (嚮導/指南) 會保護 (guard) 你，並提供協助 (aid)。' }
         ];
 
         let currentQuestion = 0;
