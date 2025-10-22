@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共30題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,36 @@
 
     <script>
         const words = [
-            { en: 'special', zh: '特別的 (ㄊㄜˋ ㄅㄧㄝˊ ㄉㄜ˙)', mnemonic: '`special` 裡有 `cia`。`CIA` 探員執行的都是特別 (special) 任務。' },
-            { en: 'parents', zh: '父母 (ㄈㄨˋ ㄇㄨˇ)', mnemonic: '`parents` = `p` + `rents` (租金)。你的父母 (parents) 辛苦工作來付房租 (rents)。' },
-            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)', mnemonic: '`to` + `get` + `her`。為了追到 (get) 她 (her)，你必須和她待在一起 (together)。' },
-            { en: 'fun', zh: '有趣的 (ㄧㄡˇ ㄑㄩˋ ㄉㄜ˙)', mnemonic: '`fun` (有趣) 和 `run` (跑) 押韻。跑步 (run) 也可以是很有趣的 (fun)。' },
-            { en: 'extended', zh: '延伸的 (ㄧㄢˊ ㄕㄣ ㄉㄜ˙)', mnemonic: '`extend` (延伸) + `ed`。`ex` (向外) + `tend` (伸展)。向外伸展就是延伸的 (extended)。' },
-            { en: 'visit', zh: '拜訪 (ㄅㄞˋ ㄈㄤˇ)', mnemonic: '`visit` 聽起來像 `we sit` (我們坐下)。當你拜訪 (visit) 朋友時，你們會坐下 (we sit) 聊天。' },
-            { en: 'tree', zh: '樹 (ㄕㄨˋ)', mnemonic: '`tree` (樹) 和 `three` (三) 很像。想像那裡有三 (three) 棵樹 (tree)。' },
-            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)', mnemonic: '`truck` 聽起來像 `track` (軌道)。卡車 (truck) 在軌道 (track) 般的公路上行駛。' },
-            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)', mnemonic: '`dress` (洋裝) 和 `press` (按壓) 很像。穿洋裝 (dress) 前要先熨燙 (press) 一下。' },
-            { en: 'drum', zh: '鼓 (ㄍㄨˇ)', mnemonic: '`drum` (鼓) 聽起來像 `drug` (藥)。他吃了藥 (drug) 之後開始瘋狂打鼓 (drum)。' },
-            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`island` = `is` + `land`。一個島嶼 (island) 就是一塊「是」(is) 陸地 (land) 但被水包圍的地方。' },
-            { en: 'Japan', zh: '日本 (ㄖˋ ㄅㄣˇ)', mnemonic: '`Japan` = `Ja` + `pan` (平底鍋)。想像日本人 (Japan) 拿著一個平底鍋 (pan)。' },
-            { en: 'cheer', zh: '歡呼 (ㄏㄨㄢ ㄏㄨ)', mnemonic: '`cheer` (歡呼) 聽起來像 `cheese` (起司)。當你吃到美味的起司 (cheese) 時，你會開心歡呼 (cheer)。' },
-            { en: 'clap', zh: '拍手 (ㄆㄞ ㄕㄡˇ)', mnemonic: '`clap` (拍手) 聽起來像 `cap` (帽子)。為那個戴著漂亮帽子 (cap) 的表演者拍手 (clap)。' },
-            { en: 'dig', zh: '挖掘 (ㄨㄚ ㄐㄩㄝˊ)', mnemonic: '`dig` (挖掘) 和 `big` (大的) 押韻。你需要挖掘 (dig) 一個大 (big) 洞。' }
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happen` = `hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 寫下了所有發生的 (happen) 事情。' },
+            { en: 'preview', zh: '預習 (ㄩˋ ㄒㄧˊ)', mnemonic: '`pre` (之前) + `view` (看)。在 (pre) 正式看之前 (view) 先看，就是預習 (preview)。' },
+            { en: 'predict', zh: '預測 (ㄩˋ ㄘㄜˋ)', mnemonic: '`pre` (之前) + `dict` (說)。在事情發生「之前」就「說」出來，就是預測 (predict)。' },
+            { en: 'splash', zh: '濺起 (ㄐㄧㄢˋ ㄑㄧˇ)', mnemonic: '`s` + `pl` (play, 玩) + `ash` (灰燼)。想像在灰燼 (ash) 中玩耍 (play)，會濺起 (splash) 很多灰塵。' },
+            { en: 'puddle', zh: '水坑 (ㄕㄨㄟˇ ㄎㄥ)', mnemonic: '`puddle` (水坑) 聽起來像 `paddle` (划槳)。你不能在一個小水坑 (puddle) 裡划槳 (paddle)。' },
+            { en: 'lift', zh: '舉起 (ㄐㄩˇ ㄑㄧˇ)', mnemonic: '`lift` (舉起) 聽起來像 `gift` (禮物)。當你舉起 (lift) 一個很重的禮物 (gift) 時。' },
+            { en: 'smoke', zh: '煙 (ㄧㄢ)', mnemonic: '`smoke` (煙) 聽起來像 `snake` (蛇)。煙 (smoke) 像蛇 (snake) 一樣蜿蜒上升。' },
+            { en: 'snake', zh: '蛇 (ㄕㄜˊ)', mnemonic: '`snake` (蛇) 聽起來像 `snack` (點心)。小心，那條蛇 (snake) 可能會把你的點心 (snack) 吃掉！' },
+            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個微笑 (smile) 可以傳播好幾英里 (mile) 遠。' },
+            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢)。雪 (snow) 總是慢慢地 (slow) 飄下。' },
+            { en: 'bite', zh: '咬 (ㄧㄠˇ)', mnemonic: '`b` + `ite` (eat的過去式)。b-eat (吃)，就是用牙齒去吃，也就是咬 (bite)。' },
+            { en: 'coke', zh: '可樂 (ㄎㄜˇ ㄌㄜˋ)', mnemonic: '`coke` (可樂) 和 `joke` (玩笑) 押韻。喝可樂 (coke) 時別說笑話 (joke)，不然會噴出來。' },
+            { en: 'fire', zh: '火 (ㄏㄨㄛˇ)', mnemonic: '`fire` (火) 和 `wire` (電線) 押韻。老舊的電線 (wire) 很容易引起火災 (fire)。' },
+            { en: 'fly', zh: '飛 (ㄈㄟ)', mnemonic: '`fly` (飛) 和 `sky` (天空) 押韻。鳥兒在天空 (sky) 中飛 (fly)。' },
+            { en: 'gym', zh: '體育館 (Tǐyùguǎn)', mnemonic: '`gym` (體育館) 和 `swim` (游泳) 押韻。我喜歡去體育館 (gym) 裡的泳池游泳 (swim)。' },
+            { en: 'meet', zh: '遇見 (ㄩˋ ㄐㄧㄢˋ)', mnemonic: '`meet` (遇見) 和 `feet` (腳) 押韻。我們用腳 (feet) 走路去遇見 (meet) 朋友。' },
+            { en: 'grow up', zh: '長大 (ㄓㄤˇ ㄉㄚˋ)', mnemonic: '`grow` (生長) + `up` (向上)。向上生長 (grow up) 就是長大。' },
+            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連尾巴 (tail) 最末端的細節 (detail) 都要注意到。' },
+            { en: 'hug', zh: '擁抱 (ㄩㄥˇ ㄅㄠˋ)', mnemonic: '`hug` (擁抱) 和 `bug` (蟲子) 押韻。給那隻可愛的小蟲子 (bug) 一個擁抱 (hug)。' },
+            { en: 'stop', zh: '停止 (ㄊㄧㄥˊ ㄓˇ)', mnemonic: '`stop` (停止) 裡有 `top` (頂部)。當你爬到頂部 (top) 時，你就必須停止 (stop) 了。' },
+            { en: 'grandparents', zh: '祖父母 (ㄗㄨˇ ㄈㄨˋ ㄇㄨˇ)', mnemonic: '`grand` (偉大的) + `parents` (父母)。父母 (parents) 的父母，就是偉大的 (grand) 祖父母 (grandparents)。' },
+            { en: 'spoon', zh: '湯匙 (ㄊㄤ ㄕˊ)', mnemonic: '`spoon` (湯匙) 和 `moon` (月亮) 押韻。湯匙 (spoon) 的形狀有點像彎彎的月亮 (moon)。' },
+            { en: 'spot', zh: '斑點 (ㄅㄢ ㄉㄧㄢˇ)', mnemonic: '`spot` (斑點) 裡有 `pot` (鍋子)。那個鍋子 (pot) 上有一個斑點 (spot)。' },
+            { en: 'swim', zh: '游泳 (ㄧㄡˊ ㄩㄥˇ)', mnemonic: '`s` + `wim` (win的變形)。`s-win` (贏)。如果你游泳 (swim) 很快，你就能贏 (win) 得比賽。' },
+            { en: 'swing', zh: '鞦韆 (ㄑㄧㄡ ㄑㄧㄢ)', mnemonic: '`swing` (盪鞦韆) 裡有 `wing` (翅膀)。盪鞦韆 (swing) 時，感覺自己像有了翅膀 (wing) 一樣在飛。' },
+            { en: 'insect', zh: '昆蟲 (ㄎㄨㄣ ㄔㄨㄥˊ)', mnemonic: '`in` (裡面) + `sect` (部分)。昆蟲 (insect) 的身體分為好幾個部分 (sect)。' },
+            { en: 'bow', zh: '鞠躬 (ㄐㄩˊ ㄍㄨㄥ)', mnemonic: '`bow` (鞠躬) 聽起來像 `low` (低的)。鞠躬 (bow) 就是把頭彎得很低 (low)。' },
+            { en: 'club', zh: '俱樂部 (jù lè bù)', mnemonic: '`c` (see, 看見) + `lub` (love, 愛)。一個你「看見」(see) 愛 (love) 的地方，就是俱樂部 (club)。' },
+            { en: 'doll', zh: '洋娃娃 (ㄧㄤˊ ㄨㄚˊ ㄨㄚ˙)', mnemonic: '`doll` (洋娃娃) 和 `tall` (高的) 押韻。這是一個很高 (tall) 的洋娃娃 (doll)。' },
+            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '`dry` (乾燥的) 聽起來像 `cry` (哭)。不要哭 (cry)，眼淚很快就會乾 (dry) 了。' }
         ];
 
         let currentQuestion = 0;
