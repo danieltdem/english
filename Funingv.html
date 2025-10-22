@@ -10,8 +10,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            margin: 20px 0;
             background-color: #f0f0f0;
         }
         .container {
@@ -20,21 +20,24 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 450px;
+            width: 90%;
+            max-width: 500px;
         }
         h1 {
             color: #333;
             margin-top: 10px;
         }
         #game-image {
-            width: 300px;
-            height: 200px;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
             object-fit: contain;
             margin-bottom: 10px;
         }
         #question {
             font-size: 24px;
             margin: 20px 0;
+            line-height: 1.4;
         }
         input {
             padding: 10px;
@@ -59,6 +62,17 @@
             font-size: 20px;
             margin-top: 20px;
         }
+        #mnemonic {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #3d5afe;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            background-color: #f3f4ff;
+            line-height: 1.5;
+        }
         #score {
             font-size: 18px;
             margin-top: 10px;
@@ -75,11 +89,12 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共30題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
         <div id="result"></div>
+        <div id="mnemonic" style="display: none;"></div>
         <div id="score">分數: 0 / 0</div>
         <div id="wrong-words"></div>
         <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
@@ -88,38 +103,21 @@
 
     <script>
         const words = [
-            // 原有的單字
-            { en: 'group', zh: '團體 (ㄊㄨㄢˊ ㄊㄧˇ)' },
-            { en: 'idea', zh: '想法 (ㄒㄧㄤˇ ㄈㄚˇ)' },
-            { en: 'place', zh: '地方 (ㄉㄧˋ ㄈㄤ)' },
-            { en: 'share', zh: '分享 (ㄈㄣ ㄒㄧㄤˇ)' },
-            { en: 'trip', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)' },
-            { en: 'movie theater', zh: '電影院 (ㄉㄧㄢˋ ㄧㄥˇ ㄩㄢˋ)' },
-            { en: 'plate', zh: '盤子 (ㄆㄢˊ ㄗ˙)' },
-            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)' },
-            { en: 'grass', zh: '草 (ㄘㄠˇ)' },
-            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)' },
-            { en: 'slide', zh: '溜滑梯 (ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ)' },
-            { en: 'frog', zh: '青蛙 (ㄑㄧㄥ ㄨㄚ)' },
-            { en: 'flat', zh: '平的 (ㄆㄧㄥˊ ㄉㄜ˙)' },
-            { en: 'ink', zh: '墨水 (ㄇㄛˋ ㄕㄨㄟˇ)' },
-            { en: 'kiss', zh: '親吻 (ㄑㄧㄣ ㄨㄣˇ)' },
-            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)' },
-            { en: 'clock', zh: '時鐘 (ㄕˊ ㄓㄨㄥ)' },
-            // 新加入的單字
-            { en: 'special', zh: '特別的 (ㄊㄜˋ ㄅㄧㄝˊ ㄉㄜ˙)' },
-            { en: 'parents', zh: '父母 (ㄈㄨˋ ㄇㄨˇ)' },
-            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)' },
-            { en: 'fun', zh: '有趣的 (ㄧㄡˇ ㄑㄩˋ ㄉㄜ˙)' },
-            { en: 'extended', zh: '延伸的 (ㄧㄢˊ ㄕㄣ ㄉㄜ˙)' },
-            { en: 'visit', zh: '拜訪 (ㄅㄞˋ ㄈㄤˇ)' },
-            { en: 'tree', zh: '樹 (ㄕㄨˋ)' },
-            { en: 'drum', zh: '鼓 (ㄍㄨˇ)' },
-            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)' },
-            { en: 'Japan', zh: '日本 (ㄖˋ ㄅㄣˇ)' },
-            { en: 'cheer', zh: '歡呼 (ㄏㄨㄢ ㄏㄨ)' },
-            { en: 'clap', zh: '拍手 (ㄆㄞ ㄕㄡˇ)' },
-            { en: 'dig', zh: '挖掘 (ㄨㄚ ㄐㄩㄝˊ)' }
+            { en: 'special', zh: '特別的 (ㄊㄜˋ ㄅㄧㄝˊ ㄉㄜ˙)', mnemonic: '`special` 裡有 `cia`。`CIA` 探員執行的都是特別 (special) 任務。' },
+            { en: 'parents', zh: '父母 (ㄈㄨˋ ㄇㄨˇ)', mnemonic: '`parents` = `p` + `rents` (租金)。你的父母 (parents) 辛苦工作來付房租 (rents)。' },
+            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)', mnemonic: '`to` + `get` + `her`。為了追到 (get) 她 (her)，你必須和她待在一起 (together)。' },
+            { en: 'fun', zh: '有趣的 (ㄧㄡˇ ㄑㄩˋ ㄉㄜ˙)', mnemonic: '`fun` (有趣) 和 `run` (跑) 押韻。跑步 (run) 也可以是很有趣的 (fun)。' },
+            { en: 'extended', zh: '延伸的 (ㄧㄢˊ ㄕㄣ ㄉㄜ˙)', mnemonic: '`extend` (延伸) + `ed`。`ex` (向外) + `tend` (伸展)。向外伸展就是延伸的 (extended)。' },
+            { en: 'visit', zh: '拜訪 (ㄅㄞˋ ㄈㄤˇ)', mnemonic: '`visit` 聽起來像 `we sit` (我們坐下)。當你拜訪 (visit) 朋友時，你們會坐下 (we sit) 聊天。' },
+            { en: 'tree', zh: '樹 (ㄕㄨˋ)', mnemonic: '`tree` (樹) 和 `three` (三) 很像。想像那裡有三 (three) 棵樹 (tree)。' },
+            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)', mnemonic: '`truck` 聽起來像 `track` (軌道)。卡車 (truck) 在軌道 (track) 般的公路上行駛。' },
+            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)', mnemonic: '`dress` (洋裝) 和 `press` (按壓) 很像。穿洋裝 (dress) 前要先熨燙 (press) 一下。' },
+            { en: 'drum', zh: '鼓 (ㄍㄨˇ)', mnemonic: '`drum` (鼓) 聽起來像 `drug` (藥)。他吃了藥 (drug) 之後開始瘋狂打鼓 (drum)。' },
+            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`island` = `is` + `land`。一個島嶼 (island) 就是一塊「是」(is) 陸地 (land) 但被水包圍的地方。' },
+            { en: 'Japan', zh: '日本 (ㄖˋ ㄅㄣˇ)', mnemonic: '`Japan` = `Ja` + `pan` (平底鍋)。想像日本人 (Japan) 拿著一個平底鍋 (pan)。' },
+            { en: 'cheer', zh: '歡呼 (ㄏㄨㄢ ㄏㄨ)', mnemonic: '`cheer` (歡呼) 聽起來像 `cheese` (起司)。當你吃到美味的起司 (cheese) 時，你會開心歡呼 (cheer)。' },
+            { en: 'clap', zh: '拍手 (ㄆㄞ ㄕㄡˇ)', mnemonic: '`clap` (拍手) 聽起來像 `cap` (帽子)。為那個戴著漂亮帽子 (cap) 的表演者拍手 (clap)。' },
+            { en: 'dig', zh: '挖掘 (ㄨㄚ ㄐㄩㄝˊ)', mnemonic: '`dig` (挖掘) 和 `big` (大的) 押韻。你需要挖掘 (dig) 一個大 (big) 洞。' }
         ];
 
         let currentQuestion = 0;
@@ -159,7 +157,10 @@
                 endGame();
                 return;
             }
-            
+            const mnemonicEl = document.getElementById('mnemonic');
+            mnemonicEl.textContent = '';
+            mnemonicEl.style.display = 'none';
+
             isWaitingToContinue = false;
             document.getElementById('submit').textContent = '提交';
             const q = questions[currentQuestion];
@@ -194,8 +195,12 @@
                 document.getElementById('result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
+                const mnemonicEl = document.getElementById('mnemonic');
+                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
+                mnemonicEl.style.display = 'block';
+                
                 document.getElementById('submit').textContent = '繼續';
-                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
                 isWaitingToContinue = true;
             }
             updateScore();
@@ -206,6 +211,7 @@
         }
 
         function endGame() {
+            document.getElementById('mnemonic').style.display = 'none';
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('answer').style.display = 'none';
             document.getElementById('submit').style.display = 'none';
@@ -233,7 +239,7 @@
         document.getElementById('restart').addEventListener('click', () => startGame(words));
         document.getElementById('retest-wrong').addEventListener('click', () => {
             if (wrongWords.length > 0) {
-                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh }));
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
                 startGame(retestWords);
             }
         });
