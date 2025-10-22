@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共10題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,16 +103,20 @@
 
     <script>
         const words = [
-            { en: 'reason', zh: '理由 (ㄌㄧˇ ㄧㄡˊ)', mnemonic: '拆解成 `rea` (real, 真的) + `son` (兒子)。一個「真正的兒子」(real son) 是他父親快樂的理由 (reason)。' },
-            { en: 'breathe', zh: '呼吸 (ㄏㄨ ㄒㄧ)', mnemonic: '拆解成 `b` + `rest` (休息) + `he` (他)。當他 (he) 休息 (rest) 時，他會順暢地呼吸 (breathe)。' },
-            { en: 'field', zh: '田野 (ㄊㄧㄢˊ ㄧㄝˇ)', mnemonic: '`field` (田野) 聽起來像 `filled` (充滿)。田野 (field) 裡充滿 (filled) 了草。' },
-            { en: 'beast', zh: '野獸 (ㄧㄝˇ ㄕㄡˋ)', mnemonic: '`beast` (野獸) 和 `least` (最少) 押韻。一隻野獸 (beast) 至少 (at least) 比人類強壯十倍。' },
-            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)', mnemonic: '`valley` (山谷) 聽起來像 `wall-ey` (牆壁)。山谷 (valley) 就像是兩面高牆 (wall) 之間的通道。' },
-            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '聯想到 `special` (特別的)。每一個物種 (species) 都是獨一無二且特別的 (special)。' },
-            { en: 'monkey', zh: '猴子 (ㄏㄡˊ ㄗ˙)', mnemonic: '`monkey` (猴子) 和 `donkey` (驢子) 押韻。想像一隻猴子 (monkey) 騎在驢子 (donkey) 身上。' },
-            { en: 'desk', zh: '書桌 (ㄕㄨ ㄓㄨㄛ)', mnemonic: '`desk` (書桌) 聽起來像 `discuss` (討論) 的開頭。書桌 (desk) 是我們用來討論 (discuss) 工作的地方。' },
-            { en: 'growth', zh: '成長 (ㄔㄥˊ ㄓㄤˇ)', mnemonic: '`growth` (成長) 來自於 `grow` (生長)。`growth` = `grow` + `th` (think, 思考)。要成長 (growth)，你必須思考 (think)。' },
-            { en: 'guide', zh: '嚮導 (ㄒㄧㄤˋ ㄉㄠˇ)', mnemonic: '`guide` (嚮導/指南) 會保護 (guard) 你，並提供協助 (aid)。' }
+            { en: 'dinner', zh: '晚餐 (ㄨㄢˇ ㄘㄢ)', mnemonic: '`dinner` 聽起來像 `thinner` (更瘦的)。如果你不吃晚餐 (dinner)，你會變得更瘦 (thinner)。' },
+            { en: 'extra', zh: '額外的 (ㄜˊ ㄨㄞˋ ㄉㄜ˙)', mnemonic: '`extra` 聽起來像 `extract` (取出)。你需要「取出」(extract) 額外的 (extra) 錢來買這個。' },
+            { en: 'hungry', zh: '飢餓的 (ㄐㄧ ㄜˋ ㄉㄜ˙)', mnemonic: '`hungry` (飢餓的) 和 `angry` (生氣的) 很像。當一個人飢餓 (hungry) 時，他很容易生氣 (angry)。' },
+            { en: 'focus', zh: '專注 (ㄓㄨㄢ ㄓㄨˋ)', mnemonic: '`FOCUS` = `Forgetting Other Cares, U See?` (忘掉其他煩惱，你懂嗎？) 這就是專注 (focus)。' },
+            { en: 'late', zh: '遲到 (ㄔˊ ㄉㄠˋ)', mnemonic: '`late` (遲到) 和 `gate` (大門) 押韻。你遲到 (late) 了，所以學校大門 (gate) 關了。' },
+            { en: 'flute', zh: '長笛 (ㄔㄤˊ ㄉㄧˊ)', mnemonic: '`flute` (長笛) 裡的 `lute` (魯特琴) 也是一種樂器。' },
+            { en: 'hunter', zh: '獵人 (ㄌㄧㄝˋ ㄖㄣˊ)', mnemonic: '`hunter` (獵人) 就是 `hunt` (打獵) + `er` (的人)。' },
+            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (向外) + `press` (擠壓)。把內心的想法向外擠壓 (press) 出來，就是表達 (express)。' },
+            { en: 'poem', zh: '詩 (ㄕ)', mnemonic: '`poem` 聽起來像 `poet` (詩人) `M` (寫的)。詩人 (poet) 寫的就是詩 (poem)。' },
+            { en: 'diagram', zh: '圖表 (ㄊㄨˊ ㄅㄧㄠˇ)', mnemonic: '`dia` (通過) + `gram` (圖形)。一個讓你「通過圖形」來理解資訊的東西就是圖表 (diagram)。' },
+            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peeking` (偷看) 聽起來像 `pick` (撿起)。他假裝在撿 (pick) 東西，其實是在偷看 (peeking)。' },
+            { en: 'sprout', zh: '發芽 (ㄈㄚ ㄧㄚˊ)', mnemonic: '`sprout` (發芽) Tīngqǐlái xiàng `shout out` (dàhǎn chūlái). Zhǒngzǐ fāyá (sprout) shí, jiù xiàng zài duì shìjiè dàhǎn (shout out)：「Wǒ chūláile!」。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hardly` (幾乎不) = `hard` (困難地) + `ly`。要「很困難地」才能做到，表示你「幾乎不」會去做。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`factory` 來自 `fact` (事實)。工廠 (factory) 就是製造「實際」(fact) 物品的地方。' }
         ];
 
         let currentQuestion = 0;
