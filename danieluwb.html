@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWB 核心概念挑戰賽 (20 題版)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        #game-image {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        #progress {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        #question {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .option-btn {
+            padding: 15px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left; /* 讓選項文字靠左對齊 */
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        .option-btn.correct {
+            background-color: #2ecc71 !important;
+        }
+        .option-btn.incorrect {
+            background-color: #e74c3c !important;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #explanation-container {
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fffbe6;
+            border-left: 5px solid #f39c12;
+            border-radius: 5px;
+            text-align: left;
+            line-height: 1.6;
+            color: #5f4c0a;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #333;
+        }
+        #wrong-questions {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        #next-btn, #restart-btn, #retest-wrong-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background-color 0.3s ease;
+        }
+        #next-btn { background-color: #f39c12; }
+        #next-btn:hover { background-color: #e67e22; }
+        #restart-btn { background-color: #1abc9c; }
+        #restart-btn:hover { background-color: #16a085; }
+        #retest-wrong-btn { background-color: #9b59b6; }
+        #retest-wrong-btn:hover { background-color: #8e44ad; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="UWB 測驗">
+        <h1>UWB 核心概念挑戰賽</h1>
+        <p>請根據我們在課程中學到的知識，選擇最適合的答案。</p>
+        
+        <div id="quiz-area">
+            <div id="progress"></div>
+            <div id="question"></div>
+            <div id="options-container"></div>
+            <div id="result"></div>
+            <div id="explanation-container" style="display: none;"></div>
+            <button id="next-btn" style="display: none;">下一題</button>
+        </div>
+
+        <div id="end-screen" style="display: none;">
+            <h2>測驗結束！</h2>
+            <div id="score"></div>
+            <div id="wrong-questions"></div>
+            <button id="restart-btn">全部重測</button>
+            <button id="retest-wrong-btn" style="display: none;">重測錯題</button>
+        </div>
+    </div>
+
+    
+    <script>
+        const allQuestions = [
+            // --- 20 道題目 ---
+            { 
+                question: "Q1: 汽車聯盟 (CCC) 堅持在「數位鑰匙」中使用 UWB 的主要安全優勢是什麼，尤其是防止「中繼攻擊」(Relay Attack)？", 
+                options: [
+                    "UWB 訊號穿透力強，可以隔牆開鎖。", 
+                    "UWB 能精確測量「訊號飛行時間」(ToF)，識破駭客轉發訊號造成的微小延遲。", 
+                    "UWB 比 BLE 更省電，鑰匙待機時間更長。", 
+                    "UWB 使用的頻段全球通用，不需要法規認證。"
+                ], 
+                answer: 1, 
+                explanation: "UWB 的核心安全機制來自其超短脈衝，能進行極精確的 ToF 測量。中繼攻擊 (relay attack) 會不可避免地增加訊號傳輸路徑和延遲，UWB 能偵測到這種不合理的延遲，從而拒絕解鎖。" 
+            },
+            { 
+                question: "Q2: 根據會議內容，舊版 UWB (如 15.4z) 在應用於「被動進入」(Passive Entry) 時，面臨的主要挑戰是什麼？", 
+                options: [
+                    "測距精準度不夠高。", 
+                    "測距範圍 (Range) 太短，可能只有 5-10 公尺。", 
+                    "無法同時進行通訊和測距。", 
+                    "訊號太強，容易干擾 GPS 和 Wi-Fi。"
+                ], 
+                answer: 1, 
+                explanation: "舊版 UWB 受到嚴格的平均功率限制，導致其有效測距範圍有限。會議提到 HRP (高頻率脈衝) 的覆蓋範圍僅 5 公尺，15.4z 約 10 公尺，這對於「被動進入」應用體驗不佳。" 
+            },
+            { 
+                question: "Q3: 新標準 IEEE 15.4ab 中的「MMS」(Multi-Millisecond) 技術，是如何巧妙地突破舊版 UWB 的距離限制的？", 
+                options: [
+                    "它改用 2.4 GHz 頻段來發送訊號。", 
+                    "它大幅增加了 UWB 的發射功率，使其超過 -41.3 dBm/MHz 的限制。", 
+                    "它將測距脈衝「分散」到多個 1ms 訊框中，再「相干累加」訊號，以提升 SNR。", 
+                    "它強制要求汽車必須安裝 10 個以上的 UWB 節點。"
+                ], 
+                answer: 2, 
+                explanation: "MMS 的核心是利用了「平均功率」是以 1ms 為單位計算的規則。它把訊號分散到多個 1ms 訊框，接收端再將這些微弱訊號疊加起來 (coherently sum them up)，從而大幅提升訊噪比 (SNR)，實現長距離測距。" 
+            },
+            { 
+                question: "Q4: 在 IEEE 15.4ab 標準中，「NBA」(Narrowband Assisted，窄頻輔助) 的主要作用是什麼？", 
+                options: [
+                    "用來播放高音質音樂 (Hi-Fi Audio)。", 
+                    "在 UWB 測距「之前」，先用一個更遠距離的窄頻訊號來完成「握手」(時間/頻率同步)。", 
+                    "取代 UWB，成為主要的測距技術。", 
+                    "用來偵測車內是否有孩童 (CPD)。"
+                ], 
+                answer: 1, 
+                explanation: "舊 UWB 連「握手」都是用 UWB，這一步就限制了距離。NBA (在 6 GHz 頻段) 被用來輔助 UWB，先完成遠距離的「時間與頻率同步」(time and frequency acquisition)，為後續的 MMS 長距離測距做好準備。" 
+            },
+            { 
+                question: "Q5: IEEE 15.4ab 除了大幅提升測距能力外，還正式標準化了哪一項「雷達感測」(Sensing) 應用？", 
+                options: [
+                    "偵測車內孩童的微弱心跳或呼吸 (CPD - Child Presence Detection)。", 
+                    "偵測前方 1 公里是否有來車。", 
+                    "自動駕駛 (Self-Driving)。", 
+                    "偵測輪胎的胎壓。"
+                ], 
+                answer: 0, 
+                explanation: "15.4ab 正式引入了雷達感測功能。UWB 的超短脈衝能偵測到物體的微小移動，因此非常適合用來偵測車內孩童或乘客的生命體徵（如心跳和呼吸），這也是 Euro NCAP 評分的新項目。" 
+            },
+            { 
+                question: "Q6: 在 UWB 生態系中，「CCC」(車輛連線聯盟) 和「FiRa」(精細測距聯盟) 之間的關係是什麼？", 
+                options: [
+                    "FiRa 是 CCC 的子公司。", 
+                    "CCC 和 FiRa 是競爭對手，雙方的標準互不相容。", 
+                    "CCC 專注於汽車應用，其 UWB 規格是 FiRa 標準的一個「子集」，雙方是合作關係。", 
+                    "CCC 只定義藍牙 (BLE)，FiRa 只定義 UWB。"
+                ], 
+                answer: 2, 
+                explanation: "CCC 專注於打造「數位鑰匙」，整合了 NFC、BLE 和 UWB。在 UWB 部分，CCC 與 FiRa 合作，採用 FiRa 的標準作為其 UWB 規格的基礎（會議提到 CCC 規格是 FiRa 3.0 的子集）。" 
+            },
+            { 
+                question: "Q7: UWB 之所以能實現「公分級」精準定位，抵抗室內「多路徑干擾」(Multipath) 的關鍵特性是什麼？", 
+                options: [
+                    "它的發射功率非常高。", 
+                    "它使用 6 GHz 頻段。", 
+                    "它傳送「奈秒級」的超短脈衝 (short pulses)，使其能分辨第一個抵達的訊號和反彈的訊號。", 
+                    "它只在室外才能使用。"
+                ], 
+                answer: 2, 
+                explanation: "UWB 傳輸「奈秒級」的超短脈衝。正因為脈衝超短，接收器能清楚分辨「第一個抵達」的直線訊號和「稍後抵達」的反彈訊號 (多路徑)，因此具備「抗多路徑干擾」能力。" 
+            },
+            { 
+                question: "Q8: 根據會議內容，UWB 的法規限制其「平均」發射功率必須低於多少？", 
+                options: [
+                    "0 dBm/MHz", 
+                    "-10.1 dBm/MHz", 
+                    "-41.3 dBm/MHz", 
+                    "-100.5 dBm/MHz"
+                ], 
+                answer: 2, 
+                explanation: "法規限制 UWB 的平均發射功率 (TX power) 必須低於 -41.3 dBm/MHz。這就是為什麼 UWB 是低功率技術，也是舊版 UWB 距離受限的主因。" 
+            },
+            { 
+                question: "Q9: 會議中提到定義 UWB PHY/MAC 層的「基礎」技術標準是哪一個？", 
+                options: [
+                    "CCC Digital Key 3.0", 
+                    "FiRa 3.0", 
+                    "IEEE 802.11ax (Wi-Fi 6)", 
+                    "IEEE 802.15.4"
+                ], 
+                answer: 3, 
+                explanation: "UWB 的 PHY (實體層) 和 MAC (媒體存取控制層) 基礎規格是由 IEEE 802.15.4 標準定義的。FiRa 和 CCC 都是在此基礎上發展應用標準。" 
+            },
+            { 
+                question: "Q10: 在 15.4ab (NBA-MMS) 出現之前，舊的「HRP」(High Rate Pulse) UWB 的主要限制之一是什麼？", 
+                options: [
+                    "延遲太高，不適合遊戲。", 
+                    "脈衝傳送速率太高 (例如每毫秒上千個脈衝)，導致功率必須更低，覆蓋範圍非常有限 (約 5m)。", 
+                    "不安全，容易被攻擊。", 
+                    "頻寬太窄，只有 1 MHz。"
+                ], 
+                answer: 1, 
+                explanation: "HRP (高頻率脈衝) 每毫秒傳送上千個脈衝。因為平均功率受限，傳送越多脈衝，每個脈衝的功率就要越小，導致覆蓋範圍非常有限，會議中提到 HRP 在某些情境下僅 5 公尺。" 
+            },
+            { 
+                question: "Q11: CCC (車輛連線聯盟) 的 Digital Key 3.0 標準，整合了 UWB、NFC 和哪一項技術來實現「被動進入」(Passive Entry)？", 
+                options: [
+                    "Wi-Fi", 
+                    "BLE (低功耗藍牙)", 
+                    "GPS", 
+                    "LF (低頻)"
+                ], 
+                answer: 1, 
+                explanation: "CCC 3.0 規格同時包含了 NFC、BLE (低功耗藍牙) 和 UWB。其中 BLE 通常用於遠距離的「握手」和「發現」，而 UWB 用於精準的安全測距。" 
+            },
+            { 
+                question: "Q12: 在「被動進入」情境中，如果只依賴 BLE 的 RSSI (訊號強度) 來觸發 UWB，最大的問題是什麼？", 
+                options: [
+                    "BLE RSSI 太耗電。", 
+                    "BLE RSSI 非常不準確，容易受「人體遮蔽」(如手機在後口袋) 影響。", 
+                    "BLE RSSI 需要 GPS 輔助。", 
+                    "BLE RSSI 速度太慢。"
+                ], 
+                answer: 1, 
+                explanation: "BLE RSSI 測距的準確度很低 (3-5 公尺)，並且非常容易受到「人體遮蔽」(body blockage) 的影響（例如「後口袋情境」），導致觸發 UWB 的時機不準確。" 
+            },
+            { 
+                question: "Q13: 當「藍牙通道測聲」(BLE Channel Sounding) 被加入 CCC 4.1 標準時，它的「主要」用途是什麼？", 
+                options: [
+                    "完全取代 UWB 來開鎖。", 
+                    "僅作為「觸發器」(trigger)，用來喚醒 (wake up) UWB 進行定位。", 
+                    "在車內播放音樂。", 
+                    "偵測車內是否有孩童。"
+                ], 
+                answer: 1, 
+                explanation: "會議中明確提到，BLE Channel Sounding (BTCS) 只會被用來「觸發 UWB 定位」。它不會被用來執行開鎖或解鎖的動作，UWB 仍然是安全定位的核心。" 
+            },
+            { 
+                question: "Q14: 會議中提到 CCC 成立了一個「Tiger Team」來研究「後量子密碼學」(Post-quantum cryptography)，主要動機是什麼？", 
+                options: [
+                    "為了讓 UWB 跑得更快。", 
+                    "因為目前的加密演算法太佔空間。", 
+                    "他們預期「量子運算」(Quantum computing) 可能在 10-15 年內變得實用，屆時目前的加密技術將被破解。", 
+                    "為了和 FiRa 競爭。"
+                ], 
+                answer: 2, 
+                explanation: "CCC 啟動這個研究，是因為他們認為量子運算可能在 10 到 15 年內變得實用 (practical)，屆時現有的加密演算法將不再安全，因此必須提早準備。" 
+            },
+            { 
+                question: "Q15: IEEE 15.4z 標準引入了哪一項關鍵功能，大幅提升了 UWB 測距的「安全性」？", 
+                options: [
+                    "STS (Scrambled Time Stamp Sequence)", 
+                    "CPD (Child Presence Detection)", 
+                    "NBA (Narrowband Assisted)", 
+                    "LRP (Low Rate Pulse)"
+                ], 
+                answer: 0, 
+                explanation: "IEEE 15.4z (2020 年發布) 的關鍵更新之一，就是引入了 STS (加擾時間戳序列)，它能提供更佳的安全性，專門用於「安全測距」(secure ranging)，使其能抵抗攻擊。" 
+            },
+            { 
+                question: "Q16: UWB 雷達偵測(Sensing)系統中，最簡單、成本效益最高的「單站」配置，即 TX (發射) 和 RX (接收) 在一起，稱為什麼？", 
+                options: [
+                    "Biostatic (雙基)", 
+                    "Multistatic (多基)", 
+                    "Monostatic (單基)", 
+                    "Stereostatic (立體)"
+                ], 
+                answer: 2, 
+                explanation: "Monostatic (單基) 是最常見的 UWB 雷達配置，其中 TX 和 RX 被放置在一起 (Co-located)。這種方式實現簡單、成本效益高，且不需要額外的同步。" 
+            },
+            { 
+                question: "Q17: UWB (500 MHz 頻寬) 和 BLE (1-2 MHz 頻寬) 都可以使用 RTT (來回通訊時間) 測距，但 UWB 為何精確得多？", 
+                options: [
+                    "UWB 比較貴。", 
+                    "UWB 的「超大頻寬」 (extremely large bandwidth) 是 RTT 能抵抗多路徑干擾、實現高精準度的關鍵。", 
+                    "UWB 不需要天線。", 
+                    "UWB 只能測量 1 公尺內的物體。"
+                ], 
+                answer: 1, 
+                explanation: "RTT (Round Trip Time) 測距的穩健性 (robustness) 與「頻寬」直接相關。UWB 擁有 500 MHz 的超大頻寬，而 BLE 只有 1-2 MHz，這使得 UWB 的 RTT 測量更不易出錯，也更能抵抗多路徑干擾。" 
+            },
+            { 
+                question: "Q18: 會議中提到，15.4z 標準引入了 BPSK 調變，相比舊的 BPM-BPSK，BPSK 的主要優勢是什麼？", 
+                options: [
+                    "為了支援 LRP (低速率脈衝)。", 
+                    "為了有更好的「靈敏度」(better sensitivity) 和更精確的測距。", 
+                    "為了降低成本。", 
+                    "為了完全取代舊的調變方式。"
+                ], 
+                answer: 1, 
+                explanation: "IEEE 15.4z 首次引入了 BPSK 調變。這樣做的目的是為了獲得更好的接收靈敏度 (sensitivity) 和更精確的測距能力。同時它也保留了對舊調變的向下相容。" 
+            },
+            { 
+                question: "Q19: 會議中提到 UWB 的精準度可達「10s of centimeter」(數十公分)，而 BLE Channel Sounding (通道測聲) 的最佳精準度約為？", 
+                options: [
+                    "10 公里", 
+                    "100 公尺", 
+                    "3-5 公尺", 
+                    "小於 1 公尺"
+                ], 
+                answer: 3, 
+                explanation: "在精準度比較上，UWB 可達「數十公分」。相比之下，BLE RSSI 為 3-5 公尺，而 BLE Channel Sounding 則是在「小於 1 公尺」的範圍。" 
+            },
+            { 
+                question: "Q20: 哪一個聯盟 (Alliance) 的主要任務是「推廣 UWB 技術」並處理「法規和頻譜管理」議題？", 
+                options: [
+                    "CCC (車輛連線聯盟)", 
+                    "FiRa Consortium (精細測距聯盟)", 
+                    "UWB Alliance (UWB 聯盟)", 
+                    "IEEE (電機電子工程師學會)"
+                ], 
+                answer: 2, 
+                explanation: "UWB Alliance (UWB 聯盟) 的主要任務是提供有利的「法規和頻譜管理」環境，並在產業中推廣 UWB 技術。CCC 和 FiRa 則更專注於制定應用的「標準」。" 
+            }
+        ];
+
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let wrongQuestions = [];
+
+        // --- 取得 DOM 元素 ---
+        // 這些變數在 startGame 之前宣告，但在 DOMContentLoaded 之後才賦值
+        let quizArea, endScreen, questionEl, optionsContainer, resultEl, explanationEl, progressEl, nextBtn, restartBtn, retestWrongBtn, gameImage;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startGame(questionList) {
+            questions = [...questionList];
+            shuffle(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            
+            quizArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            gameImage.src = 'initial.png';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
+            questionEl.textContent = currentQuestion.question;
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            resultEl.textContent = '';
+            explanationEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            gameImage.src = 'initial.png';
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target.closest('.option-btn');
+            if (!selectedBtn) return;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctIndex = currentQuestion.answer;
+
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+                resultEl.textContent = '正確！';
+                resultEl.style.color = '#2ecc71';
+                gameImage.src = 'correct.png';
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        endGame();
+                    }
+                }, 1500);
+            } else {
+                selectedBtn.classList.add('incorrect');
+                if (optionsContainer.children[correctIndex]) {
+                    optionsContainer.children[correctIndex].classList.add('correct');
+                }
+                resultEl.textContent = '錯誤！';
+                resultEl.style.color = '#e74c3c';
+                gameImage.src = 'incorrect.png';
+                
+                explanationEl.textContent = `知識點解析：${currentQuestion.explanation}`;
+                explanationEl.style.display = 'block';
+
+                wrongQuestions.push({
+                    ...currentQuestion,
+                    userAnswer: currentQuestion.options[selectedIndex]
+                });
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function endGame() {
+            quizArea.style.display = 'none';
+            endScreen.style.display = 'block';
+            
+            const scoreEl = document.getElementById('score');
+            scoreEl.textContent = `你的最終分數：${score} / ${questions.length}`;
+
+            const wrongQuestionsEl = document.getElementById('wrong-questions');
+            if (score === questions.length) {
+                gameImage.src = 'all_correct.png';
+                wrongQuestionsEl.textContent = '太棒了！你全部答對了！';
+                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'none';
+            } else {
+                gameImage.src = 'not_all_correct.png';
+                let wrongText = '你答錯的題目：\n\n';
+                wrongQuestions.forEach(q => {
+                    wrongText += `Q: ${q.question}\n`;
+                    const userAnswerClean = q.userAnswer;
+                    const correctAnswerClean = q.options[q.answer];
+                    wrongText += `你的答案: "${userAnswerClean}"\n(正確答案: "${correctAnswerClean}")\n\n`;
+                });
+                wrongQuestionsEl.textContent = wrongText;
+                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'inline-block';
+            }
+        }
+        
+        // --- 關鍵修正：使用 DOMContentLoaded ---
+        // 確保網頁所有 HTML 元素都載入完畢後，才開始執行 JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 在這裡才抓取所有 DOM 元素
+            quizArea = document.getElementById('quiz-area');
+            endScreen = document.getElementById('end-screen');
+            questionEl = document.getElementById('question');
+            optionsContainer = document.getElementById('options-container');
+            resultEl = document.getElementById('result');
+            explanationEl = document.getElementById('explanation-container');
+            progressEl = document.getElementById('progress');
+            nextBtn = document.getElementById('next-btn');
+            restartBtn = document.getElementById('restart-btn');
+            retestWrongBtn = document.getElementById('retest-wrong-btn');
+            gameImage = document.getElementById('game-image');
+
+            // 綁定事件監聽器
+            nextBtn.addEventListener('click', () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    endGame();
+                }
+            });
+
+            restartBtn.addEventListener('click', () => startGame(allQuestions));
+            
+            retestWrongBtn.addEventListener('click', () => {
+                if (wrongQuestions.length > 0) {
+                    const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
+                    startGame(retestList);
+                }
+            });
+
+            // --- 在這裡才啟動遊戲 ---
+            startGame(allQuestions);
+        });
+    </script>
+</body>
+</html>
