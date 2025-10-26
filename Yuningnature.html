@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>月相與觀測 (v6 節日挑戰)</title>
+    <title>月相與觀測 (v7 終極節日挑戰)</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            background-color: #f0f7ff;
-            color: #0d335d;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: #fffbeb;
+            color: #78350f;
             line-height: 1.7;
             padding: 20px;
             max-width: 850px;
             margin: 0 auto;
         }
         h1 {
-            color: #0a58a1;
+            color: #b45309;
             text-align: center;
-            border-bottom: 3px solid #0a58a1;
+            border-bottom: 3px solid #b45309;
             padding-bottom: 10px;
             margin-bottom: 30px;
         }
@@ -40,12 +40,12 @@
         .question-block p {
             font-size: 1.2em;
             font-weight: 600;
-            color: #003c7c;
+            color: #92400e;
             margin-bottom: 18px;
         }
         .options label {
             display: block;
-            background-color: #f8faff;
+            background-color: #fefcfb;
             padding: 14px 18px;
             border-radius: 8px;
             margin-bottom: 12px;
@@ -55,8 +55,8 @@
         }
         .options label:hover {
             background-color: #ffffff;
-            border-color: #0069d9;
-            box-shadow: 0 2px 5px rgba(0, 105, 217, 0.1);
+            border-color: #d97706;
+            box-shadow: 0 2px 5px rgba(217, 119, 6, 0.1);
         }
         .options input[type="radio"] {
             margin-right: 12px;
@@ -70,9 +70,9 @@
             display: none;
         }
         .correct {
-            background-color: #f0f9ff;
-            color: #026aa2;
-            border: 1px solid #bde0fe;
+            background-color: #fefce8;
+            color: #854d0e;
+            border: 1px solid #fde68a;
             display: block;
         }
         .incorrect {
@@ -88,16 +88,16 @@
             font-size: 1.25em;
             font-weight: bold;
             color: #fff;
-            background: linear-gradient(90deg, #0069d9, #0a58a1);
+            background: linear-gradient(90deg, #d97706, #b45309);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 30px;
-            box-shadow: 0 4px 10px rgba(0, 105, 217, 0.2);
+            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
         }
         #submit-btn:hover {
-            box-shadow: 0 6px 15px rgba(0, 105, 217, 0.4);
+            box-shadow: 0 6px 15px rgba(217, 119, 6, 0.4);
             transform: translateY(-2px);
         }
         #score-result {
@@ -109,8 +109,8 @@
             border-radius: 8px;
         }
         .score-pass {
-            color: #026aa2;
-            background-color: #f0f9ff;
+            color: #854d0e;
+            background-color: #fefce8;
         }
         .score-fail {
             color: #be123c;
@@ -120,175 +120,177 @@
 </head>
 <body>
 
-    <h1>月相與觀測 (v6 節日挑戰)</h1>
+    <h1>月相與觀測 (v7 終極節日挑戰)</h1>
 
     <div id="quiz-container">
 
         <div class="question-block">
-            <p>1. (節日) 在華人世界最重要的「中秋節」，家人會團聚賞月。當晚的月相最接近？</p>
+            <p>1. (節日) 猜燈謎、吃湯圓是「元宵節」的習俗。當天晚上的月相最接近？</p>
             <div class="options">
-                <label><input type="radio" name="q1" value="a"> A) 上弦月</label>
-                <label><input type="radio" name="q1" value="b"> B) 滿月</label>
-                <label><input type="radio" name="q1" value="c"> C) 新月</label>
+                <label><input type="radio" name="q1" value="a"> A) 新月</label>
+                <label><input type="radio" name="q1" value="b"> B) 上弦月</label>
+                <label><input type="radio" name="q1" value="c"> C) 滿月</label>
                 <label><input type="radio" name="q1" value="d"> D) 下弦月</label>
             </div>
             <p class="feedback" id="feedback-q1"></p>
         </div>
 
         <div class="question-block">
-            <p>2. (節日) 許多恐怖電影海報喜歡在「萬聖節」畫上一顆毛骨悚然的滿月。請問，現實世界中的「萬聖節」，月亮是否「一定」是滿月？</p>
+            <p>2. (節日) 當我們在過「農曆新年」大年初一，家家戶戶放鞭炮時，當天的月相是？</p>
             <div class="options">
-                <label><input type="radio" name="q2" value="a"> A) 是，萬聖節固定都是滿月。</label>
-                <label><input type="radio" name="q2" value="b"> B) 否，因為萬聖節是「國曆」節日，它對應的「農曆」日期每年都不同，所以月相也不同。</label>
-                <label><input type="radio" name="q2" value="c"> C) 否，因為萬聖節固定都是新月。</label>
-                <label><input type="radio" name="q2" value="d"> D) 是，因為萬聖節和中秋節是同一天。</label>
+                <label><input type="radio" name="q2" value="a"> A) 滿月</label>
+                <label><input type="radio" name="q2" value="b"> B) 新月 (幾乎看不見)</label>
+                <label><input type="radio" name="q2" value="c"> C) 上弦月</label>
+                <label><input type="radio" name="q2" value="d"> D) 殘月</label>
             </div>
             <p class="feedback" id="feedback-q2"></p>
         </div>
 
         <div class="question-block">
-            <p>3. (觀測) 使用自製的高度角觀測器時，如果你的視線對準目標物，而鉛垂線垂在量角器刻度「25 度」的地方，請問目標物真正的高度角是幾度？</p>
+            <p>3. (節日) 在「七夕」情人節，牛郎和織女相會的夜晚，我們看到的月相最接近？</p>
             <div class="options">
-                <label><input type="radio" name="q3" value="a"> A) 25 度</label>
-                <label><input type="radio" name="q3" value="b"> B) 155 度 (180 - 25)</label>
-                <label><input type="radio" name="q3" value="c"> C) 65 度 (90 - 25)</label>
-                <label><input type="radio" name="q3" value="d"> D) 90 度</label>
+                <label><input type="radio" name="q3" value="a"> A) 上弦月 (右半圓)</label>
+                <label><input type="radio" name="q3" value="b"> B) 下弦月 (左半圓)</label>
+                <label><input type="radio" name="q3" value="c"> C) 滿月</label>
+                <label><input type="radio" name="q3" value="d"> D) 新月</label>
             </div>
             <p class="feedback" id="feedback-q3"></p>
         </div>
 
         <div class="question-block">
-            <p>4. (節日) 在「端午節」人們划龍舟、吃粽子。請問在端午節前後，人們晚上看到的月相最接近？</p>
+            <p>4. (節日) 「重陽節」有登高望遠的習俗，這天晚上的月相最接近？</p>
             <div class="options">
                 <label><input type="radio" name="q4" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q4" value="b"> B) 眉月（彎月）</label>
-                <label><input type="radio" name="q4" value="c"> C) 凸月</label>
-                <label><input type="radio" name="q4" value="d"> D) 下弦月</label>
+                <label><input type="radio" name="q4" value="b"> B) 殘月 (左邊彎彎)</label>
+                <label><input type="radio" name="q4" value="c"> C) 盈凸月 (右邊亮的凸月)</label>
+                <label><input type="radio" name="q4" value="d"> D) 新月</label>
             </div>
             <p class="feedback" id="feedback-q4"></p>
         </div>
 
         <div class="question-block">
-            <p>5. (觀念) 「月食」是月亮剛好跑到地球的影子裡。請問，造成「月相變化」（例如滿月變下弦月）的原因，和月食一樣嗎？</p>
+            <p>5. (節日) 在「除夕夜」圍爐時，是農曆的最後一天。當晚的月相是？</p>
             <div class="options">
-                <label><input type="radio" name="q5" value="a"> A) 是，月相變化就是月亮每天被地球影子遮住一點點造成的。</label>
-                <label><input type="radio" name="q5" value="b"> B) 否，月相變化是「日、地、月」三者角度改變，使我們看到月亮反光範圍不同；月食才是「地球影子」造成的。</label>
-                <label><input type="radio" name="q5" value="c"> C) 是，月相和月食都是太陽被遮住造成的。</label>
-                <label><input type="radio" name="q5" value="d"> D) 否，月相變化是月亮自己發光的部分在改變。</label>
+                <label><input type="radio" name="q5" value="a"> A) 滿月</label>
+                <label><input type="radio" name="q5" value="b"> B) 上弦月</label>
+                <label><input type="radio" name="q5" value="c"> C) 殘月 (幾乎看不見)</label>
+                <label><input type="radio" name="q5" value="d"> D) 下弦月</label>
             </div>
             <p class="feedback" id="feedback-q5"></p>
         </div>
 
         <div class="question-block">
-            <p>6. (節日) 在「除夕夜」當晚，全家團圓吃年夜飯。如果當晚天氣晴朗，我們最有可能看到的月相是？</p>
+            <p>6. (節日) 卡片上常畫著聖誕老人飛過「聖誕節」的夜空。請問「聖誕節」當晚的月相？</E></p>
             <div class="options">
-                <label><input type="radio" name="q6" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q6" value="b"> B) 上弦月</label>
-                <label><input type="radio" name="q6" value="c"> C) 下弦月</label>
-                <label><input type="radio" name="q6" value="d"> D) 幾乎看不到月亮 (新月或殘月)</label>
+                <label><input type="radio" name="q6" value="a"> A) 每年都固定是滿月</label>
+                <label><input type="radio" name="q6" value="b"> B) 每年都固定是新月</label>
+                <label><input type="radio" name="q6" value="c"> C) 每年都不一樣，要看當年農曆</label>
+                <label><input type="radio" name="q6" value="d"> D) 每年都固定是上弦月</label>
             </div>
             <p class="feedback" id="feedback-q6"></p>
         </div>
 
         <div class="question-block">
-            <p>7. (視差) 當你從一座 101 大樓的樓下，「慢慢走遠」時，你需要抬頭看樓頂的角度（高度角）會如何變化？</p>
+            <p>7. (節日) 許多電影都喜歡把「萬聖節」跟滿月綁在一起。但現實中，「萬聖節」的月相？</p>
             <div class="options">
-                <label><input type="radio" name="q7" value="a"> A) 變大</label>
-                <label><input type="radio" name="q7" value="b"> B) 變小</label>
-                <label><input type="radio" name="q7" value="c"> C) 不變 (像月亮一樣)</label>
-                <label><input type="radio" name="q7" value="d"> D) 變成 0 度</label>
+                <label><input type="radio" name="q7" value="a"> A) 必定是滿月，所以才恐怖</label>
+                <label><input type="radio" name="q7" value="b"> B) 必定是新月，所以才黑暗</label>
+                <label><input type="radio" name="q7" value="c"> C) 不一定，因為它是國曆節日</label>
+                <label><input type="radio" name="q7" value="d"> D) 必定是下弦月</label>
             </div>
             <p class="feedback" id="feedback-q7"></p>
         </div>
 
         <div class="question-block">
-            <p>8. (觀測) 在台灣（北半球），月亮從「新月」開始變亮的過程中，是從哪一邊開始亮的？</D></p>
+            <p>8. (節日) 「復活節」的日期是「春天過了第一個滿月後的星期天」。這個定義代表什麼？</p>
             <div class="options">
-                <label><input type="radio" name="q8" value="a"> A) 從「右半邊」開始變亮</label>
-                <label><input type="radio" name="q8" value="b"> B) 從「左半邊」開始變亮</label>
-                <label><input type="radio" name="q8" value="c"> C) 從中間亮起來</label>
-                <label><input type="radio" name="q8" value="d"> D) 不一定，看當天太陽位置</label>
+                <label><input type="radio" name="q8" value="a"> A) 復活節是固定的農曆節日</label>
+                <label><input type="radio" name="q8" value="b"> B) 復活節是固定的國曆節日</label>
+                <label><input type="radio" name="q8" value="c"> C) 復活節同時參考了國曆（春天）和農曆（滿月）</label>
+                <label><input type="radio" name="q8" value="d"> D) 復活節跟月亮無關</label>
             </div>
             <p class="feedback" id="feedback-q8"></p>
         </div>
 
         <div class="question-block">
-            <p>9. (節日) 假設你今年的「聖誕節」看到的是上弦月。請問「明年」的聖誕節，月相會是什麼？</p>
+            <p>9. (觀測) 你用高度角觀測器瞄準月亮，發現鉛垂線（重力線）垂在量角器「60 度」的刻度上。請問月亮的高度角是幾度？</p>
             <div class="options">
-                <label><input type="radio" name="q9" value="a"> A) 一定還是上弦月</label>
-                <label><input type="radio" name="q9" value="b"> B) 不一定，因為聖誕節是「國曆」，月相是看「農曆」</label>
-                <label><input type="radio" name="q9" value="c"> C) 一定是滿月</label>
-                <label><input type="radio" name="q9" value="d"> D) 一定是新月</label>
+                <label><input type="radio" name="q9" value="a"> A) 60 度</label>
+                <label><input type="radio" name="q9" value="b"> B) 30 度 (90 - 60)</label>
+                <label><input type="radio" name="q9" value="c"> C) 120 度 (180 - 60)</label>
+                <label><input type="radio" name="q9" value="d"> D) 90 度</label>
             </div>
             <p class="feedback" id="feedback-q9"></p>
         </div>
 
         <div class="question-block">
-            <p>10. (節日) 在傳統「七夕」（牛郎織女相會）的夜晚，人們仰望星空，這時的月相最接近？</p>
+            <p>10. (視差) 當你在火車上，為什麼感覺遠方的「中央山脈」好像跟著你動，但窗外的「電線桿」卻快速向後退？</p>
             <div class="options">
-                <label><input type="radio" name="q10" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q10" value="b"> B) 新月</label>
-                <label><input type="radio" name="q10" value="c"> C) 上弦月 (右半圓)</label>
-                <label><input type="radio" name="q10" value="d"> D) 下弦月 (左半圓)</label>
+                <label><input type="radio" name="q10" value="a"> A) 因為山脈真的在移動</label>
+                <label><input type="radio" name="q10" value="b"> B) 因為山脈很「遠」，角度變化小；電線桿很「近」，角度變化大</label>
+                <label><input type="radio" name="q10" value="c"> C) 因為山脈比電線桿高</label>
+                <label><input type="radio" name="q10" value="d"> D) 因為地球自轉</label>
             </div>
             <p class="feedback" id="feedback-q10"></p>
         </div>
 
         <div class="question-block">
-            <p>11. (週期) 如果你今天看到「上弦月」。請問大約再過 7~8 天，你會看到什麼月相？</p>
+            <p>11. (觀念) 課本說月相有圓缺變化。請問「月相變化」的成因是？</p>
             <div class="options">
-                <label><input type="radio" name="q11" value="a"> A) 滿月</G></label>
-                <label><input type="radio" name="q11" value="b"> B) 下弦月</label>
-                <label><input type="radio" name="q11" value="c"> C) 新月</label>
-                <label><input type="radio" name="q11" value="d"> D) 還是上弦月</label>
+                <label><input type="radio" name="q11" value="a"> A) 月亮每天被「地球的影子」遮住一點點</label>
+                <label><input type="radio" name="q11" value="b"> B) 月亮反射太陽光，但它公轉時「日、地、月」的相對角度改變了</label>
+                <label><input type="radio" name="q11" value="c"> C) 月亮自己發光的部分每天在增減</label>
+                <label><input type="radio" name="q11" value="d"> D) 月亮被「太陽的影子」遮住了</label>
             </div>
             <p class="feedback" id="feedback-q11"></p>
         </div>
 
         <div class="question-block">
-            <p>12. (視差) 為什麼在高速公路上，感覺月亮「跟著車子跑」，但旁邊的護欄卻「飛快地倒退」？</p>
+            <p>12. (觀測) 在台灣，當月亮過了「滿月」之後，會開始變缺。請問是從哪一邊開始變暗（缺）的？</p>
             <div class="options">
-                <label><input type="radio" name="q12" value="a"> A) 因為月亮「距離太遠」，角度變化小；護欄「距離太近」，角度變化大。</label>
-                <label><input type="radio" name="q12" value="b"> B) 因為月亮真的在跟著車子跑。</label>
-                <label><input type="radio" name="q12" value="c"> C) 因為地球自轉剛好跟車子同方向。</label>
-                <label><input type="radio" name="q12" value="d"> D) 因為護欄是靜止的，月亮是移動的。</label>
+                <label><input type="radio" name="q12" value="a"> A) 從「右半邊」開始變暗</label>
+                <label><input type="radio" name="q12" value="b"> B) 從「左半邊」開始變暗</label>
+                <label><input type="radio" name="q12" value="c"> C) 從「上半部」開始變暗</label>
+                <label><input type="radio" name="q12" value="d"> D) 從「下半部」開始變暗</label>
             </div>
             <p class="feedback" id="feedback-q12"></p>
         </div>
 
         <div class="question-block">
-            <p>13. (是非題) 月相的變化很慢。在同一個晚上，從 8 點到 11 點，月亮的「形狀」（月相）幾乎不會有肉眼可見的改變。</p>
+            <p>13. (週期) 如果你今晚看到的是「下弦月」（左半圓）。請問，大約 7 天「前」，月相是什麼？</p>
             <div class="options">
-                <label><input type="radio" name="q13" value="a"> A) ○ (O) 對</label>
-                <label><input type="radio" name="q13" value="b"> B) X (X) 錯</label>
+                <label><input type="radio" name="q13" value="a"> A) 滿月</label>
+                <label><input type="radio" name="q13" value="b"> B) 新月</label>
+                <label><input type="radio" name="q13" value="c"> C) 上弦月</label>
+                <label><input type="radio" name="q13" value="d"> D) 還是下弦月</label>
             </div>
             <p class="feedback" id="feedback-q13"></p>
         </div>
 
         <div class="question-block">
-            <p>14. (節日) 在普渡拜拜的「中元節」，當天晚上的月相理論上最接近？</p>
+            <p>14. (觀念) 「月食」（天狗食月）通常發生在什麼月相的時候？</p>
             <div class="options">
-                <label><input type="radio" name="q14" value="a"> A) 新月</label>
-                <label><input type="radio" name="q14" value="b"> B) 滿月</label>
-                <label><input type="radio" name="q14" value="c"> C) 上弦月</label>
-                <label><input type="radio" name="q14" value="d"> D) 下弦月</label>
+                <label><input type="radio" name="q14" value="a"> A) 新月 (農曆初一)</label>
+                <label><input type="radio" name="q14" value="b"> B) 上弦月 (農曆初七)</label>
+                <label><input type="radio" name="q14" value="c"> C) 滿月 (農曆十五)</label>
+                <label><input type="radio" name="q14" value="d"> D) 下弦月 (農曆廿二)</label>
             </div>
             <p class="feedback" id="feedback-q14"></p>
         </div>
 
         <div class="question-block">
-            <p>15. (節日挑戰) 西方的「復活節」日期每年都不一樣，因為它的算法很特別：它是春天來臨後，遇到的「第一個滿月」之後的星期日。這代表「復活節」是一個...？</p>
+            <p>15. (核心) 我們晚上能看到月亮，最根本的原因是？</p>
             <div class="options">
-                <label><input type="radio" name="q15" value="a"> A) 只看「國曆」的節日</label>
-                <label><input type="radio" name="q15" value="b"> B) 只看「農曆」的節日</label>
-                <label><input type="radio" name="q15" value="c"> C) 同時參考了「國曆」（看春天）和「農曆」（看滿月）的節日</label>
-                <label><input type="radio" name="q15" value="d"> D) 隨機決定的節日</label>
+                <label><input type="radio" name="q15" value="a"> A) 月亮本身是一顆會發光的恆星</label>
+                <label><input type="radio" name="q15" value="b"> B) 月亮反射了「太陽」的光</label>
+                <label><input type="radio" name="q15" value="c"> C) 月亮反射了「地球」的光</label>
+                <label><input type="radio" name="q15" value="d"> D) 月亮上有外星人的城市燈光</label>
             </div>
             <p class="feedback" id="feedback-q15"></p>
         </div>
 
 
-        <button id="submit-btn">批改答案 (v6 節日挑戰)</button>
+        <button id="submit-btn">批改答案 (v7 終極節日)</button>
         <h2 id="score-result"></h2>
 
     </div>
@@ -297,21 +299,21 @@
         document.getElementById('submit-btn').addEventListener('click', function() {
             // 定義正確答案
             const correctAnswers = {
-                q1: 'b',
+                q1: 'c',
                 q2: 'b',
-                q3: 'c',
-                q4: 'b',
-                q5: 'b',
-                q6: 'd',
-                q7: 'b',
-                q8: 'a',
+                q3: 'a',
+                q4: 'c',
+                q5: 'c',
+                q6: 'c',
+                q7: 'c',
+                q8: 'c',
                 q9: 'b',
-                q10: 'c',
-                q11: 'a',
+                q10: 'b',
+                q11: 'b',
                 q12: 'a',
-                q13: 'a', // 是非題，敘述為 "對"
-                q14: 'b',
-                q15: 'c'
+                q13: 'a',
+                q14: 'c',
+                q15: 'b'
             };
 
             let score = 0;
@@ -344,32 +346,30 @@
                 }
 
                 // 針對特定題目提供額外解釋
-                if (qName === 'q1' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（中秋節就是農曆 8 月 15 日，就是滿月喔！）';
+                if (qName === 'q1' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（元宵節是農曆正月「十五」，所以是「滿月」。）';
                 } else if (qName === 'q2' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（萬聖節是國曆 10 月 31 日，是固定的。但月相是看農曆，所以每年的月相都不同。）';
-                } else if (qName === 'q3' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（鉛垂線是 90 度的基準，量角器讀數 25 度，代表距離地平線的高度是 90 - 25 = 65 度。）';
-                } else if (qName === 'q4' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（端午節是農曆 5 月 5 日，在「新月」（初一）和「上弦月」（初七）之間，所以是彎彎的「眉月」。）';
-                } else if (qName === 'q5' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（這是最重要觀念！月相是「反光角度」；月食是「地球影子」。）';
-                } else if (qName === 'q6' && userAnswer !== 'd') {
-                    feedbackEl.textContent += '（除夕是農曆 12 月的最後一天，隔天就是初一「新月」，所以除夕夜幾乎是看不到月亮的。）';
-                } else if (qName === 'q7' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（離物體越遠，頭就不用抬那麼高，所以高度角會「變小」。）';
+                    feedbackEl.textContent += '（大年初一是農曆正月初「一」，也就是「新月」。）';
+                } else if (qName === 'q3' && userAnswer !== 'a') {
+                    feedbackEl.textContent += '（七夕是農曆七月初「七」，大約是 1/4 週期，所以是「上弦月」。）';
+                } else if (qName === 'q4' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（重陽節是農曆九月初「九」，已經過了上弦月（初七），所以是快要滿月的「盈凸月」。）';
+                } else if (qName === 'q5' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（除夕是農曆的最後一天（廿九或三十），隔天就是初一（新月），所以是幾乎看不到的「殘月」。）';
+                } else if (qName === 'q6' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（聖誕節是「國曆」12月25日。月相是看「農曆」，兩者不同步，所以每年月相都不同。）';
+                } else if (qName === 'q7' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（萬聖節是「國曆」10月31日，和聖誕節同理，每年對應的農曆都不同。）';
+                } else if (qName === 'q8' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（「春天」是國曆（看太陽）；「滿月」是農曆（看月亮）。這是一個混合曆法的節日。）';
                 } else if (qName === 'q9' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（聖誕節是國曆 12 月 25 日，和萬聖節一樣，每年對應的農曆都不同，月相當然也不同。）';
-                } else if (qName === 'q10' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（七夕是農曆 7 月 7 日，剛好是月相週期的 1/4，就是「上弦月」。）';
-                } else if (qName === 'q11' && userAnswer !== 'a') {
-                    feedbackEl.textContent += '（月相週期約 29.5 天，分成 4 階段，每階段約 7 天。上弦月（1/4）再加 7 天就是滿月（2/4）。）';
+                    feedbackEl.textContent += '（鉛垂線是 90 度的基準，量角器讀數 60 度，代表距離地平線的高度是 90 - 60 = 30 度。）';
+                } else if (qName === 'q12' && userAnswer !== 'a') {
+                    feedbackEl.textContent += '（北半球觀測，上半月是「右邊」亮起；下半月（滿月後）是「右邊」先暗掉。）';
                 } else if (qName === 'q13' && userAnswer !== 'a') {
-                    feedbackEl.textContent += '（答對了！月相變化很慢，短時間（幾小時）內只會改變「位置」，不會改變「形狀」。）';
-                } else if (qName === 'q14' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（中元節是農曆 7 月 15 日，和中秋節一樣都是 15 日，所以是「滿月」。）';
-                } else if (qName === 'q15' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（這題很難！「春天」是看國曆（太陽）；「滿月」是看農曆（月亮），所以它是兩者混合的節日。）';
+                    feedbackEl.textContent += '（月相週期約 29.5 天，每 7 天變換一個主要型態。下弦月（3/4）倒退 7 天就是滿月（2/4）。）';
+                } else if (qName === 'q14' && userAnswer !== 'c') {
+                    feedbackEl.textContent += '（月食是「日-地-月」連線，地球的影子遮住月亮，這只會發生在「滿月」時。）';
                 }
             }
 
@@ -378,16 +378,16 @@
             scoreResultEl.textContent = '測驗完成！你答對了 ' + score + ' 題 / 共 ' + totalQuestions + ' 題。';
             
             if (score === 15) {
-                scoreResultEl.textContent += ' 太強了！15 題全對！你根本是「節日與月相」的活字典！';
+                scoreResultEl.textContent += ' 真是太不可思議了！15 題全對！你對節日和月相的掌握無人能及！';
                 scoreResultEl.className = 'score-pass';
             } else if (score >= 12) {
-                scoreResultEl.textContent += ' 非常厲害！看來你對節日和月相的關聯瞭若指掌！';
+                scoreResultEl.textContent += ' 非常優秀！看來這些節日都難不倒你！';
                 scoreResultEl.className = 'score-pass';
             } else if (score >= 9) {
-                scoreResultEl.textContent += ' 表現很好！有幾題比較難的節日題再記一下就好！';
+                scoreResultEl.textContent += ' 表現不錯！有幾題節日的農曆日期可能要再記一下喔！';
                 scoreResultEl.className = 'score-pass';
             } else {
-                scoreResultEl.textContent += ' 還有進步空間！是不是有些節日的農曆日期不太熟呢？';
+                scoreResultEl.textContent += ' 加油！這些節日題確實有難度，再複習一下吧！';
                 scoreResultEl.className = 'score-fail';
             }
             
