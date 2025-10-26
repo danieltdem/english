@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共24題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,30 +103,26 @@
 
     <script>
         const words = [
-            { en: 'scrape', zh: '刮 (ㄍㄨㄚ)', mnemonic: '`scrape` 聽起來像 `scrap` (碎片)。當你刮 (scrape) 東西時，會產生很多碎片 (scrap)。' },
-            { en: 'perch', zh: '棲息 (ㄑㄧ ㄒㄧ)', mnemonic: '`perch` 聽起來像 `search` (搜尋)。鳥兒在棲息 (perch) 前會先搜尋 (search) 一個好地方。' },
-            { en: 'propose', zh: '提議 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (提議) 裡面有 `purpose` (目的)。當你提議 (propose) 時，你心中一定有一個目的 (purpose)。' },
-            { en: 'cabin', zh: '小木屋 (ㄒㄧㄠˇ ㄇㄨˋ ㄨ)', mnemonic: '`cabin` (小木屋) 就像一個 `cab` (計程車)。一個小小的、可以裝人的空間。' },
-            { en: 'information', zh: '資訊 (ㄗ ㄒㄩㄣˋ)', mnemonic: '`information` (資訊) 是為了 (for) 國家 (nation) 而形成 (in) 的情報。' },
-            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`divide` (劃分) 的 `di` 聽起來像 `die` (死亡)。想像兩個人為了劃分 (divide) 財產而決鬥至死 (die)。' },
-            { en: 'squirm', zh: '蠕動 (ㄖㄨˊ ㄉㄨㄥˋ)', mnemonic: '`squirm` (蠕動) 聽起來像 `worm` (蟲)。那隻蟲 (worm) 正在地上蠕動 (squirm)。' },
-            { en: 'agent', zh: '探員 (ㄊㄢˋ ㄩㄢˊ)', mnemonic: '`agent` (探員) 裡面有 `age` (年齡)。一個好的探員 (agent) 善於偽裝自己的年齡 (age)。' },
-            { en: 'strength', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '`strength` (力量) 來自於 `strong` (強壯的)。' },
+            { en: 'homerun', zh: '全壘打 (ㄑㄩㄢˊ ㄌㄟˇ ㄉㄚˇ)', mnemonic: '`home` (家) + `run` (跑)。跑到 (run) 回家 (home) 就是全壘打 (homerun)。' },
+            { en: 'bundle', zh: '捆 (ㄎㄨㄣˇ)', mnemonic: '`bundle` (捆) 聽起來像 `bind` (綑綁)。把東西 `bind` (綑綁) 在一起就是一捆 (bundle)。' },
+            { en: 'interested', zh: '感興趣的 (ㄍㄢˇ ㄒㄧㄥˋ ㄑㄩˋ ㄉㄜ˙)', mnemonic: '`inter` (在...之間) + `rest` (休息)。在休息 (rest) 時間，我對 (inter) 很多事情都感興趣 (interested)。' },
+            { en: 'below', zh: '在...下面 (ㄗㄞˋ...ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '`be` (是) + `low` (低的)。「是」(be) 在一個低 (low) 的位置，就是在...下面 (below)。' },
+            { en: 'slight', zh: '輕微的 (ㄑㄧㄥ ㄨㄟˊ ㄉㄜ˙)', mnemonic: '`s` + `light` (輕的)。`s-light` 就是非常輕 (light) 的，也就是輕微的 (slight)。' },
+            { en: 'trace', zh: '痕跡 (ㄏㄣˊ ㄐㄧ)', mnemonic: '`trace` (痕跡) 聽起來像 `trespass` (非法入侵)。非法入侵 (trespass) 者會留下痕跡 (trace)。' },
+            { en: 'plain', zh: '樸素的 (ㄆㄨˊ ㄙㄨˋ ㄉㄜ˙)', mnemonic: '`plain` (樸素的) 和 `plane` (飛機) 發音相同。想像一架非常樸素 (plain)、沒有任何圖案的飛機 (plane)。' },
+            { en: 'panic', zh: '恐慌 (ㄎㄨㄥˇ ㄏㄨㄤ)', mnemonic: '`pan` (平底鍋) + `ic`。想像一個平底鍋 (pan) 著火了，你開始感到恐慌 (panic)。' },
             { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '`stretch` (伸展) 聽起來像 `stress` (壓力)。當你感到有壓力 (stress) 時，你會伸展 (stretch) 身體來放鬆一下。' },
-            { en: 'streak', zh: '條紋 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '`streak` (條紋) 聽起來像 `stream` (溪流)。一條溪流 (stream) 就像是大地的一道條紋 (streak)。' },
-            { en: 'experience', zh: '經驗 (ㄐㄧㄥ ㄧㄢˋ)', mnemonic: '`experience` (經驗) 來自於 `expert` (專家)。一位專家 (expert) 必定擁有豐富的經驗 (experience)。' },
+            { en: 'decide', zh: '決定 (ㄐㄩㄝˊ ㄉㄧㄥˋ)', mnemonic: '`de` (off, 去除) + `cide` (cut, 切)。`de-cide` 就是「切掉」其他選項，只留下一個，這就是決定 (decide)。' },
+            { en: 'behave', zh: '表現 (ㄅㄧㄠˇ ㄒㄧㄢˋ)', mnemonic: '`be` (是) + `have` (有)。你「是」(be) 什麼樣的人，就會「有」(have) 什麼樣的表現 (behave)。' },
+            { en: 'exit', zh: '出口 (ㄔㄨ ㄎㄡˇ)', mnemonic: '`ex` (out, 外) + `it`。`ex-it` 就是「出去」(out) 的地方，即出口 (exit)。' },
+            { en: 'enemy', zh: '敵人 (ㄉㄧˊ ㄖㄣˊ)', mnemonic: '`enemy` (敵人) 聽起來像 `end of me` (我的終結)。敵人 (enemy) 就是那個想終結我 (end of me) 的人。' },
             { en: 'effect', zh: '效果 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: '`effect` (效果) 的 `e` 來自 `end-result` (最終結果)。所以 `effect` 是指一個動作造成的結果或影響。' },
-            { en: 'event', zh: '事件 (ㄕˋ ㄐㄧㄢˋ)', mnemonic: '`event` (事件) 裡面有 `eve` (前夕)。重大事件 (event) 總是在關鍵的前夕 (eve) 發生。' },
-            { en: 'function', zh: '功能 (ㄍㄨㄥ ㄋㄥˊ)', mnemonic: '`function` (功能) 裡面有 `fun` (樂趣)。這個機器的主要功能 (function) 就是帶來樂趣 (fun)。' },
-            { en: 'twitch', zh: '抽搐 (ㄔㄡ ㄔㄨˋ)', mnemonic: '`twitch` (抽搐) 聽起來像 `witch` (女巫)。那個女巫 (witch) 唸了咒語，讓他的臉開始抽搐 (twitch)。' },
-            { en: 'inspire', zh: '鼓舞 (ㄍㄨˇ ㄨˇ)', mnemonic: '`inspire` (鼓舞) 裡面有 `spire` (尖塔)。想要登上人生的尖塔 (spire)，就要不斷鼓舞 (inspire) 自己。' },
-            { en: 'loaf', zh: '一條(麵包) (ㄧˋ ㄊㄧㄠˊ)', mnemonic: '`loaf` (一條麵包) 和 `leaf` (葉子) 很像。想像用一片大葉子 (leaf) 包著一條麵包 (loaf)。' },
-            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '用任何 (any) 方式 (way) 都可以，無論如何 (anyway) 都要完成。' },
-            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`indicate` (指出) 裡面有 `dictate` (口述)。在口述 (dictate) 中指出 (indicate) 重點。' },
-            { en: 'wreck', zh: '殘骸 (ㄘㄢˊ ㄏㄞˊ)', mnemonic: '`wreck` (殘骸) 聽起來像 `break` (打破)。當你打破 (break) 某樣東西後，剩下的就是殘骸 (wreck)。' },
-            { en: 'sketch', zh: '素描 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '用你的技巧 (skill - `sk`etch) 來畫一張草圖/素描 (sketch)。' },
-            { en: 'cereal', zh: '麥片 (ㄇㄞˋ ㄆㄧㄢˋ)', mnemonic: '`cereal` (麥片) 聽起來像 `serial` (連續的)。我每天早上都吃同樣的麥片 (cereal)，就像在看連續劇 (serial)。' },
-            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '`reach` (到達) 和 `rich` (富有) 很像。富有的 (rich) 人可以輕易到達 (reach) 他們想去的任何地方。' }
+            { en: 'experience', zh: '經驗 (ㄐㄧㄥ ㄧㄢˋ)', mnemonic: '`experience` (經驗) 來自於 `expert` (專家)。一位專家 (expert) 必定擁有豐富的經驗 (experience)。' },
+            { en: 'emotion', zh: '情緒 (ㄑㄧㄥˊ ㄒㄩˋ)', mnemonic: '`e` (out, 向外) + `motion` (動作)。情緒 (emotion) 就是你內在感受的「向外」(out)「動作」(motion) 表現。' },
+            { en: 'engine', zh: '引擎 (ㄧㄣˇ ㄑㄧㄥˊ)', mnemonic: '`engine` (引擎) 聽起來像 `engineer` (工程師)。工程師 (engineer) 設計了引擎 (engine)。' },
+            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
+            { en: 'education', zh: '教育 (ㄐㄧㄠˋ ㄩˋ)', mnemonic: '`e` (out, 向外) + `duca` (lead, 引導)。`e-duca-tion` 就是「引導」(lead) 學生「走出」(out) 無知，這就是教育 (education)。' },
+            { en: 'fact', zh: '事實 (ㄕˋ ㄕˊ)', mnemonic: '`fact` (事實) 和 `factory` (工廠) 有關。工廠 (factory) 必須基於事實 (fact) 來生產產品。' }
         ];
 
         let currentQuestion = 0;
