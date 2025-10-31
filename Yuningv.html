@@ -3,247 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字拼寫測驗</title>
+    <title>馬力歐聽寫測驗 (新單字版)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'SuperMario';
+            src: url('https://raw.githubusercontent.com/google/fonts/main/ofl/pressstart2p/PressStart2P-Regular.ttf') format('truetype'); /*Fallback for older browsers*/
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive; /* 使用遊戲風格字體 */
+            background: linear-gradient(to bottom, #6dd5ed, #2193b0); /* 漸變藍色天空 */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 20px 0;
-            background-color: #f0f0f0;
+            margin: 0;
+            overflow: hidden; /* 防止背景元素溢出 */
+            position: relative;
         }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 500px;
-        }
-        h1 {
-            color: #333;
-            margin-top: 10px;
-        }
-        #game-image {
+
+        /* 馬力歐風格背景元素 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 300px;
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 10px;
+            height: 100%;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="80" r="10" fill="white" opacity="0.8"/><circle cx="50" cy="70" r="15" fill="white" opacity="0.8"/><circle cx="85" cy="85" r="12" fill="white" opacity="0.8"/></svg>'), /* 雲朵 */
+                url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="90" width="100" height="10" fill="#7CFC00"/></svg>'); /* 草地 */
+            background-repeat: repeat-x, repeat-x;
+            background-position: 0 50%, 0 100%;
+            background-size: 20% auto, 100% 10%;
+            animation: cloudsMove 30s linear infinite;
+            z-index: -1;
         }
-        #question {
-            font-size: 24px;
-            margin: 20px 0;
-            line-height: 1.4;
+
+        @keyframes cloudsMove {
+            0% { background-position: 0% 50%, 0 100%; }
+            100% { background-position: 200% 50%, 0 100%; }
         }
-        input {
-            padding: 10px;
-            font-size: 18px;
-            width: 80%;
-            margin-bottom: 10px;
+
+        #game-container {
+            background-color: #f7e1b9; /* 淺黃色，類似磚塊 */
+            border: 4px solid #a36f34; /* 深色邊框 */
+            border-radius: 8px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.4); /* 像素陰影 */
+            padding: 30px 40px;
+            width: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 1; /* 確保在背景之上 */
         }
-        button {
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        
+        /* 磚塊紋理 */
+        #game-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, #cc9966 25%, transparent 25%),
+                linear-gradient(-45deg, #cc9966 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #cc9966 75%),
+                linear-gradient(-45deg, transparent 75%, #cc9966 75%);
+            background-size: 20px 20px;
+            background-color: #f7e1b9;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        h1 {
+            color: #cc0000; /* 馬力歐紅色 */
+            text-shadow: 2px 2px 0px #333; /* 像素陰影 */
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        #progress {
+            font-size: 1.1em;
+            color: #4a2d00; /* 深棕色 */
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+        }
+        #playButton {
+            background-color: #ffd700; /* 金色，像問號磚塊 */
+            color: #a36f34; /* 深棕色字體 */
+            border: 4px solid #a36f34;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 5px;
+            transition: transform 0.1s ease-out, background-color 0.3s;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
         }
-        button:hover {
-            background-color: #45a049;
+        #playButton:hover {
+            background-color: #ffe64d;
+            transform: translateY(-2px); /* 輕微上彈 */
         }
-        #result {
-            font-size: 20px;
+        #playButton:active {
+            transform: translateY(2px); /* 模擬磚塊被撞擊 */
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        #answerInput {
+            width: 80%;
+            padding: 12px;
+            font-size: 1.1em;
+            margin: 20px 0;
+            border: 3px solid #6c3f15; /* 深棕色邊框 */
+            border-radius: 6px;
+            text-align: center;
+            background-color: #fff;
+            color: #333;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+        }
+        #answerInput:focus {
+            outline: none;
+            border-color: #cc0000; /* 焦點時變成紅色 */
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn {
+            padding: 12px 20px;
+            font-size: 1em;
+            border: 3px solid #a36f34; /* 磚塊邊框 */
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+            box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.4);
+        }
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        #checkButton {
+            background-color: #00cc00; /* 綠色，像蘑菇 */
+            color: white;
+        }
+        #checkButton:hover {
+            background-color: #00a800;
+        }
+        
+        #feedback {
             margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            min-height: 1.5em; /* 避免跳動 */
+            color: #4a2d00;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
         }
-        #mnemonic {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #3d5afe;
-            text-align: left;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            background-color: #f3f4ff;
-            line-height: 1.5;
+        .feedback-correct {
+            color: #00cc00 !important;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            animation: bounceIn 0.5s;
         }
-        #score {
-            font-size: 18px;
-            margin-top: 10px;
+        .feedback-wrong {
+            color: #cc0000 !important;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            animation: shake 0.5s;
         }
-        #wrong-words {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            white-space: pre-wrap;
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
         }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* 遊戲結束分數顯示 */
+        #final-score {
+            font-size: 1.5em;
+            color: #cc0000;
+            text-shadow: 2px 2px 0px #333;
+            margin-top: 30px;
+        }
+
+        /* 全對慶祝圖片的樣式 */
+        #all-correct-image {
+            position: fixed; /* 固定在視窗中 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1); /* 初始很小 */
+            max-width: 90%;
+            max-height: 90%;
+            opacity: 0;
+            pointer-events: none; /* 讓圖片不影響點擊下方的元素 */
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out; /* 動畫效果 */
+            z-index: 100; /* 確保在最上層 */
+        }
+        #all-correct-image.show {
+            transform: translate(-50%, -50%) scale(1); /* 放大到正常大小 */
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene">
-        <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
-        <div id="question"></div>
-        <input type="text" id="answer" placeholder="輸入英文拼寫">
-        <button id="submit">提交</button>
-        <div id="result"></div>
-        <div id="mnemonic" style="display: none;"></div>
-        <div id="score">分數: 0 / 0</div>
-        <div id="wrong-words"></div>
-        <button id="restart" style="display: none; margin-top: 20px;">重新開始</button>
-        <button id="retest-wrong" style="display: none; margin-top: 20px;">重測錯題</button>
+
+    <div id="game-container">
+        <h1>MARIO SPELLING TEST</h1>
+        <p id="progress"></p>
+        
+        <button id="playButton">🔊 PLAY WORD</button>
+        
+        <input type="text" id="answerInput" placeholder="TYPE THE WORD HERE" autocomplete="off" spellcheck="false">
+        
+        <div class="button-group">
+            <button id="checkButton" class="btn">CHECK</button>
+        </div>
+        
+        <p id="feedback"></p>
+        <p id="final-score" style="display:none;"></p>
     </div>
 
+    
+<img id="all-correct-image" src="all_correct.png" alt="All Correct!" style="display: none;">
+
     <script>
+        // 【新單字列表】
         const words = [
-            { en: 'dinner', zh: '晚餐 (ㄨㄢˇ ㄘㄢ)', mnemonic: '`dinner` 聽起來像 `thinner` (更瘦的)。如果你不吃晚餐 (dinner)，你會變得更瘦 (thinner)。' },
-            { en: 'extra', zh: '額外的 (ㄜˊ ㄨㄞˋ ㄉㄜ˙)', mnemonic: '`extra` 聽起來像 `extract` (取出)。你需要「取出」(extract) 額外的 (extra) 錢來買這個。' },
-            { en: 'hungry', zh: '飢餓的 (ㄐㄧ ㄜˋ ㄉㄜ˙)', mnemonic: '`hungry` (飢餓的) 和 `angry` (生氣的) 很像。當一個人飢餓 (hungry) 時，他很容易生氣 (angry)。' },
-            { en: 'focus', zh: '專注 (ㄓㄨㄢ ㄓㄨˋ)', mnemonic: '`FOCUS` = `Forgetting Other Cares, U See?` (忘掉其他煩惱，你懂嗎？) 這就是專注 (focus)。' },
-            { en: 'late', zh: '遲到 (ㄔˊ ㄉㄠˋ)', mnemonic: '`late` (遲到) 和 `gate` (大門) 押韻。你遲到 (late) 了，所以學校大門 (gate) 關了。' },
-            { en: 'flute', zh: '長笛 (ㄔㄤˊ ㄉㄧˊ)', mnemonic: '`flute` (長笛) 裡的 `lute` (魯特琴) 也是一種樂器。' },
-            { en: 'hunter', zh: '獵人 (ㄌㄧㄝˋ ㄖㄣˊ)', mnemonic: '`hunter` (獵人) 就是 `hunt` (打獵) + `er` (的人)。' },
-            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (向外) + `press` (擠壓)。把內心的想法向外擠壓 (press) 出來，就是表達 (express)。' },
-            { en: 'poem', zh: '詩 (ㄕ)', mnemonic: '`poem` 聽起來像 `poet` (詩人) `M` (寫的)。詩人 (poet) 寫的就是詩 (poem)。' },
-            { en: 'diagram', zh: '圖表 (ㄊㄨˊ ㄅㄧㄠˇ)', mnemonic: '`dia` (通過) + `gram` (圖形)。一個讓你「通過圖形」來理解資訊的東西就是圖表 (diagram)。' },
-            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peeking` (偷看) 聽起來像 `pick` (撿起)。他假裝在撿 (pick) 東西，其實是在偷看 (peeking)。' },
-            { en: 'sprout', zh: '發芽 (ㄈㄚ ㄧㄚˊ)', mnemonic: '`sprout` (發芽) Tīngqǐlái xiàng `shout out` (dàhǎn chūlái). Zhǒngzǐ fāyá (sprout) shí, jiù xiàng zài duì shìjiè dàhǎn (shout out)：「Wǒ chūláile!」。' },
-            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hardly` (幾乎不) = `hard` (困難地) + `ly`。要「很困難地」才能做到，表示你「幾乎不」會去做。' },
-            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`factory` 來自 `fact` (事實)。工廠 (factory) 就是製造「實際」(fact) 物品的地方。' }
+            'inspect', 'design', 'address', 'salad', 'electric', 'umbrella', 'window', 
+            'finish', 'through', 'scream', 'squeaky', 'screw', 'cheese', 'cherry', 
+            'punch', 'cheap', 'design', 'comb', 'wrinkle', 'limb', 'lettuce', 
+            'squirm', 'align', 'steak', 'danger', 'bacon', 'neighbor', 'bunch', 
+            'breathe', 'autumn'
         ];
 
-        let currentQuestion = 0;
+        let shuffledWords = [];
+        let currentWordIndex = 0;
         let score = 0;
-        let totalQuestions = words.length;
-        let questions = [];
-        let wrongWords = [];
-        let isWaitingToContinue = false;
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        const progressText = document.getElementById('progress');
+        const playButton = document.getElementById('playButton');
+        const answerInput = document.getElementById('answerInput');
+        const checkButton = document.getElementById('checkButton');
+        const feedbackText = document.getElementById('feedback');
+        const finalScoreText = document.getElementById('final-score');
+        const allCorrectImage = document.getElementById('all-correct-image'); // 取得圖片元素
 
-        function startGame(wordList = words) {
-            questions = [...wordList];
-            totalQuestions = questions.length;
-            shuffle(questions);
-            currentQuestion = 0;
-            score = 0;
-            wrongWords = [];
-            isWaitingToContinue = false;
-            document.getElementById('restart').style.display = 'none';
-            document.getElementById('retest-wrong').style.display = 'none';
-            document.getElementById('wrong-words').textContent = '';
-            document.getElementById('answer').style.display = 'block';
-            document.getElementById('submit').style.display = 'inline-block';
-            document.getElementById('submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
-            nextQuestion();
-        }
+        // 音效
+        const coinSound = new Audio('https://www.myinstants.com/media/sounds/smb_coin.wav'); // 馬力歐金幣音效
+        const gameOverSound = new Audio('https://www.myinstants.com/media/sounds/smb_gameover.wav'); // 馬力歐遊戲結束音效
+        const wrongSound = new Audio('https://www.myinstants.com/media/sounds/smb_bump.wav'); // 錯誤音效 (撞到磚塊)
 
-        function nextQuestion() {
-            if (currentQuestion >= totalQuestions) {
-                endGame();
+        window.onload = function() {
+            if (!('speechSynthesis' in window)) {
+                alert('抱歉，你的瀏覽器不支援語音功能，這個遊戲無法運作。');
                 return;
             }
-            const mnemonicEl = document.getElementById('mnemonic');
-            mnemonicEl.textContent = '';
-            mnemonicEl.style.display = 'none';
+            startGame();
+        };
 
-            isWaitingToContinue = false;
-            document.getElementById('submit').textContent = '提交';
-            const q = questions[currentQuestion];
-            document.getElementById('question').textContent = `輸入 "${q.zh}" 的英文拼寫：`;
-            document.getElementById('answer').value = '';
-            document.getElementById('result').textContent = '';
-            updateScore();
+        function startGame() {
+            shuffledWords = [...words].sort(() => Math.random() - 0.5);
+            currentWordIndex = 0;
+            score = 0;
+            finalScoreText.style.display = 'none';
+            playButton.disabled = false;
+            allCorrectImage.style.display = 'none'; // 隱藏圖片
+            allCorrectImage.classList.remove('show'); // 移除動畫效果
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            progressText.textContent = `QUESTION ${currentWordIndex + 1} / ${words.length}`;
+            feedbackText.textContent = '';
+            feedbackText.className = ''; // 清除之前的動畫類
+            answerInput.value = '';
+            answerInput.disabled = false;
+            
+            checkButton.style.display = 'inline-block';
+            
+            answerInput.focus(); // 自動聚焦輸入框
+
+            setTimeout(playWord, 300); // 延遲播放聲音
+        }
+
+        function playWord() {
+            const word = shuffledWords[currentWordIndex];
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.8; 
+            
+            speechSynthesis.speak(utterance);
         }
 
         function checkAnswer() {
-            if (isWaitingToContinue) {
-                currentQuestion++;
-                nextQuestion();
-                return;
-            }
-
-            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
-            const q = questions[currentQuestion];
-            const correctAnswer = q.en.toLowerCase();
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = shuffledWords[currentWordIndex].toLowerCase();
 
             if (userAnswer === correctAnswer) {
                 score++;
-                document.getElementById('result').textContent = '正確！';
-                document.getElementById('result').style.color = 'green';
-                document.getElementById('game-image').src = 'correct.png';
-                setTimeout(() => {
-                    currentQuestion++;
-                    nextQuestion();
-                }, 1500);
-            } else {
-                document.getElementById('result').textContent = `錯誤。正確答案是：${q.en}`;
-                document.getElementById('result').style.color = 'red';
-                document.getElementById('game-image').src = 'incorrect.png';
+                feedbackText.textContent = '🎉 CORRECT! GREAT JOB!';
+                feedbackText.className = 'feedback-correct';
+                coinSound.play(); // 播放金幣音效
                 
-                const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
-                mnemonicEl.style.display = 'block';
-                
-                document.getElementById('submit').textContent = '繼續';
-                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
-                isWaitingToContinue = true;
-            }
-            updateScore();
-        }
+                checkButton.style.display = 'none'; // 隱藏 CHECK 按鈕
+                answerInput.disabled = true; // 鎖定輸入框
 
-        function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
-        }
+                // 等待 1.2 秒後自動跳到下一題
+                setTimeout(nextQuestion, 1200); 
 
-        function endGame() {
-            document.getElementById('mnemonic').style.display = 'none';
-            document.getElementById('question').textContent = '測驗結束！';
-            document.getElementById('answer').style.display = 'none';
-            document.getElementById('submit').style.display = 'none';
-            document.getElementById('result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
-            
-            if (score === totalQuestions) {
-                document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
             } else {
-                document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '你答錯的單字：\n';
-                wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
-                });
-                document.getElementById('wrong-words').textContent = wrongText;
-                document.getElementById('retest-wrong').style.display = 'inline-block';
+                feedbackText.textContent = '🤔 WRONG! LISTEN AGAIN & TRY HARDER!';
+                feedbackText.className = 'feedback-wrong';
+                wrongSound.play(); // 播放錯誤音效
+                playWord();
             }
-            document.getElementById('restart').style.display = 'inline-block';
         }
 
-        document.getElementById('submit').addEventListener('click', checkAnswer);
-        document.getElementById('answer').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAnswer();
-        });
-        document.getElementById('restart').addEventListener('click', () => startGame(words));
-        document.getElementById('retest-wrong').addEventListener('click', () => {
-            if (wrongWords.length > 0) {
-                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
-                startGame(retestWords);
+        function nextQuestion() {
+            currentWordIndex++;
+            if (currentWordIndex < words.length) {
+                loadQuestion();
+            } else {
+                // 遊戲結束
+                feedbackText.textContent = 'GAME OVER!';
+                feedbackText.className = '';
+                finalScoreText.textContent = `YOU GOT ${score} OUT OF ${words.length} WORDS!`;
+                finalScoreText.style.display = 'block';
+                
+                playButton.disabled = true;
+                answerInput.disabled = true;
+                checkButton.style.display = 'none';
+                
+                gameOverSound.play(); // 播放遊戲結束音效
+
+                // 如果全對，顯示慶祝圖片
+                if (score === words.length) {
+                    setTimeout(() => { // 稍微延遲一下，讓音效先播
+                        allCorrectImage.style.display = 'block';
+                        // 強制瀏覽器重繪，確保動畫能正確觸發
+                        void allCorrectImage.offsetWidth; 
+                        allCorrectImage.classList.add('show');
+                    }, 500); 
+                }
+            }
+        }
+
+        playButton.addEventListener('click', playWord);
+        checkButton.addEventListener('click', checkAnswer);
+
+        // 監聽整個文件的 Enter 鍵事件
+        document.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                // 只要 "CHECK" 按鈕還在，Enter 鍵就等於按 "CHECK"
+                if (checkButton.style.display !== 'none') {
+                    checkAnswer();
+                } 
             }
         });
 
-        startGame();
     </script>
+
 </body>
 </html>
