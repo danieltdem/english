@@ -1,400 +1,417 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>月相與觀測 (v7 終極節日挑戰)</title>
+    <title>自然科學測驗-加強版 (2-1 ~ 2-4)</title>
     <style>
+        /* CSS 樣式開始 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Color Emoji";
-            background-color: #fffbeb;
-            color: #78350f;
-            line-height: 1.7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f8f9;
+            color: #333;
+            line-height: 1.6;
             padding: 20px;
-            max-width: 850px;
-            margin: 0 auto;
         }
-        h1 {
-            color: #b45309;
-            text-align: center;
-            border-bottom: 3px solid #b45309;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-        #quiz-container {
+        .quiz-container {
+            max-width: 700px;
+            margin: 20px auto;
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             padding: 30px;
         }
-        .question-block {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 25px;
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
         }
-        .question-block:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        h2 {
+            font-size: 1.2rem;
+            color: #007bff;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
         .question-block p {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #92400e;
-            margin-bottom: 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
-        .options label {
+        .question-block label {
             display: block;
-            background-color: #fefcfb;
-            padding: 14px 18px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
-            border: 1px solid #ddd;
-        }
-        .options label:hover {
-            background-color: #ffffff;
-            border-color: #d97706;
-            box-shadow: 0 2px 5px rgba(217, 119, 6, 0.1);
-        }
-        .options input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.1);
-        }
-        .feedback {
-            margin-top: 15px;
+            background-color: #f9f9f9;
             padding: 12px 15px;
-            border-radius: 6px;
-            font-weight: 500;
-            display: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
         }
-        .correct {
-            background-color: #fefce8;
-            color: #854d0e;
-            border: 1px solid #fde68a;
-            display: block;
+        .question-block label:hover {
+            background-color: #eef5fa;
         }
-        .incorrect {
-            background-color: #fff1f2;
-            color: #be123c;
-            border: 1px solid #fecdd3;
-            display: block;
+        .question-block input[type="radio"] {
+            margin-right: 10px;
         }
+
+        /* 答對與答錯的樣式 */
+        .question-block.correct {
+            background-color: #e6f7ec;
+            border-color: #52c41a;
+        }
+        .question-block.incorrect {
+            background-color: #fff1f0;
+            border-color: #f5222d;
+        }
+        .question-block.correct label.correct-answer {
+            font-weight: bold;
+            color: #389e0d;
+        }
+        .question-block.incorrect label.wrong-answer {
+            text-decoration: line-through;
+            color: #a61d24;
+        }
+        .question-block.incorrect label.correct-answer {
+            font-weight: bold;
+            color: #389e0d;
+            background-color: #f6ffed;
+        }
+
         #submit-btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            font-size: 1.25em;
+            padding: 15px;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #fff;
-            background: linear-gradient(90deg, #d97706, #b45309);
+            background-color: #007bff;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 30px;
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+            transition: background-color 0.3s ease;
         }
         #submit-btn:hover {
-            box-shadow: 0 6px 15px rgba(217, 119, 6, 0.4);
-            transform: translateY(-2px);
+            background-color: #0056b3;
         }
-        #score-result {
+        #results {
             text-align: center;
-            font-size: 1.6em;
+            font-size: 1.5rem;
             font-weight: bold;
             margin-top: 30px;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 5px;
         }
-        .score-pass {
-            color: #854d0e;
-            background-color: #fefce8;
+        #results.pass {
+            background-color: #e6f7ec;
+            color: #389e0d;
         }
-        .score-fail {
-            color: #be123c;
-            background-color: #fff1f2;
+        #results.fail {
+            background-color: #fff1f0;
+            color: #a61d24;
         }
+        /* CSS 樣式結束 */
     </style>
 </head>
 <body>
 
-    <h1>月相與觀測 (v7 終極節日挑戰)</h1>
+    <div class="quiz-container">
+        <h1>自然科學測驗-加強版 (2-1 ~ 2-4)</h1>
+        <p>請根據 2-1 到 2-4 的重點整理內容，選出最正確的答案。總共 20 題。</p>
+        
+        <form id="quiz-form">
+            
+            <h2>2-1 水域環境與觀察</h2>
 
-    <div id="quiz-container">
-
-        <div class="question-block">
-            <p>1. (節日) 猜燈謎、吃湯圓是「元宵節」的習俗。當天晚上的月相最接近？</p>
-            <div class="options">
-                <label><input type="radio" name="q1" value="a"> A) 新月</label>
-                <label><input type="radio" name="q1" value="b"> B) 上弦月</label>
-                <label><input type="radio" name="q1" value="c"> C) 滿月</label>
-                <label><input type="radio" name="q1" value="d"> D) 下弦月</label>
+            <div class="question-block" id="q1-block">
+                <p>1. 「水流很緩慢，會吸引動物來覓食和繁殖」，最可能是在描述哪種環境？</p>
+                <label><input type="radio" name="q1" value="A"> (A) 海洋</label>
+                <label><input type="radio" name="q1" value="B"> (B) 水田</label>
+                <label><input type="radio" name="q1" value="C"> (C) 河川</label>
+                <label><input type="radio" name="q1" value="D"> (D) 湖泊</label>
             </div>
-            <p class="feedback" id="feedback-q1"></p>
-        </div>
 
-        <div class="question-block">
-            <p>2. (節日) 當我們在過「農曆新年」大年初一，家家戶戶放鞭炮時，當天的月相是？</p>
-            <div class="options">
-                <label><input type="radio" name="q2" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q2" value="b"> B) 新月 (幾乎看不見)</label>
-                <label><input type="radio" name="q2" value="c"> C) 上弦月</label>
-                <label><input type="radio" name="q2" value="d"> D) 殘月</label>
+            <div class="question-block" id="q2-block">
+                <p>2. 哪裡是「最大的水域，海水鹽分高，生物種類繁多」？</p>
+                <label><input type="radio" name="q2" value="A"> (A) 海洋</label>
+                <label><input type="radio" name="q2" value="B"> (B) 生態池</label>
+                <label><input type="radio" name="q2" value="C"> (C) 溼地</label>
+                <label><input type="radio" name="q2" value="D"> (D) 河川</label>
             </div>
-            <p class="feedback" id="feedback-q2"></p>
-        </div>
 
-        <div class="question-block">
-            <p>3. (節日) 在「七夕」情人節，牛郎和織女相會的夜晚，我們看到的月相最接近？</p>
-            <div class="options">
-                <label><input type="radio" name="q3" value="a"> A) 上弦月 (右半圓)</label>
-                <label><input type="radio" name="q3" value="b"> B) 下弦月 (左半圓)</label>
-                <label><input type="radio" name="q3" value="c"> C) 滿月</label>
-                <label><input type="radio" name="q3" value="d"> D) 新月</label>
+            <div class="question-block" id="q3-block">
+                <p>3. 進行水域環境調查時，下列哪一項物品*不是*主要的攜帶物品？</p>
+                <label><input type="radio" name="q3" value="A"> (A) 撈網、水桶</label>
+                <label><input type="radio" name="q3" value="B"> (B) 望遠鏡、放大鏡</label>
+                <label><input type="radio" name="q3" value="C"> (C) 紀錄表、筆</label>
+                <label><input type="radio" name="q3" value="D"> (D) 烤肉架、木炭</label>
             </div>
-            <p class="feedback" id="feedback-q3"></p>
-        </div>
 
-        <div class="question-block">
-            <p>4. (節日) 「重陽節」有登高望遠的習俗，這天晚上的月相最接近？</p>
-            <div class="options">
-                <label><input type="radio" name="q4" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q4" value="b"> B) 殘月 (左邊彎彎)</label>
-                <label><input type="radio" name="q4" value="c"> C) 盈凸月 (右邊亮的凸月)</label>
-                <label><input type="radio" name="q4" value="d"> D) 新月</label>
+            <div class="question-block" id="q4-block">
+                <p>4. 觀察完水生生物後，最正確的做法是什麼？</p>
+                <label><input type="radio" name="q4" value="A"> (A) 帶回家養，好好研究</label>
+                <label><input type="radio" name="q4" value="B"> (B) 放到附近另一個生態池</label>
+                <label><input type="radio" name="q4" value="C"> (C) 將撈起的生物放回原來的水域環境</label>
+                <label><input type="radio" name="q4" value="D"> (D) 隨意丟棄在岸邊</label>
             </div>
-            <p class="feedback" id="feedback-q4"></p>
-        </div>
 
-        <div class="question-block">
-            <p>5. (節日) 在「除夕夜」圍爐時，是農曆的最後一天。當晚的月相是？</p>
-            <div class="options">
-                <label><input type="radio" name="q5" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q5" value="b"> B) 上弦月</label>
-                <label><input type="radio" name="q5" value="c"> C) 殘月 (幾乎看不見)</label>
-                <label><input type="radio" name="q5" value="d"> D) 下弦月</label>
+            <div class="question-block" id="q5-block">
+                <p>5. (2-1) 「水流比水田湍急，提供許多生物棲息和繁衍的場所。」這是指哪一種水域環境？</p>
+                <label><input type="radio" name="q5" value="A"> (A) 海洋</label>
+                <label><input type="radio" name="q5" value="B"> (B) 生態池</label>
+                <label><input type="radio" name="q5" value="C"> (C) 河川</label>
+                <label><input type="radio" name="q5" value="D"> (D) 水田</label>
             </div>
-            <p class="feedback" id="feedback-q5"></p>
-        </div>
+            
+            <h2>2-2 水生植物</h2>
 
-        <div class="question-block">
-            <p>6. (節日) 卡片上常畫著聖誕老人飛過「聖誕節」的夜空。請問「聖誕節」當晚的月相？</E></p>
-            <div class="options">
-                <label><input type="radio" name="q6" value="a"> A) 每年都固定是滿月</label>
-                <label><input type="radio" name="q6" value="b"> B) 每年都固定是新月</label>
-                <label><input type="radio" name="q6" value="c"> C) 每年都不一樣，要看當年農曆</label>
-                <label><input type="radio" name="q6" value="d"> D) 每年都固定是上弦月</label>
+            <div class="question-block" id="q6-block">
+                <p>6. 哪一種植物的根部漂在水裡，葉片漂浮水面，整株植物會隨水流四處漂流？</p>
+                <label><input type="radio" name="q6" value="A"> (A) 睡蓮 (浮葉性)</label>
+                <label><input type="radio" name="q6" value="B"> (B) 蓮 (挺水性)</label>
+                <label><input type="radio" name="q6" value="C"> (C) 水蘊草 (沉水性)</label>
+                <label><input type="radio" name="q6" value="D"> (D) 布袋蓮 (漂浮性)</label>
             </div>
-            <p class="feedback" id="feedback-q6"></p>
-        </div>
 
-        <div class="question-block">
-            <p>7. (節日) 許多電影都喜歡把「萬聖節」跟滿月綁在一起。但現實中，「萬聖節」的月相？</p>
-            <div class="options">
-                <label><input type="radio" name="q7" value="a"> A) 必定是滿月，所以才恐怖</label>
-                <label><input type="radio" name="q7" value="b"> B) 必定是新月，所以才黑暗</label>
-                <label><input type="radio" name="q7" value="c"> C) 不一定，因為它是國曆節日</label>
-                <label><input type="radio" name="q7" value="d"> D) 必定是下弦月</label>
+            <div class="question-block" id="q7-block">
+                <p>7. 哪一種植物的莖、葉柔軟，整株植物體生長在水面下？</p>
+                <label><input type="radio" name="q7" value="A"> (A) 浮萍</label>
+                <label><input type="radio" name="q7" value="B"> (B) 金魚藻</label>
+                <label><input type="radio" name="q7" value="C"> (C) 香蒲</label>
+                <label><input type="radio" name="q7" value="D"> (D) 菱角</label>
             </div>
-            <p class="feedback" id="feedback-q7"></p>
-        </div>
 
-        <div class="question-block">
-            <p>8. (節日) 「復活節」的日期是「春天過了第一個滿月後的星期天」。這個定義代表什麼？</p>
-            <div class="options">
-                <label><input type="radio" name="q8" value="a"> A) 復活節是固定的農曆節日</label>
-                <label><input type="radio" name="q8" value="b"> B) 復活節是固定的國曆節日</label>
-                <label><input type="radio" name="q8" value="c"> C) 復活節同時參考了國曆（春天）和農曆（滿月）</label>
-                <label><input type="radio" name="q8" value="d"> D) 復活節跟月亮無關</label>
+            <div class="question-block" id="q8-block">
+                <p>8. 蓮花(蓮)的根長在土裡，葉會挺出水面，這屬於哪一種類型？</p>
+                <label><input type="radio" name="q8" value="A"> (A) 漂浮性</label>
+                <label><input type="radio" name="q8" value="B"> (B) 沉水性</label>
+                <label><input type="radio" name="q8" value="C"> (C) 挺水性</label>
+                <label><input type="radio" name="q8" value="D"> (D) 浮葉性</label>
             </div>
-            <p class="feedback" id="feedback-q8"></p>
-        </div>
 
-        <div class="question-block">
-            <p>9. (觀測) 你用高度角觀測器瞄準月亮，發現鉛垂線（重力線）垂在量角器「60 度」的刻度上。請問月亮的高度角是幾度？</p>
-            <div class="options">
-                <label><input type="radio" name="q9" value="a"> A) 60 度</label>
-                <label><input type="radio" name="q9" value="b"> B) 30 度 (90 - 60)</label>
-                <label><input type="radio" name="q9" value="c"> C) 120 度 (180 - 60)</label>
-                <label><input type="radio" name="q9" value="d"> D) 90 度</label>
+            <div class="question-block" id="q9-block">
+                <p>9. 睡蓮的葉柄柔軟，可以隨水位高低伸展或彎曲，主要目的是什麼？</p>
+                <label><input type="radio" name="q9" value="A"> (A) 吸收更多養分</label>
+                <label><input type="radio" name="q9" value="B"> (B) 讓葉片能保持平貼在水面上</label>
+                <label><input type="radio" name="q9" value="C"> (C) 躲避水鳥啄食</label>
+                <label><input type="radio" name="q9" value="D"> (D) 幫助漂浮</label>
             </div>
-            <p class="feedback" id="feedback-q9"></p>
-        </div>
 
-        <div class="question-block">
-            <p>10. (視差) 當你在火車上，為什麼感覺遠方的「中央山脈」好像跟著你動，但窗外的「電線桿」卻快速向後退？</p>
-            <div class="options">
-                <label><input type="radio" name="q10" value="a"> A) 因為山脈真的在移動</label>
-                <label><input type="radio" name="q10" value="b"> B) 因為山脈很「遠」，角度變化小；電線桿很「近」，角度變化大</label>
-                <label><input type="radio" name="q10" value="c"> C) 因為山脈比電線桿高</label>
-                <label><input type="radio" name="q10" value="d"> D) 因為地球自轉</label>
+            <div class="question-block" id="q10-block">
+                <p>10. 蓮藕和布袋蓮的葉子有膨大的「通氣組織」，這個構造的主要功能是什麼？</p>
+                <label><input type="radio" name="q10" value="A"> (A) 儲存水分，避免乾旱</label>
+                <label><input type="radio" name="q10" value="B"> (B) 儲存空氣，幫助呼吸與漂浮</label>
+                <label><input type="radio" name="q10" value="C"> (C) 減少水的衝擊力</label>
+                <label><input type="radio" name="q10" value="D"> (D) 吸引昆蟲來幫忙繁殖</label>
             </div>
-            <p class="feedback" id="feedback-q10"></p>
-        </div>
 
-        <div class="question-block">
-            <p>11. (觀念) 課本說月相有圓缺變化。請問「月相變化」的成因是？</p>
-            <div class="options">
-                <label><input type="radio" name="q11" value="a"> A) 月亮每天被「地球的影子」遮住一點點</label>
-                <label><input type="radio" name="q11" value="b"> B) 月亮反射太陽光，但它公轉時「日、地、月」的相對角度改變了</label>
-                <label><input type="radio" name="q11" value="c"> C) 月亮自己發光的部分每天在增減</label>
-                <label><input type="radio" name="q11" value="d"> D) 月亮被「太陽的影子」遮住了</label>
+            <h2>2-3 水生動物</h2>
+
+            <div class="question-block" id="q11-block">
+                <p>11. 下列哪一種水生動物在長大後*不是*用「鰓」呼吸？</p>
+                <label><input type="radio" name="q11" value="A"> (A) 魚</label>
+                <label><input type="radio" name="q11" value="B"> (B) 蝦</label>
+                <label><input type="radio" name="q11" value="C"> (C) 蟹</label>
+                <label><input type="radio" name="q11" value="D"> (D) 烏龜</label>
             </div>
-            <p class="feedback" id="feedback-q11"></p>
-        </div>
 
-        <div class="question-block">
-            <p>12. (觀測) 在台灣，當月亮過了「滿月」之後，會開始變缺。請問是從哪一邊開始變暗（缺）的？</p>
-            <div class="options">
-                <label><input type="radio" name="q12" value="a"> A) 從「右半邊」開始變暗</label>
-                <label><input type="radio" name="q12" value="b"> B) 從「左半邊」開始變暗</label>
-                <label><input type="radio" name="q12" value="c"> C) 從「上半部」開始變暗</label>
-                <label><input type="radio" name="q12" value="d"> D) 從「下半部」開始變暗</label>
+            <div class="question-block" id="q12-block">
+                <p>12. 蝌蚪和長大後的青蛙，主要的呼吸部位分別是什麼？</p>
+                <label><input type="radio" name="q12" value="A"> (A) 都是肺</label>
+                <label><input type="radio" name="q12" value="B"> (B) 都是鰓</label>
+                <label><input type="radio" name="q12" value="C"> (C) 鰓、肺</label>
+                <label><input type="radio" name="q12" value="D"> (D) 肺、鰓</label>
             </div>
-            <p class="feedback" id="feedback-q12"></p>
-        </div>
 
-        <div class="question-block">
-            <p>13. (週期) 如果你今晚看到的是「下弦月」（左半圓）。請問，大約 7 天「前」，月相是什麼？</p>
-            <div class="options">
-                <label><input type="radio" name="q13" value="a"> A) 滿月</label>
-                <label><input type="radio" name="q13" value="b"> B) 新月</label>
-                <label><input type="radio" name="q13" value="c"> C) 上弦月</label>
-                <label><input type="radio" name="q13" value="d"> D) 還是下弦月</label>
+            <div class="question-block" id="q13-block">
+                <p>13. 紅娘華(水生昆蟲)是利用什麼部位在水中呼吸？</p>
+                <label><input type="radio" name="q13" value="A"> (A) 鰓</label>
+                <label><input type="radio" name="q13" value="B"> (B) 肺</label>
+                <label><input type="radio" name="q13" value="C"> (C) 呼吸管</label>
+                <label><input type="radio" name="q13" value="D"> (D) 皮膚</label>
             </div>
-            <p class="feedback" id="feedback-q13"></p>
-        </div>
-
-        <div class="question-block">
-            <p>14. (觀念) 「月食」（天狗食月）通常發生在什麼月相的時候？</p>
-            <div class="options">
-                <label><input type="radio" name="q14" value="a"> A) 新月 (農曆初一)</label>
-                <label><input type="radio" name="q14" value="b"> B) 上弦月 (農曆初七)</label>
-                <label><input type="radio" name="q14" value="c"> C) 滿月 (農曆十五)</label>
-                <label><input type="radio" name="q14" value="d"> D) 下弦月 (農曆廿二)</label>
+            
+            <div class="question-block" id="q14-block">
+                <p>14. 水黽(水生昆蟲)能在水面上「滑行」，牠是利用什麼構造？</p>
+                <label><input type="radio" name="q14" value="A"> (A) 尾部</label>
+                <label><input type="radio" name="q14" value="B"> (B) 魚鰭</label>
+                <label><input type="radio" name="q14" value="C"> (C) 腹足</label>
+                <label><input type="radio" name="q14" value="D"> (D) 腳上的細毛</label>
             </div>
-            <p class="feedback" id="feedback-q14"></p>
-        </div>
 
-        <div class="question-block">
-            <p>15. (核心) 我們晚上能看到月亮，最根本的原因是？</p>
-            <div class="options">
-                <label><input type="radio" name="q15" value="a"> A) 月亮本身是一顆會發光的恆星</label>
-                <label><input type="radio" name="q15" value="b"> B) 月亮反射了「太陽」的光</label>
-                <label><input type="radio" name="q15" value="c"> C) 月亮反射了「地球」的光</label>
-                <label><input type="radio" name="q15" value="d"> D) 月亮上有外星人的城市燈光</label>
+            <div class="question-block" id="q15-block">
+                <p>15. 根據課本內容，石田螺是利用什麼部位來「爬行」？</p>
+                <label><input type="radio" name="q15" value="A"> (A) 腳</label>
+                <label><input type="radio" name="q15" value="B"> (B) 腹足</label>
+                <label><input type="radio" name="q15" value="C"> (C) 尾部</label>
+                <label><input type="radio" name="q15" value="D"> (D) 胸足</label>
             </div>
-            <p class="feedback" id="feedback-q15"></p>
-        </div>
 
+            <h2>2-4 資源利用與保護</h2>
 
-        <button id="submit-btn">批改答案 (v7 終極節日)</button>
-        <h2 id="score-result"></h2>
+            <div class="question-block" id="q16-block">
+                <p>16. 下列哪一項*不是*人類利用水域環境資源的例子？</p>
+                <label><input type="radio" name="q16" value="A"> (A) 晒鹽</label>
+                <label><input type="radio" name="q16" value="B"> (B) 捕撈魚蝦</label>
+                <label><input type="radio" name="q16" value="C"> (C) 修築水庫蓄水</label>
+                <label><input type="radio" name="q16" value="D"> (D) 傾倒工廠廢棄物</label>
+            </div>
+            
+            <div class="question-block" id="q17-block">
+                <p>17. 下列哪一項*不是*造成水域環境破壞的原因？</p>
+                <label><input type="radio" name="q17" value="A"> (A) 過度開發森林導致土石流</label>
+                <label><input type="radio" name="q17" value="B"> (B) 工廠排放未處理的廢水</label>
+                <label><input type="radio" name="q17" value="C"> (C) 參與淨灘活動，減少海洋垃圾</label>
+                <label><input type="radio" name="q17" value="D"> (D) 過度使用肥料使水中生物死亡</label>
+            </div>
 
+            <div class="question-block" id="q18-block">
+                <p>18. 「過度開發森林」會對水域造成什麼直接衝擊？</p>
+                <label><input type="radio" name="q18" value="A"> (A) 造成土石流破壞水域</label>
+                <label><input type="radio" name="q18" value="B"> (B) 讓水庫的水變多</label>
+                <label><input type="radio" name="q18" value="C"> (C) 讓海洋生物死亡</label>
+                <label><input type="radio" name="q18" value="D"> (D) 汙染水源</label>
+            </div>
+
+            <div class="question-block" id="q19-block">
+                <p>19. 為了保護水域環境，下列哪一項做法是正確的？</p>
+                <label><input type="radio" name="q19" value="A"> (A) 在水源保護區烤肉戲水</label>
+                <label><input type="radio" name="q19" value="B"> (B) 家庭汙水和工廠廢水都應該處理過再排放</label>
+                <label><input type="radio" name="q19" value="C"> (C) 看到漂亮的水生生物就任意捕捉回家</label>
+                <label><input type="radio" name="q19" value="D"> (D) 為了把碗洗乾淨，盡量使用大量的清潔劑</label>
+            </div>
+
+            <div class="question-block" id="q20-block">
+                <p>20. 下列哪一項做法*無法*保護水域環境？</p>
+                <label><input type="radio" name="q20" value="A"> (A) 不任意捕捉水生生物</label>
+                <label><input type="radio" name="q20" value="B"> (B) 不在水源保護區戲水</label>
+                <label><input type="radio" name="q20" value="C"> (C) 不適量使用清潔劑</label>
+                <label><input type="radio" name="q20" value="D"> (D) 不濫墾、濫伐山坡地</label>
+            </div>
+            
+            <button type="submit" id="submit-btn">批改答案 (共 20 題)</button>
+        </form>
+        <div id="results"></div>
     </div>
 
     <script>
-        document.getElementById('submit-btn').addEventListener('click', function() {
-            // 定義正確答案
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 20 題的正確答案
             const correctAnswers = {
-                q1: 'c',
-                q2: 'b',
-                q3: 'a',
-                q4: 'c',
-                q5: 'c',
-                q6: 'c',
-                q7: 'c',
-                q8: 'c',
-                q9: 'b',
-                q10: 'b',
-                q11: 'b',
-                q12: 'a',
-                q13: 'a',
-                q14: 'c',
-                q15: 'b'
+                q1: 'B',
+                q2: 'A',
+                q3: 'D',
+                q4: 'C',
+                q5: 'C',
+                q6: 'D',
+                q7: 'B',
+                q8: 'C',
+                q9: 'B',
+                q10: 'B',
+                q11: 'D',
+                q12: 'C',
+                q13: 'C',
+                q14: 'D',
+                q15: 'B',
+                q16: 'D',
+                q17: 'C',
+                q18: 'A',
+                q19: 'B',
+                q20: 'C' // "不適量使用" = 亂用，所以無法保護
             };
 
-            let score = 0;
-            const totalQuestions = 15; // 總題數 15
+            const quizForm = document.getElementById('quiz-form');
+            const resultsDiv = document.getElementById('results');
+            const questionBlocks = document.querySelectorAll('.question-block');
 
-            // 遍歷所有問題並檢查答案
-            for (let i = 1; i <= totalQuestions; i++) {
-                const qName = 'q' + i;
-                const feedbackEl = document.getElementById('feedback-q' + i);
-                const selectedOption = document.querySelector('input[name="' + qName + '"]:checked');
+            quizForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // 防止表單提交導致頁面刷新
 
-                if (!selectedOption) {
-                    // 如果這題沒選
-                    feedbackEl.textContent = '你沒有選擇這題的答案喔！';
-                    feedbackEl.className = 'feedback incorrect';
-                    continue;
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+
+                // 清除之前的結果樣式
+                resultsDiv.innerHTML = '';
+                resultsDiv.className = '';
+                questionBlocks.forEach(block => {
+                    block.className = 'question-block';
+                    // 清除選項的樣式
+                    block.querySelectorAll('label').forEach(label => {
+                        label.className = '';
+                    });
+                });
+
+                // 批改每一題
+                for (const qName in correctAnswers) {
+                    const correctAnswer = correctAnswers[qName];
+                    const selectedInput = quizForm.elements[qName];
+                    let userAnswer = null;
+                    
+                    if (selectedInput) {
+                         // 檢查是單選按鈕組還是單個元素
+                        if (selectedInput.value) {
+                             userAnswer = selectedInput.value;
+                        } else if (selectedInput.length) {
+                            // 這是一個 RadioNodeList
+                            const checkedOption = Array.from(selectedInput).find(radio => radio.checked);
+                            if (checkedOption) {
+                                userAnswer = checkedOption.value;
+                            }
+                        }
+                    }
+
+                    const questionBlock = document.getElementById(qName + '-block');
+                    const selectedLabel = userAnswer ? document.querySelector(`input[name="${qName}"][value="${userAnswer}"]`) : null;
+                    
+                    const allLabels = questionBlock.querySelectorAll('label');
+                    let correctLabel = null;
+                    allLabels.forEach(label => {
+                        if (label.querySelector('input').value === correctAnswer) {
+                            correctLabel = label;
+                        }
+                    });
+
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        questionBlock.classList.add('correct');
+                        if (selectedLabel) {
+                            selectedLabel.parentElement.classList.add('correct-answer');
+                        }
+                    } else {
+                        questionBlock.classList.add('incorrect');
+                        // 標記答錯的選項
+                        if (selectedLabel) {
+                            selectedLabel.parentElement.classList.add('wrong-answer');
+                        }
+                        // 標記正確的選項
+                        if (correctLabel) {
+                            correctLabel.classList.add('correct-answer');
+                        }
+                    }
                 }
 
-                const userAnswer = selectedOption.value;
-                
-                if (userAnswer === correctAnswers[qName]) {
-                    // 答案正確
-                    score++;
-                    feedbackEl.textContent = '答對了！';
-                    feedbackEl.className = 'feedback correct';
+                // 顯示總分
+                resultsDiv.innerHTML = `你答對了 ${score} / ${totalQuestions} 題！`;
+                if (score >= 16) { // 80% 算通過
+                    resultsDiv.classList.add('pass');
+                    resultsDiv.innerHTML += "<br>太棒了，觀念非常清楚！";
                 } else {
-                    // 答案錯誤
-                    feedbackEl.textContent = '答錯了！正確答案是 ' + correctAnswers[qName].toUpperCase() + '。';
-                    feedbackEl.className = 'feedback incorrect';
+                    resultsDiv.classList.add('fail');
+                    resultsDiv.innerHTML += "<br>再加把勁，回去看看答錯的題目喔！";
                 }
 
-                // 針對特定題目提供額外解釋
-                if (qName === 'q1' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（元宵節是農曆正月「十五」，所以是「滿月」。）';
-                } else if (qName === 'q2' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（大年初一是農曆正月初「一」，也就是「新月」。）';
-                } else if (qName === 'q3' && userAnswer !== 'a') {
-                    feedbackEl.textContent += '（七夕是農曆七月初「七」，大約是 1/4 週期，所以是「上弦月」。）';
-                } else if (qName === 'q4' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（重陽節是農曆九月初「九」，已經過了上弦月（初七），所以是快要滿月的「盈凸月」。）';
-                } else if (qName === 'q5' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（除夕是農曆的最後一天（廿九或三十），隔天就是初一（新月），所以是幾乎看不到的「殘月」。）';
-                } else if (qName === 'q6' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（聖誕節是「國曆」12月25日。月相是看「農曆」，兩者不同步，所以每年月相都不同。）';
-                } else if (qName === 'q7' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（萬聖節是「國曆」10月31日，和聖誕節同理，每年對應的農曆都不同。）';
-                } else if (qName === 'q8' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（「春天」是國曆（看太陽）；「滿月」是農曆（看月亮）。這是一個混合曆法的節日。）';
-                } else if (qName === 'q9' && userAnswer !== 'b') {
-                    feedbackEl.textContent += '（鉛垂線是 90 度的基準，量角器讀數 60 度，代表距離地平線的高度是 90 - 60 = 30 度。）';
-                } else if (qName === 'q12' && userAnswer !== 'a') {
-                    feedbackEl.textContent += '（北半球觀測，上半月是「右邊」亮起；下半月（滿月後）是「右邊」先暗掉。）';
-                } else if (qName === 'q13' && userAnswer !== 'a') {
-                    feedbackEl.textContent += '（月相週期約 29.5 天，每 7 天變換一個主要型態。下弦月（3/4）倒退 7 天就是滿月（2/4）。）';
-                } else if (qName === 'q14' && userAnswer !== 'c') {
-                    feedbackEl.textContent += '（月食是「日-地-月」連線，地球的影子遮住月亮，這只會發生在「滿月」時。）';
-                }
-            }
-
-            // 顯示總分
-            const scoreResultEl = document.getElementById('score-result');
-            scoreResultEl.textContent = '測驗完成！你答對了 ' + score + ' 題 / 共 ' + totalQuestions + ' 題。';
-            
-            if (score === 15) {
-                scoreResultEl.textContent += ' 真是太不可思議了！15 題全對！你對節日和月相的掌握無人能及！';
-                scoreResultEl.className = 'score-pass';
-            } else if (score >= 12) {
-                scoreResultEl.textContent += ' 非常優秀！看來這些節日都難不倒你！';
-                scoreResultEl.className = 'score-pass';
-            } else if (score >= 9) {
-                scoreResultEl.textContent += ' 表現不錯！有幾題節日的農曆日期可能要再記一下喔！';
-                scoreResultEl.className = 'score-pass';
-            } else {
-                scoreResultEl.textContent += ' 加油！這些節日題確實有難度，再複習一下吧！';
-                scoreResultEl.className = 'score-fail';
-            }
-            
-            // 捲動到最上方看結果
-            window.scrollTo(0, 0);
+                // 捲動到結果區域
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            });
         });
     </script>
-
-</body>
+    </body>
 </html>
