@@ -189,6 +189,15 @@
             color: #c62828;
             font-weight: bold;
         }
+        
+        /* 【新功能】顯示正確答案的提示 */
+        .correct-answer-hint {
+            color: #c62828; /* K-pop 錯誤提示的深紅色 */
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-left: 8px;
+            font-family: 'Roboto', sans-serif; /* 保持字體一致 */
+        }
 
         /* 總分顯示 (全對) */
         #results.results-correct {
@@ -444,6 +453,11 @@
                 pl6: "pencils", pl7: "boxes", pl8: "watches", pl9: "trees", pl10: "classes"
             };
 
+            // 【新功能】批改前，先把所有舊的答案提示都清除
+            const allOldHints = document.querySelectorAll('.correct-answer-hint');
+            allOldHints.forEach(hint => hint.remove());
+
+
             //  helper function 檢查文字填空
             function checkInput(id, answer) {
                 const input = document.getElementById(id);
@@ -453,6 +467,14 @@
                     return 1;
                 } else {
                     input.className = 'incorrect';
+                    
+                    // 【新功能】顯示正確答案
+                    const hint = document.createElement('span');
+                    hint.className = 'correct-answer-hint';
+                    hint.textContent = ` (正確答案: ${answer})`;
+                    // 把提示插在輸入框後面
+                    input.parentNode.insertBefore(hint, input.nextSibling);
+                    
                     return 0;
                 }
             }
@@ -474,11 +496,19 @@
                     return 1;
                 } else {
                     groupElement.className = 'question radio-group incorrect';
+                    
+                    // 【新功能】顯示正確答案
+                    const hint = document.createElement('span');
+                    hint.className = 'correct-answer-hint';
+                    hint.textContent = ` (正確答案: ${answer})`;
+                    // 把提示加在整組選項的最後面
+                    groupElement.appendChild(hint);
+                    
                     return 0;
                 }
             }
 
-            // --- 開始批改 ---
+            // --- 開始批改 (以下不變) ---
 
             // 批改 Section 1 (This/That)
             for (let i = 1; i <= 10; i++) {
@@ -522,7 +552,7 @@
                 resultsDiv.innerHTML += "<p>🎤 PERFECT STAGE! 你是真正的 Center！全部答對！ 🎤</p>"; // 主題文字
                 resultsDiv.className = 'results-correct'; // 改用 CSS class
             } else {
-                resultsDiv.innerHTML += "<p>⭐ 練習生加油！再多練習幾次，準備出道吧！ ⭐</p>"; // 主題文字
+                resultsDiv.innerHTML += "<p>⭐ 練習生加油！快看看紅色的提示，再練習一次！ ⭐</p>"; // 主題文字 (修改了提示)
                 resultsDiv.className = 'results-incorrect'; // 改用 CSS class
             }
 
