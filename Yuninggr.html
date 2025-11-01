@@ -3,495 +3,554 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文文法測驗：形容詞與副詞</title>
+    <title>獵魔女團的英文試煉</title>
     <style>
+        /* 引入 Google Font: IM Fell English SC (符文/哥德風) 和 Noto Sans TC (中文) */
+        @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 優先使用 Noto Sans TC 處理中文, 後備字體處理英文 */
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #1a1a2e; /* 魔女結界 - 暗紫色背景 */
+            color: #f4e6ff; /* 靈魂寶石 - 淺紫色文字 */
+            line-height: 1.6;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            box-sizing: border-box;
+            flex-direction: column;
         }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        #quiz-container {
+            background-color: #2c2c3e; /* 較淺的暗色容器 */
+            border: 1px solid #c792ea; /* 曉美焰 - 紫色邊框 */
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255, 128, 211, 0.15); /* 小圓 - 粉色光暈 */
+            padding: 25px 35px;
             width: 100%;
-            max-width: 600px;
-            transition: all 0.3s ease;
+            max-width: 700px;
         }
         h1 {
-            color: #333;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        #game-image {
-            width: 150px; 
-            height: 150px; 
-            object-fit: contain; 
-            margin-bottom: 20px; 
-            border-radius: 50%; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            transition: all 0.5s ease;
-        }
-        #game-image.correct {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
-        }
-        #game-image.incorrect {
-            animation: shake 0.5s;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-        }
-        #game-image.all-correct {
-            animation: celebration 1s ease-in-out;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
-        }
-        #game-status {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        #game-status.correct {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            transform: scale(1.1);
-        }
-        #game-status.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            animation: shake 0.5s;
-        }
-        #game-status.all-correct {
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-            animation: celebration 1s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes celebration {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-        #progress {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        #question {
-            font-size: 22px;
-            margin: 20px 0;
-            color: #2c3e50;
-            line-height: 1.5;
-            background: #f1f3f4;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #74b9ff;
-        }
-        #options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .option-btn {
-            padding: 15px 20px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
+            font-family: 'IM Fell English SC', serif; /* 魔法符文字體 */
             text-align: center;
-            transform: translateY(0);
+            color: #ff80d3; /* 小圓 - 粉紅色 */
+            font-size: 2.5rem; /* 放大標題 */
+            text-shadow: 0 0 10px #ff80d3, 0 0 5px #ff80d3; /* 粉色霓虹光 */
+            margin-bottom: 25px;
         }
-        .option-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        h2 {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 700;
+            color: #c792ea; /* 曉美焰 - 紫色 */
+            border-bottom: 2px solid #c792ea;
+            padding-bottom: 10px;
+            margin-top: 30px;
         }
-        .option-btn.correct {
-            background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.05);
+        .question-group {
+            margin-bottom: 25px;
         }
-        .option-btn.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
-            animation: shake 0.5s;
+        .question {
+            margin-bottom: 18px;
         }
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
+        label {
+            display: block;
+            margin-bottom: 6px;
             font-weight: bold;
-            padding: 10px;
-            border-radius: 8px;
+            font-size: 1.05rem;
+            color: #f4e6ff; /* 淺紫色 */
         }
-        #explanation-container {
-            font-size: 16px;
-            margin-top: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fffbe6, #fff3cd);
-            border-left: 5px solid #f39c12;
-            border-radius: 10px;
-            text-align: left;
-            line-height: 1.6;
-            color: #5f4c0a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #score {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #333;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-        #wrong-questions {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            white-space: pre-wrap;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #e74c3c;
-            max-height: 250px;
-            overflow-y: auto;
-            line-height: 1.5;
-        }
-        #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px 5px;
+        input[type="text"] {
+            width: 95%;
+            padding: 10px 12px;
+            border: 1px solid #555; /* 灰色邊框 */
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #1a1a2e; /* 與背景同色 */
+            color: #f4e6ff; /* 輸入文字為淺紫色 */
             transition: all 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #ff80d3; /* 點選時變為粉色 */
+            box-shadow: 0 0 8px rgba(255, 128, 211, 0.7); /* 粉色光暈 */
+        }
+        .feedback {
+            font-size: 0.95rem;
             font-weight: bold;
+            margin-top: 6px;
+            min-height: 1.2em;
         }
-        #next-btn { 
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        .correct {
+            color: #77dd77; /* 魔法治癒 - 亮綠色 */
         }
-        #next-btn:hover { 
-            background: linear-gradient(135deg, #e17055, #fdcb6e);
-            transform: translateY(-2px);
+        .incorrect {
+            color: #ff6b6b; /* 悲嘆之種 - 亮紅色 */
         }
-        #restart-btn { 
-            background: linear-gradient(135deg, #00cec9, #00b894);
+        #submit-btn {
+            background-color: #ff80d3; /* 小圓 - 粉紅色 */
+            color: #1a1a2e; /* 暗色文字 */
+            border: none;
+            padding: 14px 22px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase; /* 英文大寫 */
+            letter-spacing: 1px; /* 字距 */
+            width: 100%;
+            margin-top: 20px;
         }
-        #restart-btn:hover { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            transform: translateY(-2px);
+        #submit-btn:hover {
+            background-color: #f4e6ff; /* 懸停時變為淺紫色 */
+            color: #1a1a2e;
+            box-shadow: 0 0 15px rgba(255, 128, 211, 0.8); /* 增強光暈 */
         }
-        #retest-wrong-btn { 
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        #results {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #3e2c3e; /* 結果框 - 暗粉紫色 */
+            border-radius: 5px;
+            color: #ffc0eb; /* 淺粉色文字 */
+            border: 1px solid #ff80d3;
         }
-        #retest-wrong-btn:hover { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            transform: translateY(-2px);
+        .prompt {
+            font-size: 0.9rem;
+            color: #aaa; /* 提示文字 - 灰色 */
+            font-style: italic;
+        }
+        /* 魔法分隔線 */
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(199, 146, 234, 0), rgba(199, 146, 234, 0.75), rgba(199, 146, 234, 0));
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
-        <div id="game-status" style="display: none;">🎯</div>
-        <h1>文法測驗：形容詞比較級與最高級</h1>
-        <p>請根據句子情境，選擇最適合的答案。</p>
+
+    <div id="quiz-container">
+        <h1>獵魔女團的英文試煉</h1>
+
+        <div class="question-group">
+            <h2>Part 1: Past Simple (過去簡單式)</h2>
+            <p>Change the verbs in brackets to their past verb form.</p>
+            <div class="question">
+                <label for="q1">1. The students ______ (want) some ice cream yesterday.</label>
+                <input type="text" id="q1">
+                <div class="feedback" id="feedback1"></div>
+            </div>
+            <div class="question">
+                <label for="q2">2. He ______ (play) football when he was younger.</label>
+                <input type="text" id="q2">
+                <div class="feedback" id="feedback2"></div>
+            </div>
+            <div class="question">
+                <label for="q3">3. We ______ (go) to the top of Taipei 101 last year.</label>
+                <input type="text" id="q3">
+                <div class="feedback" id="feedback3"></div>
+            </div>
+            <div class="question">
+                <label for="q4">4. Agnes ______ (buy) two months ago.</label>
+                <input type="text" id="q4">
+                <div class="feedback" id="feedback4"></div>
+            </div>
+            <div class="question">
+                <label for="q5">5. Teacher Steven ______ (shout) at P4A class last week.</label>
+                <input type="text" id="q5">
+                <div class="feedback" id="feedback5"></div>
+            </div>
+        </div>
         
-        <div id="quiz-area">
-            <div id="progress"></div>
-            <div id="question"></div>
-            <div id="options-container"></div>
-            <div id="result"></div>
-            <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;">下一題 ➡️</button>
+        <div class="question-group">
+            <h2>Part 2: Past Progressive (過去進行式)</h2>
+            <p>Change the verbs in brackets to their past progressive form.</p>
+            <div class="question">
+                <label for="q6">6. The girls ______ (drink) juice at the party.</label>
+                <input type="text" id="q6">
+                <div class="feedback" id="feedback6"></div>
+            </div>
+            <div class="question">
+                <label for="q7">7. The man ______ (dance) with his girlfriend.</label>
+                <input type="text" id="q7">
+                <div class="feedback" id="feedback7"></div>
+            </div>
+            <div class="question">
+                <label for="q8">8. Willson ______ (run) in the park.</label>
+                <input type="text" id="q8">
+                <div class="feedback" id="feedback8"></div>
+            </div>
+            <div class="question">
+                <label for="q9">9. Ray Ray ______ (not cook) hamburgers yesterday.</label>
+                <input type="text" id="q9">
+                <div class="feedback" id="feedback9"></div>
+            </div>
+            <div class="question">
+                <label for="q10">10. The family ______ (travel) to China in 2018.</label>
+                <input type="text" id="q10">
+                <div class="feedback" id="feedback10"></div>
+            </div>
         </div>
 
-        <div id="end-screen" style="display: none;">
-            <h2>🎊 測驗結束！ 🎊</h2>
-            <div id="score"></div>
-            <div id="wrong-questions"></div>
-            <button id="restart-btn">🔄 全部重測</button>
-            <button id="retest-wrong-btn" style="display: none;">❌ 重測錯題</button>
+        <div class="question-group">
+            <h2>Part 3: Future Tense (未來式造句)</h2>
+            <div class="question">
+                <label for="q11">11. Raymond will start English lessons next year. (改成問句)</label>
+                <input type="text" id="q11">
+                <div class="feedback" id="feedback11"></div>
+            </div>
+            <div class="question">
+                <label for="q12">12. Raymond will start English lessons next year. (改成否定句)</label>
+                <input type="text" id="q12">
+                <div class="feedback" id="feedback12"></div>
+            </div>
+            <div class="question">
+                <label for="q13">13. Tim is going to buy a bicycle in two days. (改成問句)</label>
+                <input type="text" id="q13">
+                <div class="feedback" id="feedback13"></div>
+            </div>
+            <div class="question">
+                <label for="q14">14. Tim is going to buy a bicycle in two days. (改成否定句)</label>
+                <input type="text" id="q14">
+                <div class="feedback" id="feedback14"></div>
+            </div>
+            <div class="question">
+                <label for="q15">15. Ariel and Charlotte will have dinner at 7:00pm. (改成問句)</label>
+                <input type="text" id="q15">
+                <div class="feedback" id="feedback15"></div>
+            </div>
+            <div class="question">
+                <label for="q16">16. Ariel and Charlotte will have dinner at 7:00pm. (改成否定句)</label>
+                <input type="text" id="q16">
+                <div class="feedback" id="feedback16"></div>
+            </div>
         </div>
+
+        <div class="question-group">
+            <h2>Part 4: Present Simple (現在簡單式問答)</h2>
+            <div class="question">
+                <label for="q17">17. (Q) The shop / close / at 8pm / on Friday</label>
+                <input type="text" id="q17" placeholder="請造問句...">
+                <div class="feedback" id="feedback17"></div>
+            </div>
+            <div class="question">
+                <label for="q18">18. (A) (close at 9pm)</label>
+                <input type="text" id="q18" placeholder="請回答...">
+                <div class="feedback" id="feedback18"></div>
+            </div>
+             <hr>
+            <div class="question">
+                <label for="q19">19. (Q) Ian / like / ice cream</label>
+                <input type="text" id="q19" placeholder="請造問句...">
+                <div class="feedback" id="feedback19"></div>
+            </div>
+            <div class="question">
+                <label for="q20">20. (A) (like chocolate cake)</label>
+                <input type="text" id="q20" placeholder="請回答...">
+                <div class="feedback" id="feedback20"></div>
+            </div>
+             <hr>
+            <div class="question">
+                <label for="q21">21. (Q) Aaron's father / play video games / at the weekend</label>
+                <input type="text" id="q21" placeholder="請造問句...">
+                <div class="feedback" id="feedback21"></div>
+            </div>
+            <div class="question">
+                <label for="q22">22. (A) (play baseball)</label>
+                <input type="text" id="q22" placeholder="請回答...">
+                <div class="feedback" id="feedback22"></div>
+            </div>
+             <hr>
+            <div class="question">
+                <label for="q23">23. (Q) Jenny and Polly / play football / in winter</label>
+                <input type="text" id="q23" placeholder="請造問句...">
+                <div class="feedback" id="feedback23"></div>
+            </div>
+            <div class="question">
+                <label for="q24">24. (A) (go fishing)</label>
+                <input type="text" id="q24" placeholder="請回答...">
+                <div class="feedback" id="feedback24"></div>
+            </div>
+             <hr>
+            <div class="question">
+                <label for="q25">25. (Q) The moon / rise / at daytime</label>
+                <input type="text" id="q25" placeholder="請造問句...">
+                <div class="feedback" id="feedback25"></div>
+            </div>
+            <div class="question">
+                <label for="q26">26. (A) (at night time)</label>
+                <input type="text" id="q26" placeholder="請回答...">
+                <div class="feedback" id="feedback26"></div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <h2>Part 5: Rewrite Incorrect Sentences (改錯)</h2>
+            <div class="question">
+                <label for="q27">27. She have many things to do tonight(2)</label>
+                <input type="text" id="q27">
+                <div class="feedback" id="feedback27"></div>
+            </div>
+            <div class="question">
+                <label for="q28">28. Let's gone to the beach for spring break.(2)</label>
+                <input type="text" id="q28">
+                <div class="feedback" id="feedback28"></div>
+            </div>
+            <div class="question">
+                <label for="q29">29. We like to eating oranges on Friday(3)</label>
+                <input type="text" id="q29">
+                <div class="feedback" id="feedback29"></div>
+            </div>
+            <div class="question">
+                <label for="q30">30. We is going to the supermarket tonight.(2)</label>
+                <input type="text" id="q30">
+                <div class="feedback" id="feedback30"></div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <h2>Part 6: When the Wind Stops (單字填空)</h2>
+            <p>Box: (glowing, lower, bright, shone, end)</p>
+            <div class="question">
+                <label for="q31">31. The ______ sun had...</label>
+                <input type="text" id="q31">
+                <div class="feedback" id="feedback31"></div>
+            </div>
+            <div class="question">
+                <label for="q32">32. ...had ______ all day, and now...</label>
+                <input type="text" id="q32">
+                <div class="feedback" id="feedback32"></div>
+            </div>
+            <div class="question">
+                <label for="q33">33. ...the day was coming to an ______.</label>
+                <input type="text" id="q33">
+                <div class="feedback" id="feedback33"></div>
+            </div>
+            <div class="question">
+                <label for="q34">34. The sun sank into the ______ pink clouds.</label>
+                <input type="text" id="q34">
+                <div class="feedback" id="feedback34"></div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <h2>Part 7: Comparison of Adjectives (形容詞比較級)</h2>
+            <div class="question">
+                <label for="q35">35. An elephant / a mouse (big)</label>
+                <input type="text" id="q35">
+                <div class="feedback" id="feedback35"></div>
+            </div>
+            <div class="question">
+                <label for="q36">36. A cat / a tiger (friendly)</label>
+                <input type="text" id="q36">
+                <div class="feedback" id="feedback36"></div>
+            </div>
+            <div class="question">
+                <label for="q37">37. Pizza tastes / tofu (good)</label>
+                <input type="text" id="q37">
+                <div class="feedback" id="feedback37"></div>
+            </div>
+            <div class="question">
+                <label for="q38">38. Japan / Hsinchu (far)</label>
+                <input type="text" id="q38">
+                <div class="feedback" id="feedback38"></div>
+            </div>
+            <div class="question">
+                <label for="q39">39. a dog / a giraffe (tall)</label>
+                <input type="text" id="q39">
+                <div class="feedback" id="feedback39"></div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <h2>Part 8: Present Progressive (現在進行式問答)</h2>
+            <div class="question">
+                <label for="q40">40. (Q) Rita / do / her homework / now</label>
+                <input type="text" id="q40" placeholder="請造問句...">
+                <div class="feedback" id="feedback40"></div>
+            </div>
+            <div class="question">
+                <label for="q41">41. (A) (watch TV)</label>
+                <input type="text" id="q41" placeholder="請回答...">
+                <div class="feedback" id="feedback41"></div>
+            </div>
+            <hr>
+            <div class="question">
+                <label for="q42">42. (Q) Diego / cry / at the moment</label>
+                <input type="text" id="q42" placeholder="請造問句...">
+                <div class="feedback" id="feedback42"></div>
+            </div>
+            <div class="question">
+                <label for="q43">43. (A) (make a sandwich)</label>
+                <input type="text" id="q43" placeholder="請回答...">
+                <div class="feedback" id="feedback43"></div>
+            </div>
+            <hr>
+            <div class="question">
+                <label for="q44">44. (Q) Alex / study / Chinese / this year</label>
+                <input type="text" id="q44" placeholder="請造問句...">
+                <div class="feedback" id="feedback44"></div>
+            </div>
+            <div class="question">
+                <label for="q45">45. (A) (study English)</label>
+                <input type="text" id="q45" placeholder="請回答...">
+                <div class="feedback" id="feedback45"></div>
+            </div>
+            <hr>
+            <div class="question">
+                <label for="q46">46. (Q) Jason / sing / a song / now</label>
+                <input type="text" id="q46" placeholder="請造問句...">
+                <div class="feedback" id="feedback46"></div>
+            </div>
+            <div class="question">
+                <label for="q47">47. (A) (eat chicken)</label>
+                <input type="text" id="q47" placeholder="請回答...">
+                <div class="feedback" id="feedback47"></div>
+            </div>
+            <hr>
+            <div class="question">
+                <label for="q48">48. (Q) Jinny and Chi Chi / go / to Taipei / this weekend</label>
+                <input type="text" id="q48" placeholder="請造問句...">
+                <div class="feedback" id="feedback48"></div>
+            </div>
+            <div class="question">
+                <label for="q49">49. (A) (go to the zoo)</label>
+                <input type="text" id="q49" placeholder="請回答...">
+                <div class="feedback" id="feedback49"></div>
+            </div>
+        </div>
+
+        <div class="question-group">
+            <h2>Part 9: Write a sentence (造句)</h2>
+            <p>Words: (Observe, Summer, Day, Season)</p>
+            <div class="question">
+                <label for="q50">50. Use at least 2 words to make a sentence.</label>
+                <input type="text" id="q50">
+                <div class="feedback" id="feedback50"></div>
+            </div>
+            <div class="question">
+                <label for="q51">51. Use at least 2 *different* words to make another sentence.</label>
+                <input type="text" id="q51">
+                <div class="feedback" id="feedback51"></div>
+            </div>
+        </div>
+
+
+        <button id="submit-btn">批改所有答案 (Check All Answers)</button>
+        <div id="results"></div>
     </div>
 
     <script>
-        // 存放所有題目的題庫
-        // --- 原有的形容詞題目 ---
-        const originalAdjectiveQuestions = [
-            { question: "My brother is much _______ than I am.", options: ["tall", "taller", "the tallest", "more tall"], answer: 1, explanation: "比較兩個人時，單音節形容詞 tall 的比較級是 taller。" },
-            { question: "This is _______ movie I have ever seen. It was terrible!", options: ["bad", "worse", "the worst", "the baddest"], answer: 2, explanation: "在「所有看過的電影」中比較，要用最高級。bad 的最高級是不規則變化 the worst。" },
-            { question: "Your new car is _______ than your old one.", options: ["good", "gooder", "the best", "better"], answer: 3, explanation: "比較兩樣東西時，要用比較級。good 的比較級是不規則變化 better。" },
-            { question: "This book is _______ than the movie.", options: ["interesting", "more interesting", "the most interesting", "interestinger"], answer: 1, explanation: "interesting 是長音節單字，比較級要在前面加 more。" },
-            { question: "Of the three sisters, she is _______.", options: ["the oldest", "older", "old", "more old"], answer: 0, explanation: "比較三個人時，要用最高級 the oldest。" },
-            { question: "A bicycle is _______ than a car.", options: ["less expensive", "the least expensive", "not expensive", "expensiver"], answer: 0, explanation: "表示「比較不昂貴」，應使用 less expensive than 的句型。" },
-            { question: "Today is _______ than yesterday. I need to turn on the AC.", options: ["hoter", "the hottest", "hotter", "more hot"], answer: 2, explanation: "hot 是「子音-母音-子音」結尾，比較級要重複字尾 t 再加 er。" },
-            { question: "My suitcase is _______ than yours. Mine is 20kg, and yours is 15kg.", options: ["heavy", "the heaviest", "heavier", "more heavy"], answer: 2, explanation: "heavy 字尾是 y，比較級要去 y 再加 ier。" },
-            { question: "Tom is as _______ as his brother. They are both 170cm.", options: ["tall", "taller", "the tallest", "so tall"], answer: 0, explanation: "表示「兩者程度相同」的 as...as 句型中，要使用形容詞的原級。" },
-            { question: "She is _______ girl in our school. Everyone likes her.", options: ["popular", "more popular", "the most popular", "popularest"], answer: 2, explanation: "在「全校」範圍比較，要用最高級。popular 是長音節單字，最高級是 the most popular。" },
-            { question: "The library is _______ from my house than the park is.", options: ["farther", "farrer", "the farthest", "further"], answer: 0, explanation: "比較兩地「實際距離」的遠近，要用 far 的比較級 farther。" },
-            { question: "Of all the fruits, the lemon is _______.", options: ["sour", "sourer", "the sourest", "more sour"], answer: 2, explanation: "在「所有水果」中比較，要用最高級 the sourest。" },
-            { question: "My phone is not as _______ as the new model.", options: ["powerful", "more powerful", "so powerful", "the most powerful"], answer: 0, explanation: "在 not as...as 的句型中，要使用形容詞的原級。" },
-            { question: "I have _______ time than you, so I must hurry.", options: ["little", "less", "the least", "littler"], answer: 1, explanation: "Time 是不可數名詞，比較「更少」的時間要用 little 的比較級 less。" },
-            { question: "Of all my classes, English is _______.", options: ["easy", "the easiest", "easier", "the most easy"], answer: 1, explanation: "在「所有課程」中比較，要用最高級。easy 的最高級是 the easiest。" }
-        ];
+        // 儲存所有正確答案
+        // 陣列中的第一個答案會被當作「標準答案」顯示
+        const correctAnswers = {
+            q1: ["wanted"],
+            q2: ["played"],
+            q3: ["went"],
+            q4: ["bought"],
+            q5: ["shouted"],
+            q6: ["were drinking"],
+            q7: ["was dancing"],
+            q8: ["was running"],
+            q9: ["was not cooking", "wasn't cooking"],
+            q10: ["was traveling", "was travelling"],
+            q11: ["will raymond start english lessons next year?"],
+            q12: ["raymond won't start english lessons next year.", "raymond will not start english lessons next year."],
+            q13: ["is tim going to buy a bicycle in two days?"],
+            q14: ["tim isn't going to buy a bicycle in two days.", "tim is not going to buy a bicycle in two days."],
+            q15: ["will they have dinner at 7:00 p.m.?", "will they have dinner at 7:00pm?"],
+            q16: ["they won't have dinner at 7:00 p.m.", "they won't have dinner at 7:00pm", "they will not have dinner at 7:00 p.m.", "they will not have dinner at 7:00pm"],
+            q17: ["does the shop close at 8pm on friday?"],
+            q18: ["no, it doesn't. it closes at 9pm on friday."],
+            q19: ["does ian like ice cream?"],
+            q20: ["no, he likes chocolate cake.", "no, ian likes chocolate cake."],
+            q21: ["does aaron's father play video games at the weekend?"],
+            q22: ["no, he plays baseball."],
+            q23: ["do jenny and polly play football in winter?", "do they play football in winter?"],
+            q24: ["no, they don't. they go fishing."],
+            q25: ["does the moon rise at daytime?"],
+            q26: ["no, it doesn't. it rises at night time."],
+            q27: ["she has many things to do tonight."],
+            q28: ["let's go to the beach for spring break."],
+            q29: ["we like to eat oranges on friday."],
+            q30: ["we are going to the supermarket tonight."],
+            q31: ["bright"],
+            q32: ["shone"],
+            q33: ["end"],
+            q34: ["glowing"],
+            q35: ["an elephant is bigger than a mouse."],
+            q36: ["a cat is friendlier than a tiger."],
+            q37: ["pizza tastes better than tofu."],
+            q38: ["japan is farther than hsinchu."],
+            q39: ["a giraffe is taller than a dog."],
+            q40: ["is rita doing her homework now?"],
+            q41: ["no, she isn't. she's watching tv.", "no, she is not. she is watching tv."],
+            q42: ["is diego crying at the moment?"],
+            q43: ["no, he is making a sandwich."],
+            q44: ["is alex studying chinese this year?"],
+            q45: ["no, he is studying english."],
+            q46: ["is jason singing a song now?"],
+            q47: ["no, he is eating chicken.", "no, jason is eating chicken."],
+            q48: ["are jinny and chi chi going to taipei this weekend?", "are they going to taipei this weekend?"],
+            q49: ["no, they are going to the zoo."],
+            q50: ["in summer, the day is long."], // (Using Summer, Day)
+            q51: ["i observe the new season."]  // (Using Observe, Season)
+        };
 
-        // --- 新增的副詞題目 (共20題) ---
-        const newAdverbQuestions = [
-            { question: "He is a good singer. He sings very ______.", options: ["good", "goodly", "well", "better"], answer: 2, explanation: "修飾動詞 sings 要用副詞。good 的副詞是不規則的 well。" },
-            { question: "To win the championship, Daniel practises very ______.", options: ["hard", "hardly", "harder", "more hard"], answer: 0, explanation: "修飾動詞 practises 要用副詞 hard (努力地)。hardly 的意思是「幾乎不」。" },
-            { question: "Antonio is running ______ so he's going to win the race.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "修飾動詞 running 要用副詞 fast。fastly 是錯誤的用法。" },
-            { question: "He has a problem with his leg and can't run ______ as Philip.", options: ["good", "well", "better", "best"], answer: 1, explanation: "在 as...as 的句型中，要用副詞的原級來修飾動詞 run，所以是 well。" },
-            { question: "The people are cheering ______ for the skaters.", options: ["loud", "loudly", "louder", "loudest"], answer: 1, explanation: "修飾動詞 cheering 要用副詞 loudly (大聲地)。" },
-            { question: "Which sentence has the correct adverb order?", options: ["She danced last night beautifully at the party.", "She danced beautifully last night at the party.", "She danced at the party beautifully last night.", "She danced beautifully at the party last night."], answer: 3, explanation: "副詞的黃金順序是：情態 (beautifully) → 地方 (at the party) → 時間 (last night)。" },
-            { question: "I haven't seen you ______. How have you been?", options: ["late", "lately", "later", "latest"], answer: 1, explanation: "lately 的意思是「最近」，符合句意。late 的意思是「遲到」。" },
-            { question: "He ______ eats breakfast; he always says he's not hungry.", options: ["hard", "hardly", "often", "neverly"], answer: 1, explanation: "hardly 的意思是「幾乎不」，符合句意。hard 是「努力地」。" },
-            { question: "A car goes quickly, but a plane flies ______.", options: ["quick", "more quickly", "quicker", "the most quickly"], answer: 1, explanation: "quickly 是長音節副詞，比較級要用 more quickly。" },
-            { question: "Anne drives badly, Paul drives worse, but Denise drives ______ of all.", options: ["bad", "the baddest", "worst", "the worst"], answer: 3, explanation: "比較三個人，要用最高級。badly 的最高級是不規則變化 the worst。" },
-            { question: "My father always works ______ in his office.", options: ["hard", "hardly", "late", "lately"], answer: 0, explanation: "修飾動詞 works 要用副詞 hard (努力地)。" },
-            { question: "Which word is an adjective, NOT an adverb?", options: ["slowly", "friendly", "quickly", "early"], answer: 1, explanation: "friendly (友善的) 是形容詞。副詞用法是 in a friendly way。" },
-            { question: "He arrived ______ for the meeting.", options: ["earlily", "earlier", "early", "more early"], answer: 2, explanation: "修飾動詞 arrived 要用副詞 early。early 的副詞與形容詞同形。" },
-            { question: "She speaks English more ______ than I do.", options: ["fluent", "fluently", "fluentlier", "most fluently"], answer: 1, explanation: "修飾動詞 speaks，且是比較級，要用 more + 副詞 (fluently)。" },
-            { question: "Of all the students, Jenny works ______.", options: ["the hardest", "hardest", "the most hard", "the most hardly"], answer: 0, explanation: "在「所有學生」中比較，要用最高級 the hardest。" },
-            { question: "Please drive ______! The road is icy.", options: ["careful", "more careful", "carefully", "caredully"], answer: 2, explanation: "修飾動詞 drive 要用副詞 carefully。" },
-            { question: "I ______ go to the cinema, maybe once or twice a year.", options: ["usually", "always", "never", "rarely"], answer: 3, explanation: "rarely (很少) 最符合「一年一兩次」的頻率。" },
-            { question: "He does not swim as ______ as his brother.", options: ["fast", "fastly", "faster", "fastest"], answer: 0, explanation: "在 as...as 的句型中，要使用副詞的原級 fast。" },
-            { question: "Kathy did well on the test, but Betty did ______.", options: ["best", "better", "good", "weller"], answer: 1, explanation: "比較 Kathy 和 Betty 兩人，要用 well 的比較級 better。" },
-            { question: "The children played ______ in the garden yesterday.", options: ["happy", "happily", "happier", "happiest"], answer: 1, explanation: "修飾動詞 played 要用副詞 happily。" }
-        ];
+        const totalQuestions = 51;
 
-        // --- 將新舊題庫合併 ---
-        const allQuestions = [...originalAdjectiveQuestions, ...newAdverbQuestions];
-
-        // 宣告遊戲會用到的變數
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
-
-        // 取得 HTML 頁面上的各個元素
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameImage = document.getElementById('game-image');
-        const gameStatus = document.getElementById('game-status');
-        const titleEl = document.querySelector('.container h1'); // 抓取 h1 標題元素
-
-        // 打亂題目順序的函式
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        // 開始遊戲的函式
-        function startGame(questionList) {
-            questions = [...questionList];
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
+        // 監聽按鈕點擊
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            let score = 0;
             
-            // 更新標題
-            titleEl.textContent = '文法測驗：形容詞與副詞'; // 將標題改為新的
-            
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameImage.src = 'initial.png'; // 確保遊戲開始時是初始圖片
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-            
-            showQuestion();
-        }
-
-        // 顯示一道題目的函式
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
-            questionEl.textContent = currentQuestion.question;
-
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        // 重置畫面狀態的函式 (換到下一題前)
-        function resetState() {
-            resultEl.textContent = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            gameImage.src = 'initial.png'; // 確保換題時圖片重置
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-        }
-
-        // 選擇答案時觸發的函式
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
-
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
-
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.textContent = '✅ 正確！太棒了！';
-                resultEl.style.color = '#2ecc71';
-                gameImage.src = 'correct.png'; // 答對時顯示 'correct.png'
-                gameImage.classList.add('correct');
-                gameStatus.textContent = '🎉';
-                gameStatus.classList.add('correct');
+            for (let i = 1; i <= totalQuestions; i++) {
+                const inputElement = document.getElementById('q' + i);
+                const feedbackElement = document.getElementById('feedback' + i);
                 
-                // 答對後自動跳轉
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
+                // 取得使用者答案，並進行標準化 (小寫、去前後空白、去掉句尾標點)
+                let userAnswer = inputElement.value.trim().toLowerCase();
+                userAnswer = userAnswer.replace(/[.?!]$/, ""); // 移除句尾的 . ? !
+
+                // 取得標準答案陣列
+                const correctAnswersList = correctAnswers['q' + i];
+
+                let isCorrect = false;
+                // 檢查使用者的答案是否存在於標準答案陣列中
+                for (const answer of correctAnswersList) {
+                    let normalizedCorrectAnswer = answer.toLowerCase().replace(/[.?!]$/, "");
+                    if (userAnswer === normalizedCorrectAnswer) {
+                        isCorrect = true;
+                        break;
                     }
-                }, 1500);
-            } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.textContent = '❌ 答錯了，再接再厲！';
-                resultEl.style.color = '#e74c3c';
-                gameImage.src = 'incorrect.png'; // 答錯時顯示 'incorrect.png'
-                gameImage.classList.add('incorrect');
-                gameStatus.textContent = '😅';
-                gameStatus.classList.add('incorrect');
-                
-                explanationEl.textContent = `💡 文法解析：${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
+                }
 
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block'; // 答錯時才顯示「下一題」按鈕
+                if (isCorrect) {
+                    // 答案正確
+                    feedbackElement.textContent = "✓ Correct! (正確！)";
+                    feedbackElement.className = "feedback correct";
+                    score++;
+                } else if (inputElement.value.trim() === "") {
+                    // 未填寫
+                    feedbackElement.textContent = "✗ Please enter an answer. (請輸入答案)";
+                    feedbackElement.className = "feedback incorrect";
+                } else {
+                    // 答案錯誤
+                    // 顯示陣列中的第一個答案
+                    feedbackElement.textContent = `✗ Incorrect. The correct answer is: ${correctAnswersList[0]} (錯誤，正確答案是：${correctAnswersList[0]})`;
+                    feedbackElement.className = "feedback incorrect";
+                }
             }
-        }
-
-        // 遊戲結束時呼叫的函式
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
             
-            const scoreEl = document.getElementById('score');
-            scoreEl.textContent = `🎯 你的最終分數：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
-
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameImage.src = 'all_correct.png'; // 全對時顯示 'all_correct.png'
-                gameImage.classList.add('all-correct');
-                gameStatus.textContent = '🏆';
-                gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握形容詞與副詞的用法！ 🎊';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.background = '#d4edda';
-                wrongQuestionsEl.style.color = '#155724';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameImage.src = 'not_all_correct.png'; // 沒有全對時顯示 'not_all_correct.png'
-                gameStatus.textContent = '📝';
-                let wrongText = '📋 你答錯的題目回顧：\n\n';
-                wrongQuestions.forEach((q, index) => {
-                    wrongText += `${index + 1}. ${q.question}\n`;
-                    wrongText += `    你的答案: "${q.userAnswer}" ❌\n`;
-                    wrongText += `    正確答案: "${q.options[q.answer]}" ✅\n`;
-                    wrongText += `    解析: ${q.explanation}\n\n`;
-                });
-                wrongQuestionsEl.textContent = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.background = '#f8d7da';
-                wrongQuestionsEl.style.color = '#721c24';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
-        }
-        
-        // 點擊「下一題」按鈕
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endGame();
-            }
+            // 顯示總分
+            const resultsElement = document.getElementById('results');
+            resultsElement.textContent = `You got ${score} out of ${totalQuestions} correct! (您答對了 ${totalQuestions} 題中的 ${score} 題！)`;
+            
+            // 捲動到頁面頂部顯示總分
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // 點擊「全部重測」按鈕
-        restartBtn.addEventListener('click', () => startGame(allQuestions));
-
-        // 點擊「重測錯題」按鈕
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                // 從 wrongQuestions 陣列中提取題目資料，移除上次的使用者答案
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
-            }
-        });
-
-        // 網頁載入後，自動開始遊戲
-        startGame(allQuestions);
     </script>
+
 </body>
 </html>
