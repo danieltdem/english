@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共33題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,26 +103,39 @@
 
     <script>
         const words = [
-            { en: 'homerun', zh: '全壘打 (ㄑㄩㄢˊ ㄌㄟˇ ㄉㄚˇ)', mnemonic: '`home` (家) + `run` (跑)。跑到 (run) 回家 (home) 就是全壘打 (homerun)。' },
-            { en: 'bundle', zh: '捆 (ㄎㄨㄣˇ)', mnemonic: '`bundle` (捆) 聽起來像 `bind` (綑綁)。把東西 `bind` (綑綁) 在一起就是一捆 (bundle)。' },
-            { en: 'interested', zh: '感興趣的 (ㄍㄢˇ ㄒㄧㄥˋ ㄑㄩˋ ㄉㄜ˙)', mnemonic: '`inter` (在...之間) + `rest` (休息)。在休息 (rest) 時間，我對 (inter) 很多事情都感興趣 (interested)。' },
-            { en: 'below', zh: '在...下面 (ㄗㄞˋ...ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '`be` (是) + `low` (低的)。「是」(be) 在一個低 (low) 的位置，就是在...下面 (below)。' },
+            { en: 'poem', zh: '詩 (ㄕ)', mnemonic: '`poem` (詩) 聽起來像 `poet` (詩人) `M` (寫的)。詩人 (poet) 寫的就是詩 (poem)。' },
+            { en: 'diagram', zh: '圖表 (ㄊㄨˊ ㄅㄧㄠˇ)', mnemonic: '`dia` (通過) + `gram` (圖形)。一個讓你「通過圖形」來理解資訊的東西就是圖表 (diagram)。' },
+            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peeking` (偷看) 聽起來像 `pick` (撿起)。他假裝在撿 (pick) 東西，其實是在偷看 (peeking)。' },
+            { en: 'sprout', zh: '發芽 (ㄈㄚ ㄧㄚˊ)', mnemonic: '`sprout` (發芽) 聽起來像 `shout out` (大喊出來)。種子發芽 (sprout) 時，就像在對世界大喊 (shout out)：「我出來了！」。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hardly` (幾乎不) = `hard` (困難地) + `ly`。要「很困難地」才能做到，表示你「幾乎不」會去做。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`factory` (工廠) 來自 `fact` (事實/製造)。工廠 (factory) 就是製造 (manu*fact*uring) 物品的地方。' },
+            { en: 'price', zh: '價格 (ㄐㄧㄚˋ ㄍㄜˊ)', mnemonic: '`price` (價格) 裡有 `ice` (冰)。在夏天，冰 (ice) 的價格 (price) 會很高。' },
+            { en: 'mild', zh: '溫和的 (ㄨㄣ ㄏㄜˊ ㄉㄜ˙)', mnemonic: '`mild` (溫和的) 和 `wild` (狂野的) 是相反詞。' },
+            { en: 'supply', zh: '供應 (ㄍㄨㄥ ㄧㄥˋ)', mnemonic: '`supply` (供應) 聽起來像 `sup` (supper, 晚餐)。這家餐廳供應 (supply) 美味的晚餐 (supper)。' },
+            { en: 'fight', zh: '打架 (ㄉㄚˇ ㄐㄧㄚˋ)', mnemonic: '`f` (find, 找到) + `ight` (right, 權利)。為了找到 (find) 你的權利 (right)，你必須戰鬥 (fight)。' },
+            { en: 'invite', zh: '邀請 (ㄧㄠ ㄑㄧㄥˇ)', mnemonic: '`in` (進入) + `vite` (via, 經由)。經由 (via) 這張卡片，邀請 (invite) 你進來 (in)。' },
+            { en: 'surprise', zh: '驚喜 (ㄐㄧㄥ ㄒㄧˇ)', mnemonic: '`sur` (super, 超級) + `prise` (price, 獎品)。一個超級大獎品 (super price) 是一個驚喜 (surprise)。' },
+            { en: 'private', zh: '私人的 (ㄙ ㄖㄣˊ ㄉㄜ˙)', mnemonic: '`private` (私人的) 裡有 `riv` (river, 河)。想像一條屬於你私人的 (private) 河流 (river)。' },
+            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` (two, 兩個) + `vide` (view, 看法)。當有兩種 (di) 不同的看法 (view) 時，人們就會被劃分 (divide) 成兩派。' },
             { en: 'slight', zh: '輕微的 (ㄑㄧㄥ ㄨㄟˊ ㄉㄜ˙)', mnemonic: '`s` + `light` (輕的)。`s-light` 就是非常輕 (light) 的，也就是輕微的 (slight)。' },
-            { en: 'trace', zh: '痕跡 (ㄏㄣˊ ㄐㄧ)', mnemonic: '`trace` (痕跡) 聽起來像 `trespass` (非法入侵)。非法入侵 (trespass) 者會留下痕跡 (trace)。' },
-            { en: 'plain', zh: '樸素的 (ㄆㄨˊ ㄙㄨˋ ㄉㄜ˙)', mnemonic: '`plain` (樸素的) 和 `plane` (飛機) 發音相同。想像一架非常樸素 (plain)、沒有任何圖案的飛機 (plane)。' },
-            { en: 'panic', zh: '恐慌 (ㄎㄨㄥˇ ㄏㄨㄤ)', mnemonic: '`pan` (平底鍋) + `ic`。想像一個平底鍋 (pan) 著火了，你開始感到恐慌 (panic)。' },
-            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '`stretch` (伸展) 聽起來像 `stress` (壓力)。當你感到有壓力 (stress) 時，你會伸展 (stretch) 身體來放鬆一下。' },
-            { en: 'decide', zh: '決定 (ㄐㄩㄝˊ ㄉㄧㄥˋ)', mnemonic: '`de` (off, 去除) + `cide` (cut, 切)。`de-cide` 就是「切掉」其他選項，只留下一個，這就是決定 (decide)。' },
-            { en: 'behave', zh: '表現 (ㄅㄧㄠˇ ㄒㄧㄢˋ)', mnemonic: '`be` (是) + `have` (有)。你「是」(be) 什麼樣的人，就會「有」(have) 什麼樣的表現 (behave)。' },
-            { en: 'exit', zh: '出口 (ㄔㄨ ㄎㄡˇ)', mnemonic: '`ex` (out, 外) + `it`。`ex-it` 就是「出去」(out) 的地方，即出口 (exit)。' },
-            { en: 'enemy', zh: '敵人 (ㄉㄧˊ ㄖㄣˊ)', mnemonic: '`enemy` (敵人) 聽起來像 `end of me` (我的終結)。敵人 (enemy) 就是那個想終結我 (end of me) 的人。' },
-            { en: 'effect', zh: '效果 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: '`effect` (效果) 的 `e` 來自 `end-result` (最終結果)。所以 `effect` 是指一個動作造成的結果或影響。' },
-            { en: 'experience', zh: '經驗 (ㄐㄧㄥ ㄧㄢˋ)', mnemonic: '`experience` (經驗) 來自於 `expert` (專家)。一位專家 (expert) 必定擁有豐富的經驗 (experience)。' },
-            { en: 'emotion', zh: '情緒 (ㄑㄧㄥˊ ㄒㄩˋ)', mnemonic: '`e` (out, 向外) + `motion` (動作)。情緒 (emotion) 就是你內在感受的「向外」(out)「動作」(motion) 表現。' },
-            { en: 'engine', zh: '引擎 (ㄧㄣˇ ㄑㄧㄥˊ)', mnemonic: '`engine` (引擎) 聽起來像 `engineer` (工程師)。工程師 (engineer) 設計了引擎 (engine)。' },
-            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
-            { en: 'education', zh: '教育 (ㄐㄧㄠˋ ㄩˋ)', mnemonic: '`e` (out, 向外) + `duca` (lead, 引導)。`e-duca-tion` 就是「引導」(lead) 學生「走出」(out) 無知，這就是教育 (education)。' },
-            { en: 'fact', zh: '事實 (ㄕˋ ㄕˊ)', mnemonic: '`fact` (事實) 和 `factory` (工廠) 有關。工廠 (factory) 必須基於事實 (fact) 來生產產品。' }
+            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)', mnemonic: '`light` (光) + `ning` (ing, 正在)。一道「正在發光」(lighting) 的東西，就是閃電 (lightning)。' },
+            { en: 'quite', zh: '相當 (ㄒㄧㄤ ㄉㄤ)', mnemonic: '`quite` (相當) 和 `quiet` (安靜) 很像。他「相當」(quite) 安靜 (quiet)。(請注意拼寫差異)' },
+            { en: 'bicycle', zh: '腳踏車 (ㄐㄧㄠˇ ㄊㄚˋ ㄔㄜ)', mnemonic: '`bi` (two, 兩個) + `cycle` (輪子)。有兩個 (bi) 輪子 (cycle) 的車。' },
+            { en: 'decide', zh: '決定 (ㄐㄩㄝˊ ㄉㄧㄥˋ)', mnemonic: '`de` (off, 去除) + `cide` (cut, 切)。`de-cide` 就是「切掉」(cut off) 其他選項，只留下一個，這就是決定 (decide)。' },
+            { en: 'library', zh: '圖書館 (ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ)', mnemonic: '`lib` (來自拉丁文 liber, 書) + `rary` (地方)。`library` 就是放書 (liber) 的地方。' },
+            { en: 'drive', zh: '駕駛 (ㄐㄧㄚˋ ㄕˇ)', mnemonic: '`d` + `rive` (river, 河)。想像沿著 (d) 河 (river) 邊駕駛 (drive)。' },
+            { en: 'interest', zh: '興趣 (ㄒㄧㄥˋ ㄑㄩˋ)', mnemonic: '`inter` (在...之間) + `rest` (休息)。在休息 (rest) 時間，我對 (inter) 很多事情都有興趣 (interest)。' },
+            { en: 'bring', zh: '帶來 (ㄉㄞˋ ㄌㄞˊ)', mnemonic: '`b` + `ring` (戒指)。他帶來 (bring) 了一個戒指 (ring) 要求婚。' },
+            { en: 'brief', zh: '簡短的 (ㄐㄧㄢˇ ㄉㄨㄢˇ ㄉㄜ˙)', mnemonic: '`b` + `rief` (leaf, 葉子)。想像一份像葉子 (leaf) 一樣單薄簡短 (brief) 的報告。' },
+            { en: 'interested', zh: '感興趣的 (ㄍㄢˇ ㄒㄧㄥˋ ㄑㄩˋ ㄉㄜ˙)', mnemonic: '`interest` (興趣) + `ed` (的)。有興趣 (interest) 的 (ed) 狀態。' },
+            { en: 'latest', zh: '最新的 (ㄗㄨㄟˋ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`late` (晚) + `st` (最高級)。時間上最晚 (late) 發生的，就是最新的 (latest)。' },
+            { en: 'cheat', zh: '作弊 (ㄗㄨㄛˋ ㄅㄧˋ)', mnemonic: '`c` (see, 看) + `heat` (熱度)。當你作弊 (cheat) 被抓到時，你會感到臉上發熱 (heat)。' },
+            { en: 'arrive', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '`a` (at, 在) + `rrive` (river, 河)。在 (at) 河 (river) 邊會合，就是到達 (arrive) 目的地。' },
+            { en: 'laugh', zh: '笑 (ㄒㄧㄠˋ)', mnemonic: '`laugh` (笑) 聽起來像 `last` (最後)。堅持到最後 (last) 的人笑 (laugh) 得最開心。' },
+            { en: 'arrest', zh: '逮捕 (ㄉㄞˇ ㄅㄨˇ)', mnemonic: '`ar` (at) + `rest` (休息)。警察來了，你的休息 (rest) 時間結束了，你被逮捕 (arrest) 了。' },
+            { en: 'check', zh: '檢查 (ㄐㄧㄢˇ ㄔㄚˊ)', mnemonic: '`check` (檢查) 和 `chess` (西洋棋) 很像。下棋 (chess) 時，你必須不斷檢查 (check) 棋盤。' },
+            { en: 'please', zh: '請 (ㄑㄧㄥˇ)', mnemonic: '`p` (person, 人) + `lease` (租約)。一個人 (person) 在簽租約 (lease) 時，必須很有禮貌地說「請」(please)。' },
+            { en: 'cause', zh: '造成 (ㄗㄠˋ ㄔㄥˊ)', mnemonic: '`cause` (造成) 聽起來像 `because` (因為) 的後半部。`because` (因為) 就是用來說明造成 (cause) 某件事的原因。' }
         ];
 
         let currentQuestion = 0;
