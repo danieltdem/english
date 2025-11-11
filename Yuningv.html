@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'smooth', zh: '平滑的 (ㄆㄧㄥˊ ㄏㄨㄚˊ ㄉㄜ˙)', mnemonic: '`smooth` 裡面有 `oo`。想像兩個 `o` 就像兩個平滑的 (smooth) 圓形。' },
-            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`value` (價值) 來自 `valiant` (勇敢的)。一個勇敢的 (valiant) 人是非常有價值的 (value)。' },
-            { en: 'whose', zh: '誰的 (ㄕㄟˊ ㄉㄜ˙)', mnemonic: '`whose` = `who` (誰) + `se` (see, 看)。你「看」(see) 到那是「誰」(who) 的東西嗎？(whose)' },
-            { en: 'troop', zh: '部隊 (ㄅㄨˋ ㄉㄨㄟˋ)', mnemonic: '`troop` (部隊) 和 `group` (團體) 押韻。一部隊 (troop) 就是一大群 (group) 士兵。' },
-            { en: 'truce', zh: '停戰 (ㄊㄧㄥˊ ㄓㄢˋ)', mnemonic: '`truce` (停戰) 聽起來像 `true` (真的)。「我們真的 (true) 停戰 (truce) 了嗎？」' },
-            { en: 'regular', zh: '規律的 (ㄍㄨㄟ ㄌㄩˋ ㄉㄜ˙)', mnemonic: '`regular` (規律的) = `regu` (rule, 規則)。規律的 (regular) 生活就是遵守 (rule) 規則的生活。' },
-            { en: 'include', zh: '包含 (ㄅㄠ ㄏㄢˊ)', mnemonic: '`in` (裡面) + `clude` (close, 關閉)。把東西「關」(close) 在「裡面」(in)，就是包含 (include)。' },
-            { en: 'argue', zh: '爭論 (ㄓㄥ ㄌㄨㄣˋ)', mnemonic: '`argue` (爭論) 聽起來像 `R + G`。想像兩個人在爭論 (argue) 紅色(R)和綠色(G)哪個比較好。' },
-            { en: 'usually', zh: '通常 (ㄊㄨㄥ ㄔㄤˊ)', mnemonic: '`usually` (通常) 來自 `usual` (平常的)。`use` (使用)。你「通常」(usually) 會「使用」(use) 的東西。' },
-            { en: 'continue', zh: '繼續 (ㄐㄧˋ ㄒㄩˋ)', mnemonic: '`con` (with, 一起) + `tinue` (tiny, 微小)。即使是微小 (tiny) 的步伐，也要和 (with) 大家一起繼續 (continue) 前進。' },
-            { en: 'lay', zh: '放置 (ㄈㄤˋ ㄓˋ)', mnemonic: '`lay` (放置) 和 `pray` (祈禱) 押韻。在祈禱 (pray) 之前，先把 (lay) 東西放下。' },
-            { en: 'asleep', zh: '睡著的 (ㄕㄨㄟˋ ㄓㄠˊ ㄉㄜ˙)', mnemonic: '`a` + `sleep` (睡覺)。就是「處於」(a)「睡覺」(sleep) 的狀態，即睡著的 (asleep)。' },
-            { en: 'bucket', zh: '水桶 (ㄕㄨㄟˇ ㄊㄨㄥˇ)', mnemonic: '`bucket` (水桶) 聽起來像 `book it` (預訂它)。快「預訂它」(book it)，我們需要一個水桶 (bucket) 來裝水。' },
-            { en: 'catch', zh: '抓住 (ㄓㄨㄚ ㄓㄨˋ)', mnemonic: '`catch` (抓住) 聽起來像 `cat` (貓)。貓 (cat) 正在試圖抓住 (catch) 老鼠。' },
-            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`divide` (劃分) 的 `di` 聽起來像 `die` (死亡)。想像兩個人為了劃分 (divide) 財產而決鬥至死 (die)。' }
+            { en: 'desire', zh: '慾望 (ㄩˋ ㄨㄤˋ)', mnemonic: '`desire` 聽起來像「de-sire」(的，陛下)。僕人對國王說：「的，陛下 (de sire)，您所有的慾望 (desire) 都會被滿足。」' },
+            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`castle` (城堡) 裡有 `cast` (施放)。巫師施放 (cast) 咒語來保護城堡 (castle)。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空的)。在你自己和你想要避免 (avoid) 的事物之間，留下一個空隙 (void)。' },
+            { en: 'buffet', zh: '自助餐 (ㄗˋ ㄓㄨˋ ㄘㄢ)', mnemonic: '`buffet` (自助餐) 聽起來像 "Buy Us Free Food, Eat Too" (買免費食物給我們吃，也吃太多)。' },
+            { en: 'lead', zh: '領導 (ㄌㄧㄥˇ ㄉㄠˇ)', mnemonic: '`lead` (領導) 來自 `leader` (領導者)。一個領導者 (leader) 的工作就是領導 (lead) 團隊。' },
+            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 和 `linger` (縈繞) 押韻。她的香水味在他的手指 (finger) 上縈繞 (linger) 不去。' },
+            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peek` (偷看) 聽起來像 `pick` (撿)。他假裝在地上撿 (pick) 東西，其實是為了偷看 (peek) 她一眼。' },
+            { en: 'wonder', zh: '好奇 (ㄏㄠˋ ㄑㄧˊ)', mnemonic: '`wonder` (好奇) 和 `wander` (漫遊) 很像。我因為對世界感到好奇 (wonder)，所以四處漫遊 (wander)。' },
+            { en: 'study', zh: '學習 (ㄒㄩㄝˊ ㄒㄧˊ)', mnemonic: '`study` (學習) 聽起來像 `stu` (student, 學生) + `dy` (duty, 責任)。學生的 (student) 責任 (duty) 就是學習 (study)。' },
+            { en: 'lab', zh: '實驗室 (ㄕˊ ㄧㄢˋ ㄕˋ)', mnemonic: '`lab` (實驗室) 是 `laboratory` (實驗室) 的縮寫。' },
+            { en: 'muddy', zh: '泥濘的 (ㄋㄧˊ ㄋㄧㄥˋ ㄉㄜ˙)', mnemonic: '`muddy` (泥濘的) 就是充滿了 `mud` (泥巴)。' },
+            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (平常的)。不 (un) 平常的 (usual) 就是不尋常的 (unusual)。' },
+            { en: 'harsh', zh: '嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`harsh` (嚴厲的) 聽起來像 `hard` (困難/嚴硬的)。一個嚴厲的 (harsh) 老師讓考試變得很困難 (hard)。' },
+            { en: 'danger', zh: '危險 (ㄨㄟˊ ㄒㄧㄢˇ)', mnemonic: '`danger` (危險) 聽起來像 `don\'t go near` (不要靠近)。因為那裡有危險 (danger)。' },
+            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` (die, 死亡) + `vide` (wide, 寬闊的)。他們為了劃分 (divide) 這片寬闊的 (wide) 土地而戰鬥至死 (die)。' }
         ];
 
         let currentQuestion = 0;
