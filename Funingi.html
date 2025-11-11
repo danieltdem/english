@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共47題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,53 +103,21 @@
 
     <script>
         const words = [
-            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ)', mnemonic: '`same` 和 `name` (名字) 押韻。想像兩個有著相同名字 (same name) 的人，他們有很多相同(same)之處。' },
-            { en: 'story', zh: '故事 (ㄍㄨˋ ㄕˋ)', mnemonic: '`story` (故事) 和 `storey` (樓層) 發音相同。想像在一棟大樓的每一層 (storey) 都在上演著不同的故事 (story)。' },
-            { en: 'many', zh: '許多 (ㄒㄩˇ ㄉㄨㄛ)', mnemonic: '`many` 的發音聽起來像 `money` (錢)。許多(many)人都想要很多錢(money)。' },
-            { en: 'culture', zh: '文化 (ㄨㄣˊ ㄏㄨㄚˋ)', mnemonic: '`culture` (文化) 裡面藏著 `cult` (教派)。每個教派 (cult) 都有自己獨特的文化 (culture)。' },
-            { en: 'person', zh: '一個人 (ㄧˊ ㄍㄜˋ ㄖㄣˊ)', mnemonic: '拆解成 `per` (每一個) 和 `son` (兒子)。每一個兒子 (every son) 都是一個獨立的人 (person)。' },
-            { en: 'people', zh: '人們 (ㄖㄣˊ ㄇㄣˊ)', mnemonic: '`people` 的發音開頭聽起來像 `Pepsi` (百事可樂)。很多人們(people)都喜歡喝百事可樂。' },
-            { en: 'black', zh: '黑色 (ㄏㄟ ㄙㄜˋ)', mnemonic: '拆解成 `b` 和 `lack` (缺少)。當缺少 (lack) 光線時，世界就是黑色 (black) 的。' },
-            { en: 'flag', zh: '旗幟 (ㄑㄧˊ ㄓˋ)', mnemonic: '拆解成 `f` 和 `lag` (落後)。如果一個國家落後 (lag) 了，它就無法升起它的旗幟 (flag)。' },
-            { en: 'crab', zh: '螃蟹 (ㄆㄤˊ ㄒㄧㄝˋ)', mnemonic: '`crab` (螃蟹) 的後半部 `rab` 聽起來像 `grab` (抓)。螃蟹 (crab) 會用牠的爪子抓住 (grab) 東西。' },
-            { en: 'broom', zh: '掃帚 (ㄙㄠˋ ㄓㄡˇ)', mnemonic: '拆解成 `b` 和 `room` (房間)。你需要一把掃帚 (broom) 來打掃你的房間 (room)。' },
-            { en: 'bride', zh: '新娘 (ㄒㄧㄣ ㄋㄧㄤˊ)', mnemonic: '拆解成 `b` 和 `ride` (騎乘)。新娘 (bride) 在婚禮後會和新郎一起乘車 (ride) 離開。' },
-            { en: 'glass', zh: '玻璃 (ㄅㄛ ㄌㄧˊ)', mnemonic: '`glass` (玻璃) 裡有 `ass` (屁股)。小心別讓你的屁股撞到玻璃(glass)！' },
-            { en: 'enter', zh: '進入 (ㄐㄧㄣˋ ㄖㄨˋ)', mnemonic: '聯想鍵盤上的 `Enter` 鍵。你按下它來「輸入」或「進入」(enter) 下一個指令。' },
-            { en: 'kite', zh: '風箏 (ㄈㄥ ㄓㄥ)', mnemonic: '`kite` (風箏) 的後半部 `ite` 聽起來像 `height` (高度)。風箏 (kite) 會飛到很高的高度 (height)。' },
-            { en: 'jog', zh: '慢跑 (ㄇㄢˋ ㄆㄠˇ)', mnemonic: '`jog` (慢跑) 和 `dog` (狗) 押韻。我每天都會和我的狗 (dog) 一起去慢跑 (jog)。' },
-            { en: 'fail', zh: '失敗 (ㄕ ㄅㄞˋ)', mnemonic: '`fail` (失敗) 和 `fall` (跌倒) 很像。失敗 (fail) 了就像跌倒 (fall) 了一樣，但可以再站起來。' },
-            { en: 'lie', zh: '說謊 (ㄕㄨㄛ ㄏㄨㄤˇ)', mnemonic: '`lie` (謊言) 這個字藏在 `believe` (相信) 的中間。所以，不要相信(be**lie**ve)謊言。' },
-            { en: 'magazine', zh: '雜誌 (ㄗㄚˊ ㄓˋ)', mnemonic: '`magazine` (雜誌) 就像一個神奇的 (magic) 場景 (scene)，裡面有各種圖片和故事。' },
-            { en: 'article', zh: '文章 (ㄨㄣˊ ㄓㄤ)', mnemonic: '`article` (文章) 裡面包含 `art` (藝術)。一篇好的文章 (article) 就是一門語言的藝術 (art)。' },
-            { en: 'message', zh: '訊息 (ㄒㄩㄣˋ ㄒㄧˊ)', mnemonic: '拆解成 `mess` (混亂) 和 `age` (時代)。在這個資訊時代 (age)，我們每天收到的大量訊息 (message) 有時候會造成混亂 (mess)。' },
-            { en: 'important', zh: '重要的 (ㄓㄨㄥˋ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`important` (重要的) 就像一隻會「進口」(import) 東西的螞蟻 (ant)。這隻螞蟻非常重要。' },
-            { en: 'build', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)', mnemonic: '`build` (建造) 的發音聽起來像 `billed` (被開帳單)。你蓋了一棟房子(build)，現在要付帳單了。' },
-            { en: 'all over', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)', mnemonic: '這是一個片語，可以直接記憶。想像把顏料灑出來，弄得到處 (all over) 都是。' },
-            { en: 'Friday', zh: '星期五 (ㄒㄧㄥ ㄑㄧˊ ㄨˇ)', mnemonic: '`Friday` (星期五) 裡面有 `fry` (油炸)。星期五晚上最適合吃炸雞 (fried chicken) 來放鬆一下！' },
-            { en: 'frog', zh: '青蛙 (ㄑㄧㄥ ㄨㄚ)', mnemonic: '`frog` (青蛙) 常常跳到 `rock` (石頭) 上面。' },
-            { en: 'grass', zh: '草 (ㄘㄠˇ)', mnemonic: '`grass` (草) 和 `glass` (玻璃) 很像。想像一片像玻璃一樣翠綠的草地。' },
-            { en: 'green', zh: '綠色 (ㄌㄩˋ ㄙㄜˋ)', mnemonic: '`green` (綠色) 裡面有 `see` (看見)。我喜歡看見 (see) 綠色 (green) 的植物。' },
-            { en: 'end', zh: '結束 (ㄐㄧㄝˊ ㄕㄨˋ)', mnemonic: '`end` (結束) 這個字藏在 `friend` (朋友) 的結尾。一段友誼不應該輕易結束 (end)。' },
-            { en: 'dirty', zh: '髒的 (ㄗㄤ ㄉㄜ˙)', mnemonic: '`dirty` (髒的) 就是充滿了 `dirt` (泥土)。' },
-            { en: 'bell', zh: '鈴鐺 (ㄌㄧㄥˊ ㄉㄤ)', mnemonic: '`bell` (鈴鐺) 和 `well` (井) 押韻。有個鈴鐺 (bell) 掉到井 (well) 裡了。' },
-            { en: 'age', zh: '年齡 (ㄋㄧㄢˊ ㄌㄧㄥˊ)', mnemonic: '`age` (年齡) 和 `cage` (籠子) 押韻。隨著年齡 (age) 增長，身體有時會感覺像被困在籠子 (cage) 裡。' },
-            { en: 'July', zh: '七月 (ㄑㄧ ㄩㄝˋ)', mnemonic: '`July` (七月) 聽起來像 "珠寶"(jewel-ry)。七月是買珠寶的好時機。' },
-            { en: 'text', zh: '文字 (ㄨㄣˊ ㄗˋ)', mnemonic: '`text` (文字) 和 `next` (下一個) 很像。讀完這段文字 (text)，就換下一個 (next)。' },
-            { en: 'think', zh: '思考 (ㄙ ㄎㄠˇ)', mnemonic: '`think` (思考) 和 `ink` (墨水) 很像。作家用墨水 (ink) 寫下他們的思考 (think)。' },
-            { en: 'around', zh: '周圍 (ㄓㄡ ㄨㄟˊ)', mnemonic: '`around` (周圍) 裡面有 `round` (圓的)。繞著一個圓圓的 (round) 東西走一圈，就是在它的周圍 (around)。' },
-            { en: 'another', zh: '另一個 (ㄌㄧㄥˋ ㄧˊ ㄍㄜˋ)', mnemonic: '拆解成 `an` (一個) 和 `other` (其他的)。就是「另一個」(another)。' },
-            { en: 'author', zh: '作者 (ㄗㄨㄛˋ ㄓㄜˇ)', mnemonic: '`author` (作者) 和 `authority` (權威) 有共同的字根。一位作者 (author) 是他作品領域的權威。' },
-            { en: 'write', zh: '寫 (ㄒㄧㄝˇ)', mnemonic: '`write` (寫) 和 `right` (右邊的; 正確的) 發音相同。大部分的人用右手 (right hand) 來寫字 (write)。' },
-            { en: 'sleep', zh: '睡覺 (ㄕㄨㄟˋ ㄐㄧㄠˋ)', mnemonic: '`sleep` (睡覺) 和 `sheep` (羊) 很像。睡不著 (can\'t sleep) 的時候就數綿羊 (sheep)。' },
-            { en: 'slide', zh: '溜滑梯 (ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ)', mnemonic: '`slide` (滑動) 的 `s` 就像一條彎曲的溜滑梯，讓你滑 (slide) 下來。' },
-            { en: 'plate', zh: '盤子 (ㄆㄢˊ ㄗ˙)', mnemonic: '`plate` (盤子) 和 `late` (遲到) 只差一個字母。你遲到 (late) 了，所以你的盤子 (plate) 裡什麼都沒有。' },
-            { en: 'play', zh: '玩 (ㄨㄢˊ)', mnemonic: '`play` (玩) 和 `pray` (祈禱) 很像。玩樂 (play) 之後，別忘了祈禱 (pray)。' },
-            { en: 'kind', zh: '親切的 (ㄑㄧㄣ ㄑㄧㄝˋ ㄉㄜ˙)', mnemonic: '一個親切的 (kind) 人，你會把他放在心裡 (in your mind - `kind` 和 `mind` 押韻)。' },
-            { en: 'best', zh: '最好的 (ㄗㄨㄟˋ ㄏㄠˇ ㄉㄜ˙)', mnemonic: '`best` (最好的) 和 `test` (考試) 押韻。在考試 (test) 中拿到最好的 (best) 成績。' },
-            { en: 'cheap', zh: '便宜的 (ㄆㄧㄢˊ ㄧˊ)', mnemonic: '`cheap` (便宜) 和 `jeep` (吉普車) 押韻。這是一台很便宜的 (cheap) 吉普車 (jeep)。' },
-            { en: 'fix', zh: '修理 (ㄒㄧㄡ ㄌㄧˇ)', mnemonic: '`fix` (修理) 和 `six` (六) 很像。我花了六 (six) 塊錢來修理 (fix) 這個東西。' },
-            { en: 'guy', zh: '傢伙 (ㄐㄧㄚ ㄏㄨㄛ˙)', mnemonic: '`guy` (傢伙) 和 `buy` (買) 押韻。那個傢伙 (guy) 想買 (buy) 什麼？' }
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happen` = `hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 寫下了所有發生的 (happen) 事情。' },
+            { en: 'preview', zh: '預習 (ㄩˋ ㄒㄧˊ)', mnemonic: '`pre` (之前) + `view` (看)。在 (pre) 正式看之前 (view) 先看，就是預習 (preview)。' },
+            { en: 'predict', zh: '預測 (ㄩˋ ㄘㄜˋ)', mnemonic: '`pre` (之前) + `dict` (說)。在事情發生「之前」就「說」出來，就是預測 (predict)。' },
+            { en: 'splash', zh: '濺起 (ㄐㄧㄢˋ ㄑㄧˇ)', mnemonic: '`s` + `pl` (play, 玩) + `ash` (灰燼)。想像在灰燼 (ash) 中玩耍 (play)，會濺起 (splash) 很多灰塵。' },
+            { en: 'puddle', zh: '水坑 (ㄕㄨㄟˇ ㄎㄥ)', mnemonic: '`puddle` (水坑) 聽起來像 `paddle` (划槳)。你不能在一個小水坑 (puddle) 裡划槳 (paddle)。' },
+            { en: 'lift', zh: '舉起 (ㄐㄩˇ ㄑㄧˇ)', mnemonic: '`lift` (舉起) 聽起來像 `gift` (禮物)。當你舉起 (lift) 一個很重的禮物 (gift) 時。' },
+            { en: 'smoke', zh: '煙 (ㄧㄢ)', mnemonic: '`smoke` (煙) 聽起來像 `snake` (蛇)。煙 (smoke) 像蛇 (snake) 一樣蜿蜒上升。' },
+            { en: 'snake', zh: '蛇 (ㄕㄜˊ)', mnemonic: '`snake` (蛇) 聽起來像 `snack` (點心)。小心，那條蛇 (snake) 可能會把你的點心 (snack) 吃掉！' },
+            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個微笑 (smile) 可以傳播好幾英里 (mile) 遠。' },
+            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢)。雪 (snow) 總是慢慢地 (slow) 飄下。' },
+            { en: 'bite', zh: '咬 (ㄧㄠˇ)', mnemonic: '`b` + `ite` (eat的過去式)。b-eat (吃)，就是用牙齒去吃，也就是咬 (bite)。' },
+            { en: 'coke', zh: '可樂 (ㄎㄜˇ ㄌㄜˋ)', mnemonic: '`coke` (可樂) 和 `joke` (玩笑) 押韻。喝可樂 (coke) 時別說笑話 (joke)，不然會噴出來。' },
+            { en: 'fire', zh: '火 (ㄏㄨㄛˇ)', mnemonic: '`fire` (火) 和 `wire` (電線) 押韻。老舊的電線 (wire) 很容易引起火災 (fire)。' },
+            { en: 'fly', zh: '飛 (ㄈㄟ)', mnemonic: '`fly` (飛) 和 `sky` (天空) 押韻。鳥兒在天空 (sky) 中飛 (fly)。' },
+            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` (體育館) 和 `swim` (游泳) 押韻。我喜歡去體育館 (gym) 裡的泳池游泳 (swim)。' }
         ];
 
         let currentQuestion = 0;
