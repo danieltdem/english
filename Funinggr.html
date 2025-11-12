@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Unit 6 I am... You are...</title>
+    <title><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Unit 5 Plurals (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>)</title>
     <style>
-        /* CSS styles */
+        /* CSS styles remain the same, no changes needed here */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -17,10 +17,10 @@
             padding: 20px;
             box-sizing: border-box;
         }
-        ruby { 
+        ruby { /* Added style for better ruby/zhuyin readability */
             ruby-position: over;
         }
-        rt { 
+        rt { /* Added style for zhuyin font size */
             font-size: 0.7em;
             opacity: 0.9;
         }
@@ -45,15 +45,7 @@
             margin-bottom: 20px;
             font-size: 16px;
         }
-
-        /* *** MODIFIED: Reverted back to #game-image styles *** */
         #game-image {
-            width: 150px;
-            height: 150px;
-            object-fit: contain; /* Use 'contain' to avoid distortion */
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: all 0.5s ease;
         }
         #game-image.correct {
@@ -68,9 +60,6 @@
             animation: celebration 1s ease-in-out;
             box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
         }
-        /* *** End of modification *** */
-
-
         #game-status {
             width: 120px;
             height: 120px;
@@ -120,7 +109,7 @@
             font-size: 22px;
             margin: 20px 0;
             color: #2c3e50;
-            line-height: 2; 
+            line-height: 2; /* Increased line-height for zhuyin */
             background: #f1f3f4;
             padding: 20px;
             border-radius: 10px;
@@ -168,7 +157,7 @@
             font-weight: bold;
             padding: 10px;
             border-radius: 8px;
-            line-height: 2; 
+            line-height: 2; /* Increased line-height for zhuyin */
         }
         #explanation-container {
             font-size: 16px;
@@ -178,7 +167,7 @@
             border-left: 5px solid #f39c12;
             border-radius: 10px;
             text-align: left;
-            line-height: 2.2; 
+            line-height: 2.2; /* Increased line-height for zhuyin */
             color: #5f4c0a;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
@@ -190,7 +179,7 @@
             background: #f8f9fa;
             border-radius: 10px;
             font-weight: bold;
-            line-height: 2; 
+            line-height: 2; /* Increased line-height for zhuyin */
         }
         #wrong-questions {
             font-size: 16px;
@@ -202,7 +191,7 @@
             border-left: 5px solid #e74c3c;
             max-height: 250px;
             overflow-y: auto;
-            line-height: 2.5; 
+            line-height: 2.5; /* Increased line-height for zhuyin */
         }
         #next-btn, #restart-btn, #retest-wrong-btn {
             padding: 15px 30px;
@@ -240,11 +229,11 @@
 </head>
 <body>
     <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene">
-        <div id="game-status" style="display: none;">🙋</div>
+        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
+        <div id="game-status" style="display: none;">📚</div>
         
-        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Unit 6 I am... You are...</h1>
-        <p><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>情<rt>ㄑㄧㄥˊ</rt></ruby><ruby>境<rt>ㄐㄧㄥˋ</rt></ruby>，<ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> `I am` <ruby>或<rt>ㄏㄨㄛˋ</rt></ruby> `You are` <ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
+        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Unit 5 Plurals (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>)</h1>
+        <p><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby>，<ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>化<rt>ㄏㄨㄚˋ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>型<rt>ㄒㄧㄥˊ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
         
         <div id="quiz-area">
             <div id="progress"></div>
@@ -252,7 +241,7 @@
             <div id="options-container"></div>
             <div id="result"></div>
             <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>Tˊ</rt></ruby> ➡️</button>
+            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
         </div>
 
         <div id="end-screen" style="display: none;">
@@ -265,57 +254,130 @@
     </div>
 
     <script>
-        // 題庫 (allQuestions) 保持不變
+        // *** 題庫已更新為 Unit 5 內容 (20題) ***
         const allQuestions = [
             { 
-                question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>想<rt>ㄒㄧㄤˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>介<rt>ㄐㄧㄝˋ</rt></ruby><ruby>紹<rt>ㄕㄠˋ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>...」<ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby>：", 
-                options: ["I am", "You are", "He is"], 
-                answer: 0, 
-                explanation: "`I` (<ruby>我<rt>ㄨㄛˇ</rt></ruby>) <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>搭<rt>ㄉㄚ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby> `am` (<ruby>是<rt>ㄕˋ</rt></ruby>)。<ruby> </ruby>`I am` <ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>」。<ruby> </ruby>" 
-            },
-            { 
-                question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>想<rt>ㄒㄧㄤˇ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>...」<ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby>：", 
-                options: ["I am", "You are", "I is"], 
+                question: "`a ball` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>顆<rt>ㄎㄜ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["ball", "balls", "balles"], 
                 answer: 1, 
-                explanation: "`You` (<ruby>你<rt>ㄋㄧˇ</rt></ruby>) <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>搭<rt>ㄉㄚ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby> `are` (<ruby>是<rt>ㄕˋ</rt></ruby>)。<ruby> </Guby> `You are` <ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>」。<ruby> </ruby>" 
+                explanation: "<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>分<rt>˙ㄈㄣ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>只<rt>ㄓˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> -s <ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！" 
             },
             { 
-                question: "`I'm` <ruby>是<rt>ㄕˋ</rt></ruby><ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>？", 
-                options: ["I am", "You are", "I was"], 
+                question: "`a box` (<ruby>ㄧ<rt>ˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>盒<rt>ㄏㄜˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["box", "boxs", "boxes"], 
+                answer: 2, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -x <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> -es <ruby>才<rt>ㄘㄞˊ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>喔<rt>˙ㄛ</rt></ruby>！" 
+            },
+            { 
+                question: "`a bus` (<ruby>ㄧ<rt>ˊ</rt></ruby><ruby>輛<rt>ㄌㄧㄤˋ</rt></ruby><ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>車<rt>ㄔㄜ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["buses", "bus", "buss"], 
                 answer: 0, 
-                explanation: "`I am` (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>) <ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby> `I'm`。<ruby> </ruby><ruby>意<rt>ㄧˋ</rt></ruby><ruby>思<rt>˙ㄙ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>樣<rt>ㄧㄤˋ</rt></ruby>！" 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -s, -ss, -x, -sh, -ch, -o <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> -es。" 
             },
             { 
-                question: "`You're` <ruby>是<rt>ㄕˋ</rt></ruby><ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>？", 
-                options: ["You were", "You am", "You are"], 
-                answer: 2, 
-                explanation: "`You are` (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>) <ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby> `You're`。<ruby> </ruby>" 
+                question: "`a tomato` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>顆<rt>ㄎㄜ</rt></ruby><ruby>番<rt>ㄈㄢ</rt></ruby><ruby>茄<rt>ㄑㄧㄝˊ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["tomatos", "tomatoes", "tomato"], 
+                answer: 1, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -o <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>，<ruby>通<rt>ㄊㄨㄥ</rt></ruby><ruby>常<rt>ㄔㄤˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> -es <ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>。" 
             },
             { 
-                question: "<ruby>想<rt>ㄒㄧㄤˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>師<rt>ㄕ</rt></ruby><ruby>嗎<rt>˙ㄇㄚ</rt></ruby>？」，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby>？", 
-                options: ["You are a teacher?", "Am I a teacher?", "Are you a teacher?"], 
-                answer: 2, 
-                explanation: "<ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby> `Are` <ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby> `You` <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>，<ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby> `Are you...`？<ruby> </ruby>" 
+                question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>處<rt>ㄔㄨˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>顆<rt>ㄎㄜ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby>：", 
+                options: ["This is balls.", "These are balls.", "These is balls."], 
+                answer: 1, 
+                explanation: "「<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>」 (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>且<rt>ㄑㄧㄝˇ</rt></ruby>「<ruby>靠<rt>ㄎㄠˋ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>」 (<ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>處<rt>ㄔㄨˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `These are...`。" 
             },
             { 
-                question: "<ruby>如<rt>ㄖㄨˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby>：`Are you a student?`，<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby>：", 
-                options: ["Yes, I am.", "Yes, you are.", "Yes, I are."], 
-                answer: 0, 
-                explanation: "<ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> `Are you...` (<ruby>你<rt>ㄋㄧˇ</rt></ruby>...)，<ruby>肯<rt>ㄎㄣˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `Yes, I am` (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>)。<ruby> </ruby>" 
+                question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>處<rt>ㄔㄨˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>盒<rt>ㄏㄜˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby>：", 
+                options: ["That is boxes.", "Those are boxes.", "Those is boxes."], 
+                answer: 1, 
+                explanation: "「<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>」 (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>且<rt>ㄑㄧㄝˇ</rt></ruby>「<ruby>遙<rt>ㄧㄠˊ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby>」 (<ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>處<rt>ㄔㄨˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `Those are...`。" 
             },
             { 
-                question: "<ruby>如<rt>ㄖㄨˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby>：`Are you a doctor?`，<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>醫<rt>ㄧ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby>：", 
-                options: ["No, I am.", "No, you're not.", "No, I'm not."], 
-                answer: 2, 
-                explanation: "<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `No, I'm not.` (<ruby>不<rt>ㄅㄨˋ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>)。<ruby> </ruby>" 
+                question: "`What ____ these?` (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>些<rt>ㄒㄧㄝ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？)", 
+                options: ["is", "are"], 
+                answer: 1, 
+                explanation: "`These` (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>些<rt>ㄒㄧㄝ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `are`。" 
+            },
+            { 
+                question: "`What ____ those?` (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>些<rt>ㄒㄧㄝ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？)", 
+                options: ["is", "are"], 
+                answer: 1, 
+                explanation: "`Those` (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>些<rt>ㄒㄧㄝ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `are`。" 
             },
             { 
                 question: "<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>**<ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>誤<rt>ㄨˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>**？", 
-                options: ["I'm a student.", "You're a pilot.", "I are a doctor."], 
+                options: ["This is a ball.", "These are balls.", "These are a balls."], 
                 answer: 2, 
-                explanation: "`I` (<ruby>我<rt>ㄨㄛˇ</rt></ruby>) <ruby>永<rt>ㄩㄥˇ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>只<rt>ㄓˇ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>跟<rt>ㄍㄣ</rt></ruby> `am` <ruby>搭<rt>ㄉㄚ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby>，<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `are` <ruby>喔<rt>˙ㄛ</rt></ruby>！" 
+                explanation: "<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (balls) <ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> `a` <ruby>或<rt>ㄏㄨㄛˋ</rt></ruby> `an` <ruby>喔<rt>˙ㄛ</rt></ruby>！" 
+            },
+            { 
+                question: "`a horse` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>匹<rt>ㄆㄧ</rt></ruby><ruby>馬<rt>ㄇㄚˇ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["horses", "horse", "horsees"], 
+                answer: 0, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>特<rt>ㄊㄜˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>規<rt>ㄍㄨㄟ</rt></ruby><ruby>則<rt>ㄗㄜˊ</rt></ruby>，<ruby>只<rt>ㄓˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -s。" 
+            },
+            { 
+                question: "`a dress` (<ruby>ㄧ<rt>ˊ</rt></ruby><ruby>件<rt>ㄐㄧㄢˋ</rt></ruby><ruby>洋<rt>ㄧㄤˊ</rt></ruby><ruby>裝<rt>ㄓㄨㄤ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["dress", "dresss", "dresses"], 
+                answer: 2, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -ss，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -es。" 
+            },
+            { 
+                question: "`a match` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>根<rt>ㄍㄣ</rt></ruby><ruby>火<rt>ㄏㄨㄛˇ</rt></ruby><ruby>柴<rt>ㄔㄞˊ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["matches", "matchs", "match"], 
+                answer: 0, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -ch，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -es。" 
+            },
+            { 
+                question: "`a brush` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>支<rt>ㄓ</rt></ruby><ruby>刷<rt>ㄕㄨㄚ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["brushs", "brushes", "brush"], 
+                answer: 1, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -sh，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -es。" 
+            },
+            { 
+                question: "`an umbrella` (<ruby>ㄧ<rt>ˋ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby><ruby>傘<rt>ㄙㄢˇ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["umbrellas", "umbrellaes", "umbrella"], 
+                answer: 0, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -a，<ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>特<rt>ㄊㄜˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>規<rt>ㄍㄨㄟ</rt></ruby><ruby>則<rt>ㄗㄜˊ</rt></ruby>，<ruby>只<rt>ㄓˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -s。" 
+            },
+            { 
+                question: "`a potato` (<ruby>ㄧ<rt>ˊ</rt></ruby><ruby>顆<rt>ㄎㄜ</rt></ruby><ruby>馬<rt>ㄇㄚˇ</rt></ruby><ruby>鈴<rt>ㄌㄧㄥˊ</rt></ruby><ruby>薯<rt>ㄕㄨˇ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> (<ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>？", 
+                options: ["potatos", "potato", "potatoes"], 
+                answer: 2, 
+                explanation: "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> -o，<ruby>通<rt>ㄊㄨㄥ</rt></ruby><ruby>常<rt>ㄔㄤˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby> -es。" 
+            },
+            { 
+                question: "<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>**<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>**？", 
+                options: ["These is buses.", "That are buses.", "Those are buses."], 
+                answer: 2, 
+                explanation: "`Those` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>, <ruby>遠<rt>ㄩㄢˇ</rt></ruby>) + `are` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>) + `buses` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>)。<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>搭<rt>ㄉㄚ</desp></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby>！" 
+            },
+            { 
+                question: "<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>**<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>**？", 
+                options: ["These are foxes.", "This are foxes.", "These is foxes."], 
+                answer: 0, 
+                explanation: "`These` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>, <ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>) + `are` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>) + `foxes` (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>)。<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>搭<rt>ㄉㄚ</desp></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby>！" 
+            },
+            { 
+                question: "`That is a ______` (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>ㄧ<rt>ˊ</rt></ruby><ruby>匹<rt>ㄆㄧ</rt></ruby><ruby>馬<rt>ㄇㄚˇ</rt></ruby>)", 
+                options: ["horse", "horses"], 
+                answer: 0, 
+                explanation: "`That is a` <ruby>是<rt>ㄕˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>型<rt>ㄒㄧㄥˊ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> `horse`。" 
+            },
+            { 
+                question: "`These are ______` (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>些<rt>ㄒㄧㄝ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>火<rt>ㄏㄨㄛˇ</rt></ruby><ruby>柴<rt>ㄔㄞˊ</rt></ruby>)", 
+                options: ["match", "matches"], 
+                answer: 1, 
+                explanation: "`These are` <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>型<rt>ㄒㄧㄥˊ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby> `matches`。" 
+            },
+            { 
+                question: "<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>**<ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>誤<rt>ㄨˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>**？", 
+                options: ["That is a glass.", "Those are glasses.", "Those is glasses."], 
+                answer: 2, 
+                explanation: "`Those` <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> `are`，<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> `is`。" 
             }
         ];
+        // *** 題庫修改結束 ***
 
         let currentQuestionIndex = 0;
         let score = 0;
@@ -332,9 +394,7 @@
         const nextBtn = document.getElementById('next-btn');
         const restartBtn = document.getElementById('restart-btn');
         const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        
-        // *** MODIFIED: Reverted back to gameImage ***
-        const gameImage = document.getElementById('game-image'); 
+        const gameImage = document.getElementById('game-image');
         const gameStatus = document.getElementById('game-status');
 
         function shuffle(array) {
@@ -353,12 +413,9 @@
             
             quizArea.style.display = 'block';
             endScreen.style.display = 'none';
-            
-            // *** MODIFIED: Set image source ***
-            gameImage.src = 'initial.png'; 
+            gameImage.src = 'initial.png'; // 你可以放一個代表「複數」的預設圖片
             gameImage.className = '';
-            
-            gameStatus.textContent = '🙋';
+            gameStatus.textContent = '📚'; // 換成書本或盒子的圖示
             gameStatus.className = '';
             
             showQuestion();
@@ -367,12 +424,13 @@
         function showQuestion() {
             resetState();
             const currentQuestion = questions[currentQuestionIndex];
+            // MODIFIED: Use .innerHTML to render ruby tags
             progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
             questionEl.innerHTML = currentQuestion.question;
 
             currentQuestion.options.forEach((option, index) => {
                 const button = document.createElement('button');
-                button.textContent = option; 
+                button.textContent = option; // Options are in English, so textContent is fine
                 button.classList.add('option-btn');
                 button.dataset.index = index;
                 button.addEventListener('click', selectAnswer);
@@ -381,18 +439,15 @@
         }
 
         function resetState() {
-            resultEl.innerHTML = ''; 
+            resultEl.innerHTML = ''; // Use .innerHTML
             explanationEl.style.display = 'none';
             nextBtn.style.display = 'none';
             while (optionsContainer.firstChild) {
                 optionsContainer.removeChild(optionsContainer.firstChild);
             }
-            
-            // *** MODIFIED: Set image source ***
-            gameImage.src = 'initial.png';
+            gameImage.src = 'initial.png'; // 預設圖片
             gameImage.className = '';
-
-            gameStatus.textContent = '🙋';
+            gameStatus.textContent = '📚';
             gameStatus.className = '';
         }
 
@@ -409,13 +464,10 @@
             if (selectedIndex === correctIndex) {
                 score++;
                 selectedBtn.classList.add('correct');
-                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！'; 
+                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！'; // Use .innerHTML
                 resultEl.style.color = '#2ecc71';
-                
-                // *** MODIFIED: Set image source ***
-                gameImage.src = 'correct.png';
+                gameImage.src = 'correct.png'; // 你可以放一個「正確」的圖片
                 gameImage.classList.add('correct');
-
                 gameStatus.textContent = '🎉';
                 gameStatus.classList.add('correct');
                 
@@ -430,17 +482,14 @@
             } else {
                 selectedBtn.classList.add('incorrect');
                 optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！'; 
+                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！'; // Use .innerHTML
                 resultEl.style.color = '#e74c3c';
-                
-                // *** MODIFIED: Set image source ***
-                gameImage.src = 'incorrect.png';
+                gameImage.src = 'incorrect.png'; // 你可以放一個「錯誤」的圖片
                 gameImage.classList.add('incorrect');
-
                 gameStatus.textContent = '😅';
                 gameStatus.classList.add('incorrect');
                 
-                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`; 
+                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`; // Use .innerHTML
                 explanationEl.style.display = 'block';
 
                 wrongQuestions.push({
@@ -456,28 +505,23 @@
             endScreen.style.display = 'block';
             
             const scoreEl = document.getElementById('score');
-            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`; 
+            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`; // Use .innerHTML
 
             const wrongQuestionsEl = document.getElementById('wrong-questions');
             if (score === questions.length) {
-                // *** MODIFIED: Set image source ***
-                gameImage.src = 'all_correct.png';
+                gameImage.src = 'all_correct.png'; // 你可以放一個「全對」的圖片
                 gameImage.classList.add('all-correct');
-
                 gameStatus.textContent = '🏆';
                 gameStatus.classList.add('all-correct');
-                
-                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>會<rt>ㄏㄨㄟˋ</rt></ruby> `I am` <ruby>和<rt>ㄏㄢˋ</rt></ruby> `You are` <ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊'; 
+                // *** 結束訊息已修改 ***
+                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Plurals (<ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊'; // Use .innerHTML
                 wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
                 wrongQuestionsEl.style.background = '#d4edda';
                 wrongQuestionsEl.style.color = '#155724';
                 wrongQuestionsEl.style.display = 'block';
                 retestWrongBtn.style.display = 'none';
             } else {
-                // *** MODIFIED: Set image source ***
-                gameImage.src = 'not_all_correct.png';
-                gameImage.className = ''; // Reset class
-
+                gameImage.src = 'not_all_correct.png'; // 你可以放一個「未全對」的圖片
                 gameStatus.textContent = '📝';
                 let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
                 wrongQuestions.forEach((q, index) => {
@@ -485,10 +529,10 @@
                     wrongText += `${index + 1}. ${q.question}<br>`;
                     wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
                     wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
-                    wrongText += `&nbsp;&;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
                     wrongText += `</p>`;
                 });
-                wrongQuestionsEl.innerHTML = wrongText; 
+                wrongQuestionsEl.innerHTML = wrongText; // Use .innerHTML
                 wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
                 wrongQuestionsEl.style.background = '#f8d7da';
                 wrongQuestionsEl.style.color = '#721c24';
@@ -515,10 +559,7 @@
             }
         });
 
-        // *** MODIFIED: Changed listener to 'DOMContentLoaded' for reliability ***
-        document.addEventListener('DOMContentLoaded', (event) => {
-            startGame(allQuestions);
-        });
+        startGame(allQuestions);
     </script>
 </body>
 </html>
