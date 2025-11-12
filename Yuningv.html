@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'desire', zh: '慾望 (ㄩˋ ㄨㄤˋ)', mnemonic: '`desire` 聽起來像「de-sire」(的，陛下)。僕人對國王說：「的，陛下 (de sire)，您所有的慾望 (desire) 都會被滿足。」' },
-            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`castle` (城堡) 裡有 `cast` (施放)。巫師施放 (cast) 咒語來保護城堡 (castle)。' },
-            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空的)。在你自己和你想要避免 (avoid) 的事物之間，留下一個空隙 (void)。' },
-            { en: 'buffet', zh: '自助餐 (ㄗˋ ㄓㄨˋ ㄘㄢ)', mnemonic: '`buffet` (自助餐) 聽起來像 "Buy Us Free Food, Eat Too" (買免費食物給我們吃，也吃太多)。' },
-            { en: 'lead', zh: '領導 (ㄌㄧㄥˇ ㄉㄠˇ)', mnemonic: '`lead` (領導) 來自 `leader` (領導者)。一個領導者 (leader) 的工作就是領導 (lead) 團隊。' },
-            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 和 `linger` (縈繞) 押韻。她的香水味在他的手指 (finger) 上縈繞 (linger) 不去。' },
-            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peek` (偷看) 聽起來像 `pick` (撿)。他假裝在地上撿 (pick) 東西，其實是為了偷看 (peek) 她一眼。' },
-            { en: 'wonder', zh: '好奇 (ㄏㄠˋ ㄑㄧˊ)', mnemonic: '`wonder` (好奇) 和 `wander` (漫遊) 很像。我因為對世界感到好奇 (wonder)，所以四處漫遊 (wander)。' },
-            { en: 'study', zh: '學習 (ㄒㄩㄝˊ ㄒㄧˊ)', mnemonic: '`study` (學習) 聽起來像 `stu` (student, 學生) + `dy` (duty, 責任)。學生的 (student) 責任 (duty) 就是學習 (study)。' },
-            { en: 'lab', zh: '實驗室 (ㄕˊ ㄧㄢˋ ㄕˋ)', mnemonic: '`lab` (實驗室) 是 `laboratory` (實驗室) 的縮寫。' },
-            { en: 'muddy', zh: '泥濘的 (ㄋㄧˊ ㄋㄧㄥˋ ㄉㄜ˙)', mnemonic: '`muddy` (泥濘的) 就是充滿了 `mud` (泥巴)。' },
-            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (平常的)。不 (un) 平常的 (usual) 就是不尋常的 (unusual)。' },
-            { en: 'harsh', zh: '嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`harsh` (嚴厲的) 聽起來像 `hard` (困難/嚴硬的)。一個嚴厲的 (harsh) 老師讓考試變得很困難 (hard)。' },
-            { en: 'danger', zh: '危險 (ㄨㄟˊ ㄒㄧㄢˇ)', mnemonic: '`danger` (危險) 聽起來像 `don\'t go near` (不要靠近)。因為那裡有危險 (danger)。' },
-            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` (die, 死亡) + `vide` (wide, 寬闊的)。他們為了劃分 (divide) 這片寬闊的 (wide) 土地而戰鬥至死 (die)。' }
+            { en: 'hollow', zh: '空心的 (ㄎㄨㄥ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`hollow` (空心的) 聽起來像 `follow` (跟隨)。想像一個偵探跟隨 (follow) 著「空心」的 (hollow) 腳步聲（代表沒有聲音）。' },
+            { en: 'below', zh: '在...下面 (ㄗㄞˋ...ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '拆解成 `be` (是) + `low` (低的)。「是」(be) 在一個低 (low) 的位置，就是在...下面 (below)。' },
+            { en: 'private', zh: '私人的 (ㄙ ㄖㄣˊ ㄉㄜ˙)', mnemonic: '`private` (私人的) 聽起來像 `deprive` (剝奪) + `ate` (吃)。當你「私人」(private) 享用時，你就剝奪 (deprive) 了別人，自己一個人吃 (ate) 掉了。' },
+            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`at least` (至少) 裡的 `least`。`at least` 就是要求你做到「最少」的 (least) 程度。' },
+            { en: 'sweet', zh: '甜的 (ㄊㄧㄢˊ ㄉㄜ˙)', mnemonic: '`sweet` (甜的) 聽起來像 `sweat` (流汗)。當你努力流汗 (sweat) 之後，你會得到甜美 (sweet) 的果實。' },
+            { en: 'usually', zh: '通常 (ㄊㄨㄥ ㄔㄤˊ)', mnemonic: '`usually` (通常) 來自 `usual` (平常的)。`as usual` (像往常一樣) 就是你「通常」(usually) 會做的事。' },
+            { en: 'broke', zh: '破產的 (ㄆㄛˋ ㄔㄢˇ ㄉㄜ˙)', mnemonic: '`broke` (破產的) 是 `break` (打破) 的過去式。當你破產 (broke) 時，你就像一個摔破 (broken) 的存錢筒，一毛錢都沒有了。' },
+            { en: 'smooth', zh: '平滑的 (ㄆㄧㄥˊ ㄏㄨㄚˊ ㄉㄜ˙)', mnemonic: '`smooth` (平滑的) 聽起來像 `so` (如此) + `move` (移動)。在平滑 (smooth) 的表面上，東西可以「如此」(so) 順暢地移動 (move)。' },
+            { en: 'stolen', zh: '被偷的 (ㄅㄟˋ ㄊㄡ ㄉㄜ˙)', mnemonic: '`stolen` (被偷的) 來自 `steal` (偷)。`steal` 和 `meal` (一餐) 押韻。那個飢餓的人偷 (steal) 了一餐 (meal)，所以那一餐是「被偷的」(stolen)。' },
+            { en: 'effect', zh: '效果 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: '`effect` (效果) 的 `e` 來自 `end-result` (最終結果)。所以 `effect` 是指一個動作造成的結果或影響。' },
+            { en: 'form', zh: '形式 (ㄒㄧㄥˊ ㄕˋ)', mnemonic: '`form` (形式) 和 `from` (來自) 押韻。這封信來自 (from) 某種「形式」(form) 的政府機關。' },
+            { en: 'general', zh: '一般的 (ㄧ ㄅㄢ ㄉㄜ˙)', mnemonic: '`general` (一般的) 裡面有 `gene` (基因)。基因 (gene) 是所有生物「一般」(general) 都有的共同特徵。' },
+            { en: 'humor', zh: '幽默 (ㄧㄡ ㄇㄛˋ)', mnemonic: '`humor` (幽默) 聽起來像 `human` (人類)。一個身為人類 (human) 的基本特質就是要有幽默 (humor) 感。' },
+            { en: 'lawyer', zh: '律師 (ㄌㄩˋ ㄕ)', mnemonic: '`lawyer` (律師) 就是 `law` (法律) + `yer` (的人)。一個處理法律 (law) 事務的人就是律師。' },
+            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` (葉子) 聽起來像 `leave` (離開)。在秋天，葉子 (leaf) 會離開 (leave) 樹木。' }
         ];
 
         let currentQuestion = 0;
