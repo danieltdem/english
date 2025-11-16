@@ -1,193 +1,339 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>It's a Party! - 填充測驗</title>
+    <title>英文文法測驗：現在完成式 (Present Perfect)</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 2; /* 增加行距，讓填空更清楚 */
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
             padding: 20px;
+            box-sizing: border-box;
         }
-
-        .quiz-container {
-            max-width: 650px;
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             width: 100%;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 25px 30px;
+            max-width: 600px;
         }
-
-        h2 {
-            text-align: center;
+        h1 {
             color: #333;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
-
         p {
-            font-size: 1.1em;
-            color: #444;
+            color: #666;
+            margin-bottom: 20px;
         }
-
-        input[type="text"] {
-            width: 110px; /* 稍微加寬一點 */
+        #game-image { /* 新增圖片樣式 */
+            width: 300px;
+            height: 200px;
+            object-fit: contain; /* 圖片保持比例，不裁切 */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        #progress {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        #question {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .option-btn {
+            padding: 15px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
             border: none;
-            border-bottom: 2px solid #007bff; /* 預設為藍色底線 */
-            text-align: center;
-            font-size: 1em;
-            font-family: inherit;
-            margin: 0 4px;
-            padding: 3px;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-bottom: 2px solid #0056b3; /* 點選時加深 */
-            background-color: #f8f9fa;
-        }
-
-        /* 答對的樣式 */
-        .correct {
-            border-bottom: 2px solid #28a745; /* 綠色 */
-            background-color: #e6ffe6;
-        }
-
-        /* 答錯的樣式 */
-        .incorrect {
-            border-bottom: 2px solid #dc3545; /* 紅色 */
-            background-color: #ffeeee;
-        }
-
-        .buttons {
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        button {
-            font-size: 1em;
-            padding: 10px 20px;
-            margin: 0 10px;
+            border-radius: 8px;
             cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
         }
-
-        #checkBtn {
-            background-color: #007bff;
-            color: white;
+        .option-btn:hover:not(:disabled) {
+            background-color: #2980b9;
         }
-        #checkBtn:hover {
-            background-color: #0056b3;
+        .option-btn.correct {
+            background-color: #2ecc71 !important;
         }
-
-        #resetBtn {
-            background-color: #6c757d;
-            color: white;
+        .option-btn.incorrect {
+            background-color: #e74c3c !important;
         }
-        #resetBtn:hover {
-            background-color: #5a6268;
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
         }
-
-        #results {
+        #result {
+            font-size: 20px;
             margin-top: 20px;
             font-weight: bold;
-            font-size: 1.2em;
-            text-align: center;
         }
+        #explanation-container {
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fffbe6;
+            border-left: 5px solid #f39c12;
+            border-radius: 5px;
+            text-align: left;
+            line-height: 1.6;
+            color: #5f4c0a;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #333;
+        }
+        #wrong-questions {
+            font-size: 16px;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        #next-btn, #restart-btn, #retest-wrong-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background-color 0.3s ease;
+        }
+        #next-btn { background-color: #f39c12; }
+        #next-btn:hover { background-color: #e67e22; }
+        #restart-btn { background-color: #1abc9c; }
+        #restart-btn:hover { background-color: #16a085; }
+        #retest-wrong-btn { background-color: #9b59b6; }
+        #retest-wrong-btn:hover { background-color: #8e44ad; }
     </style>
 </head>
 <body>
-
-    <div class="quiz-container">
-        <h2>It's a Party!</h2>
-        <p>Write the missing spelling words.</p>
-
-        <div id="quiz-form">
-            <p>
-                Dear Mike,
-                <br>
-                I'm writing to <input type="text" id="blank1"> you to a <input type="text" id="blank2"> party for Casey. The party is next Saturday at <input type="text" id="blank3"> Park, which is right next to the public <input type="text" id="blank4">. The weather should be sunny and <input type="text" id="blank5">, with only a <input type="text" id="blank6"> chance of rain and <input type="text" id="blank7">. Kristi and I <input type="text" id="blank8"> the <input type="text" id="blank9"> shelter near the pond. The party starts at <input type="text" id="blank10"> o'clock.
-                <br>
-                We will have a large <input type="text" id="blank11"> of food and soda. After we eat, we can <input type="text" id="blank12"> into two teams and play baseball. I bought <input type="text" id="blank13"> a few water balloons for a very low <input type="text" id="blank14">, so we can also have a water-balloon <input type="text" id="blank15">. We can <input type="text" id="blank16"> later what other games to play.
-                <br>
-                I hope you can come to the party! I think it will be really <input type="text" id="blank17">! You could <input type="text" id="blank18"> your <input type="text" id="blank19"> to my house, and then my dad can <input type="text" id="blank20"> us both to the park. Let me know soon.
-                <br>
-                <br>
-                Your friend,
-                <br>
-                Robbie
-            </p>
+    <div class="container">
+        <img id="game-image" src="initial.png" alt="Grammar Quiz Scene">
+        <h1>文法測驗：現在完成式 (Present Perfect)</h1>
+        <p>請根據句子情境，選擇最適合的答案。</p>
+        
+        <div id="quiz-area">
+            <div id="progress"></div>
+            <div id="question"></div>
+            <div id="options-container"></div>
+            <div id="result"></div>
+            <div id="explanation-container" style="display: none;"></div>
+            <button id="next-btn" style="display: none;">下一題</button>
         </div>
 
-        <div class="buttons">
-            <button id="checkBtn" onclick="checkAnswers()">檢查答案</button>
-            <button id="resetBtn" onclick="resetTest()">重新填寫</button>
+        <div id="end-screen" style="display: none;">
+            <h2>測驗結束！</h2>
+            <div id="score"></div>
+            <div id="wrong-questions"></div>
+            <button id="restart-btn">全部重測</button>
+            <button id="retest-wrong-btn" style="display: none;">重測錯題</button>
         </div>
-
-        <div id="results"></div>
     </div>
 
     <script>
-        // 正確答案陣列
-        const correctAnswers = [
-            "invite", "surprise", "Highland", "library", "mild", "slight", "lightning",
-            "reserved", "private", "five", "supply", "divide", "quite", "price",
-            "fight", "decide", "exciting", "ride", "bicycle", "drive"
+        const allQuestions = [
+            { question: "(p.59) Grandmother _______ visited Africa yet.", options: ["hasn't", "haven't"], answer: 0, explanation: "主詞 'Grandmother' (奶奶) 是第三人稱單數 (she)，所以要用 'has' 或 'hasn't'。" },
+            { question: "(p.62) The children (孩子們) _______ washed the dishes.", options: ["has", "have"], answer: 1, explanation: "主詞 'The children' (孩子們) 是複數 (they)，所以要用 'have'。" },
+            { question: "(p.62) I haven't seen them _______ last year.", options: ["for", "since"], answer: 1, explanation: "'since' (自從...) 用來接「一個過去的時間點」 (a point in time)，例如 'since last year' (自從去年)。" },
+            { question: "(p.62) Mrs Julius has been a coin collector _______ ten years.", options: ["for", "since"], answer: 0, explanation: "'for' (持續...) 用來接「一段時間」 (a period of time)，例如 'for ten years' (持續十年)。" },
+            { question: "(p.64) Doctors have _______ examined him.", options: ["already", "yet"], answer: 0, explanation: "'already' (已經) 通常用在「肯定句」，表示動作已完成。" },
+            { question: "(p.64) Has Anne been to New York _______?", options: ["already", "yet"], answer: 1, explanation: "'yet' (...了嗎？) 通常用在「疑問句」的句尾，詢問動作是否已完成。" },
+            { question: "(p.64) Have you _______ watched the Winter Olympics on TV?", options: ["ever", "yet"], answer: 0, explanation: "'ever' (曾經) 用來詢問「到目前為止的人生經驗」。" },
+            { question: "(p.61) Mark isn't here. He has _______ to Germany. (他人還在德國)", options: ["been", "gone"], answer: 1, explanation: "'has gone to' 表示「去了...（人還沒回來）」。" },
+            { question: "(p.59) Grandmother has _______ to Europe. (她去過，人已經回來了)", options: ["been", "gone"], answer: 0, explanation: "'has been to' 表示「去過...（人已經回來了）」，是在談論「經驗」。" },
+            { question: "(p.61) I _______ my homework. Now I can watch TV.", options: ["finished", "have finished"], answer: 1, explanation: "強調「過去的動作 (完成作業) 對現在造成的結果 (可以看電視)」，要用現在完成式。" },
+            { question: "(p.61) I _______ my homework at 8 PM last night.", options: ["finished", "have finished"], answer: 0, explanation: "句子中有「明確的過去時間點 (at 8 PM last night)」，要用「過去簡單式」。" },
+            { question: "(p.64) Steve Minor _______ his leg. He can't ski now.", options: ["has broken", "broke"], answer: 0, explanation: "重點在於「現在的結果」（他現在不能滑雪了），所以用現在完成式。" },
+            { question: "(p.59) Grandmother _______ her friend Tom in 1941.", options: ["met", "has met"], answer: 0, explanation: "句子中有「明確的過去時間點 (in 1941)」，要用「過去簡單式」。" },
+            { question: "(p.62) I have _______ (drink) all the milk.", options: ["drank", "drunk", "drinked"], answer: 1, explanation: "現在完成式要用過去分詞 (p.p.)。'drink' 的 p.p. 是 'drunk' (drink-drank-drunk)。" },
+            { question: "(p.62) Have you ever _______ (see) a crocodile?", options: ["saw", "seen", "sawed"], answer: 1, explanation: "現在完成式要用過去分詞 (p.p.)。'see' 的 p.p. 是 'seen' (see-saw-seen)。" },
+            { question: "(p.62) He hasn't _______ (finish) his car.", options: ["finish", "finished", "finishing"], answer: 1, explanation: "現在完成式 (hasn't) 後面要接過去分詞 (p.p.)。'finish' 是規則動詞，p.p. 是 'finished'。" }
         ];
 
-        // 檢查答案的函式
-        function checkAnswers() {
-            let score = 0;
-            const totalQuestions = correctAnswers.length;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let wrongQuestions = [];
 
-            for (let i = 1; i <= totalQuestions; i++) {
-                const input = document.getElementById('blank' + i);
-                const userAnswer = input.value.trim().toLowerCase(); // 轉換為小寫並去除前後空白
-                const correctAnswer = correctAnswers[i - 1].toLowerCase();
+        const quizArea = document.getElementById('quiz-area');
+        const endScreen = document.getElementById('end-screen');
+        const questionEl = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const resultEl = document.getElementById('result');
+        const explanationEl = document.getElementById('explanation-container');
+        const progressEl = document.getElementById('progress');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const retestWrongBtn = document.getElementById('retest-wrong-btn');
+        const gameImage = document.getElementById('game-image'); // 圖片元素
 
-                if (userAnswer === correctAnswer) {
-                    input.classList.remove('incorrect');
-                    input.classList.add('correct');
-                    score++;
-                } else {
-                    input.classList.remove('correct');
-                    input.classList.add('incorrect');
-                }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
+        }
 
-            // 顯示結果
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.textContent = `你答對了 ${score} / ${totalQuestions} 題！`;
-            if (score === totalQuestions) {
-                resultsDiv.textContent += " 🎉 恭喜全對！";
-                resultsDiv.style.color = "#28a745";
+        function startGame(questionList) {
+            questions = [...questionList];
+            shuffle(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            
+            quizArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            gameImage.src = 'initial.png'; // 遊戲開始時顯示初始圖片
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
+            questionEl.textContent = currentQuestion.question;
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            resultEl.textContent = '';
+            explanationEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            // 這裡不再重置 gameImage.src，讓 selectAnswer 決定圖片
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctIndex = currentQuestion.answer;
+
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+                resultEl.textContent = '正確！';
+                resultEl.style.color = '#2ecc71';
+                gameImage.src = 'correct.png'; // 答對時顯示正確圖片
+                
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        endGame();
+                    }
+                }, 1500); // 答對後自動跳到下一題
             } else {
-                resultsDiv.style.color = "#dc3545";
+                selectedBtn.classList.add('incorrect');
+                optionsContainer.children[correctIndex].classList.add('correct');
+                resultEl.textContent = '錯誤！';
+                resultEl.style.color = '#e74c3c';
+                gameImage.src = 'incorrect.png'; // 答錯時顯示錯誤圖片
+                
+                explanationEl.innerHTML = `<strong>文法解析：</strong>${currentQuestion.explanation}`;
+                explanationEl.style.display = 'block';
+
+                wrongQuestions.push({
+                    ...currentQuestion,
+                    userAnswer: currentQuestion.options[selectedIndex]
+                });
+                nextBtn.style.display = 'block';
             }
         }
 
-        // 重新測驗的函式
-        function resetTest() {
-            const totalQuestions = correctAnswers.length;
-            for (let i = 1; i <= totalQuestions; i++) {
-                const input = document.getElementById('blank' + i);
-                input.value = ''; // 清空內容
-                input.classList.remove('correct'); // 移除樣式
-                input.classList.remove('incorrect'); // 移除樣式
+        function endGame() {
+            quizArea.style.display = 'none';
+            endScreen.style.display = 'block';
+            
+            const scoreEl = document.getElementById('score');
+            scoreEl.textContent = `你的最終分數：${score} / ${questions.length}`;
+
+            const wrongQuestionsEl = document.getElementById('wrong-questions');
+            if (score === questions.length) {
+                gameImage.src = 'all_correct.png'; // 全部答對時顯示圖片
+                wrongQuestionsEl.textContent = '太棒了！你全部答對了！';
+                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'none';
+            } else {
+                gameImage.src = 'not_all_correct.png'; // 沒有全部答對時顯示圖片
+                let wrongText = '你答錯的題目：\n\n';
+                wrongQuestions.forEach(q => {
+                    wrongText += `Q: ${q.question}\n`;
+                    wrongText += `你的答案: "${q.userAnswer}" (正確答案: "${q.options[q.answer]}")\n\n`;
+                });
+                wrongQuestionsEl.textContent = wrongText;
+                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'inline-block';
             }
-            // 清空結果
-            document.getElementById('results').textContent = '';
         }
+        
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                endGame();
+            }
+        });
+
+        restartBtn.addEventListener('click', () => startGame(allQuestions));
+        retestWrongBtn.addEventListener('click', () => {
+            if (wrongQuestions.length > 0) {
+                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
+                startGame(retestList);
+            }
+        });
+
+        // 遊戲開始
+        startGame(allQuestions);
     </script>
-
 </body>
 </html>
