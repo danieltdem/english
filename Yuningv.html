@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'host', zh: '主人 (ㄓㄨˇ ㄖㄣˊ)', mnemonic: '`host` (主人) 和 `ghost` (鬼) 押韻。想像一個鬼 (ghost) 當派對的主人 (host)。' },
-            { en: 'blossom', zh: '開花 (ㄎㄞ ㄏㄨㄚ)', mnemonic: '`blow` (吹) + `some` (一些)。風吹 (blow) 過來，讓一些 (some) 花朵盛開 (blossom)。' },
-            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`market` (市場) 裡有 `mark` (記號)。你去市場 (market) 買東西時，會在購物清單上做記號 (mark)。' },
-            { en: 'survive', zh: '存活 (ㄘㄨㄣˊ ㄏㄨㄛˊ)', mnemonic: '`sur` (Sir, 先生) + `vive` (live, 活著)。長官 (Sir)，我會努力活著 (live) 並存活 (survive) 下來的！' },
-            { en: 'thaw', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)', mnemonic: '`thaw` (融化) 聽起來像 `saw` (看見)。我看見 (saw) 冰雪融化 (thaw) 了。' },
-            { en: 'unique', zh: '獨一無二的 (ㄉㄨˊ ㄧ ㄨˊ ㄦˋ ㄉㄜ˙)', mnemonic: '`uni` (一) + `que` (queue, 排隊)。只有一個人 (uni) 在排隊 (queue)，這是非常獨特 (unique) 的景象。' },
-            { en: 'truly', zh: '真實地 (ㄓㄣ ㄕˊ ㄉㄜ˙)', mnemonic: '`truly` 是 `true` (真實的) 去掉 `e` 再加 `ly`。記住：真實 (true) 的愛不需要 `e` (前任)。' },
-            { en: 'amazing', zh: '令人驚訝的 (ㄌㄧㄥˋ ㄖㄣˊ ㄐㄧㄥ ㄧㄚˋ ㄉㄜ˙)', mnemonic: '`amazing` 裡有 `maze` (迷宮)。能走出這個迷宮 (maze) 真是太令人驚訝 (amazing) 了。' },
-            { en: 'port', zh: '港口 (ㄍㄤˇ ㄎㄡˇ)', mnemonic: '`port` (港口) 是進口 (im`port`) 和出口 (ex`port`) 的地方。' },
-            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '聯想 `Air Force` (空軍)。空軍用它的力量 (force) 來保衛國家。' },
-            { en: 'source', zh: '來源 (ㄌㄞˊ ㄩㄢˊ)', mnemonic: '`source` (來源) 聽起來像 `sauce` (醬汁)。這美味醬汁 (sauce) 的來源 (source) 是哪裡？' },
-            { en: 'support', zh: '支持 (ㄓ ㄔˊ)', mnemonic: '`sup` (supper, 晚餐) + `port` (港口)。送晚餐 (supper) 到港口 (port) 去支持 (support) 那些工人。' },
-            { en: 'chore', zh: '雜務 (ㄗㄚˊ ㄨˋ)', mnemonic: '`chore` (雜務) 聽起來像 `bore` (無聊)。做雜務 (chore) 是一件很無聊 (bore) 的事。' },
-            { en: 'report', zh: '報告 (ㄅㄠˋ ㄍㄠˋ)', mnemonic: '`re` (回) + `port` (港口)。船回到 (re) 港口 (port) 後，船長要提交報告 (report)。' },
-            { en: 'before', zh: '在...之前 (ㄗㄞˋ...ㄓ ㄑㄧㄢˊ)', mnemonic: '`be` (變成) + `four` (四)。在你五歲之前 (before)，你會先變成四歲 (be four)。' }
+            { en: 'forgive', zh: '原諒 (ㄩㄢˊ ㄌㄧㄤˋ)', mnemonic: '拆解成 `for` (為了) + `give` (給予)。為了 (FOR) 某人，再給予 (GIVE) 他一次機會，這就是原諒 (forgive)。' },
+            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Ger` + `many` (許多)。德國 (Germany) 有許多 (many) 優秀的工程師。' },
+            { en: 'eastern', zh: '東方的 (ㄉㄨㄥ ㄈㄤ ㄉㄜ˙)', mnemonic: '來自 `east` (東方)。東方的 (eastern) 就是屬於 (ern) 東邊 (east) 的。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難的) + `ly`。一件事情做起來很困難 (hard)，所以你幾乎不 (hardly) 會去做它。' },
+            { en: 'effective', zh: '有效的 (ㄧㄡˇ ㄒㄧㄠˋ ㄉㄜ˙)', mnemonic: '來自 `effect` (效果)。能夠產生效果 (effect) 的東西，就是有效的 (effective)。' },
+            { en: 'complete', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (一起) + `plete` (plet = full, 滿)。大家「一起」(com) 把事情做到「滿」(plete)，就是完成 (complete)。' },
+            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`same` (相同的) 和 `name` (名字) 押韻。他們有著相同的 (same) 名字 (name)。' },
+            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '拆成 `Diff` (Difficult, 困難) + `er` + `ent` (ant, 螞蟻)。要在一群螞蟻 (ant) 中找出「不同的」(different) 一隻是很困難 (difficult) 的。' },
+            { en: 'growing', zh: '成長中的 (ㄔㄥˊ ㄓㄤˇ ㄓㄨㄥ ㄉㄜ˙)', mnemonic: '`grow` (成長) + `ing` (正在進行)。`growing` 就是「正在成長」(grow) 的意思。' },
+            { en: 'bright', zh: '明亮的 (ㄇㄧㄥˊ ㄌㄧㄤˋ ㄉㄜ˙)', mnemonic: '`b` + `right` (正確的/右邊)。你走在正確的 (right) 道路上，前途一片光明 (bright)。' },
+            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
+            { en: 'heard', zh: '聽到 (ㄊㄧㄥ ㄉㄠˋ)', mnemonic: '`heard` (聽到) 就是 `hear` (聽) 的過去式。它中間有 `ear` (耳朵)，表示是用耳朵 (ear) 聽到的。' },
+            { en: 'worry', zh: '擔心 (ㄉㄢ ㄒㄧㄣ)', mnemonic: '`worry` (擔心) 聽起來像 `war` (戰爭)。戰爭 (war) 總是讓人們感到擔心 (worry)。' },
+            { en: 'further', zh: '更遠的 (ㄍㄥˋ ㄩㄢˇ ㄉㄜ˙)', mnemonic: '`fur` (毛皮) + `ther` (there, 那裡)。你的毛皮 (fur) 大衣在那裡 (there) ... 不，在更遠的 (further) 地方。' },
+            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (每一) + `fect` (fact, 事實)。每一個 (per) 細節都符合事實 (fact)，那就是完美的 (perfect)。' }
         ];
 
         let currentQuestion = 0;
