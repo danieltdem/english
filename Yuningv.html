@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'forgive', zh: '原諒 (ㄩㄢˊ ㄌㄧㄤˋ)', mnemonic: '拆解成 `for` (為了) + `give` (給予)。為了 (FOR) 某人，再給予 (GIVE) 他一次機會，這就是原諒 (forgive)。' },
-            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Ger` + `many` (許多)。德國 (Germany) 有許多 (many) 優秀的工程師。' },
-            { en: 'eastern', zh: '東方的 (ㄉㄨㄥ ㄈㄤ ㄉㄜ˙)', mnemonic: '來自 `east` (東方)。東方的 (eastern) 就是屬於 (ern) 東邊 (east) 的。' },
-            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難的) + `ly`。一件事情做起來很困難 (hard)，所以你幾乎不 (hardly) 會去做它。' },
-            { en: 'effective', zh: '有效的 (ㄧㄡˇ ㄒㄧㄠˋ ㄉㄜ˙)', mnemonic: '來自 `effect` (效果)。能夠產生效果 (effect) 的東西，就是有效的 (effective)。' },
-            { en: 'complete', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (一起) + `plete` (plet = full, 滿)。大家「一起」(com) 把事情做到「滿」(plete)，就是完成 (complete)。' },
-            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`same` (相同的) 和 `name` (名字) 押韻。他們有著相同的 (same) 名字 (name)。' },
-            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '拆成 `Diff` (Difficult, 困難) + `er` + `ent` (ant, 螞蟻)。要在一群螞蟻 (ant) 中找出「不同的」(different) 一隻是很困難 (difficult) 的。' },
-            { en: 'growing', zh: '成長中的 (ㄔㄥˊ ㄓㄤˇ ㄓㄨㄥ ㄉㄜ˙)', mnemonic: '`grow` (成長) + `ing` (正在進行)。`growing` 就是「正在成長」(grow) 的意思。' },
-            { en: 'bright', zh: '明亮的 (ㄇㄧㄥˊ ㄌㄧㄤˋ ㄉㄜ˙)', mnemonic: '`b` + `right` (正確的/右邊)。你走在正確的 (right) 道路上，前途一片光明 (bright)。' },
-            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
-            { en: 'heard', zh: '聽到 (ㄊㄧㄥ ㄉㄠˋ)', mnemonic: '`heard` (聽到) 就是 `hear` (聽) 的過去式。它中間有 `ear` (耳朵)，表示是用耳朵 (ear) 聽到的。' },
-            { en: 'worry', zh: '擔心 (ㄉㄢ ㄒㄧㄣ)', mnemonic: '`worry` (擔心) 聽起來像 `war` (戰爭)。戰爭 (war) 總是讓人們感到擔心 (worry)。' },
-            { en: 'further', zh: '更遠的 (ㄍㄥˋ ㄩㄢˇ ㄉㄜ˙)', mnemonic: '`fur` (毛皮) + `ther` (there, 那裡)。你的毛皮 (fur) 大衣在那裡 (there) ... 不，在更遠的 (further) 地方。' },
-            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (每一) + `fect` (fact, 事實)。每一個 (per) 細節都符合事實 (fact)，那就是完美的 (perfect)。' }
+            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` (值得) 聽起來像 `work` (工作)。一份值得 (worth) 你投入時間的工作 (work)。' },
+            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (再次) + `turn` (轉)。再次 (re) 轉 (turn) 回來，就是返回 (return)。' },
+            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '`shirt` (襯衫) 和 `skirt` (裙子) 很像。襯衫 (shirt) 通常搭配裙子 (skirt)。' },
+            { en: 'hurry', zh: '匆忙 (ㄘㄨㄥ ㄇㄤˊ)', mnemonic: '`hurry` (匆忙) 聽起來像 `harry`。哈利波特 (Harry Potter) 總是很匆忙 (hurry) 地去冒險。' },
+            { en: 'surge', zh: '湧現 (ㄩㄥˇ ㄒㄧㄢˋ)', mnemonic: '`surge` (湧現) 聽起來像 `sir` (先生) + `g` (gee!)。`Gee sir!` (天啊，先生!)，你看那邊突然湧現 (surge) 的人潮！' },
+            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '一個 `expert` (專家) 就是一個有 `ex-perience` (經驗) 的人。' },
+            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`search` (搜尋) 裡有 `sea` (海洋)。想像在廣大的海洋 (sea) 中搜尋 (search) 寶藏。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`purpose` (目的) 和 `propose` (提議) 很像。你提議 (propose) 某件事一定有你的目的 (purpose)。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`certain` (確定的) 聽起來像 `curtain` (窗簾)。我確定 (certain) 窗簾 (curtain) 後面有東西。' },
+            { en: 'thirsty', zh: '口渴的 (ㄎㄡˇ ㄎㄜˇ ㄉㄜ˙)', mnemonic: '`thirsty` (口渴的) 聽起來像 `thirty` (三十)。我口渴 (thirsty) 到可以喝下三十 (thirty) 杯水。' },
+            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`di` (away) + `rect` (right, straight)。`di-rect` 就是「直接」(straight) 告訴你，不拐彎抹角。' },
+            { en: 'central', zh: '中心的 (ㄓㄨㄥ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`central` (中心的) 來自 `center` (中心)，字尾 `al` 只是形容詞變化。' },
+            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Britain` (英國) 聽起來像 `bright` (明亮的) + `stain` (污點)。英國 (Britain) 的歷史上有光明 (bright) 也有污點 (stain)。' },
+            { en: 'attend', zh: '參加 (ㄘㄢ ㄐㄧㄚ)', mnemonic: '`at` (在) + `tend` (傾向)。你「傾向」(tend) 「在」(at) 現場出現，就是參加 (attend)。' },
+            { en: 'attention', zh: '注意力 (ㄓㄨˋ ㄧˋ ㄌㄧˋ)', mnemonic: '`at` (在) + `ten` (十) + `tion`。想像一個士兵「在」(at) 接受「十」(ten) 項訓練，他必須全神貫注，集中所有注意力 (attention)。' }
         ];
 
         let currentQuestion = 0;
