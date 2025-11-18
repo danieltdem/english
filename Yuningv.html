@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,24 @@
 
     <script>
         const words = [
-            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` (值得) 聽起來像 `work` (工作)。一份值得 (worth) 你投入時間的工作 (work)。' },
-            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (再次) + `turn` (轉)。再次 (re) 轉 (turn) 回來，就是返回 (return)。' },
-            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '`shirt` (襯衫) 和 `skirt` (裙子) 很像。襯衫 (shirt) 通常搭配裙子 (skirt)。' },
-            { en: 'hurry', zh: '匆忙 (ㄘㄨㄥ ㄇㄤˊ)', mnemonic: '`hurry` (匆忙) 聽起來像 `harry`。哈利波特 (Harry Potter) 總是很匆忙 (hurry) 地去冒險。' },
-            { en: 'surge', zh: '湧現 (ㄩㄥˇ ㄒㄧㄢˋ)', mnemonic: '`surge` (湧現) 聽起來像 `sir` (先生) + `g` (gee!)。`Gee sir!` (天啊，先生!)，你看那邊突然湧現 (surge) 的人潮！' },
-            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '一個 `expert` (專家) 就是一個有 `ex-perience` (經驗) 的人。' },
-            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`search` (搜尋) 裡有 `sea` (海洋)。想像在廣大的海洋 (sea) 中搜尋 (search) 寶藏。' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`purpose` (目的) 和 `propose` (提議) 很像。你提議 (propose) 某件事一定有你的目的 (purpose)。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`certain` (確定的) 聽起來像 `curtain` (窗簾)。我確定 (certain) 窗簾 (curtain) 後面有東西。' },
-            { en: 'thirsty', zh: '口渴的 (ㄎㄡˇ ㄎㄜˇ ㄉㄜ˙)', mnemonic: '`thirsty` (口渴的) 聽起來像 `thirty` (三十)。我口渴 (thirsty) 到可以喝下三十 (thirty) 杯水。' },
-            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`di` (away) + `rect` (right, straight)。`di-rect` 就是「直接」(straight) 告訴你，不拐彎抹角。' },
-            { en: 'central', zh: '中心的 (ㄓㄨㄥ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`central` (中心的) 來自 `center` (中心)，字尾 `al` 只是形容詞變化。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Britain` (英國) 聽起來像 `bright` (明亮的) + `stain` (污點)。英國 (Britain) 的歷史上有光明 (bright) 也有污點 (stain)。' },
-            { en: 'attend', zh: '參加 (ㄘㄢ ㄐㄧㄚ)', mnemonic: '`at` (在) + `tend` (傾向)。你「傾向」(tend) 「在」(at) 現場出現，就是參加 (attend)。' },
-            { en: 'attention', zh: '注意力 (ㄓㄨˋ ㄧˋ ㄌㄧˋ)', mnemonic: '`at` (在) + `ten` (十) + `tion`。想像一個士兵「在」(at) 接受「十」(ten) 項訓練，他必須全神貫注，集中所有注意力 (attention)。' }
+            { en: 'Asian', zh: '亞洲的 (ㄧㄚˋ ㄓㄡ ㄉㄜ˙)', mnemonic: '`Asian` 聽起來像 `A sun` (一顆太陽)。亞洲人 (Asian) 住在日出之地 (太陽升起的地方)。' },
+            { en: 'August', zh: '八月 (ㄅㄚ ㄩㄝˋ)', mnemonic: '`August` 聽起來像 `A guest` (一位客人)。一位客人 (A guest) 在八月 (August) 來到我們家。' },
+            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`broad` (寬廣的) 裡面藏著 `road` (路)。馬路 (road) 通常都是很寬廣的 (broad)。' },
+            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '字根 `cent` 是 100 的意思 (像 percent)。所以 `century` 就是一百年，也就是一個世紀。' },
+            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `nature` (本性)。當溫度 (temperature) 很高時，人的脾氣 (temper) 就會顯露出來。' },
+            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (每一) + `fact` (事實)。每一個細節都符合事實 (fact)，就是完美的 (perfect)。' },
+            { en: 'thunder', zh: '雷聲 (ㄌㄟˊ ㄕㄥ)', mnemonic: '`thunder` (雷聲) 聽起來像 `under` (在...下面)。聽到雷聲 (thunder) 時，我們嚇得躲在桌子下面 (under)。' },
+            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`gather` (聚集) 聽起來像 `together` (一起)。人們聚集 (gather) 是為了在一起 (together)。' },
+            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '拆成 `D` (Design, 設計) + `raft` (木筏)。畫一張木筏 (raft) 的設計草稿 (draft)。' },
+            { en: 'model', zh: '模型 (ㄇㄛˊ ㄒㄧㄥˊ)', mnemonic: '`model` (模特兒/模型) 展示了最新的模式 (mode)。' },
+            { en: 'royal', zh: '皇家的 (ㄏㄨㄤˊ ㄐㄧㄚ ㄉㄜ˙)', mnemonic: '`royal` (皇家的) 聽起來像 `loyal` (忠誠的)。皇家侍衛必須是對國王忠誠的 (loyal)。' },
+            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (小床) + `ton` (噸)。這張小床 (cot) 是用一噸 (ton) 重的棉花 (cotton) 做成的。' },
+            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '來自 `center` (中心)。`centr` + `al` 就是中央的 (central)。' },
+            { en: 'custom', zh: '習俗 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '`custom` (習俗) 和 `costume` (服裝) 很像。不同的習俗 (custom) 會穿不同的服裝 (costume)。' },
+            { en: 'flavor', zh: '風味 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`flavor` (風味) 聽起來像 `favor` (偏愛)。這種風味 (flavor) 是我最偏愛 (favor) 的。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`certain` (確定的) 來自 `certificate` (證書)。如果你有證書，你就可以確定 (certain) 這是真的。' },
+            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` + `rain` (雨)。英國 (Britain) 是一個以多雨 (rain) 聞名的地方。' },
+            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '和 `direction` (方向) 有關。指引正確的方向就是直接的 (direct)。' }
         ];
 
         let currentQuestion = 0;
