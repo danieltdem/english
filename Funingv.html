@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`di` (die, 死) + `rent` (租金)。如果你不付租金 (rent)，你就會死 (die)，這和活著是「不同的」(different)。' },
-            { en: 'real', zh: '真的 (ㄓㄣ ㄉㄜ˙)', mnemonic: '`real` 聽起來像 `reel` (電影膠卷)。電影膠卷 (reel) 播放的是「真的」(real) 生活。' },
-            { en: 'read', zh: '閱讀 (ㄩㄝˋ ㄉㄨˊ)', mnemonic: '`read` (閱讀) 和 `lead` (引導) 押韻。閱讀 (read) 將會引導 (lead) 你走向知識。' },
-            { en: 'proper', zh: '適當的 (ㄕˋ ㄉㄤˋ ㄉㄜ˙)', mnemonic: '`proper` 聽起來像 `pro` (專業) + `per` (人)。一個專業人士 (pro) 總是會用「適當的」(proper) 方式做事。' },
-            { en: 'capital', zh: '首都 (ㄕㄡˇ ㄉㄨ)', mnemonic: '`capital` = `cap` (帽子) + `tal` (tall, 高的)。一個國家的首都 (capital) 就像它頭上戴的一頂高帽子 (tall cap)，是最重要的城市。' },
-            { en: 'partner', zh: '夥伴 (ㄏㄨㄛˇ ㄅㄢˋ)', mnemonic: '`partner` = `part` (部分) + `ner` (near, 靠近)。你的夥伴 (partner) 是你生命中的「一部分」(part)，他會待在你「附近」(near)。' },
-            { en: 'fish', zh: '魚 (ㄩˊ)', mnemonic: '`fish` (魚) 和 `dish` (盤子) 押韻。我想要我的盤子 (dish) 裡有條魚 (fish)。' },
-            { en: 'shell', zh: '貝殼 (ㄅㄟˋ ㄎㄜˊ)', mnemonic: '`shell` (貝殼) 聽起來像 `sell` (賣)。她 (She) 在海邊賣 (sells) 貝殼 (shells)。' },
-            { en: 'ship', zh: '船 (ㄔㄨㄢˊ)', mnemonic: '`ship` (船) 和 `trip` (旅行) 押韻。我們搭乘一艘大船 (ship) 去旅行 (trip)。' },
-            { en: 'brush', zh: '刷子 (ㄕㄨㄚ ㄗ˙)', mnemonic: '`brush` (刷) 聽起來像 `rush` (匆忙)。我一匆忙 (rush)，就忘了刷 (brush) 牙。' },
-            { en: 'boss', zh: '老闆 (ㄌㄠˇ ㄅㄢˇ)', mnemonic: '`boss` (老闆) 聽起來像 `loss` (損失)。如果你讓老闆 (boss) 生氣，那將是你的損失 (loss)。' },
-            { en: 'crab', zh: '螃蟹 (ㄆㄤˊ ㄒㄧㄝˋ)', mnemonic: '`crab` (螃蟹) 聽起來像 `grab` (抓)。螃蟹 (crab) 會用牠的爪子抓住 (grab) 你的手指。' },
-            { en: 'deer', zh: '鹿 (ㄌㄨˋ)', mnemonic: '`deer` (鹿) 和 `dear` (親愛的) 發音相同。噢！我親愛的 (dear)，快看那隻美麗的鹿 (deer)！' },
-            { en: 'hour', zh: '小時 (ㄒㄧㄠˇ ㄕˊ)', mnemonic: '`hour` (小時) 和 `our` (我們的) 發音相同。我們有一個小時 (hour) 的時間吃我們的 (our) 午餐。' },
-            { en: 'invite', zh: '邀請 (ㄧㄠ ㄑㄧㄥˇ)', mnemonic: '`in` (進入) + `vite` (聽起來像 white, 白色)。我想邀請 (invite) 你來我「白色」(vite) 的屋子裡 (in)。' }
+            { en: 'camp', zh: '露營 (ㄌㄨˋ ㄧㄥˊ)', mnemonic: '`camp` (露營) 聽起來像 `lamp` (燈)。去露營 (camp) 時，晚上一定要帶一盞燈 (lamp)。' },
+            { en: 'pick', zh: '挑選；撿起 (ㄊㄧㄠ ㄒㄩㄢˇ)', mnemonic: '`pick` (撿起) 和 `stick` (棍子) 押韻。把那根棍子撿起來 (pick up the stick)。' },
+            { en: 'drawing', zh: '繪畫 (ㄏㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`draw` (畫) + `wing` (翅膀)。我正在紙上畫 (drawing) 一隻鳥的翅膀 (wing)。' },
+            { en: 'match', zh: '比賽 (ㄅㄧˇ ㄙㄞˋ)', mnemonic: '`match` (比賽) 和 `watch` (觀看) 押韻。我們正在看 (watch) 一場足球比賽 (match)。' },
+            { en: 'edit', zh: '編輯 (ㄅㄧㄢ ㄐㄧˊ)', mnemonic: '可以記成 `E`rase `D`ata `I`n `T`ext (刪除文本中的資料)，這就是編輯 (edit) 的一部分。' },
+            { en: 'checklist', zh: '清單 (ㄑㄧㄥ ㄉㄢ)', mnemonic: '`check` (檢查) + `list` (列表)。一個用來檢查 (check) 事項的列表 (list) 就是清單 (checklist)。' },
+            { en: 'lunch', zh: '午餐 (ㄨˇ ㄘㄢ)', mnemonic: '`lunch` (午餐) 和 `munch` (大聲咀嚼) 押韻。大口咀嚼 (munch) 你的午餐 (lunch)。' },
+            { en: 'catch', zh: '抓住 (ㄓㄨㄚ ㄓㄨˋ)', mnemonic: '`cat` (貓) + `ch`。那隻貓 (cat) 追逐 (chased) 老鼠想要抓住 (catch) 牠。' },
+            { en: 'watch', zh: '手錶；觀看 (ㄕㄡˇ ㄅㄧㄠˇ)', mnemonic: '`watch` (手錶) 裡有 `at`。看著 (look at) 你的手錶 (watch) 來確認時間。' },
+            { en: 'chick', zh: '小雞 (ㄒㄧㄠˇ ㄐㄧ)', mnemonic: '`chick` 就是 `chicken` (雞) 去掉了後面的 `en`。小雞 (chick) 還沒長大成大雞 (chicken)。' },
+            { en: 'kick', zh: '踢 (ㄊㄧ)', mnemonic: '`kick` (踢) 和 `lick` (舔) 押韻。你不會去舔 (lick) 一顆球，你會踢 (kick) 它。' },
+            { en: 'lady', zh: '女士 (ㄋㄩˇ ㄕˋ)', mnemonic: '`lady` (女士) 聽起來像 `lazy` (懶惰的)，但這位優雅的女士 (lady) 一點也不懶惰 (lazy)。' },
+            { en: 'add', zh: '增加 (ㄗㄥ ㄐㄧㄚ)', mnemonic: '`add` (增加) 倒過來寫是 `dad` (爸爸)。爸爸 (dad) 增加了 (add) 我的零用錢。' },
+            { en: 'copy', zh: '複製 (ㄈㄨˋ ㄓˋ)', mnemonic: '`cop` (警察) + `y`。那位警察 (cop) 複製 (copy) 了那份文件。' },
+            { en: 'early', zh: '早的 (ㄗㄠˇ ㄉㄜ˙)', mnemonic: '`ear` (耳朵) + `ly`。早早 (early) 起床，用耳朵 (ear) 聆聽清晨的鳥叫聲。' }
         ];
 
         let currentQuestion = 0;
