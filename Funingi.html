@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happen` = `hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 寫下了所有發生的 (happen) 事情。' },
-            { en: 'preview', zh: '預習 (ㄩˋ ㄒㄧˊ)', mnemonic: '`pre` (之前) + `view` (看)。在 (pre) 正式看之前 (view) 先看，就是預習 (preview)。' },
-            { en: 'predict', zh: '預測 (ㄩˋ ㄘㄜˋ)', mnemonic: '`pre` (之前) + `dict` (說)。在事情發生「之前」就「說」出來，就是預測 (predict)。' },
-            { en: 'splash', zh: '濺起 (ㄐㄧㄢˋ ㄑㄧˇ)', mnemonic: '`s` + `pl` (play, 玩) + `ash` (灰燼)。想像在灰燼 (ash) 中玩耍 (play)，會濺起 (splash) 很多灰塵。' },
-            { en: 'puddle', zh: '水坑 (ㄕㄨㄟˇ ㄎㄥ)', mnemonic: '`puddle` (水坑) 聽起來像 `paddle` (划槳)。你不能在一個小水坑 (puddle) 裡划槳 (paddle)。' },
-            { en: 'lift', zh: '舉起 (ㄐㄩˇ ㄑㄧˇ)', mnemonic: '`lift` (舉起) 聽起來像 `gift` (禮物)。當你舉起 (lift) 一個很重的禮物 (gift) 時。' },
-            { en: 'smoke', zh: '煙 (ㄧㄢ)', mnemonic: '`smoke` (煙) 聽起來像 `snake` (蛇)。煙 (smoke) 像蛇 (snake) 一樣蜿蜒上升。' },
-            { en: 'snake', zh: '蛇 (ㄕㄜˊ)', mnemonic: '`snake` (蛇) 聽起來像 `snack` (點心)。小心，那條蛇 (snake) 可能會把你的點心 (snack) 吃掉！' },
-            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個微笑 (smile) 可以傳播好幾英里 (mile) 遠。' },
-            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢)。雪 (snow) 總是慢慢地 (slow) 飄下。' },
-            { en: 'bite', zh: '咬 (ㄧㄠˇ)', mnemonic: '`b` + `ite` (eat的過去式)。b-eat (吃)，就是用牙齒去吃，也就是咬 (bite)。' },
-            { en: 'coke', zh: '可樂 (ㄎㄜˇ ㄌㄜˋ)', mnemonic: '`coke` (可樂) 和 `joke` (玩笑) 押韻。喝可樂 (coke) 時別說笑話 (joke)，不然會噴出來。' },
-            { en: 'fire', zh: '火 (ㄏㄨㄛˇ)', mnemonic: '`fire` (火) 和 `wire` (電線) 押韻。老舊的電線 (wire) 很容易引起火災 (fire)。' },
-            { en: 'fly', zh: '飛 (ㄈㄟ)', mnemonic: '`fly` (飛) 和 `sky` (天空) 押韻。鳥兒在天空 (sky) 中飛 (fly)。' },
-            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` (體育館) 和 `swim` (游泳) 押韻。我喜歡去體育館 (gym) 裡的泳池游泳 (swim)。' }
+            { en: 'meet', zh: '遇見 (ㄩˋ ㄐㄧㄢˋ)', mnemonic: '`meet` (遇見) 和 `feet` (腳) 押韻。我們用腳 (feet) 走路去遇見 (meet) 朋友。' },
+            { en: 'grow up', zh: '長大 (ㄓㄤˇ ㄉㄚˋ)', mnemonic: '`grow` (生長) + `up` (向上)。向上生長 (grow up) 就是長大。' },
+            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de-tail` (tail 是尾巴)。連尾巴 (tail) 這種小地方都要注意到，這就是注重細節 (detail)。' },
+            { en: 'hug', zh: '擁抱 (ㄩㄥˇ ㄅㄠˋ)', mnemonic: '`hug` (擁抱) 和 `bug` (蟲子) 押韻。給那隻可愛的小蟲子 (bug) 一個擁抱 (hug)。' },
+            { en: 'stop', zh: '停止 (ㄊㄧㄥˊ ㄓˇ)', mnemonic: '`stop` (停止) 裡有 `top` (頂部)。當你爬到頂部 (top) 時，你就必須停止 (stop) 了。' },
+            { en: 'grandparents', zh: '祖父母 (ㄗㄨˇ ㄈㄨˋ ㄇㄨˇ)', mnemonic: '`grand` (宏大的/資深的) + `parents` (父母)。父母 (parents) 的父母，就是輩分更資深 (grand) 的祖父母 (grandparents)。' },
+            { en: 'spoon', zh: '湯匙 (ㄊㄤ ㄕˊ)', mnemonic: '`spoon` (湯匙) 和 `moon` (月亮) 押韻。湯匙 (spoon) 的形狀彎彎的，像月亮 (moon) 一樣。' },
+            { en: 'spot', zh: '斑點 (ㄅㄢ ㄉㄧㄢˇ)', mnemonic: '`spot` (斑點) 裡有 `pot` (鍋子)。那個鍋子 (pot) 上有一個髒髒的斑點 (spot)。' },
+            { en: 'swim', zh: '游泳 (ㄧㄡˊ ㄩㄥˇ)', mnemonic: '`s` + `win` (贏)。如果你游泳 (swim) 很快，你就能贏 (win)。' },
+            { en: 'swing', zh: '鞦韆 (ㄑㄧㄡ ㄑㄧㄢ)', mnemonic: '`swing` (盪鞦韆) 裡有 `wing` (翅膀)。盪鞦韆 (swing) 時，感覺自己像有了翅膀 (wing) 一樣在飛。' },
+            { en: 'insect', zh: '昆蟲 (ㄎㄨㄣ ㄔㄨㄥˊ)', mnemonic: '`in` (裡面) + `sect` (部分/切開)。昆蟲 (insect) 的身體通常分為頭、胸、腹三個部分 (sections)。' },
+            { en: 'bow', zh: '鞠躬 (ㄐㄩˊ ㄍㄨㄥ)', mnemonic: '`bow` (鞠躬) 聽起來像 `low` (低的)。鞠躬 (bow) 就是把身體彎得很低 (low)。' },
+            { en: 'club', zh: '俱樂部 (ㄐㄩˋ ㄌㄜˋ ㄅㄨˋ)', mnemonic: '`club` (俱樂部) 可以拆成 `c` (see, 看見) + `lub` (love, 愛)。一個你「看見」(see) 你「愛」(love) 的人的地方，就是俱樂部 (club)。' },
+            { en: 'doll', zh: '洋娃娃 (ㄧㄤˊ ㄨㄚˊ ㄨㄚ˙)', mnemonic: '`doll` (洋娃娃) 和 `ball` (球) 押韻。那個洋娃娃 (doll) 正在玩球 (ball)。' },
+            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '`dry` (乾燥的) 聽起來像 `cry` (哭)。不要哭 (cry)，眼淚擦乾 (dry) 就好了。' }
         ];
 
         let currentQuestion = 0;
