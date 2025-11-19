@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 7 文法測驗：名詞、量詞與代名詞</title>
+    <title>英文文法測驗：Unit 7 名詞與代名詞</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             padding: 20px;
             box-sizing: border-box;
         }
@@ -23,11 +23,11 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             transition: all 0.3s ease;
         }
         h1 {
-            color: #333;
+            color: #2c3e50;
             margin-top: 10px;
             margin-bottom: 10px;
             font-size: 26px;
@@ -45,18 +45,6 @@
             border-radius: 50%; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
             transition: all 0.5s ease;
-        }
-        #game-image.correct {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
-        }
-        #game-image.incorrect {
-            animation: shake 0.5s;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-        }
-        #game-image.all-correct {
-            animation: celebration 1s ease-in-out;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
         }
         #game-status {
             width: 120px;
@@ -112,11 +100,12 @@
             padding: 20px;
             border-radius: 10px;
             border-left: 5px solid #74b9ff;
+            text-align: left;
         }
         #options-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             margin: 20px 0;
         }
         .option-btn {
@@ -129,7 +118,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
-            text-align: center;
+            text-align: left;
             transform: translateY(0);
         }
         .option-btn:hover:not(:disabled) {
@@ -139,15 +128,14 @@
         }
         .option-btn.correct {
             background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         .option-btn.incorrect {
             background: linear-gradient(135deg, #fd79a8, #e84393) !important;
-            animation: shake 0.5s;
+            opacity: 0.7;
         }
         .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
+            cursor: default;
         }
         #result {
             font-size: 24px;
@@ -186,7 +174,7 @@
             padding: 20px;
             border-radius: 10px;
             border-left: 5px solid #e74c3c;
-            max-height: 250px;
+            max-height: 300px;
             overflow-y: auto;
             line-height: 1.5;
         }
@@ -226,10 +214,9 @@
 </head>
 <body>
     <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
-        <div id="game-status" style="display: none;">🎯</div>
-        <h1>Unit 7 文法測驗：名詞、量詞與代名詞</h1>
-        <p>請根據課本 Unit 7 的內容，選擇最適合的答案。</p>
+        <div id="game-status">🎯</div>
+        <h1>Unit 7：名詞、量詞與代名詞</h1>
+        <p>請根據學習內容 (可數/不可數、Some/Any/No/Every、One/Ones) 作答。</p>
         
         <div id="quiz-area">
             <div id="progress"></div>
@@ -250,33 +237,64 @@
     </div>
 
     <script>
-        // 存放所有題目的題庫 (根據上傳的圖片內容 Unit 7 製作)
+        // --- Unit 7 專屬題庫 (根據上傳圖片內容設計) ---
         const unit7Questions = [
-            // Noun Plurals (p.47)
-            { question: "What is the plural form of 'baby'?", options: ["babys", "babies", "babyes", "babyies"], answer: 1, explanation: "當名詞字尾是 '子音 + y' 時，要去 y 加 ies (p.47 規則)。" },
-            { question: "What is the plural form of 'potato'?", options: ["potatos", "potatoes", "potaties", "potato"], answer: 1, explanation: "當名詞字尾是 o 時，通常加 es (p.47 規則)。" },
-            { question: "What is the plural form of 'child'?", options: ["childs", "children", "childes", "childrens"], answer: 1, explanation: "Child 是不規則變化名詞，複數為 children (p.47 不規則名詞)。" },
-            { question: "What is the plural form of 'watch'?", options: ["watchs", "watches", "watchies", "watcher"], answer: 1, explanation: "當名詞字尾是 -ch, -sh, -s, -x 時，複數要加 -es (p.47 規則)。" },
-            { question: "Which word is Uncountable?", options: ["Apple", "Chair", "Bread", "Car"], answer: 2, explanation: "Bread (麵包) 是食物類且為不可數名詞，不能直接數一條兩條 (p.47 不可數名詞列表)。" },
-            { question: "Which word is Uncountable?", options: ["Information", "Book", "Pen", "Student"], answer: 0, explanation: "Information (資訊) 是抽象名詞，屬於不可數名詞 (p.47 不可數名詞列表)。" },
-            
-            // Some / Any / No / Every (p.48)
-            { question: "We usually use 'some' in ______ sentences.", options: ["negative", "interrogative", "affirmative", "all"], answer: 2, explanation: "Some 通常用於肯定句 (affirmative sentences) (p.48 規則)。" },
-            { question: "I don't have ______ money in my pocket.", options: ["some", "any", "no", "every"], answer: 1, explanation: "因為是否定句 (don't)，所以要用 any (p.48 規則)。" },
-            { question: "Is there ______ water in the bottle?", options: ["some", "any", "no", "every"], answer: 1, explanation: "這是疑問句 (question)，通常使用 any (p.48 規則)。" },
-            { question: "Would you like ______ coffee?", options: ["some", "any", "no", "every"], answer: 0, explanation: "雖然是問句，但這是「提供 (offer)」東西，這時要用 some 比較有禮貌 (p.48 規則)。" },
-            { question: "There is ______ milk in the fridge. We need to buy more.", options: ["any", "no", "some", "every"], answer: 1, explanation: "句意是說要去買更多，表示冰箱裡「沒有」牛奶，這裡用 no 來表示 not any 的意思 (p.48 規則)。" },
-            { question: "Every dog ______ four legs.", options: ["have", "has", "having", "had"], answer: 1, explanation: "Every 後面接單數名詞，動詞也要用單數動詞 (has) (p.48 規則)。" },
-            
-            // One / Ones (p.48-49)
-            { question: "I like the red coat, not the blue ______.", options: ["one", "ones", "it", "them"], answer: 0, explanation: "Coat 是單數可數名詞，為了不重複，我們用 one 來代替 (p.48 One/Ones 規則)。" },
-            { question: "I don't like these shoes. I like the black ______.", options: ["one", "ones", "pair", "it"], answer: 1, explanation: "Shoes 是複數名詞，為了不重複，我們用 ones 來代替 (p.48 One/Ones 規則)。" },
-            { question: "Can we use 'one' or 'ones' with uncountable nouns (like milk)?", options: ["Yes", "No", "Sometimes", "Only in questions"], answer: 1, explanation: "我們絕不能將 one/ones 用於不可數名詞 (We never use one/ones with uncountable nouns) (p.48 注意事項)。" },
-            
-            // Advanced / Mixed
-            { question: "We use 'a lot of' with ______.", options: ["only countable nouns", "only uncountable nouns", "both countable and uncountable nouns", "neither"], answer: 2, explanation: "A lot of 可以用在可數與不可數名詞前面 (p.48 筆記)。" },
-            { question: "How ______ apples do you want?", options: ["many", "much", "some", "any"], answer: 0, explanation: "Apples 是可數名詞，詢問數量要用 How many (p.49 圖片活動參考)。" },
-            { question: "How ______ sugar do you take in your coffee?", options: ["many", "much", "some", "any"], answer: 1, explanation: "Sugar 是不可數名詞，詢問數量要用 How much (p.51 練習F參考)。" }
+            // --- Part 1: Plurals (Regular & Irregular) ---
+            { question: "Look at the tree! All the _______ are turning brown.", options: ["leaf", "leafs", "leaves", "leafes"], answer: 2, explanation: "字尾是 f 或 fe 的名詞，複數通常要去 f/fe 改成 ves。Leaf -> Leaves。" },
+            { question: "I need to peel three _______ for the salad.", options: ["potatos", "potatoes", "potato", "potatose"], answer: 1, explanation: "以 -o 結尾的名詞，複數通常加 -es。Potato -> Potatoes。" },
+            { question: "The cat is chasing two _______.", options: ["mouses", "mice", "mouse", "mices"], answer: 1, explanation: "Mouse 是不規則變化名詞，複數是 mice。" },
+            { question: "She bought two new _______.", options: ["radioes", "radios", "radio", "radio's"], answer: 1, explanation: "Radio 雖然是 o 結尾，但屬於例外，複數只加 s -> Radios。" },
+            { question: "There are many _______ playing in the park.", options: ["child", "childs", "children", "childrens"], answer: 2, explanation: "Child 是不規則變化名詞，複數是 children。" },
+            { question: "Foxes and _______ are wild animals.", options: ["wolf", "wolfs", "wolves", "wolvs"], answer: 2, explanation: "Wolf 字尾是 f，複數要去 f 改 ves -> Wolves。" },
+            { question: "My grandmother keeps five _______ on her farm.", options: ["goose", "geese", "gooses", "geeses"], answer: 1, explanation: "Goose (鵝) 是不規則變化，複數是 geese。" },
+            { question: "Please brush your _______ before going to bed.", options: ["tooth", "toothes", "teeth", "teeths"], answer: 2, explanation: "Tooth 是不規則變化，複數是 teeth。" },
+            { question: "Look at those _______. They are very strong animals.", options: ["oxes", "ox", "oxen", "oxs"], answer: 2, explanation: "Ox (公牛) 是不規則變化，複數是 oxen。" },
+            { question: "There are three _______ on the table.", options: ["dictionarys", "dictionaries", "dictionary", "dictionaris"], answer: 1, explanation: "以「子音+y」結尾，去 y 加 ies -> Dictionaries。" },
+
+            // --- Part 2: Countable vs. Uncountable Nouns ---
+            { question: "I need some _______ about the flight times.", options: ["informations", "information", "an information", "inform"], answer: 1, explanation: "Information 是不可數名詞，不能加 s，也不能加 an。" },
+            { question: "Can I have a _______ of bread, please?", options: ["loaf", "slice", "piece", "All of the above"], answer: 3, explanation: "Bread 是不可數名詞，可以用 a loaf of (一條), a slice of (一片), a piece of (一塊) 來計算。" },
+            { question: "We don't have much _______ left in the fridge.", options: ["milks", "milk", "a milk", "bottle of milk"], answer: 1, explanation: "Milk 是不可數液體，不加 s。Much 後面接不可數名詞。" },
+            { question: "He gave me some good _______.", options: ["advices", "advice", "an advice", "piece of advices"], answer: 1, explanation: "Advice (建議) 是不可數名詞，永遠用單數形，不加 s。" },
+            { question: "Could you pass me two _______ of water?", options: ["glass", "glasses", "water", "waters"], answer: 1, explanation: "Water 不可數，要數的話要用容器當單位：two glasses of water。" },
+
+            // --- Part 3: Special Nouns (Police, News, Clothes...) ---
+            { question: "The police _______ investigating the crime.", options: ["is", "are", "was", "has"], answer: 1, explanation: "Police (警方) 是集合名詞，視為複數，動詞要用 are。" },
+            { question: "The news _______ very interesting today.", options: ["are", "is", "were", "have"], answer: 1, explanation: "News (新聞) 雖然有 s，但視為不可數單數，動詞要用 is。" },
+            { question: "Your clothes _______ dirty. Put them in the washing machine.", options: ["is", "are", "was", "has"], answer: 1, explanation: "Clothes (衣服) 總是複數，動詞用 are。" },
+            { question: "Where _______ my trousers? I can't find them.", options: ["is", "are", "am", "was"], answer: 1, explanation: "Trousers (褲子) 是複數名詞(兩條褲管)，動詞用 are。" },
+
+            // --- Part 4: Some / Any / No ---
+            { question: "I'm thirsty. Can I have _______ water, please?", options: ["any", "some", "no", "a"], answer: 1, explanation: "雖然是問句，但這是一個「請求/要求」(Request)，希望對方答應，所以用 some。" },
+            { question: "I don't have _______ money in my wallet.", options: ["some", "no", "any", "many"], answer: 2, explanation: "否定句 (don't have) 中，通常使用 any。" },
+            { question: "There is _______ milk in the fridge. We need to buy more.", options: ["any", "no", "some", "a"], answer: 1, explanation: "句意是「沒有牛奶了，要去買」，且動詞是肯定 (is)，所以用 no (= not any)。" },
+            { question: "Are there _______ students in the classroom?", options: ["some", "any", "no", "much"], answer: 1, explanation: "一般疑問句中，使用 any。" },
+            { question: "Would you like _______ coffee?", options: ["any", "no", "some", "every"], answer: 2, explanation: "提供對方東西 (Offer) 時，為了表示禮貌並期待肯定回答，使用 some。" },
+            { question: "He has _______ friends in this city; he feels lonely.", options: ["no", "any", "some", "every"], answer: 0, explanation: "句意是「他感到寂寞」，表示他「沒有」朋友。動詞 has 是肯定，故搭配 no。" },
+
+            // --- Part 5: Compounds (Someone, Anything, Nowhere...) ---
+            { question: "Is there _______ in the box? No, it's empty.", options: ["something", "anything", "nothing", "everything"], answer: 1, explanation: "疑問句用 anything。" },
+            { question: "_______ is taking my umbrella! Hey, stop!", options: ["Anybody", "Somebody", "Nobody", "Any"], answer: 1, explanation: "肯定句，指「某個人」正在拿雨傘，用 Somebody。" },
+            { question: "I have _______ to wear for the party. All my clothes are dirty.", options: ["something", "nothing", "anything", "everything"], answer: 1, explanation: "動詞是肯定 (have)，但句意是負面的 (沒衣服穿)，所以用 nothing (= don't have anything)。" },
+            { question: "_______ loves ice cream! It's so popular.", options: ["Someone", "Anyone", "Everybody", "Nobody"], answer: 2, explanation: "句意是指「每個人」都喜歡，用 Everybody。" },
+            { question: "I can't find my keys _______. I've looked everywhere.", options: ["somewhere", "nowhere", "anywhere", "everywhere"], answer: 2, explanation: "否定句 (can't find) 中，使用 anywhere。" },
+            { question: "Did you go _______ interesting last summer?", options: ["somewhere", "anywhere", "nowhere", "everywhere"], answer: 1, explanation: "疑問句問有沒有去「任何」地方，用 anywhere。" },
+
+            // --- Part 6: Grammar Rules for Compounds (Singular verbs / Adjectives) ---
+            { question: "Everyone _______ ready for the test.", options: ["are", "is", "were", "have"], answer: 1, explanation: "Every- 開頭的複合字 (Everyone, Everybody, Everything) 視為單數，動詞用 is。" },
+            { question: "Nobody in my family _______ football.", options: ["like", "likes", "liking", "are like"], answer: 1, explanation: "Nobody 視為單數，現在簡單式動詞要加 s -> likes。" },
+            { question: "I want to buy something _______.", options: ["cheap", "cheaply", "cheaper", "cheapest"], answer: 0, explanation: "形容詞修飾複合代名詞 (something) 時，要放在後面：something cheap。" },
+            { question: "Is _______ hungry? Dinner is ready.", options: ["anyone", "some", "all", "they"], answer: 0, explanation: "疑問句詢問「任何人」，且動詞是 Is (單數)，用 anyone。" },
+
+            // --- Part 7: Every ---
+            { question: "Every dog _______ four legs.", options: ["have", "has", "having", "are having"], answer: 1, explanation: "Every + 單數名詞 (dog)，動詞要用單數 has。" },
+            { question: "I visit my grandparents every _______.", options: ["weeks", "week", "weekend", "Sundays"], answer: 1, explanation: "Every 後面接單數可數名詞：every week / every weekend。" },
+
+            // --- Part 8: One / Ones ---
+            { question: "I don't like the green apple. I want the red _______.", options: ["one", "ones", "it", "apple"], answer: 0, explanation: "代替前面提過的單數可數名詞 (apple)，用 one。" },
+            { question: "These shoes are old. I need to buy new _______.", options: ["one", "ones", "them", "pair"], answer: 1, explanation: "代替前面提過的複數名詞 (shoes)，用 ones。" },
+            { question: "Which bag is yours? The blue _______.", options: ["one", "ones", "it", "bag"], answer: 0, explanation: "代替單數名詞 bag，用 one。" },
+            { question: "Do you like the black coat or the brown coat? I like the black _______.", options: ["one", "ones", "coat", "it"], answer: 0, explanation: "避免重複 coat，單數用 one。" }
         ];
 
         // 宣告遊戲會用到的變數
@@ -296,9 +314,7 @@
         const nextBtn = document.getElementById('next-btn');
         const restartBtn = document.getElementById('restart-btn');
         const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameImage = document.getElementById('game-image');
         const gameStatus = document.getElementById('game-status');
-        const titleEl = document.querySelector('.container h1');
 
         // 打亂題目順序的函式
         function shuffle(array) {
@@ -310,18 +326,14 @@
 
         // 開始遊戲的函式
         function startGame(questionList) {
-            questions = [...questionList];
+            questions = JSON.parse(JSON.stringify(questionList)); // Deep copy to avoid modifying original
             shuffle(questions);
             currentQuestionIndex = 0;
             score = 0;
             wrongQuestions = [];
             
-            titleEl.textContent = 'Unit 7 文法測驗：名詞、量詞與代名詞';
-            
             quizArea.style.display = 'block';
             endScreen.style.display = 'none';
-            gameImage.src = 'initial.png'; 
-            gameImage.className = '';
             gameStatus.textContent = '🎯';
             gameStatus.className = '';
             
@@ -353,8 +365,6 @@
             while (optionsContainer.firstChild) {
                 optionsContainer.removeChild(optionsContainer.firstChild);
             }
-            gameImage.src = 'initial.png'; 
-            gameImage.className = '';
             gameStatus.textContent = '🎯';
             gameStatus.className = '';
         }
@@ -375,12 +385,10 @@
                 selectedBtn.classList.add('correct');
                 resultEl.textContent = '✅ 正確！太棒了！';
                 resultEl.style.color = '#2ecc71';
-                gameImage.src = 'correct.png'; 
-                gameImage.classList.add('correct');
                 gameStatus.textContent = '🎉';
                 gameStatus.classList.add('correct');
                 
-                // 答對後自動跳轉
+                // 答對後自動跳轉 (縮短時間以保持節奏)
                 setTimeout(() => {
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
@@ -388,18 +396,16 @@
                     } else {
                         endGame();
                     }
-                }, 1500);
+                }, 1200);
             } else {
                 selectedBtn.classList.add('incorrect');
                 optionsContainer.children[correctIndex].classList.add('correct');
                 resultEl.textContent = '❌ 答錯了，再接再厲！';
                 resultEl.style.color = '#e74c3c';
-                gameImage.src = 'incorrect.png'; 
-                gameImage.classList.add('incorrect');
                 gameStatus.textContent = '😅';
                 gameStatus.classList.add('incorrect');
                 
-                explanationEl.textContent = `💡 課本重點：${currentQuestion.explanation}`;
+                explanationEl.textContent = `💡 文法解析：${currentQuestion.explanation}`;
                 explanationEl.style.display = 'block';
 
                 wrongQuestions.push({
@@ -420,8 +426,6 @@
 
             const wrongQuestionsEl = document.getElementById('wrong-questions');
             if (score === questions.length) {
-                gameImage.src = 'all_correct.png';
-                gameImage.classList.add('all-correct');
                 gameStatus.textContent = '🏆';
                 gameStatus.classList.add('all-correct');
                 wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握 Unit 7 的內容！ 🎊';
@@ -431,7 +435,6 @@
                 wrongQuestionsEl.style.display = 'block';
                 retestWrongBtn.style.display = 'none';
             } else {
-                gameImage.src = 'not_all_correct.png';
                 gameStatus.textContent = '📝';
                 let wrongText = '📋 你答錯的題目回顧：\n\n';
                 wrongQuestions.forEach((q, index) => {
@@ -449,7 +452,7 @@
             }
         }
         
-        // 按鈕事件監聽
+        // 點擊「下一題」按鈕
         nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
@@ -459,10 +462,13 @@
             }
         });
 
+        // 點擊「全部重測」按鈕
         restartBtn.addEventListener('click', () => startGame(unit7Questions));
 
+        // 點擊「重測錯題」按鈕
         retestWrongBtn.addEventListener('click', () => {
             if (wrongQuestions.length > 0) {
+                // 只取題目資料，移除上次的使用者答案
                 const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
                 startGame(retestList);
             }
