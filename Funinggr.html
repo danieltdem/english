@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文文法測驗：Unit 7 (He/She/It)</title>
+    <title><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Who...? What...?</title>
     <style>
+        /* CSS styles remain the same */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -12,47 +13,113 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             box-sizing: border-box;
+        }
+        ruby {
+            ruby-position: over;
+        }
+        rt {
+            font-size: 0.7em;
+            opacity: 0.9;
         }
         .container {
             text-align: center;
             background: white;
             padding: 30px 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 100%;
             max-width: 600px;
+            transition: all 0.3s ease;
         }
         h1 {
             color: #333;
             margin-top: 10px;
             margin-bottom: 10px;
+            font-size: 28px;
         }
         p {
             color: #666;
             margin-bottom: 20px;
+            font-size: 16px;
         }
         #game-image {
-            width: 300px;
-            height: 200px;
+            transition: all 0.5s ease;
+            width: 150px; /* Ensure image size is consistent */
+            height: 150px;
             object-fit: contain;
             margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        #game-image.correct {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+        #game-image.incorrect {
+            animation: shake 0.5s;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+        #game-image.all-correct {
+            animation: celebration 1s ease-in-out;
+            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
+        }
+        #game-status {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex; /* Changed from none to flex */
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+        #game-status.correct {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            transform: scale(1.1);
+        }
+        #game-status.incorrect {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            animation: shake 0.5s;
+        }
+        #game-status.all-correct {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            animation: celebration 1s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        @keyframes celebration {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
         }
         #progress {
             font-size: 16px;
             color: #555;
             margin-bottom: 15px;
             font-weight: bold;
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            display: inline-block;
         }
         #question {
             font-size: 22px;
             margin: 20px 0;
             color: #2c3e50;
-            line-height: 1.5;
+            line-height: 2;
+            background: #f1f3f4;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #74b9ff;
         }
         #options-container {
             display: flex;
@@ -63,84 +130,116 @@
         .option-btn {
             padding: 15px 20px;
             font-size: 18px;
-            background-color: #3498db;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
             text-align: center;
+            transform: translateY(0);
         }
         .option-btn:hover:not(:disabled) {
-            background-color: #2980b9;
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .option-btn.correct {
-            background-color: #2ecc71 !important;
+            background: linear-gradient(135deg, #00b894, #00a085) !important;
+            transform: scale(1.05);
         }
         .option-btn.incorrect {
-            background-color: #e74c3c !important;
+            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
+            animation: shake 0.5s;
         }
         .option-btn:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         #result {
-            font-size: 20px;
+            font-size: 24px;
             margin-top: 20px;
             font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            line-height: 2;
         }
         #explanation-container {
             font-size: 16px;
             margin-top: 15px;
-            padding: 15px;
-            background-color: #fffbe6;
+            padding: 20px;
+            background: linear-gradient(135deg, #fffbe6, #fff3cd);
             border-left: 5px solid #f39c12;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: left;
-            line-height: 1.6;
+            line-height: 2.2;
             color: #5f4c0a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         #score {
-            font-size: 18px;
+            font-size: 24px;
             margin-top: 10px;
             color: #333;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-weight: bold;
+            line-height: 2;
         }
         #wrong-questions {
             font-size: 16px;
             margin-top: 20px;
             text-align: left;
-            white-space: pre-wrap;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
             border-left: 5px solid #e74c3c;
             max-height: 250px;
             overflow-y: auto;
+            line-height: 2.5;
         }
         #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 18px;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             margin: 10px 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
-        #next-btn { background-color: #f39c12; }
-        #next-btn:hover { background-color: #e67e22; }
-        #restart-btn { background-color: #1abc9c; }
-        #restart-btn:hover { background-color: #16a085; }
-        #retest-wrong-btn { background-color: #9b59b6; }
-        #retest-wrong-btn:hover { background-color: #8e44ad; }
+        #next-btn { 
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        }
+        #next-btn:hover { 
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+            transform: translateY(-2px);
+        }
+        #restart-btn { 
+            background: linear-gradient(135deg, #00cec9, #00b894);
+        }
+        #restart-btn:hover { 
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            transform: translateY(-2px);
+        }
+        #retest-wrong-btn { 
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+        #retest-wrong-btn:hover { 
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene">
-        <h1>文法測驗：Unit 7 (He/She/It)</h1>
-        <p>請根據我們學過的 Unit 7 內容 ，選擇最適合的答案。</p>
+        <img id="game-image" src="initial.png" alt="Game Scene"> 
+        <div id="game-status">🎯</div> 
+        
+        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Who...? What...?</h1>
+        <p><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>圖<rt>ㄊㄨˊ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby>，<ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
         
         <div id="quiz-area">
             <div id="progress"></div>
@@ -148,191 +247,235 @@
             <div id="options-container"></div>
             <div id="result"></div>
             <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;">下一題</button>
+            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
         </div>
 
         <div id="end-screen" style="display: none;">
-            <h2>測驗結束！</h2>
+            <h2>🎊 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！ 🎊</h2>
             <div id="score"></div>
             <div id="wrong-questions"></div>
-            <button id="restart-btn">全部重測</button>
-            <button id="retest-wrong-btn" style="display: none;">重測錯題</button>
+            <button id="restart-btn">🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby></button>
+            <button id="retest-wrong-btn" style="display: none;">❌ <ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
         </div>
     </div>
 
-    <script>
-        const allQuestions = [
-            { question: "Look at the boy. ___ is John. ", options: ["She", "He", "It"], answer: 1, explanation: "John 是男生，所以我們用 'He' (他)。 " },
-            { question: "That is a racquet. ___ is for tennis. ", options: ["He", "She", "It"], answer: 2, explanation: "racquet (球拍) 是一個東西，所以我們用 'It' (它)。 " },
-            { question: "This is Steffi. ___ is a tennis player. ", options: ["She", "He", "It"], answer: 0, explanation: "Steffi 是女生，所以我們用 'She' (她)。 " },
-            { question: "He ___ a pilot. ", options: ["am", "are", "is"], answer: 2, explanation: "He (他) 要搭配 'is'。 " },
-            { question: "It ___ a ladybug. ", options: ["is", "am", "are"], answer: 0, explanation: "It (它) 要搭配 'is'。 " },
-            { question: "I ___ a boy. ", options: ["is", "am", "are"], answer: 1, explanation: "I (我) 要搭配 'am'。 (這是 Unit 6 的內容喔！)" },
-            { question: "You ___ a doctor. ", options: ["is", "am", "are"], answer: 2, explanation: "You (你) 要搭配 'are'。 (這也是 Unit 6 的內容！)" },
-            { question: "'She is a doctor.' 的縮寫是？", options: ["Shes a doctor.", "She's a doctor.", "She're a doctor."], answer: 1, explanation: "'She is' 的縮寫是 'She's' ，中間要有一撇 (apostrophe)。" },
-            { question: "'He is John.' 的縮寫是？", options: ["He's John.", "Hes John.", "He're John."], answer: 0, explanation: "'He is' 的縮寫是 'He's'。 " },
-            { question: "'It's a racquet.' 是什麼的縮寫？", options: ["It was a racquet.", "It has a racquet.", "It is a racquet."], answer: 2, explanation: "'It's' 是 'It is' 的縮寫。" },
-            { question: "He ___ a pilot. He is a doctor.", options: ["is", "is not", "are not"], answer: 1, explanation: "句子後半段說他是醫生，所以前半段是否定的。'He' (他) 要搭配 'is not' (或 isn't)。 " },
-            { question: "'He is not' 可以縮寫成？", options: ["He not", "He don't", "He isn't"], answer: 2, explanation: "'is not' 的縮寫是 'isn't'。" },
-            { question: "選出正確的問句： ", options: ["He is a boy?", "Is he a boy?", "Does he a boy?"], answer: 1, explanation: "Be動詞的問句，要把 'Is' 移到句子最前面。 " },
-            { question: "Q: 'Is she a girl?' (O) ", options: ["Yes, she is.", "Yes, she's.", "Yes, is she."], answer: 0, explanation: "肯定的簡答要用 'Yes, she is.' ，在簡答句中的 'is' 不可以縮寫喔！" },
-            { question: "Q: 'Is it a mouse?' (X) ", options: ["No, it isn't.", "No, it not.", "No, is not it."], answer: 0, explanation: "否定的簡答可以用 'No, it isn't.' 或是 'No, it's not'。" }
-        ];
+<script>
+// *** Cleaned Script Block - 15 Questions for Unit 4 ***
+const allQuestions = [
+    { question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>男<rt>ㄋㄢˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>) ___ is he?", options: ["Who", "What"], answer: 0, explanation: "<ruby>詢<rt>ㄒㄩㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>於<rt>ㄩˊ</rt></ruby>「<ruby>人<rt>ㄖㄣˊ</rt></ruby>」<ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who (<ruby>誰<rt>ㄕㄟˊ</rt></ruby>)。" },
+    { question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>蛇<rt>ㄕㄜˊ</rt></ruby>) ___ is it?", options: ["Who", "What"], answer: 1, explanation: "<ruby>詢<rt>ㄒㄩㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>於<rt>ㄩˊ</rt></ruby>「<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>」<ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What (<ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>)。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>鉛<rt>ㄑㄧㄢ</rt></ruby><ruby>筆<rt>ㄅㄧˇ</rt></ruby>) ___ is a pencil.", options: ["This", "That"], answer: 0, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>靠<rt>ㄎㄠˋ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> This (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>房<rt>ㄈㄤˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) ___ is a house.", options: ["This", "That"], answer: 1, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>比<rt>ㄅㄧˇ</rt></ruby><ruby>較<rt>ㄐㄧㄠˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> That (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)。" },
+    { question: "'Who is' <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>？", options: ["Who's", "Whos'"], answer: 0, explanation: "<ruby>一<rt>ㄧˊ</rt></ruby><ruby>撇<rt>ㄆㄧㄝˇ</rt></ruby> (') <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> o <ruby>和<rt>ㄏㄢˋ</rt></ruby> s <ruby>之<rt>ㄓ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</part></ruby>，<ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>省<rt>ㄕㄥˇ</rt></ruby><ruby>略<rt>ㄌㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> i。" },
+    { question: "'What is' <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>？", options: ["Whats'", "What's"], answer: 1, explanation: "<ruby>一<rt>ㄧˊ</rt></ruby><ruby>撇<rt>ㄆㄧㄝˇ</rt></ruby> (') <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> t <ruby>和<rt>ㄏㄢˋ</rt></ruby> s <ruby>之<rt>ㄓ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</part></ruby>，<ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>省<rt>ㄕㄥˇ</rt></ruby><ruby>略<rt>ㄌㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> i。" },
+    { question: "A: ___ this? B: This is Peter.", options: ["Who's", "What's"], answer: 0, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Peter (<ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby>)，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who's (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>)。" },
+    { question: "A: ___ that? B: That is a mouse.", options: ["Who's", "What's"], answer: 1, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> a mouse (<ruby>一<rt>ㄧˋ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>鼠<rt>ㄕㄨˇ</rt></ruby>)，<ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What's (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>)。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>旁<rt>ㄆㄤˊ</rt></ruby><ruby>邊<rt>ㄅㄧㄢ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>」？", options: ["Who's this?", "What's this?", "Who's that?"], answer: 0, explanation: "<ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>(Who)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>旁<rt>ㄆㄤˊ</rt></ruby><ruby>邊<rt>ㄅㄧㄢ</rt></ruby> (<ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>，this)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who's this?。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>樹<rt>ㄕㄨˋ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>鳥<rt>ㄋㄧㄠˇ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>」？", options: ["Who's that?", "What's this?", "What's that?"], answer: 2, explanation: "<ruby>鳥<rt>ㄋㄧㄠˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>(What)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby> (<ruby>遠<rt>ㄩㄢˇ</rt></ruby>，that)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> What's that?。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>蘋<rt>ㄆㄧㄥˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>」？", options: ["Who's this?", "What's this?", "What's that?"], answer: 1, explanation: "<ruby>蘋<rt>ㄆㄧㄥˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>(What)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> (<ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>，this)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> What's this?。" },
+    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>警<rt>ㄐㄧㄥˇ</rt></ruby><ruby>察<rt>ㄔㄚˊ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>」？", options: ["Who's that?", "What's that?", "Who's this?"], answer: 0, explanation: "<ruby>警<rt>ㄐㄧㄥˇ</rt></ruby><ruby>察<rt>ㄔㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>(Who)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby> (<ruby>遠<rt>ㄩㄢˇ</rt></ruby>，that)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who's that?。" },
+    { question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby> \"What's this?\"，<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby>？", options: ["This is a book.", "This is a hamburger.", "This is Mrs. Hill."], answer: 2, explanation: "What <ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>。Mrs. Hill <ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>。" },
+    { question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby> \"Who's that?\"，<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby>？", options: ["That is a car.", "That is Tina.", "That is a boy."], answer: 0, explanation: "Who <ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>。Car (<ruby>車<rt>ㄔㄜ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>。" },
+    { question: "A: ___ that? B: That is a horse.", options: ["Who's", "What's"], answer: 1, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> horse (<ruby>馬<rt>ㄇㄚˇ</rt></ruby>)，<ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What's。" }
+];
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let questions = [];
+let wrongQuestions = [];
 
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameImage = document.getElementById('game-image');
+const quizArea = document.getElementById('quiz-area');
+const endScreen = document.getElementById('end-screen');
+const questionEl = document.getElementById('question');
+const optionsContainer = document.getElementById('options-container');
+const resultEl = document.getElementById('result');
+const explanationEl = document.getElementById('explanation-container');
+const progressEl = document.getElementById('progress');
+const nextBtn = document.getElementById('next-btn');
+const restartBtn = document.getElementById('restart-btn');
+const retestWrongBtn = document.getElementById('retest-wrong-btn');
+const gameImage = document.getElementById('game-image');
+const gameStatus = document.getElementById('game-status');
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
-        function startGame(questionList) {
-            questions = [...questionList];
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
-            
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameImage.src = 'initial.png'; // 初始圖片
-            
-            showQuestion();
-        }
+function startGame(questionList) {
+    questions = [...questionList];
+    shuffle(questions);
+    currentQuestionIndex = 0;
+    score = 0;
+    wrongQuestions = [];
+    
+    quizArea.style.display = 'block';
+    endScreen.style.display = 'none';
+    gameImage.src = 'initial.png'; // Make sure you have an 'initial.png' or change path
+    gameImage.className = '';
+    
+    // Make sure the status element exists and is displayed
+    if (gameStatus) { 
+        gameStatus.style.display = 'flex'; 
+        gameStatus.textContent = '🎯';
+        gameStatus.className = '';
+    }
+    
+    showQuestion();
+}
 
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
-            questionEl.textContent = currentQuestion.question;
+function showQuestion() {
+    resetState();
+    const currentQuestion = questions[currentQuestionIndex];
+    progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
+    questionEl.innerHTML = currentQuestion.question;
 
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.textContent = option; 
+        button.classList.add('option-btn');
+        button.dataset.index = index;
+        button.addEventListener('click', selectAnswer);
+        optionsContainer.appendChild(button);
+    });
+}
 
-        function resetState() {
-            resultEl.textContent = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            gameImage.src = 'initial.png'; // 每題都重置回初始圖片
-        }
+function resetState() {
+    resultEl.innerHTML = ''; 
+    explanationEl.style.display = 'none';
+    nextBtn.style.display = 'none';
+    while (optionsContainer.firstChild) {
+        optionsContainer.removeChild(optionsContainer.firstChild);
+    }
+    gameImage.src = 'initial.png'; // Reset image
+    gameImage.className = '';
+    
+    if (gameStatus) {
+        gameStatus.textContent = '🎯';
+        gameStatus.className = '';
+    }
+}
 
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const selectedIndex = parseInt(selectedBtn.dataset.index);
+    const currentQuestion = questions[currentQuestionIndex];
+    const correctIndex = currentQuestion.answer;
 
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
+    Array.from(optionsContainer.children).forEach(button => {
+        button.disabled = true;
+    });
 
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.textContent = '正確！';
-                resultEl.style.color = '#2ecc71';
-                gameImage.src = 'correct.png'; // 答對的圖片
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
-                    }
-                }, 1500); // 答對後自動跳到下一題
-            } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.textContent = '錯誤！';
-                resultEl.style.color = '#e74c3c';
-                gameImage.src = 'incorrect.png'; // 答錯的圖片
-                
-                explanationEl.textContent = `文法解析：${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
-
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block';
-            }
-        }
-
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
-            
-            const scoreEl = document.getElementById('score');
-            scoreEl.textContent = `你的最終分數：${score} / ${questions.length}`;
-
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameImage.src = 'all_correct.png'; // 全對的圖片
-                wrongQuestionsEl.textContent = '太棒了！你全部答對了！';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameImage.src = 'not_all_correct.png'; // 最終畫面的圖片
-                let wrongText = '你答錯的題目：\n\n';
-                wrongQuestions.forEach(q => {
-                    wrongText += `Q: ${q.question}\n`;
-                    wrongText += `你的答案: "${q.userAnswer}" (正確答案: "${q.options[q.answer]}")\n\n`;
-                });
-                wrongQuestionsEl.textContent = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
+    if (selectedIndex === correctIndex) {
+        score++;
+        selectedBtn.classList.add('correct');
+        resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！'; 
+        resultEl.style.color = '#2ecc71';
+        gameImage.src = 'correct.png'; // Make sure you have a 'correct.png' or change path
+        gameImage.classList.add('correct');
+        if(gameStatus) {
+            gameStatus.textContent = '🎉';
+            gameStatus.classList.add('correct');
         }
         
-        nextBtn.addEventListener('click', () => {
+        setTimeout(() => {
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
             } else {
                 endGame();
             }
-        });
+        }, 1500);
+    } else {
+        selectedBtn.classList.add('incorrect');
+        optionsContainer.children[correctIndex].classList.add('correct');
+        resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！'; 
+        resultEl.style.color = '#e74c3c';
+        gameImage.src = 'incorrect.png'; // Make sure you have an 'incorrect.png' or change path
+        gameImage.classList.add('incorrect');
+         if(gameStatus) {
+            gameStatus.textContent = '😅';
+            gameStatus.classList.add('incorrect');
+        }
+        
+        explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`; 
+        explanationEl.style.display = 'block';
 
-        restartBtn.addEventListener('click', () => startGame(allQuestions));
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                // 移除 'userAnswer' 屬性，只保留原始問題物件
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
-            }
+        wrongQuestions.push({
+            ...currentQuestion,
+            userAnswer: currentQuestion.options[selectedIndex]
         });
+        nextBtn.style.display = 'block';
+    }
+}
 
-        // 啟動遊戲
-        startGame(allQuestions);
-    </script>
+function endGame() {
+    quizArea.style.display = 'none';
+    endScreen.style.display = 'block';
+    
+    const scoreEl = document.getElementById('score');
+    scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`; 
+
+    const wrongQuestionsEl = document.getElementById('wrong-questions');
+    if (score === questions.length) {
+        gameImage.src = 'all_correct.png'; // Make sure you have an 'all_correct.png' or change path
+        gameImage.classList.add('all-correct');
+         if(gameStatus) {
+            gameStatus.textContent = '🏆';
+            gameStatus.classList.add('all-correct');
+        }
+        wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who/What <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊'; 
+        wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+        wrongQuestionsEl.style.background = '#d4edda';
+        wrongQuestionsEl.style.color = '#155724';
+        wrongQuestionsEl.style.display = 'block';
+        retestWrongBtn.style.display = 'none';
+    } else {
+        gameImage.src = 'not_all_correct.png'; // Make sure you have a 'not_all_correct.png' or change path
+         if(gameStatus) {
+            gameStatus.textContent = '📝';
+        }
+        let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
+        wrongQuestions.forEach((q, index) => {
+            wrongText += `<p>`;
+            wrongText += `${index + 1}. ${q.question}<br>`;
+            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
+            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
+            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
+            wrongText += `</p>`;
+        });
+        wrongQuestionsEl.innerHTML = wrongText; 
+        wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+        wrongQuestionsEl.style.background = '#f8d7da';
+        wrongQuestionsEl.style.color = '#721c24';
+        wrongQuestionsEl.style.display = 'block';
+        retestWrongBtn.style.display = 'inline-block';
+    }
+}
+
+nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        endGame();
+    }
+});
+
+restartBtn.addEventListener('click', () => startGame(allQuestions));
+
+retestWrongBtn.addEventListener('click', () => {
+    if (wrongQuestions.length > 0) {
+        // Create a new list containing only the questions the user got wrong
+        const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest); 
+        startGame(retestList); // Start the game again with only the wrong questions
+    }
+});
+
+// Start the game initially
+startGame(allQuestions);
+</script>
 </body>
 </html>
