@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,24 +103,21 @@
 
     <script>
         const words = [
-            { en: 'Asian', zh: '亞洲的 (ㄧㄚˋ ㄓㄡ ㄉㄜ˙)', mnemonic: '`Asian` 聽起來像 `A sun` (一顆太陽)。亞洲人 (Asian) 住在日出之地 (太陽升起的地方)。' },
-            { en: 'August', zh: '八月 (ㄅㄚ ㄩㄝˋ)', mnemonic: '`August` 聽起來像 `A guest` (一位客人)。一位客人 (A guest) 在八月 (August) 來到我們家。' },
-            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`broad` (寬廣的) 裡面藏著 `road` (路)。馬路 (road) 通常都是很寬廣的 (broad)。' },
-            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '字根 `cent` 是 100 的意思 (像 percent)。所以 `century` 就是一百年，也就是一個世紀。' },
-            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `nature` (本性)。當溫度 (temperature) 很高時，人的脾氣 (temper) 就會顯露出來。' },
-            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (每一) + `fact` (事實)。每一個細節都符合事實 (fact)，就是完美的 (perfect)。' },
-            { en: 'thunder', zh: '雷聲 (ㄌㄟˊ ㄕㄥ)', mnemonic: '`thunder` (雷聲) 聽起來像 `under` (在...下面)。聽到雷聲 (thunder) 時，我們嚇得躲在桌子下面 (under)。' },
-            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`gather` (聚集) 聽起來像 `together` (一起)。人們聚集 (gather) 是為了在一起 (together)。' },
-            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '拆成 `D` (Design, 設計) + `raft` (木筏)。畫一張木筏 (raft) 的設計草稿 (draft)。' },
-            { en: 'model', zh: '模型 (ㄇㄛˊ ㄒㄧㄥˊ)', mnemonic: '`model` (模特兒/模型) 展示了最新的模式 (mode)。' },
-            { en: 'royal', zh: '皇家的 (ㄏㄨㄤˊ ㄐㄧㄚ ㄉㄜ˙)', mnemonic: '`royal` (皇家的) 聽起來像 `loyal` (忠誠的)。皇家侍衛必須是對國王忠誠的 (loyal)。' },
-            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (小床) + `ton` (噸)。這張小床 (cot) 是用一噸 (ton) 重的棉花 (cotton) 做成的。' },
-            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '來自 `center` (中心)。`centr` + `al` 就是中央的 (central)。' },
-            { en: 'custom', zh: '習俗 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '`custom` (習俗) 和 `costume` (服裝) 很像。不同的習俗 (custom) 會穿不同的服裝 (costume)。' },
-            { en: 'flavor', zh: '風味 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`flavor` (風味) 聽起來像 `favor` (偏愛)。這種風味 (flavor) 是我最偏愛 (favor) 的。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`certain` (確定的) 來自 `certificate` (證書)。如果你有證書，你就可以確定 (certain) 這是真的。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` + `rain` (雨)。英國 (Britain) 是一個以多雨 (rain) 聞名的地方。' },
-            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '和 `direction` (方向) 有關。指引正確的方向就是直接的 (direct)。' }
+            { en: 'towel', zh: '毛巾 (ㄇㄠˊ ㄐㄧㄣ)', mnemonic: '`towel` 裡面有 `owl` (貓頭鷹)。想像一隻貓頭鷹 (owl) 洗完澡後裹著一條毛巾 (towel)。' },
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 寫下了所有發生的 (happen) 事情。' },
+            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`lo` (low, 低) + `cal` (call, 通話)。打給當地的 (local) 電話費費率通常比較低 (low)。' },
+            { en: 'lemon', zh: '檸檬 (ㄋㄧㄥˊ ㄇㄥˊ)', mnemonic: '`lemon` (檸檬) 和 `demon` (惡魔) 押韻。這顆檸檬 (lemon) 酸得像個惡魔 (demon)。' },
+            { en: 'jewel', zh: '寶石 (ㄅㄠˇ ㄕˊ)', mnemonic: '`jewel` (寶石) 聽起來像 `new` (新的) + `well` (好/井)。這顆新的 (new) 寶石 (jewel) 看起來品質很好 (well)。' },
+            { en: 'capital', zh: '首都 (ㄕㄡˇ ㄉㄨ)', mnemonic: '`cap` (帽子) + `it` + `all` (全部)。首都 (capital) 就像一頂帽子 (cap) 覆蓋了全部 (all) 的行政中心。' },
+            { en: 'travel', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`travel` (旅行) 聽起來像 `train` (火車) + `well` (好)。坐火車 (train) 去旅行 (travel) 是一個很好的 (well) 體驗。' },
+            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`nor` (也不) + `mal` (bad, 壞的字根)。既不好也不壞 (mal)，就是正常的 (normal)。' },
+            { en: 'natural', zh: '天然的 (ㄊㄧㄢ ㄖㄢˊ ㄉㄜ˙)', mnemonic: '來自 `nature` (大自然)。大自然 (nature) 裡的一切都是天然的 (natural)。' },
+            { en: 'abroad', zh: '在國外 (ㄗㄞˋ ㄍㄨㄛˊ ㄨㄞˋ)', mnemonic: '`a` + `broad` (寬廣的)。去一個更寬廣 (broad) 的世界看看，就是去國外 (abroad)。' },
+            { en: 'eighteen', zh: '十八 (ㄕˊ ㄅㄚ)', mnemonic: '`eight` (八) + `teen` (青少年)。十八歲 (eighteen) 是一個八 (eight) 歲加十歲的青少年 (teen)。' },
+            { en: 'ceiling', zh: '天花板 (ㄊㄧㄢ ㄏㄨㄚ ㄅㄢˇ)', mnemonic: '`ceiling` (天花板) 聽起來像 `sealing` (密封)。天花板 (ceiling) 就像是密封 (sealing) 房間頂部的蓋子。' },
+            { en: 'survive', zh: '倖存 (ㄒㄧㄥˋ ㄘㄨㄣˊ)', mnemonic: '`sur` (sir, 先生) + `vive` (live, 活著)。長官 (sir)，我想要活下去 (survive)！' },
+            { en: 'brother', zh: '兄弟 (ㄒㄩㄥ ㄉㄧˋ)', mnemonic: '`bro` (兄弟的簡稱) + `the` + `r`。`Bro` 就在那裡 (there)，他是我的兄弟 (brother)。' },
+            { en: 'element', zh: '元素 (ㄩㄢˊ ㄙㄨˋ)', mnemonic: '`ele` (elephant, 大象) + `ment` (cement, 水泥)。想像一隻大象 (elephant) 踩在水泥 (cement) 上，水泥是建築的基本元素 (element)。' }
         ];
 
         let currentQuestion = 0;
