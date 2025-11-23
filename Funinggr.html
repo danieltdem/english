@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Who...? What...?</title>
+    <title>文法遊戲：Unit 8 (We/You/They)</title>
     <style>
         /* CSS styles remain the same */
         body {
@@ -47,12 +47,6 @@
         }
         #game-image {
             transition: all 0.5s ease;
-            width: 150px; /* Ensure image size is consistent */
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         #game-image.correct {
             transform: scale(1.1);
@@ -71,7 +65,7 @@
             height: 120px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            display: flex; /* Changed from none to flex */
+            display: flex;
             align-items: center;
             justify-content: center;
             font-size: 48px;
@@ -235,11 +229,11 @@
 </head>
 <body>
     <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene"> 
-        <div id="game-status">🎯</div> 
+        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
+        <div id="game-status" style="display: none;">🎯</div>
         
-        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：Who...? What...?</h1>
-        <p><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>圖<rt>ㄊㄨˊ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby>，<ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
+        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：We / You / They</h1>
+        <p><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>稱<rt>ㄔㄥ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
         
         <div id="quiz-area">
             <div id="progress"></div>
@@ -259,223 +253,311 @@
         </div>
     </div>
 
-<script>
-// *** Cleaned Script Block - 15 Questions for Unit 4 ***
-const allQuestions = [
-    { question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>男<rt>ㄋㄢˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>) ___ is he?", options: ["Who", "What"], answer: 0, explanation: "<ruby>詢<rt>ㄒㄩㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>於<rt>ㄩˊ</rt></ruby>「<ruby>人<rt>ㄖㄣˊ</rt></ruby>」<ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who (<ruby>誰<rt>ㄕㄟˊ</rt></ruby>)。" },
-    { question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>蛇<rt>ㄕㄜˊ</rt></ruby>) ___ is it?", options: ["Who", "What"], answer: 1, explanation: "<ruby>詢<rt>ㄒㄩㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>於<rt>ㄩˊ</rt></ruby>「<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>」<ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What (<ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>)。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>鉛<rt>ㄑㄧㄢ</rt></ruby><ruby>筆<rt>ㄅㄧˇ</rt></ruby>) ___ is a pencil.", options: ["This", "That"], answer: 0, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>靠<rt>ㄎㄠˋ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> This (<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>房<rt>ㄈㄤˊ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) ___ is a house.", options: ["This", "That"], answer: 1, explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>比<rt>ㄅㄧˇ</rt></ruby><ruby>較<rt>ㄐㄧㄠˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> That (<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby>)。" },
-    { question: "'Who is' <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>？", options: ["Who's", "Whos'"], answer: 0, explanation: "<ruby>一<rt>ㄧˊ</rt></ruby><ruby>撇<rt>ㄆㄧㄝˇ</rt></ruby> (') <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> o <ruby>和<rt>ㄏㄢˋ</rt></ruby> s <ruby>之<rt>ㄓ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</part></ruby>，<ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>省<rt>ㄕㄥˇ</rt></ruby><ruby>略<rt>ㄌㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> i。" },
-    { question: "'What is' <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>？", options: ["Whats'", "What's"], answer: 1, explanation: "<ruby>一<rt>ㄧˊ</rt></ruby><ruby>撇<rt>ㄆㄧㄝˇ</rt></ruby> (') <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> t <ruby>和<rt>ㄏㄢˋ</rt></ruby> s <ruby>之<rt>ㄓ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</part></ruby>，<ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>省<rt>ㄕㄥˇ</rt></ruby><ruby>略<rt>ㄌㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> i。" },
-    { question: "A: ___ this? B: This is Peter.", options: ["Who's", "What's"], answer: 0, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Peter (<ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby>)，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who's (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>)。" },
-    { question: "A: ___ that? B: That is a mouse.", options: ["Who's", "What's"], answer: 1, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> a mouse (<ruby>一<rt>ㄧˋ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>鼠<rt>ㄕㄨˇ</rt></ruby>)，<ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What's (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>)。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>旁<rt>ㄆㄤˊ</rt></ruby><ruby>邊<rt>ㄅㄧㄢ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>」？", options: ["Who's this?", "What's this?", "Who's that?"], answer: 0, explanation: "<ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>媽<rt>ㄇㄚ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>(Who)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>旁<rt>ㄆㄤˊ</rt></ruby><ruby>邊<rt>ㄅㄧㄢ</rt></ruby> (<ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>，this)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who's this?。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>樹<rt>ㄕㄨˋ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>鳥<rt>ㄋㄧㄠˇ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>」？", options: ["Who's that?", "What's this?", "What's that?"], answer: 2, explanation: "<ruby>鳥<rt>ㄋㄧㄠˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>(What)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby> (<ruby>遠<rt>ㄩㄢˇ</rt></ruby>，that)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> What's that?。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>蘋<rt>ㄆㄧㄥˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>什<rt>ㄕㄣˊ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby>」？", options: ["Who's this?", "What's this?", "What's that?"], answer: 1, explanation: "<ruby>蘋<rt>ㄆㄧㄥˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>(What)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> (<ruby>近<rt>ㄐㄧㄣˋ</rt></ruby>，this)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> What's this?。" },
-    { question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>警<rt>ㄐㄧㄥˇ</rt></ruby><ruby>察<rt>ㄔㄚˊ</rt></ruby>) <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>怎<rt>ㄗㄣˇ</rt></ruby><ruby>麼<rt>˙ㄇㄜ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>「<ruby>那<rt>ㄋㄚˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>誰<rt>ㄕㄟˊ</rt></ruby>」？", options: ["Who's that?", "What's that?", "Who's this?"], answer: 0, explanation: "<ruby>警<rt>ㄐㄧㄥˇ</rt></ruby><ruby>察<rt>ㄔㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>(Who)，<ruby>而且<rt>ㄦˊㄑㄧㄝˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby> (<ruby>遠<rt>ㄩㄢˇ</rt></ruby>，that)。<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who's that?。" },
-    { question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby> \"What's this?\"，<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby>？", options: ["This is a book.", "This is a hamburger.", "This is Mrs. Hill."], answer: 2, explanation: "What <ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>。Mrs. Hill <ruby>是<rt>ㄕˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Who <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>。" },
-    { question: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby> \"Who's that?\"，<ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby>？", options: ["That is a car.", "That is Tina.", "That is a boy."], answer: 0, explanation: "Who <ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>。Car (<ruby>車<rt>ㄔㄜ</rt></ruby><ruby>子<rt>˙ㄗ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>應<rt>ㄧㄥ</rt></ruby><ruby>該<rt>ㄍㄞ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>。" },
-    { question: "A: ___ that? B: That is a horse.", options: ["Who's", "What's"], answer: 1, explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> horse (<ruby>馬<rt>ㄇㄚˇ</rt></ruby>)，<ruby>是<rt>ㄕˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> What's。" }
-];
+    <script>
+        // Unit 8 Question Database based on the provided text
+        const allQuestions = [
+            { 
+                question: "(<ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>星<rt>ㄒㄧㄥ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby>) ___ are aliens.", 
+                options: ["We", "They"], 
+                answer: 0, 
+                explanation: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>角<rt>ㄐㄧㄠˇ</rt></ruby><ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>話<rt>ㄏㄨㄚˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
+            },
+            { 
+                question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>虎<rt>ㄏㄨˇ</rt></ruby>) No, we aren't. ___ are tigers.", 
+                options: ["We", "They"], 
+                answer: 1, 
+                explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
+            },
+            { 
+                question: "We are = ___", 
+                options: ["We're", "Where"], 
+                answer: 0, 
+                explanation: "We are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We're。" 
+            },
+            { 
+                question: "They are = ___", 
+                options: ["Their", "They're"], 
+                answer: 1, 
+                explanation: "They are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> They're。<ruby>注<rt>ㄓㄨˋ</rt></ruby><ruby>意<rt>ㄧˋ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>拼<rt>ㄆㄧㄣ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>囉<rt>˙ㄌㄨㄛ</rt></ruby>！" 
+            },
+            { 
+                question: "You ___ = You're", 
+                options: ["are", "is"], 
+                answer: 0, 
+                explanation: "You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby> are。" 
+            },
+            { 
+                question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>照<rt>ㄓㄠˋ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby>) Are they children? No, they ___.", 
+                options: ["aren't", "are"], 
+                answer: 0, 
+                explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby> No (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>候<rt>ㄏㄡˋ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> aren't (are not)。" 
+            },
+            { 
+                question: "Mrs Jones and Mr Black are pilots. ___ are pilots.", 
+                options: ["They", "We"], 
+                answer: 0, 
+                explanation: "<ruby>講<rt>ㄐㄧㄤˇ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby> (<ruby>瓊<rt>ㄑㄩㄥˊ</rt></ruby><ruby>斯<rt>ㄙ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>萊<rt>ㄌㄞˊ</rt></ruby><ruby>克<rt>ㄎㄜˋ</rt></ruby><ruby>先<rt>ㄒㄧㄢ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby>)，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
+            },
+            { 
+                question: "You and Nick are babies. ___ are babies.", 
+                options: ["They", "You"], 
+                answer: 1, 
+                explanation: "<ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby>」<ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>內<rt>ㄋㄟˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
+            },
+            { 
+                question: "John and I are good boys. ___ are good boys.", 
+                options: ["We", "They"], 
+                answer: 0, 
+                explanation: "<ruby>約<rt>ㄩㄝ</rt></ruby><ruby>翰<rt>ㄏㄢˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby>」(John and I)，<ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We。" 
+            },
+            { 
+                question: "We ___ not children. We are monkeys!", 
+                options: ["are", "is"], 
+                answer: 0, 
+                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>配<rt>ㄆㄟˋ</rt></ruby><ruby>合<rt>ㄏㄜˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> are。" 
+            },
+            { 
+                question: "___ they tigers?", 
+                options: ["Is", "Are"], 
+                answer: 1, 
+                explanation: "They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>頭<rt>ㄊㄡˊ</rt></ruby>。" 
+            },
+            { 
+                question: "___ we bees?", 
+                options: ["Am", "Are"], 
+                answer: 1, 
+                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are。" 
+            },
+            { 
+                question: "No, they aren't. They ___ horses.", 
+                options: ["are", "is"], 
+                answer: 0, 
+                explanation: "They <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby> are。" 
+            },
+            { 
+                question: "The dogs are brown. = ___ are brown.", 
+                options: ["It", "They"], 
+                answer: 1, 
+                explanation: "The dogs <ruby>是<rt>ㄕˋ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>狗<rt>ㄍㄡˇ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby>。" 
+            },
+            { 
+                question: "You and Mary are teachers. = ___ are teachers.", 
+                options: ["You", "We"], 
+                answer: 0, 
+                explanation: "<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>瑪<rt>ㄇㄚˇ</rt></ruby><ruby>麗<rt>ㄌㄧˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>英<rt>ㄧㄥ</rt></ruby><ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> You。" 
+            },
+            { 
+                question: "Are we black and white? Yes, ___ are.", 
+                options: ["we", "they"], 
+                answer: 0, 
+                explanation: "<ruby>問<rt>ㄨㄣˋ</rt></ruby> Are we... (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>...<ruby>嗎<rt>˙ㄇㄚ</rt></ruby>)，<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Yes, we are (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>)。" 
+            },
+            { 
+                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) trees / are / They", 
+                options: ["They are trees.", "Trees are they."], 
+                answer: 0, 
+                explanation: "<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>順<rt>ㄕㄨㄣˋ</rt></ruby><ruby>序<rt>ㄒㄩˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>：<ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (They) + <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) + <ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (trees)。" 
+            },
+            { 
+                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) are / boxes / they / ?", 
+                options: ["They are boxes?", "Are they boxes?"], 
+                answer: 1, 
+                explanation: "<ruby>疑<rt>ㄧˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby> Be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (Are) <ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
+            },
+            { 
+                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) not / are / you / snakes", 
+                options: ["You not are snakes.", "You are not snakes."], 
+                answer: 1, 
+                explanation: "<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> not <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
+            },
+            { 
+                question: "Steven and Helen are sixteen. ___ are sixteen.", 
+                options: ["They", "We"], 
+                answer: 0, 
+                explanation: "<ruby>史<rt>ㄕˇ</rt></ruby><ruby>蒂<rt>ㄉㄧˋ</rt></ruby><ruby>芬<rt>ㄈㄣ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>海<rt>ㄏㄞˇ</rt></ruby><ruby>倫<rt>ㄌㄨㄣˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
+            }
+        ];
 
-let currentQuestionIndex = 0;
-let score = 0;
-let questions = [];
-let wrongQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = [];
+        let wrongQuestions = [];
 
-const quizArea = document.getElementById('quiz-area');
-const endScreen = document.getElementById('end-screen');
-const questionEl = document.getElementById('question');
-const optionsContainer = document.getElementById('options-container');
-const resultEl = document.getElementById('result');
-const explanationEl = document.getElementById('explanation-container');
-const progressEl = document.getElementById('progress');
-const nextBtn = document.getElementById('next-btn');
-const restartBtn = document.getElementById('restart-btn');
-const retestWrongBtn = document.getElementById('retest-wrong-btn');
-const gameImage = document.getElementById('game-image');
-const gameStatus = document.getElementById('game-status');
+        const quizArea = document.getElementById('quiz-area');
+        const endScreen = document.getElementById('end-screen');
+        const questionEl = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const resultEl = document.getElementById('result');
+        const explanationEl = document.getElementById('explanation-container');
+        const progressEl = document.getElementById('progress');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const retestWrongBtn = document.getElementById('retest-wrong-btn');
+        const gameImage = document.getElementById('game-image');
+        const gameStatus = document.getElementById('game-status');
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
-function startGame(questionList) {
-    questions = [...questionList];
-    shuffle(questions);
-    currentQuestionIndex = 0;
-    score = 0;
-    wrongQuestions = [];
-    
-    quizArea.style.display = 'block';
-    endScreen.style.display = 'none';
-    gameImage.src = 'initial.png'; // Make sure you have an 'initial.png' or change path
-    gameImage.className = '';
-    
-    // Make sure the status element exists and is displayed
-    if (gameStatus) { 
-        gameStatus.style.display = 'flex'; 
-        gameStatus.textContent = '🎯';
-        gameStatus.className = '';
-    }
-    
-    showQuestion();
-}
+        function startGame(questionList) {
+            questions = [...questionList];
+            shuffle(questions);
+            currentQuestionIndex = 0;
+            score = 0;
+            wrongQuestions = [];
+            
+            quizArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
+            
+            showQuestion();
+        }
 
-function showQuestion() {
-    resetState();
-    const currentQuestion = questions[currentQuestionIndex];
-    progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-    questionEl.innerHTML = currentQuestion.question;
+        function showQuestion() {
+            resetState();
+            const currentQuestion = questions[currentQuestionIndex];
+            // Use .innerHTML to render ruby tags
+            progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
+            questionEl.innerHTML = currentQuestion.question;
 
-    currentQuestion.options.forEach((option, index) => {
-        const button = document.createElement('button');
-        button.textContent = option; 
-        button.classList.add('option-btn');
-        button.dataset.index = index;
-        button.addEventListener('click', selectAnswer);
-        optionsContainer.appendChild(button);
-    });
-}
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsContainer.appendChild(button);
+            });
+        }
 
-function resetState() {
-    resultEl.innerHTML = ''; 
-    explanationEl.style.display = 'none';
-    nextBtn.style.display = 'none';
-    while (optionsContainer.firstChild) {
-        optionsContainer.removeChild(optionsContainer.firstChild);
-    }
-    gameImage.src = 'initial.png'; // Reset image
-    gameImage.className = '';
-    
-    if (gameStatus) {
-        gameStatus.textContent = '🎯';
-        gameStatus.className = '';
-    }
-}
+        function resetState() {
+            resultEl.innerHTML = '';
+            explanationEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            gameImage.src = 'initial.png';
+            gameImage.className = '';
+            gameStatus.textContent = '🎯';
+            gameStatus.className = '';
+        }
 
-function selectAnswer(e) {
-    const selectedBtn = e.target;
-    const selectedIndex = parseInt(selectedBtn.dataset.index);
-    const currentQuestion = questions[currentQuestionIndex];
-    const correctIndex = currentQuestion.answer;
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctIndex = currentQuestion.answer;
 
-    Array.from(optionsContainer.children).forEach(button => {
-        button.disabled = true;
-    });
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+            });
 
-    if (selectedIndex === correctIndex) {
-        score++;
-        selectedBtn.classList.add('correct');
-        resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！'; 
-        resultEl.style.color = '#2ecc71';
-        gameImage.src = 'correct.png'; // Make sure you have a 'correct.png' or change path
-        gameImage.classList.add('correct');
-        if(gameStatus) {
-            gameStatus.textContent = '🎉';
-            gameStatus.classList.add('correct');
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！';
+                resultEl.style.color = '#2ecc71';
+                gameImage.src = 'correct.png';
+                gameImage.classList.add('correct');
+                gameStatus.textContent = '🎉';
+                gameStatus.classList.add('correct');
+                
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        endGame();
+                    }
+                }, 1500);
+            } else {
+                selectedBtn.classList.add('incorrect');
+                optionsContainer.children[correctIndex].classList.add('correct');
+                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！';
+                resultEl.style.color = '#e74c3c';
+                gameImage.src = 'incorrect.png';
+                gameImage.classList.add('incorrect');
+                gameStatus.textContent = '😅';
+                gameStatus.classList.add('incorrect');
+                
+                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`;
+                explanationEl.style.display = 'block';
+
+                wrongQuestions.push({
+                    ...currentQuestion,
+                    userAnswer: currentQuestion.options[selectedIndex]
+                });
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function endGame() {
+            quizArea.style.display = 'none';
+            endScreen.style.display = 'block';
+            
+            const scoreEl = document.getElementById('score');
+            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
+
+            const wrongQuestionsEl = document.getElementById('wrong-questions');
+            if (score === questions.length) {
+                gameImage.src = 'all_correct.png';
+                gameImage.classList.add('all-correct');
+                gameStatus.textContent = '🏆';
+                gameStatus.classList.add('all-correct');
+                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We/You/They <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊';
+                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
+                wrongQuestionsEl.style.background = '#d4edda';
+                wrongQuestionsEl.style.color = '#155724';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'none';
+            } else {
+                gameImage.src = 'not_all_correct.png';
+                gameStatus.textContent = '📝';
+                let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
+                wrongQuestions.forEach((q, index) => {
+                    wrongText += `<p>`;
+                    wrongText += `${index + 1}. ${q.question}<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
+                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
+                    wrongText += `</p>`;
+                });
+                wrongQuestionsEl.innerHTML = wrongText;
+                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
+                wrongQuestionsEl.style.background = '#f8d7da';
+                wrongQuestionsEl.style.color = '#721c24';
+                wrongQuestionsEl.style.display = 'block';
+                retestWrongBtn.style.display = 'inline-block';
+            }
         }
         
-        setTimeout(() => {
+        nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 showQuestion();
             } else {
                 endGame();
             }
-        }, 1500);
-    } else {
-        selectedBtn.classList.add('incorrect');
-        optionsContainer.children[correctIndex].classList.add('correct');
-        resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！'; 
-        resultEl.style.color = '#e74c3c';
-        gameImage.src = 'incorrect.png'; // Make sure you have an 'incorrect.png' or change path
-        gameImage.classList.add('incorrect');
-         if(gameStatus) {
-            gameStatus.textContent = '😅';
-            gameStatus.classList.add('incorrect');
-        }
-        
-        explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`; 
-        explanationEl.style.display = 'block';
-
-        wrongQuestions.push({
-            ...currentQuestion,
-            userAnswer: currentQuestion.options[selectedIndex]
         });
-        nextBtn.style.display = 'block';
-    }
-}
 
-function endGame() {
-    quizArea.style.display = 'none';
-    endScreen.style.display = 'block';
-    
-    const scoreEl = document.getElementById('score');
-    scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`; 
+        restartBtn.addEventListener('click', () => startGame(allQuestions));
 
-    const wrongQuestionsEl = document.getElementById('wrong-questions');
-    if (score === questions.length) {
-        gameImage.src = 'all_correct.png'; // Make sure you have an 'all_correct.png' or change path
-        gameImage.classList.add('all-correct');
-         if(gameStatus) {
-            gameStatus.textContent = '🏆';
-            gameStatus.classList.add('all-correct');
-        }
-        wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Who/What <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊'; 
-        wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-        wrongQuestionsEl.style.background = '#d4edda';
-        wrongQuestionsEl.style.color = '#155724';
-        wrongQuestionsEl.style.display = 'block';
-        retestWrongBtn.style.display = 'none';
-    } else {
-        gameImage.src = 'not_all_correct.png'; // Make sure you have a 'not_all_correct.png' or change path
-         if(gameStatus) {
-            gameStatus.textContent = '📝';
-        }
-        let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
-        wrongQuestions.forEach((q, index) => {
-            wrongText += `<p>`;
-            wrongText += `${index + 1}. ${q.question}<br>`;
-            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
-            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
-            wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
-            wrongText += `</p>`;
+        retestWrongBtn.addEventListener('click', () => {
+            if (wrongQuestions.length > 0) {
+                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
+                startGame(retestList);
+            }
         });
-        wrongQuestionsEl.innerHTML = wrongText; 
-        wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-        wrongQuestionsEl.style.background = '#f8d7da';
-        wrongQuestionsEl.style.color = '#721c24';
-        wrongQuestionsEl.style.display = 'block';
-        retestWrongBtn.style.display = 'inline-block';
-    }
-}
 
-nextBtn.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
-    } else {
-        endGame();
-    }
-});
-
-restartBtn.addEventListener('click', () => startGame(allQuestions));
-
-retestWrongBtn.addEventListener('click', () => {
-    if (wrongQuestions.length > 0) {
-        // Create a new list containing only the questions the user got wrong
-        const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest); 
-        startGame(retestList); // Start the game again with only the wrong questions
-    }
-});
-
-// Start the game initially
-startGame(allQuestions);
-</script>
+        startGame(allQuestions);
+    </script>
 </body>
 </html>
