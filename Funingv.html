@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,23 @@
 
     <script>
         const words = [
-            { en: 'finish', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`finish` 聽起來像 `fine` (好) + `ish`。當你完成 (finish) 工作時，你會感覺還不錯 (fine-ish)。' },
-            { en: 'neatly', zh: '整潔地 (ㄓㄥˇ ㄐㄧㄝˊ ㄉㄜ˙)', mnemonic: '`neat` (整潔) + `ly`。`neat` 聽起來像 `net` (網子)。把東西收進網子 (net) 裡，看起來就整潔 (neat) 多了。' },
-            { en: 'leave', zh: '離開 (ㄌㄧˊ ㄎㄞ)', mnemonic: '`leave` (離開) 和 `leaf` (葉子) 發音很像。秋天時，葉子 (leaf) 會離開 (leave) 樹枝。' },
-            { en: 'space', zh: '空間 (ㄎㄨㄥ ㄐㄧㄢ)', mnemonic: '`space` (空間) 聽起來像 `pace` (踱步)。你需要足夠的空間 (space) 才能來回踱步 (pace)。' },
-            { en: 'speak', zh: '說話 (ㄕㄨㄛ ㄏㄨㄚˋ)', mnemonic: '`speak` (說) 和 `peak` (山頂) 押韻。站在山頂 (peak) 上大聲說話 (speak)，讓大家都聽到。' },
-            { en: 'picture', zh: '圖片 (ㄊㄨˊ ㄆㄧㄢˋ)', mnemonic: '`pic` (pick, 挑選) + `ture`。挑選 (pick) 一張你最喜歡的圖片 (picture)。' },
-            { en: 'whale', zh: '鯨魚 (ㄐㄧㄥ ㄩˊ)', mnemonic: '`whale` (鯨魚) 聽起來像 `whole` (全部)。鯨魚 (whale) 很大，幾乎佔滿了全部 (whole) 的畫面。' },
-            { en: 'white', zh: '白色 (ㄅㄞˊ ㄙㄜˋ)', mnemonic: '`white` (白色) 聽起來像 `wheat` (小麥)。麵粉是小麥 (wheat) 做的，它是白色的 (white)。' },
-            { en: 'dolphin', zh: '海豚 (ㄏㄞˇ ㄊㄨㄣˊ)', mnemonic: '`doll` (洋娃娃) + `fin` (鰭)。想像一個有鰭 (fin) 的洋娃娃 (doll) 變成了海豚 (dolphin)。' },
-            { en: 'phone', zh: '電話 (ㄉㄧㄢˋ ㄏㄨㄚˋ)', mnemonic: '`phone` 來自 `phonic` (聲音)。電話 (phone) 就是傳送聲音 (phonic) 的工具。' },
-            { en: 'deaf', zh: '聾的 (ㄌㄨㄥˊ ㄉㄜ˙)', mnemonic: '`deaf` (聾的) 和 `leaf` (葉子) 押韻。一個聾 (deaf) 的人聽不到葉子 (leaf) 落下的聲音。' },
-            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 和 `all` (所有) 押韻。所有 (all) 的學生都集合在大廳 (hall) 裡。' },
-            { en: 'born', zh: '出生 (ㄔㄨ ㄕㄥ)', mnemonic: '`born` (出生) 和 `corn` (玉米) 押韻。想像一個嬰兒在玉米 (corn) 田裡出生 (born)。' },
-            { en: 'cousin', zh: '表親 (ㄅㄧㄠˇ ㄑㄧㄣ)', mnemonic: '`co` (together, 一起) + `us` (我們) + `in` (裡面)。表親 (cousin) 就是來我們 (us) 家裡面 (in) 一起 (co) 玩的人。' },
-            { en: 'cross', zh: '穿越 (ㄔㄨㄢ ㄩㄝˋ)', mnemonic: '`cross` (穿越) 和 `boss` (老闆) 押韻。千萬別穿越 (cross) 老闆 (boss) 的底線。' }
+            { en: 'question', zh: '問題 (ㄨㄣˋ ㄊㄧˊ)', mnemonic: '`question` = `quest` (探索/任務) + `ion`。問題 (question) 就是為了尋找答案而展開的探索 (quest)。' },
+            { en: 'choose', zh: '選擇 (ㄒㄩㄢˇ ㄗㄜˊ)', mnemonic: '`choose` (選擇) 聽起來像 `shoes` (鞋子)。真的很難選擇 (choose) 今天要穿哪雙鞋子 (shoes)。' },
+            { en: 'plan', zh: '計畫 (ㄐㄧˋ ㄏㄨㄚˋ)', mnemonic: '`plan` (計畫) 和 `plane` (飛機) 很像。你需要一個完美的計畫 (plan) 才能駕駛飛機 (plane)。' },
+            { en: 'locate', zh: '位於；找到 (ㄨㄟˋ ㄩˊ)', mnemonic: '`locate` (定位) 來自於 `location` (位置)。`locate` 就是去尋找某個東西的位置。' },
+            { en: 'map', zh: '地圖 (ㄉㄧˋ ㄊㄨˊ)', mnemonic: '`map` (地圖) 和 `nap` (小睡) 押韻。我在地圖 (map) 上睡了一次午覺 (nap)。' },
+            { en: 'feed', zh: '餵食 (ㄨㄟˋ ㄕˊ)', mnemonic: '`feed` (餵) 和 `food` (食物) 有關。你把食物 (food) 拿來餵 (feed) 別人。' },
+            { en: 'ship', zh: '船 (ㄔㄨㄢˊ)', mnemonic: '`ship` (船) 和 `sheep` (羊) 發音有點像。想像一艘大船 (ship) 上載滿了綿羊 (sheep)。' },
+            { en: 'chick', zh: '小雞 (ㄒㄧㄠˇ ㄐㄧ)', mnemonic: '`chick` (小雞) 就是 `chicken` (雞) 的縮寫。' },
+            { en: 'whale', zh: '鯨魚 (ㄐㄧㄥ ㄩˊ)', mnemonic: '`whale` (鯨魚) 聽起來像 `wheel` (輪子)。想像一隻像摩天輪 (wheel) 一樣大的鯨魚 (whale)。' },
+            { en: 'catch', zh: '抓；接住 (ㄓㄨㄚ)', mnemonic: '`catch` (抓) 裡面有 `cat` (貓)。貓 (cat) 總是試圖去抓 (catch) 老鼠。' },
+            { en: 'brush', zh: '刷 (ㄕㄨㄚ)', mnemonic: '`brush` (刷) 裡面有 `rush` (匆忙)。當你刷 (brush) 牙時，不要太匆忙 (rush)，要刷乾淨。' },
+            { en: 'phone', zh: '電話 (ㄉㄧㄢˋ ㄏㄨㄚˋ)', mnemonic: '`phone` (電話) 也可以聯想到 `microphone` (麥克風)。講電話要對著收音孔說話。' },
+            { en: 'cut', zh: '切 (ㄑㄧㄝ)', mnemonic: '`cut` (切) 和 `cute` (可愛的) 很像。把這張紙切 (cut) 成可愛的 (cute) 形狀。' },
+            { en: 'care', zh: '關心；照顧 (ㄍㄨㄢ ㄒㄧㄣ)', mnemonic: '`care` (照顧) 裡面有 `car` (車)。你要好好照顧 (care) 你的愛車 (car)。' },
+            { en: 'dark', zh: '黑暗 (ㄏㄟ ㄢˋ)', mnemonic: '`dark` (黑暗) 和 `park` (公園) 押韻。當天色變暗 (dark) 時，不要逗留在公園 (park)。' },
+            { en: 'free', zh: '自由的 (ㄗˋ ㄧㄡˊ ㄉㄜ˙)', mnemonic: '`free` (自由的) 和 `tree` (樹) 押韻。鳥兒在樹 (tree) 上是自由的 (free)。' },
+            { en: 'front', zh: '前面 (ㄑㄧㄢˊ ㄇㄧㄢˋ)', mnemonic: '`front` (前面) 可以聯想 `font` (字體)。最重要的字體 (font) 通常擺在最前面 (front) 給人看。' }
         ];
 
         let currentQuestion = 0;
