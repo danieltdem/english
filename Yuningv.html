@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'towel', zh: '毛巾 (ㄇㄠˊ ㄐㄧㄣ)', mnemonic: '`towel` 裡面有 `owl` (貓頭鷹)。想像一隻貓頭鷹 (owl) 洗完澡後裹著一條毛巾 (towel)。' },
-            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 寫下了所有發生的 (happen) 事情。' },
-            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`lo` (low, 低) + `cal` (call, 通話)。打給當地的 (local) 電話費費率通常比較低 (low)。' },
-            { en: 'lemon', zh: '檸檬 (ㄋㄧㄥˊ ㄇㄥˊ)', mnemonic: '`lemon` (檸檬) 和 `demon` (惡魔) 押韻。這顆檸檬 (lemon) 酸得像個惡魔 (demon)。' },
-            { en: 'jewel', zh: '寶石 (ㄅㄠˇ ㄕˊ)', mnemonic: '`jewel` (寶石) 聽起來像 `new` (新的) + `well` (好/井)。這顆新的 (new) 寶石 (jewel) 看起來品質很好 (well)。' },
-            { en: 'capital', zh: '首都 (ㄕㄡˇ ㄉㄨ)', mnemonic: '`cap` (帽子) + `it` + `all` (全部)。首都 (capital) 就像一頂帽子 (cap) 覆蓋了全部 (all) 的行政中心。' },
-            { en: 'travel', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`travel` (旅行) 聽起來像 `train` (火車) + `well` (好)。坐火車 (train) 去旅行 (travel) 是一個很好的 (well) 體驗。' },
-            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`nor` (也不) + `mal` (bad, 壞的字根)。既不好也不壞 (mal)，就是正常的 (normal)。' },
-            { en: 'natural', zh: '天然的 (ㄊㄧㄢ ㄖㄢˊ ㄉㄜ˙)', mnemonic: '來自 `nature` (大自然)。大自然 (nature) 裡的一切都是天然的 (natural)。' },
-            { en: 'abroad', zh: '在國外 (ㄗㄞˋ ㄍㄨㄛˊ ㄨㄞˋ)', mnemonic: '`a` + `broad` (寬廣的)。去一個更寬廣 (broad) 的世界看看，就是去國外 (abroad)。' },
-            { en: 'eighteen', zh: '十八 (ㄕˊ ㄅㄚ)', mnemonic: '`eight` (八) + `teen` (青少年)。十八歲 (eighteen) 是一個八 (eight) 歲加十歲的青少年 (teen)。' },
-            { en: 'ceiling', zh: '天花板 (ㄊㄧㄢ ㄏㄨㄚ ㄅㄢˇ)', mnemonic: '`ceiling` (天花板) 聽起來像 `sealing` (密封)。天花板 (ceiling) 就像是密封 (sealing) 房間頂部的蓋子。' },
-            { en: 'survive', zh: '倖存 (ㄒㄧㄥˋ ㄘㄨㄣˊ)', mnemonic: '`sur` (sir, 先生) + `vive` (live, 活著)。長官 (sir)，我想要活下去 (survive)！' },
-            { en: 'brother', zh: '兄弟 (ㄒㄩㄥ ㄉㄧˋ)', mnemonic: '`bro` (兄弟的簡稱) + `the` + `r`。`Bro` 就在那裡 (there)，他是我的兄弟 (brother)。' },
-            { en: 'element', zh: '元素 (ㄩㄢˊ ㄙㄨˋ)', mnemonic: '`ele` (elephant, 大象) + `ment` (cement, 水泥)。想像一隻大象 (elephant) 踩在水泥 (cement) 上，水泥是建築的基本元素 (element)。' }
+            { en: 'direction', zh: '方向 (ㄈㄤ ㄒㄧㄤ)', mnemonic: '`Direct` (直接/指引) + `ion`。指引你走到正確的地方就是給出方向 (direction)。' },
+            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下面) 押韻。為了去城鎮 (town)，我們要從山上走下去 (down)。' },
+            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`Local` (當地的) 和 `Location` (地點) 很像。當地人最熟悉這個地點。' },
+            { en: 'revise', zh: '修訂 (ㄒㄧㄡ ㄉㄧㄥˋ)', mnemonic: '`re` (再一次) + `vis` (vision, 看)。再看一次是為了修訂 (revise) 錯誤。' },
+            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`rest` (休息) + `pond` (池塘)。當你在池塘 (pond) 邊休息 (rest) 時，聽到有人叫你，你要回應 (respond)。' },
+            { en: 'main', zh: '主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`Main` (主要的) 聽起來像 `Man` (男人)。他是這個家庭的主要 (main) 支柱 (man)。' },
+            { en: 'subject', zh: '主題；科目 (ㄓㄨˇ ㄊㄧˊ)', mnemonic: '`Sub` (地鐵) + `ject` (reject, 拒絕)。我們拒絕在地鐵 (sub) 上討論這個主題 (subject)。' },
+            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`Pub` (Public, 大眾) + `lish` (English)。為了讓大眾 (public) 都能讀到，所以出版 (publish) 這本書。' },
+            { en: 'further', zh: '更遠地 (ㄍㄥˋ ㄩㄢˇ ㄉㄧ˙)', mnemonic: '`Far` (遠) 的比較級。`Father` (父親) 走得比我更遠 (further)。(`Father` 和 `Further` 拼寫很像)。' },
+            { en: 'before', zh: '在...之前 (ㄗㄞˋ...ㄓ ㄑㄧㄢˊ)', mnemonic: '`Be` + `Fore` (head/front, 前面)。在前面就是之前 (before)。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`Certain` (確定的) 和 `Curtain` (窗簾) 聽起來很像。我確定 (certain) 窗簾 (curtain) 後面有人。' },
+            { en: 'chore', zh: '雜務 (ㄗㄚˊ ㄨˋ)', mnemonic: '`chore` (雜務) 和 `bore` (令人厭煩的事) 押韻。做雜務 (chore) 真是一件令人厭煩 (bore) 的事。' },
+            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`No` + `rmal` (formal, 正式的)。不 (no) 需要太正式 (formal)，只要正常 (normal) 就好。' },
+            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (回) + `turn` (轉)。轉 (turn) 身走回 (re) 去，就是返回 (return)。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (purse, 錢包) + `pose` (姿勢)。她擺這個姿勢 (pose) 的目的 (purpose) 是為了展示她的新錢包 (purse)。' }
         ];
 
         let currentQuestion = 0;
