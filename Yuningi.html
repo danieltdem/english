@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共32題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,38 +103,27 @@
 
     <script>
         const words = [
-            { en: 'chilly', zh: '寒冷的 (ㄏㄢˊ ㄌㄥˇ ㄉㄜ˙)', mnemonic: '`chilly` 聽起來像 `chili` (辣椒)。雖然辣椒很辣，但天氣是寒冷的 (chilly)。' },
-            { en: 'freeze', zh: '結冰 (ㄐㄧㄝˊ ㄅㄧㄥ)', mnemonic: '`freeze` 聽起來像 `free` (自由) + `ze` (zero, 零度)。當溫度降到零度 (zero) 時，水就結冰 (freeze) 了。' },
-            { en: 'recipe', zh: '食譜 (ㄕˊ ㄆㄨˇ)', mnemonic: '`re` + `ci` (see, 看) + `pe` (pay, 付錢)。想要看 (see) 秘密食譜 (recipe)，你必須付錢 (pay)。' },
-            { en: 'creature', zh: '生物 (ㄕㄥ ㄨˋ)', mnemonic: '`create` (創造) + `ure`。上帝創造 (create) 了每一種生物 (creature)。' },
-            { en: 'control', zh: '控制 (ㄎㄨㄥˋ ㄓˋ)', mnemonic: '`control` 裡有 `roll` (滾動)。你必須控制 (control) 球，才能讓它滾 (roll) 到你想去的地方。' },
-            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (again, 再一次) + `arrange` (排列)。就是重新排列 (rearrange)。' },
-            { en: 'over', zh: '結束；在...之上 (ㄐㄧㄝˊ ㄕㄨˋ)', mnemonic: '`over` 和 `cover` (蓋子) 押韻。把蓋子蓋在 (over) 鍋子上。' },
-            { en: 'broke', zh: '破產的；打破 (ㄆㄛˋ ㄔㄢˇ ㄉㄜ˙)', mnemonic: '`broke` 聽起來像 `borrow` (借)。我破產了 (broke)，所以我需要借 (borrow) 錢。' },
-            { en: 'motion', zh: '移動；動作 (ㄧˊ ㄉㄨㄥˋ)', mnemonic: '`motion` 和 `ocean` (海洋) 押韻。海洋 (ocean) 總是處於流動 (motion) 狀態。' },
-            { en: 'below', zh: '在...下面 (ㄗㄞˋ...ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '`be` (是) + `low` (低的)。處於一個低 (low) 的位置，就是在...下面 (below)。' },
-            { en: 'choke', zh: '窒息；噎住 (ㄓˋ ㄒㄧˊ)', mnemonic: '`choke` 和 `coke` (可樂) 押韻。如果你喝可樂 (Coke) 喝太快，你可能會噎住 (choke)。' },
-            { en: 'stolen', zh: '被偷的 (ㄅㄟˋ ㄊㄡ ㄉㄜ˙)', mnemonic: '`stolen` 是 `steal` (偷) 的過去分詞。`s` + `to` + `len` (lend, 借)。我沒借 (lend) 給你，是你偷 (stole) 的！' },
-            { en: 'noble', zh: '高尚的；貴族 (ㄍㄠ ㄕㄤˋ ㄉㄜ˙)', mnemonic: '`No` (不) + `bull` (謊言/胡說)。一個高尚的 (noble) 人不說謊 (no bull)。' },
-            { en: 'moment', zh: '片刻 (ㄆㄧㄢˋ ㄎㄜˋ)', mnemonic: '`mom` (媽媽) + `ent` (enter, 進入)。等一下 (moment)，媽媽 (mom) 正要進來 (enter)。' },
-            { en: 'swallow', zh: '吞嚥；燕子 (ㄊㄨㄣ ㄧㄢˋ)', mnemonic: '`swallow` 和 `hollow` (空的) 押韻。如果你的肚子空空的 (hollow)，你會想吞嚥 (swallow) 食物。' },
-            { en: 'notice', zh: '注意 (ㄓㄨˋ ㄧˋ)', mnemonic: '`not` (不/沒有) + `ice` (冰)。注意 (notice) 路上沒有冰 (no ice)。' },
-            { en: 'spoke', zh: '說話 (ㄕㄨㄛ ㄏㄨㄚˋ)', mnemonic: '`spoke` 和 `poke` (戳) 押韻。他一邊戳 (poke) 我，一邊跟我說話 (spoke)。' },
-            { en: 'croak', zh: '呱呱叫 (ㄍㄨㄚ ㄍㄨㄚ ㄐㄧㄠˋ)', mnemonic: '`croak` 聽起來像 `crow` (烏鴉) + `oak` (橡樹)。青蛙在橡樹 (oak) 旁呱呱叫 (croak)。' },
-            { en: 'propose', zh: '提議；求婚 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (求婚) 聽起來像 `pop` (拿出) + `rose` (玫瑰)。求婚 (propose) 時，你可能會拿出玫瑰 (rose)。' },
-            { en: 'hollow', zh: '中空的 (ㄓㄨㄥ ㄎㄨㄥ ㄉㄜ˙)', mnemonic: '`hole` (洞) + `low` (低的/深的)。一個很深的洞 (hole) 是中空的 (hollow)。' },
-            { en: 'although', zh: '雖然 (ㄙㄨㄟ ㄖㄢˊ)', mnemonic: '拆解成 `all` (全部) + `though` (雖然)。' },
-            { en: 'diary', zh: '日記 (ㄖˋ ㄐㄧˋ)', mnemonic: '`di` (die, 死) + `ary`。如果我死了 (die)，請讀我的日記 (diary)。' },
-            { en: 'grand', zh: '宏偉的 (ㄏㄨㄥˊ ㄨㄟˇ ㄉㄜ˙)', mnemonic: '`grand` 和 `brand` (品牌) 押韻。大品牌 (brand) 通常有宏偉的 (grand) 辦公室。' },
-            { en: 'German', zh: '德國人 (ㄉㄜˊ ㄍㄨㄛˊ ㄖㄣˊ)', mnemonic: '`germ` (細菌) + `man` (男人)。別把德國 (German) 男人 (man) 叫成細菌 (germ)！' },
-            { en: 'homerun', zh: '全壘打 (ㄑㄩㄢˊ ㄌㄟˇ ㄉㄚˇ)', mnemonic: '`home` (家) + `run` (跑)。跑 (run) 回家 (home) 就是全壘打 (homerun)。' },
-            { en: 'elephant', zh: '大象 (ㄉㄚˋ ㄒㄧㄤˋ)', mnemonic: '`elephant` (大象) 的字尾是 `ant` (螞蟻)。跟螞蟻 (ant) 比起來，大象 (elephant) 超巨大的。' },
-            { en: 'house', zh: '房子 (ㄈㄤˊ ㄗ˙)', mnemonic: '`house` 和 `mouse` (老鼠) 押韻。房子 (house) 裡有一隻老鼠 (mouse)。' },
-            { en: 'eighty', zh: '八十 (ㄅㄚ ㄕˊ)', mnemonic: '`eight` (八) + `y`。' },
-            { en: 'develop', zh: '發展 (ㄈㄚ ㄓㄢˇ)', mnemonic: '`devil` (魔鬼) + `up` (向上)。別讓心中的魔鬼 (devil) 發展 (develop) 壯大 (up)。' },
-            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`for` (為了) + `rest` (休息)。去森林 (forest) 為了休息 (for rest)。' },
-            { en: 'huge', zh: '巨大的 (ㄐㄩˋ ㄉㄚˋ ㄉㄜ˙)', mnemonic: '`huge` (巨大的) 裡有 `hug` (擁抱)。給一個巨大的 (huge) 擁抱 (hug)。' },
-            { en: 'meaning', zh: '意義 (ㄧˋ ㄧˋ)', mnemonic: '`mean` (刻薄的) + `ing`。刻薄 (mean) 的意義 (meaning) 是什麼？' }
+            { en: 'diplomat', zh: '外交官 (ㄨㄞˋ ㄐㄧㄠ ㄍㄨㄢ)', mnemonic: '`diploma` (文憑) + `mat` (墊子)。想像一位外交官坐在墊子 (mat) 上拿著文憑 (diploma) 進行談判。' },
+            { en: 'failure', zh: '失敗 (ㄕ ㄅㄞˋ)', mnemonic: '`fail` (失敗) + `ure` (your, 你的)。失敗 (failure) 是你 (your) 的學習機會。' },
+            { en: 'dandelion', zh: '蒲公英 (ㄆㄨˊ ㄍㄨㄥ ㄧㄥ)', mnemonic: '聽起來像 `dandy` (花花公子) + `lion` (獅子)。想像一隻愛漂亮的獅子拿著蒲公英。' },
+            { en: 'handle', zh: '把手；處理 (ㄅㄚˇ ㄕㄡˇ)', mnemonic: '`hand` (手) + `le`。你需要用手 (hand) 去握住把手 (handle) 才能處理事情。' },
+            { en: 'agent', zh: '特務；代理人 (ㄊㄜˋ ㄨˋ)', mnemonic: '`age` (年齡) + `nt`。一個秘密探員 (agent) 永遠不會透露他的真實年齡 (age)。' },
+            { en: 'fort', zh: '堡壘 (ㄅㄠˇ ㄌㄟˇ)', mnemonic: '聽起來像 `force` (武力)。你需要武力 (force) 來保衛堡壘 (fort)。' },
+            { en: 'hunch', zh: '直覺；預感 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: '與 `lunch` (午餐) 押韻。我有一個直覺 (hunch)，你偷吃了我的午餐 (lunch)。' },
+            { en: 'except', zh: '除了...之外 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '`ex` (out, 外) + `cept` (take, 拿)。把東西拿 (cept) 到外 (ex) 面，就是「除了...之外」。' },
+            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`ex` (out, 向外) + `plore` (cry out, 大叫)。獵人向外 (ex) 探索 (explore) 時看見獵物會大叫。' },
+            { en: 'shadow', zh: '影子 (ㄧㄥˇ ㄗ˙)', mnemonic: '`shade` (陰影) + `ow`。影子 (shadow) 就像是跟著你的陰影 (shade)。' },
+            { en: 'argue', zh: '爭論 (ㄓㄥ ㄌㄨㄣˋ)', mnemonic: '開頭聽起來像 `arr` (海盜聲)。想像海盜們為了寶藏在爭論 (argue)。' },
+            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '看起來像 `special` (特別的)。每一個物種 (species) 都是特別的 (special)。' },
+            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`val` (strength/worth, 價值)。這個字根就代表價值。' },
+            { en: 'inspire', zh: '鼓舞；激勵 (ㄍㄨˇ ㄨˇ)', mnemonic: '`in` (進入) + `spire` (呼吸/靈魂)。將靈魂吹入某人體內，就是鼓舞 (inspire) 他。' },
+            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (通常的)。不通常的就是不尋常的 (unusual)。' },
+            { en: 'regular', zh: '規律的 (ㄍㄨㄟ ㄌㄩˋ ㄉㄜ˙)', mnemonic: '`regu` (rule, 規則)。遵守規則 (rule) 的事物通常是規律的 (regular)。' },
+            { en: 'shield', zh: '盾牌 (ㄉㄨㄣˋ ㄆㄞˊ)', mnemonic: '`she` (她) + `held` (握住)。她 (she) 握住 (held) 了一個盾牌 (shield)。' },
+            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '與 `order` (命令) 押韻。你需要命令 (order) 才能跨越邊界 (border)。' },
+            { en: 'forgive', zh: '原諒 (ㄩㄢˊ ㄌㄧㄤˋ)', mnemonic: '`for` (為了) + `give` (給予)。為了 (for) 和平，給予 (give) 原諒 (forgive)。' },
+            { en: 'broke', zh: '破產的 (ㄆㄛˋ ㄔㄢˇ ㄉㄜ˙)', mnemonic: '`b` + `rock` (石頭)。身無分文 (broke) 的感覺就像石頭 (rock) 一樣硬/慘。' },
+            { en: 'glowing', zh: '發光的 (ㄈㄚ ㄍㄨㄤ ㄉㄜ˙)', mnemonic: '`glow` (發光) + `ing`。`low` (低)。即使是低 (low) 光源也是在發光 (glowing) 的。' }
         ];
 
         let currentQuestion = 0;
