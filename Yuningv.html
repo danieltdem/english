@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'direction', zh: '方向 (ㄈㄤ ㄒㄧㄤ)', mnemonic: '`Direct` (直接/指引) + `ion`。指引你走到正確的地方就是給出方向 (direction)。' },
-            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下面) 押韻。為了去城鎮 (town)，我們要從山上走下去 (down)。' },
-            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`Local` (當地的) 和 `Location` (地點) 很像。當地人最熟悉這個地點。' },
-            { en: 'revise', zh: '修訂 (ㄒㄧㄡ ㄉㄧㄥˋ)', mnemonic: '`re` (再一次) + `vis` (vision, 看)。再看一次是為了修訂 (revise) 錯誤。' },
-            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`rest` (休息) + `pond` (池塘)。當你在池塘 (pond) 邊休息 (rest) 時，聽到有人叫你，你要回應 (respond)。' },
-            { en: 'main', zh: '主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`Main` (主要的) 聽起來像 `Man` (男人)。他是這個家庭的主要 (main) 支柱 (man)。' },
-            { en: 'subject', zh: '主題；科目 (ㄓㄨˇ ㄊㄧˊ)', mnemonic: '`Sub` (地鐵) + `ject` (reject, 拒絕)。我們拒絕在地鐵 (sub) 上討論這個主題 (subject)。' },
-            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`Pub` (Public, 大眾) + `lish` (English)。為了讓大眾 (public) 都能讀到，所以出版 (publish) 這本書。' },
-            { en: 'further', zh: '更遠地 (ㄍㄥˋ ㄩㄢˇ ㄉㄧ˙)', mnemonic: '`Far` (遠) 的比較級。`Father` (父親) 走得比我更遠 (further)。(`Father` 和 `Further` 拼寫很像)。' },
-            { en: 'before', zh: '在...之前 (ㄗㄞˋ...ㄓ ㄑㄧㄢˊ)', mnemonic: '`Be` + `Fore` (head/front, 前面)。在前面就是之前 (before)。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`Certain` (確定的) 和 `Curtain` (窗簾) 聽起來很像。我確定 (certain) 窗簾 (curtain) 後面有人。' },
-            { en: 'chore', zh: '雜務 (ㄗㄚˊ ㄨˋ)', mnemonic: '`chore` (雜務) 和 `bore` (令人厭煩的事) 押韻。做雜務 (chore) 真是一件令人厭煩 (bore) 的事。' },
-            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`No` + `rmal` (formal, 正式的)。不 (no) 需要太正式 (formal)，只要正常 (normal) 就好。' },
-            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (回) + `turn` (轉)。轉 (turn) 身走回 (re) 去，就是返回 (return)。' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (purse, 錢包) + `pose` (姿勢)。她擺這個姿勢 (pose) 的目的 (purpose) 是為了展示她的新錢包 (purse)。' }
+            { en: 'custom', zh: '習俗；慣例 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '`custom` 裡面有 `cut` (剪切) + `some` (一些)。為了遵守某個習俗 (custom)，你可能需要剪掉一些 (cut some) 舊習慣。' },
+            { en: 'order', zh: '命令；順序 (ㄇㄧㄥˋ ㄌㄧㄥˋ)', mnemonic: '`order` (秩序/命令) 和 `border` (邊界) 押韻。為了在邊界 (border) 維持秩序 (order)，士兵必須服從命令。' },
+            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。想像你在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
+            { en: 'flavor', zh: '風味；味道 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`flavor` (風味) 和 `favor` (幫忙) 很像。幫我一個忙 (favor)，嚐嚐這個味道 (flavor) 如何。' },
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happen` = `hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 記錄下所有發生的 (happen) 事情。' },
+            { en: 'course', zh: '課程 (ㄎㄜˋ ㄔㄥˊ)', mnemonic: '`course` (課程) 的發音像 `of course` (當然)。你當然 (of course) 要去上這門課程 (course)。' },
+            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '`border` = `board` (木板) + `er`。想像用木板 (board) 圍起來的地方就是邊界 (border)。' },
+            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` (值得) 和 `work` (工作) 很像。你需要努力工作 (work) 才能獲得有價值 (worth) 的東西。' },
+            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`formal` = `for` + `mal` (male, 男性)。想像西裝是專為男性 (for male) 設計的正式 (formal) 服裝（雖然現在男女都穿）。' },
+            { en: 'brush', zh: '刷子；刷 (ㄕㄨㄚ ㄗ˙)', mnemonic: '`brush` (刷) 和 `rush` (匆忙) 押韻。刷牙 (brush) 時不要太匆忙 (rush)。' },
+            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` (最少) 和 `last` (最後) 很像。排在最後 (last) 的人分到的東西通常是最少的 (least)。' },
+            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`gather` (聚集) 和 `together` (一起) 聽起來很像。大家聚集 (gather) 在一起 (together)。' },
+            { en: 'hang', zh: '懸掛 (ㄒㄩㄢˊ ㄍㄨㄚˋ)', mnemonic: '`hang` (掛) 裡面有 `hat` (帽子) 的概念。想像把帽子 (hat) 掛 (hang) 在牆上。' },
+            { en: 'build', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)', mnemonic: '`build` 聽起來像 `bill` (帳單)。建造 (build) 一棟房子會收到很多帳單 (bill)。' },
+            { en: 'former', zh: '前者的；以前的 (ㄑㄧㄢˊ ㄓㄜˇ ㄉㄜ˙)', mnemonic: '`former` (以前的) 和 `farmer` (農夫) 押韻。這塊地的前任 (former) 主人是一個農夫 (farmer)。' }
         ];
 
         let currentQuestion = 0;
