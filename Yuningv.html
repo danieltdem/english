@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'custom', zh: '習俗；慣例 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '`custom` 裡面有 `cut` (剪切) + `some` (一些)。為了遵守某個習俗 (custom)，你可能需要剪掉一些 (cut some) 舊習慣。' },
-            { en: 'order', zh: '命令；順序 (ㄇㄧㄥˋ ㄌㄧㄥˋ)', mnemonic: '`order` (秩序/命令) 和 `border` (邊界) 押韻。為了在邊界 (border) 維持秩序 (order)，士兵必須服從命令。' },
-            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` (曲線) 聽起來像 `carve` (雕刻)。想像你在木頭上雕刻 (carve) 出美麗的曲線 (curve)。' },
-            { en: 'flavor', zh: '風味；味道 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`flavor` (風味) 和 `favor` (幫忙) 很像。幫我一個忙 (favor)，嚐嚐這個味道 (flavor) 如何。' },
-            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happen` = `hap` (happy, 快樂) + `pen` (筆)。想像你用一支快樂的 (happy) 筆 (pen) 記錄下所有發生的 (happen) 事情。' },
-            { en: 'course', zh: '課程 (ㄎㄜˋ ㄔㄥˊ)', mnemonic: '`course` (課程) 的發音像 `of course` (當然)。你當然 (of course) 要去上這門課程 (course)。' },
-            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '`border` = `board` (木板) + `er`。想像用木板 (board) 圍起來的地方就是邊界 (border)。' },
-            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` (值得) 和 `work` (工作) 很像。你需要努力工作 (work) 才能獲得有價值 (worth) 的東西。' },
-            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`formal` = `for` + `mal` (male, 男性)。想像西裝是專為男性 (for male) 設計的正式 (formal) 服裝（雖然現在男女都穿）。' },
-            { en: 'brush', zh: '刷子；刷 (ㄕㄨㄚ ㄗ˙)', mnemonic: '`brush` (刷) 和 `rush` (匆忙) 押韻。刷牙 (brush) 時不要太匆忙 (rush)。' },
-            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` (最少) 和 `last` (最後) 很像。排在最後 (last) 的人分到的東西通常是最少的 (least)。' },
-            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`gather` (聚集) 和 `together` (一起) 聽起來很像。大家聚集 (gather) 在一起 (together)。' },
-            { en: 'hang', zh: '懸掛 (ㄒㄩㄢˊ ㄍㄨㄚˋ)', mnemonic: '`hang` (掛) 裡面有 `hat` (帽子) 的概念。想像把帽子 (hat) 掛 (hang) 在牆上。' },
-            { en: 'build', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)', mnemonic: '`build` 聽起來像 `bill` (帳單)。建造 (build) 一棟房子會收到很多帳單 (bill)。' },
-            { en: 'former', zh: '前者的；以前的 (ㄑㄧㄢˊ ㄓㄜˇ ㄉㄜ˙)', mnemonic: '`former` (以前的) 和 `farmer` (農夫) 押韻。這塊地的前任 (former) 主人是一個農夫 (farmer)。' }
+            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peeking` 聽起來像 `peak` (山頂)。想像你在山頂 (peak) 偷看 (peeking) 下面的風景。' },
+            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (monk, 和尚)。有一個和尚 (a monk) 在我們之中 (among)。' },
+            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '記憶口訣：`I` + `am` + `Erica` (我是艾瑞卡) -> `America`。' },
+            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連尾巴 (tail) 最末端的細節 (detail) 都要注意到。' },
+            { en: 'mild', zh: '溫和的 (ㄨㄣ ㄏㄜˊ ㄉㄜ˙)', mnemonic: '聯想 `milk` (牛奶)。牛奶的味道是溫和的 (mild)。' },
+            { en: 'baby\'s', zh: '嬰兒的 (ㄧㄥ ㄦˊ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：直接在字尾加 `\'s`。嬰兒 (baby) + `\'s`。' },
+            { en: 'mother\'s', zh: '母親的 (ㄇㄨˇ ㄑㄧㄣ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：母親 (mother) + `\'s`。' },
+            { en: 'brothers\'', zh: '兄弟們的 (ㄒㄩㄥ ㄉㄧˋ ㄇㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】複數名詞的所有格：因為 `brothers` 已經是 `s` 結尾，所以只要在後面加撇號 `\'` 即可，**不需要**再加 s。' },
+            { en: 'officer\'s', zh: '警官的 (ㄐㄧㄥˇ ㄍㄨㄢ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：警官 (officer) + `\'s`。' },
+            { en: 'friend\'s', zh: '朋友的 (ㄆㄥˊ ㄧㄡˇ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：朋友 (friend) + `\'s`。' },
+            { en: 'sister\'s', zh: '姊妹的 (ㄐㄧㄝˇ ㄇㄟˋ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：姊妹 (sister) + `\'s`。' },
+            { en: 'children\'s', zh: '孩子們的 (ㄏㄞˊ ㄗ˙ ㄇㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】不規則複數的所有格：`children` 雖然是複數，但不是 s 結尾，所以規則同單數，要加 `\'s`。' },
+            { en: 'family\'s', zh: '家庭的 (ㄐㄧㄚ ㄊㄧㄥˊ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：家庭 (family) + `\'s`。' },
+            { en: 'everyone\'s', zh: '每個人的 (ㄇㄟˇ ㄍㄜˋ ㄖㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】不定代名詞的所有格：視為單數，直接加 `\'s`。' },
+            { en: 'hamster\'s', zh: '倉鼠的 (ㄘㄤ ㄕㄨˇ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：倉鼠 (hamster) + `\'s`。' }
         ];
 
         let currentQuestion = 0;
