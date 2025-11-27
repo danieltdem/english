@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寧寧的福岡八天七夜跨年之旅 (修正版)</title>
+    <style>
+        :root {
+            --primary-color: #d35400; /* 福岡明太子色/新年紅 */
+            --secondary-color: #2c3e50;
+            --bg-color: #fdfbf7;
+            --card-bg: #ffffff;
+            --accent-blue: #3498db;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF8008, #FFC837);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Important Alert Box */
+        .alert-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-box h3 { margin-top: 0; color: #856404; }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .tabs::-webkit-scrollbar { display: none; /* Chrome */ }
+
+        .tab-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(211, 84, 0, 0.4);
+        }
+
+        /* Itinerary Cards */
+        .day-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .day-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--accent-blue);
+            position: relative;
+        }
+
+        .timeline-item.food {
+            border-left-color: var(--primary-color);
+        }
+
+        .time {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .activity-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tags {
+            font-size: 0.8rem;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #666;
+            margin-left: auto;
+        }
+
+        .desc {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .btn-link {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .btn-map {
+            background-color: #e8f4f8;
+            color: #2980b9;
+        }
+        .btn-web {
+            background-color: #fef5e7;
+            color: #d35400;
+        }
+        
+        .btn-link:hover {
+            filter: brightness(0.95);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Floating Action Button for Teachers Note */
+        .teacher-tip {
+            background-color: #fff8e1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px dashed #f1c40f;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>✈️ 寧寧的福岡跨年之旅</h1>
+    <p>2025/12/27 - 2026/01/03 (八天七夜)</p>
+</header>
+
+<div class="container">
+
+    <div class="alert-box">
+        <h3>⚠️ 老師的小提醒：年末年始特別注意</h3>
+        <ul>
+            <li><strong>12/31 (除夕)：</strong> 餐廳多在 18:00 關門，請務必先準備晚餐或購買熟食。</li>
+            <li><strong>01/01 (元旦)：</strong> 百貨公司 (阪急、PARCO 等) 全館休館！僅運河城與神社有開。</li>
+            <li><strong>01/02 (初二)：</strong> 百貨公司「初賣」與「福袋」開跑，人潮眾多。</li>
+        </ul>
+        <div style="margin-top: 10px;">
+            <strong>🏠 住宿：</strong> 
+            <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Forza+Hakataeki+Chikushiguchi+II" target="_blank" style="color:#d35400;">博多站筑紫口 Forza 飯店 2 館 (Google Map)</a>
+        </div>
+    </div>
+
+    <div class="tabs" id="dayTabs">
+        <button class="tab-btn active" onclick="openDay(event, 'day1')">Day 1<br><small>12/27</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day2')">Day 2<br><small>12/28</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day3')">Day 3<br><small>12/29</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day4')">Day 4<br><small>12/30</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day5')">Day 5<br><small>12/31</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day6')">Day 6<br><small>01/01</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day7')">Day 7<br><small>01/02</small></button>
+        <button class="tab-btn" onclick="openDay(event, 'day8')">Day 8<br><small>01/03</small></button>
+    </div>
+
+    <div id="day1" class="day-content active">
+        <div class="timeline-item">
+            <span class="time">11:30 - 14:30</span>
+            <div class="activity-title">抵達與午餐 <span class="tags">博多站</span></div>
+            <div class="desc">抵達福岡機場，搭地鐵至博多站。午餐建議在 DEITOS 麵街道吃拉麵。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Hakata+Deitos" target="_blank" class="btn-link btn-map">📍 博多 DEITOS</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">15:30</span>
+            <div class="activity-title">下午茶：Full Full 麵包 <span class="tags">美食目標</span></div>
+            <div class="desc">著名的明太子法國麵包。天神店較有氣氛，運河城旁也有分店。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Full+Full+Tenjin+Pan" target="_blank" class="btn-link btn-map">📍 Full Full 天神店</a>
+                <a href="https://full-full.jp/" target="_blank" class="btn-link btn-web">🌐 官網</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">20:00</span>
+            <div class="activity-title">晚餐：元祖牛腸鍋 樂天地 <span class="tags">必吃</span></div>
+            <div class="desc">福岡必吃美食！強烈建議事先上網預約，以免排隊過久。</div>
+            <div class="teacher-tip">💡 老師提醒：這家店非常熱門，請務必先訂位。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Ganso+Motsunabe+Rakutenchi+Tenjin" target="_blank" class="btn-link btn-map">📍 天神本店/分店</a>
+                <a href="https://rakutenti.com/" target="_blank" class="btn-link btn-web">🌐 預約官網</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day2" class="day-content">
+        <div class="timeline-item">
+            <span class="time">09:30 - 14:00</span>
+            <div class="activity-title">福岡市動物園 <span class="tags">重要時程</span></div>
+            <div class="desc">⚠️ 關鍵行程：動物園 12/29 起休園，今天是唯一機會！午餐可在藥院周邊享用。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+City+Zoo" target="_blank" class="btn-link btn-map">📍 福岡市動物園</a>
+                <a href="https://zoo.city.fukuoka.lg.jp/" target="_blank" class="btn-link btn-web">🌐 官網</a>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <span class="time">15:00 - 17:00</span>
+            <div class="activity-title">大濠公園 / 福岡城跡 <span class="tags">散步</span></div>
+            <div class="desc">在湖邊散步，享受午後悠閒時光。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Ohori+Park" target="_blank" class="btn-link btn-map">📍 大濠公園</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">18:00</span>
+            <div class="activity-title">中洲屋台體驗 <span class="tags">晚餐</span></div>
+            <div class="desc">體驗福岡獨特的屋台文化 (路邊攤)，推薦拉麵、關東煮。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Nakasu+Yatai" target="_blank" class="btn-link btn-map">📍 中洲屋台區</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day3" class="day-content">
+        <div class="timeline-item">
+            <span class="time">10:00 - 18:00</span>
+            <div class="activity-title">天神深度購物 <span class="tags">購物</span></div>
+            <div class="desc">天神地下街、大丸百貨、三越。</div>
+            <div class="teacher-tip">💡 修正提醒：原訂 IMS 大樓已拆除，午餐建議改至 **福岡 PARCO** (B1美食街有極味屋漢堡排)。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Tenjin+Underground+Shopping+Center" target="_blank" class="btn-link btn-map">📍 天神地下街</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+PARCO" target="_blank" class="btn-link btn-map">📍 福岡 PARCO</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">18:30</span>
+            <div class="activity-title">大名區特色晚餐 <span class="tags">潮流區</span></div>
+            <div class="desc">大名 (Daimyo) 區有許多古著店與特色居酒屋。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Daimyo+Fukuoka" target="_blank" class="btn-link btn-map">📍 大名地區</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day4" class="day-content">
+        <div class="timeline-item">
+            <span class="time">09:00 - 13:00</span>
+            <div class="activity-title">太宰府天滿宮 <span class="tags">文化</span></div>
+            <div class="desc">參拜學問之神，必吃「梅枝餅」。星巴克太宰府店由隈研吾設計，值得一看。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Dazaifu+Tenmangu" target="_blank" class="btn-link btn-map">📍 太宰府天滿宮</a>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <span class="time">14:00 - 17:00</span>
+            <div class="activity-title">柳川遊船 <span class="tags">體驗</span></div>
+            <div class="desc">搭乘小舟遊覽水鄉，冬季船上有暖桌 (Kotatsu)。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Yanagawa+River+Cruising" target="_blank" class="btn-link btn-map">📍 柳川遊船搭乘處</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day5" class="day-content">
+        <div class="timeline-item">
+            <span class="time">10:00 - 15:00</span>
+            <div class="activity-title">博多運河城 (Canal City) <span class="tags">跨年日</span></div>
+            <div class="desc">大型複合商場，每小時有噴水秀。午餐在此解決最方便。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Canal+City+Hakata" target="_blank" class="btn-link btn-map">📍 博多運河城</a>
+                <a href="https://canalcity.co.jp/zh-tw" target="_blank" class="btn-link btn-web">🌐 官網 (中)</a>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <span class="time">15:30 - 17:30</span>
+            <div class="activity-title">福岡塔 / 海濱百道 <span class="tags">景點</span></div>
+            <div class="desc">欣賞夕陽與海景。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+Tower" target="_blank" class="btn-link btn-map">📍 福岡塔</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">19:00</span>
+            <div class="activity-title">跨年夜晚餐與準備 <span class="tags">重要</span></div>
+            <div class="teacher-tip">⚠️ 警告：今晚餐廳極早打烊！建議在博多阪急 B1 或超市買好豪華熟食回飯店慶祝。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Hakata+Hankyu" target="_blank" class="btn-link btn-map">📍 博多阪急 (買熟食)</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day6" class="day-content">
+        <div class="timeline-item">
+            <span class="time">09:00 - 11:00</span>
+            <div class="activity-title">初詣 (新年參拜) <span class="tags">元旦</span></div>
+            <div class="desc">前往 **住吉神社** 或 **櫛田神社** 祈求新的一年平安順利。人潮眾多，請注意保暖。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Sumiyoshi+Shrine+Fukuoka" target="_blank" class="btn-link btn-map">📍 住吉神社</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Kushida+Shrine" target="_blank" class="btn-link btn-map">📍 櫛田神社</a>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <span class="time">12:00</span>
+            <div class="activity-title">午餐備案 <span class="tags">注意</span></div>
+            <div class="desc">今日百貨公司全休。午餐建議：博多運河城、神社周邊屋台，或連鎖牛丼/拉麵店。</div>
+        </div>
+    </div>
+
+    <div id="day7" class="day-content">
+        <div class="timeline-item">
+            <span class="time">全日</span>
+            <div class="activity-title">🛍️ 初賣 (Hatsuri) 與福袋大戰 <span class="tags">重點行程</span></div>
+            <div class="desc">今日是百貨公司開工日！博多阪急、AMU PLAZA、天神百貨全面下殺。這是福岡一年中最熱鬧的購物日。</div>
+            <div class="teacher-tip">💡 修正行程：原訂唐戶市場今日休市 (吃不到壽司)，建議將火力集中在市區搶購福袋！</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=JR+Hakata+City" target="_blank" class="btn-link btn-map">📍 JR 博多城 (AMU)</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Tenjin+Daimaru" target="_blank" class="btn-link btn-map">📍 天神大丸百貨</a>
+            </div>
+        </div>
+        <div class="timeline-item food">
+            <span class="time">19:00</span>
+            <div class="activity-title">慶祝晚餐：燒肉 <span class="tags">美食</span></div>
+            <div class="desc">最後一晚吃頓好的！推薦「燒肉多牛」或「敘敘苑」(需預約)。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Yakiniku+Tagyu" target="_blank" class="btn-link btn-map">📍 燒肉多牛 (平價人氣)</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="day8" class="day-content">
+        <div class="timeline-item">
+            <span class="time">09:00 - 13:00</span>
+            <div class="activity-title">最後採買與整理 <span class="tags">回程</span></div>
+            <div class="desc">博多站伴手禮街採買 (明太子、小雞饅頭)。午餐吃一蘭拉麵方碗版 (博多運河城或總店)。</div>
+            <div class="links">
+                <a href="https://www.google.com/maps/search/?api=1&query=Ming+Hakata" target="_blank" class="btn-link btn-map">📍 Ming 伴手禮街</a>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <span class="time">14:00</span>
+            <div class="activity-title">前往機場 <span class="tags">地鐵</span></div>
+            <div class="desc">搭乘地下鐵空港線前往福岡機場 (約 5 分鐘)。機場免稅店人多，請提早抵達。</div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Created by Gemini for Ningning | 2025 Fukuoka Trip
+</footer>
+
+<script>
+    function openDay(evt, dayName) {
+        // 隱藏所有內容
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("day-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+
+        // 移除所有按鈕的 active 狀態
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // 顯示選中的內容並標記按鈕
+        document.getElementById(dayName).style.display = "block";
+        setTimeout(() => {
+            document.getElementById(dayName).classList.add("active");
+        }, 10); // 小延遲觸發動畫
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>
