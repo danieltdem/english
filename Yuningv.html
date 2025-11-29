@@ -89,7 +89,8 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機。</p>
+        <p style="font-size: 14px; color: #666;">(注意：所有格的單字記得要輸入撇號 ' 哦！)</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +104,23 @@
 
     <script>
         const words = [
-            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peeking` 聽起來像 `peak` (山頂)。想像你在山頂 (peak) 偷看 (peeking) 下面的風景。' },
-            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (monk, 和尚)。有一個和尚 (a monk) 在我們之中 (among)。' },
-            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '記憶口訣：`I` + `am` + `Erica` (我是艾瑞卡) -> `America`。' },
-            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連尾巴 (tail) 最末端的細節 (detail) 都要注意到。' },
-            { en: 'mild', zh: '溫和的 (ㄨㄣ ㄏㄜˊ ㄉㄜ˙)', mnemonic: '聯想 `milk` (牛奶)。牛奶的味道是溫和的 (mild)。' },
-            { en: 'baby\'s', zh: '嬰兒的 (ㄧㄥ ㄦˊ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：直接在字尾加 `\'s`。嬰兒 (baby) + `\'s`。' },
-            { en: 'mother\'s', zh: '母親的 (ㄇㄨˇ ㄑㄧㄣ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：母親 (mother) + `\'s`。' },
-            { en: 'brothers\'', zh: '兄弟們的 (ㄒㄩㄥ ㄉㄧˋ ㄇㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】複數名詞的所有格：因為 `brothers` 已經是 `s` 結尾，所以只要在後面加撇號 `\'` 即可，**不需要**再加 s。' },
-            { en: 'officer\'s', zh: '警官的 (ㄐㄧㄥˇ ㄍㄨㄢ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：警官 (officer) + `\'s`。' },
-            { en: 'friend\'s', zh: '朋友的 (ㄆㄥˊ ㄧㄡˇ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：朋友 (friend) + `\'s`。' },
-            { en: 'sister\'s', zh: '姊妹的 (ㄐㄧㄝˇ ㄇㄟˋ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：姊妹 (sister) + `\'s`。' },
-            { en: 'children\'s', zh: '孩子們的 (ㄏㄞˊ ㄗ˙ ㄇㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】不規則複數的所有格：`children` 雖然是複數，但不是 s 結尾，所以規則同單數，要加 `\'s`。' },
-            { en: 'family\'s', zh: '家庭的 (ㄐㄧㄚ ㄊㄧㄥˊ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：家庭 (family) + `\'s`。' },
-            { en: 'everyone\'s', zh: '每個人的 (ㄇㄟˇ ㄍㄜˋ ㄖㄣˊ ㄉㄜ˙)', mnemonic: '【文法記憶】不定代名詞的所有格：視為單數，直接加 `\'s`。' },
-            { en: 'hamster\'s', zh: '倉鼠的 (ㄘㄤ ㄕㄨˇ ㄉㄜ˙)', mnemonic: '【文法記憶】單數名詞的所有格：倉鼠 (hamster) + `\'s`。' }
+            { en: "friends'", zh: '朋友們的 (ㄈㄖㄣ ㄗ˙ ㄉㄜ˙)', mnemonic: '記憶規則：因為是複數 (friends) 已經有 s 了，所以所有格的撇號 ( \' ) 直接加在 s 後面。' },
+            { en: "father's", zh: '父親的 (ㄈㄚ ㄜˇ ㄗ˙ ㄉㄜ˙)', mnemonic: '記憶規則：因為是單數 (father)，所以所有格要加上 ( \'s )。' },
+            { en: "grandmothers'", zh: '祖母們的 (ㄍㄖㄢ ㄇㄚ ㄜˇ ㄗ˙ ㄉㄜ˙)', mnemonic: '記憶規則：很多位祖母 (grandmothers) 結尾是 s，所以撇號 ( \' ) 加在後面。' },
+            { en: "customers'", zh: '顧客們的 (ㄎㄜ ㄙ ㄊㄜ ㄇㄜˇ ㄗ˙ ㄉㄜ˙)', mnemonic: '記憶規則：複數顧客 (customers) 結尾是 s，撇號 ( \' ) 放在最後面表示「這些顧客的」。' },
+            { en: "families'", zh: '家庭的[複數] (ㄈㄚ ㄇㄧ ㄌㄧ ㄗ˙ ㄉㄜ˙)', mnemonic: '記憶規則：Family 去 y 改 ies 變成複數 (families)，因為有 s 了，撇號 ( \' ) 放在最後。' },
+            { en: 'shadow', zh: '影子 (ㄒㄧㄚ ㄉㄡ)', mnemonic: '`Sh`ade (陰影) + me`adow` (草地)。樹蔭投在草地上，形成了影子 (shadow)。' },
+            { en: 'motion', zh: '動作；移動 (ㄇㄡ ㄒㄩㄣˋ)', mnemonic: '`Mo`tor (馬達) + ac`tion` (行動)。馬達產生動力造成移動 (motion)。' },
+            { en: 'sizzle', zh: '嘶嘶聲 (ㄒㄧ ㄗㄡˇ)', mnemonic: '這是擬聲詞。想像 `Si`x (六) 根熱狗在烤盤上滋滋作響 (sizzle)。' },
+            { en: 'sank', zh: '下沉[過去式] (ㄙㄤˋ ㄎㄜ˙)', mnemonic: '`S`hip (船) + `an`chor (錨) + sin`k`。那艘船像錨一樣沉 (sank) 下去了。' },
+            { en: 'background', zh: '背景 (ㄅㄞˋ ㄎㄜˇ ㄍㄨㄤˋ)', mnemonic: '`back` (後面) + `ground` (地面)。在後面的地面，就是背景 (background)。' },
+            { en: 'pattern', zh: '圖案；模式 (ㄆㄚˋ ㄊㄣˋ)', mnemonic: '`Pat` (派特) + `turn` (轉)。派特轉動 (turn) 萬花筒來看裡面的圖案 (pattern)。' },
+            { en: 'through', zh: '穿過 (ㄊㄨ ㄌㄨˋ)', mnemonic: '`R`ough (粗糙的) 前面加 `T` 和 `h`。穿過 (through) 一條粗糙的 (rough) 道路。' },
+            { en: 'outside', zh: '外面 (ㄠˋ ㄘㄞˋ)', mnemonic: '`out` (出) + `side` (邊)。出去的那一邊，就是外面 (outside)。' },
+            { en: 'observe', zh: '觀察 (ㄜˇ ㄅ ㄗㄜˇ ㄈㄨˋ)', mnemonic: '`Ob`jects (物體) + `Serve` (服務)。用眼睛仔細服務 (觀察) 這些物體 (observe)。' },
+            { en: 'repeat', zh: '重複 (ㄖㄨㄟ ㄆㄧˋ ㄊ)', mnemonic: '`Re` (再) + `Pete` (皮特)。叫皮特 (Pete) 再做一次 (Re-Pete)。' },
+            { en: 'summer', zh: '夏天 (ㄙㄚ ㄇㄜˇ)', mnemonic: '`Sum` (總和) + `mer`ry (快樂)。所有快樂時光的總和就是夏天 (summer)。' },
+            { en: 'genius', zh: '天才 (ㄐㄧ ㄋㄧ ㄜˇ ㄙ)', mnemonic: '`Geni`e (精靈) + `us` (我們)。阿拉丁神燈精靈 (Genie) 幫我們實現願望，他真是個天才 (genius)。' }
         ];
 
         let currentQuestion = 0;
