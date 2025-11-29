@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字拼寫測驗</title>
+    <title>單字拼寫測驗 - 身體部位篇</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -88,8 +88,8 @@
 <body>
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
-        <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機。</p>
+        <h1>單字拼寫測驗 - 身體部位篇</h1>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,23 +103,21 @@
 
     <script>
         const words = [
-            { en: 'question', zh: '問題 (ㄨㄣˋ ㄊㄧˊ)', mnemonic: '`question` = `quest` (探索/任務) + `ion`。問題 (question) 就是為了尋找答案而展開的探索 (quest)。' },
-            { en: 'choose', zh: '選擇 (ㄒㄩㄢˇ ㄗㄜˊ)', mnemonic: '`choose` (選擇) 聽起來像 `shoes` (鞋子)。真的很難選擇 (choose) 今天要穿哪雙鞋子 (shoes)。' },
-            { en: 'plan', zh: '計畫 (ㄐㄧˋ ㄏㄨㄚˋ)', mnemonic: '`plan` (計畫) 和 `plane` (飛機) 很像。你需要一個完美的計畫 (plan) 才能駕駛飛機 (plane)。' },
-            { en: 'locate', zh: '位於；找到 (ㄨㄟˋ ㄩˊ)', mnemonic: '`locate` (定位) 來自於 `location` (位置)。`locate` 就是去尋找某個東西的位置。' },
-            { en: 'map', zh: '地圖 (ㄉㄧˋ ㄊㄨˊ)', mnemonic: '`map` (地圖) 和 `nap` (小睡) 押韻。我在地圖 (map) 上睡了一次午覺 (nap)。' },
-            { en: 'feed', zh: '餵食 (ㄨㄟˋ ㄕˊ)', mnemonic: '`feed` (餵) 和 `food` (食物) 有關。你把食物 (food) 拿來餵 (feed) 別人。' },
-            { en: 'ship', zh: '船 (ㄔㄨㄢˊ)', mnemonic: '`ship` (船) 和 `sheep` (羊) 發音有點像。想像一艘大船 (ship) 上載滿了綿羊 (sheep)。' },
-            { en: 'chick', zh: '小雞 (ㄒㄧㄠˇ ㄐㄧ)', mnemonic: '`chick` (小雞) 就是 `chicken` (雞) 的縮寫。' },
-            { en: 'whale', zh: '鯨魚 (ㄐㄧㄥ ㄩˊ)', mnemonic: '`whale` (鯨魚) 聽起來像 `wheel` (輪子)。想像一隻像摩天輪 (wheel) 一樣大的鯨魚 (whale)。' },
-            { en: 'catch', zh: '抓；接住 (ㄓㄨㄚ)', mnemonic: '`catch` (抓) 裡面有 `cat` (貓)。貓 (cat) 總是試圖去抓 (catch) 老鼠。' },
-            { en: 'brush', zh: '刷 (ㄕㄨㄚ)', mnemonic: '`brush` (刷) 裡面有 `rush` (匆忙)。當你刷 (brush) 牙時，不要太匆忙 (rush)，要刷乾淨。' },
-            { en: 'phone', zh: '電話 (ㄉㄧㄢˋ ㄏㄨㄚˋ)', mnemonic: '`phone` (電話) 也可以聯想到 `microphone` (麥克風)。講電話要對著收音孔說話。' },
-            { en: 'cut', zh: '切 (ㄑㄧㄝ)', mnemonic: '`cut` (切) 和 `cute` (可愛的) 很像。把這張紙切 (cut) 成可愛的 (cute) 形狀。' },
-            { en: 'care', zh: '關心；照顧 (ㄍㄨㄢ ㄒㄧㄣ)', mnemonic: '`care` (照顧) 裡面有 `car` (車)。你要好好照顧 (care) 你的愛車 (car)。' },
-            { en: 'dark', zh: '黑暗 (ㄏㄟ ㄢˋ)', mnemonic: '`dark` (黑暗) 和 `park` (公園) 押韻。當天色變暗 (dark) 時，不要逗留在公園 (park)。' },
-            { en: 'free', zh: '自由的 (ㄗˋ ㄧㄡˊ ㄉㄜ˙)', mnemonic: '`free` (自由的) 和 `tree` (樹) 押韻。鳥兒在樹 (tree) 上是自由的 (free)。' },
-            { en: 'front', zh: '前面 (ㄑㄧㄢˊ ㄇㄧㄢˋ)', mnemonic: '`front` (前面) 可以聯想 `font` (字體)。最重要的字體 (font) 通常擺在最前面 (front) 給人看。' }
+            { en: 'ankle', zh: '腳踝 (ㄐㄧㄠˇ ㄏㄨㄞˊ)', mnemonic: '`ankle` 聽起來像 `Uncle` (叔叔)。我的叔叔 (Uncle) 扭傷了他的腳踝 (ankle)。' },
+            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)', mnemonic: '`arm` 聽起來像 `army` (軍隊)。軍隊 (army) 需要有強壯手臂 (arm) 的士兵。' },
+            { en: 'beard', zh: '鬍子 (ㄏㄨˊ ㄗ˙)', mnemonic: '`beard` = `bear` (熊) + `d`。想像一隻留著大鬍子 (beard) 的熊 (bear)。' },
+            { en: 'blood', zh: '血液 (ㄒㄧㄝˇ ㄧㄝˋ)', mnemonic: '`blood` (血) 聽起來像 `flood` (洪水)。流血 (blood) 像洪水 (flood) 一樣湧出。' },
+            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '`body` 去掉 `d` 就是 `boy` (男孩)。每個男孩 (boy) 都有一個強壯的身體 (body)。' },
+            { en: 'bone', zh: '骨頭 (ㄍㄨˇ ㄊㄡ˙)', mnemonic: '`bone` (骨頭) 聽起來像 `one` (一)。那隻貪心的狗只有一 (one) 根骨頭 (bone)。' },
+            { en: 'brain', zh: '大腦 (ㄉㄚˋ ㄋㄠˇ)', mnemonic: '`brain` (大腦) 裡有 `rain` (雨)。Brainstorm (腦力激盪) 就像大腦 (brain) 裡下了一場暴風雨 (rain)。' },
+            { en: 'chin', zh: '下巴 (ㄒㄧㄚˋ ㄅㄚ)', mnemonic: '`chin` (下巴) 聽起來像 `bin` (垃圾桶)。把食物丟進垃圾桶 (bin)，不要弄在下巴 (chin) 上。' },
+            { en: 'ear', zh: '耳朵 (ㄦˇ ㄉㄨㄛ˙)', mnemonic: '`ear` (耳朵) 就在 `hear` (聽) 裡面。你用耳朵 (ear) 去聽 (hear) 音樂。' },
+            { en: 'eye', zh: '眼睛 (ㄧㄢˇ ㄐㄧㄥ)', mnemonic: '看 `eye` 這個字：兩個 `e` 是雙眼，中間的 `y` 是鼻子。這就是一張有眼睛 (eye) 的臉。' },
+            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)', mnemonic: '`face` (臉) 就是 `Facebook` (臉書) 的前半部。你把你的臉 (face) 放上 Facebook。' },
+            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 是戴 `ring` (戒指) 的地方。想像戒指 (ring) 戴在手指 (finger) 上。' },
+            { en: 'foot', zh: '腳 (ㄐㄧㄠˇ)', mnemonic: '`foot` (腳) 和 `boot` (靴子) 押韻。你把靴子 (boot) 穿在腳 (foot) 上。' },
+            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)', mnemonic: '`hair` (頭髮) 和 `air` (空氣/風) 押韻。微風 (air) 吹拂過你的頭髮 (hair)。' },
+            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `sand` (沙子) 押韻。你的手 (hand) 裡握著沙子 (sand)。' }
         ];
 
         let currentQuestion = 0;
