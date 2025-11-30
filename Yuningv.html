@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫（注意包含撇號 ' ）。共17題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,23 +103,21 @@
 
     <script>
         const words = [
-            { en: "friends'", zh: "朋友們的 (ㄆㄥˊ ㄧㄡˇ ㄇㄣ˙ ㄉㄜ˙)", mnemonic: "複數所有格規則：因為 `friends` 已經有 `s` 了，所以撇號 (`'`) 直接加在 `s` 後面。 `Friend` + `s` + `'`。" },
-            { en: "father's", zh: "父親的 (ㄈㄨˋ ㄑㄧㄣ ㄉㄜ˙)", mnemonic: "單數所有格規則：父親 `father` 是單數，所以加上 `'s`。`Father` + `'s`。" },
-            { en: "grandmothers'", zh: "祖母們的 (ㄗㄨˇ ㄇㄨˇ ㄇㄣ˙ ㄉㄜ˙)", mnemonic: "複數所有格：`grandmothers` (很多位祖母) 結尾有 `s`，撇號直接加在後面。`Grandmother` + `s` + `'`。" },
-            { en: "customers'", zh: "顧客們的 (ㄍㄨˋ ㄎㄜˋ ㄇㄣ˙ ㄉㄜ˙)", mnemonic: "複數所有格：`customers` (很多顧客) 結尾有 `s`，撇號加在最後。`Customer` + `s` + `'`。" },
-            { en: "families'", zh: "家庭的(複數) (ㄐㄧㄚ ㄊㄧㄥˊ ㄉㄜ˙)", mnemonic: "複數所有格：`family` 去 `y` 改 `i` 加 `es` 變成 `families`，因為有 `s` 結尾，撇號加在最後。" },
-            { en: "shadow", zh: "影子 (ㄧㄥˇ ㄗ˙)", mnemonic: "`Shadow` 聽起來像 `Shade` (陰影)。影子就像是光被遮住形成的陰影 (shade)。" },
-            { en: "motion", zh: "動作 (ㄉㄨㄥˋ ㄗㄨㄛˋ)", mnemonic: "`Motion` 和 `Ocean` (海洋) 押韻。海洋的海浪總是充滿動作 (motion) 的。" },
-            { en: "sizzle", zh: "滋滋聲 (ㄗ ㄗ ㄕㄥ)", mnemonic: "這是一個擬聲詞。想像培根在熱鍋裡煎的時候發出的 `S-izzle` 聲音。" },
-            { en: "sank", zh: "下沉 (ㄒㄧㄚˋ ㄔㄣˊ)", mnemonic: "`Sank` (sink的過去式) 和 `Tank` (坦克) 押韻。那輛重型坦克 (tank) 下沉 (sank) 到泥沼裡了。" },
-            { en: "background", zh: "背景 (ㄅㄟˋ ㄐㄧㄥˇ)", mnemonic: "`Back` (後面) + `Ground` (地面)。在畫面後面 (back) 的地面 (ground) 就是背景。" },
-            { en: "pattern", zh: "圖案；模式 (ㄊㄨˊ ㄢˋ)", mnemonic: "`Pat` (輕拍) + `tern` (turn, 轉)。想像你要依照特定的模式 (pattern) 來拍手 (pat) 和轉圈 (turn)。" },
-            { en: "through", zh: "穿過 (ㄔㄨㄢ ㄍㄨㄛˋ)", mnemonic: "`Through` 包含 `Rough` (粗糙的)。要穿過 (through) 這條粗糙 (rough) 的道路並不容易。" },
-            { en: "outside", zh: "外面 (ㄨㄞˋ ㄇㄧㄢˋ)", mnemonic: "`Out` (出) + `Side` (邊)。出去 (out) 到那一邊 (side) 就是在外面。" },
-            { en: "observe", zh: "觀察 (ㄍㄨㄢ ㄔㄚˊ)", mnemonic: "`Ob` + `serve` (服務)。想要好好服務 (serve) 別人，你必須先仔細觀察 (observe) 他們的需求。" },
-            { en: "repeat", zh: "重複 (ㄔㄨㄥˊ ㄈㄨˋ)", mnemonic: "`Re` (再) + `Peat` (eat, 吃)。好吃的東西你會想再 (re) 吃 (eat) 一次，就是重複 (repeat)。" },
-            { en: "summer", zh: "夏天 (ㄒㄧㄚˋ ㄊㄧㄢ)", mnemonic: "`Summer` 和 `Sun` (太陽) 有關。夏天 (summer) 的總和 (sum) 就是熱。" },
-            { en: "genius", zh: "天才 (ㄊㄧㄢ ㄘㄞˊ)", mnemonic: "`Genius` 裡有 `Genie` (精靈)。就像阿拉丁神燈的精靈 (genie) 給了我們 (us) 一個天才 (genius) 般的點子。" }
+            { en: 'person', zh: '一個人 (ㄧˊ ㄍㄜˋ ㄖㄣˊ)', mnemonic: '拆解成 `per` (每一個) + `son` (兒子)。每一個兒子 (every son) 都是一個獨立的人 (person)。' },
+            { en: 'sure', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`sure` 聽起來像 `sugar` (糖)。你確定 (sure) 你要加糖 (sugar) 嗎？' },
+            { en: 'touch', zh: '觸摸 (ㄔㄨˋ ㄇㄛ)', mnemonic: '`to` + `uch` (ouch, 哎喲)。如果你觸摸 (touch) 到燙的東西，你會大叫 "Ouch!"。' },
+            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (回歸線) + `al`。回歸線 (tropic) 附近的地區通常是熱帶的 (tropical)。' },
+            { en: 'young', zh: '年輕的 (ㄋㄧㄢˊ ㄑㄧㄥ ㄉㄜ˙)', mnemonic: '`you` (你) + `ng` (Next Generation, 下一代)。你是下一代，所以你是年輕的 (young)。' },
+            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` + `land`。島嶼就是一塊「是」(is) 陸地 (land) 但被水包圍的地方。' },
+            { en: 'built', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)', mnemonic: '`build` (建造) 的過去式。`u` + `ilt` (tilt, 傾斜)。你建造 (built) 的東西傾斜 (tilted) 了嗎？' },
+            { en: 'against', zh: '對抗；反對 (ㄉㄨㄟˋ ㄎㄤˋ)', mnemonic: '`again` (再一次) + `st` (street, 街道)。我們在街道 (st) 上再一次 (again) 對抗 (against) 他們。' },
+            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`di` (two, 二) + `ffer` + `ent`。兩者之間有差異 (differ)，所以是不同的 (different)。' },
+            { en: 'palm', zh: '手掌；棕櫚樹 (ㄕㄡˇ ㄓㄤˇ)', mnemonic: '`palm` 和 `calm` (冷靜) 押韻。保持冷靜 (calm)，把命運掌握在手掌 (palm) 裡。' },
+            { en: 'awhile', zh: '片刻 (ㄆㄧㄢˋ ㄎㄜˋ)', mnemonic: '`a` + `while` (一段時間)。待一會兒 (a while) 就是待片刻 (awhile)。' },
+            { en: 'answer', zh: '答案 (ㄉㄚá ㄢˋ)', mnemonic: '`an` + `swer` (swear, 發誓)。我發誓 (swear) 這就是答案 (answer)。' },
+            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (mount) 那座多雨 (rain) 的山 (mountain)。' },
+            { en: 'remember', zh: '記得 (ㄐㄧˋ ㄉㄜ˙)', mnemonic: '`re` (again, 再一次) + `member` (成員)。再次成為成員？不，是要記得 (remember) 舊成員。' },
+            { en: 'camera', zh: '相機 (ㄒㄧㄤˋ ㄐㄧ)', mnemonic: '`came` (來) + `Ra` (太陽神)。太陽神來 (came) 了，快用相機 (camera) 拍照！' }
         ];
 
         let currentQuestion = 0;
