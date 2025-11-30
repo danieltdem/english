@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字拼寫測驗 - 身體部位篇</title>
+    <title>單字拼寫測驗</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -88,7 +88,7 @@
 <body>
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
-        <h1>單字拼寫測驗 - 身體部位篇</h1>
+        <h1>單字拼寫測驗</h1>
         <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
@@ -103,21 +103,21 @@
 
     <script>
         const words = [
-            { en: 'ankle', zh: '腳踝 (ㄐㄧㄠˇ ㄏㄨㄞˊ)', mnemonic: '`ankle` 聽起來像 `Uncle` (叔叔)。我的叔叔 (Uncle) 扭傷了他的腳踝 (ankle)。' },
-            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)', mnemonic: '`arm` 聽起來像 `army` (軍隊)。軍隊 (army) 需要有強壯手臂 (arm) 的士兵。' },
-            { en: 'beard', zh: '鬍子 (ㄏㄨˊ ㄗ˙)', mnemonic: '`beard` = `bear` (熊) + `d`。想像一隻留著大鬍子 (beard) 的熊 (bear)。' },
-            { en: 'blood', zh: '血液 (ㄒㄧㄝˇ ㄧㄝˋ)', mnemonic: '`blood` (血) 聽起來像 `flood` (洪水)。流血 (blood) 像洪水 (flood) 一樣湧出。' },
-            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '`body` 去掉 `d` 就是 `boy` (男孩)。每個男孩 (boy) 都有一個強壯的身體 (body)。' },
-            { en: 'bone', zh: '骨頭 (ㄍㄨˇ ㄊㄡ˙)', mnemonic: '`bone` (骨頭) 聽起來像 `one` (一)。那隻貪心的狗只有一 (one) 根骨頭 (bone)。' },
-            { en: 'brain', zh: '大腦 (ㄉㄚˋ ㄋㄠˇ)', mnemonic: '`brain` (大腦) 裡有 `rain` (雨)。Brainstorm (腦力激盪) 就像大腦 (brain) 裡下了一場暴風雨 (rain)。' },
-            { en: 'chin', zh: '下巴 (ㄒㄧㄚˋ ㄅㄚ)', mnemonic: '`chin` (下巴) 聽起來像 `bin` (垃圾桶)。把食物丟進垃圾桶 (bin)，不要弄在下巴 (chin) 上。' },
-            { en: 'ear', zh: '耳朵 (ㄦˇ ㄉㄨㄛ˙)', mnemonic: '`ear` (耳朵) 就在 `hear` (聽) 裡面。你用耳朵 (ear) 去聽 (hear) 音樂。' },
-            { en: 'eye', zh: '眼睛 (ㄧㄢˇ ㄐㄧㄥ)', mnemonic: '看 `eye` 這個字：兩個 `e` 是雙眼，中間的 `y` 是鼻子。這就是一張有眼睛 (eye) 的臉。' },
-            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)', mnemonic: '`face` (臉) 就是 `Facebook` (臉書) 的前半部。你把你的臉 (face) 放上 Facebook。' },
-            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 是戴 `ring` (戒指) 的地方。想像戒指 (ring) 戴在手指 (finger) 上。' },
-            { en: 'foot', zh: '腳 (ㄐㄧㄠˇ)', mnemonic: '`foot` (腳) 和 `boot` (靴子) 押韻。你把靴子 (boot) 穿在腳 (foot) 上。' },
-            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)', mnemonic: '`hair` (頭髮) 和 `air` (空氣/風) 押韻。微風 (air) 吹拂過你的頭髮 (hair)。' },
-            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `sand` (沙子) 押韻。你的手 (hand) 裡握著沙子 (sand)。' }
+            { en: 'head', zh: '頭 (ㄊㄡˊ)', mnemonic: '`he` (他) + `ad` (廣告)。想像「他」(he) 在他的「頭」(head) 上貼了一個「廣告」(ad)。' },
+            { en: 'headache', zh: '頭痛 (ㄊㄡˊ ㄊㄨㄥˋ)', mnemonic: '`head` (頭) + `ache` (痛)。`ache` 聽起來像 `egg` (蛋)。想像一顆蛋敲你的頭，你會頭痛 (headache)。' },
+            { en: 'heart', zh: '心臟 (ㄒㄧㄣ ㄗㄤˋ)', mnemonic: '`hear` (聽見) + `t`。你可以「聽見」(hear) 你的「心」(heart) 跳聲。' },
+            { en: 'hip', zh: '臀部 (ㄊㄨㄣˊ ㄅㄨˋ)', mnemonic: '`hip` 讓你想起 `Hippo` (河馬)。河馬 (Hippo) 有很大的臀部 (hip)。' },
+            { en: 'knee', zh: '膝蓋 (ㄒㄧ ㄍㄞˋ)', mnemonic: '`knee` (膝蓋) 和 `kneel` (跪下) 很像。你用膝蓋 (knee) 來跪下 (kneel)。' },
+            { en: 'lip', zh: '嘴唇 (ㄗㄨㄟˇ ㄔㄨㄣˊ)', mnemonic: '`lip` (嘴唇) 和 `tulip` (鬱金香) 押韻。兩片紅色的嘴唇 (lip) 看起來像鬱金香 (tulip)。' },
+            { en: 'mouth', zh: '嘴巴 (ㄗㄨㄟˇ ㄅㄚ˙)', mnemonic: '`mouth` (嘴巴) 和 `south` (南方) 押韻。你的嘴巴 (mouth) 在你鼻子的南方 (south)。' },
+            { en: 'nail', zh: '指甲 (ㄓˇ ㄐㄧㄚˇ)', mnemonic: '`nail` (指甲/釘子) 和 `snail` (蝸牛) 押韻。想像一隻蝸牛 (snail) 的殼上釘了一根釘子 (nail)。' },
+            { en: 'neck', zh: '脖子 (ㄅㄛˊ ㄗ˙)', mnemonic: '`neck` (脖子) 是戴項鍊 `necklace` 的地方。' },
+            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`nose` (鼻子) 和 `rose` (玫瑰) 押韻。用鼻子 (nose) 去聞玫瑰 (rose)。' },
+            { en: 'stomach', zh: '胃 (ㄨㄟˋ)', mnemonic: '`sto` (stone, 石頭) + `mach` (match, 火柴)。我吃了一顆石頭 (stone) 和一根火柴 (match)，現在胃 (stomach) 很痛。' },
+            { en: 'stomachache', zh: '胃痛 (ㄨㄟˋ ㄊㄨㄥˋ)', mnemonic: '`stomach` (胃) + `ache` (痛)。就是胃在痛。' },
+            { en: 'throat', zh: '喉嚨 (ㄏㄡˊ ㄌㄨㄥˊ)', mnemonic: '`throw` (丟) + `at`。不要把食物「丟向」(throw at) 我的喉嚨 (throat)。' },
+            { en: 'toe', zh: '腳趾 (ㄐㄧㄠˇ ㄓˇ)', mnemonic: '`to` (去) + `e` (Egypt, 埃及)。用你的腳趾 (toe) 走「去」(to) 「埃及」(Egypt)。' },
+            { en: 'tongue', zh: '舌頭 (ㄕㄜˊ ㄊㄡ˙)', mnemonic: '`ton` (噸) + `gue` (glue, 膠水)。想像舌頭 (tongue) 上黏了一「噸」(ton) 重的「膠水」(glue)，動彈不得。' }
         ];
 
         let currentQuestion = 0;
