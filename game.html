@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抓搗蛋鬼 (楊家豪華版)</title>
+    <style>
+        :root {
+            --primary-color: #FF9F43;
+            --secondary-color: #54A0FF;
+            --bg-color: #FFF2CC; /* 改成更溫暖的淡黃色背景 */
+            --text-color: #2D3436;
+            --card-bg: #FFFFFF;
+            --danger-color: #ff6b6b;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* 讓有注音的行距變高，才不會擠在一起 */
+        p, div, h1, h2, button {
+            line-height: 2.4 !important; 
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            border: 5px solid #FFD32A; /* 邊框加粗 */
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 12px;
+            border: 2px solid #ddd;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 22px; 
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            box-shadow: 0 6px 0 #E67E22;
+            white-space: nowrap; 
+        }
+
+        button:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+
+        button.secondary {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 6px 0 #cce4ff;
+        }
+
+        button.danger {
+            background-color: var(--danger-color);
+            box-shadow: 0 6px 0 #c23616;
+        }
+
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 注音專用設定 */
+        ruby {
+            font-size: 30px; /* 國字再大一點 */
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        
+        rt {
+            font-size: 13px; 
+            font-weight: normal;
+            color: #555;
+            letter-spacing: -1px; 
+        }
+
+        h1 ruby { font-size: 38px; color: var(--secondary-color); }
+        h1 rt { font-size: 15px; }
+
+        .role-card {
+            background: #FFF8E1;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
+            border: 3px dashed var(--primary-color);
+        }
+
+        #timer {
+            font-size: 55px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 10px 0;
+            font-family: monospace;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="screen-setup" class="container screen active">
+        <h1>
+            <ruby>誰<rt>ㄕㄟˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>搗<rt>ㄉㄠˇ</rt></ruby><ruby>蛋<rt>ㄉㄢˋ</rt></ruby><ruby>鬼<rt>ㄍㄨㄟˇ</rt></ruby>
+        </h1>
+        <p>
+            <ruby>請<rt>ㄑㄧㄥˇ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>認<rt>ㄖㄣˋ</rt></ruby><ruby>玩<rt>ㄨㄢˊ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby>
+        </p>
+        <div id="player-list">
+            <div class="player-input-group"><input type="text" placeholder="玩家 1" value="楊友寧"></div>
+            <div class="player-input-group"><input type="text" placeholder="玩家 2" value="楊馥寧"></div>
+            <div class="player-input-group"><input type="text" placeholder="玩家 3" value="爸爸"></div>
+        </div>
+        <button class="secondary" onclick="addPlayerField()">
+            <ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>
+        </button>
+        <button onclick="initializeGame()">
+            <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>
+        </button>
+    </div>
+
+    <div id="screen-pass" class="container screen">
+        <h1>
+            <ruby>傳<rt>ㄔㄨㄢˊ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>機<rt>ㄐㄧ</rt></ruby>
+        </h1>
+        <p>
+            <ruby>換<rt>ㄏㄨㄢˋ</rt></ruby>
+            <span id="pass-to-name" style="color: var(--secondary-color); font-weight: bold; font-size: 28px;"></span>
+            <ruby>看<rt>ㄎㄢˋ</rt></ruby>
+        </p>
+        <p style="font-size: 16px; color: #666;">
+            (<ruby>其<rt>ㄑㄧˊ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>閉<rt>ㄅㄧˋ</rt></ruby><ruby>眼<rt>ㄧㄢˇ</rt></ruby><ruby>睛<rt>ㄐㄧㄥ</rt></ruby>)
+        </p>
+        <button onclick="showRole()">
+            <ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby>
+        </button>
+    </div>
+
+    <div id="screen-reveal" class="container screen">
+        <h1>
+            <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby>
+        </h1>
+        <div id="role-display" class="role-card">
+            </div>
+        <p>
+            <ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby><ruby>嗎<rt>ㄇㄚ˙</rt></ruby>？
+        </p>
+        <button onclick="nextPlayerOrStart()">
+            <ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby> (<ruby>給<rt>ㄍㄟˇ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>位<rt>ㄨㄟˋ</rt></ruby>)
+        </button>
+    </div>
+
+    <div id="screen-game" class="container screen">
+        <h1>
+            <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby><ruby>討<rt>ㄊㄠˇ</rt></ruby><ruby>論<rt>ㄌㄨㄣˋ</rt></ruby>
+        </h1>
+        <p>
+            <ruby>誰<rt>ㄕㄟˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>搗<rt>ㄉㄠˇ</rt></ruby><ruby>蛋<rt>ㄉㄢˋ</rt></ruby><ruby>鬼<rt>ㄍㄨㄟˇ</rt></ruby>？
+        </p>
+        <div id="timer">03:00</div>
+        <button class="danger" onclick="endGame()">
+            <ruby>時<rt>ㄕˊ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby> / <ruby>抓<rt>ㄓㄨㄚ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>
+        </button>
+    </div>
+
+    <div id="screen-result" class="container screen">
+        <h1>
+            <ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>
+        </h1>
+        <div class="role-card">
+            <p>
+                😈 <ruby>搗<rt>ㄉㄠˇ</rt></ruby><ruby>蛋<rt>ㄉㄢˋ</rt></ruby><ruby>鬼<rt>ㄍㄨㄟˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>：
+            </p>
+            <div id="result-imposter" style="font-size: 32px; font-weight: bold; color: var(--danger-color);"></div>
+            <hr style="border: 0; border-top: 2px dashed #ccc; margin: 15px 0;">
+            <p>
+                📝 <ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>：
+            </p>
+            <div id="result-word"></div>
+        </div>
+        <button onclick="resetGame()">
+            <ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>玩<rt>ㄨㄢˊ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>次<rt>ㄘˋ</rt></ruby>
+        </button>
+    </div>
+
+    <script>
+        // --- 擴充版詞彙庫 (200個常見名詞 + 注音) ---
+        const wordDatabase = [
+            // 1. 動物與昆蟲
+            {t:"貓咪", z:"ㄇㄠ ㄇㄧ"}, {t:"小狗", z:"ㄒㄧㄠˇ ㄍㄡˇ"}, {t:"兔子", z:"ㄊㄨˋ ㄗ˙"}, {t:"大象", z:"ㄉㄚˋ ㄒㄧㄤˋ"}, {t:"獅子", z:"ㄕ ㄗ˙"},
+            {t:"老虎", z:"ㄌㄠˇ ㄏㄨˇ"}, {t:"長頸鹿", z:"ㄔㄤˊ ㄐㄧㄥˇ ㄌㄨˋ"}, {t:"猴子", z:"ㄏㄡˊ ㄗ˙"}, {t:"企鵝", z:"ㄑㄧˋ ㄜˊ"}, {t:"無尾熊", z:"ㄨˊ ㄨㄟˇ ㄒㄩㄥˊ"},
+            {t:"熊貓", z:"ㄒㄩㄥˊ ㄇㄠ"}, {t:"袋鼠", z:"ㄉㄞˋ ㄕㄨˇ"}, {t:"斑馬", z:"ㄅㄢ ㄇㄚˇ"}, {t:"河馬", z:"ㄏㄜˊ ㄇㄚˇ"}, {t:"鱷魚", z:"ㄜˋ ㄩˊ"},
+            {t:"烏龜", z:"ㄨ ㄍㄨㄟ"}, {t:"青蛙", z:"ㄑㄧㄥ ㄨㄚ"}, {t:"蝴蝶", z:"ㄏㄨˊ ㄉㄧㄝˊ"}, {t:"蜜蜂", z:"ㄇㄧˋ ㄈㄥ"}, {t:"螞蟻", z:"ㄇㄚˇ ㄧˇ"},
+            {t:"金魚", z:"ㄐㄧㄣ ㄩˊ"}, {t:"鯨魚", z:"ㄐㄧㄥ ㄩˊ"}, {t:"海豚", z:"ㄏㄞˇ ㄊㄨㄣˊ"}, {t:"章魚", z:"ㄓㄤ ㄩˊ"}, {t:"螃蟹", z:"ㄆㄤˊ ㄒㄧㄝˋ"},
+            {t:"恐龍", z:"ㄎㄨㄥˇ ㄌㄨㄥˊ"}, {t:"小雞", z:"ㄒㄧㄠˇ ㄐㄧ"}, {t:"鴨子", z:"ㄧㄚ ㄗ˙"}, {t:"乳牛", z:"ㄖㄨˇ ㄋㄧㄡˊ"}, {t:"小豬", z:"ㄒㄧㄠˇ ㄓㄨ"},
+            {t:"綿羊", z:"ㄇㄧㄢˊ ㄧㄤˊ"}, {t:"老鼠", z:"ㄌㄠˇ ㄕㄨˇ"}, {t:"松鼠", z:"ㄙㄨㄥ ㄕㄨˇ"}, {t:"狐狸", z:"ㄏㄨˊ ㄌㄧˊ"}, {t:"孔雀", z:"ㄎㄨㄥˇ ㄑㄩㄝˋ"},
+            {t:"駱駝", z:"ㄌㄨㄛˋ ㄊㄨㄛˊ"}, {t:"貓頭鷹", z:"ㄇㄠ ㄊㄡˊ ㄧㄥ"}, {t:"蝸牛", z:"ㄍㄨㄚ ㄋㄧㄡˊ"}, {t:"蜻蜓", z:"ㄑㄧㄥ ㄊㄧㄥˊ"}, {t:"毛毛蟲", z:"ㄇㄠˊ ㄇㄠˊ ㄔㄨㄥˊ"},
+            {t:"螢火蟲", z:"ㄧㄥˊ ㄏㄨㄛˇ ㄔㄨㄥˊ"}, {t:"鯊魚", z:"ㄕㄚ ㄩˊ"}, {t:"海馬", z:"ㄏㄞˇ ㄇㄚˇ"}, {t:"水母", z:"ㄕㄨㄟˇ ㄇㄨˇ"}, {t:"蝦子", z:"ㄒㄧㄚ ㄗ˙"},
+
+            // 2. 食物與飲料
+            {t:"蘋果", z:"ㄆㄧㄥˊ ㄍㄨㄛˇ"}, {t:"香蕉", z:"ㄒㄧㄤ ㄐㄧㄠ"}, {t:"西瓜", z:"ㄒㄧ ㄍㄨㄚ"}, {t:"草莓", z:"ㄘㄠˇ ㄇㄟˊ"}, {t:"葡萄", z:"ㄆㄨˊ ㄊㄠˊ"},
+            {t:"橘子", z:"ㄐㄩˊ ㄗ˙"}, {t:"鳳梨", z:"ㄈㄥˋ ㄌㄧˊ"}, {t:"芒果", z:"ㄇㄤˊ ㄍㄨㄛˇ"}, {t:"檸檬", z:"ㄋㄧㄥˊ ㄇㄥˊ"}, {t:"哈密瓜", z:"ㄏㄚ ㄇㄧˋ ㄍㄨㄚ"},
+            {t:"漢堡", z:"ㄏㄢˋ ㄅㄠˇ"}, {t:"薯條", z:"ㄕㄨˇ ㄊㄧㄠˊ"}, {t:"比薩", z:"ㄅㄧˋ ㄙㄚˋ"}, {t:"三明治", z:"ㄙㄢ ㄇㄧㄥˊ ㄓˋ"}, {t:"麵包", z:"ㄇㄧㄢˋ ㄅㄠ"},
+            {t:"蛋糕", z:"ㄉㄢˋ ㄍㄠ"}, {t:"餅乾", z:"ㄅㄧㄥˇ ㄍㄢ"}, {t:"巧克力", z:"ㄑㄧㄠˇ ㄎㄜˋ ㄌㄧˋ"}, {t:"冰淇淋", z:"ㄅㄧㄥ ㄑㄧˊ ㄌㄧㄣˊ"}, {t:"布丁", z:"ㄅㄨˋ ㄉㄧㄥ"},
+            {t:"糖果", z:"ㄊㄤˊ ㄍㄨㄛˇ"}, {t:"牛奶", z:"ㄋㄧㄡˊ ㄋㄞˇ"}, {t:"果汁", z:"ㄍㄨㄛˇ ㄓ"}, {t:"可樂", z:"ㄎㄜˇ ㄌㄜˋ"}, {t:"雞蛋", z:"ㄐㄧ ㄉㄢˋ"},
+            {t:"白飯", z:"ㄅㄞˊ ㄈㄢˋ"}, {t:"麵條", z:"ㄇㄧㄢˋ ㄊㄧㄠˊ"}, {t:"水餃", z:"ㄕㄨㄟˇ ㄐㄧㄠˇ"}, {t:"包子", z:"ㄅㄠ ㄗ˙"}, {t:"玉米", z:"ㄩˋ ㄇㄧˇ"},
+            {t:"胡蘿蔔", z:"ㄏㄨˊ ㄌㄨㄛˊ ㄅㄛ˙"}, {t:"花椰菜", z:"ㄏㄨㄚ ㄧㄝ ㄘㄞˋ"}, {t:"地瓜", z:"ㄉㄧˋ ㄍㄨㄚ"}, {t:"香腸", z:"ㄒㄧㄤ ㄔㄤˊ"}, {t:"雞腿", z:"ㄐㄧ ㄊㄨㄟˇ"},
+            {t:"水蜜桃", z:"ㄕㄨㄟˇ ㄇㄧˋ ㄊㄠˊ"}, {t:"櫻桃", z:"ㄧㄥ ㄊㄠˊ"}, {t:"奇異果", z:"ㄑㄧˊ ㄧˋ ㄍㄨㄛˇ"}, {t:"珍珠奶茶", z:"ㄓㄣ ㄓㄨ ㄋㄞˇ ㄔㄚˊ"}, {t:"甜甜圈", z:"ㄊㄧㄢˊ ㄊㄧㄢˊ ㄑㄩㄢ"},
+            {t:"爆米花", z:"ㄅㄠˋ ㄇㄧˇ ㄏㄨㄚ"}, {t:"熱狗", z:"ㄖㄜˋ ㄍㄡˇ"}, {t:"牛排", z:"ㄋㄧㄡˊ ㄆㄞˊ"}, {t:"火鍋", z:"ㄏㄨㄛˇ ㄍㄨㄛ"}, {t:"生菜沙拉", z:"ㄕㄥ ㄘㄞˋ ㄕㄚ ㄌㄚ"},
+            {t:"豆腐", z:"ㄉㄡˋ ㄈㄨˇ"}, {t:"洋芋片", z:"ㄧㄤˊ ㄩˋ ㄆㄧㄢˋ"}, {t:"優格", z:"ㄧㄡ ㄍㄜˊ"}, {t:"麥片", z:"ㄇㄞˋ ㄆㄧㄢˋ"}, {t:"蜂蜜", z:"ㄈㄥ ㄇㄧˋ"},
+
+            // 3. 物品與家具
+            {t:"牙刷", z:"ㄧㄚˊ ㄕㄨㄚ"}, {t:"毛巾", z:"ㄇㄠ ㄐㄧㄣ"}, {t:"肥皂", z:"ㄈㄟˊ ㄗㄠˋ"}, {t:"衛生紙", z:"ㄨㄟˋ ㄕㄥ ㄓˇ"}, {t:"杯子", z:"ㄅㄟ ㄗ˙"},
+            {t:"碗", z:"ㄨㄢˇ"}, {t:"筷子", z:"ㄎㄨㄞˋ ㄗ˙"}, {t:"湯匙", z:"ㄊㄤ ㄔˊ"}, {t:"叉子", z:"ㄔㄚ ㄗ˙"}, {t:"盤子", z:"ㄆㄢˊ ㄗ˙"},
+            {t:"桌子", z:"ㄓㄨㄛ ㄗ˙"}, {t:"椅子", z:"ㄧˇ ㄗ˙"}, {t:"沙發", z:"ㄕㄚ ㄈㄚ"}, {t:"床", z:"ㄔㄨㄤˊ"}, {t:"枕頭", z:"ㄓㄣˇ ㄊㄡ˙"},
+            {t:"棉被", z:"ㄇㄧㄢˊ ㄅㄟˋ"}, {t:"時鐘", z:"ㄕˊ ㄓㄨㄥ"}, {t:"電話", z:"ㄉㄧㄢˋ ㄏㄨㄚˋ"}, {t:"電視", z:"ㄉㄧㄢˋ ㄕˋ"}, {t:"冰箱", z:"ㄅㄧㄥ ㄒㄧㄤ"},
+            {t:"冷氣", z:"ㄌㄥˇ ㄑㄧˋ"}, {t:"電風扇", z:"ㄉㄧㄢˋ ㄈㄥ ㄕㄢˋ"}, {t:"電腦", z:"ㄉㄧㄢˋ ㄋㄠˇ"}, {t:"鉛筆", z:"ㄑㄧㄢ ㄅㄧˇ"}, {t:"橡皮擦", z:"ㄒㄧㄤˋ ㄆㄧˊ ㄘㄚ"},
+            {t:"尺", z:"ㄔˇ"}, {t:"彩色筆", z:"ㄘㄞˇ ㄙㄜˋ ㄅㄧˇ"}, {t:"書包", z:"ㄕㄨ ㄅㄠ"}, {t:"課本", z:"ㄎㄜˋ ㄅㄣˇ"}, {t:"剪刀", z:"ㄐㄧㄢˇ ㄉㄠ"},
+            {t:"眼鏡", z:"ㄧㄢˇ ㄐㄧㄥˋ"}, {t:"雨傘", z:"ㄩˇ ㄙㄢˇ"}, {t:"鑰匙", z:"ㄧㄠˋ ㄕ˙"}, {t:"錢包", z:"ㄑㄧㄢˊ ㄅㄠ"}, {t:"背包", z:"ㄅㄟ ㄅㄠ"},
+            {t:"牙膏", z:"ㄧㄚˊ ㄍㄠ"}, {t:"洗髮精", z:"ㄒㄧ ㄈㄚˇ ㄐㄧㄥ"}, {t:"吹風機", z:"ㄔㄨㄟ ㄈㄥ ㄐㄧ"}, {t:"鏡子", z:"ㄐㄧㄥˋ ㄗ˙"}, {t:"梳子", z:"ㄕㄨ ㄗ˙"},
+            {t:"遙控器", z:"ㄧㄠˊ ㄎㄨㄥˋ ㄑㄧˋ"}, {t:"垃圾桶", z:"ㄌㄜˋ ㄙㄜˋ ㄊㄨㄥˇ"}, {t:"掃把", z:"ㄙㄠˋ ㄅㄚˇ"}, {t:"洗衣機", z:"ㄒㄧˇ ㄧ ㄐㄧ"}, {t:"馬桶", z:"ㄇㄚˇ ㄊㄨㄥˇ"},
+            {t:"相機", z:"ㄒㄧㄤˋ ㄐㄧ"}, {t:"手電筒", z:"ㄕㄡˇ ㄉㄧㄢˋ ㄊㄨㄥˇ"}, {t:"水壺", z:"ㄕㄨㄟˇ ㄏㄨˊ"}, {t:"口罩", z:"ㄎㄡˇ ㄓㄠˋ"}, {t:"膠水", z:"ㄐㄧㄠ ㄕㄨㄟˇ"},
+
+            // 4. 服飾與身體
+            {t:"衣服", z:"ㄧ ㄈㄨˊ"}, {t:"褲子", z:"ㄎㄨˋ ㄗ˙"}, {t:"裙子", z:"ㄑㄩㄣˊ ㄗ˙"}, {t:"外套", z:"ㄨㄞˋ ㄊㄠˋ"}, {t:"鞋子", z:"ㄒㄧㄝˊ ㄗ˙"},
+            {t:"襪子", z:"ㄨㄚˋ ㄗ˙"}, {t:"帽子", z:"ㄇㄠˋ ㄗ˙"}, {t:"手套", z:"ㄕㄡˇ ㄊㄠˋ"}, {t:"圍巾", z:"ㄨㄟˊ ㄐㄧㄣ"}, {t:"雨衣", z:"ㄩˇ ㄧ"},
+            {t:"眼睛", z:"ㄧㄢˇ ㄐㄧㄥ"}, {t:"鼻子", z:"ㄅㄧˊ ㄗ˙"}, {t:"嘴巴", z:"ㄗㄨㄟˇ ㄅㄚ"}, {t:"耳朵", z:"ㄦˇ ㄉㄨㄛ˙"}, {t:"頭髮", z:"ㄊㄡˊ ㄈㄚ˙"},
+            {t:"手", z:"ㄕㄡˇ"}, {t:"腳", z:"ㄐㄧㄠˇ"}, {t:"肚子", z:"ㄉㄨˋ ㄗ˙"}, {t:"手指", z:"ㄕㄡˇ ㄓˇ"}, {t:"牙齒", z:"ㄧㄚˊ ㄔˇ"},
+            {t:"拖鞋", z:"ㄊㄨㄛ ㄒㄧㄝˊ"}, {t:"靴子", z:"ㄒㄩㄝ ㄗ˙"}, {t:"泳衣", z:"ㄩㄥˇ ㄧ"}, {t:"手錶", z:"ㄕㄡˇ ㄅㄧㄠˇ"}, {t:"項鍊", z:"ㄒㄧㄤˋ ㄌㄧㄢˋ"},
+            {t:"眉毛", z:"ㄇㄟˊ ㄇㄠˊ"}, {t:"舌頭", z:"ㄕㄜˊ ㄊㄡ˙"}, {t:"脖子", z:"ㄅㄛˊ ㄗ˙"}, {t:"屁股", z:"ㄆㄧˋ ㄍㄨˇ"}, {t:"指甲", z:"ㄓˇ ㄐㄧㄚ"},
+
+            // 5. 地點、交通與職業
+            {t:"汽車", z:"ㄑㄧˋ ㄔㄜ"}, {t:"公車", z:"ㄍㄨㄥ ㄔㄜ"}, {t:"火車", z:"ㄏㄨㄛˇ ㄔㄜ"}, {t:"飛機", z:"ㄈㄟ ㄐㄧ"}, {t:"腳踏車", z:"ㄐㄧㄠˇ ㄊㄚˋ ㄔㄜ"},
+            {t:"船", z:"ㄔㄨㄢˊ"}, {t:"捷運", z:"ㄐㄧㄝˊ ㄩㄣˋ"}, {t:"救護車", z:"ㄐㄧㄡˋ ㄏㄨˋ ㄔㄜ"}, {t:"警車", z:"ㄐㄧㄥˇ ㄔㄜ"}, {t:"消防車", z:"ㄒㄧㄠ ㄈㄤˊ ㄔㄜ"},
+            {t:"學校", z:"ㄒㄩㄝˊ ㄒㄧㄠˋ"}, {t:"公園", z:"ㄍㄨㄥ ㄩㄢˊ"}, {t:"家", z:"ㄐㄧㄚ"}, {t:"醫院", z:"ㄧ ㄩㄢˋ"}, {t:"警察局", z:"ㄐㄧㄥˇ ㄔㄚˊ ㄐㄩˊ"},
+            {t:"圖書館", z:"ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ"}, {t:"動物園", z:"ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ"}, {t:"超級市場", z:"ㄔㄠ ㄐㄧˊ ㄕˋ ㄔㄤˇ"}, {t:"海邊", z:"ㄏㄞˇ ㄅㄧㄢ"}, {t:"遊樂園", z:"ㄧㄡˊ ㄌㄜˋ ㄩㄢˊ"},
+            {t:"計程車", z:"ㄐㄧˋ ㄔㄥˊ ㄔㄜ"}, {t:"高鐵", z:"ㄍㄠ ㄊㄧㄝˇ"}, {t:"機車", z:"ㄐㄧ ㄔㄜ"}, {t:"火箭", z:"ㄏㄨㄛˇ ㄐㄧㄢˋ"}, {t:"直升機", z:"ㄓˊ ㄕㄥ ㄐㄧ"},
+            {t:"廁所", z:"ㄘㄜˋ ㄙㄨㄛˇ"}, {t:"廚房", z:"ㄔㄨˊ ㄈㄤˊ"}, {t:"客廳", z:"ㄎㄜˋ ㄊㄧㄥ"}, {t:"陽台", z:"ㄧㄤˊ ㄊㄞˊ"}, {t:"教室", z:"ㄐㄧㄠˋ ㄕˋ"},
+            {t:"操場", z:"ㄘㄠ ㄔㄤˇ"}, {t:"郵局", z:"ㄧㄡˊ ㄐㄩˊ"}, {t:"便利商店", z:"ㄅㄧㄢˋ ㄌㄧˋ ㄕㄤ ㄉㄧㄢˋ"}, {t:"夜市", z:"ㄧㄝˋ ㄕˋ"}, {t:"美術館", z:"ㄇㄟˇ ㄕㄨˋ ㄍㄨㄢˇ"},
+            {t:"老師", z:"ㄌㄠˇ ㄕ"}, {t:"學生", z:"ㄒㄩㄝˊ ㄕㄥ"}, {t:"醫生", z:"ㄧ ㄕㄥ"}, {t:"護士", z:"ㄏㄨˋ ㄕˋ"}, {t:"警察", z:"ㄐㄧㄥˇ ㄔㄚˊ"},
+            {t:"消防員", z:"ㄒㄧㄠ ㄈㄤˊ ㄩㄢˊ"}, {t:"郵差", z:"ㄧㄡˊ ㄔㄞ"}, {t:"司機", z:"ㄙ ㄐㄧ"}, {t:"廚師", z:"ㄔㄨˊ ㄕ"}, {t:"畫家", z:"ㄏㄨㄚˋ ㄐㄧㄚ"},
+
+            // 6. 自然、玩具與運動
+            {t:"太陽", z:"ㄊㄞˋ ㄧㄤˊ"}, {t:"月亮", z:"ㄩㄝˋ ㄌㄧㄤˋ"}, {t:"星星", z:"ㄒㄧㄥ ㄒㄧㄥ"}, {t:"雲", z:"ㄩㄣˊ"}, {t:"雨", z:"ㄩˇ"},
+            {t:"彩虹", z:"ㄘㄞˇ ㄏㄨㄥˊ"}, {t:"花", z:"ㄏㄨㄚ"}, {t:"草", z:"ㄘㄠˇ"}, {t:"樹", z:"ㄕㄨˋ"}, {t:"石頭", z:"ㄕˊ ㄊㄡ˙"},
+            {t:"機器人", z:"ㄐㄧ ㄑㄧˋ ㄖㄣˊ"}, {t:"皮球", z:"ㄆㄧˊ ㄑㄧㄡˊ"}, {t:"積木", z:"ㄐㄧ ㄇㄨˋ"}, {t:"氣球", z:"ㄑㄧˋ ㄑㄧㄡˊ"}, {t:"風箏", z:"ㄈㄥ ㄓㄥ"},
+            {t:"溜滑梯", z:"ㄌㄧㄡ ㄏㄨㄚˊ ㄊㄧ"}, {t:"盪鞦韆", z:"ㄉㄤˋ ㄑㄧㄡ ㄑㄧㄢ"}, {t:"故事書", z:"ㄍㄨˋ ㄕˋ ㄕㄨ"}, {t:"蠟筆", z:"ㄌㄚˋ ㄅㄧˇ"}, {t:"畫畫", z:"ㄏㄨㄚˋ ㄏㄨㄚˋ"},
+            {t:"唱歌", z:"ㄔㄤˋ ㄍㄜ"}, {t:"跳舞", z:"ㄊㄧㄠˋ ㄨˇ"}, {t:"生日", z:"ㄕㄥ ㄖˋ"}, {t:"聖誕節", z:"ㄕㄥˋ ㄉㄢˋ ㄐㄧㄝˊ"}, {t:"過年", z:"ㄍㄨㄛˋ ㄋㄧㄢˊ"},
+            {t:"閃電", z:"ㄕㄢˇ ㄉㄧㄢˋ"}, {t:"颱風", z:"ㄊㄞˊ ㄈㄥ"}, {t:"雪", z:"ㄒㄩㄝˇ"}, {t:"山", z:"ㄕㄢ"}, {t:"海", z:"ㄏㄞˇ"},
+            {t:"沙子", z:"ㄕㄚ ㄗ˙"}, {t:"葉子", z:"ㄧㄝˋ ㄗ˙"}, {t:"泥土", z:"ㄋㄧˊ ㄊㄨˇ"}, {t:"洋娃娃", z:"ㄧㄤˊ ㄨㄚˊ ㄨㄚˊ"}, {t:"拼圖", z:"ㄆㄧㄣ ㄊㄨˊ"},
+            {t:"棒球", z:"ㄅㄤˋ ㄑㄧㄡˊ"}, {t:"籃球", z:"ㄌㄢˊ ㄑㄧㄡˊ"}, {t:"足球", z:"ㄗㄨˊ ㄑㄧㄡˊ"}, {t:"羽毛球", z:"ㄩˇ ㄇㄠˊ ㄑㄧㄡˊ"}, {t:"游泳", z:"ㄧㄡˊ ㄩㄥˇ"},
+            {t:"跑步", z:"ㄆㄠˇ ㄅㄨˋ"}, {t:"跳繩", z:"ㄊㄧㄠˋ ㄕㄥˊ"}, {t:"躲避球", z:"ㄉㄨㄛˇ ㄅㄧˋ ㄑㄧㄡˊ"}, {t:"爬山", z:"ㄆㄚˊ ㄕㄢ"}, {t:"騎車", z:"ㄑㄧˊ ㄔㄜ"}
+        ];
+
+        let players = [];
+        let imposterIndex = -1;
+        let secretWord = {t:"", z:""};
+        let currentPlayerIndex = 0;
+        let timerInterval;
+
+        const screens = {
+            setup: document.getElementById('screen-setup'),
+            pass: document.getElementById('screen-pass'),
+            reveal: document.getElementById('screen-reveal'),
+            game: document.getElementById('screen-game'),
+            result: document.getElementById('screen-result')
+        };
+
+        function switchScreen(screenName) {
+            Object.values(screens).forEach(s => s.classList.remove('active'));
+            screens[screenName].classList.add('active');
+        }
+
+        function addPlayerField() {
+            const list = document.getElementById('player-list');
+            const count = list.children.length + 1;
+            const div = document.createElement('div');
+            div.className = 'player-input-group';
+            div.innerHTML = `<input type="text" placeholder="玩家 ${count}">`;
+            list.appendChild(div);
+        }
+
+        function initializeGame() {
+            players = [];
+            const inputs = document.querySelectorAll('#player-list input');
+            inputs.forEach(input => {
+                if (input.value.trim() !== "") {
+                    players.push(input.value.trim());
+                }
+            });
+
+            if (players.length < 3) {
+                alert("最少需要 3 個小朋友才能玩喔！");
+                return;
+            }
+
+            imposterIndex = Math.floor(Math.random() * players.length);
+            secretWord = wordDatabase[Math.floor(Math.random() * wordDatabase.length)];
+            currentPlayerIndex = 0;
+
+            prepareTurn();
+        }
+
+        function prepareTurn() {
+            document.getElementById('pass-to-name').innerText = players[currentPlayerIndex];
+            switchScreen('pass');
+        }
+
+        // 產生注音 HTML 
+        function generateRubyHTML(text, zhuyin) {
+            let chars = text.split('');
+            let zhuyins = zhuyin.split(' ');
+            let html = '';
+            
+            if (chars.length === zhuyins.length) {
+                chars.forEach((char, index) => {
+                    html += `<ruby>${char}<rt>${zhuyins[index]}</rt></ruby>`;
+                });
+            } else {
+                 html += `<ruby>${text}<rt>${zhuyin}</rt></ruby>`;
+            }
+            return html;
+        }
+
+        function showRole() {
+            const roleDisplay = document.getElementById('role-display');
+            
+            if (currentPlayerIndex === imposterIndex) {
+                // 搗蛋鬼 (全注音)
+                roleDisplay.innerHTML = `
+                    <div class="imposter-text" style="font-size: 32px; color: var(--danger-color); margin-bottom: 20px;">
+                        <ruby>搗<rt>ㄉㄠˇ</rt></ruby><ruby>蛋<rt>ㄉㄢˋ</rt></ruby><ruby>鬼<rt>ㄍㄨㄟˇ</rt></ruby>
+                    </div>
+                    <p>
+                        <ruby>噓<rt>ㄒㄩ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>知<rt>ㄓ</rt></ruby><ruby>道<rt>ㄉㄠˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby>！<br>
+                        <ruby>假<rt>ㄐㄧㄚˇ</rt></ruby><ruby>裝<rt>ㄓㄨㄤ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>知<rt>ㄓ</rt></ruby><ruby>道<rt>ㄉㄠˋ</rt></ruby>，<br>
+                        <ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>抓<rt>ㄓㄨㄚ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby>！
+                    </p>
+                `;
+            } else {
+                // 平民
+                let wordHTML = generateRubyHTML(secretWord.t, secretWord.z);
+                roleDisplay.innerHTML = `
+                    <div style="color:var(--secondary-color); font-size:24px; font-weight:bold;">
+                        <ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>
+                    </div>
+                    <div style="margin-top:20px;">${wordHTML}</div>
+                `;
+            }
+            switchScreen('reveal');
+        }
+
+        function nextPlayerOrStart() {
+            currentPlayerIndex++;
+            if (currentPlayerIndex < players.length) {
+                prepareTurn();
+            } else {
+                startGamePlay();
+            }
+        }
+
+        function startGamePlay() {
+            switchScreen('game');
+            startTimer(180); 
+        }
+
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('timer');
+            
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    alert("時間到囉！快抓出搗蛋鬼！");
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            
+            // 顯示結果
+            document.getElementById('result-imposter').innerText = players[imposterIndex];
+            
+            let wordHTML = generateRubyHTML(secretWord.t, secretWord.z);
+            document.getElementById('result-word').innerHTML = wordHTML;
+            
+            switchScreen('result');
+        }
+
+        function resetGame() {
+            switchScreen('setup');
+        }
+    </script>
+</body>
+</html>
