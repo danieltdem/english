@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,18 @@
 
     <script>
         const words = [
-            { en: 'person', zh: '一個人 (ㄧˊ ㄍㄜˋ ㄖㄣˊ)', mnemonic: '拆解成 `per` (每一個) + `son` (兒子)。每一個兒子 (every son) 都是一個獨立的人 (person)。' },
-            { en: 'sure', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`sure` 聽起來像 `sugar` (糖)。你確定 (sure) 你要加糖 (sugar) 嗎？' },
-            { en: 'touch', zh: '觸摸 (ㄔㄨˋ ㄇㄛ)', mnemonic: '`to` + `uch` (ouch, 哎喲)。如果你觸摸 (touch) 到燙的東西，你會大叫 "Ouch!"。' },
-            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (回歸線) + `al`。回歸線 (tropic) 附近的地區通常是熱帶的 (tropical)。' },
-            { en: 'young', zh: '年輕的 (ㄋㄧㄢˊ ㄑㄧㄥ ㄉㄜ˙)', mnemonic: '`you` (你) + `ng` (Next Generation, 下一代)。你是下一代，所以你是年輕的 (young)。' },
-            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` + `land`。島嶼就是一塊「是」(is) 陸地 (land) 但被水包圍的地方。' },
-            { en: 'built', zh: '建造 (ㄐㄧㄢˋ ㄗㄠˋ)', mnemonic: '`build` (建造) 的過去式。`u` + `ilt` (tilt, 傾斜)。你建造 (built) 的東西傾斜 (tilted) 了嗎？' },
-            { en: 'against', zh: '對抗；反對 (ㄉㄨㄟˋ ㄎㄤˋ)', mnemonic: '`again` (再一次) + `st` (street, 街道)。我們在街道 (st) 上再一次 (again) 對抗 (against) 他們。' },
-            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`di` (two, 二) + `ffer` + `ent`。兩者之間有差異 (differ)，所以是不同的 (different)。' },
-            { en: 'palm', zh: '手掌；棕櫚樹 (ㄕㄡˇ ㄓㄤˇ)', mnemonic: '`palm` 和 `calm` (冷靜) 押韻。保持冷靜 (calm)，把命運掌握在手掌 (palm) 裡。' },
-            { en: 'awhile', zh: '片刻 (ㄆㄧㄢˋ ㄎㄜˋ)', mnemonic: '`a` + `while` (一段時間)。待一會兒 (a while) 就是待片刻 (awhile)。' },
-            { en: 'answer', zh: '答案 (ㄉㄚá ㄢˋ)', mnemonic: '`an` + `swer` (swear, 發誓)。我發誓 (swear) 這就是答案 (answer)。' },
-            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (mount) 那座多雨 (rain) 的山 (mountain)。' },
-            { en: 'remember', zh: '記得 (ㄐㄧˋ ㄉㄜ˙)', mnemonic: '`re` (again, 再一次) + `member` (成員)。再次成為成員？不，是要記得 (remember) 舊成員。' },
-            { en: 'camera', zh: '相機 (ㄒㄧㄤˋ ㄐㄧ)', mnemonic: '`came` (來) + `Ra` (太陽神)。太陽神來 (came) 了，快用相機 (camera) 拍照！' }
+            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '`winter` 聽起來像 `wind` (風) + `er`。冬天的風 (wind) 總是比較冷 (cold**er**)。' },
+            { en: 'somewhere', zh: '某處 (ㄇㄡˇ ㄔㄨˋ)', mnemonic: '`some` (一些/某個) + `where` (哪裡)。就在某個 (some) 地方 (where)。' },
+            { en: 'discuss', zh: '討論 (ㄊㄠˇ ㄌㄨㄣˋ)', mnemonic: '`dis` + `cuss` (咒罵)。當我們在討論 (discuss) 時，請不要罵人 (cuss)。' },
+            { en: 'experiment', zh: '實驗 (ㄕˊ ㄧㄢˋ)', mnemonic: '`expert` (專家) + `men` (男人們)。專家們 (expert men) 正在做實驗 (experiment)。' },
+            { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)', mnemonic: '`me` (我) + `lt` (let, 讓)。這太熱了，讓 (let) 我 (me) 融化吧！' },
+            { en: 'shining', zh: '閃亮的 (ㄕㄢˇ ㄌㄧㄤˋ ㄉㄜ˙)', mnemonic: '`shin` (像 shine) + `ing`。太陽正在發光 (shine)，它是閃亮的 (shining)。' },
+            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`nega` 聽起來像 `never` (絕不)。負面 (negative) 的人總是說「絕不」(never)。' },
+            { en: 'sprout', zh: '發芽 (ㄈㄚ ㄧㄚˊ)', mnemonic: '`sprout` 和 `shout` (大喊) 押韻。種子發芽 (sprout) 時，就像對世界大喊 (shout)：「我出來了！」' },
+            { en: 'everywhere', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)', mnemonic: '`every` (每一個) + `where` (哪裡)。在每一個 (every) 地方 (where)，就是到處 (everywhere)。' },
+            { en: 'winner', zh: '贏家 (ㄧㄥˊ ㄐㄧㄚ)', mnemonic: '`win` (贏) + `ner` (的人)。贏得 (win) 比賽的人就是贏家 (winner)。' },
+            { en: 'slowly', zh: '慢慢地 (ㄇㄢˋ ㄇㄢˋ ㄉㄜ˙)', mnemonic: '`slow` (慢) + `ly` (地)。以緩慢 (slow) 的方式，就是慢慢地 (slowly)。' },
+            { en: 'blow', zh: '吹 (ㄔㄨㄟ)', mnemonic: '`b` + `low` (低的)。把蠟燭吹 (blow) 熄，光線就會變低 (low)。' }
         ];
 
         let currentQuestion = 0;
