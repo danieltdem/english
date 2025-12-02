@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,27 +103,23 @@
 
     <script>
         const words = [
-            { en: 'diplomat', zh: '外交官 (ㄨㄞˋ ㄐㄧㄠ ㄍㄨㄢ)', mnemonic: '`diploma` (文憑) + `mat` (墊子)。想像一位外交官坐在墊子 (mat) 上拿著文憑 (diploma) 進行談判。' },
-            { en: 'failure', zh: '失敗 (ㄕ ㄅㄞˋ)', mnemonic: '`fail` (失敗) + `ure` (your, 你的)。失敗 (failure) 是你 (your) 的學習機會。' },
-            { en: 'dandelion', zh: '蒲公英 (ㄆㄨˊ ㄍㄨㄥ ㄧㄥ)', mnemonic: '聽起來像 `dandy` (花花公子) + `lion` (獅子)。想像一隻愛漂亮的獅子拿著蒲公英。' },
-            { en: 'handle', zh: '把手；處理 (ㄅㄚˇ ㄕㄡˇ)', mnemonic: '`hand` (手) + `le`。你需要用手 (hand) 去握住把手 (handle) 才能處理事情。' },
-            { en: 'agent', zh: '特務；代理人 (ㄊㄜˋ ㄨˋ)', mnemonic: '`age` (年齡) + `nt`。一個秘密探員 (agent) 永遠不會透露他的真實年齡 (age)。' },
-            { en: 'fort', zh: '堡壘 (ㄅㄠˇ ㄌㄟˇ)', mnemonic: '聽起來像 `force` (武力)。你需要武力 (force) 來保衛堡壘 (fort)。' },
-            { en: 'hunch', zh: '直覺；預感 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: '與 `lunch` (午餐) 押韻。我有一個直覺 (hunch)，你偷吃了我的午餐 (lunch)。' },
-            { en: 'except', zh: '除了...之外 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '`ex` (out, 外) + `cept` (take, 拿)。把東西拿 (cept) 到外 (ex) 面，就是「除了...之外」。' },
-            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`ex` (out, 向外) + `plore` (cry out, 大叫)。獵人向外 (ex) 探索 (explore) 時看見獵物會大叫。' },
-            { en: 'shadow', zh: '影子 (ㄧㄥˇ ㄗ˙)', mnemonic: '`shade` (陰影) + `ow`。影子 (shadow) 就像是跟著你的陰影 (shade)。' },
-            { en: 'argue', zh: '爭論 (ㄓㄥ ㄌㄨㄣˋ)', mnemonic: '開頭聽起來像 `arr` (海盜聲)。想像海盜們為了寶藏在爭論 (argue)。' },
-            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '看起來像 `special` (特別的)。每一個物種 (species) 都是特別的 (special)。' },
-            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`val` (strength/worth, 價值)。這個字根就代表價值。' },
-            { en: 'inspire', zh: '鼓舞；激勵 (ㄍㄨˇ ㄨˇ)', mnemonic: '`in` (進入) + `spire` (呼吸/靈魂)。將靈魂吹入某人體內，就是鼓舞 (inspire) 他。' },
-            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (通常的)。不通常的就是不尋常的 (unusual)。' },
-            { en: 'regular', zh: '規律的 (ㄍㄨㄟ ㄌㄩˋ ㄉㄜ˙)', mnemonic: '`regu` (rule, 規則)。遵守規則 (rule) 的事物通常是規律的 (regular)。' },
-            { en: 'shield', zh: '盾牌 (ㄉㄨㄣˋ ㄆㄞˊ)', mnemonic: '`she` (她) + `held` (握住)。她 (she) 握住 (held) 了一個盾牌 (shield)。' },
-            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '與 `order` (命令) 押韻。你需要命令 (order) 才能跨越邊界 (border)。' },
-            { en: 'forgive', zh: '原諒 (ㄩㄢˊ ㄌㄧㄤˋ)', mnemonic: '`for` (為了) + `give` (給予)。為了 (for) 和平，給予 (give) 原諒 (forgive)。' },
-            { en: 'broke', zh: '破產的 (ㄆㄛˋ ㄔㄢˇ ㄉㄜ˙)', mnemonic: '`b` + `rock` (石頭)。身無分文 (broke) 的感覺就像石頭 (rock) 一樣硬/慘。' },
-            { en: 'glowing', zh: '發光的 (ㄈㄚ ㄍㄨㄤ ㄉㄜ˙)', mnemonic: '`glow` (發光) + `ing`。`low` (低)。即使是低 (low) 光源也是在發光 (glowing) 的。' }
+            { en: 'excuse', zh: '藉口 (ㄐㄧㄝˋ ㄎㄡˇ)', mnemonic: '`excuse` 聽起來像 `ex-use` (以前用過的)。這是一個以前用過的理由，所以這只是一個藉口 (excuse)。' },
+            { en: 'discover', zh: '發現 (ㄈㄚ ㄒㄧㄢˋ)', mnemonic: '`dis` (remove, 移除) + `cover` (蓋子)。把蓋子 (cover) 拿掉 (dis)，你就會發現 (discover) 裡面有什麼。' },
+            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '`border` (邊界) 裡有 `order` (命令)。你需要命令/許可 (order) 才能越過邊界 (border)。' },
+            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` (值得) 聽起來像 `work` (工作)。如果工作 (work) 做得好，它就值得 (worth) 這筆錢。' },
+            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: '想到 `Air Force` (空軍)。空軍使用武力/力量 (force) 來保衛國家。' },
+            { en: 'trace', zh: '痕跡 (ㄏㄣˊ ㄐㄧ)', mnemonic: '`trace` (痕跡) 和 `race` (賽車) 押韻。在賽車 (race) 中，輪胎會在跑道上留下痕跡 (trace)。' },
+            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '`expert` (專家) 擁有豐富的經驗 (`exper`ience)。' },
+            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`explore` 聽起來像 `ex-floor` (額外的樓層)。我想探索 (explore) 這棟大樓額外的樓層。' },
+            { en: 'hunch', zh: '直覺 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: '`hunch` 和 `lunch` (午餐) 押韻。我有一種預感 (hunch)，他會偷吃我的午餐 (lunch)。' },
+            { en: 'interest', zh: '興趣 (ㄒㄧㄥˋ ㄑㄩˋ)', mnemonic: '`inter` (enter, 進入) + `rest` (休息)。當你進入 (enter) 休息 (rest) 模式時，你可以做你有興趣 (interest) 的事。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難) + `ly`。這件事很難 (hard) 做，所以我幾乎不 (hardly) 做。' },
+            { en: 'handle', zh: '處理 (ㄔㄨˇ ㄌㄧˇ)', mnemonic: '`handle` (處理/把手) 裡面有 `hand` (手)。用你的手 (hand) 去握住把手 (handle) 並處理問題。' },
+            { en: 'strap', zh: '帶子 (ㄉㄞˋ ㄗ˙)', mnemonic: '`strap` (帶子) 和 `trap` (陷阱) 押韻。用一條帶子 (strap) 來設置陷阱 (trap)。' },
+            { en: 'fort', zh: '堡壘 (ㄅㄠˇ ㄌㄟˇ)', mnemonic: '`fort` 是為了武力 (`forc`e) 和防禦而建造的。' },
+            { en: 'flavor', zh: '味道 (ㄨㄟˋ ㄉㄠˋ)', mnemonic: '`flavor` (味道) 和 `favor` (幫忙) 很像。幫我一個忙 (favor)，嚐嚐這個味道 (flavor)。' },
+            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '每一個物種 (`spec`ies) 都是特別的 (`spec`ial)。' },
+            { en: 'industry', zh: '工業 (ㄍㄨㄥ ㄧㄝˋ)', mnemonic: '`in` + `dust` (灰塵) + `try` (嘗試)。在工業 (industry) 領域的人們常在灰塵 (dust) 中努力嘗試 (try)。' }
         ];
 
         let currentQuestion = 0;
