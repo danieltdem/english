@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,18 +103,21 @@
 
     <script>
         const words = [
-            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '`winter` 聽起來像 `wind` (風) + `er`。冬天的風 (wind) 總是比較冷 (cold**er**)。' },
-            { en: 'somewhere', zh: '某處 (ㄇㄡˇ ㄔㄨˋ)', mnemonic: '`some` (一些/某個) + `where` (哪裡)。就在某個 (some) 地方 (where)。' },
-            { en: 'discuss', zh: '討論 (ㄊㄠˇ ㄌㄨㄣˋ)', mnemonic: '`dis` + `cuss` (咒罵)。當我們在討論 (discuss) 時，請不要罵人 (cuss)。' },
-            { en: 'experiment', zh: '實驗 (ㄕˊ ㄧㄢˋ)', mnemonic: '`expert` (專家) + `men` (男人們)。專家們 (expert men) 正在做實驗 (experiment)。' },
-            { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)', mnemonic: '`me` (我) + `lt` (let, 讓)。這太熱了，讓 (let) 我 (me) 融化吧！' },
-            { en: 'shining', zh: '閃亮的 (ㄕㄢˇ ㄌㄧㄤˋ ㄉㄜ˙)', mnemonic: '`shin` (像 shine) + `ing`。太陽正在發光 (shine)，它是閃亮的 (shining)。' },
-            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`nega` 聽起來像 `never` (絕不)。負面 (negative) 的人總是說「絕不」(never)。' },
-            { en: 'sprout', zh: '發芽 (ㄈㄚ ㄧㄚˊ)', mnemonic: '`sprout` 和 `shout` (大喊) 押韻。種子發芽 (sprout) 時，就像對世界大喊 (shout)：「我出來了！」' },
-            { en: 'everywhere', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)', mnemonic: '`every` (每一個) + `where` (哪裡)。在每一個 (every) 地方 (where)，就是到處 (everywhere)。' },
-            { en: 'winner', zh: '贏家 (ㄧㄥˊ ㄐㄧㄚ)', mnemonic: '`win` (贏) + `ner` (的人)。贏得 (win) 比賽的人就是贏家 (winner)。' },
-            { en: 'slowly', zh: '慢慢地 (ㄇㄢˋ ㄇㄢˋ ㄉㄜ˙)', mnemonic: '`slow` (慢) + `ly` (地)。以緩慢 (slow) 的方式，就是慢慢地 (slowly)。' },
-            { en: 'blow', zh: '吹 (ㄔㄨㄟ)', mnemonic: '`b` + `low` (低的)。把蠟燭吹 (blow) 熄，光線就會變低 (low)。' }
+            { en: 'ankle', zh: '腳踝 (ㄐㄧㄠˇ ㄏㄨㄞˊ)', mnemonic: '`ankle` 聽起來像 `uncle` (叔叔)。叔叔 (uncle) 扭傷了他的腳踝 (ankle)。' },
+            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)', mnemonic: '`arm` (手臂/武裝) 和 `army` (軍隊) 很像。軍隊 (army) 需要強壯的手臂 (arm) 和武器。' },
+            { en: 'beard', zh: '鬍子 (ㄏㄨˊ ㄗ˙)', mnemonic: '`beard` (鬍子) 裡有 `bear` (熊)。想像一隻留著大鬍子 (beard) 的熊 (bear)。' },
+            { en: 'blood', zh: '血 (ㄒㄧㄝˇ)', mnemonic: '`blood` (血) 聽起來有點像 `flood` (洪水)。受傷時，血 (blood) 像洪水 (flood) 一樣流出來。' },
+            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '`body` (身體) 聽起來像 `buddy` (夥伴)。你要好好照顧你的身體 (body)，因為它是你一輩子的好夥伴 (buddy)。' },
+            { en: 'bone', zh: '骨頭 (ㄍㄨˇ ㄊㄡ˙)', mnemonic: '`bone` (骨頭) 裡有 `one` (一)。狗嘴裡叼著一 (one) 根骨頭 (bone)。' },
+            { en: 'brain', zh: '大腦 (ㄉㄚˋ ㄋㄠˇ)', mnemonic: '`brain` (大腦) 和 `train` (火車/訓練) 押韻。你需要訓練 (train) 你的大腦 (brain)。' },
+            { en: 'chin', zh: '下巴 (ㄒㄧㄚˋ ㄅㄚ)', mnemonic: '`chin` (下巴) 是 `China` (瓷器/中國) 的前半部。想像有個精緻的瓷器 (China) 碰到了你的下巴 (chin)。' },
+            { en: 'ear', zh: '耳朵 (ㄦˇ ㄉㄨㄛ˙)', mnemonic: '`hear` (聽見) 裡面包含 `ear` (耳朵)。你用耳朵 (ear) 去聽 (hear)。' },
+            { en: 'eye', zh: '眼睛 (ㄧㄢˇ ㄐㄧㄥ)', mnemonic: '`eye` 這個字看起來就像一張臉，兩個 `e` 是眼睛，中間的 `y` 是鼻子。' },
+            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)', mnemonic: '`face` (臉) 裡有 `ace` (王牌)。撲克牌裡的王牌 (Ace) 上面通常沒有人臉 (face)，但 JQK 有。' },
+            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 和 `singer` (歌手) 押韻。那個歌手 (singer) 手指 (finger) 指著觀眾。' },
+            { en: 'foot', zh: '腳 (ㄐㄧㄠˇ)', mnemonic: '`foot` (腳) 和 `boot` (靴子) 押韻。把靴子 (boot) 穿在腳 (foot) 上。' },
+            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)', mnemonic: '`hair` (頭髮) 裡有 `air` (空氣)。風吹過，空氣 (air) 穿過你的頭髮 (hair)。' },
+            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `sand` (沙子) 押韻。手 (hand) 裡握著沙子 (sand)。' }
         ];
 
         let currentQuestion = 0;
