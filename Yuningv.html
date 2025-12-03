@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,24 @@
 
     <script>
         const words = [
-            { en: 'ankle', zh: '腳踝 (ㄐㄧㄠˇ ㄏㄨㄞˊ)', mnemonic: '`ankle` 聽起來像 `uncle` (叔叔)。叔叔 (uncle) 扭傷了他的腳踝 (ankle)。' },
-            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)', mnemonic: '`arm` (手臂/武裝) 和 `army` (軍隊) 很像。軍隊 (army) 需要強壯的手臂 (arm) 和武器。' },
-            { en: 'beard', zh: '鬍子 (ㄏㄨˊ ㄗ˙)', mnemonic: '`beard` (鬍子) 裡有 `bear` (熊)。想像一隻留著大鬍子 (beard) 的熊 (bear)。' },
-            { en: 'blood', zh: '血 (ㄒㄧㄝˇ)', mnemonic: '`blood` (血) 聽起來有點像 `flood` (洪水)。受傷時，血 (blood) 像洪水 (flood) 一樣流出來。' },
-            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '`body` (身體) 聽起來像 `buddy` (夥伴)。你要好好照顧你的身體 (body)，因為它是你一輩子的好夥伴 (buddy)。' },
-            { en: 'bone', zh: '骨頭 (ㄍㄨˇ ㄊㄡ˙)', mnemonic: '`bone` (骨頭) 裡有 `one` (一)。狗嘴裡叼著一 (one) 根骨頭 (bone)。' },
-            { en: 'brain', zh: '大腦 (ㄉㄚˋ ㄋㄠˇ)', mnemonic: '`brain` (大腦) 和 `train` (火車/訓練) 押韻。你需要訓練 (train) 你的大腦 (brain)。' },
-            { en: 'chin', zh: '下巴 (ㄒㄧㄚˋ ㄅㄚ)', mnemonic: '`chin` (下巴) 是 `China` (瓷器/中國) 的前半部。想像有個精緻的瓷器 (China) 碰到了你的下巴 (chin)。' },
-            { en: 'ear', zh: '耳朵 (ㄦˇ ㄉㄨㄛ˙)', mnemonic: '`hear` (聽見) 裡面包含 `ear` (耳朵)。你用耳朵 (ear) 去聽 (hear)。' },
-            { en: 'eye', zh: '眼睛 (ㄧㄢˇ ㄐㄧㄥ)', mnemonic: '`eye` 這個字看起來就像一張臉，兩個 `e` 是眼睛，中間的 `y` 是鼻子。' },
-            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)', mnemonic: '`face` (臉) 裡有 `ace` (王牌)。撲克牌裡的王牌 (Ace) 上面通常沒有人臉 (face)，但 JQK 有。' },
-            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`finger` (手指) 和 `singer` (歌手) 押韻。那個歌手 (singer) 手指 (finger) 指著觀眾。' },
-            { en: 'foot', zh: '腳 (ㄐㄧㄠˇ)', mnemonic: '`foot` (腳) 和 `boot` (靴子) 押韻。把靴子 (boot) 穿在腳 (foot) 上。' },
-            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)', mnemonic: '`hair` (頭髮) 裡有 `air` (空氣)。風吹過，空氣 (air) 穿過你的頭髮 (hair)。' },
-            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `sand` (沙子) 押韻。手 (hand) 裡握著沙子 (sand)。' }
+            { en: 'head', zh: '頭 (ㄊㄡˊ)', mnemonic: '`He` (他) + `ad` (廣告)。想像他把一個廣告 (ad) 貼在他的頭 (head) 上。' },
+            { en: 'headache', zh: '頭痛 (ㄊㄡˊ ㄊㄨㄥˋ)', mnemonic: '`head` (頭) + `ache` (疼痛)。就是頭部的疼痛。' },
+            { en: 'heart', zh: '心臟 (ㄒㄧㄣ ㄗㄤˋ)', mnemonic: '`He` (他) + `art` (藝術)。他用心 (heart) 創作出這件藝術品 (art)。' },
+            { en: 'hip', zh: '臀部 (ㄊㄨㄣˊ ㄅㄨˋ)', mnemonic: '`hip` 和 `dip` (浸泡) 押韻。把你的臀部 (hip) 浸泡 (dip) 在水裡。' },
+            { en: 'knee', zh: '膝蓋 (ㄒㄧ ㄍㄞˋ)', mnemonic: 'K-n-e-e，K 不發音。想像你的膝蓋 (knee) 上插著一把刀 (Knife，也是 K 開頭)。' },
+            { en: 'lip', zh: '嘴唇 (ㄗㄨㄟˇ ㄔㄨㄣˊ)', mnemonic: '`lip` 和 `sip` (啜飲) 押韻。你用嘴唇 (lip) 啜飲 (sip) 熱茶。' },
+            { en: 'mouth', zh: '嘴巴 (ㄗㄨㄟˇ ㄅㄚ˙)', mnemonic: '`mouth` 和 `mouse` (老鼠) 發音很像。千萬別把老鼠 (mouse) 放進嘴巴 (mouth) 裡！' },
+            { en: 'nail', zh: '指甲 (ㄓˇ ㄐㄧㄚˇ)', mnemonic: '`Snail` (蝸牛) 去掉 `S` 就是 `nail`。想像一隻蝸牛 (snail) 爬在你的指甲 (nail) 上。' },
+            { en: 'neck', zh: '脖子 (ㄅㄛˊ ㄗ˙)', mnemonic: '`Neck`lace (項鍊) 就是戴在脖子 (neck) 上的裝飾品。' },
+            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`nose` 和 `rose` (玫瑰) 押韻。用你的鼻子 (nose) 去聞玫瑰花 (rose) 的香味。' },
+            { en: 'stomach', zh: '胃；腹部 (ㄨㄟˋ)', mnemonic: '`stow` (儲藏) + `mach` (machine, 機器)。你的胃 (stomach) 就像是一個儲藏食物的機器。' },
+            { en: 'stomachache', zh: '胃痛 (ㄨㄟˋ ㄊㄨㄥˋ)', mnemonic: '`stomach` (胃) + `ache` (疼痛)。胃在痛。' },
+            { en: 'throat', zh: '喉嚨 (ㄏㄡˊ ㄌㄨㄥˊ)', mnemonic: '`throw` (丟) + `at`。不要把東西丟向 (throw at) 我的喉嚨 (throat)。' },
+            { en: 'toe', zh: '腳趾 (ㄐㄧㄠˇ ㄓˇ)', mnemonic: '`To` + `e`。`Joe` (喬) 踢到了他的腳趾 (toe)。' },
+            { en: 'tongue', zh: '舌頭 (ㄕㄜˊ ㄊㄡ˙)', mnemonic: '`Ton` + `gue` (glue, 膠水)。想像有一噸 (ton) 重的膠水黏在你的舌頭 (tongue) 上。' },
+            { en: 'tooth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`Too` + `th`。想像你有 "Too" (太) 多的牙齒 (tooth)。複數是 teeth。' },
+            { en: 'toothache', zh: '牙痛 (ㄧㄚˊ ㄊㄨㄥˋ)', mnemonic: '`tooth` (牙齒) + `ache` (疼痛)。牙齒在痛。' },
+            { en: 'tummy', zh: '肚子 (ㄉㄨˋ ㄗ˙)', mnemonic: '`tummy` 和 `yummy` (好吃的) 押韻。好吃的 (yummy) 食物都進到了我的肚子 (tummy) 裡。' }
         ];
 
         let currentQuestion = 0;
