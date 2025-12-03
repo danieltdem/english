@@ -3,561 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文法遊戲：Unit 8 (We/You/They)</title>
+    <title>寧寧的文法特訓：I am / You are (修正版)</title>
     <style>
-        /* CSS styles remain the same */
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #F5A623;
+            --success-color: #7ED321;
+            --error-color: #D0021B;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
-            box-sizing: border-box;
         }
-        ruby {
-            ruby-position: over;
-        }
-        rt {
-            font-size: 0.7em;
-            opacity: 0.9;
-        }
+
         .container {
-            text-align: center;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 600px;
-            transition: all 0.3s ease;
+            padding: 30px;
+            text-align: center;
         }
+
         h1 {
-            color: #333;
-            margin-top: 10px;
+            color: var(--primary-color);
             margin-bottom: 10px;
-            font-size: 28px;
         }
-        p {
+
+        .subtitle {
             color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
             margin-bottom: 20px;
-            font-size: 16px;
+            overflow: hidden;
         }
-        #game-image {
-            transition: all 0.5s ease;
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
         }
-        #game-image.correct {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
-        }
-        #game-image.incorrect {
-            animation: shake 0.5s;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-        }
-        #game-image.all-correct {
-            animation: celebration 1s ease-in-out;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
-        }
-        #game-status {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        #game-status.correct {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            transform: scale(1.1);
-        }
-        #game-status.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            animation: shake 0.5s;
-        }
-        #game-status.all-correct {
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-            animation: celebration 1s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes celebration {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-        #progress {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        #question {
-            font-size: 22px;
-            margin: 20px 0;
-            color: #2c3e50;
-            line-height: 2;
-            background: #f1f3f4;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #74b9ff;
-        }
-        #options-container {
+
+        .quiz-area {
+            min-height: 300px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
+            justify-content: space-between;
         }
-        .option-btn {
-            padding: 15px 20px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            border: none;
+
+        .question-counter {
+            font-weight: bold;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        /* Answer Drop Zone */
+        .answer-box {
+            min-height: 60px;
+            border: 2px dashed #ccc;
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-align: center;
-            transform: translateY(0);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fafafa;
+            transition: all 0.3s;
         }
-        .option-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        .answer-box.correct {
+            border-color: var(--success-color);
+            background-color: #f0fff0;
         }
-        .option-btn.correct {
-            background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.05);
-        }
-        .option-btn.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
+
+        .answer-box.wrong {
+            border-color: var(--error-color);
+            background-color: #fff0f0;
             animation: shake 0.5s;
         }
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
+
+        /* Word Chips */
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
         }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 8px;
-            line-height: 2;
-        }
-        #explanation-container {
-            font-size: 16px;
-            margin-top: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fffbe6, #fff3cd);
-            border-left: 5px solid #f39c12;
-            border-radius: 10px;
-            text-align: left;
-            line-height: 2.2;
-            color: #5f4c0a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #score {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #333;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-weight: bold;
-            line-height: 2;
-        }
-        #wrong-questions {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #e74c3c;
-            max-height: 250px;
-            overflow-y: auto;
-            line-height: 2.5;
-        }
-        #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 15px 30px;
-            font-size: 18px;
+
+        .word-chip {
+            background-color: var(--primary-color);
             color: white;
-            border: none;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
+            font-size: 1.2em;
+            user-select: none;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .word-chip:hover {
+            transform: translateY(-2px);
+            background-color: #357ABD;
+        }
+
+        .word-chip:active {
+            transform: scale(0.95);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
             font-weight: bold;
+            margin: 5px;
         }
-        #next-btn { 
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
+
+        .btn-check {
+            background-color: var(--success-color);
+            color: white;
         }
-        #next-btn:hover { 
-            background: linear-gradient(135deg, #e17055, #fdcb6e);
-            transform: translateY(-2px);
+
+        .btn-check:hover {
+            background-color: #6dbb1a;
         }
-        #restart-btn { 
-            background: linear-gradient(135deg, #00cec9, #00b894);
+
+        .btn-reset {
+            background-color: #e0e0e0;
+            color: #555;
         }
-        #restart-btn:hover { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            transform: translateY(-2px);
+
+        .btn-reset:hover {
+            background-color: #d0d0d0;
         }
-        #retest-wrong-btn { 
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+
+        .btn-next {
+            background-color: var(--secondary-color);
+            color: white;
+            display: none; /* Hidden initially */
         }
-        #retest-wrong-btn:hover { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            transform: translateY(-2px);
+
+        .message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            height: 30px;
+        }
+
+        .message.success { color: var(--success-color); }
+        .message.error { color: var(--error-color); }
+
+        /* Final Score Screen */
+        .score-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container { padding: 15px; }
+            .word-chip { padding: 8px 15px; font-size: 1em; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
-        <div id="game-status" style="display: none;">🎯</div>
+
+<div class="container">
+    <div id="quiz-screen">
+        <h1>文法句子重組特訓</h1>
+        <div class="subtitle">主題：I am / You are</div>
         
-        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：We / You / They</h1>
-        <p><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>稱<rt>ㄔㄥ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
-        
-        <div id="quiz-area">
-            <div id="progress"></div>
-            <div id="question"></div>
-            <div id="options-container"></div>
-            <div id="result"></div>
-            <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
         </div>
 
-        <div id="end-screen" style="display: none;">
-            <h2>🎊 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！ 🎊</h2>
-            <div id="score"></div>
-            <div id="wrong-questions"></div>
-            <button id="restart-btn">🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby></button>
-            <button id="retest-wrong-btn" style="display: none;">❌ <ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
+        <div class="question-counter" id="counter">Question 1 / 10</div>
+
+        <div class="quiz-area">
+            <div>
+                <p style="color: #666; margin-bottom: 5px;">請點擊下方的單字，組成正確的句子：</p>
+                <div class="answer-box" id="answer-zone">
+                    <span style="color: #ccc; pointer-events: none;">(點擊單字放到這裡)</span>
+                </div>
+
+                <div class="word-bank" id="word-bank">
+                    </div>
+            </div>
+
+            <div>
+                <div class="message" id="message-area"></div>
+                <div class="controls">
+                    <button class="btn btn-reset" onclick="resetCurrentQuestion()">清除重來</button>
+                    <button class="btn btn-check" id="check-btn" onclick="checkAnswer()">檢查答案</button>
+                    <button class="btn btn-next" id="next-btn" onclick="nextQuestion()">下一題 ➜</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Unit 8 Question Database based on the provided text
-        const allQuestions = [
-            { 
-                question: "(<ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>星<rt>ㄒㄧㄥ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby>) ___ are aliens.", 
-                options: ["We", "They"], 
-                answer: 0, 
-                explanation: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>角<rt>ㄐㄧㄠˇ</rt></ruby><ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>話<rt>ㄏㄨㄚˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>虎<rt>ㄏㄨˇ</rt></ruby>) No, we aren't. ___ are tigers.", 
-                options: ["We", "They"], 
-                answer: 1, 
-                explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "We are = ___", 
-                options: ["We're", "Where"], 
-                answer: 0, 
-                explanation: "We are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We're。" 
-            },
-            { 
-                question: "They are = ___", 
-                options: ["Their", "They're"], 
-                answer: 1, 
-                explanation: "They are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> They're。<ruby>注<rt>ㄓㄨˋ</rt></ruby><ruby>意<rt>ㄧˋ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>拼<rt>ㄆㄧㄣ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>囉<rt>˙ㄌㄨㄛ</rt></ruby>！" 
-            },
-            { 
-                question: "You ___ = You're", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby> are。" 
-            },
-            { 
-                question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>照<rt>ㄓㄠˋ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby>) Are they children? No, they ___.", 
-                options: ["aren't", "are"], 
-                answer: 0, 
-                explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby> No (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>候<rt>ㄏㄡˋ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> aren't (are not)。" 
-            },
-            { 
-                question: "Mrs Jones and Mr Black are pilots. ___ are pilots.", 
-                options: ["They", "We"], 
-                answer: 0, 
-                explanation: "<ruby>講<rt>ㄐㄧㄤˇ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby> (<ruby>瓊<rt>ㄑㄩㄥˊ</rt></ruby><ruby>斯<rt>ㄙ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>萊<rt>ㄌㄞˊ</rt></ruby><ruby>克<rt>ㄎㄜˋ</rt></ruby><ruby>先<rt>ㄒㄧㄢ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby>)，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "You and Nick are babies. ___ are babies.", 
-                options: ["They", "You"], 
-                answer: 1, 
-                explanation: "<ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby>」<ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>內<rt>ㄋㄟˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "John and I are good boys. ___ are good boys.", 
-                options: ["We", "They"], 
-                answer: 0, 
-                explanation: "<ruby>約<rt>ㄩㄝ</rt></ruby><ruby>翰<rt>ㄏㄢˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby>」(John and I)，<ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We。" 
-            },
-            { 
-                question: "We ___ not children. We are monkeys!", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>配<rt>ㄆㄟˋ</rt></ruby><ruby>合<rt>ㄏㄜˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> are。" 
-            },
-            { 
-                question: "___ they tigers?", 
-                options: ["Is", "Are"], 
-                answer: 1, 
-                explanation: "They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>頭<rt>ㄊㄡˊ</rt></ruby>。" 
-            },
-            { 
-                question: "___ we bees?", 
-                options: ["Am", "Are"], 
-                answer: 1, 
-                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are。" 
-            },
-            { 
-                question: "No, they aren't. They ___ horses.", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "They <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby> are。" 
-            },
-            { 
-                question: "The dogs are brown. = ___ are brown.", 
-                options: ["It", "They"], 
-                answer: 1, 
-                explanation: "The dogs <ruby>是<rt>ㄕˋ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>狗<rt>ㄍㄡˇ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby>。" 
-            },
-            { 
-                question: "You and Mary are teachers. = ___ are teachers.", 
-                options: ["You", "We"], 
-                answer: 0, 
-                explanation: "<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>瑪<rt>ㄇㄚˇ</rt></ruby><ruby>麗<rt>ㄌㄧˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>英<rt>ㄧㄥ</rt></ruby><ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> You。" 
-            },
-            { 
-                question: "Are we black and white? Yes, ___ are.", 
-                options: ["we", "they"], 
-                answer: 0, 
-                explanation: "<ruby>問<rt>ㄨㄣˋ</rt></ruby> Are we... (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>...<ruby>嗎<rt>˙ㄇㄚ</rt></ruby>)，<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Yes, we are (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>)。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) trees / are / They", 
-                options: ["They are trees.", "Trees are they."], 
-                answer: 0, 
-                explanation: "<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>順<rt>ㄕㄨㄣˋ</rt></ruby><ruby>序<rt>ㄒㄩˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>：<ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (They) + <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) + <ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (trees)。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) are / boxes / they / ?", 
-                options: ["They are boxes?", "Are they boxes?"], 
-                answer: 1, 
-                explanation: "<ruby>疑<rt>ㄧˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby> Be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (Are) <ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) not / are / you / snakes", 
-                options: ["You not are snakes.", "You are not snakes."], 
-                answer: 1, 
-                explanation: "<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> not <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
-            },
-            { 
-                question: "Steven and Helen are sixteen. ___ are sixteen.", 
-                options: ["They", "We"], 
-                answer: 0, 
-                explanation: "<ruby>史<rt>ㄕˇ</rt></ruby><ruby>蒂<rt>ㄉㄧˋ</rt></ruby><ruby>芬<rt>ㄈㄣ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>海<rt>ㄏㄞˇ</rt></ruby><ruby>倫<rt>ㄌㄨㄣˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            }
-        ];
+    <div id="score-screen" class="score-screen">
+        <h1>考試結束！🎉</h1>
+        <p>寧寧，妳這次的成績是：</p>
+        <div class="final-score" id="final-score-display">100</div>
+        <p id="feedback-text">太棒了！妳已經完全掌握了！</p>
+        <button class="btn btn-check" onclick="location.reload()">再練習一次</button>
+    </div>
+</div>
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
-
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameImage = document.getElementById('game-image');
-        const gameStatus = document.getElementById('game-status');
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+<script>
+    // 題庫資料 (修正了第2題的 "You")
+    const questions = [
+        {
+            id: 1,
+            scrambled: ["am", "I", "happy."],
+            correct: "I am happy."
+        },
+        {
+            id: 2,
+            scrambled: ["are", "You", "tall."], // 修正：you -> You
+            correct: "You are tall."
+        },
+        {
+            id: 3,
+            scrambled: ["am", "student.", "a", "I"],
+            correct: "I am a student."
+        },
+        {
+            id: 4,
+            scrambled: ["friend.", "my", "You", "are"],
+            correct: "You are my friend."
+        },
+        {
+            id: 5,
+            scrambled: ["hungry.", "very", "am", "I"],
+            correct: "I am very hungry."
+        },
+        {
+            id: 6,
+            scrambled: ["beautiful.", "You", "are"],
+            correct: "You are beautiful."
+        },
+        {
+            id: 7,
+            scrambled: ["years", "I", "old.", "ten", "am"],
+            correct: "I am ten years old."
+        },
+        {
+            id: 8,
+            scrambled: ["singer.", "a", "are", "good", "You"],
+            correct: "You are a good singer."
+        },
+        {
+            id: 9,
+            scrambled: ["busy", "am", "I", "now."],
+            correct: "I am busy now."
+        },
+        {
+            id: 10,
+            scrambled: ["very", "smart.", "You", "are"],
+            correct: "You are very smart."
         }
+    ];
 
-        function startGame(questionList) {
-            questions = [...questionList];
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
-            
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameImage.src = 'initial.png';
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-            
-            showQuestion();
-        }
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let currentAnswerArray = [];
 
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            // Use .innerHTML to render ruby tags
-            progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-            questionEl.innerHTML = currentQuestion.question;
+    // DOM Elements
+    const wordBankEl = document.getElementById('word-bank');
+    const answerZoneEl = document.getElementById('answer-zone');
+    const messageEl = document.getElementById('message-area');
+    const checkBtn = document.getElementById('check-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const counterEl = document.getElementById('counter');
+    const progressFill = document.getElementById('progress');
+    const quizScreen = document.getElementById('quiz-screen');
+    const scoreScreen = document.getElementById('score-screen');
+    const finalScoreDisplay = document.getElementById('final-score-display');
+    const feedbackText = document.getElementById('feedback-text');
 
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
+    // 初始化遊戲
+    function initGame() {
+        loadQuestion(currentQuestionIndex);
+    }
 
-        function resetState() {
-            resultEl.innerHTML = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            gameImage.src = 'initial.png';
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-        }
-
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
-
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
-
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！';
-                resultEl.style.color = '#2ecc71';
-                gameImage.src = 'correct.png';
-                gameImage.classList.add('correct');
-                gameStatus.textContent = '🎉';
-                gameStatus.classList.add('correct');
-                
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
-                    }
-                }, 1500);
-            } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！';
-                resultEl.style.color = '#e74c3c';
-                gameImage.src = 'incorrect.png';
-                gameImage.classList.add('incorrect');
-                gameStatus.textContent = '😅';
-                gameStatus.classList.add('incorrect');
-                
-                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
-
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block';
-            }
-        }
-
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
-            
-            const scoreEl = document.getElementById('score');
-            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
-
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameImage.src = 'all_correct.png';
-                gameImage.classList.add('all-correct');
-                gameStatus.textContent = '🏆';
-                gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We/You/They <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.background = '#d4edda';
-                wrongQuestionsEl.style.color = '#155724';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameImage.src = 'not_all_correct.png';
-                gameStatus.textContent = '📝';
-                let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
-                wrongQuestions.forEach((q, index) => {
-                    wrongText += `<p>`;
-                    wrongText += `${index + 1}. ${q.question}<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
-                    wrongText += `</p>`;
-                });
-                wrongQuestionsEl.innerHTML = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.background = '#f8d7da';
-                wrongQuestionsEl.style.color = '#721c24';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
-        }
+    // 載入題目
+    function loadQuestion(index) {
+        // 重置狀態
+        currentAnswerArray = [];
+        messageEl.textContent = '';
+        messageEl.className = 'message';
+        answerZoneEl.className = 'answer-box';
+        answerZoneEl.innerHTML = '<span style="color: #ccc; pointer-events: none;">(點擊單字放到這裡)</span>';
+        checkBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
         
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endGame();
-            }
+        // 更新進度條
+        counterEl.textContent = `Question ${index + 1} / ${questions.length}`;
+        progressFill.style.width = `${((index) / questions.length) * 100}%`;
+
+        // 顯示亂序單字
+        const q = questions[index];
+        renderWordBank(q.scrambled);
+    }
+
+    function renderWordBank(words) {
+        wordBankEl.innerHTML = '';
+        words.forEach((word, idx) => {
+            const btn = document.createElement('div');
+            btn.className = 'word-chip';
+            btn.textContent = word;
+            btn.onclick = () => moveWordToAnswer(word, btn);
+            wordBankEl.appendChild(btn);
         });
+    }
 
-        restartBtn.addEventListener('click', () => startGame(allQuestions));
+    // 將單字從題庫移到答案區
+    function moveWordToAnswer(word, element) {
+        if (currentAnswerArray.length === 0) {
+            answerZoneEl.innerHTML = '';
+        }
 
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
+        currentAnswerArray.push(word);
+
+        const answerBtn = document.createElement('div');
+        answerBtn.className = 'word-chip';
+        answerBtn.style.backgroundColor = '#F5A623'; 
+        answerBtn.textContent = word;
+        answerBtn.onclick = () => moveWordBackToBank(word, answerBtn, element);
+        answerZoneEl.appendChild(answerBtn);
+
+        element.style.visibility = 'hidden';
+    }
+
+    // 將單字從答案區移回題庫
+    function moveWordBackToBank(word, answerElement, originalElement) {
+        answerZoneEl.removeChild(answerElement);
+        
+        const idx = currentAnswerArray.lastIndexOf(word);
+        if (idx > -1) {
+            currentAnswerArray.splice(idx, 1);
+        }
+
+        originalElement.style.visibility = 'visible';
+
+        if (currentAnswerArray.length === 0) {
+            answerZoneEl.innerHTML = '<span style="color: #ccc; pointer-events: none;">(點擊單字放到這裡)</span>';
+        }
+    }
+
+    function resetCurrentQuestion() {
+        loadQuestion(currentQuestionIndex);
+    }
+
+    function checkAnswer() {
+        if (currentAnswerArray.length === 0) return;
+
+        const userSentence = currentAnswerArray.join(' ');
+        const correctSentence = questions[currentQuestionIndex].correct;
+
+        // 加了一個 trim() 確保沒有多餘空白
+        if (userSentence.trim() === correctSentence) {
+            // Correct
+            messageEl.textContent = 'Correct! 答對了！ ✨';
+            messageEl.className = 'message success';
+            answerZoneEl.classList.add('correct');
+            checkBtn.style.display = 'none';
+            nextBtn.style.display = 'inline-block';
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = '查看成績 🏆';
             }
-        });
+            score += 10;
+        } else {
+            // Wrong
+            messageEl.textContent = 'Try again! 再試一次喔 💪';
+            messageEl.className = 'message error';
+            answerZoneEl.classList.add('wrong');
+            setTimeout(() => {
+                answerZoneEl.classList.remove('wrong');
+            }, 500);
+        }
+    }
 
-        startGame(allQuestions);
-    </script>
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion(currentQuestionIndex);
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        quizScreen.style.display = 'none';
+        scoreScreen.style.display = 'block';
+        finalScoreDisplay.textContent = score;
+        
+        if (score === 100) {
+            feedbackText.textContent = "太厲害了！寧寧妳是文法小天才！ 🌟";
+        } else if (score >= 80) {
+            feedbackText.textContent = "做得很好！差一點點就滿分了！ 👍";
+        } else {
+            feedbackText.textContent = "別氣餒，多練習幾次就會變強喔！ 💪";
+        }
+    }
+
+    initGame();
+</script>
+
 </body>
 </html>
