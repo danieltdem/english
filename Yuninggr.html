@@ -3,479 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文文法測驗：Unit 7 名詞與代名詞</title>
+    <title>寧寧的 Present Perfect 終極模擬考</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             padding: 20px;
-            box-sizing: border-box;
+            line-height: 1.6;
         }
         .container {
-            text-align: center;
-            background: white;
-            padding: 30px 40px;
+            background-color: white;
+            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
             width: 100%;
-            max-width: 650px;
-            transition: all 0.3s ease;
         }
         h1 {
             color: #2c3e50;
-            margin-top: 10px;
+            text-align: center;
             margin-bottom: 10px;
-            font-size: 26px;
         }
-        p {
-            color: #666;
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .rule-box {
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        .rule-title {
+            font-weight: bold;
+            color: #16a085;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .question-card {
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .question-card:hover {
+            border-color: #bdc3c7;
+        }
+        .question-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .prompt {
+            font-size: 1.3em;
+            font-weight: bold;
             margin-bottom: 20px;
-            font-size: 16px;
-        }
-        #game-image {
-            width: 150px; 
-            height: 150px; 
-            object-fit: contain; 
-            margin-bottom: 20px; 
-            border-radius: 50%; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            transition: all 0.5s ease;
-        }
-        #game-status {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        #game-status.correct {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            transform: scale(1.1);
-        }
-        #game-status.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            animation: shake 0.5s;
-        }
-        #game-status.all-correct {
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-            animation: celebration 1s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes celebration {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-        #progress {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        #question {
-            font-size: 22px;
-            margin: 20px 0;
-            color: #2c3e50;
-            line-height: 1.5;
-            background: #f1f3f4;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #74b9ff;
-            text-align: left;
-        }
-        #options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        .option-btn {
-            padding: 15px 20px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-align: left;
-            transform: translateY(0);
-        }
-        .option-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .option-btn.correct {
-            background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.02);
-        }
-        .option-btn.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
-            opacity: 0.7;
-        }
-        .option-btn:disabled {
-            cursor: default;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        #explanation-container {
-            font-size: 16px;
-            margin-top: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fffbe6, #fff3cd);
-            border-left: 5px solid #f39c12;
-            border-radius: 10px;
-            text-align: left;
-            line-height: 1.6;
-            color: #5f4c0a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #score {
-            font-size: 24px;
             margin-top: 10px;
-            color: #333;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-weight: bold;
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
         }
-        #wrong-questions {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            white-space: pre-wrap;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #e74c3c;
-            max-height: 300px;
-            overflow-y: auto;
-            line-height: 1.5;
+        .input-group {
+            margin-bottom: 20px;
         }
-        #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 15px 30px;
-            font-size: 18px;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 700;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+            background-color: #fafdff;
+        }
+        .btn-check {
+            background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
             font-weight: bold;
         }
-        #next-btn { 
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        .btn-check:hover {
+            background-color: #2980b9;
         }
-        #next-btn:hover { 
-            background: linear-gradient(135deg, #e17055, #fdcb6e);
-            transform: translateY(-2px);
+        .btn-check:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
         }
-        #restart-btn { 
-            background: linear-gradient(135deg, #00cec9, #00b894);
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
         }
-        #restart-btn:hover { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            transform: translateY(-2px);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        #retest-wrong-btn { 
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
-        #retest-wrong-btn:hover { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            transform: translateY(-2px);
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .answer-key {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #333;
+            background-color: rgba(255,255,255,0.5);
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .score-board {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #2ecc71;
+            width: 0%;
+            transition: width 0.5s ease;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="game-status">🎯</div>
-        <h1>Unit 7：名詞、量詞與代名詞</h1>
-        <p>請根據學習內容 (可數/不可數、Some/Any/No/Every、One/Ones) 作答。</p>
-        
-        <div id="quiz-area">
-            <div id="progress"></div>
-            <div id="question"></div>
-            <div id="options-container"></div>
-            <div id="result"></div>
-            <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;">下一題 ➡️</button>
-        </div>
 
-        <div id="end-screen" style="display: none;">
-            <h2>🎊 測驗結束！ 🎊</h2>
-            <div id="score"></div>
-            <div id="wrong-questions"></div>
-            <button id="restart-btn">🔄 全部重測</button>
-            <button id="retest-wrong-btn" style="display: none;">❌ 重測錯題</button>
-        </div>
+<div class="container">
+    <h1>Present Perfect Simple 終極模擬考</h1>
+    <div class="subtitle">為寧寧設計的專屬文法測驗 (共15題)</div>
+
+    <div class="rule-box">
+        <div class="rule-title">📝 老師的小叮嚀：</div>
+        <ul style="margin:0; padding-left:20px;">
+            <li><b>口訣：</b> <code>Have/Has</code> + <code>V3 (過去分詞)</code></li>
+            <li><b>注意人稱：</b> I, You, We, They 用 <b>Have</b>；He, She, It, Name 用 <b>Has</b>。</li>
+            <li><b>回答格式：</b> 問句 -> 簡短否定 -> 完整肯定詳答。</li>
+            <li><b>標點符號：</b> 句尾的問號 <code>?</code> 和句號 <code>.</code> 千萬不能漏掉！</li>
+            <li><b>陷阱：</b> 題目是 "You" 時，回答要記得改成 "I"。</li>
+        </ul>
+        <br>
+        <small style="color: #555;">範例：<br>
+        題目：Shane/ buy/ any shoes (buy a TV)<br>
+        問句：Has Shane bought any shoes?<br>
+        答句：No, he hasn't. He has bought a TV.</small>
     </div>
 
-    <script>
-        // --- Unit 7 專屬題庫 (根據上傳圖片內容設計) ---
-        const unit7Questions = [
-            // --- Part 1: Plurals (Regular & Irregular) ---
-            { question: "Look at the tree! All the _______ are turning brown.", options: ["leaf", "leafs", "leaves", "leafes"], answer: 2, explanation: "字尾是 f 或 fe 的名詞，複數通常要去 f/fe 改成 ves。Leaf -> Leaves。" },
-            { question: "I need to peel three _______ for the salad.", options: ["potatos", "potatoes", "potato", "potatose"], answer: 1, explanation: "以 -o 結尾的名詞，複數通常加 -es。Potato -> Potatoes。" },
-            { question: "The cat is chasing two _______.", options: ["mouses", "mice", "mouse", "mices"], answer: 1, explanation: "Mouse 是不規則變化名詞，複數是 mice。" },
-            { question: "She bought two new _______.", options: ["radioes", "radios", "radio", "radio's"], answer: 1, explanation: "Radio 雖然是 o 結尾，但屬於例外，複數只加 s -> Radios。" },
-            { question: "There are many _______ playing in the park.", options: ["child", "childs", "children", "childrens"], answer: 2, explanation: "Child 是不規則變化名詞，複數是 children。" },
-            { question: "Foxes and _______ are wild animals.", options: ["wolf", "wolfs", "wolves", "wolvs"], answer: 2, explanation: "Wolf 字尾是 f，複數要去 f 改 ves -> Wolves。" },
-            { question: "My grandmother keeps five _______ on her farm.", options: ["goose", "geese", "gooses", "geeses"], answer: 1, explanation: "Goose (鵝) 是不規則變化，複數是 geese。" },
-            { question: "Please brush your _______ before going to bed.", options: ["tooth", "toothes", "teeth", "teeths"], answer: 2, explanation: "Tooth 是不規則變化，複數是 teeth。" },
-            { question: "Look at those _______. They are very strong animals.", options: ["oxes", "ox", "oxen", "oxs"], answer: 2, explanation: "Ox (公牛) 是不規則變化，複數是 oxen。" },
-            { question: "There are three _______ on the table.", options: ["dictionarys", "dictionaries", "dictionary", "dictionaris"], answer: 1, explanation: "以「子音+y」結尾，去 y 加 ies -> Dictionaries。" },
+    <div id="quiz-container">
+        </div>
 
-            // --- Part 2: Countable vs. Uncountable Nouns ---
-            { question: "I need some _______ about the flight times.", options: ["informations", "information", "an information", "inform"], answer: 1, explanation: "Information 是不可數名詞，不能加 s，也不能加 an。" },
-            { question: "Can I have a _______ of bread, please?", options: ["loaf", "slice", "piece", "All of the above"], answer: 3, explanation: "Bread 是不可數名詞，可以用 a loaf of (一條), a slice of (一片), a piece of (一塊) 來計算。" },
-            { question: "We don't have much _______ left in the fridge.", options: ["milks", "milk", "a milk", "bottle of milk"], answer: 1, explanation: "Milk 是不可數液體，不加 s。Much 後面接不可數名詞。" },
-            { question: "He gave me some good _______.", options: ["advices", "advice", "an advice", "piece of advices"], answer: 1, explanation: "Advice (建議) 是不可數名詞，永遠用單數形，不加 s。" },
-            { question: "Could you pass me two _______ of water?", options: ["glass", "glasses", "water", "waters"], answer: 1, explanation: "Water 不可數，要數的話要用容器當單位：two glasses of water。" },
+    <div class="score-board">
+        目前得分： <span id="current-score">0</span> / <span id="total-questions">0</span>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+    </div>
+</div>
 
-            // --- Part 3: Special Nouns (Police, News, Clothes...) ---
-            { question: "The police _______ investigating the crime.", options: ["is", "are", "was", "has"], answer: 1, explanation: "Police (警方) 是集合名詞，視為複數，動詞要用 are。" },
-            { question: "The news _______ very interesting today.", options: ["are", "is", "were", "have"], answer: 1, explanation: "News (新聞) 雖然有 s，但視為不可數單數，動詞要用 is。" },
-            { question: "Your clothes _______ dirty. Put them in the washing machine.", options: ["is", "are", "was", "has"], answer: 1, explanation: "Clothes (衣服) 總是複數，動詞用 are。" },
-            { question: "Where _______ my trousers? I can't find them.", options: ["is", "are", "am", "was"], answer: 1, explanation: "Trousers (褲子) 是複數名詞(兩條褲管)，動詞用 are。" },
-
-            // --- Part 4: Some / Any / No ---
-            { question: "I'm thirsty. Can I have _______ water, please?", options: ["any", "some", "no", "a"], answer: 1, explanation: "雖然是問句，但這是一個「請求/要求」(Request)，希望對方答應，所以用 some。" },
-            { question: "I don't have _______ money in my wallet.", options: ["some", "no", "any", "many"], answer: 2, explanation: "否定句 (don't have) 中，通常使用 any。" },
-            { question: "There is _______ milk in the fridge. We need to buy more.", options: ["any", "no", "some", "a"], answer: 1, explanation: "句意是「沒有牛奶了，要去買」，且動詞是肯定 (is)，所以用 no (= not any)。" },
-            { question: "Are there _______ students in the classroom?", options: ["some", "any", "no", "much"], answer: 1, explanation: "一般疑問句中，使用 any。" },
-            { question: "Would you like _______ coffee?", options: ["any", "no", "some", "every"], answer: 2, explanation: "提供對方東西 (Offer) 時，為了表示禮貌並期待肯定回答，使用 some。" },
-            { question: "He has _______ friends in this city; he feels lonely.", options: ["no", "any", "some", "every"], answer: 0, explanation: "句意是「他感到寂寞」，表示他「沒有」朋友。動詞 has 是肯定，故搭配 no。" },
-
-            // --- Part 5: Compounds (Someone, Anything, Nowhere...) ---
-            { question: "Is there _______ in the box? No, it's empty.", options: ["something", "anything", "nothing", "everything"], answer: 1, explanation: "疑問句用 anything。" },
-            { question: "_______ is taking my umbrella! Hey, stop!", options: ["Anybody", "Somebody", "Nobody", "Any"], answer: 1, explanation: "肯定句，指「某個人」正在拿雨傘，用 Somebody。" },
-            { question: "I have _______ to wear for the party. All my clothes are dirty.", options: ["something", "nothing", "anything", "everything"], answer: 1, explanation: "動詞是肯定 (have)，但句意是負面的 (沒衣服穿)，所以用 nothing (= don't have anything)。" },
-            { question: "_______ loves ice cream! It's so popular.", options: ["Someone", "Anyone", "Everybody", "Nobody"], answer: 2, explanation: "句意是指「每個人」都喜歡，用 Everybody。" },
-            { question: "I can't find my keys _______. I've looked everywhere.", options: ["somewhere", "nowhere", "anywhere", "everywhere"], answer: 2, explanation: "否定句 (can't find) 中，使用 anywhere。" },
-            { question: "Did you go _______ interesting last summer?", options: ["somewhere", "anywhere", "nowhere", "everywhere"], answer: 1, explanation: "疑問句問有沒有去「任何」地方，用 anywhere。" },
-
-            // --- Part 6: Grammar Rules for Compounds (Singular verbs / Adjectives) ---
-            { question: "Everyone _______ ready for the test.", options: ["are", "is", "were", "have"], answer: 1, explanation: "Every- 開頭的複合字 (Everyone, Everybody, Everything) 視為單數，動詞用 is。" },
-            { question: "Nobody in my family _______ football.", options: ["like", "likes", "liking", "are like"], answer: 1, explanation: "Nobody 視為單數，現在簡單式動詞要加 s -> likes。" },
-            { question: "I want to buy something _______.", options: ["cheap", "cheaply", "cheaper", "cheapest"], answer: 0, explanation: "形容詞修飾複合代名詞 (something) 時，要放在後面：something cheap。" },
-            { question: "Is _______ hungry? Dinner is ready.", options: ["anyone", "some", "all", "they"], answer: 0, explanation: "疑問句詢問「任何人」，且動詞是 Is (單數)，用 anyone。" },
-
-            // --- Part 7: Every ---
-            { question: "Every dog _______ four legs.", options: ["have", "has", "having", "are having"], answer: 1, explanation: "Every + 單數名詞 (dog)，動詞要用單數 has。" },
-            { question: "I visit my grandparents every _______.", options: ["weeks", "week", "weekend", "Sundays"], answer: 1, explanation: "Every 後面接單數可數名詞：every week / every weekend。" },
-
-            // --- Part 8: One / Ones ---
-            { question: "I don't like the green apple. I want the red _______.", options: ["one", "ones", "it", "apple"], answer: 0, explanation: "代替前面提過的單數可數名詞 (apple)，用 one。" },
-            { question: "These shoes are old. I need to buy new _______.", options: ["one", "ones", "them", "pair"], answer: 1, explanation: "代替前面提過的複數名詞 (shoes)，用 ones。" },
-            { question: "Which bag is yours? The blue _______.", options: ["one", "ones", "it", "bag"], answer: 0, explanation: "代替單數名詞 bag，用 one。" },
-            { question: "Do you like the black coat or the brown coat? I like the black _______.", options: ["one", "ones", "coat", "it"], answer: 0, explanation: "避免重複 coat，單數用 one。" }
-        ];
-
-        // 宣告遊戲會用到的變數
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
-
-        // 取得 HTML 頁面上的各個元素
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameStatus = document.getElementById('game-status');
-
-        // 打亂題目順序的函式
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+<script>
+    // 完整 15 題題庫
+    const questions = [
+        // 基礎題
+        {
+            id: 1,
+            prompt: "Shane/ buy/ any shoes/ this month (buy a TV)",
+            expectedQ: "Has Shane bought any shoes this month?",
+            expectedA: "No, he hasn't. He has bought a TV."
+        },
+        {
+            id: 2,
+            prompt: "They/ visit/ London/ yet (visit Paris)",
+            expectedQ: "Have they visited London yet?",
+            expectedA: "No, they haven't. They have visited Paris."
+        },
+        {
+            id: 3,
+            prompt: "Your sister/ finish/ her homework (clean her room)",
+            expectedQ: "Has your sister finished her homework?",
+            expectedA: "No, she hasn't. She has cleaned her room."
+        },
+        {
+            id: 4,
+            prompt: "Tom and Jerry/ wash/ the car (wash the dog)",
+            expectedQ: "Have Tom and Jerry washed the car?",
+            expectedA: "No, they haven't. They have washed the dog."
+        },
+        {
+            id: 5,
+            prompt: "You/ see/ that movie (read the book)",
+            expectedQ: "Have you seen that movie?",
+            expectedA: "No, I haven't. I have read the book."
+        },
+        // 進階題 (包含不規則動詞)
+        {
+            id: 6,
+            prompt: "The baby/ eat/ his dinner (eat a cookie)",
+            expectedQ: "Has the baby eaten his dinner?",
+            expectedA: "No, he hasn't. He has eaten a cookie."
+        },
+        {
+            id: 7,
+            prompt: "We/ write/ the report/ yet (write the email)",
+            expectedQ: "Have we written the report yet?",
+            expectedA: "No, we haven't. We have written the email."
+        },
+        {
+            id: 8,
+            prompt: "Your parents/ go/ to Japan (go to Korea)",
+            expectedQ: "Have your parents gone to Japan?",
+            expectedA: "No, they haven't. They have gone to Korea."
+        },
+        {
+            id: 9,
+            prompt: "It/ rain/ today (snow)",
+            expectedQ: "Has it rained today?",
+            expectedA: "No, it hasn't. It has snowed."
+        },
+        {
+            id: 10,
+            prompt: "She/ drink/ her milk (drink juice)",
+            expectedQ: "Has she drunk her milk?",
+            expectedA: "No, she hasn't. She has drunk juice."
+        },
+        {
+            id: 11,
+            prompt: "You/ find/ your keys (find my phone)",
+            expectedQ: "Have you found your keys?",
+            expectedA: "No, I haven't. I have found my phone."
+        },
+        {
+            id: 12,
+            prompt: "John/ break/ his arm (break his leg)",
+            expectedQ: "Has John broken his arm?",
+            expectedA: "No, he hasn't. He has broken his leg."
+        },
+        {
+            id: 13,
+            prompt: "The teacher/ speak/ to you (speak to him)",
+            expectedQ: "Has the teacher spoken to you?",
+            expectedA: "No, she hasn't. She has spoken to him." 
+        },
+        {
+            id: 14,
+            prompt: "They/ swim/ in the river (swim in the pool)",
+            expectedQ: "Have they swum in the river?",
+            expectedA: "No, they haven't. They have swum in the pool."
+        },
+        {
+            id: 15,
+            prompt: "You/ take/ the photo/ yet (take a video)",
+            expectedQ: "Have you taken the photo yet?",
+            expectedA: "No, I haven't. I have taken a video."
         }
+    ];
 
-        // 開始遊戲的函式
-        function startGame(questionList) {
-            questions = JSON.parse(JSON.stringify(questionList)); // Deep copy to avoid modifying original
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
-            
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-            
-            showQuestion();
-        }
+    let score = 0;
 
-        // 顯示一道題目的函式
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            progressEl.textContent = `第 ${currentQuestionIndex + 1} / ${questions.length} 題`;
-            questionEl.textContent = currentQuestion.question;
+    // 初始化測驗
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        document.getElementById('total-questions').innerText = questions.length;
 
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        // 重置畫面狀態的函式 (換到下一題前)
-        function resetState() {
-            resultEl.textContent = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-        }
-
-        // 選擇答案時觸發的函式
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
-
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
-
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.textContent = '✅ 正確！太棒了！';
-                resultEl.style.color = '#2ecc71';
-                gameStatus.textContent = '🎉';
-                gameStatus.classList.add('correct');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-badge">Question ${index + 1}</div>
+                <div class="prompt">🤟 ${q.prompt}</div>
                 
-                // 答對後自動跳轉 (縮短時間以保持節奏)
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
-                    }
-                }, 1200);
-            } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.textContent = '❌ 答錯了，再接再厲！';
-                resultEl.style.color = '#e74c3c';
-                gameStatus.textContent = '😅';
-                gameStatus.classList.add('incorrect');
+                <div class="input-group">
+                    <label>寫出問句 (Question):</label>
+                    <input type="text" id="q-${q.id}" placeholder="Type the question here..." autocomplete="off">
+                </div>
                 
-                explanationEl.textContent = `💡 文法解析：${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
+                <div class="input-group">
+                    <label>寫出答句 (Answer):</label>
+                    <input type="text" id="a-${q.id}" placeholder="Type the answer here..." autocomplete="off">
+                </div>
 
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block'; // 答錯時才顯示「下一題」按鈕
-            }
-        }
+                <button class="btn-check" onclick="checkAnswer(${q.id})">Check Answer</button>
+                
+                <div id="feedback-${q.id}" class="feedback"></div>
+            `;
+            container.appendChild(card);
+        });
+    }
 
-        // 遊戲結束時呼叫的函式
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
-            
-            const scoreEl = document.getElementById('score');
-            scoreEl.textContent = `🎯 你的最終分數：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
+    // 清理字串功能（移除前後空白，將多種引號標準化，處理多餘空格）
+    function cleanString(str) {
+        return str.trim()
+                  .replace(/\s+/g, ' ')  // 把多個空白變成一個
+                  .replace(/[’‘]/g, "'") // 處理中文或特殊引號
+                  .replace(/[，]/g, ",") // 處理中文逗號
+                  .replace(/[？]/g, "?") // 處理中文問號
+                  .replace(/[。]/g, "."); // 處理中文句號
+    }
 
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameStatus.textContent = '🏆';
-                gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.textContent = '🎊 太棒了！你全部答對了！你已經完全掌握 Unit 7 的內容！ 🎊';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.background = '#d4edda';
-                wrongQuestionsEl.style.color = '#155724';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameStatus.textContent = '📝';
-                let wrongText = '📋 你答錯的題目回顧：\n\n';
-                wrongQuestions.forEach((q, index) => {
-                    wrongText += `${index + 1}. ${q.question}\n`;
-                    wrongText += `    你的答案: "${q.userAnswer}" ❌\n`;
-                    wrongText += `    正確答案: "${q.options[q.answer]}" ✅\n`;
-                    wrongText += `    解析: ${q.explanation}\n\n`;
-                });
-                wrongQuestionsEl.textContent = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.background = '#f8d7da';
-                wrongQuestionsEl.style.color = '#721c24';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
-        }
+    // 檢查答案邏輯
+    function checkAnswer(id) {
+        const questionObj = questions.find(q => q.id === id);
         
-        // 點擊「下一題」按鈕
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endGame();
+        // 取得使用者輸入並清理
+        const userQ = cleanString(document.getElementById(`q-${id}`).value);
+        const userA = cleanString(document.getElementById(`a-${id}`).value);
+        
+        const feedbackDiv = document.getElementById(`feedback-${id}`);
+        const btn = document.querySelector(`button[onclick="checkAnswer(${id})"]`);
+
+        // 比對邏輯 (忽略大小寫)
+        const isQCorrect = userQ.toLowerCase() === questionObj.expectedQ.toLowerCase();
+        const isACorrect = userA.toLowerCase() === questionObj.expectedA.toLowerCase();
+
+        if (isQCorrect && isACorrect) {
+            feedbackDiv.className = "feedback correct";
+            feedbackDiv.innerHTML = "<strong>✅ 太棒了！完全正確！(Correct!)</strong>";
+            feedbackDiv.style.display = "block";
+            
+            // 避免重複加分
+            if (!btn.disabled) {
+                score++;
+                updateScore();
             }
-        });
+            btn.disabled = true; // 答對後鎖定按鈕
+            btn.innerText = "Completed";
+            btn.style.backgroundColor = "#27ae60";
 
-        // 點擊「全部重測」按鈕
-        restartBtn.addEventListener('click', () => startGame(unit7Questions));
-
-        // 點擊「重測錯題」按鈕
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                // 只取題目資料，移除上次的使用者答案
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
+        } else {
+            feedbackDiv.className = "feedback incorrect";
+            let msg = "<strong>❌ 差一點點喔！請檢查一下：</strong><ul style='margin-top:5px; margin-bottom:10px;'>";
+            
+            if (!isQCorrect) {
+                msg += `<li>問句 (Question) 有錯誤。</li>`;
             }
-        });
+            if (!isACorrect) {
+                msg += `<li>答句 (Answer) 有錯誤。</li>`;
+            }
+            msg += "</ul>";
 
-        // 網頁載入後，自動開始遊戲
-        startGame(unit7Questions);
-    </script>
+            msg += `<div class="answer-key">
+                        <strong>正確問句：</strong> ${questionObj.expectedQ}<br>
+                        <strong>正確答句：</strong> ${questionObj.expectedA}
+                    </div>`;
+            
+            feedbackDiv.innerHTML = msg;
+            feedbackDiv.style.display = "block";
+        }
+    }
+
+    function updateScore() {
+        document.getElementById('current-score').innerText = score;
+        const percentage = (score / questions.length) * 100;
+        document.getElementById('progress-fill').style.width = percentage + "%";
+    }
+
+    // 啟動
+    initQuiz();
+</script>
+
 </body>
 </html>
