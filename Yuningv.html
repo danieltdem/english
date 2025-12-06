@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,24 +103,21 @@
 
     <script>
         const words = [
-            { en: 'head', zh: '頭 (ㄊㄡˊ)', mnemonic: '`He` (他) + `ad` (廣告)。想像他把一個廣告 (ad) 貼在他的頭 (head) 上。' },
-            { en: 'headache', zh: '頭痛 (ㄊㄡˊ ㄊㄨㄥˋ)', mnemonic: '`head` (頭) + `ache` (疼痛)。就是頭部的疼痛。' },
-            { en: 'heart', zh: '心臟 (ㄒㄧㄣ ㄗㄤˋ)', mnemonic: '`He` (他) + `art` (藝術)。他用心 (heart) 創作出這件藝術品 (art)。' },
-            { en: 'hip', zh: '臀部 (ㄊㄨㄣˊ ㄅㄨˋ)', mnemonic: '`hip` 和 `dip` (浸泡) 押韻。把你的臀部 (hip) 浸泡 (dip) 在水裡。' },
-            { en: 'knee', zh: '膝蓋 (ㄒㄧ ㄍㄞˋ)', mnemonic: 'K-n-e-e，K 不發音。想像你的膝蓋 (knee) 上插著一把刀 (Knife，也是 K 開頭)。' },
-            { en: 'lip', zh: '嘴唇 (ㄗㄨㄟˇ ㄔㄨㄣˊ)', mnemonic: '`lip` 和 `sip` (啜飲) 押韻。你用嘴唇 (lip) 啜飲 (sip) 熱茶。' },
-            { en: 'mouth', zh: '嘴巴 (ㄗㄨㄟˇ ㄅㄚ˙)', mnemonic: '`mouth` 和 `mouse` (老鼠) 發音很像。千萬別把老鼠 (mouse) 放進嘴巴 (mouth) 裡！' },
-            { en: 'nail', zh: '指甲 (ㄓˇ ㄐㄧㄚˇ)', mnemonic: '`Snail` (蝸牛) 去掉 `S` 就是 `nail`。想像一隻蝸牛 (snail) 爬在你的指甲 (nail) 上。' },
-            { en: 'neck', zh: '脖子 (ㄅㄛˊ ㄗ˙)', mnemonic: '`Neck`lace (項鍊) 就是戴在脖子 (neck) 上的裝飾品。' },
-            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`nose` 和 `rose` (玫瑰) 押韻。用你的鼻子 (nose) 去聞玫瑰花 (rose) 的香味。' },
-            { en: 'stomach', zh: '胃；腹部 (ㄨㄟˋ)', mnemonic: '`stow` (儲藏) + `mach` (machine, 機器)。你的胃 (stomach) 就像是一個儲藏食物的機器。' },
-            { en: 'stomachache', zh: '胃痛 (ㄨㄟˋ ㄊㄨㄥˋ)', mnemonic: '`stomach` (胃) + `ache` (疼痛)。胃在痛。' },
-            { en: 'throat', zh: '喉嚨 (ㄏㄡˊ ㄌㄨㄥˊ)', mnemonic: '`throw` (丟) + `at`。不要把東西丟向 (throw at) 我的喉嚨 (throat)。' },
-            { en: 'toe', zh: '腳趾 (ㄐㄧㄠˇ ㄓˇ)', mnemonic: '`To` + `e`。`Joe` (喬) 踢到了他的腳趾 (toe)。' },
-            { en: 'tongue', zh: '舌頭 (ㄕㄜˊ ㄊㄡ˙)', mnemonic: '`Ton` + `gue` (glue, 膠水)。想像有一噸 (ton) 重的膠水黏在你的舌頭 (tongue) 上。' },
-            { en: 'tooth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`Too` + `th`。想像你有 "Too" (太) 多的牙齒 (tooth)。複數是 teeth。' },
-            { en: 'toothache', zh: '牙痛 (ㄧㄚˊ ㄊㄨㄥˋ)', mnemonic: '`tooth` (牙齒) + `ache` (疼痛)。牙齒在痛。' },
-            { en: 'tummy', zh: '肚子 (ㄉㄨˋ ㄗ˙)', mnemonic: '`tummy` 和 `yummy` (好吃的) 押韻。好吃的 (yummy) 食物都進到了我的肚子 (tummy) 裡。' }
+            { en: 'airport', zh: '機場 (ㄐㄧ ㄔㄤˇ)', mnemonic: '`air` (飛機/空中) + `port` (港口)。飛機停靠的港口就是機場 (airport)。' },
+            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '聽起來像 `A miracle` (一個奇蹟)。許多人認為美國 (America) 的發展是一個奇蹟。' },
+            { en: 'Asia', zh: '亞洲 (ㄧㄚˋ ㄓㄡ)', mnemonic: '聽起來像 `As` + `I` + `a`。想像一句話：`As I am in Asia` (就像我在亞洲一樣)。' },
+            { en: 'Australia', zh: '澳洲 (ㄠˋ ㄓㄡ)', mnemonic: '`Astronaut` (太空人) 去 `Australia` (澳洲)。或者記 `Au` (化學元素金) + `stralia`，澳洲有很多金礦。' },
+            { en: 'bakery', zh: '麵包店 (ㄇㄧㄢˋ ㄅㄠ ㄉㄧㄢˋ)', mnemonic: '`bake` (烘焙) + `ry` (場所)。烘焙的地方就是麵包店 (bakery)。' },
+            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`ban` (禁止) + `k`。銀行 (bank) 禁止 (ban) 搶劫。另外，河岸也叫做 bank。' },
+            { en: 'bar', zh: '酒吧 (ㄐㄧㄡˇ ㄅㄚ)', mnemonic: '`bar` 也是「長條、棒子」的意思。酒吧 (bar) 通常都有一個長長的櫃檯 (bar)。' },
+            { en: 'base', zh: '基地 (ㄐㄧ ㄉㄧˋ)', mnemonic: '棒球裡的「壘包」也叫 `base`。它是得分的基礎 (base)。' },
+            { en: 'basement', zh: '地下室 (ㄉㄧˋ ㄒㄧㄚˋ ㄕˋ)', mnemonic: '`base` (底部/基地) + `cement` (水泥)。在房子的底部用水泥蓋的地方就是地下室 (basement)。' },
+            { en: 'block', zh: '街區 (ㄐㄧㄝ ㄑㄩ)', mnemonic: '`b` + `lock` (鎖)。像鎖 (lock) 一樣把區域圍起來阻擋 (block) 起來，就是一個街區 (block)。' },
+            { en: 'bookstore', zh: '書店 (ㄕㄨ ㄉㄧㄢˋ)', mnemonic: '`book` (書) + `store` (商店)。賣書的商店就是書店 (bookstore)。' },
+            { en: 'bridge', zh: '橋 (ㄑㄧㄠˊ)', mnemonic: '`bridge` 聽起來像 `fridge` (冰箱)。想像一座用冰箱 (fridge) 搭成的橋 (bridge)。' },
+            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` (英國人) + `rain` (雨)。英國 (Britain) 這個地方經常下雨 (rain)。' },
+            { en: 'cafeteria', zh: '自助餐廳 (ㄗˋ ㄓㄨˋ ㄘㄢ ㄊㄧㄥ)', mnemonic: '`cafe` (咖啡廳) + `area` (區域)。像咖啡廳一樣可以輕鬆用餐的區域，就是自助餐廳 (cafeteria)。' },
+            { en: 'campus', zh: '校園 (ㄒㄧㄠˋ ㄩㄢˊ)', mnemonic: '`camp` (露營) + `us` (我們)。我們 (us) 在校園 (campus) 裡的生活就像一起露營 (camp) 一樣。' }
         ];
 
         let currentQuestion = 0;
