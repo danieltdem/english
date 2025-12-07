@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共16題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,21 +103,22 @@
 
     <script>
         const words = [
-            { en: 'airport', zh: '機場 (ㄐㄧ ㄔㄤˇ)', mnemonic: '`air` (飛機/空中) + `port` (港口)。飛機停靠的港口就是機場 (airport)。' },
-            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '聽起來像 `A miracle` (一個奇蹟)。許多人認為美國 (America) 的發展是一個奇蹟。' },
-            { en: 'Asia', zh: '亞洲 (ㄧㄚˋ ㄓㄡ)', mnemonic: '聽起來像 `As` + `I` + `a`。想像一句話：`As I am in Asia` (就像我在亞洲一樣)。' },
-            { en: 'Australia', zh: '澳洲 (ㄠˋ ㄓㄡ)', mnemonic: '`Astronaut` (太空人) 去 `Australia` (澳洲)。或者記 `Au` (化學元素金) + `stralia`，澳洲有很多金礦。' },
-            { en: 'bakery', zh: '麵包店 (ㄇㄧㄢˋ ㄅㄠ ㄉㄧㄢˋ)', mnemonic: '`bake` (烘焙) + `ry` (場所)。烘焙的地方就是麵包店 (bakery)。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`ban` (禁止) + `k`。銀行 (bank) 禁止 (ban) 搶劫。另外，河岸也叫做 bank。' },
-            { en: 'bar', zh: '酒吧 (ㄐㄧㄡˇ ㄅㄚ)', mnemonic: '`bar` 也是「長條、棒子」的意思。酒吧 (bar) 通常都有一個長長的櫃檯 (bar)。' },
-            { en: 'base', zh: '基地 (ㄐㄧ ㄉㄧˋ)', mnemonic: '棒球裡的「壘包」也叫 `base`。它是得分的基礎 (base)。' },
-            { en: 'basement', zh: '地下室 (ㄉㄧˋ ㄒㄧㄚˋ ㄕˋ)', mnemonic: '`base` (底部/基地) + `cement` (水泥)。在房子的底部用水泥蓋的地方就是地下室 (basement)。' },
-            { en: 'block', zh: '街區 (ㄐㄧㄝ ㄑㄩ)', mnemonic: '`b` + `lock` (鎖)。像鎖 (lock) 一樣把區域圍起來阻擋 (block) 起來，就是一個街區 (block)。' },
-            { en: 'bookstore', zh: '書店 (ㄕㄨ ㄉㄧㄢˋ)', mnemonic: '`book` (書) + `store` (商店)。賣書的商店就是書店 (bookstore)。' },
-            { en: 'bridge', zh: '橋 (ㄑㄧㄠˊ)', mnemonic: '`bridge` 聽起來像 `fridge` (冰箱)。想像一座用冰箱 (fridge) 搭成的橋 (bridge)。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` (英國人) + `rain` (雨)。英國 (Britain) 這個地方經常下雨 (rain)。' },
-            { en: 'cafeteria', zh: '自助餐廳 (ㄗˋ ㄓㄨˋ ㄘㄢ ㄊㄧㄥ)', mnemonic: '`cafe` (咖啡廳) + `area` (區域)。像咖啡廳一樣可以輕鬆用餐的區域，就是自助餐廳 (cafeteria)。' },
-            { en: 'campus', zh: '校園 (ㄒㄧㄠˋ ㄩㄢˊ)', mnemonic: '`camp` (露營) + `us` (我們)。我們 (us) 在校園 (campus) 裡的生活就像一起露營 (camp) 一樣。' }
+            { en: 'Canada', zh: '加拿大 (ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ)', mnemonic: '`Can` (能) + `Ada` (艾達，人名)。Ada 能去加拿大嗎？ (Can Ada go to Canada?)' },
+            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`cast` (投擲) + `le`。想像古代戰爭時，士兵向城堡 (castle) 投擲 (cast) 石頭。' },
+            { en: 'center', zh: '中心 (ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`cent` (分/硬幣) + `er`。硬幣的中間 (center) 通常刻有它的面值幾分 (cent)。' },
+            { en: 'church', zh: '教堂 (ㄐㄧㄠˋ ㄊㄤˊ)', mnemonic: '`ch` + `ur` (You are) + `ch`。想像你在 (ur = you are) 教堂 (church) 裡。' },
+            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '`city` 聽起來像 `sit` (坐) + `tea` (茶)。坐在 (sit) 繁忙的城市 (city) 裡喝杯茶 (tea)。' },
+            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` 拼法像 `coat` (大衣) 加個 `s`。因為海岸 (coast) 風很大，所以要穿大衣 (coat)。' },
+            { en: 'company', zh: '公司 (ㄍㄨㄥ ㄙ)', mnemonic: '`Com` (來) + `pan` (平底鍋) + `y`。來 (Come) 我們公司 (company)，我們這裡有平底鍋 (pan) 可以煮飯。' },
+            { en: 'country', zh: '國家；鄉村 (ㄍㄨㄛˊ ㄐㄧㄚ)', mnemonic: '`Count` (數) + `try` (嘗試)。試著 (try) 去數 (count) 這個國家 (country) 有多少人口。' },
+            { en: 'department store', zh: '百貨公司 (ㄅㄞˇ ㄏㄨㄛˋ ㄍㄨㄥ ㄙ)', mnemonic: '`department` (部門) + `store` (商店)。一個擁有很多不同部門 (department) 的大型商店 (store) 就是百貨公司。' },
+            { en: 'downtown', zh: '市中心 (ㄕˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`down` (下) + `town` (城鎮)。去市中心 (downtown) 逛街，通常是指往城鎮 (town) 熱鬧的地方走下去 (down)。' },
+            { en: 'Europe', zh: '歐洲 (ㄡ ㄓㄡ)', mnemonic: '`Eu` (音似 You) + `rope` (繩子)。你 (You) 需要一條繩子 (rope) 才能爬上歐洲 (Europe) 的阿爾卑斯山。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`fact` (事實/實際) + `ory`。工廠 (factory) 是製造實際 (fact) 產品的地方。' },
+            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '`far` (遠的) + `m`。農場 (farm) 空氣好，但通常都在很遠 (far) 的地方。' },
+            { en: 'garage', zh: '車庫 (ㄔㄜ ㄎㄨˋ)', mnemonic: '`gar` (音似 Car) + `age` (年齡/變老)。車庫 (garage) 是一個讓車子 (car) 停放並慢慢變老 (age) 的地方。' },
+            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Germ` (細菌) + `many` (許多)。雖然有點奇怪，但可以記成：有許多 (many) 研究細菌 (germ) 的科學家在德國 (Germany)。' },
+            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` 和 `swim` (游泳) 押韻。很多人去體育館 (gym) 裡的泳池游泳 (swim)。' }
         ];
 
         let currentQuestion = 0;
