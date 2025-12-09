@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共17題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,23 +103,21 @@
 
     <script>
         const words = [
-            { en: 'postcard', zh: '明信片 (ㄇㄧㄥˊ ㄒㄧㄣˋ ㄆㄧㄢˋ)', mnemonic: '`post` (郵寄) + `card` (卡片)。通過郵寄 (post) 寄送的卡片 (card) 就是明信片 (postcard)。' },
-            { en: 'letter', zh: '信 (ㄒㄧㄣˋ)', mnemonic: '`letter` 聽起來像 `Let her` (讓她)。讓她 (Let her) 讀這封信 (letter)。' },
-            { en: 'mail', zh: '郵件 (ㄧㄡˊ ㄐㄧㄢˋ)', mnemonic: '`mail` (郵件) 聽起來像 `male` (男性)。以前的郵差通常都是男性 (male)。' },
-            { en: 'greeting', zh: '問候 (ㄨㄣˋ ㄏㄡˋ)', mnemonic: '`greet` (問候) + `king` (國王)。去問候 (greeting) 國王 (king)。' },
-            { en: 'ride', zh: '騎 (ㄑㄧˊ)', mnemonic: '`ride` (騎) 和 `side` (旁邊) 押韻。騎 (ride) 車要騎在路邊 (side)。' },
-            { en: 'miss', zh: '想念；錯過 (ㄒㄧㄤˇ ㄋㄧㄢˋ)', mnemonic: '`miss` (想念) 和 `kiss` (親吻) 押韻。我想念 (miss) 你，所以想親吻 (kiss) 你。' },
-            { en: 'test', zh: '考試 (ㄎㄠˇ ㄕˋ)', mnemonic: '`test` (考試) 和 `best` (最好的) 押韻。考試 (test) 是測試你是不是最好的 (best) 的方式。' },
-            { en: 'snake', zh: '蛇 (ㄕㄜˊ)', mnemonic: '`snake` (蛇) 聽起來像 `snack` (點心)。小心！那條蛇 (snake) 會把你的點心 (snack) 吃掉。' },
-            { en: 'fast', zh: '快速的 (ㄎㄨㄞˋ ㄙㄨˋ ㄉㄜ˙)', mnemonic: '`fast` (快速的) 和 `last` (最後的) 押韻。如果你跑得夠快 (fast)，就不會是最後一名 (last)。' },
-            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`smile` 裡有 `mile` (英里)。一個微笑 (smile) 可以傳遞一英里 (mile) 遠。' },
-            { en: 'stop', zh: '停止 (ㄊㄧㄥˊ ㄓˇ)', mnemonic: '`s` + `top` (頂端)。當你爬到頂端 (top) 時，就必須停止 (stop)。' },
-            { en: 'swing', zh: '鞦韆；搖擺 (ㄑㄧㄡ ㄑㄧㄢ)', mnemonic: '`s` + `wing` (翅膀)。盪鞦韆 (swing) 時，感覺就像長了翅膀 (wing) 在飛一樣。' },
-            { en: 'evil', zh: '邪惡的 (ㄒㄧㄝˊ ㄜˋ ㄉㄜ˙)', mnemonic: '`evil` (邪惡) 倒過來拼就是 `live` (活)。只為了自己活 (live) 是一種邪惡 (evil)。' },
-            { en: 'hope', zh: '希望 (ㄒㄧ ㄨㄤˋ)', mnemonic: '`hope` (希望) 和 `rope` (繩子) 押韻。在困難中抓住希望 (hope) 的繩索 (rope)。' },
-            { en: 'join', zh: '參加；加入 (ㄘㄢ ㄐㄧㄚ)', mnemonic: '`join` (加入) 和 `coin` (硬幣) 押韻。加入 (join) 這個俱樂部需要付一枚硬幣 (coin)。' },
-            { en: 'last', zh: '最後的 (ㄗㄨㄟˋ ㄏㄡˋ ㄉㄜ˙)', mnemonic: '`last` (最後的) 和 `past` (過去的) 押韻。最後 (last) 一次已經過去 (past) 了。' },
-            { en: 'after', zh: '在...之後 (ㄗㄞˋ...ㄓ ㄏㄡˋ)', mnemonic: '`after` 聽起來像 `laughter` (笑聲)。講完笑話之後 (after) 就會傳來笑聲 (laughter)。' }
+            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`different` 裡面有 `rent` (租金)。每個地方的租金 (rent) 都是不同的 (different)。' },
+            { en: 'real', zh: '真實的 (ㄓㄣ ㄕˊ ㄉㄜ˙)', mnemonic: '`real` 聽起來像 `really` (真正地)。這真的是 (really) 真實的 (real) 嗎？' },
+            { en: 'read', zh: '閱讀 (ㄩㄝˋ ㄉㄨˊ)', mnemonic: '`read` (閱讀) 和 `red` (紅色) 發音在過去式時相同。我讀 (read) 了一本關於紅色 (red) 氣球的書。' },
+            { en: 'proper', zh: '適當的 (ㄕˋ ㄉㄤˋ ㄉㄜ˙)', mnemonic: '`proper` (適當的) 裡面有 `prop` (道具)。演戲時要使用適當的 (proper) 道具 (prop)。' },
+            { en: 'capital', zh: '首都 (ㄕㄡˇ ㄉㄨ)', mnemonic: '`capital` (首都) 裡面有 `cap` (帽子)。首都市長戴著一頂大帽子 (cap)。' },
+            { en: 'partner', zh: '夥伴 (ㄏㄨㄛˇ ㄅㄢˋ)', mnemonic: '`partner` = `part` (部分) + `ner` (人)。夥伴 (partner) 是你生活或工作中的一部分 (part)。' },
+            { en: 'fish', zh: '魚 (ㄩˊ)', mnemonic: '`fish` (魚) 和 `dish` (盤子) 押韻。盤子 (dish) 裡有一條魚 (fish)。' },
+            { en: 'shell', zh: '貝殼 (ㄅㄟˋ ㄎㄜˊ)', mnemonic: '`shell` (貝殼) -> `She` (她) + `sell` (賣)。她 (She) 在海邊賣貝殼 (shell)。(She sells seashells)。' },
+            { en: 'ship', zh: '船 (ㄔㄨㄢˊ)', mnemonic: '`ship` (船) 和 `sheep` (羊) 發音相似。想像一艘船 (ship) 載滿了羊 (sheep)。' },
+            { en: 'brush', zh: '刷子 (ㄕㄨㄚ ㄗ˙)', mnemonic: '`brush` (刷) 和 `rush` (匆忙) 押韻。不要匆忙 (rush) 地刷 (brush) 牙。' },
+            { en: 'boss', zh: '老闆 (ㄌㄠˇ ㄅㄢˇ)', mnemonic: '`boss` (老闆) 和 `bus` (公車) 相似。有錢的老闆 (boss) 通常不坐公車 (bus)。' },
+            { en: 'crab', zh: '螃蟹 (ㄆㄤˊ ㄒㄧㄝˋ)', mnemonic: '`crab` (螃蟹) 的後半部 `rab` 聽起來像 `grab` (抓)。螃蟹 (crab) 會用牠的爪子抓住 (grab) 東西。' },
+            { en: 'deer', zh: '鹿 (ㄌㄨˋ)', mnemonic: '`deer` (鹿) 和 `dear` (親愛的) 發音相同。那隻鹿 (deer) 是我親愛的 (dear) 朋友。' },
+            { en: 'hour', zh: '小時 (ㄒㄧㄠˇ ㄕˊ)', mnemonic: '`hour` (小時) 和 `our` (我們的) 發音相同。這是屬於我們的 (our) 光榮時刻 (hour)。' },
+            { en: 'invite', zh: '邀請 (ㄧㄠ ㄑㄧㄥˇ)', mnemonic: '`invite` (邀請) 裡面有 `in` (進來)。邀請 (invite) 朋友進來 (in) 家裡坐坐。' }
         ];
 
         let currentQuestion = 0;
