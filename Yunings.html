@@ -1,301 +1,221 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>寧寧的英文單字練習 (Antonyms & Groups)</title>
-<style>
-    body {
-        font-family: 'Comic Sans MS', 'Microsoft JhengHei', sans-serif;
-        background-color: #f0f8ff;
-        color: #333;
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    h1 {
-        text-align: center;
-        color: #2c3e50;
-        border-bottom: 3px dashed #3498db;
-        padding-bottom: 10px;
-    }
-
-    .intro {
-        text-align: center;
-        margin-bottom: 30px;
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .section-title {
-        background-color: #3498db;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
-
-    .question-container {
-        background-color: white;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .question-text {
-        font-size: 1.1em;
-        flex: 1;
-    }
-
-    .input-area {
-        flex: 1;
-        text-align: right;
-    }
-
-    input[type="text"] {
-        border: none;
-        border-bottom: 2px solid #ccc;
-        font-size: 1.1em;
-        padding: 5px;
-        width: 150px;
-        text-align: center;
-        color: #e74c3c; /* Mimic the red ink in the image */
-        font-weight: bold;
-        background-color: #fafafa;
-    }
-
-    input[type="text"]:focus {
-        outline: none;
-        border-bottom: 2px solid #3498db;
-        background-color: #e8f6f3;
-    }
-
-    .feedback {
-        margin-left: 10px;
-        font-size: 1.2em;
-        width: 30px;
-        display: inline-block;
-    }
-
-    .controls {
-        text-align: center;
-        margin-top: 30px;
-        padding: 20px;
-    }
-
-    button {
-        padding: 10px 25px;
-        font-size: 1.1em;
-        cursor: pointer;
-        border: none;
-        border-radius: 25px;
-        margin: 0 10px;
-        transition: transform 0.2s;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-    }
-
-    #checkBtn {
-        background-color: #2ecc71;
-        color: white;
-    }
-
-    #resetBtn {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-    #showAnswerBtn {
-        background-color: #f39c12;
-        color: white;
-    }
-
-    .score-board {
-        text-align: center;
-        font-size: 1.5em;
-        margin-top: 20px;
-        font-weight: bold;
-        color: #2c3e50;
-        display: none;
-    }
-
-    /* RWD for mobile */
-    @media (max-width: 600px) {
-        .question-container {
-            flex-direction: column;
-            align-items: flex-start;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Famous Expedition - 寧寧的複習卷</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
         }
-        .input-area {
-            width: 100%;
-            margin-top: 10px;
-            text-align: left;
+        .container {
+            background-color: white;
+            width: 800px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
         }
-        input[type="text"] {
-            width: 100%;
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
         }
-    }
-</style>
+        .instructions {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+            line-height: 1.6;
+        }
+        .passage {
+            font-size: 18px;
+            line-height: 2.2; /* 增加行距讓閱讀更舒服 */
+            text-align: justify;
+        }
+        input {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background-color: #fafafa;
+            font-size: 18px;
+            color: #2c3e50;
+            text-align: center;
+            width: 120px;
+            padding: 0 5px;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-bottom: 2px solid #3498db;
+            background-color: #e8f4fd;
+        }
+        input.correct {
+            border-bottom: 2px solid #2ecc71;
+            color: #2ecc71;
+            background-color: #eaffea;
+        }
+        input.wrong {
+            border-bottom: 2px solid #e74c3c;
+            color: #e74c3c;
+            background-color: #fdeaea;
+        }
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        #checkBtn {
+            background-color: #2ecc71;
+            color: white;
+            box-shadow: 0 4px #27ae60;
+        }
+        #hintBtn {
+            background-color: #f1c40f;
+            color: white;
+            box-shadow: 0 4px #d35400;
+        }
+        #resetBtn {
+            background-color: #95a5a6;
+            color: white;
+            box-shadow: 0 4px #7f8c8d;
+        }
+        .score-board {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #34495e;
+            height: 30px;
+        }
+        /* 特別標記 /or/ sound 的單字 */
+        .circled-word {
+            border: 2px solid #e74c3c;
+            border-radius: 50%;
+            padding: 2px 8px;
+            display: inline-block;
+            line-height: 1.2;
+            margin: 0 2px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>📝 Spelling & Vocabulary Practice</h1>
+<div class="container">
+    <h1>📝 A Famous Expedition Review</h1>
     
-    <div class="intro">
-        <p>Hi 寧寧! 請根據題目輸入正確的單字。</p>
-        <p>Part 1: 寫出反義字 (Antonym)<br>Part 2: 寫出同類字 (Grouping)</p>
+    <div class="instructions">
+        <strong>老師的小叮嚀：</strong><br>
+        請在底線處輸入正確的單字。這些單字都是關於 Lewis 和 Clark 的探險故事喔！<br>
+        紅圈圈的字代表有 <b>/or/</b> 的發音 (如 for, more)。
     </div>
 
-    <h3 class="section-title">Part 1: Antonyms (寫出反義字)</h3>
-    <div id="part1-container">
-        </div>
+    <div class="passage">
+        In 1804, Meriwether Lewis and William Clark began one of the most <span class="circled-word">important</span> journeys in American 
+        <input type="text" data-answer="history" placeholder="(1)">. 
+        By the <input type="text" data-answer="order" placeholder="(2)"> of President Thomas Jefferson, they left St. Louis to 
+        <input type="text" data-answer="explore" placeholder="(3)"> the western United States. <br><br>
+        
+        The year <input type="text" data-answer="before" placeholder="(4)">, the president had bought this 
+        <span class="circled-word">territory</span> from the French. The <span class="circled-word">territory</span> included the 
+        <input type="text" data-answer="port" placeholder="(5)"> city of New <span class="circled-word">Orleans</span>. It extended the western 
+        <input type="text" data-answer="border" placeholder="(6)"> of the United States from the Mississippi River to the Pacific Ocean.<br><br>
+        
+        Lewis and Clark began their journey <span class="circled-word">aboard</span> a keelboat on the Missouri River and followed the river to its 
+        <input type="text" data-answer="source" placeholder="(7)">. They took 50 men with them <span class="circled-word">for</span> protection and 
+        <input type="text" data-answer="support" placeholder="(8)">. They also built a 
+        <input type="text" data-answer="fort" placeholder="(9)">.<br><br>
 
-    <h3 class="section-title">Part 2: Word Groups (寫出同類字)</h3>
-    <div id="part2-container">
-        </div>
+        As the <input type="text" data-answer="force" placeholder="(10)"> of the river carried them along, Clark spent most of his time charting their 
+        <input type="text" data-answer="course" placeholder="(11)"> and making maps. He was very careful not to make an error in his calculations.<br><br>
+
+        Lewis's main <input type="text" data-answer="chore" placeholder="(12)"> was to 
+        <input type="text" data-answer="record" placeholder="(13)"> his observations of the strange new animals, plants, and 
+        <input type="text" data-answer="landform" placeholder="(14)"> that he saw. Lewis would later 
+        <input type="text" data-answer="report" placeholder="(15)"> this <span class="circled-word">information</span> to the president.
+    </div>
 
     <div class="controls">
-        <button id="checkBtn" onclick="checkAnswers()">檢查答案 (Check)</button>
-        <button id="showAnswerBtn" onclick="showAnswers()">偷看答案 (Show)</button>
-        <button id="resetBtn" onclick="resetQuiz()">重新開始 (Reset)</button>
+        <button id="checkBtn" onclick="checkAnswers()">✨ 檢查答案 (Check)</button>
+        <button id="hintBtn" onclick="giveHint()">💡 給我提示 (Hint)</button>
+        <button id="resetBtn" onclick="resetQuiz()">🔄 重新開始 (Reset)</button>
     </div>
 
-    <div id="scoreDisplay" class="score-board"></div>
+    <div class="score-board" id="scoreMessage"></div>
+</div>
 
 <script>
-    // Data Structure matching the image
-    const questionsPart1 = [
-        { q: "1. safety", a: "danger" },
-        { q: "2. unite", a: "divide" },
-        { q: "3. solid", a: "hollow" },
-        { q: "4. above", a: "below" },
-        { q: "5. public", a: "private" },
-        { q: "6. greatest", a: "least" },
-        { q: "7. sour", a: "sweet" },
-        { q: "8. rarely", a: "usually" },
-        { q: "9. fixed", a: "broke" },
-        { q: "10. rough", a: "smooth" },
-        { q: "11. bought", a: "stolen" }
-    ];
-
-    const questionsPart2 = [
-        { q: "12. juice, eggs, toast,", a: "bacon" },
-        { q: "13. meadow, pasture, grassland,", a: "field" },
-        { q: "14. skateboard, wagon, scooter,", a: "bicycle" },
-        { q: "15. string, cord, rope,", a: "cable" },
-        { q: "16. offer, suggest, advise,", a: "propose" }
-    ];
-
-    function renderQuestions() {
-        const p1Container = document.getElementById('part1-container');
-        const p2Container = document.getElementById('part2-container');
-
-        // Render Part 1
-        questionsPart1.forEach((item, index) => {
-            p1Container.innerHTML += createQuestionHTML(index, item.q, 'p1');
-        });
-
-        // Render Part 2
-        questionsPart2.forEach((item, index) => {
-            p2Container.innerHTML += createQuestionHTML(index, item.q, 'p2');
-        });
-    }
-
-    function createQuestionHTML(index, text, prefix) {
-        const uniqueId = `${prefix}_${index}`;
-        return `
-            <div class="question-container">
-                <div class="question-text">${text}</div>
-                <div class="input-area">
-                    <input type="text" id="${uniqueId}" autocomplete="off" placeholder="type here">
-                    <span id="feedback_${uniqueId}" class="feedback"></span>
-                </div>
-            </div>
-        `;
-    }
-
     function checkAnswers() {
+        const inputs = document.querySelectorAll('input');
         let correctCount = 0;
-        let total = questionsPart1.length + questionsPart2.length;
+        let total = inputs.length;
 
-        // Check Part 1
-        questionsPart1.forEach((item, index) => {
-            if (validate(`p1_${index}`, item.a)) correctCount++;
+        inputs.forEach(input => {
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.dataset.answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+                input.classList.remove('wrong');
+                correctCount++;
+            } else {
+                input.classList.add('wrong');
+                input.classList.remove('correct');
+            }
         });
 
-        // Check Part 2
-        questionsPart2.forEach((item, index) => {
-            if (validate(`p2_${index}`, item.a)) correctCount++;
-        });
-
-        // Show Score
-        const scoreBoard = document.getElementById('scoreDisplay');
-        scoreBoard.style.display = 'block';
-        scoreBoard.innerText = `得分: ${correctCount} / ${total}`;
-        
-        if(correctCount === total) {
-            scoreBoard.innerText += " 🎉 太棒了！全對！";
-            scoreBoard.style.color = "#2ecc71";
+        const scoreMsg = document.getElementById('scoreMessage');
+        if (correctCount === total) {
+            scoreMsg.innerHTML = "🎉 太棒了！全部答對！妳真厲害！ (100分)";
+            scoreMsg.style.color = "#27ae60";
         } else {
-            scoreBoard.innerText += " 💪 再加油一下！";
-            scoreBoard.style.color = "#e74c3c";
+            scoreMsg.innerHTML = `加油！妳答對了 ${correctCount} / ${total} 題，再試試看！`;
+            scoreMsg.style.color = "#e67e22";
         }
     }
 
-    function validate(elementId, correctAnswer) {
-        const input = document.getElementById(elementId);
-        const feedback = document.getElementById(`feedback_${elementId}`);
-        const userVal = input.value.trim().toLowerCase();
-
-        if (userVal === correctAnswer.toLowerCase()) {
-            input.style.borderBottom = "2px solid #2ecc71";
-            feedback.innerHTML = "✅";
-            return true;
-        } else {
-            input.style.borderBottom = "2px solid #e74c3c";
-            feedback.innerHTML = "❌";
-            return false;
-        }
-    }
-
-    function showAnswers() {
-        // Part 1
-        questionsPart1.forEach((item, index) => {
-            document.getElementById(`p1_${index}`).value = item.a;
+    function giveHint() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            // 只有當格子是空的，或是答錯的時候才給提示
+            if (!input.classList.contains('correct')) {
+                const correctAnswer = input.dataset.answer;
+                // 提示第一個字母
+                input.value = correctAnswer.charAt(0) + "...";
+                input.focus(); // 讓焦點跑到最後一個提示的格子
+            }
         });
-        // Part 2
-        questionsPart2.forEach((item, index) => {
-            document.getElementById(`p2_${index}`).value = item.a;
-        });
-        checkAnswers(); // Automatically validate so they appear green
     }
 
     function resetQuiz() {
-        const inputs = document.querySelectorAll('input[type="text"]');
-        const feedbacks = document.querySelectorAll('.feedback');
-        
+        const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
-            input.value = "";
-            input.style.borderBottom = "2px solid #ccc";
+            input.value = '';
+            input.classList.remove('correct', 'wrong');
         });
-        
-        feedbacks.forEach(fb => fb.innerHTML = "");
-        
-        document.getElementById('scoreDisplay').style.display = 'none';
+        document.getElementById('scoreMessage').innerHTML = '';
     }
-
-    // Initialize
-    renderQuestions();
-
 </script>
 
 </body>
