@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共43題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共32題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,49 +103,38 @@
 
     <script>
         const words = [
-            { en: 'excuse', zh: '藉口；原諒 (ㄐㄧㄝˋ ㄎㄡˇ)', mnemonic: '`ex` (out, 去除) + `cuse` (accusation, 指控)。原諒 (excuse) 就是去除指控。' },
-            { en: 'discover', zh: '發現 (ㄈㄚ ㄒㄧㄢˋ)', mnemonic: '`dis` (remove, 移除) + `cover` (覆蓋)。把蓋子拿掉，你就會發現 (discover) 下面的東西。' },
-            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '`border` 聽起來像 `boarder` (寄宿生)。寄宿生住在學校的邊界 (border) 宿舍裡。' },
-            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`War` (戰爭) is not `worth` (值得) it. 戰爭是不值得的。' },
-            { en: 'force', zh: '力量 (ㄌㄧˋ ㄌㄧㄤˋ)', mnemonic: 'Air `Force` (空軍) 使用強大的力量 (force) 來保衛國家。' },
-            { en: 'trace', zh: '痕跡 (ㄏㄣˊ ㄐㄧ)', mnemonic: '`trace` 聽起來像 `race` (賽跑)。在賽跑 (race) 中，選手會留下腳步的痕跡 (trace)。' },
-            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '`ex` (前任) + `pert` (靈巧的)。一個經驗豐富且靈巧的前輩就是專家 (expert)。' },
-            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`ex` (out) + `plore` (cry out)。原本指獵人大聲喊叫趕出獵物，引申為探索 (explore) 未知。' },
-            { en: 'hunch', zh: '直覺 (ㄓˊ ㄐㄩㄝˊ)', mnemonic: '`hunch` 和 `lunch` (午餐) 押韻。我有一個直覺 (hunch)，你偷吃了我的午餐 (lunch)。' },
-            { en: 'interest', zh: '興趣 (ㄒㄧㄥˋ ㄑㄩˋ)', mnemonic: '`inter` (在...之間) + `est` (be)。存在於你我之間的事物，就是我們感興趣 (interest) 的。' },
-            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難) + `ly`。這件事做起來很困難，所以我幾乎不 (hardly) 做。' },
-            { en: 'handle', zh: '處理；把手 (ㄔㄨˇ ㄌㄧˇ)', mnemonic: '`hand` (手) + `le`。用手 (hand) 去握住把手 (handle) 來處理事情。' },
-            { en: 'strap', zh: '帶子 (ㄉㄞˋ ㄗ˙)', mnemonic: '`strap` 聽起來像 `trap` (陷阱)。用一條帶子 (strap) 來設置陷阱 (trap)。' },
-            { en: 'fort', zh: '堡壘 (ㄅㄠˇ ㄌㄟˇ)', mnemonic: '`fort` 是 `fortress` (要塞) 的縮寫，代表堅固的力量 (force)。' },
-            { en: 'flavor', zh: '風味 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`flavor` 和 `favor` (幫忙) 很像。幫我一個忙 (favor)，嚐嚐這個味道 (flavor)。' },
-            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '`species` 看起來像 `special` (特別的)。每一個物種 (species) 都是特別的。' },
-            { en: 'industry', zh: '工業 (ㄍㄨㄥ ㄧㄝˋ)', mnemonic: '`in` + `dust` (灰塵) + `try` (嘗試)。在工業 (industry) 區的灰塵中努力嘗試。' },
-            { en: 'wonder', zh: '想知道；奇蹟 (ㄐㄧㄥ ㄑㄧˊ)', mnemonic: 'I `wonder` where the `wanderer` (流浪者) went. 我想知道流浪者去哪了。' },
-            { en: 'study', zh: '讀書 (ㄉㄨˊ ㄕㄨ)', mnemonic: '`stu` (student, 學生) + `dy` (dying, 快累死)。學生 (student) 讀書 (study) 讀得快累死了。' },
-            { en: 'lab', zh: '實驗室 (ㄕˊ ㄧㄢˋ ㄕˋ)', mnemonic: '`lab` 是 `Laboratory` 的縮寫。想像實驗室 (lab) 裡有很多白老鼠 (rat)。' },
-            { en: 'muddy', zh: '泥濘的 (ㄋㄧˊ ㄋㄧㄥˋ)', mnemonic: '`mud` (泥巴) + `dy`。充滿泥巴 (mud) 的就是泥濘的 (muddy)。' },
-            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ)', mnemonic: '`un` (不) + `usual` (通常的)。不通常的就是不尋常的 (unusual)。' },
-            { en: 'harsh', zh: '嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`harsh` 聽起來像 `hard` (堅硬的)。嚴厲的 (harsh) 話語聽起來很刺耳堅硬 (hard)。' },
-            { en: 'danger', zh: '危險 (ㄨㄟ ㄒㄧㄢˇ)', mnemonic: '`anger` (生氣) 前面加個 `d`。生氣 (anger) 往往會導致危險 (danger)。' },
-            { en: 'divide', zh: '分開 (ㄈㄣ ㄎㄞ)', mnemonic: '`di` (two, 二) + `vide` (wide, 寬)。把東西分得寬寬的，變成兩半 (divide)。' },
-            { en: 'hollow', zh: '中空的 (ㄓㄨㄥ ㄎㄨㄥ ㄉㄜ˙)', mnemonic: '`hollow` 和 `follow` (跟隨) 押韻。跟隨 (follow) 那個聲音進入中空的 (hollow) 洞穴。' },
-            { en: 'below', zh: '在...下面 (ㄗㄞˋ ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '`be` (是) + `low` (低的)。處於低 (low) 的位置，就是在下面 (below)。' },
-            { en: 'private', zh: '私人的 (ㄙ ㄖㄣˊ ㄉㄜ˙)', mnemonic: '`priv` (individual, 個人的)。這是個人的隱私 (private)。' },
-            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` 和 `beast` (野獸) 押韻。這隻最小的野獸 (beast) 毛最少 (least)。' },
-            { en: 'sweet', zh: '甜的 (ㄊㄧㄢˊ ㄉㄜ˙)', mnemonic: '`sweet` 和 `sweat` (流汗) 很像。流汗 (sweat) 後吃點甜的 (sweet) 補充體力。' },
-            { en: 'usually', zh: '通常 (ㄊㄨㄥ ㄔㄤˊ)', mnemonic: '來自 `usual` (平常的) + `ly`。就像平常一樣，就是通常 (usually)。' },
-            { en: 'broke', zh: '破產的；打破 (ㄆㄛˋ ㄔㄢˇ)', mnemonic: '`break` 的過去式。如果你打破 (break) 太多東西賠錢，你就會破產 (broke)。' },
-            { en: 'smooth', zh: '平滑的 (ㄆㄧㄥˊ ㄏㄨㄚˊ)', mnemonic: '`smooth` 裡的 `moo` 是牛叫聲。牛的牛奶是很滑順 (smooth) 的。' },
-            { en: 'stolen', zh: '被偷的 (ㄅㄟˋ ㄊㄡ ㄉㄜ˙)', mnemonic: '`steal` (偷) -> `stole` -> `stolen`。這東西是被偷走 (stolen) 的。' },
-            { en: 'effect', zh: '效果 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', mnemonic: '`e` 代表 `end-result` (最終結果)。動作造成的結果就是效果 (effect)。' },
-            { en: 'form', zh: '表格；形式 (ㄅㄧㄠˇ ㄍㄜˊ)', mnemonic: '填寫 (fill out) 這張表格 (form)。' },
-            { en: 'general', zh: '一般的；將軍 (ㄧˋ ㄅㄢ ㄉㄜ˙)', mnemonic: '將軍 (General) 負責管理一般的 (general) 軍務。' },
-            { en: 'humor', zh: '幽默 (ㄧㄡ ㄇㄛˋ)', mnemonic: '`humor` = `human` (人類) + `more`。人類 (human) 需要更多 (more) 的幽默 (humor)。' },
-            { en: 'lawyer', zh: '律師 (ㄌㄩˋ ㄕ)', mnemonic: '`law` (法律) + `yer` (人)。玩法律的人就是律師 (lawyer)。' },
-            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。秋天時葉子 (leaf) 會離開 (leave) 樹枝。' },
-            { en: 'host', zh: '主人 (ㄓㄨˇ ㄖㄣˊ)', mnemonic: '`host` 和 `toast` (吐司/敬酒) 押韻。主人 (host) 舉杯敬酒 (toast)。' },
-            { en: 'blossom', zh: '開花 (ㄎㄞ ㄏㄨㄚ)', mnemonic: '`blow` (吹) + `some` (一些)。風一吹 (blow)，一些 (some) 花就開了 (blossom)。' },
-            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (標記) + `et`。去市場 (market) 買一支麥克筆 (marker)。' }
+            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) + `son` (兒子)。比較 (comparison) 兩個兒子 (son) 看誰長得高。' },
+            { en: 'contrast', zh: '對比 (ㄉㄨㄟˋ ㄅㄧˇ)', mnemonic: '`contra` (反對) + `st` (stand, 站立)。站在反對立場，形成鮮明的對比 (contrast)。' },
+            { en: 'chart', zh: '圖表 (ㄊㄨˊ ㄅㄧㄠˇ)', mnemonic: '`chart` 裡面有 `art` (藝術)。製作精美的圖表 (chart) 也是一種藝術 (art)。' },
+            { en: 'multiple', zh: '多樣的/倍數 (ㄉㄨㄛ ㄧㄤˋ ㄉㄜ˙)', mnemonic: '`multi` (many, 很多)。`multi` 意思是很多，所以 `multiple` 是多樣的或倍數。' },
+            { en: 'meaning', zh: '意義 (ㄧˋ ㄧˋ)', mnemonic: '`mean` (意指) + `ing`。你是什麼意思 (mean)？這就是這句話的意義 (meaning)。' },
+            { en: 'proof', zh: '證據 (ㄓㄥˋ ㄐㄩˋ)', mnemonic: '`proof` (證據) 聽起來像 `roof` (屋頂)。警察在屋頂 (roof) 上找到了犯罪證據 (proof)。' },
+            { en: 'duty', zh: '責任/義務 (ㄗㄜˊ ㄖㄣˋ)', mnemonic: '聯想遊戲 `Call of Duty` (決勝時刻)。保衛國家是軍人的責任 (duty)。' },
+            { en: 'stew', zh: '燉菜 (ㄉㄨㄣˋ ㄘㄞˋ)', mnemonic: '`stew` (燉菜) 聽起來像 `stove` (爐子) 的開頭。把東西放在爐子 (stove) 上慢火煮成燉菜 (stew)。' },
+            { en: 'issue', zh: '議題/發行 (ㄧˋ ㄊㄧˊ)', mnemonic: '`is` + `sue` (告)。如果這個議題 (issue) 沒處理好，他可能真的會告 (is sue) 你。' },
+            { en: 'review', zh: '複習/評論 (ㄈㄨˋ ㄒㄧˊ)', mnemonic: '`re` (again, 再) + `view` (look, 看)。再看一次就是複習 (review)。' },
+            { en: 'smooth', zh: '光滑的 (ㄍㄨㄤ ㄏㄨㄚˊ ㄉㄜ˙)', mnemonic: '`smooth` 和 `tooth` (牙齒) 押韻。牙齒 (tooth) 的表面應該要是光滑的 (smooth)。' },
+            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`value` (價值) 來自 `val` (strength, 力量/價值)。有價值的東西通常很有份量。' },
+            { en: 'whose', zh: '誰的 (ㄕㄟˊ ㄉㄜ˙)', mnemonic: '`who` (誰) + `use` (用)。這是誰 (who) 在用 (use) 的東西？是誰的 (whose)？' },
+            { en: 'troop', zh: '軍隊 (ㄐㄩㄣ ㄉㄨㄟˋ)', mnemonic: '`troop` (軍隊) 和 `loop` (圈) 押韻。軍隊 (troop) 正在繞圈圈 (loop) 行軍。' },
+            { en: 'truce', zh: '休戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '`true` (真實的) + `peace` (和平)。真正的 (true) 和平往往始於休戰 (truce)。' },
+            { en: 'regular', zh: '規律的 (ㄍㄨㄟ ㄌㄩˋ ㄉㄜ˙)', mnemonic: '`regular` 裡有 `ruler` (尺)。用尺 (ruler) 畫出來的線條很規律 (regular)。' },
+            { en: 'include', zh: '包括 (ㄅㄠ ㄍㄨㄚ)', mnemonic: '`in` (裡面) + `clude` (close, 關)。關在裡面，就是包括 (include) 在內。' },
+            { en: 'argue', zh: '爭論 (ㄓㄥ ㄌㄨㄣˋ)', mnemonic: '`arr` (生氣的聲音) + `gue` (guess, 猜)。不要猜 (guess) 我為什麼生氣 (arr)，不要跟我爭論 (argue)。' },
+            { en: 'usually', zh: '通常 (ㄊㄨㄥ ㄔㄤˊ)', mnemonic: '`usual` (平常的) + `ly`。和平常 (usual) 一樣，就是通常 (usually)。' },
+            { en: 'continue', zh: '繼續 (ㄐㄧˋ ㄒㄩˋ)', mnemonic: '`content` (內容) + `in` + `u` (you)。把內容 (content) 放進你 (u) 的腦袋，繼續 (continue) 學習。' },
+            { en: 'lay', zh: '放置/產卵 (ㄈㄤˋ ㄓˋ)', mnemonic: '`lay` 和 `play` (玩) 很像。玩 (play) 累了就把玩具放下 (lay) 或躺下 (lay)。' },
+            { en: 'asleep', zh: '睡著的 (ㄕㄨㄟˋ ㄓㄠˊ ㄉㄜ˙)', mnemonic: '`a` + `sleep` (睡覺)。處於睡眠 (sleep) 狀態，就是睡著的 (asleep)。' },
+            { en: 'bucket', zh: '水桶 (ㄕㄨㄟˇ ㄊㄨㄥˇ)', mnemonic: '`bucket` (水桶) 聽起來像 `basket` (籃子)。就像一個裝水的籃子 (basket) 變成了水桶 (bucket)。' },
+            { en: 'catch', zh: '捕捉 (ㄅㄨˇ ㄓㄨㄛ)', mnemonic: '`cat` (貓) + `ch` (chase, 追)。貓 (cat) 正在追捕 (catch) 老鼠。' },
+            { en: 'divide', zh: '分開/除 (ㄈㄣ ㄎㄞ)', mnemonic: '`di` (two, 二) + `vide` (wide, 寬)。把東西分得很開 (wide) 變成兩份 (di)，就是分開 (divide)。' },
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '`design` (設計) + `fire` (火)。內心燃燒的火 (fire) 是對設計 (design) 的渴望 (desire)。' },
+            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`cast` (投擲)。古代士兵從城堡 (castle) 上投擲 (cast) 石頭來防禦。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/空的)。走到空曠 (void) 的地方來避免 (avoid) 人群。' },
+            { en: 'buffet', zh: '自助餐 (ㄗˋ ㄓㄨˋ ㄘㄢ)', mnemonic: '`buff` (強壯的) + `eat` (吃)。想像一個壯漢 (buff guy) 在吃 (eat) 自助餐 (buffet)。' },
+            { en: 'lead', zh: '引導/鉛 (ㄧㄣˇ ㄉㄠˇ)', mnemonic: '`leader` (領導者) 負責引導 (lead) 大家。' },
+            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`fine` (精細的) + `ger`。我們用手指 (finger) 來拿取精細的 (fine) 東西。' },
+            { en: 'peeking', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peek` (偷看) + `king` (國王)。有人在偷看 (peeking) 國王 (king) 換衣服。' }
         ];
 
         let currentQuestion = 0;
