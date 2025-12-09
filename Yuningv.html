@@ -89,7 +89,7 @@
     <div class="container">
         <img id="game-image" src="initial.png" alt="Game Scene">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共16題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question"></div>
         <input type="text" id="answer" placeholder="輸入英文拼寫">
         <button id="submit">提交</button>
@@ -103,22 +103,21 @@
 
     <script>
         const words = [
-            { en: 'Canada', zh: '加拿大 (ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ)', mnemonic: '`Can` (能) + `Ada` (艾達，人名)。Ada 能去加拿大嗎？ (Can Ada go to Canada?)' },
-            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`cast` (投擲) + `le`。想像古代戰爭時，士兵向城堡 (castle) 投擲 (cast) 石頭。' },
-            { en: 'center', zh: '中心 (ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`cent` (分/硬幣) + `er`。硬幣的中間 (center) 通常刻有它的面值幾分 (cent)。' },
-            { en: 'church', zh: '教堂 (ㄐㄧㄠˋ ㄊㄤˊ)', mnemonic: '`ch` + `ur` (You are) + `ch`。想像你在 (ur = you are) 教堂 (church) 裡。' },
-            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '`city` 聽起來像 `sit` (坐) + `tea` (茶)。坐在 (sit) 繁忙的城市 (city) 裡喝杯茶 (tea)。' },
-            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` 拼法像 `coat` (大衣) 加個 `s`。因為海岸 (coast) 風很大，所以要穿大衣 (coat)。' },
-            { en: 'company', zh: '公司 (ㄍㄨㄥ ㄙ)', mnemonic: '`Com` (來) + `pan` (平底鍋) + `y`。來 (Come) 我們公司 (company)，我們這裡有平底鍋 (pan) 可以煮飯。' },
-            { en: 'country', zh: '國家；鄉村 (ㄍㄨㄛˊ ㄐㄧㄚ)', mnemonic: '`Count` (數) + `try` (嘗試)。試著 (try) 去數 (count) 這個國家 (country) 有多少人口。' },
-            { en: 'department store', zh: '百貨公司 (ㄅㄞˇ ㄏㄨㄛˋ ㄍㄨㄥ ㄙ)', mnemonic: '`department` (部門) + `store` (商店)。一個擁有很多不同部門 (department) 的大型商店 (store) 就是百貨公司。' },
-            { en: 'downtown', zh: '市中心 (ㄕˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`down` (下) + `town` (城鎮)。去市中心 (downtown) 逛街，通常是指往城鎮 (town) 熱鬧的地方走下去 (down)。' },
-            { en: 'Europe', zh: '歐洲 (ㄡ ㄓㄡ)', mnemonic: '`Eu` (音似 You) + `rope` (繩子)。你 (You) 需要一條繩子 (rope) 才能爬上歐洲 (Europe) 的阿爾卑斯山。' },
-            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`fact` (事實/實際) + `ory`。工廠 (factory) 是製造實際 (fact) 產品的地方。' },
-            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '`far` (遠的) + `m`。農場 (farm) 空氣好，但通常都在很遠 (far) 的地方。' },
-            { en: 'garage', zh: '車庫 (ㄔㄜ ㄎㄨˋ)', mnemonic: '`gar` (音似 Car) + `age` (年齡/變老)。車庫 (garage) 是一個讓車子 (car) 停放並慢慢變老 (age) 的地方。' },
-            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Germ` (細菌) + `many` (許多)。雖然有點奇怪，但可以記成：有許多 (many) 研究細菌 (germ) 的科學家在德國 (Germany)。' },
-            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` 和 `swim` (游泳) 押韻。很多人去體育館 (gym) 裡的泳池游泳 (swim)。' }
+            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 聽起來像 `all` (所有)。所有人 (`All`) 都在大廳 (`hall`) 集合。' },
+            { en: 'highway', zh: '公路 (ㄍㄨㄥ ㄌㄨˋ)', mnemonic: '`high` (高的) + `way` (道路)。一條可以讓你開得很高 (`high`) 速的道路 (`way`) 就是公路 (`highway`)。' },
+            { en: 'hospital', zh: '醫院 (ㄧ ㄩㄢˋ)', mnemonic: '`hospital` 裡有 `spit` (吐口水)。如果有人對你吐口水 (`spit`) 害你生病，你就得去醫院 (`hospital`)。' },
+            { en: 'hotel', zh: '旅館 (ㄌㄩˇ ㄍㄨㄢˇ)', mnemonic: '`hot` (熱) + `el` (tell, 告訴)。打電話告訴 (`tell`) 櫃台，旅館 (`hotel`) 房間太熱 (`hot`) 了。' },
+            { en: 'Korea', zh: '韓國 (ㄏㄢˊ ㄍㄨㄛˊ)', mnemonic: '`Korea` 聽起來像 `career` (職業)。他在韓國 (`Korea`) 發展他的職業 (`career`)。' },
+            { en: 'library', zh: '圖書館 (ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ)', mnemonic: '`li` (lie, 說謊) + `brary` (berry, 莓果)。不要說謊 (`lie`) 說你沒有在圖書館 (`library`) 吃莓果 (`berry`)。' },
+            { en: 'mall', zh: '購物中心 (ㄍㄡˋ ㄨˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`mall` 聽起來像 `all` (全部)。購物中心 (`mall`) 裡有你想買的全部 (`all`) 東西。' },
+            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (做記號) + `et` (it)。在你想買的東西上做記號 (`mark`)，然後去市場 (`market`) 買它 (`it`)。' },
+            { en: 'museum', zh: '博物館 (ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ)', mnemonic: '`muse` (繆思女神) + `um`。繆思女神 (`Muse`) 住在博物館 (`museum`) 裡激發藝術靈感。' },
+            { en: 'Paris', zh: '巴黎 (ㄅㄚ ㄌㄧˊ)', mnemonic: '`Paris` 聽起來像 `pair is` (一對是)。這一對 (`pair`) 情侶正在巴黎 (`Paris`)。' },
+            { en: 'park', zh: '公園 (ㄍㄨㄥ ㄩㄢˊ)', mnemonic: '`park` (公園) 和 `bark` (狗叫) 押韻。小狗在公園 (`park`) 裡大叫 (`bark`)。' },
+            { en: 'parking lot', zh: '停車場 (ㄊㄧㄥˊ ㄔㄜ ㄔㄤˇ)', mnemonic: '`park` (停車) + `ing` + `lot` (很多)。這個地方停了 (`parking`) 很多 (`a lot`) 車，就是停車場 (`parking lot`)。' },
+            { en: 'Philippines', zh: '菲律賓 (ㄈㄟ ㄌㄩˋ ㄅㄧㄣ)', mnemonic: '`Philip` (菲利普) + `pines` (pineapples, 鳳梨)。菲利普 (`Philip`) 在菲律賓 (`Philippines`) 吃鳳梨 (`pines`)。' },
+            { en: 'platform', zh: '月台 (ㄩㄝˋ ㄊㄞˊ)', mnemonic: '`plat` (plate, 盤子/平坦的) + `form` (形狀)。一個平坦 (`flat`) 形狀 (`form`) 的地方，讓人站立，就是月台 (`platform`)。' },
+            { en: 'playground', zh: '操場；遊樂場 (ㄘㄠ ㄔㄤˇ)', mnemonic: '`play` (玩) + `ground` (地面)。可以讓你在地面 (`ground`) 上玩 (`play`) 的地方，就是操場 (`playground`)。' }
         ];
 
         let currentQuestion = 0;
