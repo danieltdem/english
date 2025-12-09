@@ -3,459 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 9: 過去式 vs 完成式大挑戰</title>
+    <title>寧寧的 Present Perfect 實戰模擬考</title>
     <style>
-        /* CSS styles based on your original code */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background-color: #f4f6f9;
+            color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Changed to a lighter, magical theme */
             padding: 20px;
-            box-sizing: border-box;
         }
-        ruby {
-            ruby-position: over;
-        }
-        rt {
-            font-size: 0.7em;
-            opacity: 0.9;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+        .exam-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 600px;
-            transition: all 0.3s ease;
+            max-width: 700px;
+            padding: 40px;
+            text-align: center;
         }
+
         h1 {
-            color: #333;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            color: #2c3e50;
             font-size: 28px;
+            margin-bottom: 5px;
         }
-        p {
-            color: #666;
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ecf0f1;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-box {
+            background-color: #eaf2f8;
+            border: 2px solid #d4e6f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2980b9;
+            line-height: 1.6;
+        }
+
+        .hint-text {
+            font-size: 14px;
+            color: #e74c3c;
+            margin-top: 10px;
+            font-weight: normal;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+        }
+
+        .feedback {
+            min-height: 50px;
             margin-bottom: 20px;
             font-size: 16px;
+            text-align: left;
+            padding: 15px;
+            border-radius: 10px;
+            display: none; /* Initially hidden */
         }
-        #game-image {
-            transition: all 0.5s ease;
+
+        .feedback.error {
+            background-color: #fdedec;
+            color: #c0392b;
+            border-left: 5px solid #e74c3c;
         }
-        #game-image.correct {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+
+        .feedback.success {
+            background-color: #e8f8f5;
+            color: #27ae60;
+            border-left: 5px solid #2ecc71;
         }
-        #game-image.incorrect {
-            animation: shake 0.5s;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-        }
-        #game-image.all-correct {
-            animation: celebration 1s ease-in-out;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
-        }
-        #game-status {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        #game-status.correct {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            transform: scale(1.1);
-        }
-        #game-status.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            animation: shake 0.5s;
-        }
-        #game-status.all-correct {
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-            animation: celebration 1s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes celebration {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-        #progress {
+
+        .controls button {
+            padding: 12px 30px;
             font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
             font-weight: bold;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-radius: 20px;
+            margin: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-submit {
+            background-color: #2ecc71;
+            color: white;
+            box-shadow: 0 4px 0 #27ae60;
+        }
+        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
+
+        .btn-next {
+            background-color: #f39c12;
+            color: white;
+            display: none;
+        }
+
+        .btn-hint {
+            background-color: #95a5a6;
+            color: white;
+            font-size: 14px;
+            padding: 8px 15px;
+        }
+
+        /* 關鍵字高亮 */
+        .keyword {
+            background-color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px dashed #aaa;
+            margin: 0 4px;
             display: inline-block;
         }
-        #question {
-            font-size: 22px;
-            margin: 20px 0;
-            color: #2c3e50;
-            line-height: 1.5;
-            background: #f1f3f4;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #74b9ff;
-        }
-        #options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .option-btn {
-            padding: 15px 20px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-align: center;
-            transform: translateY(0);
-        }
-        .option-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .option-btn.correct {
-            background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.05);
-        }
-        .option-btn.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
-            animation: shake 0.5s;
-        }
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 8px;
-            line-height: 1.5;
-        }
-        #explanation-container {
-            font-size: 16px;
-            margin-top: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fffbe6, #fff3cd);
-            border-left: 5px solid #f39c12;
-            border-radius: 10px;
-            text-align: left;
-            line-height: 1.8;
-            color: #5f4c0a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #score {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #333;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-        #wrong-questions {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #e74c3c;
-            max-height: 250px;
-            overflow-y: auto;
-            line-height: 1.8;
-        }
-        #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        #next-btn { 
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-        }
-        #next-btn:hover { 
-            background: linear-gradient(135deg, #e17055, #fdcb6e);
-            transform: translateY(-2px);
-        }
-        #restart-btn { 
-            background: linear-gradient(135deg, #00cec9, #00b894);
-        }
-        #restart-btn:hover { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            transform: translateY(-2px);
-        }
-        #retest-wrong-btn { 
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-        }
-        #retest-wrong-btn:hover { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            transform: translateY(-2px);
-        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="game-status">🧙‍♀️</div>
+
+    <div class="exam-card">
+        <h1>Present Perfect Simulation</h1>
+        <div class="subtitle">Teacher Ningning's Strict Grammar Class 😤</div>
         
-        <h1><ruby>時<rt>ㄕˊ</rt></ruby><ruby>態<rt>ㄊㄞˋ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>挑<rt>ㄊㄧㄠ</rt></ruby><ruby>戰<rt>ㄓㄢˋ</rt></ruby></h1>
-        <p>Past Simple vs. Present Perfect Simple</p>
-        <p><ruby>請<rt>ㄑㄧㄥˇ</rt></ruby><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>！</p>
-        
-        <div id="quiz-area">
-            <div id="progress"></div>
-            <div id="question"></div>
-            <div id="options-container"></div>
-            <div id="result"></div>
-            <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
         </div>
 
-        <div id="end-screen" style="display: none;">
-            <h2>🎊 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！ 🎊</h2>
-            <div id="score"></div>
-            <div id="wrong-questions"></div>
-            <button id="restart-btn">🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby></button>
-            <button id="retest-wrong-btn" style="display: none;">❌ <ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
+        <div class="question-box" id="questionText">
+            Loading...
+        </div>
+
+        <input type="text" id="userInput" placeholder="Type the complete sentence here..." autocomplete="off">
+
+        <div class="feedback" id="feedbackMsg"></div>
+
+        <div class="controls">
+            <button class="btn-hint" onclick="showHint()">💡 偷看動詞變化 (Hint)</button>
+            <button class="btn-submit" id="submitBtn" onclick="checkAnswer()">送出答案 (Submit)</button>
+            <button class="btn-next" id="nextBtn" onclick="nextQuestion()">下一題 (Next)</button>
         </div>
     </div>
 
     <script>
-        // 這裡設定全部的題目，包含了 Unit 9 的重點
-        const allQuestions = [
-            // 基礎時間關鍵字題
-            { question: "I ______ to the park yesterday.", options: ["went", "have gone"], answer: 0, explanation: "看到 'yesterday' (昨天) 是過去明確的時間，要用 Past Simple (過去式)。" },
-            { question: "She ______ him three days ago.", options: ["met", "has met"], answer: 0, explanation: "看到 'ago' (之前) 是過去明確的時間，要用 Past Simple (過去式)。" },
-            { question: "We ______ to Japan in 2010.", options: ["flew", "have flown"], answer: 0, explanation: "看到 'in 2010' (特定年份) 已經過去了，要用 Past Simple (過去式)。" },
-            { question: "______ you ever ______ a ghost?", options: ["Did / see", "Have / seen"], answer: 1, explanation: "看到 'ever' (曾經)，是在問經驗，要用 Present Perfect (完成式)。" },
-            
-            // For & Since
-            { question: "I ______ here for ten years. (I still live here)", options: ["lived", "have lived"], answer: 1, explanation: "使用 'for' 加上一段時間，且動作持續到現在，要用 Present Perfect (完成式)。" },
-            { question: "She has known him ______ Monday.", options: ["since", "for"], answer: 0, explanation: "Monday 是一個時間點，要用 'since' (自從)。" },
-            { question: "She has known him ______ three years.", options: ["since", "for"], answer: 1, explanation: "Three years 是一段時間，要用 'for' (持續)。" },
-            
-            // 剛發生/結果 (Just, Already, Yet)
-            { question: "I have ______ finished my homework.", options: ["just", "yesterday"], answer: 0, explanation: "完成式常搭配 'just' (剛剛)。'yesterday' 只能用在過去式。" },
-            { question: "Have you finished your lunch ______?", options: ["yet", "just"], answer: 0, explanation: "疑問句或否定句中的「尚未/還沒」，要用 'yet'，通常放在句尾。" },
-            { question: "Look! I ______ a new dress!", options: ["bought", "have bought"], answer: 1, explanation: "強調現在擁有的「結果」(你看！我有新洋裝)，而不是強調過去何時買的，用 Present Perfect (完成式)。" },
-            
-            // 易混淆題
-            { question: "I ______ my key. I can't open the door now.", options: ["lost", "have lost"], answer: 1, explanation: "強調「現在鑰匙還是弄丟的狀態」(對現在有影響)，用 Present Perfect (完成式)。" },
-            { question: "When ______ you ______ that bag?", options: ["did / buy", "have / bought"], answer: 0, explanation: "用 'When' (何時) 詢問時，一定是在問過去某個時間點，必須用 Past Simple (過去式)。" },
-            { question: "Broomy ______ the Witches Award in 1999.", options: ["won", "has won"], answer: 0, explanation: "有明確的過去時間 'in 1999'，就像舊照片一樣，用 Past Simple (過去式)。" },
-            
-            // 課本 Broomy & Kelly 的故事應用
-            { question: "Broomy ______ how to turn a man into a frog in 165 BC.", options: ["discovered", "has discovered"], answer: 0, explanation: "西元前 165 年 (165 BC) 是很久以前的特定時間，用 Past Simple (過去式)。" },
-            { question: "She ______ Magic Arts for 2000 years.", options: ["has studied", "studied"], answer: 0, explanation: "她持續學習了 2000 年且現在還在學 (for + 一段時間)，用 Present Perfect (完成式)。" },
-            { question: "______ long have you been a witch?", options: ["How", "When"], answer: 0, explanation: "詢問「持續多久」要用 'How long'。" },
-            { question: "Kelly ______ computer games last month.", options: ["played", "has played"], answer: 0, explanation: "'last month' (上個月) 是過去式關鍵字。" },
-            { question: "I ______ 60 hours on this game since then!", options: ["spent", "have spent"], answer: 1, explanation: "看到 'since' (自從那時到現在)，要用 Present Perfect (完成式)。" },
-            
-            // 否定與對話
-            { question: "I ______ see him yesterday.", options: ["didn't", "haven't"], answer: 0, explanation: "過去式 (yesterday) 的否定要用 didn't。" },
-            { question: "A: Would you like some cake? B: No, thanks. I ______ lunch.", options: ["just had", "have just had"], answer: 1, explanation: "拒絕蛋糕是因為「剛剛吃飽了」(強調現在不餓的結果)，用 Present Perfect (完成式)。" }
+        // 題目資料庫
+        // prompt: 顯示給你看的提示字 (原形動詞)
+        // verbBase: 原形動詞 (用於偵測錯誤)
+        // verbV3: 正確的過去分詞 (用於提示)
+        // answers: 正確答案陣列 (考慮可能的縮寫或變體，但這裡建議標準寫法)
+        const questions = [
+            {
+                prompt: ["I", "drink", "already", "a", "bottle", "of", "cola"],
+                verbBase: "drink",
+                verbV3: "drunk",
+                answers: ["I have already drunk a bottle of cola.", "I've already drunk a bottle of cola."],
+                note: "記得：already 通常放在 have 和 p.p. 之間。"
+            },
+            {
+                prompt: ["She", "not / finish", "her", "homework", "yet"],
+                verbBase: "finish",
+                verbV3: "finished",
+                answers: ["She has not finished her homework yet.", "She hasn't finished her homework yet."],
+                note: "否定句要用 has not (hasn't)。Yet 放在句尾。"
+            },
+            {
+                prompt: ["(Question)", "You", "ever / be", "to", "Japan"],
+                verbBase: "be",
+                verbV3: "been",
+                answers: ["Have you ever been to Japan?", "Have you ever been to Japan"],
+                note: "問句開頭要用 Have/Has。Ever 放在主詞後面。"
+            },
+            {
+                prompt: ["We", "live", "in", "Hsinchu", "for", "ten", "years"],
+                verbBase: "live",
+                verbV3: "lived",
+                answers: ["We have lived in Hsinchu for ten years.", "We've lived in Hsinchu for ten years."],
+                note: "住了一段時間，持續到現在，用完成式。"
+            },
+            {
+                prompt: ["I", "buy", "VOO (stock)", "just"],
+                verbBase: "buy",
+                verbV3: "bought",
+                answers: ["I have just bought VOO.", "I've just bought VOO."],
+                note: "Just (剛剛) 放在 have 和 p.p. 之間。"
+            },
+            {
+                prompt: ["The", "train", "leave", "already", "the", "station"],
+                verbBase: "leave",
+                verbV3: "left",
+                answers: ["The train has already left the station."],
+                note: "火車 (The train) 是單數，記得用 has。"
+            }
         ];
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
+        let currentIdx = 0;
+        const questionText = document.getElementById('questionText');
+        const userInput = document.getElementById('userInput');
+        const feedbackMsg = document.getElementById('feedbackMsg');
+        const submitBtn = document.getElementById('submitBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
 
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameStatus = document.getElementById('game-status');
+        function loadQuestion() {
+            // 重置狀態
+            userInput.value = "";
+            userInput.focus();
+            feedbackMsg.style.display = "none";
+            feedbackMsg.className = "feedback";
+            submitBtn.style.display = "inline-block";
+            nextBtn.style.display = "none";
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+            // 更新進度條
+            const percentage = ((currentIdx) / questions.length) * 100;
+            progressBar.style.width = percentage + "%";
 
-        function startGame(questionList) {
-            questions = [...questionList];
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
+            // 組合題目顯示 (將陣列變成看起來像考卷的斜線分隔)
+            const q = questions[currentIdx];
+            // 把每個單字包在 keyword 樣式裡
+            const htmlPrompt = q.prompt.map(word => `<span class="keyword">${word}</span>`).join(" / ");
             
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameStatus.textContent = '🧙‍♀️';
-            gameStatus.className = '';
+            questionText.innerHTML = `
+                <div>請重組並改寫句子 (Present Perfect)：</div>
+                <div style="margin-top:15px; font-size: 1.2em;">${htmlPrompt}</div>
+                <div class="hint-text">⚠️ 必須自行加入 have/has 並將動詞改為 p.p.</div>
+            `;
+        }
+
+        function checkAnswer() {
+            const userAns = userInput.value.trim();
+            const q = questions[currentIdx];
             
-            showQuestion();
-        }
-
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-            questionEl.textContent = currentQuestion.question;
-
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function resetState() {
-            resultEl.innerHTML = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
+            // 簡單的標準化：移除多餘空白，統一標點 (雖然答案庫有標點，但為了容錯，我們可以寬容一點)
+            // 這裡採用嚴格比對答案庫 (User 必須打對標點)
+            // 如果你希望不檢查標點，可以把下面的檢查邏輯放寬
+            
+            let isCorrect = false;
+            // 檢查是否符合任一標準答案 (忽略大小寫差異，但最好還是鼓勵正確大小寫)
+            if (q.answers.some(ans => ans.toLowerCase() === userAns.toLowerCase() || 
+                                      ans.replace('.','').toLowerCase() === userAns.replace('.','').toLowerCase())) {
+                isCorrect = true;
             }
-            gameStatus.textContent = '🧙‍♀️';
-            gameStatus.className = '';
-        }
 
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
-
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
-
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！';
-                resultEl.style.color = '#2ecc71';
-                gameStatus.textContent = '🎉';
-                gameStatus.classList.add('correct');
+            if (isCorrect) {
+                // 答對
+                feedbackMsg.innerHTML = `
+                    <strong>✅ Correct! 完全正確！</strong><br>
+                    ${q.answers[0]}<br>
+                    <span style="font-size:0.9em; color:#666;">解析：${q.note}</span>
+                `;
+                feedbackMsg.className = "feedback success";
+                feedbackMsg.style.display = "block";
+                submitBtn.style.display = "none";
                 
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
-                    }
-                }, 1200);
+                if (currentIdx < questions.length - 1) {
+                    nextBtn.style.display = "inline-block";
+                } else {
+                    nextBtn.textContent = "完成考試 (Finish)";
+                    nextBtn.style.display = "inline-block";
+                    nextBtn.onclick = () => {
+                        progressBar.style.width = "100%";
+                        alert("太棒了寧寧！你通過了所有測驗！");
+                    };
+                }
             } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！';
-                resultEl.style.color = '#e74c3c';
-                gameStatus.textContent = '😅';
-                gameStatus.classList.add('incorrect');
+                // 答錯 - 進行智慧診斷
+                let errorMsg = "<strong>❌ Try again!</strong><br>";
+                const lowerUser = userAns.toLowerCase();
                 
-                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：<br>${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
+                // 診斷 1: 忘記加 have/has
+                if (!lowerUser.includes("have") && !lowerUser.includes("has") && !lowerUser.includes("'ve") && !lowerUser.includes("'s")) {
+                    errorMsg += "👉 你好像忘記加助動詞 <b>have</b> 或 <b>has</b> 了！<br>";
+                }
+                
+                // 診斷 2: 動詞沒變化 (用了原形)
+                else if (lowerUser.includes(q.verbBase.toLowerCase()) && q.verbBase !== q.verbV3) {
+                    errorMsg += `👉 動詞 <b>${q.verbBase}</b> 還是原形喔！記得改成過去分詞 (p.p.)。<br>`;
+                }
+                
+                // 診斷 3: 用了過去式而不是過去分詞 (例如用 drank 沒用 drunk)
+                // 這需要個別設定，這裡簡單判斷：如果有含 have/has 但沒含正確 p.p.
+                else if (!lowerUser.includes(q.verbV3.toLowerCase())) {
+                    errorMsg += `👉 過去分詞拼寫可能有誤，或者句子結構不對。<br>`;
+                } else {
+                    errorMsg += "👉 句子順序或拼字有誤，請再檢查一次。<br>";
+                }
 
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block';
+                feedbackMsg.innerHTML = errorMsg;
+                feedbackMsg.className = "feedback error";
+                feedbackMsg.style.display = "block";
             }
         }
 
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
-            
-            const scoreEl = document.getElementById('score');
-            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
-
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameStatus.textContent = '🏆';
-                gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Past & Perfect <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.background = '#d4edda';
-                wrongQuestionsEl.style.color = '#155724';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameStatus.textContent = '📝';
-                let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
-                wrongQuestions.forEach((q, index) => {
-                    wrongText += `<p>`;
-                    wrongText += `${index + 1}. ${q.question}<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
-                    wrongText += `</p>`;
-                });
-                wrongQuestionsEl.innerHTML = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.background = '#f8d7da';
-                wrongQuestionsEl.style.color = '#721c24';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
+        function showHint() {
+            const q = questions[currentIdx];
+            alert(`動詞 "${q.verbBase}" 的過去分詞 (V3) 是：${q.verbV3}\n\nSubject + have/has + ${q.verbV3}...`);
         }
-        
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endGame();
+
+        function nextQuestion() {
+            currentIdx++;
+            loadQuestion();
+        }
+
+        // 監聽 Enter 鍵
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                if(submitBtn.style.display !== "none") {
+                    checkAnswer();
+                } else if (nextBtn.style.display !== "none") {
+                    nextQuestion();
+                }
             }
         });
 
-        restartBtn.addEventListener('click', () => startGame(allQuestions));
+        // 啟動
+        loadQuestion();
 
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
-            }
-        });
-
-        startGame(allQuestions);
     </script>
 </body>
 </html>
