@@ -335,6 +335,13 @@
             });
         }
 
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
+        document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                toggleAllAnswers();
+            }
+        });
+
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
