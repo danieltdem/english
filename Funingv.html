@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共16題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,24 +262,22 @@
 
     <script>
         const words = [
-            { en: 'tooth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`too` (太) + `th`。吃`太`(too)多糖果對牙齒不好。' },
-            { en: 'toothache', zh: '牙痛 (ㄧㄚˊ ㄊㄨㄥˋ)', mnemonic: '`tooth` (牙齒) + `ache` (疼痛)。牙齒痛就是 `toothache`。' },
-            { en: 'tummy', zh: '肚子 (ㄉㄨˋ ㄗ˙)', mnemonic: '聽起來像 `yummy` (好吃的)。好吃的東西都吃到肚子 (`tummy`) 裡了。' },
-            { en: 'airport', zh: '機場 (ㄐㄧ ㄔㄤˇ)', mnemonic: '`air` (飛機/空中) + `port` (港口)。飛機停靠的港口就是機場 (`airport`)。' },
-            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '`Am` (我是) + `Erica` (人名)。我是 Erica (`Am Erica`)，我在美國。' },
-            { en: 'Asia', zh: '亞洲 (ㄧㄚˋ ㄓㄡ)', mnemonic: '`As` + `I` + `a`。正如 (`As`) 我 (`I`) 一 (`a`) 個人在亞洲。' },
-            { en: 'Australia', zh: '澳洲 (ㄠˋ ㄓㄡ)', mnemonic: '`Au` (金的化學符號) + `st` (street 街) + `ralia`。澳洲的街道上有金礦。' },
-            { en: 'bakery', zh: '麵包店 (ㄇㄧㄢˋ ㄅㄠ ㄉㄧㄢˋ)', mnemonic: '`bake` (烘焙) + `ry` (場所)。烘焙的地方就是麵包店 (`bakery`)。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`ban` (禁止) + `k` (kick, 踢)。禁止 (`ban`) 踢 (`k`) 銀行的牆壁。' },
-            { en: 'bar', zh: '酒吧 (ㄐㄧㄡˇ ㄅㄚ)', mnemonic: '`b` + `ar` (are)。我們在 (`are`) 酒吧 (`bar`) 裡。' },
-            { en: 'base', zh: '基地 (ㄐㄧ ㄉㄧˋ)', mnemonic: '`ba` (爸) + `se` (色)。爸爸 (`ba`) 的臉色 (`se`) 在基地很嚴肅。' },
-            { en: 'basement', zh: '地下室 (ㄉㄧˋ ㄒㄧㄚˋ ㄕˋ)', mnemonic: '`base` (底部) + `ment` (水泥/名詞字尾)。在底部 (`base`) 的水泥空間就是地下室 (`basement`)。' },
-            { en: 'block', zh: '街區 (ㄐㄧㄝ ㄑㄩ)', mnemonic: '`b` + `lock` (鎖)。別把街道 (`block`) 鎖 (`lock`) 起來。' },
-            { en: 'bookstore', zh: '書店 (ㄕㄨ ㄉㄧㄢˋ)', mnemonic: '`book` (書) + `store` (商店)。賣書的商店就是書店 (`bookstore`)。' },
-            { en: 'bridge', zh: '橋 (ㄑㄧㄠˊ)', mnemonic: '`bri` (bring, 帶) + `dge` (edge, 邊緣)。帶 (`bri`) 我走到邊緣 (`dge`) 過橋 (`bridge`)。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` (英國人) + `ain` (rain, 雨)。英國 (`Britain`) 的英國人 (`Brit`) 總是在淋雨 (`rain`)。' },
-            { en: 'cafeteria', zh: '自助餐廳 (ㄗˋ ㄓㄨˋ ㄘㄢ ㄊㄧㄥ)', mnemonic: '`cafe` (咖啡廳) + `teria` (area, 區域)。像咖啡廳一樣可以自己拿餐的區域就是自助餐廳。' },
-            { en: 'campus', zh: '校園 (ㄒㄧㄠˋ ㄩㄢˊ)', mnemonic: '`camp` (露營) + `us` (我們)。我們 (`us`) 在校園 (`campus`) 裡露營 (`camp`)。' }
+            { en: 'Canada', zh: '加拿大 (ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ)', mnemonic: '`Canada` = `Can` (能夠) + `Ada` (艾達，人名)。艾達能 (`Can`) 去加拿大 (`Canada`)。' },
+            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`castle` (城堡) 裡有 `cast` (演員陣容)。這部電影的演員們住在一座城堡 (`castle`) 裡。' },
+            { en: 'center', zh: '中心 (ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`center` (中心) = `cent` (一分錢) + `er`。我把一分錢 (`cent`) 寄到了中心 (`center`)。' },
+            { en: 'church', zh: '教堂 (ㄐㄧㄠˋ ㄊㄤˊ)', mnemonic: '`ch` + `ur` (you are, 你是) + `ch`。你現在是在教堂 (`church`) 裡。' },
+            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '`city` (城市) 聽起來像 `sit` (坐) + `tea` (茶)。你在城市 (`city`) 裡坐著喝茶。' },
+            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` (海岸) 裡有 `coat` (外套)。因為很冷，所以我在海岸 (`coast`) 上穿著外套 (`coat`)。' },
+            { en: 'company', zh: '公司 (ㄍㄨㄥ ㄙ)', mnemonic: '`com` (come, 來) + `pan` (平底鍋)。來 (`come`) 公司 (`company`) 和大家分享一鍋 (`pan`) 食物。' },
+            { en: 'country', zh: '國家；鄉村 (ㄍㄨㄛˊ ㄐㄧㄚ)', mnemonic: '`count` (數) + `try` (嘗試)。試著 (`try`) 去數 (`count`) 這個國家 (`country`) 裡的樹。' },
+            { en: 'department store', zh: '百貨公司 (ㄅㄞˇ ㄏㄨㄛˋ ㄍㄨㄥ ㄙ)', mnemonic: '`department` (部門) + `store` (商店)。一個有很多不同部門 (`department`) 的商店 (`store`) 就是百貨公司。' },
+            { en: 'downtown', zh: '市中心 (ㄕˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`down` (下去) + `town` (城鎮)。讓我們下去 (`down`) 城鎮 (`town`) 的熱鬧中心，就是市中心 (`downtown`)。' },
+            { en: 'Europe', zh: '歐洲 (ㄡ ㄓㄡ)', mnemonic: '`Europe` (歐洲) 的人使用歐元 (`Euro`)。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`factory` 來自 `fact` (事實/實際)。工廠 (`factory`) 就是製造「實際」物品的地方。' },
+            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '`farm` (農場) 裡有 `arm` (手臂)。你需要強壯的手臂 (`arm`) 才能在農場 (`farm`) 工作。' },
+            { en: 'garage', zh: '車庫 (ㄔㄜ ㄎㄨˋ)', mnemonic: '`gar` (car, 車) + `age` (變老)。車庫 (`garage`) 是讓車子停著變老 (`age`) 的地方。' },
+            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Germ` (細菌) + `any` (任何)。那裡沒有任何 (`any`) 細菌 (`germ`)，那裡是乾淨的德國 (`Germany`)。' },
+            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` (體育館) 和 `swim` (游泳) 押韻。去體育館 (`gym`) 游泳 (`swim`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -361,7 +359,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 批改每一個輸入框
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -451,7 +449,6 @@
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
 
-            // 考試模式：檢查答案 (不分大小寫)
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
