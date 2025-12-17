@@ -262,21 +262,21 @@
 
     <script>
         const words = [
-            { en: 'afternoon', zh: '下午 (ㄒㄧㄚˋ ㄨˇ)', mnemonic: '`after` (之後) + `noon` (中午)。中午之後就是下午 (`afternoon`)。' },
-            { en: 'air', zh: '空氣 (ㄎㄨㄥ ㄑㄧˋ)', mnemonic: '`hair` (頭髮) 去掉 `h` 就是 `air`。呼吸空氣 (`air`) 就像長頭髮一樣自然。' },
-            { en: 'autumn', zh: '秋天 (ㄑㄧㄡ ㄊㄧㄢ)', mnemonic: '`Au` (August/Gold) + `tumn` (turn)。八月 (`Au`) 過後，葉子轉變 (`turn`) 顏色，就是秋天 (`autumn`)。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`bank` 和 `rank` (等級) 押韻。銀行 (`bank`) 在金融界有很高的等級 (`rank`)。' },
-            { en: 'beach', zh: '海灘 (ㄏㄞˇ ㄊㄢ)', mnemonic: '`sea` (海) + `peach` (桃子)。在海 (`sea`) 邊的沙灘 (`beach`) 上吃桃子 (`peach`)。' },
-            { en: 'climate', zh: '氣候 (ㄑㄧˋ ㄏㄡˋ)', mnemonic: '`climb` (爬) + `mate` (夥伴)。如果你和夥伴 (`mate`) 去爬山 (`climb`)，氣候 (`climate`) 會隨高度改變。' },
-            { en: 'dawn', zh: '黎明 (ㄌㄧˊ ㄇㄧㄥˊ)', mnemonic: '`dawn` (黎明) 和 `down` (下) 相反。太陽在黃昏落下 (`down`)，在黎明 (`dawn`) 升起。' },
-            { en: 'diamond', zh: '鑽石 (ㄗㄨㄢˋ ㄕˊ)', mnemonic: '`die` (死) + `a` + `mond`。鑽石 (`diamond`) 是永恆的，它永遠不會死 (`die`)。' },
-            { en: 'earth', zh: '地球 (ㄉㄧˋ ㄑㄧㄡˊ)', mnemonic: '`ear` (耳朵) + `th`。地球 (`earth`) 到處都有耳朵 (`ear`)，它能聽到一切。' },
-            { en: 'electric', zh: '電的 (ㄉㄧㄢˋ ㄉㄜ˙)', mnemonic: '`elect` (選舉) + `ric` (rich, 富有)。如果你被選上 (`elect`)，你會變得像電力 (`electric`) 一樣有權勢和富有 (`rich`)。' },
-            { en: 'environment', zh: '環境 (ㄏㄨㄢˊ ㄐㄧㄥˋ)', mnemonic: '`env` + `iron` (鐵) + `ment`。想像鋼鐵人 (`Iron` Man) 正在保護環境 (`environment`)。' },
-            { en: 'evening', zh: '傍晚 (ㄅㄤ ㄨㄢˇ)', mnemonic: '`even` (平坦/相等) + `ing`。傍晚 (`evening`) 是白天和黑夜變得平衡 (`even`) 的時刻。' },
-            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`flow` (流動) + `er`。花朵 (`flower`) 在風中隨風飄動 (`flow`)。' },
-            { en: 'fog', zh: '霧 (ㄨˋ)', mnemonic: '`fog` (霧) 裡有 `frog` (青蛙)。一隻迷失在霧 (`fog`) 中的青蛙 (`frog`)。' },
-            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`for` (為了) + `rest` (休息)。森林 (`forest`) 是一個適合休息 (`for rest`) 的地方。' }
+            { en: 'grass', zh: '草 (ㄘㄠˇ)', mnemonic: '`grass` (草) 聽起來像 `glass` (玻璃)。別在草地 (`grass`) 上打破玻璃 (`glass`)。' },
+            { en: 'hill', zh: '小山 (ㄒㄧㄠˇ ㄕㄢ)', mnemonic: '`hill` 聽起來像 `ill` (生病的)。爬這座小山 (`hill`) 讓我感覺生病 (`ill`) 了。' },
+            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` + `land`。島嶼 (`island`) 就「是」(`is`) 一塊陸地 (`land`)。' },
+            { en: 'lake', zh: '湖泊 (ㄏㄨˊ ㄅㄛˊ)', mnemonic: '`lake` 和 `cake` (蛋糕) 押韻。我想在湖 (`lake`) 邊吃蛋糕 (`cake`)。' },
+            { en: 'land', zh: '陸地 (ㄌㄨˋ ㄉㄧˋ)', mnemonic: '`land` 和 `hand` (手) 押韻。用你的手 (`hand`) 觸摸陸地 (`land`)。' },
+            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。葉子 (`leaf`) 在秋天會離開 (`leave`) 樹木。' },
+            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)', mnemonic: '`light` (光) + `ning`。閃電 (`lightning`) 就是天空中的強光 (`light`)。' },
+            { en: 'midnight', zh: '午夜 (ㄨˇ ㄧㄝˋ)', mnemonic: '`mid` (middle, 中間) + `night` (夜晚)。夜晚 (`night`) 的中間 (`mid`) 就是午夜 (`midnight`)。' },
+            { en: 'moon', zh: '月亮 (ㄩㄝˋ ㄌㄧㄤˋ)', mnemonic: '`moon` 和 `soon` (很快) 押韻。月亮 (`moon`) 很快 (`soon`) 就會升起。' },
+            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (`mount`) 山 (`mountain`) 時下雨 (`rain`) 了。' },
+            { en: 'nature', zh: '自然 (ㄗˋ ㄖㄢˊ)', mnemonic: '`nature` (自然) 和 `mature` (成熟) 很像。在大自然 (`nature`) 中會讓人變得成熟 (`mature`)。' },
+            { en: 'ocean', zh: '海洋 (ㄏㄞˇ ㄧㄤˊ)', mnemonic: '`O` (Ocean的首字母) + `clean` (乾淨)。我們需要一個乾淨 (`clean`) 的海洋 (`ocean`)。' },
+            { en: 'planet', zh: '行星 (ㄒㄧㄥˊ ㄒㄧㄥ)', mnemonic: '`plan` (計畫) + `net` (網)。捕捉一顆行星 (`planet`) 的計畫 (`plan`) 像網 (`net`) 一樣展開。' },
+            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` 和 `bond` (連結) 押韻。我們在池塘 (`pond`) 邊建立了深厚的連結 (`bond`)。' },
+            { en: 'pool', zh: '水池 (ㄕㄨㄟˇ ㄔˊ)', mnemonic: '`pool` 和 `cool` (涼爽) 押韻。在水池 (`pool`) 游泳很涼爽 (`cool`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -337,7 +337,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派) - 確保 Enter 鍵有效
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -358,7 +358,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框
+                // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
