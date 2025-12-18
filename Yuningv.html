@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,21 +262,27 @@
 
     <script>
         const words = [
-            { en: 'grass', zh: '草 (ㄘㄠˇ)', mnemonic: '`grass` (草) 聽起來像 `glass` (玻璃)。別在草地 (`grass`) 上打破玻璃 (`glass`)。' },
-            { en: 'hill', zh: '小山 (ㄒㄧㄠˇ ㄕㄢ)', mnemonic: '`hill` 聽起來像 `ill` (生病的)。爬這座小山 (`hill`) 讓我感覺生病 (`ill`) 了。' },
-            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` + `land`。島嶼 (`island`) 就「是」(`is`) 一塊陸地 (`land`)。' },
-            { en: 'lake', zh: '湖泊 (ㄏㄨˊ ㄅㄛˊ)', mnemonic: '`lake` 和 `cake` (蛋糕) 押韻。我想在湖 (`lake`) 邊吃蛋糕 (`cake`)。' },
-            { en: 'land', zh: '陸地 (ㄌㄨˋ ㄉㄧˋ)', mnemonic: '`land` 和 `hand` (手) 押韻。用你的手 (`hand`) 觸摸陸地 (`land`)。' },
-            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。葉子 (`leaf`) 在秋天會離開 (`leave`) 樹木。' },
-            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)', mnemonic: '`light` (光) + `ning`。閃電 (`lightning`) 就是天空中的強光 (`light`)。' },
-            { en: 'midnight', zh: '午夜 (ㄨˇ ㄧㄝˋ)', mnemonic: '`mid` (middle, 中間) + `night` (夜晚)。夜晚 (`night`) 的中間 (`mid`) 就是午夜 (`midnight`)。' },
-            { en: 'moon', zh: '月亮 (ㄩㄝˋ ㄌㄧㄤˋ)', mnemonic: '`moon` 和 `soon` (很快) 押韻。月亮 (`moon`) 很快 (`soon`) 就會升起。' },
-            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (`mount`) 山 (`mountain`) 時下雨 (`rain`) 了。' },
-            { en: 'nature', zh: '自然 (ㄗˋ ㄖㄢˊ)', mnemonic: '`nature` (自然) 和 `mature` (成熟) 很像。在大自然 (`nature`) 中會讓人變得成熟 (`mature`)。' },
-            { en: 'ocean', zh: '海洋 (ㄏㄞˇ ㄧㄤˊ)', mnemonic: '`O` (Ocean的首字母) + `clean` (乾淨)。我們需要一個乾淨 (`clean`) 的海洋 (`ocean`)。' },
-            { en: 'planet', zh: '行星 (ㄒㄧㄥˊ ㄒㄧㄥ)', mnemonic: '`plan` (計畫) + `net` (網)。捕捉一顆行星 (`planet`) 的計畫 (`plan`) 像網 (`net`) 一樣展開。' },
-            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` 和 `bond` (連結) 押韻。我們在池塘 (`pond`) 邊建立了深厚的連結 (`bond`)。' },
-            { en: 'pool', zh: '水池 (ㄕㄨㄟˇ ㄔˊ)', mnemonic: '`pool` 和 `cool` (涼爽) 押韻。在水池 (`pool`) 游泳很涼爽 (`cool`)。' }
+            { en: 'rain', zh: '雨 (ㄩˇ)', mnemonic: '`Rain` (雨) 聽起來像 `pain` (痛苦)。淋雨又沒帶傘真的很痛苦 (`pain`)。' },
+            { en: 'rainbow', zh: '彩虹 (ㄘㄞˇ ㄏㄨㄥˊ)', mnemonic: '`Rain` (雨) + `bow` (弓)。雨 (`rain`) 後天空中出現的七彩弓 (`bow`)。' },
+            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)', mnemonic: '`R` + `iver` (diver, 潛水員)。潛水員 (`diver`) 跳進河流 (`river`) 裡。' },
+            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`Rose` (玫瑰) 聽起來像 `rows` (排/列)。玫瑰花通常都種成一排一排 (`rows`) 的。' },
+            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`Sea` (海) 聽起來像 `see` (看)。在大海 (`sea`) 邊你可以看 (`see`) 得很遠。' },
+            { en: 'season', zh: '季節 (ㄐㄧˋ ㄐㄧㄝˊ)', mnemonic: '`Sea` (海) + `son` (兒子)。大海 (`sea`) 的兒子 (`son`) 每個季節 (`season`) 心情都會變。' },
+            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`See` (看見) + `d`。你看見 (`see`) 這顆種子 (`seed`) 長成植物。' },
+            { en: 'shore', zh: '岸邊 (ㄢˋ ㄅㄧㄢ)', mnemonic: '`Shore` (岸邊) 和 `sure` (確定) 押韻。我不確定 (`not sure`) 我們是否到了岸邊 (`shore`)。' },
+            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`Sky` (天空) 和 `fly` (飛) 押韻。鳥兒在天空 (`sky`) 中飛翔 (`fly`)。' },
+            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`Snow` (雪) 和 `slow` (慢) 押韻。雪 (`snow`) 總是慢慢地 (`slow`) 飄下來。' },
+            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`Spring` (春天) 也是「彈簧/跳躍」的意思。花朵在春天 (`spring`) 像彈簧一樣跳出來。' },
+            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '`Star` (星星) 裡有 `tar` (柏油)。星星在像柏油 (`tar`) 一樣黑的夜空中閃耀。' },
+            { en: 'summer', zh: '夏天 (ㄒㄧㄚˋ ㄊㄧㄢ)', mnemonic: '`Sum` (總和) + `mer`。夏天 (`summer`) 是熱量的總和 (`sum`)。' },
+            { en: 'sun', zh: '太陽 (ㄊㄞˋ ㄧㄤˊ)', mnemonic: '`Sun` (太陽) 聽起來像 `son` (兒子)。太陽 (`sun`) 是天空的兒子 (`son`)。' },
+            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`Temper` (脾氣) + `nature` (大自然)。大自然的脾氣 (`temper`) 決定了溫度 (`temperature`)。' },
+            { en: 'tree', zh: '樹 (ㄕㄨˋ)', mnemonic: '`Tree` (樹) 聽起來像 `three` (三)。One, two, three, tree.' },
+            { en: 'typhoon', zh: '颱風 (ㄊㄞˊ ㄈㄥ)', mnemonic: '`Typhoon` (颱風) 聽起來像 `tycoon` (大亨)。颱風 (`typhoon`) 就像風界的大亨 (`tycoon`)，威力強大。' },
+            { en: 'universe', zh: '宇宙 (ㄩˇ ㄓㄡˋ)', mnemonic: '`Uni` (單一) + `verse` (詩句/歌曲)。宇宙 (`universe`) 就像是一首宏大的詩歌。' },
+            { en: 'weather', zh: '天氣 (ㄊㄧㄢ ㄑㄧˋ)', mnemonic: '`Weather` (天氣) 裡有 `eat` (吃) + `her` (她)。天氣 (`weather`) 壞到好像要把她吃 (`eat her`) 掉。' },
+            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '`Win` (贏) + `ter`。冬天 (`winter`) 來了，寒風 (wind) 贏了 (`win`)。' },
+            { en: 'world', zh: '世界 (ㄕˋ ㄐㄧㄝˋ)', mnemonic: '`Work` (工作) + `old` (老的)。這個世界 (`world`) 很老 (`old`) 而且充滿了工作 (`work`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -358,7 +364,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 批改每一個輸入框 (全部轉小寫比較，實現不分大小寫)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -444,6 +450,7 @@
                 return;
             }
 
+            // 全部轉小寫比較，實現不分大小寫
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
