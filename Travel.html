@@ -3,275 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的福岡之旅 + iPhone 驗機神器</title>
+    <title>寧寧的福岡親子行 (V8.1)</title>
     <style>
         :root {
-            /* 行程表配色 */
-            --primary-color: #d35400; /* 福岡明太子色 */
+            --primary-color: #d35400; 
             --secondary-color: #2c3e50;
-            --bg-color: #fdfbf7;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --accent-blue: #3498db;
-            
-            /* iPhone 驗機配色 */
-            --iphone-blue: #007AFF;
-            --iphone-green: #34C759;
-            --iphone-text: #1C1C1E;
+            --transport-bg: #e1f5fe;
+            --transport-text: #01579b;
+            --highlight-bg: #fff8e1;
+            --highlight-text: #5d4037;
         }
 
         body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Sans TC", "Microsoft JhengHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--secondary-color);
             line-height: 1.6;
             margin: 0;
             padding: 0;
+            padding-bottom: 100px;
         }
 
-        /* --- Header Styles --- */
         header {
             background: linear-gradient(135deg, #FF8008, #FFC837);
             color: white;
             padding: 2rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        header h1 { margin: 0; font-size: 1.6rem; }
-        header p { margin-top: 0.5rem; opacity: 0.9; }
+        header h1 { margin: 0; font-size: 1.5rem; }
+        header p { margin-top: 0.5rem; opacity: 0.9; font-size: 0.9rem; }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 15px;
         }
 
-        /* --- Alert Box --- */
-        .alert-box {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-        .alert-box h3 { margin-top: 0; color: #856404; font-size: 1.1rem; }
-
-        /* --- Navigation Tabs --- */
+        /* 置頂選單 */
         .tabs {
             display: flex;
             overflow-x: auto;
-            gap: 10px;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            padding: 15px 10px;
+            margin: 0 -15px 20px -15px; 
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             scrollbar-width: none; 
         }
         .tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            background: #e0e0e0;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            padding: 8px 16px;
+            border-radius: 25px;
             white-space: nowrap;
             cursor: pointer;
             font-weight: bold;
-            color: #555;
-            transition: all 0.3s ease;
+            color: #495057;
+            transition: all 0.2s ease;
             flex-shrink: 0;
+            font-size: 0.9rem;
         }
-
-        .tab-btn small { display: block; font-size: 0.75rem; font-weight: normal; }
-
+        .tab-btn small { display: block; font-size: 0.7rem; font-weight: normal; margin-top: 2px;}
+        
         .tab-btn.active {
             background: var(--primary-color);
             color: white;
-            box-shadow: 0 2px 5px rgba(211, 84, 0, 0.4);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(211, 84, 0, 0.3);
         }
+        
+        .tab-btn.tool-btn { background: #343a40; color: #fff; border-color: #343a40; }
+        .tab-btn.tool-btn.active { background: #007AFF; border-color: #007AFF; }
 
-        /* 特別給驗機按鈕的樣式 */
-        .tab-btn.tool-btn {
-            background: #2c3e50;
-            color: #fff;
-        }
-        .tab-btn.tool-btn.active {
-            background: var(--iphone-blue);
-            box-shadow: 0 2px 5px rgba(0, 122, 255, 0.4);
-        }
-
-        /* --- Content Area --- */
-        .day-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
+        /* 內容區塊 */
+        .day-content { display: none; animation: fadeIn 0.4s; }
         .day-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Timeline Styles (Itinerary) --- */
+        /* 行程卡片 */
         .timeline-item {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-left: 6px solid var(--accent-blue);
+            position: relative;
         }
         .timeline-item.food { border-left-color: var(--primary-color); }
+        .timeline-item.shopping { border-left-color: #e74c3c; }
 
-        .time { font-weight: bold; color: #7f8c8d; font-size: 0.9rem; display: block; margin-bottom: 5px; }
-        .activity-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 8px; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
-        .tags { font-size: 0.8rem; background: #eee; padding: 2px 8px; border-radius: 4px; color: #666; margin-left: auto; }
-        .desc { font-size: 0.95rem; color: #555; margin-bottom: 10px; }
-        
-        .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-        .btn-link { text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; transition: background 0.2s; }
-        .btn-map { background-color: #e8f4f8; color: #2980b9; }
-        .btn-web { background-color: #fef5e7; color: #d35400; }
-        .teacher-tip { background-color: #fff8e1; padding: 10px; border-radius: 8px; font-size: 0.9rem; border: 1px dashed #f1c40f; margin-top: 10px; }
-
-        /* --- iPhone Checklist Styles --- */
-        .iphone-badge {
-            display: inline-block;
-            background: #FF9500;
+        /* 標籤 */
+        .time-badge {
+            background: #2c3e50;
             color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .activity-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .location-tag {
+            font-size: 0.8rem;
+            color: #666;
+            background: #f1f3f5;
             padding: 2px 8px;
             border-radius: 4px;
-            font-size: 12px;
-            vertical-align: middle;
-            margin-left: 10px;
+            font-weight: normal;
         }
 
-        .progress-container {
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            height: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background-color: var(--iphone-green);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .check-section {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-
-        .check-title {
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            color: var(--iphone-text);
-        }
-
-        .checklist-item {
+        /* 交通區塊 */
+        .transport-box {
+            background-color: var(--transport-bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--transport-text);
             display: flex;
+            gap: 12px;
             align-items: flex-start;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
         }
-        .checklist-item:last-child { border-bottom: none; }
-
-        .checklist-item input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            margin-right: 15px;
-            margin-top: 2px;
-            cursor: pointer;
-            accent-color: var(--iphone-green);
+        .transport-icon { font-size: 1.4rem; line-height: 1.2; }
+        .line-badge {
+            display: inline-block;
+            padding: 0px 4px;
+            border-radius: 3px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0 2px;
+            vertical-align: text-bottom;
         }
+        .line-k { background-color: #ea5404; } /* 空港線 */
+        .line-n { background-color: #00b259; } /* 七隈線 */
 
-        .checklist-item label { cursor: pointer; flex: 1; color: var(--iphone-text); }
-        .checklist-item .note { font-size: 13px; color: #888; margin-top: 4px; display: block; }
-        .critical { color: #ff3b30; font-weight: bold; }
-
-        /* Screen Test Buttons */
-        .screen-test-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
+        /* 重點介紹 */
+        .highlight-box {
+            background-color: var(--highlight-bg);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--highlight-text);
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
+        .highlight-title { font-weight: bold; color: #d35400; margin-right: 5px; }
 
-        .test-btn {
-            border: 1px solid #ccc;
+        /* 按鈕連結 */
+        .links { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin-top: 15px;
+        }
+        .btn-link {
+            text-decoration: none;
             padding: 10px;
             border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
             text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
         }
+        .btn-map { background-color: #e3f2fd; color: #1976d2; border: 1px solid #bbdefb; }
+        .btn-web { background-color: #fff3e0; color: #f57c00; border: 1px solid #ffe0b2; }
+        .btn-link:active { transform: scale(0.96); }
 
-        /* Fullscreen Overlay for Test */
-        #testOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            display: none;
-            cursor: pointer;
-        }
-        .overlay-hint {
-            position: absolute;
-            bottom: 50px;
-            width: 100%;
-            text-align: center;
-            color: rgba(128, 128, 128, 0.5);
-            font-size: 20px;
-            pointer-events: none;
-        }
-
-        .status-message {
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
+        /* 提示框 */
+        .tips-box {
+            background-color: #ffffff;
             padding: 15px;
-            background-color: #d1fae5;
-            color: #065f46;
-            border-radius: 8px;
-            display: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            border: 2px solid #e9ecef;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-top: 40px;
-            border-top: 1px solid #eee;
-        }
+        /* iPhone Checklist Styles */
+        .progress-container { background: #e9ecef; height: 10px; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: #28a745; width: 0%; transition: width 0.3s; }
+        .check-section { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .check-title { font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 10px; }
+        .checklist-item { display: flex; padding: 8px 0; border-bottom: 1px solid #f8f9fa; }
+        .checklist-item label { margin-left: 10px; cursor: pointer; flex: 1; }
+        .screen-test-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .test-btn { padding: 15px; text-align: center; border: 1px solid #ddd; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        footer { text-align: center; padding: 20px; color: #adb5bd; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>✈️ 寧寧的福岡之旅</h1>
-    <p>2025/12/27 - 2026/01/03 & iPhone 驗機</p>
+    <h1>✈️ 寧寧的福岡親子行</h1>
+    <p>2025/12/27 - 2026/01/03 (V8.1)</p>
 </header>
 
 <div class="container">
 
-    <div class="alert-box">
-        <h3>⚠️ 老師的小提醒：</h3>
-        <ul>
-            <li><strong>跨年：</strong> 12/31 晚餐要提早準備，1/1 百貨公司全休。</li>
-            <li><strong>驗機：</strong> 購買日版 iPhone 請務必使用「驗機分頁」檢查是否鎖機！</li>
+    <div class="tips-box">
+        <h3 style="margin:0 0 10px 0; color:#2e7d32; display:flex; align-items:center;">
+            <span style="font-size:1.5rem; margin-right:8px;">🎫</span> 交通與網路重點
+        </h3>
+        <ul style="margin:0; padding-left:20px; color:#555;">
+            <li><strong>地鐵一日券 (ファミちか)：</strong> 1000円/家庭。在售票機購買。僅限地鐵 (空港線/七隈線)。</li>
+            <li><strong>博多站轉乘：</strong> 轉乘七隈線不用出站，請走付費區內的聯絡通道 (約3分鐘)。</li>
+            <li><strong>網路：</strong> 記得在台灣先買好 eSIM，落地開機即可用。</li>
         </ul>
     </div>
 
@@ -284,270 +247,454 @@
         <button class="tab-btn" onclick="openDay(event, 'day6')">Day 6<br><small>01/01</small></button>
         <button class="tab-btn" onclick="openDay(event, 'day7')">Day 7<br><small>01/02</small></button>
         <button class="tab-btn" onclick="openDay(event, 'day8')">Day 8<br><small>01/03</small></button>
-        <button class="tab-btn tool-btn" onclick="openDay(event, 'iphone-check')">📱 驗機<br><small>Checklist</small></button>
+        <button class="tab-btn tool-btn" onclick="openDay(event, 'iphone-check')">📱 驗機</button>
     </div>
 
     <div id="day1" class="day-content active">
         <div class="timeline-item">
-            <span class="time">11:30 - 14:30</span>
-            <div class="activity-title">抵達與午餐 <span class="tags">博多站</span></div>
-            <div class="desc">抵達福岡機場，搭地鐵至博多站。午餐建議在 DEITOS 麵街道吃拉麵。</div>
+            <span class="time-badge">14:00</span>
+            <div class="activity-title">飯店 Check-in <span class="location-tag">博多站</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵空港線：</strong><br>
+                    上車：<span class="line-badge line-k">K13</span>福岡機場<br>
+                    下車：<span class="line-badge line-k">K11</span>博多 (2站即達)
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>飯店就在博多站筑紫口步行 1 分鐘，不用過馬路。大廳有免費咖啡機。午餐建議在車站內的「博多麵街道 (DEITOS 2F)」解決。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Hakata+Deitos" target="_blank" class="btn-link btn-map">📍 博多 DEITOS</a>
+                <a href="https://maps.app.goo.gl/9Q1Q1Q1Q1Q1Q1Q1Q1" target="_blank" class="btn-link btn-map">📍 Forza Hotel 2館</a>
+                <a href="https://www.hotelforza.jp/hakata2/" target="_blank" class="btn-link btn-web">🌐 飯店官網</a>
             </div>
         </div>
-        <div class="timeline-item food">
-            <span class="time">15:30</span>
-            <div class="activity-title">下午茶：Full Full 麵包 <span class="tags">美食目標</span></div>
-            <div class="desc">著名的明太子法國麵包。天神店較有氣氛，運河城旁也有分店。</div>
+        
+        <div class="timeline-item shopping">
+            <span class="time-badge">15:00</span>
+            <div class="activity-title">🎯 任務：買 iPhone 17 <span class="location-tag">Yodobashi</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚶</span>
+                <div>
+                    <strong>步行：</strong> 從飯店門口出來，往右看就是 Yodobashi 大樓 (走路 2 分鐘)。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>
+                1. 記得帶護照退稅。<br>
+                2. 爸爸買手機，媽媽帶小孩去 3F 玩具區 (有Tomica) 或 B1 扭蛋區。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Full+Full+Tenjin+Pan" target="_blank" class="btn-link btn-map">📍 Full Full 天神店</a>
+                <a href="https://maps.app.goo.gl/yodobashi-hakata" target="_blank" class="btn-link btn-map">📍 Yodobashi Camera</a>
+                <a href="https://www.yodobashi.com/ec/store/0088/" target="_blank" class="btn-link btn-web">🌐 樓層介紹</a>
             </div>
         </div>
+
         <div class="timeline-item food">
-            <span class="time">20:00</span>
-            <div class="activity-title">晚餐：元祖牛腸鍋 樂天地 <span class="tags">必吃</span></div>
-            <div class="desc">福岡必吃美食！強烈建議事先上網預約。</div>
+            <span class="time-badge">17:00</span>
+            <div class="activity-title">Full Full 麵包下午茶 <span class="location-tag">天神</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵空港線 (用一日券)：</strong><br>
+                    上車：<span class="line-badge line-k">K11</span>博多 ➔ 下車：<span class="line-badge line-k">K08</span>天神
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">必吃推薦：</span>「明太子法國麵包」是福岡名物！外酥內軟，明太子醬滿滿。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Ganso+Motsunabe+Rakutenchi+Tenjin" target="_blank" class="btn-link btn-map">📍 天神本店/分店</a>
-                <a href="https://rakutenti.com/" target="_blank" class="btn-link btn-web">🌐 預約官網</a>
+                <a href="https://maps.app.goo.gl/fullfull-tenjin" target="_blank" class="btn-link btn-map">📍 Full Full 天神店</a>
+                <a href="https://full-full.jp/" target="_blank" class="btn-link btn-web">🌐 官網/菜單</a>
+            </div>
+        </div>
+
+        <div class="timeline-item food">
+            <span class="time-badge">19:30</span>
+            <div class="activity-title">晚餐：元祖牛腸鍋 樂天地 <span class="location-tag">天神</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚶</span>
+                <div>
+                    <strong>步行：</strong> 就在天神站附近的 Solaria Stage 或本店，步行約 5-8 分鐘。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>福岡靈魂美食！韭菜堆得像山一樣高，湯頭是醬油口味。建議預約，以免排隊。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/rakutenchi-tenjin" target="_blank" class="btn-link btn-map">📍 樂天地 天神本店</a>
+                <a href="https://rakutenti.com/" target="_blank" class="btn-link btn-web">🌐 官網/預約</a>
             </div>
         </div>
     </div>
 
     <div id="day2" class="day-content">
         <div class="timeline-item">
-            <span class="time">09:30 - 14:00</span>
-            <div class="activity-title">福岡市動物園 <span class="tags">重要時程</span></div>
-            <div class="desc">⚠️ 關鍵行程：動物園 12/29 起休園，今天是唯一機會！午餐可在藥院周邊享用。</div>
+            <span class="time-badge">09:30</span>
+            <div class="activity-title">福岡市動物園 <span class="location-tag">最後開園日</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>1. 地鐵七隈線：</strong> <span class="line-badge line-n">N18</span>博多 ➔ <span class="line-badge line-n">N13</span>藥院大通<br>
+                    <strong>2. 步行：</strong> 2號出口出來，沿大路走約 15 分鐘 (省公車錢)。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>一定要今天去，明天就休園了！新改裝的區域可以近距離看企鵝游泳和老虎。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+City+Zoo" target="_blank" class="btn-link btn-map">📍 福岡市動物園</a>
+                <a href="https://maps.app.goo.gl/fukuoka-zoo" target="_blank" class="btn-link btn-map">📍 福岡市動物園</a>
+                <a href="https://zoo.city.fukuoka.lg.jp/" target="_blank" class="btn-link btn-web">🌐 官網/園區圖</a>
             </div>
         </div>
+
         <div class="timeline-item">
-            <span class="time">15:00 - 17:00</span>
-            <div class="activity-title">大濠公園 / 福岡城跡 <span class="tags">散步</span></div>
-            <div class="desc">在湖邊散步，享受午後悠閒時光。</div>
+            <span class="time-badge">14:00</span>
+            <div class="activity-title">大濠公園 & 福岡城跡 <span class="location-tag">散步</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵轉乘 (不用出站)：</strong><br>
+                    1. 七隈線 <span class="line-badge line-n">N13</span>藥院大通 ➔ <span class="line-badge line-n">N18</span>博多<br>
+                    2. 轉空港線 ➔ <span class="line-badge line-k">K06</span>大濠公園
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>福岡的中央公園。可以帶小孩踩天鵝船，或者去湖邊的特色星巴克喝咖啡休息。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Ohori+Park" target="_blank" class="btn-link btn-map">📍 大濠公園</a>
+                <a href="https://maps.app.goo.gl/ohori-park" target="_blank" class="btn-link btn-map">📍 大濠公園</a>
+                <a href="https://www.ohorikouen.jp/" target="_blank" class="btn-link btn-web">🌐 官網</a>
             </div>
         </div>
+
         <div class="timeline-item food">
-            <span class="time">18:00</span>
-            <div class="activity-title">中洲屋台體驗 <span class="tags">晚餐</span></div>
-            <div class="desc">體驗福岡獨特的屋台文化 (路邊攤)，推薦拉麵、關東煮。</div>
+            <span class="time-badge">18:00</span>
+            <div class="activity-title">中洲屋台 (路邊攤) <span class="location-tag">體驗</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵空港線：</strong><br>
+                    上車：<span class="line-badge line-k">K06</span>大濠公園 ➔ 下車：<span class="line-badge line-k">K09</span>中洲川端
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>沿著那珂川散步，看燈籠亮起的夜景。因為帶著小孩，不一定要坐下來吃(位子小)，可以買關東煮外帶或純拍照。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/nakasu-yatai" target="_blank" class="btn-link btn-map">📍 中洲屋台街</a>
+                <a href="https://yokanavi.com/zh-tw/yatai/" target="_blank" class="btn-link btn-web">🌐 屋台指南</a>
+            </div>
         </div>
     </div>
 
     <div id="day3" class="day-content">
         <div class="timeline-item">
-            <span class="time">10:00 - 18:00</span>
-            <div class="activity-title">天神深度購物 <span class="tags">購物</span></div>
-            <div class="desc">天神地下街、大丸百貨、三越。</div>
-            <div class="teacher-tip">💡 修正提醒：原訂 IMS 大樓已拆除，午餐建議改至 **福岡 PARCO** (B1美食街)。</div>
+            <span class="time-badge">09:00</span>
+            <div class="activity-title">柳川遊船 <span class="location-tag">傳統體驗</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇+🚃</span>
+                <div>
+                    <strong>Step 1:</strong> 地鐵博多 ➔ 天神<br>
+                    <strong>Step 2:</strong> 走路到西鐵天神站，買「太宰府柳川套票」，搭特急電車到「西鐵柳川」。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>冬天船上有「暖被桌」(Kotatsu)！必吃名物「蒸籠鰻魚飯」(推薦本吉屋或若松屋)。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Tenjin+Underground+Shopping+Center" target="_blank" class="btn-link btn-map">📍 天神地下街</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+PARCO" target="_blank" class="btn-link btn-map">📍 福岡 PARCO</a>
+                <a href="https://maps.app.goo.gl/yanagawa-boat" target="_blank" class="btn-link btn-map">📍 柳川乘船處</a>
+                <a href="https://www.yanagawakk.co.jp/" target="_blank" class="btn-link btn-web">🌐 遊船官網</a>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <span class="time-badge">14:30</span>
+            <div class="activity-title">太宰府天滿宮 <span class="location-tag">求學業</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚃</span>
+                <div>
+                    <strong>西鐵電車：</strong> 柳川 ➔ 二日市(換車) ➔ 太宰府站
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>供奉學問之神，求學業超靈！表參道必吃現烤「梅枝餅」，還有隈研吾設計的木條星巴克。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/dazaifu" target="_blank" class="btn-link btn-map">📍 太宰府天滿宮</a>
+                <a href="https://www.dazaifutenmangu.or.jp/" target="_blank" class="btn-link btn-web">🌐 官網</a>
+            </div>
+        </div>
+
+        <div class="timeline-item food">
+            <span class="time-badge">19:00</span>
+            <div class="activity-title">晚餐：博多華味鳥 <span class="location-tag">水炊鍋</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚃</span>
+                <div>
+                    <strong>回程：</strong> 西鐵太宰府 ➔ 西鐵福岡(天神)站。<br>
+                    餐廳就在天神站附近，走路即達。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>福岡著名的雞肉火鍋，湯頭充滿膠原蛋白，清淡鮮美，非常適合小朋友。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/hanamidori-tenjin" target="_blank" class="btn-link btn-map">📍 華味鳥 天神店</a>
+                <a href="https://www.hanamidori.net/" target="_blank" class="btn-link btn-web">🌐 官網/菜單</a>
             </div>
         </div>
     </div>
 
     <div id="day4" class="day-content">
         <div class="timeline-item">
-            <span class="time">09:00 - 13:00</span>
-            <div class="activity-title">太宰府天滿宮 <span class="tags">文化</span></div>
-            <div class="desc">參拜學問之神，必吃「梅枝餅」。</div>
+            <span class="time-badge">09:00</span>
+            <div class="activity-title">前往門司港 <span class="location-tag">JR鐵道</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚆</span>
+                <div>
+                    <strong>JR 鹿兒島本線 (快速)：</strong><br>
+                    上車：博多站 ➔ 下車：門司港站 (終點站，約90分)<br>
+                    <small>*JR不能用地鐵券，請刷IC卡或買票</small>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>門司港站本身就是大正時期的古蹟，拍照超美。車站旁有「九州鐵道紀念館」，可以讓小孩開迷你火車。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Dazaifu+Tenmangu" target="_blank" class="btn-link btn-map">📍 太宰府天滿宮</a>
+                <a href="https://maps.app.goo.gl/mojiko-station" target="_blank" class="btn-link btn-map">📍 門司港車站</a>
+                <a href="http://www.k-rhm.jp/" target="_blank" class="btn-link btn-web">🌐 鐵道紀念館</a>
             </div>
         </div>
+
         <div class="timeline-item">
-            <span class="time">14:00 - 17:00</span>
-            <div class="activity-title">柳川遊船 <span class="tags">體驗</span></div>
-            <div class="desc">搭乘小舟遊覽水鄉，冬季船上有暖桌 (Kotatsu)。</div>
+            <span class="time-badge">11:30</span>
+            <div class="activity-title">唐戶市場 & 燒咖哩 <span class="location-tag">跨海體驗</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚢</span>
+                <div>
+                    <strong>關門連絡船 (5分鐘)：</strong><br>
+                    門司港棧橋 ➔ 唐戶棧橋 (單程400円)
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>搭船去對岸吃海鮮！雖然不是壽司週末，但年底市場很有氣氛。午餐推薦回門司港吃焗烤「燒咖哩」。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Yanagawa+River+Cruising" target="_blank" class="btn-link btn-map">📍 柳川遊船搭乘處</a>
+                <a href="https://maps.app.goo.gl/karato-market" target="_blank" class="btn-link btn-map">📍 唐戶市場</a>
+                <a href="https://www.karatoichiba.com/" target="_blank" class="btn-link btn-web">🌐 市場官網</a>
             </div>
         </div>
     </div>
 
     <div id="day5" class="day-content">
         <div class="timeline-item">
-            <span class="time">10:00 - 15:00</span>
-            <div class="activity-title">博多運河城 <span class="tags">跨年日</span></div>
-            <div class="desc">午餐在此解決最方便。</div>
+            <span class="time-badge">10:00</span>
+            <div class="activity-title">福岡塔 <span class="location-tag">除夕</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇+🚶</span>
+                <div>
+                    <strong>地鐵空港線：</strong> 博多 ➔ <span class="line-badge line-k">K04</span>西新。<br>
+                    從1號出口沿著商店街散步約 20 分鐘抵達。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>日本最高的海濱塔，360度看海景。這天是除夕，看完可以去前面的「百道海濱公園」沙灘走走。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Canal+City+Hakata" target="_blank" class="btn-link btn-map">📍 博多運河城</a>
+                 <a href="https://maps.app.goo.gl/fukuoka-tower" target="_blank" class="btn-link btn-map">📍 福岡塔</a>
+                 <a href="https://www.fukuokatower.co.jp/" target="_blank" class="btn-link btn-web">🌐 官網/門票</a>
             </div>
         </div>
-        <div class="timeline-item">
-            <span class="time">15:30 - 17:30</span>
-            <div class="activity-title">福岡塔 / 海濱百道 <span class="tags">景點</span></div>
-            <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Fukuoka+Tower" target="_blank" class="btn-link btn-map">📍 福岡塔</a>
+
+        <div class="timeline-item shopping">
+            <span class="time-badge">15:00</span>
+            <div class="activity-title">博多運河城 + 跨年採買 <span class="location-tag">重要</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵轉乘 (全程一日券)：</strong><br>
+                    1. 走回 <span class="line-badge line-k">K04</span>西新站 ➔ 搭至 <span class="line-badge line-k">K11</span>博多<br>
+                    2. 站內轉七隈線 ➔ 搭至 <span class="line-badge line-n">N04</span>櫛田神社前 (下車即達運河城)
+                </div>
             </div>
-        </div>
-        <div class="timeline-item food">
-            <span class="time">19:00</span>
-            <div class="activity-title">跨年夜晚餐與準備 <span class="tags">重要</span></div>
-            <div class="teacher-tip">⚠️ 警告：今晚餐廳極早打烊！建議在博多阪急 B1 或超市買好豪華熟食回飯店慶祝。</div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>運河城有 Jump Shop 和定時噴水秀。傍晚務必去博多阪急 B1 買豪華熟食(壽司/炸雞)，回飯店倒數！
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/canal-city" target="_blank" class="btn-link btn-map">📍 博多運河城</a>
+                <a href="https://canalcity.co.jp/zh-tw" target="_blank" class="btn-link btn-web">🌐 官網</a>
+            </div>
         </div>
     </div>
 
     <div id="day6" class="day-content">
         <div class="timeline-item">
-            <span class="time">09:00 - 11:00</span>
-            <div class="activity-title">初詣 (新年參拜) <span class="tags">元旦</span></div>
-            <div class="desc">前往 **住吉神社** 或 **櫛田神社**。</div>
+            <span class="time-badge">10:00</span>
+            <div class="activity-title">住吉神社 (初詣) <span class="location-tag">元旦</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚶</span>
+                <div>
+                    <strong>步行：</strong> 從飯店走路約 10-15 分鐘。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>體驗日本人的新年參拜 (初詣)，抽個籤看看今年的運勢！(記得帶5円硬幣)。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Sumiyoshi+Shrine+Fukuoka" target="_blank" class="btn-link btn-map">📍 住吉神社</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Kushida+Shrine" target="_blank" class="btn-link btn-map">📍 櫛田神社</a>
+                <a href="https://maps.app.goo.gl/sumiyoshi-shrine" target="_blank" class="btn-link btn-map">📍 住吉神社</a>
             </div>
         </div>
+
+        <div class="timeline-item shopping">
+            <span class="time-badge">12:30</span>
+            <div class="activity-title">MARK IS 福岡百道 <span class="location-tag">午餐</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵空港線：</strong> 博多 ➔ <span class="line-badge line-k">K05</span>唐人町。<br>
+                    沿指標步行約 12 分鐘 (PayPay巨蛋旁)。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>1月1日少數有營業的大型商場！美食街選擇多，不怕沒飯吃。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/markis-momochi" target="_blank" class="btn-link btn-map">📍 MARK IS 福岡百道</a>
+                <a href="https://www.mec-markis.jp/fukuoka-momochi/" target="_blank" class="btn-link btn-web">🌐 官網</a>
+            </div>
+        </div>
+
         <div class="timeline-item">
-            <span class="time">12:00</span>
-            <div class="activity-title">午餐備案 <span class="tags">注意</span></div>
-            <div class="desc">今日百貨公司全休。午餐建議：博多運河城。</div>
+            <span class="time-badge">14:30</span>
+            <div class="activity-title">BOSS E・ZO FUKUOKA <span class="location-tag">光影展</span></div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>就在 MARK IS 隔壁。推薦 <strong>teamLab Forest</strong>，用手機抓動物的光影互動，小孩超愛！
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/ezofukuoka" target="_blank" class="btn-link btn-map">📍 BOSS E・ZO</a>
+                <a href="https://e-zofukuoka.com/teamlabforest/" target="_blank" class="btn-link btn-web">🌐 teamLab 官網</a>
+            </div>
         </div>
     </div>
 
     <div id="day7" class="day-content">
         <div class="timeline-item">
-            <span class="time">全日</span>
-            <div class="activity-title">🛍️ 初賣 & 福袋大戰 <span class="tags">重點行程</span></div>
-            <div class="teacher-tip">💡 修正行程：原訂唐戶市場今日休市，建議將火力集中在博多/天神市區搶購福袋！</div>
+            <span class="time-badge">09:30</span>
+            <div class="activity-title">海之中道水族館 <span class="location-tag">室內行程</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚆</span>
+                <div>
+                    <strong>JR 香椎線：</strong> 博多 ➔ 香椎(轉乘) ➔ 海之中道站。<br>
+                    出站即達。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>1/2 最佳去處。避開市區搶福袋人潮，必看海豚海獅秀、大水槽，還有鯊魚下巴骨骼標本。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=JR+Hakata+City" target="_blank" class="btn-link btn-map">📍 JR 博多城 (AMU)</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Tenjin+Daimaru" target="_blank" class="btn-link btn-map">📍 天神大丸百貨</a>
+                <a href="https://maps.app.goo.gl/marine-world" target="_blank" class="btn-link btn-map">📍 海洋世界海之中道</a>
+                <a href="https://marine-world.jp/zh-tw/" target="_blank" class="btn-link btn-web">🌐 官網/表演時刻</a>
+            </div>
+        </div>
+
+        <div class="timeline-item food">
+            <span class="time-badge">18:00</span>
+            <div class="activity-title">晚餐：燒肉多牛 <span class="location-tag">必吃</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚶</span>
+                <div>
+                    <strong>步行：</strong> 離博多站/飯店約 10-15 分鐘路程。
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>福岡CP值最高的和牛燒肉！不能預約，建議 16:30 派爸爸先去門口寫名字排隊。
+            </div>
+            <div class="links">
+                <a href="https://maps.app.goo.gl/tagyu" target="_blank" class="btn-link btn-map">📍 燒肉多牛 (博多站南店)</a>
             </div>
         </div>
     </div>
 
     <div id="day8" class="day-content">
         <div class="timeline-item">
-            <span class="time">09:00 - 13:00</span>
-            <div class="activity-title">最後採買與整理 <span class="tags">回程</span></div>
-            <div class="desc">博多站 Ming 伴手禮街採買。</div>
+            <span class="time-badge">09:00</span>
+            <div class="activity-title">最後採買 <span class="location-tag">博多站</span></div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>去博多站內的「Ming」名產街買伴手禮 (小雞饅頭、明太子、博多通饅頭)。
+            </div>
             <div class="links">
-                <a href="https://www.google.com/maps/search/?api=1&query=Ming+Hakata" target="_blank" class="btn-link btn-map">📍 Ming 伴手禮街</a>
+                <a href="https://maps.app.goo.gl/ming-hakata" target="_blank" class="btn-link btn-map">📍 Ming 伴手禮街</a>
             </div>
         </div>
+
         <div class="timeline-item">
-            <span class="time">14:00</span>
-            <div class="activity-title">前往機場 <span class="tags">地鐵</span></div>
-            <div class="desc">搭乘地下鐵空港線前往福岡機場 (約 5 分鐘)。</div>
+            <span class="time-badge">14:00</span>
+            <div class="activity-title">前往機場 <span class="location-tag">回程</span></div>
+            <div class="transport-box">
+                <span class="transport-icon">🚇</span>
+                <div>
+                    <strong>地鐵空港線：</strong> <span class="line-badge line-k">K11</span>博多 ➔ <span class="line-badge line-k">K13</span>福岡機場
+                </div>
+            </div>
+            <div class="highlight-box">
+                <span class="highlight-title">重點介紹：</span>機場免稅店人很多，請務必提早 3 小時抵達。
+            </div>
         </div>
     </div>
 
     <div id="iphone-check" class="day-content">
         <div style="text-align:center; margin-bottom: 20px;">
             <h2 style="margin-bottom: 5px;">iPhone 17 驗機清單</h2>
-            <span class="iphone-badge">日本 eSIM 特別版</span>
+            <span style="background:#FF9500; color:white; padding:2px 8px; border-radius:4px; font-size:0.8rem;">日本免稅店版</span>
         </div>
-        <p style="text-align:center; color:#666; font-size: 0.9rem;">
-            針對無實體 SIM 卡槽機型設計。<br>購買當下請務必檢查「鎖機狀態」。
-        </p>
-
+        
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
         </div>
-
+        
         <div class="check-section">
-            <div class="check-title">🔒 第一關：鎖機檢查 (最關鍵)</div>
-            
+            <div class="check-title">🔒 關鍵檢查</div>
             <div class="checklist-item">
                 <input type="checkbox" id="check1" onchange="updateProgress()">
-                <label for="check1"><span class="critical">確認無 SIM 卡限制</span>
-                    <span class="note">設定 > 一般 > 關於本機 > 電信業者鎖定。<br>必須顯示「No SIM restrictions」。</span>
-                </label>
+                <label for="check1"><strong>確認無鎖 (SIM-Free)</strong><br><small style="color:#666">設定 > 一般 > 關於本機 > 電信業者鎖定：No SIM restrictions</small></label>
             </div>
-            
             <div class="checklist-item">
                 <input type="checkbox" id="check2" onchange="updateProgress()">
-                <label for="check2">確認是無卡槽版本
-                    <span class="note">檢查機身側邊是否真的沒有開孔 (避免買錯型號)。</span>
-                </label>
+                <label for="check2">確認容量與顏色 (看盒子背面)</label>
             </div>
         </div>
-
+        
         <div class="check-section">
-            <div class="check-title">🔍 第二關：外觀與鏡頭</div>
-            
+            <div class="check-title">🔍 外觀與螢幕</div>
             <div class="checklist-item">
                 <input type="checkbox" id="check3" onchange="updateProgress()">
-                <label for="check3">邊框與螢幕無刮痕、無撞傷</label>
+                <label for="check3">邊框無刮痕 (拆封當下立刻看)</label>
             </div>
-            
             <div class="checklist-item">
                 <input type="checkbox" id="check4" onchange="updateProgress()">
-                <label for="check4"><span class="critical">後鏡頭內部無灰塵 (入塵)</span>
-                    <span class="note">用手電筒照鏡頭內部，有灰塵請直接退貨。</span>
-                </label>
+                <label for="check4">鏡頭內部無入塵 (用手電筒照)</label>
             </div>
         </div>
 
-        <div class="check-section">
-            <div class="check-title">🎨 第三關：螢幕壞點檢測</div>
-            <div class="screen-test-panel">
-                <div class="test-btn" style="background:white; color:black;" onclick="startScreenTest('white')">⚪ 全白測試</div>
-                <div class="test-btn" style="background:black; color:white;" onclick="startScreenTest('black')">⚫ 全黑測試</div>
-                <div class="test-btn" style="background:red; color:white;" onclick="startScreenTest('red')">🔴 紅色測試</div>
-                <div class="test-btn" style="background:green; color:white;" onclick="startScreenTest('green')">🟢 綠色測試</div>
-            </div>
-
-            <div class="checklist-item" style="margin-top:15px;">
-                <input type="checkbox" id="check5" onchange="updateProgress()">
-                <label for="check5">確認螢幕顏色正常，無亮點/壞點</label>
-            </div>
-            
-            <div class="checklist-item">
-                <input type="checkbox" id="check6" onchange="updateProgress()">
-                <label for="check6">觸控測試 (拖曳 APP 繞一圈)</label>
-            </div>
+        <div class="screen-test-panel">
+            <div class="test-btn" style="background:white; color:black; border:1px solid #ddd;" onclick="startScreenTest('white')">⚪ 白畫面</div>
+            <div class="test-btn" style="background:red; color:white;" onclick="startScreenTest('red')">🔴 紅畫面</div>
+            <div class="test-btn" style="background:green; color:white;" onclick="startScreenTest('green')">🟢 綠畫面</div>
+            <div class="test-btn" style="background:black; color:white;" onclick="startScreenTest('black')">⚫ 黑畫面</div>
         </div>
-
-        <div class="check-section">
-            <div class="check-title">⚙️ 第四關：功能測試</div>
-            
-            <div class="checklist-item">
-                <input type="checkbox" id="check7" onchange="updateProgress()">
-                <label for="check7">Face ID 設定與解鎖正常</label>
-            </div>
-
-            <div class="checklist-item">
-                <input type="checkbox" id="check8" onchange="updateProgress()">
-                <label for="check8">充電測試 (確認接孔穩固)</label>
-            </div>
-
-            <div class="checklist-item">
-                <input type="checkbox" id="check9" onchange="updateProgress()">
-                <label for="check9">相機實拍 (檢查白牆有無黑斑)</label>
-            </div>
-            
-            <div class="checklist-item">
-                <input type="checkbox" id="check10" onchange="updateProgress()">
-                <label for="check10">錄音與播放測試</label>
-            </div>
-        </div>
-
-        <div id="completionMessage" class="status-message">
-            🎉 驗機完成！<br>
-            恭喜獲得新 iPhone！記得回台灣要申請 eSIM 喔！
+        
+        <div id="completionMessage" style="display:none; margin-top:20px; text-align:center; padding:15px; background:#d4edda; color:#155724; border-radius:8px; font-weight:bold;">
+            🎉 驗機完成！恭喜入手新 iPhone！
         </div>
     </div>
 
 </div>
 
-<footer>
-    Created by Gemini for Ningning | 2025 Fukuoka Trip
-</footer>
-
-<div id="testOverlay" onclick="closeScreenTest()">
-    <div class="overlay-hint">點擊螢幕結束測試</div>
-</div>
+<div id="testOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index:9999; cursor:pointer;" onclick="closeScreenTest()"></div>
 
 <script>
-    // --- Tabs Logic ---
     function openDay(evt, dayName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("day-content");
@@ -560,55 +707,31 @@
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
         document.getElementById(dayName).style.display = "block";
-        setTimeout(() => {
-            document.getElementById(dayName).classList.add("active");
-        }, 10);
+        setTimeout(() => { document.getElementById(dayName).classList.add("active"); }, 10);
         evt.currentTarget.className += " active";
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // --- iPhone Check Logic ---
-    const totalChecks = 10;
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const progressBar = document.getElementById('progressBar');
-    const completionMessage = document.getElementById('completionMessage');
-    const overlay = document.getElementById('testOverlay');
-
+    const totalChecks = 4;
     function updateProgress() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         let checkedCount = 0;
-        checkboxes.forEach(box => {
-            if (box.checked) checkedCount++;
-        });
-
+        checkboxes.forEach(box => { if (box.checked) checkedCount++; });
         const percentage = (checkedCount / totalChecks) * 100;
-        progressBar.style.width = percentage + "%";
-
-        if (checkedCount === totalChecks) {
-            completionMessage.style.display = 'block';
-            // 只有在當前分頁是 iPhone 驗機時才捲動
-            if(document.getElementById('iphone-check').style.display === 'block'){
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }
-        } else {
-            completionMessage.style.display = 'none';
-        }
+        document.getElementById('progressBar').style.width = percentage + "%";
+        if (checkedCount >= totalChecks) document.getElementById('completionMessage').style.display = 'block';
     }
 
     function startScreenTest(color) {
+        const overlay = document.getElementById('testOverlay');
         overlay.style.backgroundColor = color;
         overlay.style.display = 'block';
-        const hint = document.querySelector('.overlay-hint');
-        hint.style.color = (color === 'white' || color === 'green') ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.3)';
-        
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(err => console.log("Fullscreen optional"));
-        }
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
     }
 
     function closeScreenTest() {
-        overlay.style.display = 'none';
-        if (document.exitFullscreen) {
-            document.exitFullscreen().catch(err => console.log("Exit fullscreen optional"));
-        }
+        document.getElementById('testOverlay').style.display = 'none';
+        if (document.exitFullscreen) document.exitFullscreen();
     }
 </script>
 
