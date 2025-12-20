@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《戴斗笠的地藏》深度理解測驗</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .intro {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .question-box {
+            background-color: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .options label:hover {
+            background-color: #f0f8ff;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .explanation {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #555;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>《戴斗笠的地藏》核心洞察測驗</h1>
+    <p>高難度複選題 | 請選出所有正確選項</p>
+</header>
+
+<div class="intro">
+    <p><strong>測驗說明：</strong> 本測驗旨在考核您對文本細節、深層寓意及語文知識的掌握程度。每題均為<strong>複選題</strong>，至少有兩個正確答案。請仔細辨析。</p>
+</div>
+
+<div class="question-box" id="q1">
+    <h3>1. 關於故事的「核心主旨」與「深層寓意」，下列敘述何者完全符合文本分析？（複選）</h3>
+    <div class="options">
+        <label><input type="checkbox" value="correct"> A. 故事的核心思想清晰闡明了「心存善念，樂於助人，自然能夠得到好的結局」。</label>
+        <label><input type="checkbox" value="wrong"> B. 故事最強調的單一價值觀是「善有善報」，認為物質回報是行善的唯一目的。</label>
+        <label><input type="checkbox" value="correct"> C. 除了因果循環，文本更深層次地突顯了「知足」與「互相體諒」的家庭美德。</label>
+        <label><input type="checkbox" value="correct"> D. 老婆婆在丈夫生意失敗時的反應（不責備反讚揚），被視為故事中最溫暖的部分。</label>
+        <label><input type="checkbox" value="wrong"> E. 故事的寓意在於教導人們如何在新年期間透過販賣斗笠來獲取暴利。</label>
+    </div>
+    <button onclick="checkAnswer('q1', ['A', 'C', 'D'])">提交答案</button>
+    <div class="result" id="q1-result"></div>
+</div>
+
+<div class="question-box" id="q2">
+    <h3>2. 根據「故事架構」與「情節概述」，下列關於老爺爺在「經過」階段的行為描述，哪些是精確無誤的？（複選）</h3>
+    <div class="options">
+        <label><input type="checkbox" value="wrong"> A. 老爺爺在村莊裡雖然賣得不好，但勉強賣出了一頂斗笠，換得少許零錢。</label>
+        <label><input type="checkbox" value="correct"> B. 老爺爺在返家途中看見六尊地藏菩薩，因見其頭頂積雪而心生憐憫。</label>
+        <label><input type="checkbox" value="correct"> C. 由於斗笠數量不足，老爺爺毅然解下自己的頭巾，為最後一尊地藏戴上。</label>
+        <label><input type="checkbox" value="wrong"> D. 老爺爺將六頂賣不出去的斗笠，分別戴在六尊地藏菩薩的頭上，數量剛好。</label>
+        <label><input type="checkbox" value="correct"> E. 老爺爺為菩薩戴上斗笠的行為，發生在他生意失敗、空手而歸的返家途中。</label>
+    </div>
+    <button onclick="checkAnswer('q2', ['B', 'C', 'E'])">提交答案</button>
+    <div class="result" id="q2-result"></div>
+</div>
+
+<div class="question-box" id="q3">
+    <h3>3. 關於故事的「結果」以及老夫妻獲得的「回報」，下列細節何者正確？（複選）</h3>
+    <div class="options">
+        <label><input type="checkbox" value="correct"> A. 事件發生的時間點是在除夕半夜，屋外傳來了奇特的歌聲。</label>
+        <label><input type="checkbox" value="wrong"> B. 隔天清晨，老夫妻發現門外堆滿了金銀財寶，從此過著富裕的生活。</label>
+        <label><input type="checkbox" value="correct"> C. 老夫妻獲得的物資包含了米、青菜、魚和年糕等食物。</label>
+        <label><input type="checkbox" value="correct"> D. 老夫妻看見遠處有戴著斗笠和頭巾的六尊地藏身影，正漸漸消失在雪地中。</label>
+        <label><input type="checkbox" value="wrong"> E. 地藏菩薩親自敲門，將禮物交到老夫妻手中並向他們道謝。</label>
+    </div>
+    <button onclick="checkAnswer('q3', ['A', 'C', 'D'])">提交答案</button>
+    <div class="result" id="q3-result"></div>
+</div>
+
+<div class="question-box" id="q4">
+    <h3>4. 針對文本中的「關鍵詞彙解析」，下列字詞的注音與解釋配對，哪些是正確的？（複選）</h3>
+    <div class="options">
+        <label><input type="checkbox" value="correct"> A. 「宜」（ㄧˊ）：意思指合適，或指價格低廉。</label>
+        <label><input type="checkbox" value="wrong"> B. 「隱」（ㄧㄣˇ）：意思指明顯、顯露出來的樣子。</label>
+        <label><input type="checkbox" value="correct"> C. 「耐」（ㄋㄞˋ）：意思指經得起長時間的使用或考驗。</label>
+        <label><input type="checkbox" value="wrong"> D. 「傍」（ㄆㄤˊ）：意思指接近某個時間點。</label>
+        <label><input type="checkbox" value="correct"> E. 「茫」（ㄇㄤˊ）：形容廣大、不清楚的樣子。</label>
+    </div>
+    <button onclick="checkAnswer('q4', ['A', 'C', 'E'])">提交答案</button>
+    <div class="result" id="q4-result"></div>
+</div>
+
+<div class="question-box" id="q5">
+    <h3>5. 關於修辭句型「不但……反而……」及「形近字辨析」，下列應用與分析何者正確？（複選）</h3>
+    <div class="options">
+        <label><input type="checkbox" value="correct"> A. 「不但……反而……」屬於轉折複句，用來表達結果與預期相反，且程度更進一步。</label>
+        <label><input type="checkbox" value="wrong"> B. 課文例句「老婆婆不但沒有怪他，反而認為他做了好事」顯示老婆婆的反應符合一般人的預期。</label>
+        <label><input type="checkbox" value="correct"> C. 形近字「繼」與「斷」的意義相反，「繼」指接連不斷，「斷」指分開。</label>
+        <label><input type="checkbox" value="correct"> D. 「貧」與「貪」字形相似但意義不同，「貧」指窮困，「貪」指不知足。</label>
+        <label><input type="checkbox" value="wrong"> E. 應用造句：「他不但準時到達，反而還遲到了十分鐘。」此句型使用正確。</label>
+    </div>
+    <button onclick="checkAnswer('q5', ['A', 'C', 'D'])">提交答案</button>
+    <div class="result" id="q5-result"></div>
+</div>
+
+<script>
+    function checkAnswer(questionId, correctAnswers) {
+        const container = document.getElementById(questionId);
+        const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+        const resultDiv = document.getElementById(questionId + '-result');
+        
+        let userAnswers = [];
+        let allCorrect = true;
+        let selectedCount = 0;
+
+        // Map definitions for explanation generation
+        const explanations = {
+            'q1': "解析：B 錯誤，文本強調「知足」與「互相體諒」甚至超越物質財富，非單一強調物質回報。E 錯誤，故事背景是賣斗笠失敗，並非教導獲取暴利。",
+            'q2': "解析：A 錯誤，原文指出「一頂斗笠也沒賣出去」。D 錯誤，只有五頂斗笠，第六尊是戴上「頭巾」。",
+            'q3': "解析：B 錯誤，獲得的是食物（米、菜、魚、年糕），並非金銀財寶。E 錯誤，地藏身影是「漸漸消失在茫茫雪地中」，並未親自敲門交涉。",
+            'q4': "解析：B 錯誤，「隱」意指不明顯、遮蔽。D 錯誤，「傍」注音應為（ㄅㄤˋ）。",
+            'q5': "解析：B 錯誤，老婆婆的反應與預期（被責備）相反。E 錯誤，例句邏輯矛盾，「不但...反而...」後接的應是反向且更進一步的結果（例如：不但沒遲到，反而早到了）。"
+        };
+
+        // Check user inputs
+        checkboxes.forEach((cb, index) => {
+            const letter = String.fromCharCode(65 + index); // Convert 0 to A, 1 to B...
+            if (cb.checked) {
+                selectedCount++;
+                if (!correctAnswers.includes(letter)) {
+                    allCorrect = false;
+                }
+            } else {
+                if (correctAnswers.includes(letter)) {
+                    allCorrect = false;
+                }
+            }
+        });
+
+        if (selectedCount === 0) {
+            alert("請至少選擇一個選項！");
+            return;
+        }
+
+        // Display result
+        if (allCorrect) {
+            resultDiv.innerHTML = "<strong>✅ 回答正確！</strong> 你非常仔細地閱讀了文本。<div class='explanation'>" + explanations[questionId] + "</div>";
+            resultDiv.className = "result correct";
+        } else {
+            resultDiv.innerHTML = "<strong>❌ 回答錯誤或不完整。</strong><br>正確答案是：" + correctAnswers.join(", ") + "。<div class='explanation'>" + explanations[questionId] + "</div>";
+            resultDiv.className = "result incorrect";
+        }
+        resultDiv.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
