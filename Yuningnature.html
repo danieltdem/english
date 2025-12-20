@@ -1,515 +1,194 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的聲光實驗室 (第四單元)</title>
+    <title>聲光世界的原理與應用 - 深度複選挑戰</title>
     <style>
-        /* 整體風格設定 - 活潑、像海綿寶寶的色彩風格 */
         body {
-            font-family: 'Microsoft JhengHei', sans-serif;
-            background-color: #fcf4a3; /* 海綿寶寶黃 */
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7f6;
             color: #333;
-            margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
         h1 {
-            color: #ff6b6b;
-            text-shadow: 2px 2px #fff;
-            border-bottom: 3px dashed #ff9f43;
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
-
-        /* 選單按鈕 */
-        .nav-buttons {
-            margin-bottom: 20px;
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            background: #f9f9f9;
         }
-        .nav-btn {
-            background-color: #48dbfb;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: transform 0.2s, background 0.2s;
+        .question p {
             font-weight: bold;
-            color: white;
-            box-shadow: 0 4px #2980b9;
+            margin-bottom: 10px;
         }
-        .nav-btn:active {
-            transform: translateY(4px);
-            box-shadow: none;
-        }
-        .nav-btn.active {
-            background-color: #2e86de;
-        }
-
-        /* 實驗區塊 */
-        .section {
-            display: none;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 600px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s;
-        }
-        .section.active {
+        .option {
             display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 { color: #2e86de; border-left: 5px solid #ff9f43; padding-left: 10px; }
-        p { line-height: 1.6; }
-
-        /* 實驗 1: 聲音振動 */
-        .instrument-box {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-        .instrument {
-            width: 100px;
-            height: 100px;
-            background-color: #ff9f43;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 8px;
             cursor: pointer;
-            user-select: none;
-            position: relative;
-            font-weight: bold;
-            color: white;
-            border: 5px solid #e58e26;
         }
-        .vibrating {
-            animation: shake 0.5s infinite;
-        }
-        .sound-wave {
-            position: absolute;
+        .btn-submit {
+            display: block;
             width: 100%;
-            height: 100%;
-            border: 2px solid #ff9f43;
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .vibrating .sound-wave {
-            animation: ripple 1s infinite;
-        }
-
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        /* 實驗 2: 傳播介質 */
-        .medium-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .medium-btn {
-            padding: 10px;
+            padding: 15px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
             cursor: pointer;
-            background: #eee;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .medium-btn.selected {
-            background: #aaffaa;
-            border-color: #2ecc71;
-            font-weight: bold;
-        }
-        .simulation-area {
-            height: 100px;
-            background: #f0f0f0;
-            margin-top: 15px;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .particle {
-            width: 10px;
-            height: 10px;
-            background: #555;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        /* 實驗 3: 光的反射 */
-        .light-lab {
-            background: #333;
-            height: 300px;
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #555;
-        }
-        .mirror {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 10px;
-            background: linear-gradient(to right, #ccc, #fff, #ccc);
-            border: 1px solid #999;
-        }
-        .flashlight {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 20px;
-            background: red;
-            border-radius: 5px;
-        }
-        .ray {
-            position: absolute;
-            height: 4px;
-            background: yellow;
-            transform-origin: 0 50%;
-            box-shadow: 0 0 5px yellow;
-        }
-        .slider-container {
             margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background-color: #219150;
+        }
+        .footer {
             text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
         }
-        
-        /* 實驗 4: 不可見光 */
-        .uv-ir-box {
-            display: flex;
-            justify-content: space-around;
-        }
-        .hidden-card {
-            width: 200px;
-            height: 150px;
-            border: 2px solid #333;
-            position: relative;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: bold;
-            color: #eee; /* 隱藏文字 */
-            cursor: crosshair;
-        }
-        .hidden-card span {
-            z-index: 2;
-        }
-        /* 紫外線模式 */
-        .mode-uv .hidden-card:hover {
-            background: #e056fd; /* 紫光 */
-        }
-        .mode-uv .hidden-card:hover span {
-            color: white; /* 顯影 */
-            text-shadow: 0 0 5px #fff;
-        }
-        /* 紅外線模式 */
-        .mode-ir .hidden-card:hover {
-            background: #ff6b6b; /* 熱感應紅 */
-        }
-        .mode-ir .hidden-card:hover span {
-            color: black;
-        }
-        
-        .result-text {
-            margin-top: 10px;
-            padding: 10px;
-            background: #e1f5fe;
-            border-radius: 5px;
-            color: #0277bd;
-            font-weight: bold;
-        }
-
     </style>
 </head>
 <body>
 
-    <h1>🔬 寧寧的聲光實驗室</h1>
+<div class="container">
+    <h1>聲光世界：全範圍深度複選測驗</h1>
+    <p style="text-align: center;">請注意：本測驗所有題目皆為<strong>複選題</strong>，請選出所有正確的選項。</p>
 
-    <div class="nav-buttons">
-        <button class="nav-btn active" onclick="switchTab('sound')">🎵 聲音的奧祕</button>
-        <button class="nav-btn" onclick="switchTab('light')">🔦 光的魔術</button>
-    </div>
-
-    <div id="sound" class="section active">
-        <h2>實驗 1：聲音是怎麼產生的？</h2>
-        <p>課本說：「聲音是由物體振動產生的」。試試看點擊下面的樂器！</p>
-        <div class="instrument-box">
-            <div class="instrument" onclick="playSound(this, 'drum')">
-                🥁 大鼓
-                <div class="sound-wave"></div>
+    <form id="quizForm">
+        <div class="question">
+            <p>1. 關於「聲音的產生與振動」的描述，下列哪些選項是正確的？</p>
+            <label class="option"><input type="checkbox" name="q1" value="A"> A) 聲音的根源在於物體的振動，一旦振動停止，聲音亦隨之消失</label>
+            <label class="option"><input type="checkbox" name="q1" value="B"> B) 說話時感覺到喉嚨振動，是因為聲帶正在擾動周圍介質</label>
+            <label class="option"><input type="checkbox" name="q1" value="C"> C) 打鼓與敲擊鐵琴發聲的原理不同，前者靠空氣，後者靠金屬片本身</label>
+            <label class="option"><input type="checkbox" name="q1" value="D"> D) 將發聲中的音叉放入水中產生的水花，可作為振動可見化的科學證據</label>
+            <label class="option"><input type="checkbox" name="q1" value="E"> E) 手按住正在響的三角鐵會使聲音消失，這是因為吸收了聲波而非停止振動</label>
             </div>
-            <div class="instrument" style="background-color: #ffcccc; color:#d63031; border-color:#d63031;" onclick="playSound(this, 'triangle')">
-                🔔 三角鐵
-                <div class="sound-wave"></div>
+
+        <div class="question">
+            <p>2. 關於「聲音傳播介質」的實驗與現象分析，下列哪些敘述符合文本內容？</p>
+            <label class="option"><input type="checkbox" name="q2" value="A"> A) 聲音在真空中無法傳播，是因為缺乏物質作為傳遞的媒介</label>
+            <label class="option"><input type="checkbox" name="q2" value="B"> B) 固體是優良的導體，例如耳朵貼著桌面比空氣中更能清晰聽到輕敲聲</label>
+            <label class="option"><input type="checkbox" name="q2" value="C"> C) 在游泳池下聽見岸上的哨音，證明液體能傳播聲音</label>
+            <label class="option"><input type="checkbox" name="q2" value="D"> D) 樓上移動家具的聲音傳到樓下，主要是透過氣體介質傳導</label>
+            <label class="option"><input type="checkbox" name="q2" value="E"> E) 空氣是日常生活中最常見的聲音傳遞介質</label>
             </div>
-        </div>
-        <div id="sound-status" class="result-text">請點擊樂器...</div>
 
-        <hr>
+        <div class="question">
+            <p>3. 根據文本，動物發出聲音具有多樣的生物學功能，下列對應關係哪些正確？</p>
+            <label class="option"><input type="checkbox" name="q3" value="A"> A) 蛙類鳴叫與座頭鯨歌唱：皆具備吸引異性、求偶的功能</label>
+            <label class="option"><input type="checkbox" name="q3" value="B"> B) 狼嚎：主要用於集結遠方的同伴</label>
+            <label class="option"><input type="checkbox" name="q3" value="C"> C) 獅子吼叫：用以威嚇並驅離入侵者或競爭對手</label>
+            <label class="option"><input type="checkbox" name="q3" value="D"> D) 鯨魚在深海利用聲波：具備遠距離溝通的功能</label>
+            <label class="option"><input type="checkbox" name="q3" value="E"> E) 五色鳥啼叫：僅具有警告敵人的單一功能</label>
+            </div>
 
-        <h2>實驗 2：聲音的傳播</h2>
-        <p>聲音需要「介質」才能跑。如果沒有空氣（真空），聲音跑得動嗎？</p>
-        <div class="medium-controls">
-            <div class="medium-btn" onclick="setMedium('air')">💨 空氣 (氣體)</div>
-            <div class="medium-btn" onclick="setMedium('water')">💧 水 (液體)</div>
-            <div class="medium-btn" onclick="setMedium('solid')">🪵 桌子 (固體)</div>
-            <div class="medium-btn" onclick="setMedium('vacuum')">🌌 外太空 (真空)</div>
-        </div>
-        <div class="simulation-area" id="particle-box">
-            <span style="color:#999;">選擇一個介質來觀察</span>
-        </div>
-        <div id="medium-status" class="result-text">準備進行傳播實驗...</div>
+        <div class="question">
+            <p>4. 下列哪些物體根據定義屬於「本身能發光」的光源？</p>
+            <label class="option"><input type="checkbox" name="q4" value="A"> A) 夜空中的月亮</label>
+            <label class="option"><input type="checkbox" name="q4" value="B"> B) 正在發光的螢火蟲</label>
+            <label class="option"><input type="checkbox" name="q4" value="C"> C) 閃電</label>
+            <label class="option"><input type="checkbox" name="q4" value="D"> D) 開啟中的汽車頭燈</label>
+            <label class="option"><input type="checkbox" name="q4" value="E"> E) 波光粼粼的水面</label>
+            </div>
+
+        <div class="question">
+            <p>5. 關於「光的直線前進特性」，下列敘述哪些是正確的？</p>
+            <label class="option"><input type="checkbox" name="q5" value="A"> A) 影子會形成在物體的背光面，且位置與光源方向相反</label>
+            <label class="option"><input type="checkbox" name="q5" value="B"> B) 影子的形狀通常與阻擋光的物體相似</label>
+            <label class="option"><input type="checkbox" name="q5" value="C"> C) 樹林間透出的光柱與雷射筆光束，皆為光直線傳播的證據</label>
+            <label class="option"><input type="checkbox" name="q5" value="D"> D) 透過彎曲的水管觀察光源，若能看見光則證明光會隨介質彎曲</label>
+            <label class="option"><input type="checkbox" name="q5" value="E"> E) 光在均勻介質中不會發生偏折，始終沿直線前進</label>
+            </div>
+
+        <div class="question">
+            <p>6. 關於「光的反射與成像應用」，下列哪些描述符合文本所述？</p>
+            <label class="option"><input type="checkbox" name="q6" value="A"> A) 漫射發生於粗糙表面，光線會不規則地向四面八方反射</label>
+            <label class="option"><input type="checkbox" name="q6" value="B"> B) 平面鏡成的像大小與實物相等，但上下與左右皆相反</label>
+            <label class="option"><input type="checkbox" name="q6" value="C"> C) 救護車車頭文字採鏡像設計，是利用平面鏡左右相反的特性</label>
+            <label class="option"><input type="checkbox" name="q6" value="D"> D) 凸面鏡能發散光線，因此能提供比平面鏡更廣的可視範圍</label>
+            <label class="option"><input type="checkbox" name="q6" value="E"> E) 道路轉彎處的反射鏡通常使用凹面鏡，以匯聚光線照亮路口</label>
+            </div>
+
+        <div class="question">
+            <p>7. 關於不同面鏡的作用與實例，下列對應哪些是正確的？</p>
+            <label class="option"><input type="checkbox" name="q7" value="A"> A) 凹面鏡：應用於手電筒反光罩，可將光線匯聚或平行射出</label>
+            <label class="option"><input type="checkbox" name="q7" value="B"> B) 凸面鏡：應用於商店防盜鏡，成像較小但視野較大</label>
+            <label class="option"><input type="checkbox" name="q7" value="C"> C) 哈哈鏡：由凸面與凹面規則交替組合，僅產生上下顛倒的影像</label>
+            <label class="option"><input type="checkbox" name="q7" value="D"> D) 探照燈：利用凹面鏡匯聚光線以增加亮度</label>
+            <label class="option"><input type="checkbox" name="q7" value="E"> E) 汽車後視鏡：為了擴大視野，通常採用凸面鏡</label>
+            </div>
+
+        <div class="question">
+            <p>8. 綜合聲光科技的應用與原理，下列哪些說法是正確的？</p>
+            <label class="option"><input type="checkbox" name="q8" value="A"> A) 鐵路平交道號誌同步使用紅燈與「噹噹」聲，屬於聲光整合應用</label>
+            <label class="option"><input type="checkbox" name="q8" value="B"> B) 紅外線主要應用於熱感應與測溫，屬於不可見光</label>
+            <label class="option"><input type="checkbox" name="q8" value="C"> C) 紫外線在消毒殺菌與醫療上有價值，但過度暴露對人體有害</label>
+            <label class="option"><input type="checkbox" name="q8" value="D"> D) 垃圾車播放音樂的主要目的是為了情感表達，舒緩居民壓力</label>
+            <label class="option"><input type="checkbox" name="q8" value="E"> E) 煙火表演與水舞表演皆是利用聲光結合來提升娛樂效果</label>
+            </div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">提交測驗</button>
+    </form>
+
+    <div id="result" style="margin-top: 20px; font-weight: bold; color: #d35400;"></div>
+
+    <div class="footer">
+        測驗小幫手老師 製作 - 祝你學習愉快！
     </div>
+</div>
 
-    <div id="light" class="section">
-        <h2>實驗 3：光的反射</h2>
-        <p>課本說：「入射角等於反射角」。<br>移動滑塊改變手電筒的角度，觀察光線怎麼彈開！</p>
+<script>
+    function checkAnswers() {
+        const answers = {
+            q1: ['A', 'B', 'D'],
+            q2: ['A', 'B', 'C', 'E'],
+            q3: ['A', 'B', 'C', 'D'],
+            q4: ['B', 'C', 'D'],
+            q5: ['A', 'B', 'C', 'E'],
+            q6: ['A', 'C', 'D'],
+            q7: ['A', 'B', 'D', 'E'],
+            q8: ['A', 'B', 'C', 'E']
+        };
         
-        <div class="light-lab">
-            <div class="mirror"></div>
-            <svg width="100%" height="100%" style="position:absolute; top:0; left:0;">
-                <line id="incident-ray" x1="0" y1="0" x2="300" y2="280" stroke="yellow" stroke-width="4" />
-                <line id="reflected-ray" x1="300" y1="280" x2="600" y2="0" stroke="orange" stroke-width="4" stroke-dasharray="5,5" />
-                <line x1="300" y1="150" x2="300" y2="280" stroke="white" stroke-width="1" stroke-dasharray="2,2" />
-            </svg>
-            <div id="flashlight-icon" style="position:absolute; font-size:30px;">🔦</div>
-        </div>
+        let score = 0;
+        let total = 8;
+        let feedback = "<h3>測驗結果解析：</h3>";
 
-        <div class="slider-container">
-            <label>調整角度：</label>
-            <input type="range" id="angle-slider" min="10" max="80" value="45" oninput="updateReflection()">
-            <span id="angle-display">45度</span>
-        </div>
-
-        <hr>
-
-        <h2>實驗 4：看不見的光</h2>
-        <p>有些光眼睛看不見，但很有用！把滑鼠移到卡片上試試看。</p>
-        <div style="text-align:center; margin-bottom:10px;">
-            <button onclick="setLightMode('uv')" style="background:#e056fd; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">💜 開啟紫外線燈</button>
-            <button onclick="setLightMode('ir')" style="background:#ff6b6b; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">❤️ 開啟紅外線熱像儀</button>
-        </div>
-        
-        <div id="light-card-container" class="uv-ir-box">
-            <div class="hidden-card">
-                <span>隱藏的防偽標記✨</span>
-            </div>
-        </div>
-        <div id="light-mode-text" class="result-text">目前模式：關閉 (請選擇上方按鈕)</div>
-    </div>
-
-    <script>
-        // 切換分頁
-        function switchTab(tabId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        for (let i = 1; i <= total; i++) {
+            let qName = 'q' + i;
+            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
+            let correct = answers[qName];
             
-            // 更新按鈕狀態
-            const btns = document.querySelectorAll('.nav-btn');
-            if(tabId === 'sound') btns[0].classList.add('active');
-            else btns[1].classList.add('active');
-        }
-
-        // 實驗 1: 聲音振動
-        function playSound(element, type) {
-            // 視覺效果：振動
-            element.classList.remove('vibrating');
-            void element.offsetWidth; // 觸發重繪
-            element.classList.add('vibrating');
-
-            // 文字回饋
-            const status = document.getElementById('sound-status');
-            if (type === 'drum') {
-                status.innerHTML = "咚咚咚！鼓面正在<b style='color:red'>振動</b>，所以產生了聲音！按住它振動就會停止。";
+            if (JSON.stringify(selected.sort()) === JSON.stringify(correct.sort())) {
+                score++;
+                feedback += `<p style="color: green;">第 ${i} 題：完全正確！</p>`;
             } else {
-                status.innerHTML = "叮叮叮！金屬片正在<b style='color:red'>振動</b>！";
-            }
-
-            // 聽覺效果 (簡單的瀏覽器音效)
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            
-            if (type === 'drum') {
-                osc.type = 'square';
-                osc.frequency.value = 150;
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-            } else {
-                osc.type = 'sine';
-                osc.frequency.value = 800;
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
-            }
-            
-            osc.start();
-            osc.stop(ctx.currentTime + 1.5);
-        }
-
-        // 實驗 2: 傳播介質
-        let particleInterval;
-        function setMedium(type) {
-            const box = document.getElementById('particle-box');
-            const status = document.getElementById('medium-status');
-            box.innerHTML = ''; // 清空
-            clearInterval(particleInterval);
-
-            // 視覺化按鈕選擇
-            document.querySelectorAll('.medium-btn').forEach(btn => btn.classList.remove('selected'));
-            event.target.classList.add('selected');
-
-            if (type === 'vacuum') {
-                status.innerHTML = "😱 這裡是<b>真空</b>！沒有空氣也沒有任何物質，聲音完全<b>傳不過去</b>，聽不到聲音！";
-                box.innerHTML = '<span style="color:#aaa;">(一片死寂...)</span>';
-                return;
-            }
-
-            // 建立粒子
-            const particleCount = type === 'solid' ? 100 : (type === 'water' ? 50 : 20);
-            const speed = type === 'solid' ? 50 : (type === 'water' ? 200 : 400); // 傳播速度概念
-            
-            status.innerHTML = type === 'solid' ? "固體粒子排很緊，聲音傳得<b>最快、最清楚</b>！(例如趴在桌上聽)" : 
-                               (type === 'water' ? "液體也可以傳聲，像是在游泳池水底聽哨音。" : 
-                               "氣體粒子比較鬆散，我們平常就是這樣講話的。");
-
-            // 簡單模擬波動
-            for(let i=0; i<particleCount; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = (Math.random() * 90) + '%';
-                p.style.top = (Math.random() * 80 + 10) + 'px';
-                
-                if (type === 'solid') {
-                    p.style.background = '#5d4037';
-                    // 固體排列整齊
-                    p.style.left = (i * 5) + 'px'; 
-                    p.style.top = '45px';
-                } else if (type === 'water') {
-                    p.style.background = '#3498db';
-                } else {
-                    p.style.background = '#95a5a6';
-                }
-                
-                box.appendChild(p);
-            }
-
-            // 模擬振動傳遞 (CSS animation injection)
-            const particles = document.querySelectorAll('.particle');
-            let waveX = 0;
-            particleInterval = setInterval(() => {
-                waveX += 5;
-                if(waveX > box.offsetWidth) waveX = 0;
-                
-                particles.forEach(p => {
-                    const pX = parseFloat(p.style.left) / 100 * box.offsetWidth || parseFloat(p.style.left);
-                    // 如果波經過這個粒子，粒子就動一下
-                    if (Math.abs(pX - waveX) < 20) {
-                        p.style.transform = `translateY(${Math.random()*10 - 5}px)`;
-                    } else {
-                        p.style.transform = 'translateY(0)';
-                    }
-                });
-            }, 50);
-        }
-
-        // 實驗 3: 光的反射
-        function updateReflection() {
-            const angle = parseInt(document.getElementById('angle-slider').value);
-            document.getElementById('angle-display').innerText = angle + "度";
-            
-            // 計算座標 (幾何模擬)
-            // 鏡子中心在 x=300, y=280
-            const mirrorX = 300;
-            const mirrorY = 280;
-            const length = 250; // 光線長度
-
-            // 入射角 angle (與法線夾角)
-            // 為了簡化，我們讓光源位置改變
-            // 角度轉換成弧度
-            const rad = (90 - angle) * (Math.PI / 180);
-            
-            // 計算光源位置 (左上)
-            const startX = mirrorX - length * Math.cos(rad);
-            const startY = mirrorY - length * Math.sin(rad);
-
-            // 計算反射點 (右上)
-            const endX = mirrorX + length * Math.cos(rad);
-            const endY = startY; // 因為水平鏡面，Y高度一樣
-
-            // 更新線條
-            const incident = document.getElementById('incident-ray');
-            incident.setAttribute('x1', startX);
-            incident.setAttribute('y1', startY);
-            incident.setAttribute('x2', mirrorX);
-            incident.setAttribute('y2', mirrorY);
-
-            const reflected = document.getElementById('reflected-ray');
-            reflected.setAttribute('x1', mirrorX);
-            reflected.setAttribute('y1', mirrorY);
-            reflected.setAttribute('x2', endX);
-            reflected.setAttribute('y2', endY);
-
-            // 移動手電筒圖示
-            const flash = document.getElementById('flashlight-icon');
-            flash.style.left = (startX - 20) + 'px';
-            flash.style.top = (startY - 20) + 'px';
-            // 旋轉手電筒讓它看起來指向鏡子
-            const rotation = 90 - (90-angle);
-            flash.style.transform = `rotate(${rotation}deg)`;
-        }
-
-        // 實驗 4: 不可見光
-        function setLightMode(mode) {
-            const container = document.getElementById('light-card-container');
-            const text = document.getElementById('light-mode-text');
-            
-            container.className = 'uv-ir-box'; // reset
-            if (mode === 'uv') {
-                container.classList.add('mode-uv');
-                text.innerHTML = "💜 <b>紫外線 (UV) 模式</b>：可以看到隱形的螢光劑或防偽標記！(課本提到的驗鈔機原理)";
-            } else if (mode === 'ir') {
-                container.classList.add('mode-ir');
-                text.innerHTML = "❤️ <b>紅外線 (IR) 模式</b>：看不到顏色，但看得到「熱度」！(課本提到的測溫槍原理)";
+                feedback += `<p style="color: red;">第 ${i} 題：錯誤。正確答案是 ${correct.join(', ')}。</p>`;
+                if (i === 1) feedback += " (解析：三角鐵停止發聲是因為振動被強制停止，而非單純吸收聲波。)";
+                if (i === 4) feedback += " (解析：月亮與鏡子是反射光線，非光源。)";
+                if (i === 6) feedback += " (解析：平面鏡像僅左右相反，上下並未相反；道路轉彎鏡應為凸面鏡。)";
+                if (i === 8) feedback += " (解析：垃圾車音樂屬於特定意義傳遞，非單純情感表達。)";
             }
         }
 
-        // 初始化
-        updateReflection();
-    </script>
+        document.getElementById('result').innerHTML = `你的得分：${score} / ${total}<br>` + feedback;
+    }
+</script>
+
 </body>
 </html>
