@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,27 +262,21 @@
 
     <script>
         const words = [
-            { en: 'rain', zh: '雨 (ㄩˇ)', mnemonic: '`Rain` (雨) 聽起來像 `pain` (痛苦)。淋雨又沒帶傘真的很痛苦 (`pain`)。' },
-            { en: 'rainbow', zh: '彩虹 (ㄘㄞˇ ㄏㄨㄥˊ)', mnemonic: '`Rain` (雨) + `bow` (弓)。雨 (`rain`) 後天空中出現的七彩弓 (`bow`)。' },
-            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)', mnemonic: '`R` + `iver` (diver, 潛水員)。潛水員 (`diver`) 跳進河流 (`river`) 裡。' },
-            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`Rose` (玫瑰) 聽起來像 `rows` (排/列)。玫瑰花通常都種成一排一排 (`rows`) 的。' },
-            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`Sea` (海) 聽起來像 `see` (看)。在大海 (`sea`) 邊你可以看 (`see`) 得很遠。' },
-            { en: 'season', zh: '季節 (ㄐㄧˋ ㄐㄧㄝˊ)', mnemonic: '`Sea` (海) + `son` (兒子)。大海 (`sea`) 的兒子 (`son`) 每個季節 (`season`) 心情都會變。' },
-            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`See` (看見) + `d`。你看見 (`see`) 這顆種子 (`seed`) 長成植物。' },
-            { en: 'shore', zh: '岸邊 (ㄢˋ ㄅㄧㄢ)', mnemonic: '`Shore` (岸邊) 和 `sure` (確定) 押韻。我不確定 (`not sure`) 我們是否到了岸邊 (`shore`)。' },
-            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`Sky` (天空) 和 `fly` (飛) 押韻。鳥兒在天空 (`sky`) 中飛翔 (`fly`)。' },
-            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`Snow` (雪) 和 `slow` (慢) 押韻。雪 (`snow`) 總是慢慢地 (`slow`) 飄下來。' },
-            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`Spring` (春天) 也是「彈簧/跳躍」的意思。花朵在春天 (`spring`) 像彈簧一樣跳出來。' },
-            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '`Star` (星星) 裡有 `tar` (柏油)。星星在像柏油 (`tar`) 一樣黑的夜空中閃耀。' },
-            { en: 'summer', zh: '夏天 (ㄒㄧㄚˋ ㄊㄧㄢ)', mnemonic: '`Sum` (總和) + `mer`。夏天 (`summer`) 是熱量的總和 (`sum`)。' },
-            { en: 'sun', zh: '太陽 (ㄊㄞˋ ㄧㄤˊ)', mnemonic: '`Sun` (太陽) 聽起來像 `son` (兒子)。太陽 (`sun`) 是天空的兒子 (`son`)。' },
-            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`Temper` (脾氣) + `nature` (大自然)。大自然的脾氣 (`temper`) 決定了溫度 (`temperature`)。' },
-            { en: 'tree', zh: '樹 (ㄕㄨˋ)', mnemonic: '`Tree` (樹) 聽起來像 `three` (三)。One, two, three, tree.' },
-            { en: 'typhoon', zh: '颱風 (ㄊㄞˊ ㄈㄥ)', mnemonic: '`Typhoon` (颱風) 聽起來像 `tycoon` (大亨)。颱風 (`typhoon`) 就像風界的大亨 (`tycoon`)，威力強大。' },
-            { en: 'universe', zh: '宇宙 (ㄩˇ ㄓㄡˋ)', mnemonic: '`Uni` (單一) + `verse` (詩句/歌曲)。宇宙 (`universe`) 就像是一首宏大的詩歌。' },
-            { en: 'weather', zh: '天氣 (ㄊㄧㄢ ㄑㄧˋ)', mnemonic: '`Weather` (天氣) 裡有 `eat` (吃) + `her` (她)。天氣 (`weather`) 壞到好像要把她吃 (`eat her`) 掉。' },
-            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '`Win` (贏) + `ter`。冬天 (`winter`) 來了，寒風 (wind) 贏了 (`win`)。' },
-            { en: 'world', zh: '世界 (ㄕˋ ㄐㄧㄝˋ)', mnemonic: '`Work` (工作) + `old` (老的)。這個世界 (`world`) 很老 (`old`) 而且充滿了工作 (`work`)。' }
+            { en: 'bag', zh: '袋子 (ㄉㄞˋ ㄗ˙)', mnemonic: '`bag` 聽起來像 `beg` (乞討)。乞丐通常都帶著一個袋子 (`bag`)。' },
+            { en: 'belt', zh: '皮帶 (ㄆㄧˊ ㄉㄞˋ)', mnemonic: '`bell` (鈴鐺) + `t`。把鈴鐺 (`bell`) 繫在皮帶 (`belt`) 上。' },
+            { en: 'blouse', zh: '女用襯衫 (ㄋㄩˇ ㄩㄥˋ ㄔㄣˋ ㄕㄢ)', mnemonic: '`blue` (藍色) + `mouse` (老鼠)。想像一隻藍色的 (`blue`) 老鼠穿著女用襯衫 (`blouse`)。' },
+            { en: 'cap', zh: '帽子 (ㄇㄠˋ ㄗ˙)', mnemonic: '`cap` 是 `captain` (隊長) 的縮寫。隊長 (`captain`) 通常都戴著帽子 (`cap`)。' },
+            { en: 'centimeter', zh: '公分 (ㄍㄨㄥ ㄈㄣ)', mnemonic: '`cent` (百) + `meter` (公尺)。一百分之一公尺就是公分 (`centimeter`)。' },
+            { en: 'circle', zh: '圓形 (ㄩㄢˊ ㄒㄧㄥˊ)', mnemonic: '`Sir` (先生) + `cle`。圓形先生 (`Sir Circle`)。' },
+            { en: 'clothes', zh: '衣服 (ㄧ ㄈㄨˊ)', mnemonic: '`cloth` (布料) + `es`。用布料 (`cloth`) 做成的就是衣服 (`clothes`)。' },
+            { en: 'coat', zh: '外套 (ㄨㄞˋ ㄊㄠˋ)', mnemonic: '`coat` 和 `goat` (山羊) 押韻。想像一隻穿著外套 (`coat`) 的山羊 (`goat`)。' },
+            { en: 'comb', zh: '梳子 (ㄕㄨ ㄗ˙)', mnemonic: '`comb` 和 `bomb` (炸彈) 押韻。梳 (`comb`) 頭髮時小心不要梳到炸彈 (`bomb`)。' },
+            { en: 'degree', zh: '度數；學位 (ㄉㄨˋ ㄕㄨˋ)', mnemonic: '`agree` (同意)。我同意 (`agree`) 去攻讀一個學位 (`degree`)。' },
+            { en: 'dot', zh: '點 (ㄉㄧㄢˇ)', mnemonic: '`do` (做) + `t`。務必做 (`do`) 到在 `i` 上面加一個點 (`dot`)。' },
+            { en: 'dozen', zh: '一打 (ㄧ ㄉㄚˇ)', mnemonic: '`doze` (打瞌睡) + `n`。吃了一打 (`dozen`) 甜甜圈後開始打瞌睡 (`doze`)。' },
+            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)', mnemonic: '`dress` 和 `press` (熨燙/按壓) 押韻。穿洋裝 (`dress`) 之前要先熨燙 (`press`) 一下。' },
+            { en: 'glove', zh: '手套 (ㄕㄡˇ ㄊㄠˋ)', mnemonic: '`glove` 裡面有 `love` (愛)。充滿愛 (`love`) 的手套 (`glove`)。' },
+            { en: 'gram', zh: '公克 (ㄍㄨㄥ ㄎㄜˋ)', mnemonic: '`gram` 聽起來像 `ram` (公羊)。那隻公羊 (`ram`) 重達很多公克 (`gram`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -343,7 +337,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派)
+        // 監聽整個練習列表的鍵盤事件 (事件委派) - 按 Enter 觸發批改
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -364,7 +358,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (全部轉小寫比較，實現不分大小寫)
+                // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -450,7 +444,7 @@
                 return;
             }
 
-            // 全部轉小寫比較，實現不分大小寫
+            // 考試模式：檢查答案 (不分大小寫)
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
