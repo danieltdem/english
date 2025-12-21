@@ -262,21 +262,21 @@
 
     <script>
         const words = [
-            { en: 'bag', zh: '袋子 (ㄉㄞˋ ㄗ˙)', mnemonic: '`bag` 聽起來像 `beg` (乞討)。乞丐通常都帶著一個袋子 (`bag`)。' },
-            { en: 'belt', zh: '皮帶 (ㄆㄧˊ ㄉㄞˋ)', mnemonic: '`bell` (鈴鐺) + `t`。把鈴鐺 (`bell`) 繫在皮帶 (`belt`) 上。' },
-            { en: 'blouse', zh: '女用襯衫 (ㄋㄩˇ ㄩㄥˋ ㄔㄣˋ ㄕㄢ)', mnemonic: '`blue` (藍色) + `mouse` (老鼠)。想像一隻藍色的 (`blue`) 老鼠穿著女用襯衫 (`blouse`)。' },
-            { en: 'cap', zh: '帽子 (ㄇㄠˋ ㄗ˙)', mnemonic: '`cap` 是 `captain` (隊長) 的縮寫。隊長 (`captain`) 通常都戴著帽子 (`cap`)。' },
-            { en: 'centimeter', zh: '公分 (ㄍㄨㄥ ㄈㄣ)', mnemonic: '`cent` (百) + `meter` (公尺)。一百分之一公尺就是公分 (`centimeter`)。' },
-            { en: 'circle', zh: '圓形 (ㄩㄢˊ ㄒㄧㄥˊ)', mnemonic: '`Sir` (先生) + `cle`。圓形先生 (`Sir Circle`)。' },
-            { en: 'clothes', zh: '衣服 (ㄧ ㄈㄨˊ)', mnemonic: '`cloth` (布料) + `es`。用布料 (`cloth`) 做成的就是衣服 (`clothes`)。' },
-            { en: 'coat', zh: '外套 (ㄨㄞˋ ㄊㄠˋ)', mnemonic: '`coat` 和 `goat` (山羊) 押韻。想像一隻穿著外套 (`coat`) 的山羊 (`goat`)。' },
-            { en: 'comb', zh: '梳子 (ㄕㄨ ㄗ˙)', mnemonic: '`comb` 和 `bomb` (炸彈) 押韻。梳 (`comb`) 頭髮時小心不要梳到炸彈 (`bomb`)。' },
-            { en: 'degree', zh: '度數；學位 (ㄉㄨˋ ㄕㄨˋ)', mnemonic: '`agree` (同意)。我同意 (`agree`) 去攻讀一個學位 (`degree`)。' },
-            { en: 'dot', zh: '點 (ㄉㄧㄢˇ)', mnemonic: '`do` (做) + `t`。務必做 (`do`) 到在 `i` 上面加一個點 (`dot`)。' },
-            { en: 'dozen', zh: '一打 (ㄧ ㄉㄚˇ)', mnemonic: '`doze` (打瞌睡) + `n`。吃了一打 (`dozen`) 甜甜圈後開始打瞌睡 (`doze`)。' },
-            { en: 'dress', zh: '洋裝 (ㄧㄤˊ ㄓㄨㄤ)', mnemonic: '`dress` 和 `press` (熨燙/按壓) 押韻。穿洋裝 (`dress`) 之前要先熨燙 (`press`) 一下。' },
-            { en: 'glove', zh: '手套 (ㄕㄡˇ ㄊㄠˋ)', mnemonic: '`glove` 裡面有 `love` (愛)。充滿愛 (`love`) 的手套 (`glove`)。' },
-            { en: 'gram', zh: '公克 (ㄍㄨㄥ ㄎㄜˋ)', mnemonic: '`gram` 聽起來像 `ram` (公羊)。那隻公羊 (`ram`) 重達很多公克 (`gram`)。' }
+            { en: 'hat', zh: '帽子 (ㄇㄠˋ ㄗ˙)', mnemonic: '`hat` 聽起來像 `Head At Top` (頭在上面)。帽子 (`hat`) 就是戴在頭頂上的。' },
+            { en: 'height', zh: '高度 (ㄍㄠ ㄉㄨˋ)', mnemonic: '`height` (高度) 裡有 `eight` (八)。這棵樹的高度 (`height`) 是八 (`eight`) 公尺。' },
+            { en: 'inch', zh: '英吋 (ㄧㄥ ㄘㄨㄣˋ)', mnemonic: '`inch` (英吋) 聽起來像 `pinch` (捏)。捏 (`pinch`) 一下的距離大約就是一英吋 (`inch`)。' },
+            { en: 'jacket', zh: '夾克 (ㄐㄧㄚˊ ㄎㄜˋ)', mnemonic: '`Jack` (傑克) + `et`。傑克 (`Jack`) 穿上了他的夾克 (`jacket`)。' },
+            { en: 'jeans', zh: '牛仔褲 (ㄋㄧㄡˊ ㄗㄞˇ ㄎㄨˋ)', mnemonic: '`Jean` (珍) + `s`。珍 (`Jean`) 穿著她的牛仔褲 (`jeans`)。' },
+            { en: 'kilogram', zh: '公斤 (ㄍㄨㄥ ㄐㄧㄣ)', mnemonic: '`kilo` (千) + `gram` (克)。一千克就是一公斤 (`kilogram`)。' },
+            { en: 'kilometer', zh: '公里 (ㄍㄨㄥ ㄌㄧˇ)', mnemonic: '`kilo` (千) + `meter` (公尺)。一千公尺就是一公里 (`kilometer`)。' },
+            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '`length` (長度) 來自 `long` (長)。問東西多長 (`long`)，就是在問它的長度 (`length`)。' },
+            { en: 'line', zh: '線 (ㄒㄧㄢˋ)', mnemonic: '`line` (線) 和 `fine` (細的) 押韻。這是一條很細的線 (`fine line`)。' },
+            { en: 'mask', zh: '口罩；面具 (ㄇㄧㄢˋ ㄐㄩˋ)', mnemonic: '`mask` 聽起來像 `ask` (要求)。老闆要求 (`ask`) 員工必須戴口罩 (`mask`)。' },
+            { en: 'mile', zh: '英里 (ㄧㄥ ㄌㄧˇ)', mnemonic: '`mile` 裡有 `smile` (微笑)。「微笑」(`smile`) 這個字裡，兩個 `s` 之間隔了一英里 (`mile`)。' },
+            { en: 'million', zh: '百萬 (ㄅㄞˇ ㄨㄢˋ)', mnemonic: '`mill` (工廠) + `lion` (獅子)。想像一個工廠 (`mill`) 裡生產了一百萬 (`million`) 隻玩具獅子 (`lion`)。' },
+            { en: 'minute', zh: '分鐘 (ㄈㄣ ㄓㄨㄥ)', mnemonic: '`min` (mini, 迷你) + `ute`。分鐘 (`minute`) 是一段迷你的時間。' },
+            { en: 'necklace', zh: '項鍊 (ㄒㄧㄤˋ ㄌㄧㄢˋ)', mnemonic: '`neck` (脖子) + `lace` (蕾絲/帶子)。繫在脖子 (`neck`) 上的裝飾帶子，就是項鍊 (`necklace`)。' },
+            { en: 'needle', zh: '針 (ㄓㄣ)', mnemonic: '`needle` 聽起來像 `need` (需要)。你需要 (`need`) 一根針 (`needle`) 來縫衣服。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -337,7 +337,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派) - 按 Enter 觸發批改
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -444,7 +444,7 @@
                 return;
             }
 
-            // 考試模式：檢查答案 (不分大小寫)
+            // 轉小寫，實現不分大小寫比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
