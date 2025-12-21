@@ -144,13 +144,13 @@
         .practice-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
+            align-items: flex-start; /* 改為靠上對齊，因為右邊可能會有記憶法文字 */
+            padding: 15px 0;
             border-bottom: 1px solid #444;
         }
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; }
-        .col-input { width: 40%; }
-        .col-ans { width: 25%; text-align: right; color: #4CAF50; font-weight: bold; font-size: 18px;}
+        .col-zh { width: 30%; text-align: left; font-size: 16px; color: #ffcc00; padding-top: 5px; }
+        .col-input { width: 35%; }
+        .col-ans { width: 35%; text-align: left; padding-left: 10px; } /* 調整寬度和對齊 */
 
         .practice-input {
             width: 90%;
@@ -184,7 +184,9 @@
             padding: 10px;
         }
 
-        .answer-text { display: none; }
+        .answer-block { display: none; }
+        .answer-word { color: #4CAF50; font-weight: bold; font-size: 18px; }
+        .answer-mnemonic { color: #aaa; font-size: 12px; margin-top: 4px; line-height: 1.4; }
         
         .list-header {
             display: flex; 
@@ -218,7 +220,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共16題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -248,9 +250,9 @@
             </div>
 
             <div class="list-header">
-                <span style="width:35%">中文意思</span>
-                <span style="width:40%">拼寫練習</span>
-                <span style="width:25%; text-align:right;">正確答案</span>
+                <span style="width:30%">中文意思</span>
+                <span style="width:35%">拼寫練習</span>
+                <span style="width:35%; text-align:left; padding-left:10px;">正確答案 & 記憶法</span>
             </div>
         </div>
         
@@ -262,22 +264,21 @@
 
     <script>
         const words = [
-            { en: 'Canada', zh: '加拿大 (ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ)', mnemonic: '`Canada` = `Can` (能夠) + `Ada` (艾達，人名)。艾達能 (`Can`) 去加拿大 (`Canada`)。' },
-            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`castle` (城堡) 裡有 `cast` (演員陣容)。這部電影的演員們住在一座城堡 (`castle`) 裡。' },
-            { en: 'center', zh: '中心 (ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`center` (中心) = `cent` (一分錢) + `er`。我把一分錢 (`cent`) 寄到了中心 (`center`)。' },
-            { en: 'church', zh: '教堂 (ㄐㄧㄠˋ ㄊㄤˊ)', mnemonic: '`ch` + `ur` (you are, 你是) + `ch`。你現在是在教堂 (`church`) 裡。' },
-            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '`city` (城市) 聽起來像 `sit` (坐) + `tea` (茶)。你在城市 (`city`) 裡坐著喝茶。' },
-            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` (海岸) 裡有 `coat` (外套)。因為很冷，所以我在海岸 (`coast`) 上穿著外套 (`coat`)。' },
-            { en: 'company', zh: '公司 (ㄍㄨㄥ ㄙ)', mnemonic: '`com` (come, 來) + `pan` (平底鍋)。來 (`come`) 公司 (`company`) 和大家分享一鍋 (`pan`) 食物。' },
-            { en: 'country', zh: '國家；鄉村 (ㄍㄨㄛˊ ㄐㄧㄚ)', mnemonic: '`count` (數) + `try` (嘗試)。試著 (`try`) 去數 (`count`) 這個國家 (`country`) 裡的樹。' },
-            { en: 'department store', zh: '百貨公司 (ㄅㄞˇ ㄏㄨㄛˋ ㄍㄨㄥ ㄙ)', mnemonic: '`department` (部門) + `store` (商店)。一個有很多不同部門 (`department`) 的商店 (`store`) 就是百貨公司。' },
-            { en: 'downtown', zh: '市中心 (ㄕˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`down` (下去) + `town` (城鎮)。讓我們下去 (`down`) 城鎮 (`town`) 的熱鬧中心，就是市中心 (`downtown`)。' },
-            { en: 'Europe', zh: '歐洲 (ㄡ ㄓㄡ)', mnemonic: '`Europe` (歐洲) 的人使用歐元 (`Euro`)。' },
-            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`factory` 來自 `fact` (事實/實際)。工廠 (`factory`) 就是製造「實際」物品的地方。' },
-            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '`farm` (農場) 裡有 `arm` (手臂)。你需要強壯的手臂 (`arm`) 才能在農場 (`farm`) 工作。' },
-            { en: 'garage', zh: '車庫 (ㄔㄜ ㄎㄨˋ)', mnemonic: '`gar` (car, 車) + `age` (變老)。車庫 (`garage`) 是讓車子停著變老 (`age`) 的地方。' },
-            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Germ` (細菌) + `any` (任何)。那裡沒有任何 (`any`) 細菌 (`germ`)，那裡是乾淨的德國 (`Germany`)。' },
-            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` (體育館) 和 `swim` (游泳) 押韻。去體育館 (`gym`) 游泳 (`swim`)。' }
+            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 聽起來像 `all` (所有)。所有人 (`All`) 都在大廳 (`hall`) 集合。' },
+            { en: 'highway', zh: '公路 (ㄍㄨㄥ ㄌㄨˋ)', mnemonic: '`high` (高的) + `way` (道路)。一條可以讓你開得很高 (`high`) 速的道路 (`way`) 就是公路 (`highway`)。' },
+            { en: 'hospital', zh: '醫院 (ㄧ ㄩㄢˋ)', mnemonic: '`hospital` 裡有 `spit` (吐口水)。如果有人對你吐口水 (`spit`) 害你生病，你就得去醫院 (`hospital`)。' },
+            { en: 'hotel', zh: '旅館 (ㄌㄩˇ ㄍㄨㄢˇ)', mnemonic: '`hot` (熱) + `el` (tell, 告訴)。打電話告訴 (`tell`) 櫃台，旅館 (`hotel`) 房間太熱 (`hot`) 了。' },
+            { en: 'Korea', zh: '韓國 (ㄏㄢˊ ㄍㄨㄛˊ)', mnemonic: '`Korea` 聽起來像 `career` (職業)。他在韓國 (`Korea`) 發展他的職業 (`career`)。' },
+            { en: 'library', zh: '圖書館 (ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ)', mnemonic: '`li` (lie, 說謊) + `brary` (berry, 莓果)。不要說謊 (`lie`) 說你沒有在圖書館 (`library`) 吃莓果 (`berry`)。' },
+            { en: 'mall', zh: '購物中心 (ㄍㄡˋ ㄨˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`mall` 聽起來像 `all` (全部)。購物中心 (`mall`) 裡有你想買的全部 (`all`) 東西。' },
+            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (做記號) + `et` (it)。在你想買的東西上做記號 (`mark`)，然後去市場 (`market`) 買它 (`it`)。' },
+            { en: 'museum', zh: '博物館 (ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ)', mnemonic: '`muse` (繆思女神) + `um`。繆思女神 (`Muse`) 住在博物館 (`museum`) 裡激發藝術靈感。' },
+            { en: 'Paris', zh: '巴黎 (ㄅㄚ ㄌㄧˊ)', mnemonic: '`Paris` 聽起來像 `pair is` (一對是)。這一對 (`pair`) 情侶正在巴黎 (`Paris`)。' },
+            { en: 'park', zh: '公園 (ㄍㄨㄥ ㄩㄢˊ)', mnemonic: '`park` (公園) 和 `bark` (狗叫) 押韻。小狗在公園 (`park`) 裡大叫 (`bark`)。' },
+            { en: 'parking lot', zh: '停車場 (ㄊㄧㄥˊ ㄔㄜ ㄔㄤˇ)', mnemonic: '`park` (停車) + `ing` + `lot` (很多)。這個地方停了 (`parking`) 很多 (`a lot`) 車，就是停車場 (`parking lot`)。' },
+            { en: 'Philippines', zh: '菲律賓 (ㄈㄟ ㄌㄩˋ ㄅㄧㄣ)', mnemonic: '`Philip` (菲利普) + `pines` (pineapples, 鳳梨)。菲利普 (`Philip`) 在菲律賓 (`Philippines`) 吃鳳梨 (`pines`)。' },
+            { en: 'platform', zh: '月台 (ㄩㄝˋ ㄊㄞˊ)', mnemonic: '`plat` (plate, 盤子/平坦的) + `form` (形狀)。一個平坦 (`flat`) 形狀 (`form`) 的地方，讓人站立，就是月台 (`platform`)。' },
+            { en: 'playground', zh: '操場；遊樂場 (ㄘㄠ ㄔㄤˇ)', mnemonic: '`play` (玩) + `ground` (地面)。可以讓你在地面 (`ground`) 上玩 (`play`) 的地方，就是操場 (`playground`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -299,7 +300,6 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
-            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -331,7 +331,10 @@
                         <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
                     </div>
                     <div class="col-ans">
-                        <div id="ans-${index}" class="answer-text">${word.en}</div>
+                        <div id="ans-block-${index}" class="answer-block">
+                            <div class="answer-word">${word.en}</div>
+                            <div class="answer-mnemonic">${word.mnemonic}</div>
+                        </div>
                     </div>
                 `;
                 listContainer.appendChild(row);
@@ -347,7 +350,7 @@
 
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
-            const answers = document.querySelectorAll('.answer-text');
+            const answerBlocks = document.querySelectorAll('.answer-block');
             const inputs = document.querySelectorAll('.practice-input');
 
             areAnswersVisible = !areAnswersVisible; // 切換狀態
@@ -357,9 +360,9 @@
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50'; // 綠色
                 
-                answers.forEach(el => el.style.display = 'block'); // 顯示答案
+                answerBlocks.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框
+                // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -378,7 +381,7 @@
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f'; // 紅色
                 
-                answers.forEach(el => el.style.display = 'none'); // 隱藏答案
+                answerBlocks.forEach(el => el.style.display = 'none'); // 隱藏答案
             }
         }
 
@@ -449,6 +452,7 @@
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
 
+            // 這裡進行不分大小寫的比較
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
