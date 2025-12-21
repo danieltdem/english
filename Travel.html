@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的福岡親子行 (V9.1)</title>
+    <title>寧寧的福岡親子行 (V10.0 完美版)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary-color: #d35400; 
@@ -84,6 +85,10 @@
         
         .tab-btn.tool-btn { background: #343a40; color: #fff; border-color: #343a40; }
         .tab-btn.tool-btn.active { background: #007AFF; border-color: #007AFF; }
+        
+        /* Excel 匯出按鈕特別樣式 */
+        .tab-btn.excel-btn { background: #217346; color: #fff; border-color: #1e6b41; }
+        .tab-btn.excel-btn:active { background: #1e6b41; transform: scale(0.95); }
 
         /* 內容區塊 */
         .day-content { display: none; animation: fadeIn 0.4s; }
@@ -102,7 +107,7 @@
         }
         .timeline-item.food { border-left-color: var(--primary-color); }
         .timeline-item.shopping { border-left-color: #e74c3c; }
-        .timeline-item.coffee { border-left-color: #00a4e7; } /* 藍瓶專用色 */
+        .timeline-item.coffee { border-left-color: #00a4e7; }
 
         /* 標籤 */
         .time-badge {
@@ -156,8 +161,8 @@
             margin: 0 2px;
             vertical-align: text-bottom;
         }
-        .line-k { background-color: #ea5404; } /* 空港線 */
-        .line-n { background-color: #00b259; } /* 七隈線 */
+        .line-k { background-color: #ea5404; } 
+        .line-n { background-color: #00b259; } 
 
         /* 重點介紹 */
         .highlight-box {
@@ -223,7 +228,7 @@
 
 <header>
     <h1>✈️ 寧寧的福岡親子行</h1>
-    <p>2025/12/27 - 2026/01/03 (V9.1)</p>
+    <p>2025/12/27 - 2026/01/03 (V10.0)</p>
 </header>
 
 <div class="container">
@@ -249,6 +254,7 @@
         <button class="tab-btn" onclick="openDay(event, 'day7')">Day 7<br><small>01/02</small></button>
         <button class="tab-btn" onclick="openDay(event, 'day8')">Day 8<br><small>01/03</small></button>
         <button class="tab-btn tool-btn" onclick="openDay(event, 'iphone-check')">📱 驗機</button>
+        <button class="tab-btn excel-btn" onclick="exportToExcel()">📥 匯出 Excel</button>
     </div>
 
     <div id="day1" class="day-content active">
@@ -716,7 +722,10 @@
 <div id="testOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index:9999; cursor:pointer;" onclick="closeScreenTest()"></div>
 
 <script>
+    // Tab 切換邏輯
     function openDay(evt, dayName) {
+        if(dayName === 'export') return;
+        
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("day-content");
         for (i = 0; i < tabcontent.length; i++) {
@@ -733,6 +742,7 @@
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
+    // iPhone Check Logic
     const totalChecks = 4;
     function updateProgress() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -753,6 +763,69 @@
     function closeScreenTest() {
         document.getElementById('testOverlay').style.display = 'none';
         if (document.exitFullscreen) document.exitFullscreen();
+    }
+
+    // 匯出 Excel 功能
+    function exportToExcel() {
+        const wb = XLSX.utils.book_new();
+        const itineraryData = [];
+        
+        // 表頭
+        itineraryData.push(["日期", "時間", "活動名稱", "地點", "交通方式", "重點/備註"]);
+
+        // 遍歷每一天
+        const days = ["day1", "day2", "day3", "day4", "day5", "day6", "day7", "day8"];
+        const dayLabels = {
+            "day1": "12/27 (六)", "day2": "12/28 (日)", "day3": "12/29 (一)", "day4": "12/30 (二)",
+            "day5": "12/31 (三)", "day6": "01/01 (四)", "day7": "01/02 (五)", "day8": "01/03 (六)"
+        };
+
+        days.forEach(dayId => {
+            const container = document.getElementById(dayId);
+            const items = container.querySelectorAll('.timeline-item');
+            
+            items.forEach(item => {
+                const time = item.querySelector('.time-badge').innerText;
+                const titleElement = item.querySelector('.activity-title');
+                // 移除 title 裡的 span 標籤內容只取文字會比較乾淨，這裡簡單處理
+                const title = titleElement.childNodes[0].textContent.trim();
+                const location = item.querySelector('.location-tag').innerText;
+                
+                // 取得交通資訊 (處理換行)
+                let transport = "";
+                const transportBox = item.querySelector('.transport-box div');
+                if (transportBox) {
+                    transport = transportBox.innerText.replace(/\n/g, " ");
+                }
+
+                // 取得重點介紹
+                let highlight = "";
+                const highlightBox = item.querySelector('.highlight-box');
+                if (highlightBox) {
+                    highlight = highlightBox.innerText.replace("重點介紹：", "").replace("必去推薦：", "").replace("必吃推薦：", "").replace(/\n/g, " ");
+                }
+
+                itineraryData.push([dayLabels[dayId], time, title, location, transport, highlight]);
+            });
+            // 每天加一個空行
+            itineraryData.push([]);
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(itineraryData);
+        
+        // 設定欄寬
+        const wscols = [
+            {wch: 12}, // 日期
+            {wch: 8},  // 時間
+            {wch: 25}, // 活動
+            {wch: 15}, // 地點
+            {wch: 40}, // 交通
+            {wch: 50}  // 備註
+        ];
+        ws['!cols'] = wscols;
+
+        XLSX.utils.book_append_sheet(wb, ws, "福岡行程");
+        XLSX.writeFile(wb, "Fukuoka_Itinerary_2025.xlsx");
     }
 </script>
 
