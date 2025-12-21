@@ -1,192 +1,361 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>聲光世界的原理與應用 - 深度複選挑戰</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聲光世界原理與應用 - 高階複選測驗</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5a623;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --correct-color: #2ecc71;
+            --wrong-color: #e74c3c;
+        }
+
         body {
-            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            font-family: 'Segoe UI', Microsoft JhengHei, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #fff3e0 100%);
+            color: var(--text-color);
             line-height: 1.6;
-            background-color: #f4f7f6;
-            color: #333;
+            margin: 0;
             padding: 20px;
         }
+
         .container {
             max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
+
         h1 {
-            color: #2c3e50;
             text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
-        .question {
-            margin-bottom: 25px;
+
+        .intro {
+            background-color: #e3f2fd;
             padding: 15px;
-            border-left: 5px solid #3498db;
-            background: #f9f9f9;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 30px;
+            border-radius: 5px;
         }
-        .question p {
+
+        .question-block {
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .question-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
             font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #2c3e50;
         }
-        .option {
-            display: block;
-            margin-bottom: 8px;
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
             cursor: pointer;
         }
-        .btn-submit {
+
+        .option-item input {
+            margin-top: 5px;
+            margin-right: 10px;
+            transform: scale(1.2);
+            accent-color: var(--primary-color);
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #27ae60;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 8px;
+            font-size: 1.2em;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background 0.3s;
+            margin-top: 30px;
         }
-        .btn-submit:hover {
-            background-color: #219150;
+
+        .submit-btn:hover {
+            background-color: #357abd;
         }
-        .footer {
-            text-align: center;
+
+        .result-box {
             margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback {
             font-size: 0.9em;
-            color: #7f8c8d;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+            color: #555;
         }
+
+        .status-icon {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        
+        .correct-text { color: var(--correct-color); font-weight: bold; }
+        .wrong-text { color: var(--wrong-color); font-weight: bold; }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>聲光世界：全範圍深度複選測驗</h1>
-    <p style="text-align: center;">請注意：本測驗所有題目皆為<strong>複選題</strong>，請選出所有正確的選項。</p>
+    <h1>聲光世界原理與應用測驗</h1>
+    
+    <div class="intro">
+        <p><strong>老師的叮嚀：</strong>這份測驗共有 5 大題，每一題都是「複選題」。題目設計涵蓋了聲音的物理特性、光的傳播與反射、面鏡成像原理以及綜合應用。請仔細閱讀選項，選出所有符合文本敘述的正確答案。</p>
+    </div>
 
     <form id="quizForm">
-        <div class="question">
-            <p>1. 關於「聲音的產生與振動」的描述，下列哪些選項是正確的？</p>
-            <label class="option"><input type="checkbox" name="q1" value="A"> A) 聲音的根源在於物體的振動，一旦振動停止，聲音亦隨之消失</label>
-            <label class="option"><input type="checkbox" name="q1" value="B"> B) 說話時感覺到喉嚨振動，是因為聲帶正在擾動周圍介質</label>
-            <label class="option"><input type="checkbox" name="q1" value="C"> C) 打鼓與敲擊鐵琴發聲的原理不同，前者靠空氣，後者靠金屬片本身</label>
-            <label class="option"><input type="checkbox" name="q1" value="D"> D) 將發聲中的音叉放入水中產生的水花，可作為振動可見化的科學證據</label>
-            <label class="option"><input type="checkbox" name="q1" value="E"> E) 手按住正在響的三角鐵會使聲音消失，這是因為吸收了聲波而非停止振動</label>
-            </div>
+        
+        <div class="question-block" id="q1">
+            <div class="question-title">1. 關於聲音的產生與傳播介質，下列敘述哪些是正確的？（請選出所有正確選項）</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <input type="checkbox" id="q1a" name="q1" value="A">
+                    <label for="q1a">當手按住正在發響的三角鐵使其停止振動時，聲音也會立即消失。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q1b" name="q1" value="B">
+                    <label for="q1b">在游泳池水下可以聽見岸上的哨音，證明液體可以作為傳播聲音的介質。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q1c" name="q1" value="C">
+                    <label for="q1c">在外太空中，太空人可以直接對話，因為真空也能傳播聲音。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q1d" name="q1" value="D">
+                    <label for="q1d">固體是優良的聲音傳導體，例如將耳朵貼在桌面可清晰聽到輕敲聲。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q1e" name="q1" value="E">
+                    <label for="q1e">聲音的產生源於物體的振動，若將發聲的音叉放入水中，水花四濺即可證明。</label>
+                </li>
+            </ul>
+            <div class="feedback" id="f1" style="display:none;"></div>
+        </div>
 
-        <div class="question">
-            <p>2. 關於「聲音傳播介質」的實驗與現象分析，下列哪些敘述符合文本內容？</p>
-            <label class="option"><input type="checkbox" name="q2" value="A"> A) 聲音在真空中無法傳播，是因為缺乏物質作為傳遞的媒介</label>
-            <label class="option"><input type="checkbox" name="q2" value="B"> B) 固體是優良的導體，例如耳朵貼著桌面比空氣中更能清晰聽到輕敲聲</label>
-            <label class="option"><input type="checkbox" name="q2" value="C"> C) 在游泳池下聽見岸上的哨音，證明液體能傳播聲音</label>
-            <label class="option"><input type="checkbox" name="q2" value="D"> D) 樓上移動家具的聲音傳到樓下，主要是透過氣體介質傳導</label>
-            <label class="option"><input type="checkbox" name="q2" value="E"> E) 空氣是日常生活中最常見的聲音傳遞介質</label>
-            </div>
+        <div class="question-block" id="q2">
+            <div class="question-title">2. 文本中提及動物利用聲音進行多種生存活動，下列配對與描述哪些完全符合文本內容？（請選出所有正確選項）</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <input type="checkbox" id="q2a" name="q2" value="A">
+                    <label for="q2a">狼：透過嚎叫來召集遠方的同伴。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q2b" name="q2" value="B">
+                    <label for="q2b">鯨魚：利用聲波在深海中進行遠距離的溝通。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q2c" name="q2" value="C">
+                    <label for="q2c">獅子：其吼叫聲主要是為了求偶，吸引異性靠近。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q2d" name="q2" value="D">
+                    <label for="q2d">五色鳥與蛙類：發出叫聲的行為皆是為了吸引異性（求偶）。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q2e" name="q2" value="E">
+                    <label for="q2e">座頭鯨：其歌唱行為是用來威嚇入侵者。</label>
+                </li>
+            </ul>
+            <div class="feedback" id="f2" style="display:none;"></div>
+        </div>
 
-        <div class="question">
-            <p>3. 根據文本，動物發出聲音具有多樣的生物學功能，下列對應關係哪些正確？</p>
-            <label class="option"><input type="checkbox" name="q3" value="A"> A) 蛙類鳴叫與座頭鯨歌唱：皆具備吸引異性、求偶的功能</label>
-            <label class="option"><input type="checkbox" name="q3" value="B"> B) 狼嚎：主要用於集結遠方的同伴</label>
-            <label class="option"><input type="checkbox" name="q3" value="C"> C) 獅子吼叫：用以威嚇並驅離入侵者或競爭對手</label>
-            <label class="option"><input type="checkbox" name="q3" value="D"> D) 鯨魚在深海利用聲波：具備遠距離溝通的功能</label>
-            <label class="option"><input type="checkbox" name="q3" value="E"> E) 五色鳥啼叫：僅具有警告敵人的單一功能</label>
-            </div>
+        <div class="question-block" id="q3">
+            <div class="question-title">3. 關於光的來源、傳播特性與影子的形成，下列哪些敘述是正確的？（請選出所有正確選項）</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <input type="checkbox" id="q3a" name="q3" value="A">
+                    <label for="q3a">月亮、鏡子和波光粼粼的水面看起來很亮，因此它們都被定義為「光源」。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q3b" name="q3" value="B">
+                    <label for="q3b">從茂密樹林間隙透出的光柱呈現筆直狀態，證明光在均勻介質中沿直線傳播。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q3c" name="q3" value="C">
+                    <label for="q3c">影子的位置總是在光源的相反方向，且形狀與阻擋物相似。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q3d" name="q3" value="D">
+                    <label for="q3d">若使用彎曲的水管觀察光源，視線會被阻擋而無法看見光，證明光無法轉彎。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q3e" name="q3" value="E">
+                    <label for="q3e">螢火蟲、閃電和開啟的手電筒皆屬於本身能發光的光源。</label>
+                </li>
+            </ul>
+            <div class="feedback" id="f3" style="display:none;"></div>
+        </div>
 
-        <div class="question">
-            <p>4. 下列哪些物體根據定義屬於「本身能發光」的光源？</p>
-            <label class="option"><input type="checkbox" name="q4" value="A"> A) 夜空中的月亮</label>
-            <label class="option"><input type="checkbox" name="q4" value="B"> B) 正在發光的螢火蟲</label>
-            <label class="option"><input type="checkbox" name="q4" value="C"> C) 閃電</label>
-            <label class="option"><input type="checkbox" name="q4" value="D"> D) 開啟中的汽車頭燈</label>
-            <label class="option"><input type="checkbox" name="q4" value="E"> E) 波光粼粼的水面</label>
-            </div>
+        <div class="question-block" id="q4">
+            <div class="question-title">4. 根據文本對各類「面鏡」的分析，下列關於鏡子特性與應用的敘述哪些正確？（請選出所有正確選項）</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <input type="checkbox" id="q4a" name="q4" value="A">
+                    <label for="q4a">平面鏡成像的大小與實物相等，但是呈現左右相反的像。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q4b" name="q4" value="B">
+                    <label for="q4b">凸面鏡具有匯聚光線的功能，常用於製作手電筒的反光罩。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q4c" name="q4" value="C">
+                    <label for="q4c">凹面鏡可以將焦點光源平行射出以增加亮度，應用於汽車頭燈。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q4d" name="q4" value="D">
+                    <label for="q4d">道路轉角反射鏡與汽車後視鏡通常使用凸面鏡，因為它能發散光線以擴大視野。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q4e" name="q4" value="E">
+                    <label for="q4e">哈哈鏡是由凸面與凹面不規則組合而成，能產生扭曲變形的影像。</label>
+                </li>
+            </ul>
+            <div class="feedback" id="f4" style="display:none;"></div>
+        </div>
 
-        <div class="question">
-            <p>5. 關於「光的直線前進特性」，下列敘述哪些是正確的？</p>
-            <label class="option"><input type="checkbox" name="q5" value="A"> A) 影子會形成在物體的背光面，且位置與光源方向相反</label>
-            <label class="option"><input type="checkbox" name="q5" value="B"> B) 影子的形狀通常與阻擋光的物體相似</label>
-            <label class="option"><input type="checkbox" name="q5" value="C"> C) 樹林間透出的光柱與雷射筆光束，皆為光直線傳播的證據</label>
-            <label class="option"><input type="checkbox" name="q5" value="D"> D) 透過彎曲的水管觀察光源，若能看見光則證明光會隨介質彎曲</label>
-            <label class="option"><input type="checkbox" name="q5" value="E"> E) 光在均勻介質中不會發生偏折，始終沿直線前進</label>
-            </div>
+        <div class="question-block" id="q5">
+            <div class="question-title">5. 綜合聲光應用及不可見光的特性，下列敘述哪些符合簡報內容？（請選出所有正確選項）</div>
+            <ul class="options-list">
+                <li class="option-item">
+                    <input type="checkbox" id="q5a" name="q5" value="A">
+                    <label for="q5a">紅外線主要應用於熱感應與測溫；紫外線則在消毒殺菌方面有重要價值。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q5b" name="q5" value="B">
+                    <label for="q5b">救護車車頭的文字設計為左右相反，是為了利用漫射原理讓前方駕駛看清楚。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q5c" name="q5" value="C">
+                    <label for="q5c">緊急車輛（如消防車）同時使用閃爍警示燈（光）和響亮鳴笛（聲），是為了達到最高效率的警示。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q5d" name="q5" value="D">
+                    <label for="q5d">有聲號誌紅綠燈結合了聲音指引，主要是為了輔助聽力受損人士過馬路。</label>
+                </li>
+                <li class="option-item">
+                    <input type="checkbox" id="q5e" name="q5" value="E">
+                    <label for="q5e">植物進行光合作用製造養分，體現了光在生物需求上的應用。</label>
+                </li>
+            </ul>
+            <div class="feedback" id="f5" style="display:none;"></div>
+        </div>
 
-        <div class="question">
-            <p>6. 關於「光的反射與成像應用」，下列哪些描述符合文本所述？</p>
-            <label class="option"><input type="checkbox" name="q6" value="A"> A) 漫射發生於粗糙表面，光線會不規則地向四面八方反射</label>
-            <label class="option"><input type="checkbox" name="q6" value="B"> B) 平面鏡成的像大小與實物相等，但上下與左右皆相反</label>
-            <label class="option"><input type="checkbox" name="q6" value="C"> C) 救護車車頭文字採鏡像設計，是利用平面鏡左右相反的特性</label>
-            <label class="option"><input type="checkbox" name="q6" value="D"> D) 凸面鏡能發散光線，因此能提供比平面鏡更廣的可視範圍</label>
-            <label class="option"><input type="checkbox" name="q6" value="E"> E) 道路轉彎處的反射鏡通常使用凹面鏡，以匯聚光線照亮路口</label>
-            </div>
-
-        <div class="question">
-            <p>7. 關於不同面鏡的作用與實例，下列對應哪些是正確的？</p>
-            <label class="option"><input type="checkbox" name="q7" value="A"> A) 凹面鏡：應用於手電筒反光罩，可將光線匯聚或平行射出</label>
-            <label class="option"><input type="checkbox" name="q7" value="B"> B) 凸面鏡：應用於商店防盜鏡，成像較小但視野較大</label>
-            <label class="option"><input type="checkbox" name="q7" value="C"> C) 哈哈鏡：由凸面與凹面規則交替組合，僅產生上下顛倒的影像</label>
-            <label class="option"><input type="checkbox" name="q7" value="D"> D) 探照燈：利用凹面鏡匯聚光線以增加亮度</label>
-            <label class="option"><input type="checkbox" name="q7" value="E"> E) 汽車後視鏡：為了擴大視野，通常採用凸面鏡</label>
-            </div>
-
-        <div class="question">
-            <p>8. 綜合聲光科技的應用與原理，下列哪些說法是正確的？</p>
-            <label class="option"><input type="checkbox" name="q8" value="A"> A) 鐵路平交道號誌同步使用紅燈與「噹噹」聲，屬於聲光整合應用</label>
-            <label class="option"><input type="checkbox" name="q8" value="B"> B) 紅外線主要應用於熱感應與測溫，屬於不可見光</label>
-            <label class="option"><input type="checkbox" name="q8" value="C"> C) 紫外線在消毒殺菌與醫療上有價值，但過度暴露對人體有害</label>
-            <label class="option"><input type="checkbox" name="q8" value="D"> D) 垃圾車播放音樂的主要目的是為了情感表達，舒緩居民壓力</label>
-            <label class="option"><input type="checkbox" name="q8" value="E"> E) 煙火表演與水舞表演皆是利用聲光結合來提升娛樂效果</label>
-            </div>
-
-        <button type="button" class="btn-submit" onclick="checkAnswers()">提交測驗</button>
+        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗答案</button>
     </form>
 
-    <div id="result" style="margin-top: 20px; font-weight: bold; color: #d35400;"></div>
-
-    <div class="footer">
-        測驗小幫手老師 製作 - 祝你學習愉快！
-    </div>
+    <div id="result" class="result-box"></div>
 </div>
 
 <script>
     function checkAnswers() {
-        const answers = {
-            q1: ['A', 'B', 'D'],
-            q2: ['A', 'B', 'C', 'E'],
-            q3: ['A', 'B', 'C', 'D'],
-            q4: ['B', 'C', 'D'],
-            q5: ['A', 'B', 'C', 'E'],
-            q6: ['A', 'C', 'D'],
-            q7: ['A', 'B', 'D', 'E'],
-            q8: ['A', 'B', 'C', 'E']
+        // 正確答案定義
+        const correctAnswers = {
+            q1: ['A', 'B', 'D', 'E'],
+            q2: ['A', 'B', 'D'],
+            q3: ['B', 'C', 'D', 'E'],
+            q4: ['A', 'C', 'D', 'E'],
+            q5: ['A', 'C', 'E']
         };
-        
-        let score = 0;
-        let total = 8;
-        let feedback = "<h3>測驗結果解析：</h3>";
 
-        for (let i = 1; i <= total; i++) {
-            let qName = 'q' + i;
-            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
-            let correct = answers[qName];
+        // 解析內容
+        const explanations = {
+            q1: "解析：A(振動停止聲音消失)、B(液體傳聲)、D(固體傳聲)、E(振動可視化)皆為文中明確提及的正確事實。C 錯誤，因為真空中沒有介質，聲音無法傳播。",
+            q2: "解析：A(狼-集結)、B(鯨-溝通)、D(蛙/鳥-求偶)正確。C 錯誤，獅子吼叫是用於「警告敵人」而非求偶；E 錯誤，座頭鯨唱歌是為了「求偶」。",
+            q3: "解析：A 錯誤，月亮和鏡子只是反射光線，非自行發光的光源。B、C、D、E 皆正確描述了光的直線前進、影子形成及光源定義。",
+            q4: "解析：B 錯誤，凸面鏡是「發散」光線，擴大視野用；手電筒反光罩使用的是「凹面鏡」（匯聚光線）。其餘選項皆正確描述了各類面鏡特性。",
+            q5: "解析：A、C、E 正確。B 錯誤，救護車文字鏡像設計是為了配合「後視鏡的反射原理」，而非漫射。D 錯誤，有聲號誌是為了輔助「視障人士」，而非聽力受損人士。"
+        };
+
+        let score = 0;
+        let totalQuestions = 5;
+        let resultHTML = "<h2>測驗結果分析</h2>";
+
+        // 遍歷每一題
+        for (let i = 1; i <= totalQuestions; i++) {
+            const qID = 'q' + i;
+            const checkboxes = document.querySelectorAll(`input[name="${qID}"]:checked`);
+            const userAnswers = Array.from(checkboxes).map(cb => cb.value).sort();
+            const correctRef = correctAnswers[qID].sort();
+            const feedbackDiv = document.getElementById('f' + i);
             
-            if (JSON.stringify(selected.sort()) === JSON.stringify(correct.sort())) {
+            // 判斷對錯 (全對才算對)
+            const isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctRef);
+            
+            feedbackDiv.style.display = 'block';
+            
+            if (isCorrect) {
                 score++;
-                feedback += `<p style="color: green;">第 ${i} 題：完全正確！</p>`;
+                feedbackDiv.innerHTML = `<span class="correct-text">✅ 回答正確！</span><br>${explanations[qID]}`;
+                feedbackDiv.style.borderLeftColor = "#2ecc71";
             } else {
-                feedback += `<p style="color: red;">第 ${i} 題：錯誤。正確答案是 ${correct.join(', ')}。</p>`;
-                if (i === 1) feedback += " (解析：三角鐵停止發聲是因為振動被強制停止，而非單純吸收聲波。)";
-                if (i === 4) feedback += " (解析：月亮與鏡子是反射光線，非光源。)";
-                if (i === 6) feedback += " (解析：平面鏡像僅左右相反，上下並未相反；道路轉彎鏡應為凸面鏡。)";
-                if (i === 8) feedback += " (解析：垃圾車音樂屬於特定意義傳遞，非單純情感表達。)";
+                feedbackDiv.innerHTML = `<span class="wrong-text">❌ 回答錯誤</span><br><strong>您的回答：</strong> ${userAnswers.length ? userAnswers.join(', ') : '未作答'}<br><strong>正確答案：</strong> ${correctRef.join(', ')}<br>${explanations[qID]}`;
+                feedbackDiv.style.borderLeftColor = "#e74c3c";
             }
         }
 
-        document.getElementById('result').innerHTML = `你的得分：${score} / ${total}<br>` + feedback;
+        const resultBox = document.getElementById('result');
+        resultBox.style.display = 'block';
+        resultBox.style.backgroundColor = score === totalQuestions ? '#d4edda' : '#f8d7da';
+        resultBox.style.color = score === totalQuestions ? '#155724' : '#721c24';
+        
+        let finalMessage = "";
+        if (score === totalQuestions) {
+            finalMessage = "太棒了！您完全掌握了聲光世界的所有原理！🎉";
+        } else if (score >= 3) {
+            finalMessage = "不錯的嘗試！請閱讀解析，將混淆的觀念（如面鏡類型或動物行為）釐清。";
+        } else {
+            finalMessage = "別灰心，這份測驗難度較高。建議您參考解析，重新複習文本中的細節。";
+        }
+
+        resultBox.innerHTML = `<h3>您的得分：${score} / ${totalQuestions}</h3><p>${finalMessage}</p>`;
+        
+        // 滾動到結果
+        resultBox.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
