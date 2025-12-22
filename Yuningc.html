@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>國語第四冊第七課「到此『藝』遊」深度複選測驗</title>
+    <title>南一版四上國語第七課《到此「藝」遊》精熟測驗</title>
     <style>
         :root {
-            --primary-color: #8D6E63; /* 傳統工藝的木質色調 */
-            --secondary-color: #D7CCC8;
-            --accent-color: #BF360C; /* 磚紅/傳統紅 */
-            --bg-color: #F5F5F5;
-            --text-color: #3E2723;
-            --success-color: #2E7D32;
-            --error-color: #C62828;
+            --primary-color: #8B4513; /* 磚紅色，呼應魯班街建築 */
+            --secondary-color: #2E8B57; /* 深綠色，呼應月河 */
+            --accent-color: #DAA520; /* 金黃色，呼應落羽松 */
+            --bg-color: #fdfbf7;
+            --text-color: #333;
         }
 
         body {
-            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            font-family: 'Microsoft JhengHei', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -30,40 +28,29 @@
             background: #fff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 10px solid var(--accent-color);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px dashed var(--primary-color);
-            padding-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--primary-color);
         }
 
         h1 {
-            color: var(--accent-color);
-            font-size: 2.2em;
+            text-align: center;
+            color: var(--primary-color);
             margin-bottom: 10px;
         }
 
-        p.intro {
-            font-style: italic;
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
             color: #666;
+            font-style: italic;
         }
 
         .question-card {
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background: #fafafa;
+            border-left: 5px solid var(--secondary-color);
             padding: 20px;
-            margin-bottom: 25px;
-            transition: transform 0.2s;
-        }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-radius: 5px;
         }
 
         .question-title {
@@ -78,12 +65,12 @@
             margin-bottom: 10px;
             cursor: pointer;
             padding: 8px;
-            border-radius: 5px;
-            background-color: #FAFAFA;
+            border-radius: 4px;
+            transition: background 0.2s;
         }
 
         .options label:hover {
-            background-color: var(--secondary-color);
+            background-color: #e8f5e9;
         }
 
         input[type="checkbox"] {
@@ -91,190 +78,187 @@
             transform: scale(1.2);
         }
 
-        button#submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: var(--accent-color);
+        .btn-check {
+            background-color: var(--secondary-color);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
             transition: background 0.3s;
         }
 
-        button#submit-btn:hover {
-            background-color: #a02c06;
+        .btn-check:hover {
+            background-color: #1e5e3a;
         }
 
         .feedback {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 15px;
+            padding: 15px;
             border-radius: 5px;
             display: none;
-            font-size: 0.95em;
         }
 
         .feedback.correct {
-            background-color: #E8F5E9;
-            color: var(--success-color);
-            border: 1px solid var(--success-color);
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .feedback.incorrect {
-            background-color: #FFEBEE;
-            color: var(--error-color);
-            border: 1px solid var(--error-color);
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
-        
+
         .explanation {
-            margin-top: 5px;
-            font-weight: bold;
-            color: #444;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #999;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>到此『藝』遊：核心理解測驗</h1>
-        <p class="intro">測驗說明：本測驗為高難度複選題。每題皆有 2 個或以上的正確答案。請選出所有符合文本內容的選項，少選或多選皆不給分。</p>
-    </header>
+    <h1>📝 到此「藝」遊 - 深度理解測驗</h1>
+    <p class="intro">請注意：本測驗為「複選題」，每一題都有兩個以上的正確答案。</p>
 
-    <form id="quiz-form">
-        <div class="question-card" id="q1">
-            <div class="question-title">1. 關於本課文的文體、主旨與寫作架構，下列敘述哪些是完全正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" value="correct"> A. 本文屬於記敘文中的「遊記」形式，記錄了作者前往宜蘭傳藝園區的校外教學經歷。</label>
-                <label><input type="checkbox" value="wrong"> B. 本文的敘事結構是按照空間的遠近來描寫，而非參觀的時間順序。</label>
-                <label><input type="checkbox" value="correct"> C. 作者在寫作上運用了「五感」摹寫，尤其是視覺、聽覺以及內心的感受。</label>
-                <label><input type="checkbox" value="correct"> D. 參訪路線依序為：魯班街 → 臨水劇場 → 月河 → 文昌街。</label>
-                <label><input type="checkbox" value="wrong"> E. 文章的主旨僅在介紹宜蘭當地的美食與特產，與傳統藝術無關。</label>
-            </div>
-            <div class="feedback"></div>
+    <div class="question-card" id="q1">
+        <div class="question-title">1. 關於本課《到此「藝」遊》的體裁、主旨與遊覽結構，下列敘述哪些是正確的？（複選）</div>
+        <div class="options">
+            <label><input type="checkbox" value="correct"> A. 本文體裁為記敘文中的遊記，按遊覽順序記述了戶外教育日的經歷。</label>
+            <label><input type="checkbox" value="wrong"> B. 課文的核心主旨是介紹宜蘭名產，並鼓勵大家購買傳統工藝品以支持經濟。</label>
+            <label><input type="checkbox" value="correct"> C. 作者的遊覽路線依序經過：魯班街 → 臨水劇場 → 月河 → 文昌街。</label>
+            <label><input type="checkbox" value="correct"> D. 作者在結論中傳達了「心靈的滿足勝過物質擁有」的價值觀，認為「滿心喜悅」是最珍貴的收穫。</label>
+            <label><input type="checkbox" value="wrong"> E. 在臨水劇場時，作者因為覺得表演太過危險而感到害怕，所以閉上眼睛不敢觀看。</label>
         </div>
+        <button class="btn-check" onclick="checkAnswer('q1', ['A', 'C', 'D'])">提交答案</button>
+        <div class="feedback"></div>
+    </div>
 
-        <div class="question-card" id="q2">
-            <div class="question-title">2. 在「魯班街」的行程中，作者看見了哪些景物並產生了何種感受？</div>
-            <div class="options">
-                <label><input type="checkbox" value="wrong"> A. 作者參觀了充滿現代感的鋼筋水泥建築，感受到了科技的進步。</label>
-                <label><input type="checkbox" value="correct"> B. 作者欣賞了古色古香的紅磚建築與傳習所。</label>
-                <label><input type="checkbox" value="correct"> C. 在工藝品方面，作者看見了陶器、玉石和藍染等作品。</label>
-                <label><input type="checkbox" value="correct"> D. 作者特別被閃著七彩光芒的玻璃藝術品吸引，看得「目不轉睛」。</label>
-                <label><input type="checkbox" value="wrong"> E. 作者在此處觀賞了走鋼索的表演，感到非常緊張。</label>
-                <label><input type="checkbox" value="correct"> F. 這裡的景色與工藝品讓作者產生了「流連忘返」的心情。</label>
-            </div>
-            <div class="feedback"></div>
+    <div class="question-card" id="q2">
+        <div class="question-title">2. 作者在「魯班街」與「臨水劇場」的感官體驗描寫極為細膩，請選出符合課文內容的描述：（複選）</div>
+        <div class="options">
+            <label><input type="checkbox" value="wrong"> A. 在魯班街，作者看見了充滿現代感的鋼筋水泥建築，感到非常新奇。</label>
+            <label><input type="checkbox" value="correct"> B. 魯班街的傳習所內展示了陶器、玉石和藍染等傳統工藝。</label>
+            <label><input type="checkbox" value="correct"> C. 作者被閃爍著七彩光芒的琉璃藝術品深深吸引，感到目不轉睛、流連忘返。</label>
+            <label><input type="checkbox" value="correct"> D. 在臨水劇場欣賞《葛瑪蘭公主》時，看到演員走鋼索，不禁為他們「捏一把冷汗」。</label>
+            <label><input type="checkbox" value="wrong"> E. 臨水劇場的表演只有靜態的唱歌，沒有任何動態的翻跟斗或跳舞動作。</label>
         </div>
+        <button class="btn-check" onclick="checkAnswer('q2', ['B', 'C', 'D'])">提交答案</button>
+        <div class="feedback"></div>
+    </div>
 
-        <div class="question-card" id="q3">
-            <div class="question-title">3. 關於「臨水劇場」的表演內容與作者的反應，下列描述哪些符合文本細節？</div>
-            <div class="options">
-                <label><input type="checkbox" value="correct"> A. 演出的戲劇名稱為《葛瑪蘭公主》。</label>
-                <label><input type="checkbox" value="correct"> B. 表演內容包含演員隨著音樂唱歌、跳舞，以及翻跟斗。</label>
-                <label><input type="checkbox" value="wrong"> C. 觀看表演時，作者全程感到輕鬆愉快，因為音樂很優美。</label>
-                <label><input type="checkbox" value="correct"> D. 當看到高難度的「走鋼索」演出時，作者不禁為表演者「捏一把冷汗」。</label>
-                <label><input type="checkbox" value="wrong"> E. 表演結束後，觀眾因為太過緊張而鴉雀無聲。</label>
-                <label><input type="checkbox" value="correct"> F. 精彩的表演引發了全場尖叫。</label>
-            </div>
-            <div class="feedback"></div>
+    <div class="question-card" id="q3">
+        <div class="question-title">3. 關於「月河」與「文昌街」的景色與活動，下列哪些描述完全符合文本中的視覺摹寫與細節？（複選）</div>
+        <div class="options">
+            <label><input type="checkbox" value="correct"> A. 在月河搭船時，作者看見了「深綠色的湖水」與「金黃的落羽松」。</label>
+            <label><input type="checkbox" value="correct"> B. 作者觀察到石拱橋上爬滿了綠色植物，河面上還有白色的水鳥。</label>
+            <label><input type="checkbox" value="wrong"> C. 文昌街主要販售的是現代科技產品與電子玩具。</label>
+            <label><input type="checkbox" value="correct"> D. 在文昌街，作者看見了「圓滾滾的金魚造型香包」與「五顏六色的捏麵人」。</label>
+            <label><input type="checkbox" value="wrong"> E. 月河的湖水被形容為「清澈見底的藍色」，且兩岸種滿了紅色的楓葉。</label>
         </div>
+        <button class="btn-check" onclick="checkAnswer('q3', ['A', 'B', 'D'])">提交答案</button>
+        <div class="feedback"></div>
+    </div>
 
-        <div class="question-card" id="q4">
-            <div class="question-title">4. 在「月河」遊覽的段落中，作者運用了哪些視覺摹寫（顏色與景物搭配）？</div>
-            <div class="options">
-                <label><input type="checkbox" value="wrong"> A. 藍色的湖水</label>
-                <label><input type="checkbox" value="correct"> B. 綠色的湖水</label>
-                <label><input type="checkbox" value="correct"> C. 爬滿綠色植物的石拱橋</label>
-                <label><input type="checkbox" value="wrong"> D. 火紅色的落羽松</label>
-                <label><input type="checkbox" value="correct"> E. 金黃色的落羽松</label>
-                <label><input type="checkbox" value="correct"> F. 白色的水鳥</label>
-            </div>
-            <div class="feedback"></div>
+    <div class="question-card" id="q4">
+        <div class="question-title">4. 針對本課的「語詞釋義」與「修辭技巧」，下列配對與分析哪些是正確的？（複選）</div>
+        <div class="options">
+            <label><input type="checkbox" value="correct"> A. 「目不轉睛」的意思是被精彩事物吸引，專注地看；「流連忘返」意指留戀愛慕，捨不得離開。</label>
+            <label><input type="checkbox" value="wrong"> B. 「捏一把冷汗」是用來形容天氣炎熱，讓人汗流浹背。</label>
+            <label><input type="checkbox" value="correct"> C. 課文運用「有人……有人……」的並列複句，來描寫文昌街上同學們購買不同紀念品的場景。</label>
+            <label><input type="checkbox" value="correct"> D. 「深綠色的湖水」、「金黃的落羽松」運用了「視覺摹寫」，透過顏色形容詞讓畫面更生動。</label>
+            <label><input type="checkbox" value="wrong"> E. 「晴朗」的意思是雨過天晴，但天空中仍布滿雲霧。</label>
         </div>
+        <button class="btn-check" onclick="checkAnswer('q4', ['A', 'C', 'D'])">提交答案</button>
+        <div class="feedback"></div>
+    </div>
 
-        <div class="question-card" id="q5">
-            <div class="question-title">5. 關於「文昌街」的經歷與最終的旅程結尾，下列哪些選項是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" value="correct"> A. 文昌街充滿了傳統民俗技藝的特色小店。</label>
-                <label><input type="checkbox" value="wrong"> B. 作者在這裡買了圓滾滾的金魚造型香包當作紀念品。</label>
-                <label><input type="checkbox" value="correct"> C. 作者看見了圓滾滾的金魚造型香包和五顏六色的捏麵人。</label>
-                <label><input type="checkbox" value="correct"> D. 作者最終購買了捏麵人。</label>
-                <label><input type="checkbox" value="wrong"> E. 旅程結束時，作者因為不想回家而感到傷心難過。</label>
-                <label><input type="checkbox" value="correct"> F. 作者帶著「滿心喜悅」的心情結束了這次的旅程。</label>
-            </div>
-            <div class="feedback"></div>
+    <div class="question-card" id="q5">
+        <div class="question-title">5. 關於本課的「字音字形」辨析，下列哪些選項的用法或讀音是正確無誤的？（複選）</div>
+        <div class="options">
+            <label><input type="checkbox" value="correct"> A. 「禁」字讀作「jīn (一聲)」時，意指承受、忍受，如課文中的「情不自禁」。</label>
+            <label><input type="checkbox" value="wrong"> B. 「禁」字讀作「jīn (一聲)」時，可以用在「禁止」、「門禁」等詞語中。</label>
+            <label><input type="checkbox" value="correct"> C. 形近字分辨：「陶」是指陶器，「淘」是指淘氣；兩者部首不同。</label>
+            <label><input type="checkbox" value="correct"> D. 形近字分辨：「索」可用於「繩索」，「素」可用於「樸素」，兩者字形相似但意義不同。</label>
+            <label><input type="checkbox" value="wrong"> E. 形近字分辨：「斗」與「抖」意思通用，例如「發斗」和「漏抖」都是正確的寫法。</label>
         </div>
+        <button class="btn-check" onclick="checkAnswer('q5', ['A', 'C', 'D'])">提交答案</button>
+        <div class="feedback"></div>
+    </div>
 
-        <div class="question-card" id="q6">
-            <div class="question-title">6. 請根據文本的「詞彙應用」與「字音字形」部分，選出所有正確的用法或解釋。</div>
-            <div class="options">
-                <label><input type="checkbox" value="correct"> A. 「目不轉睛」是用來形容被精彩事物吸引，專注地看。</label>
-                <label><input type="checkbox" value="wrong"> B. 「翻跟斗」的「斗」與「發抖」的「抖」是同一個字，寫法相同。</label>
-                <label><input type="checkbox" value="correct"> C. 「不禁」的意思是控制不住，由不得自己，讀音為「bù jīn」。</label>
-                <label><input type="checkbox" value="wrong"> D. 「禁止」、「門禁」的「禁」讀音為第一聲「jīn」。</label>
-                <label><input type="checkbox" value="correct"> E. 「陶器」與「淘氣」的漢字寫法不同，前者是陶土，後者有淘汰或頑皮之意。</label>
-                <label><input type="checkbox" value="correct"> F. 「捏一把冷汗」形容的是極度的擔心與緊張。</label>
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <button type="button" id="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
-    </form>
 </div>
 
+<footer>
+    <p>Design by 測驗小幫手 | 根據南一版四上國語第七課製作</p>
+</footer>
+
 <script>
-    function checkAnswers() {
-        const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+    function checkAnswer(questionId, correctOptions) {
+        const container = document.getElementById(questionId);
+        const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+        const feedbackDiv = container.querySelector('.feedback');
         
-        // 解析資料庫
-        const explanations = {
-            'q1': '解析：B 錯誤，文章結構是沿著「參訪路線」展開，即時間與空間的移動，而非單純的空間遠近。E 錯誤，主旨是欣賞傳統藝術之美，非介紹美食。',
-            'q2': '解析：A 錯誤，魯班街是古色古香的紅磚建築。E 錯誤，走鋼索是在「臨水劇場」看到的。',
-            'q3': '解析：C 錯誤，觀看走鋼索時心情是「緊張」的，並非全程輕鬆。E 錯誤，表演精彩絕倫，引發「全場尖叫」，非鴉雀無聲。',
-            'q4': '解析：文中明確提到的是「綠色」的湖水和「金黃色」的落羽松。A、D 選項顏色描述錯誤。',
-            'q5': '解析：B 錯誤，作者看到了金魚香包，但購買的是「捏麵人」。E 錯誤，作者是帶著「滿心喜悅」結束旅程，非傷心難過。',
-            'q6': '解析：B 錯誤，斗（漏斗）與抖（發抖）部首與寫法不同。D 錯誤，禁止的禁讀四聲「jìn」。',
-        };
+        let userSelection = [];
+        let allCorrect = true;
+        let selectedCount = 0;
 
-        questions.forEach(qId => {
-            const container = document.getElementById(qId);
-            const checkboxes = container.querySelectorAll('input[type="checkbox"]');
-            const feedback = container.querySelector('.feedback');
+        // Reset styling
+        checkboxes.forEach((cb, index) => {
+            const label = cb.parentElement;
+            const optionLetter = String.fromCharCode(65 + index);
             
-            let allCorrect = true;
-            let userSelectedCorrectCount = 0;
-            let totalCorrectOptions = 0;
-
-            checkboxes.forEach(cb => {
-                if (cb.value === 'correct') totalCorrectOptions++;
-                
-                if (cb.checked && cb.value === 'wrong') {
-                    allCorrect = false; // 選了錯誤選項
-                }
-                if (!cb.checked && cb.value === 'correct') {
-                    allCorrect = false; // 漏選正確選項
-                }
-                if (cb.checked && cb.value === 'correct') {
-                    userSelectedCorrectCount++;
-                }
-            });
-
-            if (allCorrect) {
-                feedback.className = 'feedback correct';
-                feedback.innerHTML = '<strong>完全正確！</strong> ' + explanations[qId];
-                feedback.style.display = 'block';
-            } else {
-                feedback.className = 'feedback incorrect';
-                feedback.innerHTML = '<strong>回答錯誤。</strong> ' + explanations[qId];
-                feedback.style.display = 'block';
+            if (cb.checked) {
+                userSelection.push(optionLetter);
+                selectedCount++;
             }
         });
 
-        // 滾動到第一個錯誤的題目或是頂部
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Determine correctness
+        // Check if user selected exactly the correct options (no more, no less)
+        const isExactMatch = userSelection.length === correctOptions.length && 
+                             userSelection.every(val => correctOptions.includes(val));
+
+        let explanationText = "";
+        
+        // Detailed Explanations
+        switch(questionId) {
+            case 'q1':
+                explanationText = "<strong>解析：</strong><br>B 錯誤：主旨並非鼓勵消費，而是強調精神滿足（喜悅）勝過物質擁有。<br>E 錯誤：作者看走鋼索是「捏一把冷汗」並給予喝采，並非閉眼不敢看。<br>A、C、D 完全符合課文「執行摘要」與「核心分析」的內容。";
+                break;
+            case 'q2':
+                explanationText = "<strong>解析：</strong><br>A 錯誤：魯班街是「古色古香的磚紅色建築」，非現代鋼筋水泥。<br>E 錯誤：演員有唱歌跳舞、翻跟斗、走鋼索，並非只有靜態唱歌。<br>B、C、D 均為課文中關於魯班街與臨水劇場的正確細節描述。";
+                break;
+            case 'q3':
+                explanationText = "<strong>解析：</strong><br>C 錯誤：文昌街賣的是傳統民俗技藝品（香包、捏麵人），非電子產品。<br>E 錯誤：湖水是「深綠色」，落羽松是「金黃色」，並非藍色湖水或紅色楓葉。<br>A、B、D 的顏色與景物描寫皆符合課文原文。";
+                break;
+            case 'q4':
+                explanationText = "<strong>解析：</strong><br>B 錯誤：「捏一把冷汗」形容極度擔心、緊張，非指天氣熱。<br>E 錯誤：「晴朗」是指陽光普照，沒有雲霧。<br>A、C、D 的詞義解釋與修辭分析皆正確。";
+                break;
+            case 'q5':
+                explanationText = "<strong>解析：</strong><br>B 錯誤：「禁止」、「門禁」應讀作「jìn (四聲)」。<br>E 錯誤：「斗」是名詞（如漏斗），「抖」是動詞（如發抖），不可通用。<br>A、C、D 的字音字形辨析正確。";
+                break;
+        }
+
+        if (isExactMatch) {
+            feedbackDiv.innerHTML = "<strong>✅ 完全正確！</strong><br>" + explanationText;
+            feedbackDiv.className = "feedback correct";
+            feedbackDiv.style.display = "block";
+        } else {
+            feedbackDiv.innerHTML = "<strong>❌ 答案有誤或不完整。</strong><br>請再試一次！<br><br>" + explanationText;
+            feedbackDiv.className = "feedback incorrect";
+            feedbackDiv.style.display = "block";
+        }
     }
 </script>
 
