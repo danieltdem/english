@@ -3,359 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聲光世界原理與應用 - 高階複選測驗</title>
+    <title>物質變化原理與概念分析 - 進階挑戰測驗</title>
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f5a623;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
             --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --correct-color: #2ecc71;
-            --wrong-color: #e74c3c;
         }
-
         body {
-            font-family: 'Segoe UI', Microsoft JhengHei, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa 0%, #fff3e0 100%);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: var(--card-bg);
+            background: white;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--accent-color);
         }
-
         h1 {
             text-align: center;
             color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
-
-        .intro {
-            background-color: #e3f2fd;
-            padding: 15px;
-            border-left: 5px solid var(--primary-color);
+        p.intro {
+            text-align: center;
+            color: #7f8c8d;
             margin-bottom: 30px;
-            border-radius: 5px;
+            font-size: 0.9em;
         }
-
         .question-block {
-            background: #fff;
-            border: 1px solid #e1e1e1;
-            border-radius: 10px;
+            margin-bottom: 30px;
             padding: 20px;
-            margin-bottom: 25px;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            background-color: #fff;
             transition: transform 0.2s;
         }
-
         .question-block:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-
         .question-title {
             font-weight: bold;
             font-size: 1.1em;
             margin-bottom: 15px;
-            color: #2c3e50;
+            color: var(--primary-color);
         }
-
         .options-list {
             list-style: none;
             padding: 0;
         }
-
         .option-item {
             margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background 0.2s;
             display: flex;
             align-items: flex-start;
+        }
+        .option-item:hover {
+            background-color: #e8f4fd;
+        }
+        .option-item input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 6px;
+            transform: scale(1.2);
             cursor: pointer;
         }
-
-        .option-item input {
-            margin-top: 5px;
-            margin-right: 10px;
-            transform: scale(1.2);
-            accent-color: var(--primary-color);
-        }
-
         .option-item label {
             cursor: pointer;
             width: 100%;
         }
-
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1.2em;
             cursor: pointer;
+            font-weight: bold;
             transition: background 0.3s;
-            margin-top: 30px;
-        }
-
-        .submit-btn:hover {
-            background-color: #357abd;
-        }
-
-        .result-box {
             margin-top: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
         }
-
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
         .feedback {
-            font-size: 0.9em;
             margin-top: 10px;
             padding: 10px;
-            background-color: #f8f9fa;
             border-radius: 5px;
-            border-left: 4px solid var(--secondary-color);
+            font-size: 0.9em;
+            display: none;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .explanation {
+            margin-top: 5px;
+            font-size: 0.85em;
             color: #555;
+            font-style: italic;
         }
-
-        .status-icon {
-            margin-right: 5px;
-            font-weight: bold;
-        }
-        
-        .correct-text { color: var(--correct-color); font-weight: bold; }
-        .wrong-text { color: var(--wrong-color); font-weight: bold; }
-
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>聲光世界原理與應用測驗</h1>
-    
-    <div class="intro">
-        <p><strong>老師的叮嚀：</strong>這份測驗共有 5 大題，每一題都是「複選題」。題目設計涵蓋了聲音的物理特性、光的傳播與反射、面鏡成像原理以及綜合應用。請仔細閱讀選項，選出所有符合文本敘述的正確答案。</p>
-    </div>
+    <h1>物質變化原理：進階挑戰</h1>
+    <p class="intro">本測驗所有題目均為多選題。請選出所有正確的選項。</p>
 
     <form id="quizForm">
         
         <div class="question-block" id="q1">
-            <div class="question-title">1. 關於聲音的產生與傳播介質，下列敘述哪些是正確的？（請選出所有正確選項）</div>
+            <div class="question-title">1. 關於物質變化的核心驅動因素與自然界相互作用，下列敘述何者正確？</div>
             <ul class="options-list">
                 <li class="option-item">
-                    <input type="checkbox" id="q1a" name="q1" value="A">
-                    <label for="q1a">當手按住正在發響的三角鐵使其停止振動時，聲音也會立即消失。</label>
+                    <input type="checkbox" name="q1" value="A" id="q1a">
+                    <label for="q1a">物質變化通常不是孤立發生的，而是由溫度、水、空氣及酸鹼性等多重因素相互作用所引發。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q1b" name="q1" value="B">
-                    <label for="q1b">在游泳池水下可以聽見岸上的哨音，證明液體可以作為傳播聲音的介質。</label>
+                    <input type="checkbox" name="q1" value="B" id="q1b">
+                    <label for="q1b">「水結成冰」是課程中定義「物質相互影響」的最佳範例，因為涉及了溫度的變化。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q1c" name="q1" value="C">
-                    <label for="q1c">在外太空中，太空人可以直接對話，因為真空也能傳播聲音。</label>
+                    <input type="checkbox" name="q1" value="C" id="q1c">
+                    <label for="q1c">風吹過水面造成波動，或是河水沖刷石頭，皆屬於兩種不同物質間的物理相互作用。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q1d" name="q1" value="D">
-                    <label for="q1d">固體是優良的聲音傳導體，例如將耳朵貼在桌面可清晰聽到輕敲聲。</label>
+                    <input type="checkbox" name="q1" value="D" id="q1d">
+                    <label for="q1d">鐵礦在乾燥且真空的環境中，最容易與空氣作用產生紅色的生鏽前兆。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q1e" name="q1" value="E">
-                    <label for="q1e">聲音的產生源於物體的振動，若將發聲的音叉放入水中，水花四濺即可證明。</label>
+                    <input type="checkbox" name="q1" value="E" id="q1e">
+                    <label for="q1e">生鏽（氧化）與發酵皆屬於化學變化，會改變物質的本質。</label>
                 </li>
             </ul>
-            <div class="feedback" id="f1" style="display:none;"></div>
+            <div class="feedback" id="feedback-q1"></div>
         </div>
 
         <div class="question-block" id="q2">
-            <div class="question-title">2. 文本中提及動物利用聲音進行多種生存活動，下列配對與描述哪些完全符合文本內容？（請選出所有正確選項）</div>
+            <div class="question-title">2. 針對特定的化學反應（生鏽、發酵、蛋白質變性），下列原理與應用的描述哪些是正確的？</div>
             <ul class="options-list">
                 <li class="option-item">
-                    <input type="checkbox" id="q2a" name="q2" value="A">
-                    <label for="q2a">狼：透過嚎叫來召集遠方的同伴。</label>
+                    <input type="checkbox" name="q2" value="A" id="q2a">
+                    <label for="q2a">暖暖包的原理是利用鐵粉生鏽時的「吸熱」反應，並加入食鹽減緩反應速度以延長使用時間。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q2b" name="q2" value="B">
-                    <label for="q2b">鯨魚：利用聲波在深海中進行遠距離的溝通。</label>
+                    <input type="checkbox" name="q2" value="B" id="q2b">
+                    <label for="q2b">製作鹹豆漿時加入醋，是利用酸性物質使豆漿中的蛋白質發生變性而凝固。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q2c" name="q2" value="C">
-                    <label for="q2c">獅子：其吼叫聲主要是為了求偶，吸引異性靠近。</label>
+                    <input type="checkbox" name="q2" value="C" id="q2c">
+                    <label for="q2c">麵團發酵時，酵母菌會產生氧氣，且發酵速度在高溫（60℃以上）環境中最快。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q2d" name="q2" value="D">
-                    <label for="q2d">五色鳥與蛙類：發出叫聲的行為皆是為了吸引異性（求偶）。</label>
+                    <input type="checkbox" name="q2" value="D" id="q2d">
+                    <label for="q2d">生鏽是一種氧化現象，其關鍵條件包含高濕度、酸性環境以及較大的空氣接觸面積。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q2e" name="q2" value="E">
-                    <label for="q2e">座頭鯨：其歌唱行為是用來威嚇入侵者。</label>
+                    <input type="checkbox" name="q2" value="E" id="q2e">
+                    <label for="q2e">蛋白質變性是指蛋白質結構因遇熱或遇酸而改變，例如雞蛋煮熟後無法變回生雞蛋。</label>
                 </li>
             </ul>
-            <div class="feedback" id="f2" style="display:none;"></div>
+            <div class="feedback" id="feedback-q2"></div>
         </div>
 
         <div class="question-block" id="q3">
-            <div class="question-title">3. 關於光的來源、傳播特性與影子的形成，下列哪些敘述是正確的？（請選出所有正確選項）</div>
+            <div class="question-title">3. 溫度對物質的影響分為「可逆」與「不可逆」變化，下列分類與機制何者完全正確？</div>
             <ul class="options-list">
                 <li class="option-item">
-                    <input type="checkbox" id="q3a" name="q3" value="A">
-                    <label for="q3a">月亮、鏡子和波光粼粼的水面看起來很亮，因此它們都被定義為「光源」。</label>
+                    <input type="checkbox" name="q3" value="A" id="q3a">
+                    <label for="q3a">乾冰昇華時會吸收大量的熱，這是一種可利用於快速降溫的物理現象。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q3b" name="q3" value="B">
-                    <label for="q3b">從茂密樹林間隙透出的光柱呈現筆直狀態，證明光在均勻介質中沿直線傳播。</label>
+                    <input type="checkbox" name="q3" value="B" id="q3b">
+                    <label for="q3b">巧克力受熱融化與雞蛋受熱煮熟，兩者皆屬於可逆的物理變化，因為冷卻後皆會變成固體。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q3c" name="q3" value="C">
-                    <label for="q3c">影子的位置總是在光源的相反方向，且形狀與阻擋物相似。</label>
+                    <input type="checkbox" name="q3" value="C" id="q3c">
+                    <label for="q3c">氣炸鍋烹飪食物與線香燃燒成灰燼，皆屬於不可逆的化學變化。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q3d" name="q3" value="D">
-                    <label for="q3d">若使用彎曲的水管觀察光源，視線會被阻擋而無法看見光，證明光無法轉彎。</label>
+                    <input type="checkbox" name="q3" value="D" id="q3d">
+                    <label for="q3d">在冰塊中加入食鹽可以製造更低溫的環境，這是利用吸熱反應的原理。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q3e" name="q3" value="E">
-                    <label for="q3e">螢火蟲、閃電和開啟的手電筒皆屬於本身能發光的光源。</label>
+                    <input type="checkbox" name="q3" value="E" id="q3e">
+                    <label for="q3e">玉米粒受熱爆開成為爆米花，雖然形狀改變，但本質未變，屬於可逆變化。</label>
                 </li>
             </ul>
-            <div class="feedback" id="f3" style="display:none;"></div>
+            <div class="feedback" id="feedback-q3"></div>
         </div>
 
         <div class="question-block" id="q4">
-            <div class="question-title">4. 根據文本對各類「面鏡」的分析，下列關於鏡子特性與應用的敘述哪些正確？（請選出所有正確選項）</div>
+            <div class="question-title">4. 關於酸鹼性質的辨識與天然指示劑的顏色變化，請選出正確的對應關係：</div>
             <ul class="options-list">
                 <li class="option-item">
-                    <input type="checkbox" id="q4a" name="q4" value="A">
-                    <label for="q4a">平面鏡成像的大小與實物相等，但是呈現左右相反的像。</label>
+                    <input type="checkbox" name="q4" value="A" id="q4a">
+                    <label for="q4a">鹼性物質通常摸起來有滑膩感，且紅色石蕊試紙遇到鹼性溶液會變成紅色。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q4b" name="q4" value="B">
-                    <label for="q4b">凸面鏡具有匯聚光線的功能，常用於製作手電筒的反光罩。</label>
+                    <input type="checkbox" name="q4" value="B" id="q4b">
+                    <label for="q4b">紫色高麗菜汁是一種天然指示劑，遇到酸性溶液會變為紅色系，遇到鹼性溶液則變為藍綠色系。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q4c" name="q4" value="C">
-                    <label for="q4c">凹面鏡可以將焦點光源平行射出以增加亮度，應用於汽車頭燈。</label>
+                    <input type="checkbox" name="q4" value="C" id="q4c">
+                    <label for="q4c">紫葡萄皮汁液遇到酸性溶液會呈現紫紅色，但遇到鹼性溶液則會轉變為黃綠色。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q4d" name="q4" value="D">
-                    <label for="q4d">道路轉角反射鏡與汽車後視鏡通常使用凸面鏡，因為它能發散光線以擴大視野。</label>
+                    <input type="checkbox" name="q4" value="D" id="q4d">
+                    <label for="q4d">蝶豆花茶在水中呈現藍紫色，遇到酸性物質會變成綠色，遇到鹼性物質會變成紅色。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q4e" name="q4" value="E">
-                    <label for="q4e">哈哈鏡是由凸面與凹面不規則組合而成，能產生扭曲變形的影像。</label>
+                    <input type="checkbox" name="q4" value="E" id="q4e">
+                    <label for="q4e">花青素（Anthocyanin）是許多植物中富含的水溶性色素，其顏色會隨pH值改變，適合做為天然酸鹼指示劑。</label>
                 </li>
             </ul>
-            <div class="feedback" id="f4" style="display:none;"></div>
+            <div class="feedback" id="feedback-q4"></div>
         </div>
 
         <div class="question-block" id="q5">
-            <div class="question-title">5. 綜合聲光應用及不可見光的特性，下列敘述哪些符合簡報內容？（請選出所有正確選項）</div>
+            <div class="question-title">5. 根據本單元的學習評量分析，下列哪些觀念是正確的或者是對易混淆點的正確釐清？</div>
             <ul class="options-list">
                 <li class="option-item">
-                    <input type="checkbox" id="q5a" name="q5" value="A">
-                    <label for="q5a">紅外線主要應用於熱感應與測溫；紫外線則在消毒殺菌方面有重要價值。</label>
+                    <input type="checkbox" name="q5" value="A" id="q5a">
+                    <label for="q5a">在判斷「物質相互影響」時，應區分「單一物質的狀態改變」（如水變冰）與「不同物質間的互動」（如風吹水面）。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q5b" name="q5" value="B">
-                    <label for="q5b">救護車車頭的文字設計為左右相反，是為了利用漫射原理讓前方駕駛看清楚。</label>
+                    <input type="checkbox" name="q5" value="B" id="q5b">
+                    <label for="q5b">「哥哥晚餐吃了一碗泡麵」是本單元中關於「物質相互影響」的最佳科學範例。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q5c" name="q5" value="C">
-                    <label for="q5c">緊急車輛（如消防車）同時使用閃爍警示燈（光）和響亮鳴笛（聲），是為了達到最高效率的警示。</label>
+                    <input type="checkbox" name="q5" value="C" id="q5c">
+                    <label for="q5c">pH值小於7代表酸性溶液，pH值大於7代表鹼性溶液，pH值等於7則為中性（如白開水）。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q5d" name="q5" value="D">
-                    <label for="q5d">有聲號誌紅綠燈結合了聲音指引，主要是為了輔助聽力受損人士過馬路。</label>
+                    <input type="checkbox" name="q5" value="D" id="q5d">
+                    <label for="q5d">精準記憶指示劑顏色至關重要，例如不應將紫葡萄汁遇鹼的反應誤記為紫紅色（正確應為黃綠色）。</label>
                 </li>
                 <li class="option-item">
-                    <input type="checkbox" id="q5e" name="q5" value="E">
-                    <label for="q5e">植物進行光合作用製造養分，體現了光在生物需求上的應用。</label>
+                    <input type="checkbox" name="q5" value="E" id="q5e">
+                    <label for="q5e">所有的溫度變化所導致的物質改變都是可逆的，只要將溫度調回原狀即可。</label>
                 </li>
             </ul>
-            <div class="feedback" id="f5" style="display:none;"></div>
+            <div class="feedback" id="feedback-q5"></div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗答案</button>
+        <button type="button" class="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
     </form>
-
-    <div id="result" class="result-box"></div>
 </div>
 
 <script>
     function checkAnswers() {
-        // 正確答案定義
-        const correctAnswers = {
-            q1: ['A', 'B', 'D', 'E'],
-            q2: ['A', 'B', 'D'],
-            q3: ['B', 'C', 'D', 'E'],
-            q4: ['A', 'C', 'D', 'E'],
-            q5: ['A', 'C', 'E']
+        // Correct answers definitions
+        const answers = {
+            q1: ['A', 'C', 'E'],
+            q2: ['B', 'D', 'E'],
+            q3: ['A', 'C', 'D'],
+            q4: ['B', 'C', 'E'],
+            q5: ['A', 'C', 'D']
         };
 
-        // 解析內容
+        // Explanations for wrong answers
         const explanations = {
-            q1: "解析：A(振動停止聲音消失)、B(液體傳聲)、D(固體傳聲)、E(振動可視化)皆為文中明確提及的正確事實。C 錯誤，因為真空中沒有介質，聲音無法傳播。",
-            q2: "解析：A(狼-集結)、B(鯨-溝通)、D(蛙/鳥-求偶)正確。C 錯誤，獅子吼叫是用於「警告敵人」而非求偶；E 錯誤，座頭鯨唱歌是為了「求偶」。",
-            q3: "解析：A 錯誤，月亮和鏡子只是反射光線，非自行發光的光源。B、C、D、E 皆正確描述了光的直線前進、影子形成及光源定義。",
-            q4: "解析：B 錯誤，凸面鏡是「發散」光線，擴大視野用；手電筒反光罩使用的是「凹面鏡」（匯聚光線）。其餘選項皆正確描述了各類面鏡特性。",
-            q5: "解析：A、C、E 正確。B 錯誤，救護車文字鏡像設計是為了配合「後視鏡的反射原理」，而非漫射。D 錯誤，有聲號誌是為了輔助「視障人士」，而非聽力受損人士。"
+            q1: "解析：B選項錯誤，「水結成冰」是單一物質的狀態改變，非相互影響；D選項錯誤，生鏽需要潮濕環境（水+空氣），乾燥真空無法生鏽。",
+            q2: "解析：A選項錯誤，鐵生鏽是「放熱」反應，且食鹽是催化劑用來「加速」反應；C選項錯誤，發酵產生的是二氧化碳，且最適溫度為25-30℃。",
+            q3: "解析：B選項錯誤，雞蛋煮熟是蛋白質變性，為不可逆化學變化；E選項錯誤，爆米花性質已變，不可逆。",
+            q4: "解析：A選項錯誤，紅色石蕊試紙遇鹼應變「藍」色；D選項錯誤，蝶豆花遇酸變紅紫色，遇鹼變黃/綠色（選項描述顛倒）。",
+            q5: "解析：B選項錯誤，吃泡麵涉及複雜消化，非本單元強調的自然界物理互動（如風吹水）；E選項錯誤，許多因熱產生的化學變化（如煮熟食物）是不可逆的。"
         };
 
         let score = 0;
-        let totalQuestions = 5;
-        let resultHTML = "<h2>測驗結果分析</h2>";
+        let totalQuestions = Object.keys(answers).length;
 
-        // 遍歷每一題
-        for (let i = 1; i <= totalQuestions; i++) {
-            const qID = 'q' + i;
-            const checkboxes = document.querySelectorAll(`input[name="${qID}"]:checked`);
-            const userAnswers = Array.from(checkboxes).map(cb => cb.value).sort();
-            const correctRef = correctAnswers[qID].sort();
-            const feedbackDiv = document.getElementById('f' + i);
+        for (let qId in answers) {
+            const correctOptions = answers[qId];
+            const userOptions = Array.from(document.querySelectorAll(`input[name="${qId}"]:checked`)).map(el => el.value);
+            const feedbackDiv = document.getElementById(`feedback-${qId}`);
             
-            // 判斷對錯 (全對才算對)
-            const isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctRef);
-            
-            feedbackDiv.style.display = 'block';
-            
+            // Check if user selection matches exactly with correct options (ignoring order)
+            const isCorrect = correctOptions.length === userOptions.length && correctOptions.every(val => userOptions.includes(val));
+
             if (isCorrect) {
+                feedbackDiv.innerHTML = "<strong>✅ 回答正確！</strong>";
+                feedbackDiv.className = "feedback correct";
+                feedbackDiv.style.display = "block";
                 score++;
-                feedbackDiv.innerHTML = `<span class="correct-text">✅ 回答正確！</span><br>${explanations[qID]}`;
-                feedbackDiv.style.borderLeftColor = "#2ecc71";
             } else {
-                feedbackDiv.innerHTML = `<span class="wrong-text">❌ 回答錯誤</span><br><strong>您的回答：</strong> ${userAnswers.length ? userAnswers.join(', ') : '未作答'}<br><strong>正確答案：</strong> ${correctRef.join(', ')}<br>${explanations[qID]}`;
-                feedbackDiv.style.borderLeftColor = "#e74c3c";
+                feedbackDiv.innerHTML = "<strong>❌ 回答錯誤或不完整。</strong><br>" + 
+                                      `<div class='explanation'>${explanations[qId]}</div>` +
+                                      `<div class='explanation'>正確選項應為：${correctOptions.join(', ')}</div>`;
+                feedbackDiv.className = "feedback incorrect";
+                feedbackDiv.style.display = "block";
             }
         }
-
-        const resultBox = document.getElementById('result');
-        resultBox.style.display = 'block';
-        resultBox.style.backgroundColor = score === totalQuestions ? '#d4edda' : '#f8d7da';
-        resultBox.style.color = score === totalQuestions ? '#155724' : '#721c24';
         
-        let finalMessage = "";
-        if (score === totalQuestions) {
-            finalMessage = "太棒了！您完全掌握了聲光世界的所有原理！🎉";
-        } else if (score >= 3) {
-            finalMessage = "不錯的嘗試！請閱讀解析，將混淆的觀念（如面鏡類型或動物行為）釐清。";
-        } else {
-            finalMessage = "別灰心，這份測驗難度較高。建議您參考解析，重新複習文本中的細節。";
-        }
-
-        resultBox.innerHTML = `<h3>您的得分：${score} / ${totalQuestions}</h3><p>${finalMessage}</p>`;
-        
-        // 滾動到結果
-        resultBox.scrollIntoView({ behavior: 'smooth' });
+        alert(`測驗完成！你答對了 ${score} / ${totalQuestions} 題。請查看下方各題的詳細解析。`);
     }
 </script>
 
