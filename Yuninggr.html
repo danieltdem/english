@@ -3,318 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Present Perfect vs. Past Simple 重組句子練習</title>
+    <title>Present Perfect vs Past Simple 互動測驗</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
             margin: 0;
+            padding: 20px;
         }
         .container {
-            background-color: white;
-            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 600px;
+        }
+        h1 {
+            color: #2c3e50;
             text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-        h2 { color: #2c3e50; }
-        .instruction {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+        .intro {
             background-color: #e8f4fd;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: left;
-        }
-        .question-box {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #3498db;
-            margin: 20px 0;
             padding: 15px;
-            border: 2px dashed #bdc3c7;
-            border-radius: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }
+        .question-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
         }
         input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 1em;
+            width: 150px;
+            transition: border-color 0.3s;
+            background-color: #fafafa;
         }
         input[type="text"]:focus {
             border-color: #3498db;
             outline: none;
+            background-color: #fff;
         }
-        button {
-            background-color: #2ecc71;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #27ae60;
             color: white;
             border: none;
-            padding: 10px 25px;
-            font-size: 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1.2em;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
+            margin-top: 20px;
         }
-        button:hover { background-color: #27ae60; }
-        button#next-btn {
-            background-color: #3498db;
-            display: none; /* Hidden initially */
-            margin-top: 10px;
+        .btn:hover {
+            background-color: #219150;
         }
         .feedback {
-            margin-top: 20px;
-            text-align: left;
-            padding: 15px;
-            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: bold;
             display: none;
         }
-        .feedback.correct {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .correct-answer {
+            color: #27ae60;
         }
-        .feedback.wrong {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .wrong-answer {
+            color: #e74c3c;
         }
-        .grammar-tip {
-            font-size: 0.9rem;
+        .explanation {
+            font-size: 0.9em;
+            color: #666;
             margin-top: 5px;
             font-style: italic;
         }
-        .score-board {
+        .score-display {
+            text-align: center;
+            font-size: 1.5em;
             margin-top: 20px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        /* Style for correct/incorrect inputs after checking */
+        input.correct {
+            border-color: #27ae60;
+            background-color: #e8f8f5;
+        }
+        input.incorrect {
+            border-color: #e74c3c;
+            background-color: #fdedec;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>📝 句子重組大挑戰</h2>
+    <h1>📝 Present Perfect vs Past Simple 測驗</h1>
     
-    <div class="instruction">
-        <strong>作答說明：</strong><br>
-        1. 請根據提供的單字與時間點，判斷該使用 <strong>Present Perfect (have/has + Vpp)</strong> 或是 <strong>Past Simple (V-ed)</strong>。<br>
-        2. 請輸入完整的句子，記得句尾要加句點 ( . )。<br>
-        3. 大小寫需正確 (句首大寫)。
+    <div class="intro">
+        <p><strong>寧寧老師的小提醒：</strong><br>
+        請根據括號內的動詞，填入正確的 <strong>Past Simple (過去簡單式)</strong> 或 <strong>Present Perfect (現在完成式)</strong>。<br>
+        如果是否定句，請使用縮寫形式 (例如：didn't, haven't)。</p>
     </div>
 
-    <div id="quiz-area">
-        <p>題目 <span id="q-number">1</span> / 10</p>
-        <div class="question-box" id="question-text">
-            Loading...
+    <form id="quizForm">
+        <div class="question-card">
+            <div class="question-text">
+                1. I <input type="text" data-answer="bought"> (buy) a new pair of jeans last week, but I still <input type="text" data-answer="haven't worn"> (not wear) them.
+            </div>
+            <div class="feedback" id="feedback-1"></div>
         </div>
 
-        <input type="text" id="user-input" placeholder="在此輸入你的答案..." autocomplete="off">
-        <br>
-        <button id="submit-btn" onclick="checkAnswer()">送出答案</button>
-        <button id="next-btn" onclick="nextQuestion()">下一題 ➡</button>
+        <div class="question-card">
+            <div class="question-text">
+                2. A: <input type="text" data-answer="Have you seen"> (you / see) the new Spider-Man movie yet?<br>
+                B: Yes, I <input type="text" data-answer="saw"> (see) it yesterday.
+            </div>
+            <div class="feedback" id="feedback-2"></div>
+        </div>
 
-        <div id="feedback-area" class="feedback"></div>
-    </div>
+        <div class="question-card">
+            <div class="question-text">
+                3. We <input type="text" data-answer="have lived"> (live) in Hsinchu for ten years. We love it here! (We still live here)
+            </div>
+            <div class="feedback" id="feedback-3"></div>
+        </div>
 
-    <div id="result-area" style="display:none;">
-        <h3>🎉 練習完成！</h3>
-        <p>你的得分是： <span id="final-score" style="font-weight:bold; color:#e74c3c; font-size:1.5rem;"></span> / 100</p>
-        <button onclick="restartQuiz()">再練習一次</button>
-    </div>
+        <div class="question-card">
+            <div class="question-text">
+                4. My brother <input type="text" data-answer="lost"> (lose) his keys yesterday, but he <input type="text" data-answer="has found"> (find) them this morning.
+            </div>
+            <div class="feedback" id="feedback-4"></div>
+        </div>
 
-    <div class="score-board">
-        目前得分: <span id="current-score">0</span>
-    </div>
+        <div class="question-card">
+            <div class="question-text">
+                5. A: Would you like some coffee?<br>
+                B: No, thanks. I <input type="text" data-answer="have just had"> (just / have) one.
+            </div>
+            <div class="feedback" id="feedback-5"></div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-text">
+                6. Shakespeare <input type="text" data-answer="wrote"> (write) many famous plays and poems.
+            </div>
+            <div class="feedback" id="feedback-6"></div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-text">
+                7. I <input type="text" data-answer="didn't finish"> (not finish) my homework last night because I was too tired.
+            </div>
+            <div class="feedback" id="feedback-7"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-text">
+                8. Look! Someone <input type="text" data-answer="has broken"> (break) that window.
+            </div>
+            <div class="feedback" id="feedback-8"></div>
+        </div>
+
+        <button type="button" class="btn" onclick="checkAnswers()">交卷檢查 (Check Answers)</button>
+    </form>
+
+    <div class="score-display" id="scoreDisplay"></div>
+
 </div>
 
 <script>
-    // 題目資料庫
-    const questions = [
-        {
-            prompt: "I / lose / my keys / yesterday",
-            answer: "I lost my keys yesterday.",
-            type: "Past Simple",
-            reason: "時間點 'yesterday' 是明確的過去時間，要用過去式。"
-        },
-        {
-            prompt: "She / live / in Taipei / for ten years",
-            answer: "She has lived in Taipei for ten years.",
-            type: "Present Perfect",
-            reason: "時間點 'for ten years' 表示持續了一段時間到現在，要用現在完成式。"
-        },
-        {
-            prompt: "We / not / see / Tom / last night",
-            answer: "We didn't see Tom last night.",
-            altAnswer: "We did not see Tom last night.",
-            type: "Past Simple",
-            reason: "時間點 'last night' 是明確的過去時間。過去式否定需用 didn't + 原形動詞。"
-        },
-        {
-            prompt: "They / visit / Japan / three times",
-            answer: "They have visited Japan three times.",
-            type: "Present Perfect",
-            reason: "次數 'three times' 強調累積的經驗，且沒有說死時間，用現在完成式。"
-        },
-        {
-            prompt: "Harry / buy / a new car / in 2020",
-            answer: "Harry bought a new car in 2020.",
-            type: "Past Simple",
-            reason: "時間點 'in 2020' 是明確的過去年份，要用過去式。"
-        },
-        {
-            prompt: "You / finish / your homework / yet",
-            answer: "Have you finished your homework yet?",
-            type: "Present Perfect (Question)",
-            reason: "'Yet' 通常用於現在完成式的問句或否定句。這是問句，Have 要移到句首。"
-        },
-        {
-            prompt: "My brother / break / his leg / two days ago",
-            answer: "My brother broke his leg two days ago.",
-            type: "Past Simple",
-            reason: "時間點 'two days ago' (以前) 是明確過去時間，要用過去式。"
-        },
-        {
-            prompt: "We / know / each other / since high school",
-            answer: "We have known each other since high school.",
-            type: "Present Perfect",
-            reason: "'Since' (自從) 表示從過去某點持續到現在，要用現在完成式。"
-        },
-        {
-            prompt: "It / not / rain / this week",
-            answer: "It hasn't rained this week.",
-            altAnswer: "It has not rained this week.",
-            type: "Present Perfect",
-            reason: "'This week' 這一週還沒過完，且強調這段期間的狀態，通常用現在完成式。"
-        },
-        {
-            prompt: "Where / you / go / for your holiday / last year",
-            answer: "Where did you go for your holiday last year?",
-            type: "Past Simple (Question)",
-            reason: "時間點 'last year' 是過去時間。疑問詞 Where + did + 主詞 + 原形動詞？"
-        }
-    ];
-
-    let currentQIndex = 0;
-    let score = 0;
-
-    const qText = document.getElementById("question-text");
-    const qNumber = document.getElementById("q-number");
-    const userInput = document.getElementById("user-input");
-    const feedbackArea = document.getElementById("feedback-area");
-    const submitBtn = document.getElementById("submit-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const currentScoreDisplay = document.getElementById("current-score");
-    const quizArea = document.getElementById("quiz-area");
-    const resultArea = document.getElementById("result-area");
-    const finalScore = document.getElementById("final-score");
-
-    function loadQuestion() {
-        if (currentQIndex >= questions.length) {
-            showResult();
-            return;
-        }
+    function checkAnswers() {
+        let score = 0;
+        let totalBlanks = 0;
         
-        qNumber.textContent = currentQIndex + 1;
-        qText.textContent = questions[currentQIndex].prompt;
-        userInput.value = "";
-        userInput.disabled = false;
-        userInput.focus();
+        // Loop through all question cards to process inputs inside them
+        const cards = document.querySelectorAll('.question-card');
         
-        // Reset UI
-        feedbackArea.style.display = "none";
-        feedbackArea.className = "feedback";
-        submitBtn.style.display = "inline-block";
-        nextBtn.style.display = "none";
-    }
+        cards.forEach((card, index) => {
+            const inputs = card.querySelectorAll('input');
+            const feedbackDiv = card.querySelector('.feedback');
+            let allCorrectInCard = true;
+            let explanationHTML = "";
+            
+            inputs.forEach(input => {
+                totalBlanks++;
+                const userAnswer = input.value.trim();
+                // Normalize answer: remove extra spaces, allow single quotes variations if needed, but simple trim is mostly enough. 
+                // Case insensitive check.
+                const correctAnswer = input.getAttribute('data-answer');
+                
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    score++;
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                } else {
+                    allCorrectInCard = false;
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                    // Add the correct answer to explanation
+                    explanationHTML += `<span class="wrong-answer">你的答案: ${userAnswer || "(空白)"}</span> → <span class="correct-answer">正確: ${correctAnswer}</span><br>`;
+                }
+            });
 
-    function checkAnswer() {
-        let userAns = userInput.value.trim();
-        let correctAns = questions[currentQIndex].answer;
-        let altAns = questions[currentQIndex].altAnswer;
-        let explanation = questions[currentQIndex].reason;
-
-        if (userAns === "") {
-            alert("請輸入答案！");
-            return;
-        }
-
-        // 移除多餘空白並處理標點寬容度 (稍微嚴格一點，因為是考句型)
-        // 但為了避免 frustration，我們比對時忽略最後的標點，顯示時再提醒
-        let cleanUser = userAns.replace(/[.?!]+$/, "");
-        let cleanCorrect = correctAns.replace(/[.?!]+$/, "");
-        let cleanAlt = altAns ? altAns.replace(/[.?!]+$/, "") : null;
-
-        let isCorrect = (cleanUser === cleanCorrect) || (cleanAlt && cleanUser === cleanAlt);
-
-        // 檢查標點符號
-        let lastChar = userAns.slice(-1);
-        let punctWarning = "";
-        if (isCorrect && !['.', '?', '!'].includes(lastChar)) {
-            punctWarning = "<br>(小提醒：句子結尾記得加上標點符號喔！)";
-        }
-
-        feedbackArea.style.display = "block";
-        userInput.disabled = true;
-        submitBtn.style.display = "none";
-        nextBtn.style.display = "inline-block";
-        nextBtn.focus();
-
-        if (isCorrect) {
-            score += 10;
-            currentScoreDisplay.textContent = score;
-            feedbackArea.className = "feedback correct";
-            feedbackArea.innerHTML = `<strong>✅ 答對了！</strong>${punctWarning}<br><span class="grammar-tip">${explanation}</span>`;
-        } else {
-            feedbackArea.className = "feedback wrong";
-            feedbackArea.innerHTML = `<strong>❌ 答錯了</strong><br>
-            正確答案是：<strong>${correctAns}</strong><br>
-            <span class="grammar-tip">💡 解析：${explanation}</span>`;
-        }
-    }
-
-    function nextQuestion() {
-        currentQIndex++;
-        loadQuestion();
-    }
-
-    function showResult() {
-        quizArea.style.display = "none";
-        resultArea.style.display = "block";
-        finalScore.textContent = score;
-    }
-
-    function restartQuiz() {
-        currentQIndex = 0;
-        score = 0;
-        currentScoreDisplay.textContent = 0;
-        quizArea.style.display = "block";
-        resultArea.style.display = "none";
-        loadQuestion();
-    }
-
-    // 支援按 Enter 送出
-    userInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            if (submitBtn.style.display !== "none") {
-                checkAnswer();
-            } else if (nextBtn.style.display !== "none") {
-                nextQuestion();
+            // Display Feedback for specific card
+            feedbackDiv.style.display = 'block';
+            if (allCorrectInCard) {
+                feedbackDiv.innerHTML = '<span class="correct-answer">✅ Correct! 好棒！</span>';
+                // Specific grammar hints based on question index (hardcoded for this example content)
+                let hint = "";
+                if(index === 0) hint = "Last week 是特定過去時間 (Past Simple)；still...not wear 表示持續到現在的狀態 (Present Perfect)。";
+                if(index === 1) hint = "Yet 用於現在完成式問句；Yesterday 是特定過去時間。";
+                if(index === 2) hint = "For ten years 且現在還住著，用 Present Perfect。";
+                if(index === 3) hint = "Yesterday 是過去時間；This morning 在這裡如果是剛發生的新消息或強調結果，可用 Present Perfect，不過這裡 has found 強調結果 '現在找到了'。";
+                if(index === 5) hint = "莎士比亞已經過世了，他的一生是過去的時間段，所以用 Past Simple。";
+                
+                if(hint) feedbackDiv.innerHTML += `<div class="explanation">${hint}</div>`;
+            } else {
+                feedbackDiv.innerHTML = `❌ Oops! 再試試看：<br>${explanationHTML}`;
             }
-        }
-    });
+        });
 
-    // 初始化
-    loadQuestion();
+        // Show Final Score
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const percentage = Math.round((score / totalBlanks) * 100);
+        
+        let message = "";
+        if (percentage === 100) message = "太厲害了！全對！🎉";
+        else if (percentage >= 80) message = "做得很棒！快要滿分了！👍";
+        else if (percentage >= 60) message = "不錯喔，再複習一下錯的地方！💪";
+        else message = "沒關係，多練習幾次就會了！😊";
+
+        scoreDisplay.innerHTML = `你的得分: ${score} / ${totalBlanks} (${percentage}%)<br>${message}`;
+        
+        // Scroll to bottom
+        scoreDisplay.scrollIntoView({behavior: 'smooth'});
+    }
 </script>
 
 </body>
