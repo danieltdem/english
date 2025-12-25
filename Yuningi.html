@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共29題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共31題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,35 +262,37 @@
 
     <script>
         const words = [
-            { en: 'complete', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (一起) + `plete` (fill, 填滿)。把東西全部填滿 (`complete`)，就是完成了。' },
-            { en: 'same', zh: '相同的 (ㄒㄧㄤ ㄊㄨㄥˊ)', mnemonic: '`same` 和 `name` (名字) 押韻。想像兩個有著相同 (`same`) 名字 (`name`) 的人。' },
-            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ)', mnemonic: '`differ` (不同) + `ent`。`rent` (租金) 是 `different` (不同的)。' },
-            { en: 'growing', zh: '生長的 (ㄕㄥ ㄓㄤˇ ㄉㄜ˙)', mnemonic: '`grow` (生長) + `ing`。植物正在持續地生長 (`growing`)。' },
-            { en: 'bright', zh: '明亮的 (ㄇㄧㄥˊ ㄌㄧㄤˋ ㄉㄜ˙)', mnemonic: '`bright` 聽起來像 `light` (光)。這道光 (`light`) 很明亮 (`bright`)。' },
-            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (`carve`) 出美麗的曲線 (`curve`)。' },
-            { en: 'heard', zh: '聽見 (ㄊㄧㄥ ㄐㄧㄢˋ)', mnemonic: '`hear` (聽) + `d`。`heard` 裡面包含 `ear` (耳朵)。用耳朵聽見 (`heard`)。' },
-            { en: 'worry', zh: '擔心 (ㄉㄢ ㄒㄧㄣ)', mnemonic: '`worry` 和 `sorry` (抱歉) 押韻。不必擔心 (`worry`)，也不必感到抱歉 (`sorry`)。' },
-            { en: 'further', zh: '更遠的 (ㄍㄥˋ ㄩㄢˇ ㄉㄜ˙)', mnemonic: '`far` (遠) 的比較級變形。想要走得更遠 (`further`)。' },
-            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (完全) + `fect` (do, 做)。完全做好了，就是完美的 (`perfect`)。' },
-            { en: 'worth', zh: '值得 (ㄓˊ ㄉㄜ˙)', mnemonic: '`worth` 和 `work` (工作) 很像。這份工作 (`work`) 是值得 (`worth`) 的。' },
-            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (back, 回) + `turn` (轉)。轉身回去，就是返回 (`return`)。' },
-            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '`shirt` 聽起來像 `short` (短)。這件襯衫 (`shirt`) 太短 (`short`) 了。' },
-            { en: 'hurry', zh: '匆忙 (ㄘㄨㄥ ㄇㄤˊ)', mnemonic: '`hurry` 聽起來像 `hurricane` (颶風)。像颶風一樣快，就是匆忙 (`hurry`)。' },
-            { en: 'surge', zh: '洶湧 (ㄒㄩㄥ ㄩㄥˇ)', mnemonic: '`s` + `urge` (衝動/強烈欲望)。一股強烈的衝動像海浪般洶湧 (`surge`) 而來。' },
-            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '`expert` 來自 `experience` (經驗)。專家 (`expert`) 都是有經驗的。' },
-            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`sea` (海) + `arch` (拱門)。在海 (`sea`) 上的拱門 (`arch`) 下搜尋 (`search`) 寶藏。' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`purpose` 聽起來像 `purple pose` (紫色姿勢)。他的目的是擺一個紫色的姿勢。' },
-            { en: 'certain', zh: '肯定的 (ㄎㄣˇ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`certain` 聽起來像 `curtain` (窗簾)。我肯定 (`certain`) 窗簾 (`curtain`) 後面有人。' },
-            { en: 'thirsty', zh: '口渴的 (ㄎㄡˇ ㄎㄜˇ ㄉㄜ˙)', mnemonic: '`thirst` (渴) + `y`。聽起來像 `thirty` (30)。我有三十 (`thirty`) 分鐘沒喝水，覺得口渴 (`thirsty`)。' },
-            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`direction` (方向) 的字根。直接 (`direct`) 指引方向。' },
-            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '`center` (中心) + `al`。關於中心的就是中央的 (`central`)。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Great Britain` (大不列顛)。' },
-            { en: 'attend', zh: '參加 (ㄘㄢ ㄐㄧㄚ)', mnemonic: '`at` (在) + `ten` (十點) + `d`。在十點 (`at ten`) 參加 (`attend`) 會議。' },
-            { en: 'attention', zh: '注意 (ㄓㄨˋ ㄧˋ)', mnemonic: '`at` (在) + `ten` (十) + `tion`。全班十 (`ten`) 個人都在注意 (`attention`) 老師。' },
-            { en: 'Asian', zh: '亞洲的 (ㄧㄚˇ ㄓㄡ ㄉㄜ˙)', mnemonic: '`Asia` (亞洲) + `n`。來自亞洲 (`Asia`) 的就是亞洲的 (`Asian`)。' },
-            { en: 'August', zh: '八月 (ㄅㄚ ㄩㄝˋ)', mnemonic: '來自羅馬皇帝奧古斯都 (`Augustus`) 的名字。' },
-            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`b` + `road` (路)。這條路 (`road`) 很寬廣 (`broad`)。' },
-            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '`cent` (100，如centimeter) + `ury`。一百年就是一個世紀 (`century`)。' }
+            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `nature` (本性)。脾氣和大自然的熱度就是溫度 (`temperature`)。' },
+            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (完全) + `fect` (做)。完全做好的，就是完美的 (`perfect`)。' },
+            { en: 'thunder', zh: '雷聲 (ㄌㄟˊ ㄕㄥ)', mnemonic: '`thunder` 聽起來像 `under` (在下面)。躲在雲層下面 (`under`) 聽雷聲 (`thunder`)。' },
+            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`get` + `together`。大家聚在一起 (`get together`) 就是聚集 (`gather`)。' },
+            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '`draft` (草稿) 聽起來像 `drift` (漂流)。風吹著草稿 (`draft`) 到處漂流。' },
+            { en: 'model', zh: '模型 (ㄇㄛˊ ㄒㄧㄥˊ)', mnemonic: '`mode` (模式) + `l`。一種特定的模式 (`mode`) 用來展示，就是模型 (`model`)。' },
+            { en: 'royal', zh: '皇家的 (ㄏㄨㄤˊ ㄐㄧㄚ ㄉㄜ˙)', mnemonic: '`roy` (王) + `al`。跟國王 (`roy`) 有關的就是皇家的 (`royal`)。' },
+            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (嬰兒床) + `ton` (噸)。一噸 (`ton`) 重的棉花 (`cotton`) 放在嬰兒床 (`cot`) 上。' },
+            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '`center` (中心) + `al`。中心的 (`center`) 就是中央的 (`central`)。' },
+            { en: 'custom', zh: '習俗 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '`customer` (顧客) 的習慣。顧客 (`customer`) 總是遵循習俗 (`custom`)。' },
+            { en: 'flavor', zh: '風味 (ㄈㄥ ㄨㄟˋ)', mnemonic: '`favor` (偏愛) + `l`。你偏愛 (`favor`) 這種風味 (`flavor`)。' },
+            { en: 'towel', zh: '毛巾 (ㄇㄠˊ ㄐㄧㄣ)', mnemonic: '`to` + `well` (好)。為了讓身體變好 (`well`)，洗完澡要用毛巾 (`towel`) 擦乾。' },
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happy` (快樂) + `pen` (筆)。用快樂的筆 (`happy pen`) 記錄發生的 (`happen`) 事。' },
+            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`locate` (定位)。定位 (`locate`) 你的位置，找出當地的 (`local`) 資訊。' },
+            { en: 'lemon', zh: '檸檬 (ㄋㄧㄥˊ ㄇㄥˊ)', mnemonic: '`le` + `mon` (monster, 怪物)。酸得像小怪物 (`monster`) 的檸檬 (`lemon`)。' },
+            { en: 'jewel', zh: '寶石 (ㄅㄠˇ ㄕˊ)', mnemonic: '`new` (新的) + `jewel`。一顆新的 (`new`) 寶石 (`jewel`)。' },
+            { en: 'capital', zh: '首都 (ㄕㄡˇ ㄉㄨ)', mnemonic: '`cap` (帽子/頭) + `it` + `al`。頭 (`cap`) 是身體最重要的部分，就像首都 (`capital`) 是國家最重要的城市。' },
+            { en: 'travel', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`train` (火車) + `vel`。坐火車 (`train`) 去旅行 (`travel`)。' },
+            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`norm` (標準) + `al`。符合標準 (`norm`) 的就是正常的 (`normal`)。' },
+            { en: 'natural', zh: '天然的 (ㄊㄧㄢ ㄖㄢˊ ㄉㄜ˙)', mnemonic: '`nature` (自然) + `al`。來自大自然 (`nature`) 的就是天然的 (`natural`)。' },
+            { en: 'abroad', zh: '在國外 (ㄗㄞˋ ㄍㄨㄛˊ ㄨㄞˋ)', mnemonic: '`a` + `broad` (寬廣的)。走上一條寬廣的 (`broad`) 路，出國 (`abroad`) 去。' },
+            { en: 'eighteen', zh: '十八 (ㄕˊ ㄅㄚ)', mnemonic: '`eight` (八) + `teen` (青少年)。十八歲 (`eighteen`) 的青少年。' },
+            { en: 'ceiling', zh: '天花板 (ㄊㄧㄢ ㄏㄨㄚ ㄅㄢˇ)', mnemonic: '`seal` (密封) + `ing`。把房子頂部密封 (`seal`) 起來的就是天花板 (`ceiling`)。' },
+            { en: 'survive', zh: '倖存 (ㄒㄧㄥˋ ㄘㄨㄣˊ)', mnemonic: '`sur` (over, 超越) + `vive` (live, 生活)。活得 (`live`) 超過 (`over`) 災難，就是倖存 (`survive`)。' },
+            { en: 'brother', zh: '兄弟 (ㄒㄩㄥ ㄉㄧˋ)', mnemonic: '`broth` (肉湯) + `er`。兄弟 (`brother`) 喜歡一起喝肉湯 (`broth`)。' },
+            { en: 'element', zh: '元素 (ㄩㄢˊ ㄙㄨˋ)', mnemonic: '`ele` (L) + `ment` (mind)。基本的元素 (`element`)。' },
+            { en: 'brown', zh: '棕色 (ㄗㄨㄥ ㄙㄜˋ)', mnemonic: '`bear` (熊) + `own` (擁有)。熊 (`bear`) 擁有 (`own`) 棕色 (`brown`) 的毛。' },
+            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (平常的)。不平常的就是不尋常的 (`unusual`)。' },
+            { en: 'discover', zh: '發現 (ㄈㄚ ㄒㄧㄢˋ)', mnemonic: '`dis` (去除) + `cover` (覆蓋)。去除覆蓋物，就是發現 (`discover`)。' },
+            { en: 'direction', zh: '方向 (ㄈㄤ ㄒㄧㄤˋ)', mnemonic: '`direct` (直接/指引) + `ion`。指引 (`direct`) 你的方向 (`direction`)。' },
+            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下去) 押韻。讓我們下去 (`down`) 城鎮 (`town`) 逛逛。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -458,7 +460,7 @@
                 return;
             }
 
-            // 考試模式：轉為小寫後比對
+            // 考試模式：轉成小寫比對 (不分大小寫)
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
