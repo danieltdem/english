@@ -3,291 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earning a Comeback - 填空測驗</title>
+    <title>Ningning's Word Quiz: An Unusual Shopping Trip</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff; /* 淺藍色背景，像天空 */
-            display: flex;
-            justify-content: center;
-            padding: 20px;
+            font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            background-color: #f0f8ff;
             color: #333;
-        }
-
-        .container {
-            background-color: white;
             max-width: 800px;
-            padding: 40px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 2; /* 增加行距讓閱讀更舒服 */
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px dashed #aaa;
+            padding-bottom: 10px;
+        }
+        .story-container {
+            background-color: white;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
+            font-size: 18px;
         }
-
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            color: #e67e22; /* 橘色，像圖片標題 */
-            text-align: center;
-            margin-top: 0;
-            font-style: italic;
-        }
-
-        .instructions {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        .story-content {
-            font-size: 1.2rem;
-            line-height: 2.2; /* 行距加大，方便閱讀 */
-            text-align: justify;
-        }
-
         input {
             border: none;
-            border-bottom: 2px solid #bdc3c7;
-            background-color: #fafafa;
-            font-size: 1.1rem;
-            padding: 5px;
-            width: 120px;
+            border-bottom: 2px solid #888;
+            background-color: #f9f9f9;
+            font-size: 18px;
             text-align: center;
-            color: #2c3e50;
-            transition: all 0.3s;
-            font-weight: bold;
+            width: 100px;
+            color: #333;
+            padding: 0 5px;
+            font-family: inherit;
         }
-
         input:focus {
             outline: none;
-            border-bottom: 2px solid #3498db;
-            background-color: #eaf2f8;
+            border-bottom: 2px solid #007bff;
+            background-color: #eef6ff;
         }
-
-        /* 正確答案樣式 */
         .correct {
-            border-bottom: 2px solid #2ecc71 !important;
-            background-color: #d5f5e3 !important;
-            color: #27ae60;
+            border-bottom: 2px solid #28a745 !important;
+            color: #28a745;
+            font-weight: bold;
         }
-
-        /* 錯誤答案樣式 */
         .wrong {
-            border-bottom: 2px solid #e74c3c !important;
-            background-color: #fadbd8 !important;
-            color: #c0392b;
+            border-bottom: 2px solid #dc3545 !important;
+            color: #dc3545;
         }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        button {
-            padding: 10px 25px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.1s;
+        .answer-key {
+            color: #28a745;
+            font-size: 0.8em;
             font-weight: bold;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        #checkBtn {
-            background-color: #2ecc71;
-            color: white;
-        }
-
-        #checkBtn:hover {
-            background-color: #27ae60;
-            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
-        }
-
-        #resetBtn {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        #resetBtn:hover {
-            background-color: #7f8c8d;
-        }
-
-        #peekBtn {
-            background-color: #f1c40f;
-            color: white;
-        }
-        
-        #peekBtn:hover {
-            background-color: #f39c12;
-        }
-
-        .score-board {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            font-weight: bold;
-            height: 30px;
-        }
-        
-        .hint-box {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
             display: none; /* 預設隱藏 */
+            margin-left: 5px;
+        }
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
+        }
+        button:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+        #result {
             text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 30px;
         }
-        
-        .hint-word {
-            display: inline-block;
-            margin: 5px 10px;
-            padding: 5px 10px;
-            background: white;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            cursor: default;
-        }
-
-        /* 裝飾用的足球 emoji */
-        .soccer-ball {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
-        }
-
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="soccer-ball">⚽</div>
-    <h1>Words in Context</h1>
-    <div class="instructions">Write the missing spelling words.</div>
-    <h2>Earning a Comeback</h2>
+    <h2>📝 Words in Context: An Unusual Shopping Trip</h2>
 
-    <div id="hintBox" class="hint-box">
-        <strong>Word Bank (提示):</strong><br>
-        <span class="hint-word">search</span>
-        <span class="hint-word">hurry</span>
-        <span class="hint-word">certain</span>
-        <span class="hint-word">worry</span>
-        <span class="hint-word">shirt</span>
-        <span class="hint-word">heard</span>
-        <span class="hint-word">purpose</span>
-        <span class="hint-word">thirsty</span>
-        <span class="hint-word">worth</span>
-        <span class="hint-word">return</span>
-        <span class="hint-word">further</span>
-        <span class="hint-word">expert</span>
-        <span class="hint-word">surge</span>
-        <span class="hint-word">perfect</span>
-        <span class="hint-word">curve</span>
+    <div class="story-container">
+        If you ever <input type="text" id="q1"> to <input type="text" id="q2"> to Egypt, be sure to visit the famous marketplace in the middle of Cairo, the <input type="text" id="q3"> city.
+        
+        The marketplace has many ancient walls and buildings, including a <input type="text" id="q4"> palace. This marketplace is nothing like a <input type="text" id="q5"> mall in the United States.
+        
+        Inside the <input type="text" id="q6"> part of the marketplace, there is a maze of shops that sell almost any item that you can imagine. You can find an inexpensive <input type="text" id="q7"> of a famous piece of Egyptian art or a copy of a valuable <input type="text" id="q8">.
+        
+        You also can find a carpet, <input type="text" id="q9">, or other piece of cloth made of fine wool or <input type="text" id="q10">.
+        
+        Outside the marketplace, many <input type="text" id="q11"> farmers set up stalls with fruits, vegetables, and other <input type="text" id="q12"> products, which they unload each day from their wagons.
+        
+        You can almost taste the bitter <input type="text" id="q13"> of a juicy <input type="text" id="q14"> or an exotic spice.
+        
+        It is a <input type="text" id="q15"> in Egypt to bargain with the shopkeepers over their prices.
     </div>
 
-    <div class="story-content">
-        This morning was my first soccer game of the season, but I overslept. I had to 
-        <input type="text" data-answer="search"> through my closet for my gear and 
-        <input type="text" data-answer="hurry"> to the field as quickly as I could. I was 
-        <input type="text" data-answer="certain"> that I'd be late, but it turned out that there was no need to 
-        <input type="text" data-answer="worry">. The game hadn't started yet.
-        <br><br>
-        I took off my <input type="text" data-answer="shirt"> and put on my jersey. Then, I 
-        <input type="text" data-answer="heard"> the referee blow his whistle, so I joined my team on the field. During the first half of the game, the opposing team dominated us. Our players pursued the ball without any real 
-        <input type="text" data-answer="purpose">. At halftime, we were discouraged, hot, and 
-        <input type="text" data-answer="thirsty">. We did not think it was 
-        <input type="text" data-answer="worth"> the effort to 
-        <input type="text" data-answer="return"> to the field to face 
-        <input type="text" data-answer="further"> embarrassment.
-        <br><br>
-        Somehow, our coach managed to encourage us. He is an 
-        <input type="text" data-answer="expert"> at making us focus on doing our best. We came back in the second half with a 
-        <input type="text" data-answer="surge"> of energy. With the score tied near the end of the game, our best striker scored a 
-        <input type="text" data-answer="perfect"> goal. He faked around his defender and was able to 
-        <input type="text" data-answer="curve"> the ball into the top of the goal.
-    </div>
+    <button onclick="checkAnswers()">Check Answers (檢查答案)</button>
+    <div id="result"></div>
 
-    <div class="score-board" id="scoreDisplay"></div>
+    <script>
+        function checkAnswers() {
+            // 正確答案列表 (全部轉為小寫方便比對)
+            const answers = [
+                "happen", "travel", "capital", 
+                "royal", "normal", "central", 
+                "model", "jewel", "towel", 
+                "cotton", "local", "natural", 
+                "flavor", "lemon", "custom"
+            ];
 
-    <div class="btn-container">
-        <button id="peekBtn" onclick="toggleHint()">Show Word Bank</button>
-        <button id="checkBtn" onclick="checkAnswers()">Check Answers</button>
-        <button id="resetBtn" onclick="resetQuiz()">Reset</button>
-    </div>
-</div>
+            let score = 0;
+            let total = answers.length;
 
-<script>
-    function checkAnswers() {
-        const inputs = document.querySelectorAll('input');
-        let correctCount = 0;
-        let totalCount = inputs.length;
+            for (let i = 1; i <= total; i++) {
+                let input = document.getElementById('q' + i);
+                let userAnswer = input.value.trim().toLowerCase();
+                let correctAnswer = answers[i-1];
 
-        inputs.forEach(input => {
-            const userAnswer = input.value.trim().toLowerCase();
-            const correctAnswer = input.dataset.answer.toLowerCase();
+                // 清除之前的狀態
+                // 如果已經有顯示答案的 span，先移除，避免重複
+                let existingSpan = input.nextElementSibling;
+                if (existingSpan && existingSpan.className === "answer-key") {
+                    existingSpan.remove();
+                }
 
-            if (userAnswer === correctAnswer) {
-                input.classList.add('correct');
-                input.classList.remove('wrong');
-                correctCount++;
-            } else {
-                input.classList.add('wrong');
-                input.classList.remove('correct');
+                if (userAnswer === correctAnswer) {
+                    input.className = "correct";
+                    score++;
+                } else {
+                    input.className = "wrong";
+                    // 答錯時，在後面顯示正確答案
+                    let span = document.createElement("span");
+                    span.className = "answer-key";
+                    span.innerText = "(" + correctAnswer + ")";
+                    span.style.display = "inline";
+                    
+                    // 插入到 input 後面
+                    input.parentNode.insertBefore(span, input.nextSibling);
+                }
             }
-        });
 
-        const scoreDisplay = document.getElementById('scoreDisplay');
-        const percentage = Math.round((correctCount / totalCount) * 100);
-        
-        let message = "";
-        if (percentage === 100) message = "Excellent! 滿分！🎉";
-        else if (percentage >= 80) message = "Great job! 快要全對了！💪";
-        else message = "Keep trying! 再試一次！😊";
-
-        scoreDisplay.textContent = `Score: ${correctCount} / ${totalCount} (${message})`;
-        scoreDisplay.style.color = percentage === 100 ? "#27ae60" : "#e67e22";
-    }
-
-    function resetQuiz() {
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.value = '';
-            input.classList.remove('correct', 'wrong');
-        });
-        document.getElementById('scoreDisplay').textContent = '';
-    }
-
-    function toggleHint() {
-        const hintBox = document.getElementById('hintBox');
-        const btn = document.getElementById('peekBtn');
-        
-        if (hintBox.style.display === 'block') {
-            hintBox.style.display = 'none';
-            btn.textContent = 'Show Word Bank';
-        } else {
-            hintBox.style.display = 'block';
-            btn.textContent = 'Hide Word Bank';
+            // 顯示結果與評語
+            const resultDiv = document.getElementById('result');
+            let message = "";
+            if (score === total) {
+                message = "🎉 太棒了！全部答對！ (Perfect Score!)";
+                resultDiv.style.color = "#28a745";
+            } else {
+                message = `妳答對了 ${score} / ${total} 題。加油，看看紅字旁邊的正確答案喔！`;
+                resultDiv.style.color = "#dc3545";
+            }
+            resultDiv.innerText = message;
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
