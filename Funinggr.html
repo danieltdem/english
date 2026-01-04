@@ -3,561 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文法遊戲：Unit 8 (We/You/They)</title>
+    <title>Ningning's English Review Quiz (Miro School) - V2</title>
     <style>
-        /* CSS styles remain the same */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        ruby {
-            ruby-position: over;
-        }
-        rt {
-            font-size: 0.7em;
-            opacity: 0.9;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 600px;
-            transition: all 0.3s ease;
-        }
-        h1 {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: #f0f8ff;
             color: #333;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: 28px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        #game-image {
-            transition: all 0.5s ease;
-        }
-        #game-image.correct {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
-        }
-        #game-image.incorrect {
-            animation: shake 0.5s;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-        }
-        #game-image.all-correct {
-            animation: celebration 1s ease-in-out;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
-        }
-        #game-status {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-        #game-status.correct {
-            background: linear-gradient(135deg, #00b894, #00a085);
-            transform: scale(1.1);
-        }
-        #game-status.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393);
-            animation: shake 0.5s;
-        }
-        #game-status.all-correct {
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
-            animation: celebration 1s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        @keyframes celebration {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-        }
-        #progress {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 8px 16px;
-            background: #f8f9fa;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        #question {
-            font-size: 22px;
-            margin: 20px 0;
+        h1, h2 {
             color: #2c3e50;
-            line-height: 2;
-            background: #f1f3f4;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #74b9ff;
-        }
-        #options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .option-btn {
-            padding: 15px 20px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
             text-align: center;
-            transform: translateY(0);
         }
-        .option-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #0984e3, #74b9ff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .option-btn.correct {
-            background: linear-gradient(135deg, #00b894, #00a085) !important;
-            transform: scale(1.05);
-        }
-        .option-btn.incorrect {
-            background: linear-gradient(135deg, #fd79a8, #e84393) !important;
-            animation: shake 0.5s;
-        }
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
+        .question-box {
+            margin-bottom: 15px;
             padding: 10px;
-            border-radius: 8px;
-            line-height: 2;
+            border-bottom: 1px dashed #ccc;
         }
-        #explanation-container {
-            font-size: 16px;
-            margin-top: 15px;
-            padding: 20px;
-            background: linear-gradient(135deg, #fffbe6, #fff3cd);
-            border-left: 5px solid #f39c12;
-            border-radius: 10px;
-            text-align: left;
-            line-height: 2.2;
-            color: #5f4c0a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        #score {
-            font-size: 24px;
-            margin-top: 10px;
-            color: #333;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            line-height: 2;
+            font-size: 1.1em;
         }
-        #wrong-questions {
-            font-size: 16px;
-            margin-top: 20px;
-            text-align: left;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #e74c3c;
-            max-height: 250px;
-            overflow-y: auto;
-            line-height: 2.5;
+        input[type="text"] {
+            padding: 8px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 70%;
+            font-size: 1em;
         }
-        #next-btn, #restart-btn, #retest-wrong-btn {
-            padding: 15px 30px;
-            font-size: 18px;
+        button {
+            background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
+            font-size: 1em;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-left: 10px;
             font-weight: bold;
         }
-        #next-btn { 
-            background: linear-gradient(135deg, #fdcb6e, #e17055);
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        .hint {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
         }
-        #next-btn:hover { 
-            background: linear-gradient(135deg, #e17055, #fdcb6e);
-            transform: translateY(-2px);
+        /* Tab navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        #restart-btn { 
-            background: linear-gradient(135deg, #00cec9, #00b894);
+        .tab-btn {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            margin: 5px;
         }
-        #restart-btn:hover { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            transform: translateY(-2px);
+        .tab-btn.active {
+            background-color: #3498db;
+            color: white;
         }
-        #retest-wrong-btn { 
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        .tab-content {
+            display: none;
         }
-        #retest-wrong-btn:hover { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            transform: translateY(-2px);
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" style="width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.5s ease;">
-        <div id="game-status" style="display: none;">🎯</div>
+
+    <h1>🦁 Miro School Review: Monthly Test 2</h1>
+    <p style="text-align: center;">Hi Ningning! Version 2 - Challenge Mode!</p>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('vocab')">1. Vocabulary (中翻英)</button>
+        <button class="tab-btn" onclick="openTab('spelling')">2. Spelling Fix</button>
+        <button class="tab-btn" onclick="openTab('scramble')">3. Unscramble & Phonics</button>
+        <button class="tab-btn" onclick="openTab('grammar')">4. Grammar</button>
+        <button class="tab-btn" onclick="openTab('reading')">5. Reading</button>
+    </div>
+
+    <div id="vocab" class="section tab-content active">
+        <h2>📝 Section 1: Vocabulary (Weeks 10-17)</h2>
+        <p>Look at the Chinese and type the English word.</p>
+        <div id="vocab-container"></div>
+        <button onclick="checkAll('vocab')">Check Vocabulary Answers</button>
+    </div>
+
+    <div id="spelling" class="section tab-content">
+        <h2>❌ Section 2: Find the Wrong Word</h2>
+        <p>Type the correct spelling of the misspelled word.</p>
         
-        <h1><ruby>文<rt>ㄨㄣˊ</rt>法<rt>ㄈㄚˇ</rt></ruby><ruby>遊<rt>ㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>：We / You / They</h1>
-        <p><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>稱<rt>ㄔㄥ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>吧<rt>˙ㄅㄚ</rt></ruby>！</p>
+        <div class="question-box">
+            <label>1. Write <u>neetly</u> in your book.</label>
+            <input type="text" data-ans="neatly" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>2. The <u>kat</u> was sleeping.</label>
+            <input type="text" data-ans="cat" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>3. That <u>weman</u> is my mom.</label>
+            <input type="text" data-ans="woman" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>4. The <u>men</u> is my father.</label>
+            <input type="text" data-ans="man" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>5. I ran to give my grandma a <u>hg</u>.</label>
+            <input type="text" data-ans="hug" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>6. He has a lot of <u>pencisl</u>.</label>
+            <input type="text" data-ans="pencils" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>7. I want to <u>studee</u> English at home.</label>
+            <input type="text" data-ans="study" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>8. She is <u>tnree</u> years old.</label>
+            <input type="text" data-ans="three" placeholder="Correct word">
+            <span class="result"></span>
+        </div>
+        <button onclick="checkAll('spelling')">Check Spelling</button>
+    </div>
+
+    <div id="scramble" class="section tab-content">
+        <h2>🔤 Section 3: Phonics & Unscramble</h2>
+        <p><b>Challenge:</b> Look at the Chinese hint and complete the English word.</p>
         
-        <div id="quiz-area">
-            <div id="progress"></div>
-            <div id="question"></div>
-            <div id="options-container"></div>
-            <div id="result"></div>
-            <div id="explanation-container" style="display: none;"></div>
-            <button id="next-btn" style="display: none;"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby> ➡️</button>
+        <h3>Part A: Unscramble (單字重組)</h3>
+        <div class="question-box">
+            <label>1. <code>thcca</code> (Hint: 接球)</label>
+            <input type="text" data-ans="catch">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>2. <code>hickc</code> (Hint: 小雞)</label>
+            <input type="text" data-ans="chick">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>3. <code>lchnu</code> (Hint: 午餐)</label>
+            <input type="text" data-ans="lunch">
+            <span class="result"></span>
         </div>
 
-        <div id="end-screen" style="display: none;">
-            <h2>🎊 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！ 🎊</h2>
-            <div id="score"></div>
-            <div id="wrong-questions"></div>
-            <button id="restart-btn">🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby></button>
-            <button id="retest-wrong-btn" style="display: none;">❌ <ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
+        <h3>Part B: Phonics Fill-in (填入發音並寫出完整單字)</h3>
+        <p class="hint">Think: Is it sm, sw, ch, sh, st, or sp?</p>
+        
+        <div class="question-box">
+            <label>4. <code>___ing</code> (Hint: 盪鞦韆)</label>
+            <input type="text" data-ans="swing" placeholder="Type the full word">
+            <span class="result"></span>
         </div>
+        <div class="question-box">
+            <label>5. <code>bru___</code> (Hint: 刷子/梳子)</label>
+            <input type="text" data-ans="brush" placeholder="Type the full word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>6. <code>___amp</code> (Hint: 郵票)</label>
+            <input type="text" data-ans="stamp" placeholder="Type the full word">
+            <span class="result"></span>
+        </div>
+         <div class="question-box">
+            <label>7. <code>___oon</code> (Hint: 湯匙)</label>
+            <input type="text" data-ans="spoon" placeholder="Type the full word">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>8. <code>___ite</code> (Hint: 白色)</label>
+            <input type="text" data-ans="white" placeholder="Type the full word">
+            <span class="result"></span>
+        </div>
+
+        <button onclick="checkAll('scramble')">Check Answers</button>
+    </div>
+
+    <div id="grammar" class="section tab-content">
+        <h2>✍️ Section 4: Grammar</h2>
+        
+        <h3>A. Reorder the Sentence:</h3>
+        <p class="hint">Type the full sentence with correct punctuation (. or ?).</p>
+        
+        <div class="question-box">
+            <label>1. she / a / is / nurse /.</label>
+            <input type="text" data-ans="She is a nurse." placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>2. the / students / silly / are /.</label>
+            <input type="text" data-ans="The students are silly." placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>3. you / good / student / are / a / ?</label>
+            <input type="text" data-ans="Are you a good student?" placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>4. isn't / that / tiger / a /.</label>
+            <input type="text" data-ans="That isn't a tiger." placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+         <div class="question-box">
+            <label>5. robot / is / it / a / ?</label>
+            <input type="text" data-ans="Is it a robot?" placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>6. this / shirt / is / warm /.</label>
+            <input type="text" data-ans="This shirt is warm." placeholder="Type answer here">
+            <span class="result"></span>
+        </div>
+
+        <h3>B. Write "am", "is", or "are":</h3>
+        <div class="question-box">
+            <label>1. This _____ Simon. He _____ not the teacher.</label>
+            <input type="text" data-ans="is" style="width: 50px;"> / <input type="text" data-ans="is" style="width: 50px;">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>2. I _____ a student. _____ you a student?</label>
+            <input type="text" data-ans="am" style="width: 50px;"> / <input type="text" data-ans="Are" style="width: 50px;">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>3. We _____ pilots. They _____ nine years old.</label>
+            <input type="text" data-ans="are" style="width: 50px;"> / <input type="text" data-ans="are" style="width: 50px;">
+            <span class="result"></span>
+        </div>
+        
+        <h3>C. Pronouns (Write I, You, He, She, It, We, They):</h3>
+        <div class="question-box">
+            <label>1. This is Katy. _____ is a woman.</label>
+            <input type="text" data-ans="She">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>2. That is Bill. _____ is very funny.</label>
+            <input type="text" data-ans="He">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>3. Sam and Bill are boys. _____ are boys.</label>
+            <input type="text" data-ans="They">
+            <span class="result"></span>
+        </div>
+        <div class="question-box">
+            <label>4. My father and I are tall. _____ are tall.</label>
+            <input type="text" data-ans="We">
+            <span class="result"></span>
+        </div>
+
+        <button onclick="checkAll('grammar')">Check Grammar</button>
+    </div>
+
+    <div id="reading" class="section tab-content">
+        <h2>📖 Section 5: Reading "Papa and Me"</h2>
+        
+        <div class="question-box">
+            <label>1. What did Papa make for breakfast?</label>
+            <select data-ans="Pancakes">
+                <option value="">Select...</option>
+                <option value="Toast">Toast</option>
+                <option value="Pancakes">Pancakes</option>
+                <option value="Eggs">Eggs</option>
+            </select>
+            <span class="result"></span>
+        </div>
+
+        <div class="question-box">
+            <label>2. How did they go to his grandparent's house?</label>
+            <select data-ans="By bus">
+                <option value="">Select...</option>
+                <option value="By car">By car</option>
+                <option value="By bus">By bus</option>
+                <option value="By foot">By foot</option>
+            </select>
+            <span class="result"></span>
+        </div>
+
+        <div class="question-box">
+            <label>3. Who did they visit?</label>
+            <select data-ans="Grandparents">
+                <option value="">Select...</option>
+                <option value="Grandparents">Grandparents</option>
+                <option value="The Teacher">The Teacher</option>
+                <option value="His sister">His sister</option>
+            </select>
+            <span class="result"></span>
+        </div>
+
+        <div class="question-box">
+            <label>4. What did father draw in the sand?</label>
+            <input type="text" data-ans="My face" placeholder="Hint: My ...">
+            <span class="result"></span>
+        </div>
+
+        <div class="question-box">
+            <label>5. Where did they go before the bus trip?</label>
+            <input type="text" data-ans="Park" placeholder="Hint: P...">
+            <span class="result"></span>
+        </div>
+        
+        <button onclick="checkAll('reading')">Check Reading</button>
     </div>
 
     <script>
-        // Unit 8 Question Database based on the provided text
-        const allQuestions = [
-            { 
-                question: "(<ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>星<rt>ㄒㄧㄥ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby>) ___ are aliens.", 
-                options: ["We", "They"], 
-                answer: 0, 
-                explanation: "<ruby>當<rt>ㄉㄤ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>角<rt>ㄐㄧㄠˇ</rt></ruby><ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>話<rt>ㄏㄨㄚˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "(<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>虎<rt>ㄏㄨˇ</rt></ruby>) No, we aren't. ___ are tigers.", 
-                options: ["We", "They"], 
-                answer: 1, 
-                explanation: "<ruby>指<rt>ㄓˇ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>˙ㄒㄧ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "We are = ___", 
-                options: ["We're", "Where"], 
-                answer: 0, 
-                explanation: "We are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We're。" 
-            },
-            { 
-                question: "They are = ___", 
-                options: ["Their", "They're"], 
-                answer: 1, 
-                explanation: "They are <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> They're。<ruby>注<rt>ㄓㄨˋ</rt></ruby><ruby>意<rt>ㄧˋ</rt></ruby><ruby>不<rt>ㄅㄨˊ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>拼<rt>ㄆㄧㄣ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>囉<rt>˙ㄌㄨㄛ</rt></ruby>！" 
-            },
-            { 
-                question: "You ___ = You're", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>一<rt>ㄧˊ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>配<rt>ㄆㄟˋ</rt></ruby> are。" 
-            },
-            { 
-                question: "(<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>著<rt>˙ㄓㄜ</rt></ruby><ruby>照<rt>ㄓㄠˋ</rt></ruby><ruby>片<rt>ㄆㄧㄢˋ</rt></ruby>) Are they children? No, they ___.", 
-                options: ["aren't", "are"], 
-                answer: 0, 
-                explanation: "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby> No (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>候<rt>ㄏㄡˋ</rt></ruby>，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> aren't (are not)。" 
-            },
-            { 
-                question: "Mrs Jones and Mr Black are pilots. ___ are pilots.", 
-                options: ["They", "We"], 
-                answer: 0, 
-                explanation: "<ruby>講<rt>ㄐㄧㄤˇ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby> (<ruby>瓊<rt>ㄑㄩㄥˊ</rt></ruby><ruby>斯<rt>ㄙ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>萊<rt>ㄌㄞˊ</rt></ruby><ruby>克<rt>ㄎㄜˋ</rt></ruby><ruby>先<rt>ㄒㄧㄢ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby>)，<ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "You and Nick are babies. ___ are babies.", 
-                options: ["They", "You"], 
-                answer: 1, 
-                explanation: "<ruby>包<rt>ㄅㄠ</rt></ruby><ruby>含<rt>ㄏㄢˊ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby>」<ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>內<rt>ㄋㄟˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> You (<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            },
-            { 
-                question: "John and I are good boys. ___ are good boys.", 
-                options: ["We", "They"], 
-                answer: 0, 
-                explanation: "<ruby>約<rt>ㄩㄝ</rt></ruby><ruby>翰<rt>ㄏㄢˋ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby>」(John and I)，<ruby>變<rt>ㄅㄧㄢˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby>「<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> We。" 
-            },
-            { 
-                question: "We ___ not children. We are monkeys!", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>配<rt>ㄆㄟˋ</rt></ruby><ruby>合<rt>ㄏㄜˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> are。" 
-            },
-            { 
-                question: "___ they tigers?", 
-                options: ["Is", "Are"], 
-                answer: 1, 
-                explanation: "They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>頭<rt>ㄊㄡˊ</rt></ruby>。" 
-            },
-            { 
-                question: "___ we bees?", 
-                options: ["Am", "Are"], 
-                answer: 1, 
-                explanation: "We (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>是<rt>ㄕˋ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Are。" 
-            },
-            { 
-                question: "No, they aren't. They ___ horses.", 
-                options: ["are", "is"], 
-                answer: 0, 
-                explanation: "They <ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby> are。" 
-            },
-            { 
-                question: "The dogs are brown. = ___ are brown.", 
-                options: ["It", "They"], 
-                answer: 1, 
-                explanation: "The dogs <ruby>是<rt>ㄕˋ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>隻<rt>ㄓ</rt></ruby><ruby>狗<rt>ㄍㄡˇ</rt></ruby>，<ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>牠<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>) <ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>替<rt>ㄊㄧˋ</rt></ruby>。" 
-            },
-            { 
-                question: "You and Mary are teachers. = ___ are teachers.", 
-                options: ["You", "We"], 
-                answer: 0, 
-                explanation: "<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>瑪<rt>ㄇㄚˇ</rt></ruby><ruby>麗<rt>ㄌㄧˋ</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>「<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>」，<ruby>英<rt>ㄧㄥ</rt></ruby><ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> You。" 
-            },
-            { 
-                question: "Are we black and white? Yes, ___ are.", 
-                options: ["we", "they"], 
-                answer: 0, 
-                explanation: "<ruby>問<rt>ㄨㄣˋ</rt></ruby> Are we... (<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>...<ruby>嗎<rt>˙ㄇㄚ</rt></ruby>)，<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby> Yes, we are (<ruby>是<rt>ㄕˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>)。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) trees / are / They", 
-                options: ["They are trees.", "Trees are they."], 
-                answer: 0, 
-                explanation: "<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>順<rt>ㄕㄨㄣˋ</rt></ruby><ruby>序<rt>ㄒㄩˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby>：<ruby>主<rt>ㄓㄨˇ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (They) + <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) + <ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (trees)。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) are / boxes / they / ?", 
-                options: ["They are boxes?", "Are they boxes?"], 
-                answer: 1, 
-                explanation: "<ruby>疑<rt>ㄧˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby> Be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (Are) <ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
-            },
-            { 
-                question: "(<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>) not / are / you / snakes", 
-                options: ["You not are snakes.", "You are not snakes."], 
-                answer: 1, 
-                explanation: "<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> not <ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby> be <ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby> (are) <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>。" 
-            },
-            { 
-                question: "Steven and Helen are sixteen. ___ are sixteen.", 
-                options: ["They", "We"], 
-                answer: 0, 
-                explanation: "<ruby>史<rt>ㄕˇ</rt></ruby><ruby>蒂<rt>ㄉㄧˋ</rt></ruby><ruby>芬<rt>ㄈㄣ</rt></ruby><ruby>和<rt>ㄏㄢˋ</rt></ruby><ruby>海<rt>ㄏㄞˇ</rt></ruby><ruby>倫<rt>ㄌㄨㄣˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>用<rt>ㄩㄥˋ</rt></ruby> They (<ruby>他<rt>ㄊㄚ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby>)。" 
-            }
+        // Data for Section 1: Vocabulary
+        const vocabWords = [
+            { ch: "雪", en: "snow" },
+            { ch: "清單", en: "list" },
+            { ch: "海豚", en: "dolphin" },
+            { ch: "快", en: "fast" },
+            { ch: "再見", en: "goodbye" },
+            { ch: "魚", en: "fish" },
+            { ch: "午餐", en: "lunch" },
+            { ch: "停止", en: "stop" },
+            { ch: "露營", en: "camp" },
+            { ch: "整潔地", en: "neatly" },
+            { ch: "濺水", en: "splash" },
+            { ch: "信件 / 郵寄", en: "mail" },
+            { ch: "刷", en: "brush" },
+            { ch: "臉", en: "face" },
+            { ch: "游泳", en: "swim" },
+            { ch: "擁抱", en: "hugs" },
+            { ch: "電話", en: "phone" },
+            { ch: "看 / 手錶", en: "watch" },
+            { ch: "小雞", en: "chick" },
+            { ch: "抓 / 接", en: "catch" },
+            { ch: "鯨魚", en: "whale" }
         ];
 
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let questions = [];
-        let wrongQuestions = [];
-
-        const quizArea = document.getElementById('quiz-area');
-        const endScreen = document.getElementById('end-screen');
-        const questionEl = document.getElementById('question');
-        const optionsContainer = document.getElementById('options-container');
-        const resultEl = document.getElementById('result');
-        const explanationEl = document.getElementById('explanation-container');
-        const progressEl = document.getElementById('progress');
-        const nextBtn = document.getElementById('next-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const retestWrongBtn = document.getElementById('retest-wrong-btn');
-        const gameImage = document.getElementById('game-image');
-        const gameStatus = document.getElementById('game-status');
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        function startGame(questionList) {
-            questions = [...questionList];
-            shuffle(questions);
-            currentQuestionIndex = 0;
-            score = 0;
-            wrongQuestions = [];
-            
-            quizArea.style.display = 'block';
-            endScreen.style.display = 'none';
-            gameImage.src = 'initial.png';
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-            
-            showQuestion();
-        }
-
-        function showQuestion() {
-            resetState();
-            const currentQuestion = questions[currentQuestionIndex];
-            // Use .innerHTML to render ruby tags
-            progressEl.innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} / ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-            questionEl.innerHTML = currentQuestion.question;
-
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.dataset.index = index;
-                button.addEventListener('click', selectAnswer);
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        function resetState() {
-            resultEl.innerHTML = '';
-            explanationEl.style.display = 'none';
-            nextBtn.style.display = 'none';
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            gameImage.src = 'initial.png';
-            gameImage.className = '';
-            gameStatus.textContent = '🎯';
-            gameStatus.className = '';
-        }
-
-        function selectAnswer(e) {
-            const selectedBtn = e.target;
-            const selectedIndex = parseInt(selectedBtn.dataset.index);
-            const currentQuestion = questions[currentQuestionIndex];
-            const correctIndex = currentQuestion.answer;
-
-            Array.from(optionsContainer.children).forEach(button => {
-                button.disabled = true;
-            });
-
-            if (selectedIndex === correctIndex) {
-                score++;
-                selectedBtn.classList.add('correct');
-                resultEl.innerHTML = '✅ <ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！';
-                resultEl.style.color = '#2ecc71';
-                gameImage.src = 'correct.png';
-                gameImage.classList.add('correct');
-                gameStatus.textContent = '🎉';
-                gameStatus.classList.add('correct');
-                
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                    } else {
-                        endGame();
-                    }
-                }, 1500);
-            } else {
-                selectedBtn.classList.add('incorrect');
-                optionsContainer.children[correctIndex].classList.add('correct');
-                resultEl.innerHTML = '❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby>！';
-                resultEl.style.color = '#e74c3c';
-                gameImage.src = 'incorrect.png';
-                gameImage.classList.add('incorrect');
-                gameStatus.textContent = '😅';
-                gameStatus.classList.add('incorrect');
-                
-                explanationEl.innerHTML = `💡 <ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>法<rt>ㄈㄚˇ</rt></ruby><ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>：${currentQuestion.explanation}`;
-                explanationEl.style.display = 'block';
-
-                wrongQuestions.push({
-                    ...currentQuestion,
-                    userAnswer: currentQuestion.options[selectedIndex]
-                });
-                nextBtn.style.display = 'block';
-            }
-        }
-
-        function endGame() {
-            quizArea.style.display = 'none';
-            endScreen.style.display = 'block';
-            
-            const scoreEl = document.getElementById('score');
-            scoreEl.innerHTML = `🎯 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>最<rt>ㄗㄨㄟˋ</rt></ruby><ruby>終<rt>ㄓㄨㄥ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
-
-            const wrongQuestionsEl = document.getElementById('wrong-questions');
-            if (score === questions.length) {
-                gameImage.src = 'all_correct.png';
-                gameImage.classList.add('all-correct');
-                gameStatus.textContent = '🏆';
-                gameStatus.classList.add('all-correct');
-                wrongQuestionsEl.innerHTML = '🎊 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>已<rt>ㄧˇ</rt></ruby><ruby>經<rt>ㄐㄧㄥ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> We/You/They <ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>了<rt>˙ㄌㄜ</rt></ruby>！ 🎊';
-                wrongQuestionsEl.style.borderLeftColor = '#2ecc71';
-                wrongQuestionsEl.style.background = '#d4edda';
-                wrongQuestionsEl.style.color = '#155724';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'none';
-            } else {
-                gameImage.src = 'not_all_correct.png';
-                gameStatus.textContent = '📝';
-                let wrongText = `<h3>📋 <ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>顧<rt>ㄍㄨˋ</rt></ruby>：</h3>`;
-                wrongQuestions.forEach((q, index) => {
-                    wrongText += `<p>`;
-                    wrongText += `${index + 1}. ${q.question}<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.userAnswer}" ❌<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>: "${q.options[q.answer]}" ✅<br>`;
-                    wrongText += `&nbsp;&nbsp;&nbsp;<ruby>解<rt>ㄐㄧㄝˇ</rt></ruby><ruby>析<rt>ㄒㄧ</rt></ruby>: ${q.explanation}<br>`;
-                    wrongText += `</p>`;
-                });
-                wrongQuestionsEl.innerHTML = wrongText;
-                wrongQuestionsEl.style.borderLeftColor = '#e74c3c';
-                wrongQuestionsEl.style.background = '#f8d7da';
-                wrongQuestionsEl.style.color = '#721c24';
-                wrongQuestionsEl.style.display = 'block';
-                retestWrongBtn.style.display = 'inline-block';
-            }
-        }
-        
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endGame();
-            }
+        // Init Vocabulary Section
+        const vocabContainer = document.getElementById('vocab-container');
+        vocabContainer.innerHTML = ''; // Clear previous if any
+        vocabWords.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'question-box';
+            div.innerHTML = `
+                <label>${index + 1}. ${item.ch}</label>
+                <input type="text" data-ans="${item.en}" autocomplete="off">
+                <span class="result"></span>
+            `;
+            vocabContainer.appendChild(div);
         });
 
-        restartBtn.addEventListener('click', () => startGame(allQuestions));
-
-        retestWrongBtn.addEventListener('click', () => {
-            if (wrongQuestions.length > 0) {
-                const retestList = wrongQuestions.map(({ userAnswer, ...rest }) => rest);
-                startGame(retestList);
+        // Tab Switching Logic
+        function openTab(tabName) {
+            const contents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
             }
-        });
+            const buttons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-        startGame(allQuestions);
+        // Checking Logic
+        function checkAll(sectionId) {
+            const section = document.getElementById(sectionId);
+            const inputs = section.querySelectorAll('input, select');
+            let correctCount = 0;
+            let totalCount = 0;
+
+            inputs.forEach(input => {
+                const userAnswer = input.value.trim();
+                const correctAnswer = input.getAttribute('data-ans');
+                
+                totalCount++;
+
+                // Case insensitive check
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    input.style.backgroundColor = "#d4edda";
+                    input.style.borderColor = "#28a745";
+                    correctCount++;
+                } else {
+                    input.style.backgroundColor = "#f8d7da";
+                    input.style.borderColor = "#dc3545";
+                }
+            });
+
+            const oldSummary = section.querySelector('.summary-msg');
+            if(oldSummary) oldSummary.remove();
+
+            const summary = document.createElement('p');
+            summary.className = 'summary-msg';
+            summary.style.fontWeight = 'bold';
+            summary.style.fontSize = '1.2em';
+            summary.style.textAlign = 'center';
+            
+            if (correctCount === totalCount) {
+                summary.innerHTML = "🌟 Amazing! All answers are correct! Great job, Ningning!";
+                summary.style.color = "#27ae60";
+            } else {
+                summary.innerHTML = `You got ${correctCount} out of ${totalCount} correct. Keep trying!`;
+                summary.style.color = "#e67e22";
+            }
+            section.appendChild(summary);
+        }
     </script>
 </body>
 </html>
