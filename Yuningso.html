@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家鄉故事導覽員培訓 - 高階能力測驗</title>
+    <title>家鄉多元文化深度測驗：飲食、服飾與語言</title>
     <style>
         :root {
-            --primary-color: #5D4037; /* 深褐色，代表土地與歷史 */
-            --secondary-color: #8D6E63;
-            --accent-color: #FF7043; /* 活潑的橘色，代表導覽的熱情 */
-            --bg-color: #FBE9E7; /* 溫暖的紙張色調 */
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --success-color: #27ae60;
+            --bg-color: #fdfbf7;
             --card-bg: #ffffff;
-            --correct-color: #2E7D32;
-            --wrong-color: #C62828;
         }
 
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--primary-color);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .container {
@@ -32,228 +32,289 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 20px;
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            margin: 0;
+            font-size: 1.8rem;
         }
 
-        .intro {
-            font-size: 1.1em;
-            color: var(--secondary-color);
+        p.subtitle {
+            margin-top: 10px;
+            opacity: 0.9;
         }
 
-        .quiz-card {
+        .question-card {
             background: var(--card-bg);
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-color);
             transition: transform 0.2s;
-            border-left: 6px solid var(--accent-color);
         }
 
-        .quiz-card:hover {
+        .question-card:hover {
             transform: translateY(-2px);
         }
 
         .question-title {
+            font-size: 1.2rem;
             font-weight: bold;
-            font-size: 1.2em;
             margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .options {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .question-number {
-            background-color: var(--primary-color);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-size: 0.9em;
-        }
-
-        .options label {
-            display: block;
-            padding: 10px 15px;
-            margin: 8px 0;
-            background-color: #f5f5f5;
-            border-radius: 6px;
+        .option-label {
+            display: flex;
+            align-items: flex-start;
             cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
             transition: background-color 0.2s;
-            position: relative;
         }
 
-        .options label:hover {
-            background-color: #e0e0e0;
+        .option-label:hover {
+            background-color: #e9ecef;
         }
 
         input[type="checkbox"] {
-            margin-right: 10px;
+            margin-top: 5px;
+            margin-right: 12px;
             transform: scale(1.2);
+            cursor: pointer;
         }
 
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 1.2em;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 30px;
             transition: background-color 0.3s;
+            margin-top: 30px;
         }
 
         .submit-btn:hover {
-            background-color: var(--secondary-color);
+            background-color: #d35400;
         }
 
-        /* Result Styles */
         .feedback {
             margin-top: 15px;
             padding: 15px;
             border-radius: 8px;
             display: none;
-            font-size: 0.95em;
+            font-size: 0.95rem;
         }
 
         .feedback.correct {
-            background-color: #E8F5E9;
-            border: 1px solid var(--correct-color);
-            color: var(--correct-color);
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .feedback.incorrect {
-            background-color: #FFEBEE;
-            border: 1px solid var(--wrong-color);
-            color: var(--wrong-color);
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         .explanation {
             margin-top: 10px;
-            font-weight: bold;
-            color: #333;
+            font-weight: normal;
         }
 
-        .score-board {
-            text-align: center;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-weight: bold;
-            display: none;
+        strong.highlight {
+            color: #c0392b;
         }
-
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>家鄉故事導覽員</h1>
-        <p class="intro">高階專案執行力測驗：請選出所有正確選項（複選題）</p>
+        <h1>🇹🇼 家鄉多元文化深度測驗</h1>
+        <p class="subtitle">飲食 × 服飾 × 語言：全方位理解測試</p>
+        <p style="font-size: 0.9rem;">提示：每題均為複選題，請選出所有正確選項。</p>
     </header>
 
-    <div id="score-board" class="score-board"></div>
-
-    <form id="quiz-form">
+    <form id="quizForm">
         
-        <div class="quiz-card" id="q1">
-            <div class="question-title">
-                <span class="question-number">1</span>
-                關於本專案的「核心流程」與「執行摘要」，以下敘述哪些是正確的？
-            </div>
+        <div class="question-card" id="q1">
+            <div class="question-title">1. 關於台灣飲食文化的「融合與創新」機制，下列敘述哪些完全符合文本分析？</div>
             <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 專案最終目標僅是完成一份地圖，不包含口頭解說或推廣。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 資料蒐集階段強調使用「工作準備表」來進行事前規劃。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 整個專案流程分為五個階段，從資料蒐集開始，以成果發表結束。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 「訪談執行」的 SOP 僅包含訪談中與訪談後的整理，訪談前只需口頭約定即可。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 製作出的「家鄉故事地圖」，是為了讓參與者能以導覽員身份向公眾介紹。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="A">
+                    A. 米漢堡的誕生是西方漢堡傳入東方後，以在地主食「米飯」取代麵包的「東西方結合」案例。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="B">
+                    B. 為了完全保留東南亞原味，新住民製作娘惹糕時堅持使用家鄉進口的原料，拒絕加入台灣在地食材。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="C">
+                    C. 「臭豆腐披薩」展現了在地特色小吃與外來飲食形式（Pizza）的結合。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="D">
+                    D. 泰式料理在台灣的風味改良，體現在將部分香料改為台灣常見的九層塔，以創造適合在地口味的滋味。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="E">
+                    E. 壽司雖然源自國外，但文本指出其尚未真正融入台灣本地的飲食生活，仍被視為異國高檔料理。
+                </label>
             </div>
             <div class="feedback" id="feedback-q1"></div>
         </div>
 
-        <div class="quiz-card" id="q2">
-            <div class="question-title">
-                <span class="question-number">2</span>
-                在「第一階段：資料蒐集策略」中，關於蒐集途徑與規劃工具（5W）的定義，下列哪些符合教材內容？
-            </div>
+        <div class="question-card" id="q2">
+            <div class="question-title">2. 根據文本對「單一食材的多樣化呈現」及「食材科學」的描述，下列哪些是正確的？</div>
             <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 「物 (What to bring)」是指受訪者需要準備給我們的禮物。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 「長輩訪談」被視為最直接的資訊來源，可獲取口述歷史。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 「人 (Who)」的定義是確認訪問或聯繫的對象。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 四大蒐集途徑包含：實地走訪、網路查詢、查閱書籍以及訪問長輩。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 實地走訪僅限於前往圖書館查閱文獻資料。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="A">
+                    A. 同樣是米製品，客家族群發展出碗粿，而閩南族群則以炒粄條聞名。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="B">
+                    B. 皮蛋（松花蛋）的製作過程中，鹼性物質會分解蛋白質，使蛋清凝結成半透明黑色膠凍狀。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="C">
+                    C. 辛香料（如胡椒、肉桂）的主要功能在於為食物提供豐富的營養價值，其次才是增添香味。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="D">
+                    D. 越南新住民帶來的「河粉」與原住民族的「竹筒飯」，皆是米文化在不同族群手中的具體展現。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="E">
+                    E. 皮蛋表面的松花紋形成與其製作過程中使用的石灰泥、化學物質及儲存時間（一個月以上）有關。
+                </label>
             </div>
             <div class="feedback" id="feedback-q2"></div>
         </div>
 
-        <div class="quiz-card" id="q3">
-            <div class="question-title">
-                <span class="question-number">3</span>
-                針對「第二階段：長輩訪談執行準則」，若要展現專業與尊重，下列哪些行為是必須遵守的？
-            </div>
+        <div class="question-card" id="q3">
+            <div class="question-title">3. 關於台灣各族群「傳統服飾」的文化意涵與社會功能，下列分析哪些正確？</div>
             <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 訪問前：應提前將擬定好的題目提供給受訪者。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 訪問前：必須禮貌地詢問並取得錄音或錄影的授權。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 訪問中：若長輩離題，應強硬打斷並要求回到正題。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 訪問後：需將整理後的紀錄交由受訪者確認，以核實內容無誤。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 訪問後：訪談結束當下即可離開，不需特別致謝，以免打擾長輩休息。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="A">
+                    A. 客家藍衫的設計特點包括樸素、耐穿、耐洗，這直接反映了客家族群勤勞務實的生活型態。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="B">
+                    B. 排灣族服飾上的百步蛇圖案是該族的守護神象徵，傳統上所有族人皆可自由在服飾上使用此圖案以求平安。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="C">
+                    C. 現代設計師將排灣族圖騰元素融入時裝秀，或設計創意藍衫禮服，是為了展現族群文化的傳承與創新。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="D">
+                    D. 藍衫在當代已完全失去功能，僅存在於博物館中，客家族群在六堆運動會等慶典中已不再穿著。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="E">
+                    E. 原住民族早期服飾多使用天然材料編織，並在祭典等重要場合穿戴以展現獨特文化。
+                </label>
             </div>
             <div class="feedback" id="feedback-q3"></div>
         </div>
 
-        <div class="quiz-card" id="q4">
-            <div class="question-title">
-                <span class="question-number">4</span>
-                在「第三階段：資料整理與分析」中，關於內容取捨與呈現規範，下列哪些做法是正確的？
-            </div>
+        <div class="question-card" id="q4">
+            <div class="question-title">4. 針對「新住民服飾文化」的穿著動機與適應性，文本提供了哪些具體例證？</div>
             <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 所有的鬼故事因為具有話題性，無論多驚悚都應該保留並放在地圖顯眼處。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 依據「主題重要性」作為資料篩選與取捨的原則。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 篇幅較長的文字內容，可利用便條紙浮貼在地圖上，避免版面雜亂。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 可以採用在地圖外側撰寫詳細說明，並在地圖上以編號對應的方式呈現長文。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 引用照片或參考資料時，為了美觀可以省略來源標註。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="A">
+                    A. 越南新住民在春節穿著的國服「奧黛」，其輕薄透氣的布料選用是為了適應越南炎熱的氣候。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="B">
+                    B. 信仰伊斯蘭教的新住民婦女外出穿戴頭巾，主要是為了適應台灣的氣候變化。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="C">
+                    C. 穆斯林婦女穿戴覆蓋頭頸和肩膀的頭巾，是源於《古蘭經》的宗教規範。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="D">
+                    D. 新住民穿著特色服飾的動機包含宗教規範以及在傳統節日表達文化認同。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="E">
+                    E. 所有的外籍新住民在台灣都必須在公共場合穿著傳統服飾以利辨識。
+                </label>
             </div>
             <div class="feedback" id="feedback-q4"></div>
         </div>
 
-        <div class="quiz-card" id="q5">
-            <div class="question-title">
-                <span class="question-number">5</span>
-                關於「第四階段：家鄉故事地圖製作」與「品質檢核清單」，一份合格的地圖應包含哪些要素？
-            </div>
+        <div class="question-card" id="q5">
+            <div class="question-title">5. 關於台灣的「語言政策」與「母語保障」，下列敘述哪些符合文本內容與當前法規？</div>
             <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 必須繪製出區域內的主要幹道並標註路名。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 地圖上必須能夠輕易找到「我的學校」。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 需要包含方位標示（例如指北針）。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 只要故事內容豐富，地圖上的道路與方位不準確沒關係。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 需將整理好的故事內容（文字或圖畫）整合放置到對應位置。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="A">
+                    A. 母語的定義是指一個人出生後最早接觸與學習的家鄉語言。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="B">
+                    B. 為應對本土語言式微，台灣修訂《國家語言發展法》，將本土語言納入國高中必修課程。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="C">
+                    C. 為了國際化，政府建議在學校或公共場所應全面禁止使用母語，僅使用英語溝通。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="D">
+                    D. 每年 2 月 21 日是聯合國教科文組織倡議的「世界母語日」，旨在保護語言多樣性。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="E">
+                    E. 政府推動母語教育，是為了讓各族群能自信地使用自己的語言，保障其平等地位。
+                </label>
             </div>
             <div class="feedback" id="feedback-q5"></div>
         </div>
 
-        <div class="quiz-card" id="q6">
-            <div class="question-title">
-                <span class="question-number">6</span>
-                最後「第五階段：導覽成果發表」提到了多種推廣方式，下列哪些屬於文本中建議的發表形式？
-            </div>
+        <div class="question-card" id="q6">
+            <div class="question-title">6. 深入分析各族群的「命名法則」與「姓名文化態度」，下列哪些選項是正確的？</div>
             <div class="options">
-                <label><input type="checkbox" name="q6" value="A"> A. 靜態公開展示：將地圖張貼於校園公共場合。</label>
-                <label><input type="checkbox" name="q6" value="B"> B. 商業出版發行：直接聯繫出版社將地圖集結成冊販售。</label>
-                <label><input type="checkbox" name="q6" value="C"> C. 數位化網路導覽：拍攝影片並上傳至網路平台。</label>
-                <label><input type="checkbox" name="q6" value="D"> D. 沉浸式實地導覽：親自帶領觀眾走訪景點進行深度解說。</label>
-                <label><input type="checkbox" name="q6" value="E"> E. 動態定點解說：安排成員輪流到其他班級進行解說。</label>
+                <label class="option-label">
+                    <input type="checkbox" name="q6" value="A">
+                    A. 漢人的命名方式中，姓氏通常跟隨父親或母親，名字則常寄託家人的期許。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q6" value="B">
+                    B. 原住民族的所有族群都擁有固定的姓氏，且命名方式完全仿照漢人結構。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q6" value="C">
+                    C. 部分原住民族群會在孩子的名字後面加上父親或母親的名字，這體現了一種傳承的意義。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q6" value="D">
+                    D. 原住民族名字的靈感常來自自然界的事物。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q6" value="E">
+                    E. 面對不同族群的姓名，我們應正確念出對方姓名，且不應隨意取不雅綽號。
+                </label>
             </div>
             <div class="feedback" id="feedback-q6"></div>
         </div>
@@ -263,55 +324,55 @@
 </div>
 
 <script>
-    const correctAnswers = {
-        q1: ['B', 'C', 'E'],
-        q2: ['B', 'C', 'D'],
-        q3: ['A', 'B', 'D'],
-        q4: ['B', 'C', 'D'],
-        q5: ['A', 'B', 'C', 'E'],
-        q6: ['A', 'C', 'D', 'E']
-    };
-
-    const explanations = {
-        q1: "解析：專案目標包含「向他人進行介紹」（選項A錯誤）；訪談執行包含訪談前準備、訪談中執行與訪談後整理三個階段（選項D錯誤）。正確選項為 B、C、E。",
-        q2: "解析：「物」是指準備所需攜帶的物品（選項A錯誤）；「實地走訪」是指前往景點勘查，查閱文獻是「查閱書籍」或前往圖書館（選項E錯誤）。正確選項為 B、C、D。",
-        q3: "解析：訪談中應專注傾聽，非必要不隨意打斷（選項C不當）；訪談結束務必表達感謝（選項E錯誤）。正確選項為 A、B、D。",
-        q4: "解析：過於驚悚或不適合的鬼故事應移除（選項A錯誤）；所有參考資料都必須清楚標示出處（選項E錯誤）。正確選項為 B、C、D。",
-        q5: "解析：品質檢核清單明確指出需包含主要道路、方位標示（指北針）、能找到學校以及故事內容清晰（選項D錯誤）。正確選項為 A、B、C、E。",
-        q6: "解析：文本中提到的四種方式為：靜態公開展示、動態定點解說、數位化網路導覽、沉浸式實地導覽。未提及商業出版（選項B錯誤）。正確選項為 A、C、D、E。"
-    };
-
     function checkAnswers() {
-        let score = 0;
-        let totalQuestions = Object.keys(correctAnswers).length;
+        // 定義正確答案
+        const answers = {
+            q1: ['A', 'C', 'D'],
+            q2: ['B', 'D', 'E'],
+            q3: ['A', 'C', 'E'],
+            q4: ['A', 'C', 'D'],
+            q5: ['A', 'B', 'D', 'E'],
+            q6: ['A', 'C', 'D', 'E']
+        };
 
-        for (let q in correctAnswers) {
-            const selected = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(cb => cb.value);
-            const correct = correctAnswers[q];
-            const feedbackDiv = document.getElementById(`feedback-${q}`);
+        // 檢查每一題
+        for (let q in answers) {
+            const selected = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(el => el.value);
+            const correct = answers[q];
+            const feedbackEl = document.getElementById(`feedback-${q}`);
             
-            // Sort arrays for comparison
-            selected.sort();
-            correct.sort();
+            // 判斷對錯：數量相同且內容完全一致
+            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+            
+            // 構建解析內容
+            let explanationText = "";
+            
+            if (q === 'q1') {
+                explanationText = "<strong>解析：</strong><br>B錯誤：娘惹糕在台灣經過改良，加入了在地紅豆、芋頭等餡料。<br>E錯誤：文本提到壽司已深度融入本地飲食生活。<br>A、C、D 皆為文本提及的具體融合與創新案例。";
+            } else if (q === 'q2') {
+                explanationText = "<strong>解析：</strong><br>A錯誤：文本指出客家是炒粄條，閩南是碗粿（選項顛倒）。<br>C錯誤：文本明確指出辛香料主要功能是增添香味，而非提供營養。<br>B、D、E 皆符合文本關於皮蛋化學原理及米食多樣性的描述。";
+            } else if (q === 'q3') {
+                explanationText = "<strong>解析：</strong><br>B錯誤：排灣族百步蛇圖騰傳統上僅有「頭目與貴族階級」才能使用。<br>D錯誤：客家族群在六堆運動會等節日仍會穿上藍衫。<br>A、C、E 正確描述了傳統意涵與現代轉化。";
+            } else if (q === 'q4') {
+                explanationText = "<strong>解析：</strong><br>B錯誤：穆斯林頭巾是源於《古蘭經》宗教規範，非氣候因素。<br>E錯誤：文本未提及強制穿著，且穿著動機多為表達認同或宗教理由。<br>A、C、D 正確區分了氣候（越南）與宗教（伊斯蘭）的影響。";
+            } else if (q === 'q5') {
+                explanationText = "<strong>解析：</strong><br>C錯誤：文本建議使用大家聽得懂的語言溝通，並未禁止母語，且強調政府應保障各族群語言平等。<br>A、B、D、E 均為文本中關於母語保障與法規的正確敘述。";
+            } else if (q === 'q6') {
+                explanationText = "<strong>解析：</strong><br>B錯誤：原住民族「不一定有姓氏」，且命名方式具獨特性（如自然界靈感）。<br>A、C、D、E 正確涵蓋了漢人與原住民的命名邏輯及應有的尊重態度。";
+            }
 
-            const isCorrect = JSON.stringify(selected) === JSON.stringify(correct);
-            
-            feedbackDiv.style.display = 'block';
+            // 顯示結果
+            feedbackEl.style.display = 'block';
             if (isCorrect) {
-                feedbackDiv.className = 'feedback correct';
-                feedbackDiv.innerHTML = `<strong>✅ 回答正確！</strong><br><span class="explanation">${explanations[q]}</span>`;
-                score++;
+                feedbackEl.className = 'feedback correct';
+                feedbackEl.innerHTML = `<strong>🎉 完全正確！</strong><br>${explanationText}`;
             } else {
-                feedbackDiv.className = 'feedback incorrect';
-                feedbackDiv.innerHTML = `<strong>❌ 回答錯誤</strong><br>你的選擇：${selected.length ? selected.join(', ') : '未作答'}<br>正確答案：${correct.join(', ')}<br><span class="explanation">${explanations[q]}</span>`;
+                feedbackEl.className = 'feedback incorrect';
+                feedbackEl.innerHTML = `<strong>⚠️ 答案有誤或不完整。</strong><br>您選擇了：${selected.length > 0 ? selected.join(', ') : '未作答'}<br>正確答案應為：${correct.join(', ')}<br><hr class="explanation">${explanationText}`;
             }
         }
-
-        const scoreBoard = document.getElementById('score-board');
-        scoreBoard.style.display = 'block';
-        scoreBoard.innerText = `你的得分：${score} / ${totalQuestions}`;
         
-        // Scroll to top to see score
+        // 滾動到第一個錯誤或頂部
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
