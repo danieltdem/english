@@ -3,318 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家鄉多元文化深度測驗：飲食、服飾與語言</title>
+    <title>家鄉的節慶、禮俗與文化融合 - 高階複選測驗</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e67e22;
-            --success-color: #27ae60;
-            --bg-color: #fdfbf7;
-            --card-bg: #ffffff;
-        }
-
         body {
-            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
-            background-size: 20px 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #2c3e50;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
         h1 {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-
-        p.subtitle {
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        .question-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--accent-color);
-            transition: transform 0.2s;
-        }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .question-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
+            text-align: center;
             color: #2c3e50;
+            margin-bottom: 10px;
         }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        p.intro {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 30px;
         }
-
-        .option-label {
-            display: flex;
-            align-items: flex-start;
-            cursor: pointer;
-            padding: 10px;
+        .question-block {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
-            background-color: #f8f9fa;
-            transition: background-color 0.2s;
+            background-color: #fff;
+            transition: all 0.3s ease;
         }
-
-        .option-label:hover {
-            background-color: #e9ecef;
+        .question-block:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
         }
-
-        input[type="checkbox"] {
-            margin-top: 5px;
-            margin-right: 12px;
-            transform: scale(1.2);
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #2980b9;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
             cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
         }
-
+        .options label:hover {
+            background-color: #f0f8ff;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--accent-color);
+            background-color: #27ae60;
             color: white;
+            font-size: 1.2em;
             border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 30px;
+            margin-top: 20px;
+            transition: background 0.3s;
         }
-
         .submit-btn:hover {
-            background-color: #d35400;
+            background-color: #219150;
         }
-
         .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
             display: none;
-            font-size: 0.95rem;
         }
-
-        .feedback.correct {
+        .correct-feedback {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-
-        .feedback.incorrect {
+        .incorrect-feedback {
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-
         .explanation {
-            margin-top: 10px;
-            font-weight: normal;
-        }
-
-        strong.highlight {
-            color: #c0392b;
+            margin-top: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>🇹🇼 家鄉多元文化深度測驗</h1>
-        <p class="subtitle">飲食 × 服飾 × 語言：全方位理解測試</p>
-        <p style="font-size: 0.9rem;">提示：每題均為複選題，請選出所有正確選項。</p>
-    </header>
+    <h1>📝 家鄉節慶與禮俗 - 高階挑戰測驗</h1>
+    <p class="intro">請注意：本測驗為<b>複選題</b>，每題至少有兩個正確答案。請根據文本內容，選出所有正確的選項。</p>
 
     <form id="quizForm">
         
-        <div class="question-card" id="q1">
-            <div class="question-title">1. 關於台灣飲食文化的「融合與創新」機制，下列敘述哪些完全符合文本分析？</div>
+        <div class="question-block" id="q1">
+            <div class="question-title">1. 關於「農曆新年」的習俗與其象徵意義，下列配對與描述哪些是正確的？</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="A">
-                    A. 米漢堡的誕生是西方漢堡傳入東方後，以在地主食「米飯」取代麵包的「東西方結合」案例。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="B">
-                    B. 為了完全保留東南亞原味，新住民製作娘惹糕時堅持使用家鄉進口的原料，拒絕加入台灣在地食材。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="C">
-                    C. 「臭豆腐披薩」展現了在地特色小吃與外來飲食形式（Pizza）的結合。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="D">
-                    D. 泰式料理在台灣的風味改良，體現在將部分香料改為台灣常見的九層塔，以創造適合在地口味的滋味。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="E">
-                    E. 壽司雖然源自國外，但文本指出其尚未真正融入台灣本地的飲食生活，仍被視為異國高檔料理。
-                </label>
+                <label><input type="checkbox" name="q1" value="A"> A. 「除舊布新」主要透過大掃除來體現，通常在除夕當晚進行。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 年夜飯中的「餃子」因形似元寶，象徵財富；「紅燒魚」則象徵年年有餘。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 壓歲錢是除夕夜由長輩給予晚輩的紅包，代表對孩子的祝福與期許。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 「拜年走春」活動通常發生在農曆12月29日或30日，親友間會互道恭喜。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 年夜飯中的火鍋具有「團圓」的象徵意義，是圍爐時常見的菜色。</label>
             </div>
             <div class="feedback" id="feedback-q1"></div>
         </div>
 
-        <div class="question-card" id="q2">
-            <div class="question-title">2. 根據文本對「單一食材的多樣化呈現」及「食材科學」的描述，下列哪些是正確的？</div>
+        <div class="question-block" id="q2">
+            <div class="question-title">2. 根據文本，關於漢人傳統節日（元宵、清明、端午、中秋）的敘述，哪些是正確的？</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="A">
-                    A. 同樣是米製品，客家族群發展出碗粿，而閩南族群則以炒粄條聞名。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="B">
-                    B. 皮蛋（松花蛋）的製作過程中，鹼性物質會分解蛋白質，使蛋清凝結成半透明黑色膠凍狀。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="C">
-                    C. 辛香料（如胡椒、肉桂）的主要功能在於為食物提供豐富的營養價值，其次才是增添香味。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="D">
-                    D. 越南新住民帶來的「河粉」與原住民族的「竹筒飯」，皆是米文化在不同族群手中的具體展現。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="E">
-                    E. 皮蛋表面的松花紋形成與其製作過程中使用的石灰泥、化學物質及儲存時間（一個月以上）有關。
-                </label>
+                <label><input type="checkbox" name="q2" value="A"> A. 端午節（農曆5月5日）插艾草的習俗，在早期具有祛病、防蚊與防疫的觀念。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 元宵節又稱「小過年」，核心活動包含掃墓祭祖與吃潤餅。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 中秋節（農曆8月15日）吃月餅的習俗中，月餅在古代曾被用來傳遞軍情。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 清明節（國曆4月4-6日）除了傳統掃墓，現代社會也發展出「線上祭祖」的形式。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 端午節的午時立蛋活動，若成功則象徵家庭團圓。</label>
             </div>
             <div class="feedback" id="feedback-q2"></div>
         </div>
 
-        <div class="question-card" id="q3">
-            <div class="question-title">3. 關於台灣各族群「傳統服飾」的文化意涵與社會功能，下列分析哪些正確？</div>
+        <div class="question-block" id="q3">
+            <div class="question-title">3. 關於原住民族祭典「邵族祖靈祭 (Lus'an)」與「阿美族豐年祭 (Ilisin)」的比較，下列哪些敘述符合文本內容？</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="A">
-                    A. 客家藍衫的設計特點包括樸素、耐穿、耐洗，這直接反映了客家族群勤勞務實的生活型態。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="B">
-                    B. 排灣族服飾上的百步蛇圖案是該族的守護神象徵，傳統上所有族人皆可自由在服飾上使用此圖案以求平安。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="C">
-                    C. 現代設計師將排灣族圖騰元素融入時裝秀，或設計創意藍衫禮服，是為了展現族群文化的傳承與創新。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="D">
-                    D. 藍衫在當代已完全失去功能，僅存在於博物館中，客家族群在六堆運動會等慶典中已不再穿著。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="E">
-                    E. 原住民族早期服飾多使用天然材料編織，並在祭典等重要場合穿戴以展現獨特文化。
-                </label>
+                <label><input type="checkbox" name="q3" value="A"> A. 邵族祖靈祭於國曆9月舉行，是該族的新年，由祭司（先生媽）主持儀式。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 阿美族豐年祭的主要活動包括準備「祖靈籃」，內含祖先衣物作為祖靈居所。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 邵族的儀式中包含「擦拭手臂」，象徵去除穢氣與不順利。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 阿美族豐年祭於國曆7月至9月舉行，族人會穿著傳統服飾圍圈跳舞，感謝神靈眷顧。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 兩者的共通點在於都使用杵音儀式來宣告新年的到來。</label>
             </div>
             <div class="feedback" id="feedback-q3"></div>
         </div>
 
-        <div class="question-card" id="q4">
-            <div class="question-title">4. 針對「新住民服飾文化」的穿著動機與適應性，文本提供了哪些具體例證？</div>
+        <div class="question-block" id="q4">
+            <div class="question-title">4. 現代台灣社會融合了外來文化與在地特色節慶，下列關於這些現代節日的描述哪些正確？</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="A">
-                    A. 越南新住民在春節穿著的國服「奧黛」，其輕薄透氣的布料選用是為了適應越南炎熱的氣候。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="B">
-                    B. 信仰伊斯蘭教的新住民婦女外出穿戴頭巾，主要是為了適應台灣的氣候變化。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="C">
-                    C. 穆斯林婦女穿戴覆蓋頭頸和肩膀的頭巾，是源於《古蘭經》的宗教規範。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="D">
-                    D. 新住民穿著特色服飾的動機包含宗教規範以及在傳統節日表達文化認同。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="E">
-                    E. 所有的外籍新住民在台灣都必須在公共場合穿著傳統服飾以利辨識。
-                </label>
+                <label><input type="checkbox" name="q4" value="A"> A. 潑水節源自緬甸、泰國等地的新年，在台灣的活動規範中禁止使用高壓水槍與潑灑髒水。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 雲林國際偶戲節於9月底至10月中舉行，雲林因擁有全台最多布袋戲團而被稱為偶戲重鎮。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 嘉義阿里山櫻花季主要結合了當地聞名的「日出、溫泉、森林」三大自然美景。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 耶誕節在台灣被視為如同西方的「農曆春節」，是家人團聚的日子，商圈亦會布置主題營造氣氛。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 國慶日（10月10日）的活動通常包含總統府前的升旗典禮，而元旦（1月1日）則主要以遊行和煙火為主。</label>
             </div>
             <div class="feedback" id="feedback-q4"></div>
         </div>
 
-        <div class="question-card" id="q5">
-            <div class="question-title">5. 關於台灣的「語言政策」與「母語保障」，下列敘述哪些符合文本內容與當前法規？</div>
+        <div class="question-block" id="q5">
+            <div class="question-title">5. 在「新生兒的祝福儀式」中，不同的儀式代表不同的意義與做法。請選出正確的配對：</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="A">
-                    A. 母語的定義是指一個人出生後最早接觸與學習的家鄉語言。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="B">
-                    B. 為應對本土語言式微，台灣修訂《國家語言發展法》，將本土語言納入國高中必修課程。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="C">
-                    C. 為了國際化，政府建議在學校或公共場所應全面禁止使用母語，僅使用英語溝通。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="D">
-                    D. 每年 2 月 21 日是聯合國教科文組織倡議的「世界母語日」，旨在保護語言多樣性。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="E">
-                    E. 政府推動母語教育，是為了讓各族群能自信地使用自己的語言，保障其平等地位。
-                </label>
+                <label><input type="checkbox" name="q5" value="A"> A. 收涎：在嬰兒出生滿四個月時舉行，象徵收起口水，祝福孩子快快長大。</label>
+                <label><input type="checkbox" name="q5" value="B"> B. 抓週：嬰兒滿一週歲時舉行，若抓到「聽診器」象徵未來可能從事科技業。</label>
+                <label><input type="checkbox" name="q5" value="C"> C. 滿月：在嬰兒出生滿一個月時舉行慶祝。</label>
+                <label><input type="checkbox" name="q5" value="D"> D. 抓週：若抓到「筆墨」象徵未來可能成為作家；抓到「算盤」則象徵商人或會計。</label>
+                <label><input type="checkbox" name="q5" value="E"> E. 收涎：儀式中會將紅包掛在寶寶脖子上，由親友給予祝福。</label>
             </div>
             <div class="feedback" id="feedback-q5"></div>
         </div>
 
-        <div class="question-card" id="q6">
-            <div class="question-title">6. 深入分析各族群的「命名法則」與「姓名文化態度」，下列哪些選項是正確的？</div>
+        <div class="question-block" id="q6">
+            <div class="question-title">6. 關於「成年禮」與「婚嫁」的生命禮俗，下列敘述哪些符合各族群的傳統？</div>
             <div class="options">
-                <label class="option-label">
-                    <input type="checkbox" name="q6" value="A">
-                    A. 漢人的命名方式中，姓氏通常跟隨父親或母親，名字則常寄託家人的期許。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q6" value="B">
-                    B. 原住民族的所有族群都擁有固定的姓氏，且命名方式完全仿照漢人結構。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q6" value="C">
-                    C. 部分原住民族群會在孩子的名字後面加上父親或母親的名字，這體現了一種傳承的意義。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q6" value="D">
-                    D. 原住民族名字的靈感常來自自然界的事物。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q6" value="E">
-                    E. 面對不同族群的姓名，我們應正確念出對方姓名，且不應隨意取不雅綽號。
-                </label>
+                <label><input type="checkbox" name="q6" value="A"> A. 漢人的成年禮「做十六歲」中，鑽過「七娘媽亭」後須將護身符取下，象徵成年。</label>
+                <label><input type="checkbox" name="q6" value="B"> B. 客家人的成年禮稱為「脫絭」，是在滿16歲或結婚時，回到石母面前脫去繫有銅錢的紅線。</label>
+                <label><input type="checkbox" name="q6" value="C"> C. 魯凱族婚俗中的「盪秋千」儀式，新娘盪得愈高，象徵新郎愈有能力負擔家庭重任。</label>
+                <label><input type="checkbox" name="q6" value="D"> D. 漢人婚俗中，新娘下禮車前會摸橘子或蘋果，並贈予紅包，象徵吉利平安。</label>
+                <label><input type="checkbox" name="q6" value="E"> E. 阿美族的成年禮是透過祭拜祖先與「鑽桌腳」來完成，象徵通過考驗。</label>
             </div>
             <div class="feedback" id="feedback-q6"></div>
         </div>
@@ -325,55 +190,51 @@
 
 <script>
     function checkAnswers() {
-        // 定義正確答案
+        // Correct Answer Key
         const answers = {
-            q1: ['A', 'C', 'D'],
-            q2: ['B', 'D', 'E'],
-            q3: ['A', 'C', 'E'],
-            q4: ['A', 'C', 'D'],
-            q5: ['A', 'B', 'D', 'E'],
-            q6: ['A', 'C', 'D', 'E']
+            q1: ['B', 'C', 'E'],
+            q2: ['A', 'C', 'D'],
+            q3: ['A', 'C', 'D'],
+            q4: ['A', 'B', 'D'],
+            q5: ['A', 'C', 'D'],
+            q6: ['A', 'B', 'D']
         };
 
-        // 檢查每一題
-        for (let q in answers) {
-            const selected = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(el => el.value);
-            const correct = answers[q];
-            const feedbackEl = document.getElementById(`feedback-${q}`);
-            
-            // 判斷對錯：數量相同且內容完全一致
-            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
-            
-            // 構建解析內容
-            let explanationText = "";
-            
-            if (q === 'q1') {
-                explanationText = "<strong>解析：</strong><br>B錯誤：娘惹糕在台灣經過改良，加入了在地紅豆、芋頭等餡料。<br>E錯誤：文本提到壽司已深度融入本地飲食生活。<br>A、C、D 皆為文本提及的具體融合與創新案例。";
-            } else if (q === 'q2') {
-                explanationText = "<strong>解析：</strong><br>A錯誤：文本指出客家是炒粄條，閩南是碗粿（選項顛倒）。<br>C錯誤：文本明確指出辛香料主要功能是增添香味，而非提供營養。<br>B、D、E 皆符合文本關於皮蛋化學原理及米食多樣性的描述。";
-            } else if (q === 'q3') {
-                explanationText = "<strong>解析：</strong><br>B錯誤：排灣族百步蛇圖騰傳統上僅有「頭目與貴族階級」才能使用。<br>D錯誤：客家族群在六堆運動會等節日仍會穿上藍衫。<br>A、C、E 正確描述了傳統意涵與現代轉化。";
-            } else if (q === 'q4') {
-                explanationText = "<strong>解析：</strong><br>B錯誤：穆斯林頭巾是源於《古蘭經》宗教規範，非氣候因素。<br>E錯誤：文本未提及強制穿著，且穿著動機多為表達認同或宗教理由。<br>A、C、D 正確區分了氣候（越南）與宗教（伊斯蘭）的影響。";
-            } else if (q === 'q5') {
-                explanationText = "<strong>解析：</strong><br>C錯誤：文本建議使用大家聽得懂的語言溝通，並未禁止母語，且強調政府應保障各族群語言平等。<br>A、B、D、E 均為文本中關於母語保障與法規的正確敘述。";
-            } else if (q === 'q6') {
-                explanationText = "<strong>解析：</strong><br>B錯誤：原住民族「不一定有姓氏」，且命名方式具獨特性（如自然界靈感）。<br>A、C、D、E 正確涵蓋了漢人與原住民的命名邏輯及應有的尊重態度。";
-            }
+        // Explanations for feedback
+        const explanations = {
+            q1: "解析：A錯誤，大掃除是在「年前」進行，而非除夕當晚。D錯誤，拜年走春是在春節（農曆1月1日）期間，除夕是圍爐。",
+            q2: "解析：B錯誤，掃墓祭祖與吃潤餅是「清明節」的習俗，元宵節是看花燈吃元宵。E錯誤，立蛋成功象徵「獲得好運」，而非家庭團圓。",
+            q3: "解析：B錯誤，準備祖靈籃是「邵族」的習俗。E錯誤，杵音儀式是「邵族」的特色，阿美族以歌舞為主。",
+            q4: "解析：C錯誤，阿里山聞名的是「雲海」，而非溫泉。E錯誤，元旦是升旗典禮，國慶日才有遊行和煙火。",
+            q5: "解析：B錯誤，抓到聽診器象徵醫生，滑鼠/平板才象徵科技業。E錯誤，收涎是掛「餅乾」而非紅包。",
+            q6: "解析：C錯誤，盪秋千盪得愈高象徵「夫妻愛情堅定」，新郎抱新娘才象徵負擔家庭重任。E錯誤，阿美族成年禮是透過賽跑、歌舞等訓練課程。"
+        };
 
-            // 顯示結果
-            feedbackEl.style.display = 'block';
+        let score = 0;
+        let totalQuestions = Object.keys(answers).length;
+
+        for (let q in answers) {
+            const selected = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(e => e.value);
+            const correct = answers[q];
+            const feedbackDiv = document.getElementById(`feedback-${q}`);
+            
+            // Check if selected matches correct exactly (Set comparison logic)
+            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+
             if (isCorrect) {
-                feedbackEl.className = 'feedback correct';
-                feedbackEl.innerHTML = `<strong>🎉 完全正確！</strong><br>${explanationText}`;
+                feedbackDiv.innerHTML = "✅ <b>回答正確！</b>";
+                feedbackDiv.className = "feedback correct-feedback";
+                feedbackDiv.style.display = "block";
+                score++;
             } else {
-                feedbackEl.className = 'feedback incorrect';
-                feedbackEl.innerHTML = `<strong>⚠️ 答案有誤或不完整。</strong><br>您選擇了：${selected.length > 0 ? selected.join(', ') : '未作答'}<br>正確答案應為：${correct.join(', ')}<br><hr class="explanation">${explanationText}`;
+                feedbackDiv.innerHTML = `❌ <b>回答錯誤。</b><br>正確答案是：${correct.join(", ")}。<br><div class="explanation">${explanations[q]}</div>`;
+                feedbackDiv.className = "feedback incorrect-feedback";
+                feedbackDiv.style.display = "block";
             }
         }
         
-        // 滾動到第一個錯誤或頂部
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Scroll to top or alert score
+        alert(`測驗結束！你的得分是：${score} / ${totalQuestions}`);
     }
 </script>
 
