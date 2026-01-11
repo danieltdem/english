@@ -3,360 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第十一課：豆粥婆婆 - 深度理解測驗</title>
+    <title>《戴斗笠的地藏》深度閱讀理解測驗</title>
     <style>
-        :root {
-            --primary-color: #d35400; /* 紅豆色 */
-            --secondary-color: #fcece0; /* 豆粥底色 */
-            --accent-color: #e67e22;
-            --text-color: #2c3e50;
-            --correct-color: #27ae60;
-            --wrong-color: #c0392b;
-        }
-
         body {
-            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: #fff;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-top: 10px solid var(--primary-color);
+            border-top: 10px solid #8e44ad;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
         h1 {
-            color: var(--primary-color);
-            font-size: 2.2em;
+            text-align: center;
+            color: #2c3e50;
             margin-bottom: 10px;
         }
-
         .intro {
-            background-color: #fff8f0;
-            border-left: 5px solid var(--accent-color);
-            padding: 15px;
+            text-align: center;
+            color: #7f8c8d;
             margin-bottom: 30px;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
-
-        .question-card {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
+        .question-block {
+            margin-bottom: 30px;
             padding: 20px;
-            margin-bottom: 30px;
-            transition: transform 0.2s;
+            background-color: #fafafa;
+            border-left: 5px solid #bdc3c7;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .question-block:hover {
+            background-color: #f0f3f4;
+            border-left-color: #8e44ad;
         }
-
         .question-title {
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-bottom: 15px;
-            color: #34495e;
+            color: #2c3e50;
         }
-
-        .options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: center;
+        .options label {
+            display: block;
+            margin-bottom: 10px;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 6px;
-            background-color: #f8f9fa;
-            transition: background-color 0.2s;
+            padding: 8px;
+            border-radius: 4px;
         }
-
-        .option-label:hover {
-            background-color: #e9ecef;
+        .options label:hover {
+            background-color: #e8e8e8;
         }
-
         input[type="checkbox"] {
-            margin-right: 12px;
+            margin-right: 10px;
             transform: scale(1.2);
-            accent-color: var(--primary-color);
         }
-
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--primary-color);
+            background-color: #8e44ad;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: bold;
+            transition: background 0.3s;
         }
-
         .submit-btn:hover {
-            background-color: #ba4a00;
+            background-color: #732d91;
         }
-
-        .result-section {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
+        .result-area {
+            margin-top: 20px;
+            padding: 20px;
             display: none;
         }
-
         .explanation {
             margin-top: 10px;
-            font-size: 0.9em;
-            color: #555;
-            background: #fdf2e9;
             padding: 10px;
+            background-color: #e8f6f3;
+            border: 1px solid #d0e9c6;
+            color: #2c7a38;
             border-radius: 5px;
-            border-left: 4px solid var(--primary-color);
+            display: none;
+            font-size: 0.9em;
         }
-
-        .score-board {
+        .error-msg {
+            color: #c0392b;
+            font-weight: bold;
+        }
+        .score-display {
             text-align: center;
             font-size: 1.5em;
             font-weight: bold;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--text-color);
-            color: white;
-            border-radius: 8px;
-            display: none;
-        }
-
-        /* Utility classes for results */
-        .correct-answer {
-            color: var(--correct-color);
-            font-weight: bold;
-        }
-        .wrong-answer {
-            color: var(--wrong-color);
-            text-decoration: line-through;
-        }
-        .missed-answer {
-            color: var(--primary-color);
-            font-weight: bold;
-            text-decoration: underline;
+            color: #8e44ad;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>🍲 豆粥婆婆：核心知識挑戰</h1>
-        <p>請選出所有正確的選項，團結你的智慧來擊敗這份考卷吧！</p>
-    </header>
+    <h1>《戴斗笠的地藏》深度閱讀理解測驗</h1>
+    <p class="intro">請仔細閱讀題目，並選出所有正確的選項（複選題）。<br>
+    測驗範圍涵蓋：故事架構、深層寓意、生字詞語及修辭分析。</p>
 
-    <div class="intro">
-        <p><strong>測驗規則：</strong>本測驗共有 7 題，每題均為<strong>複選題</strong>（至少有兩個正確答案）。請仔細閱讀文本細節，將所有正確選項勾選出來才算得分。</p>
-    </div>
-
-    <div id="quiz-area">
+    <form id="quizForm">
+        
+        <div class="question-block" id="q1-block">
+            <div class="question-title">1. 關於本文獻的「執行摘要」與「核心價值觀」，以下哪些敘述完全符合文本分析？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q1" value="A"> A. 故事的核心思想僅限於「善有善報」的因果論，強調物質回報的重要性。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 故事中最溫暖的部分被認為是老婆婆在得知生意失敗後，沒有責備反而讚揚丈夫。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 文本傳達的深層寓意包含「知足」與「互相體諒」的家庭美德。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 故事的主角是一對居住在海邊漁村的老夫妻，以捕魚和製作斗笠維生。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 家人間的精神支持與善良品格被視為超越物質財富的重要價值。</label>
+            </div>
+            <div class="explanation" id="q1-expl">
+                <strong>解析：</strong><br>
+                A 錯誤：文本提到除了善有善報，還有更深層的家庭美德。<br>
+                B 正確：文本明確指出這是「故事最溫暖的地方」。<br>
+                C 正確：這是文本強調的第二個核心價值觀。<br>
+                D 錯誤：老夫妻居住在「日本深山」，以「耕作」維生。<br>
+                E 正確：這是深層寓意分析中的重點。
+            </div>
         </div>
 
-    <button class="submit-btn" onclick="submitQuiz()">提交答案並查看解析</button>
-    
-    <div id="score-display" class="score-board"></div>
+        <div class="question-block" id="q2-block">
+            <div class="question-title">2. 根據「故事架構」中的情節概述，下列關於老爺爺下山販售斗笠的過程與轉折，哪些是正確的？</div>
+            
+            <div class="options">
+                <label><input type="checkbox" name="q2" value="A"> A. 老爺爺下山的起因是因為接近新年，老婆婆希望能品嚐年糕。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 老爺爺在村裡賣出了兩頂斗笠，剩下的五頂送給了地藏菩薩。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 途經的地藏菩薩像共有六尊，但老爺爺只剩下五頂斗笠。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 為了幫最後一尊地藏遮雪，老爺爺解下了自己的頭巾。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 老爺爺回家時因為擔心被責備，所以先在門外猶豫了很久才進屋。</label>
+            </div>
+            <div class="explanation" id="q2-expl">
+                <strong>解析：</strong><br>
+                A 正確：這是故事的「起因」。<br>
+                B 錯誤：文本指出「一頂斗笠也沒賣出去」。<br>
+                C 正確：共有六尊菩薩，老爺爺有五頂斗笠（因為沒賣出去）。<br>
+                D 正確：這是老爺爺無私善行的具體表現。<br>
+                E 錯誤：文本僅提到他「原以為會受到責備」，並未提及他在門外猶豫的行為細節。
+            </div>
+        </div>
+
+        <div class="question-block" id="q3-block">
+            <div class="question-title">3. 關於故事的「結果」與「深層寓意」，下列描述哪些符合文本內容？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q3" value="A"> A. 除夕半夜，屋外傳來了奇特的歌聲，這是回報降臨的徵兆。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 隔天清晨，老夫妻發現門外堆滿了金銀財寶，從此過著富裕的生活。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 老夫妻看見遠處有戴著斗笠和頭巾的六尊地藏身影，消失在雪地中。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 文本強調「善有善報」的因果循環，解決了老夫妻過年的困境。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 故事結局證明了老爺爺的無心善舉（無私贈予）最終轉化為實質的福報。</label>
+            </div>
+            <div class="explanation" id="q3-expl">
+                <strong>解析：</strong><br>
+                A 正確：這是「結果」階段的細節。<br>
+                B 錯誤：門外堆滿的是「米、青菜、魚和年糕等豐富的物資」，並非金銀財寶。<br>
+                C 正確：這是老夫妻目睹的景象。<br>
+                D 正確：這是核心主旨之一。<br>
+                E 正確：這是對因果循環的分析。
+            </div>
+        </div>
+
+        <div class="question-block" id="q4-block">
+            <div class="question-title">4. 請根據「關鍵詞彙解析」部分，選出下列字詞注音與解釋完全正確的選項：</div>
+            <div class="options">
+                <label><input type="checkbox" name="q4" value="A"> A. 「貧」（ㄆㄧㄣˊ）：意指生活窮困，缺乏。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 「宜」（ㄧˊ）：意指合適、價格低廉。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 「耐」（ㄋㄞˋ）：意指無法忍受痛苦。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 「隱」（ㄧㄣˇ）：意指不明顯、遮蔽。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 「傍」（ㄆㄤˊ）：意指接近某個時間點。</label>
+            </div>
+            <div class="explanation" id="q4-expl">
+                <strong>解析：</strong><br>
+                A 正確：符合文本定義。<br>
+                B 正確：符合文本定義。<br>
+                C 錯誤：文本定義為「經得起長時間的使用或考驗」。<br>
+                D 正確：符合文本定義。<br>
+                E 錯誤：文本標註注音為「ㄅㄤˋ」。
+            </div>
+        </div>
+
+        <div class="question-block" id="q5-block">
+            <div class="question-title">5. 關於「重要句型」與「形近字辨析」，下列說明哪些是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q5" value="A"> A. 「不但……反而……」屬於「因果複句」，用來解釋事情的原因。</label>
+                <label><input type="checkbox" name="q5" value="B"> B. 句型例句：「弟弟打破花瓶，不但沒有隱瞞，反而主動向媽媽認錯。」</label>
+                <label><input type="checkbox" name="q5" value="C"> C. 「貧」與「貪」的字形相似，但「貧」指窮困，「貪」指不知足。</label>
+                <label><input type="checkbox" name="q5" value="D"> D. 「繼」與「斷」的意思相反，「繼」是接連不斷，「斷」是分開。</label>
+                <label><input type="checkbox" name="q5" value="E"> E. 文本中的轉折複句是用來強調老婆婆雖然生氣，但最後還是原諒了老公。</label>
+            </div>
+            <div class="explanation" id="q5-expl">
+                <strong>解析：</strong><br>
+                A 錯誤：此句型為「轉折複句」，表達結果與預期相反。<br>
+                B 正確：這是文本提供的應用範例。<br>
+                C 正確：這是形近字辨析的重點。<br>
+                D 正確：這是形近字辨析的重點。<br>
+                E 錯誤：老婆婆「不但沒有怪他」，表示她根本沒有生氣，而不是生氣後原諒。
+            </div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗並查看解析</button>
+    </form>
+
+    <div class="result-area" id="resultArea">
+        <div class="score-display" id="scoreDisplay"></div>
+        <p style="text-align: center;">請查看上方各題的詳細解析，了解您答對或答錯的原因。</p>
+    </div>
 </div>
 
 <script>
-    const quizData = [
-        {
-            id: 1,
-            question: "關於《豆粥婆婆》這篇課文的主旨、文體與來源，下列敘述哪些是正確的？",
-            options: [
-                "本文的主旨強調「團結力量大」，即使是弱小的個體也能戰勝強敵。",
-                "這是一篇改寫自中國傳統民間故事的文章。",
-                "文體屬於記敘文，具有明確的角色、情節與背景。",
-                "故事中的反派角色是貪婪且凶猛的老虎，象徵生活中的困境。",
-                "故事結局是悲劇，婆婆雖然煮了豆粥，最後仍不幸犧牲。",
-                "故事中運用了大量擬人法，讓無生命的器物具有人的情感與行動。"
-            ],
-            correct: [0, 2, 3, 5],
-            explanation: "解析：(1)本文改寫自「韓國」民間故事，而非中國；(4)結局是婆婆與器物們快樂生活，老虎被趕跑，屬於喜劇結局。"
-        },
-        {
-            id: 2,
-            question: "關於故事的情節發展（起因、經過、結果），請選出所有符合文本內容的描述：",
-            options: [
-                "故事的起因是老虎想吃掉婆婆，婆婆苦苦哀求希望能活到冬至。",
-                "婆婆與老虎約定，等到喝完紅豆粥後再讓老虎吃掉她。",
-                "冬至當天，婆婆因為害怕而表現得非常冷靜，面無血色地煮粥。",
-                "器物們幫助婆婆的條件是婆婆必須分給他們金銀財寶。",
-                "老虎在天黑後進入屋內，發現屋內燈火通明，氣氛溫馨。",
-                "結局實現了「虎口逃生」，老虎被趕跑後再也不敢回來。"
-            ],
-            correct: [0, 1, 5],
-            explanation: "解析：(2)冬至當天婆婆是「傷心大哭」，並非冷靜；(3)器物們並未要求財寶，而是因為同情（或分享豆粥）而幫忙；(4)老虎進屋時，屋內是「黑漆漆」、「陰森森」的。"
-        },
-        {
-            id: 3,
-            question: "請回憶這場「連環計」的戰鬥過程，選出正確的攻擊順序與方式描述：",
-            options: [
-                "栗子是第一個發動攻擊的角色，敲中了老虎的頭或眼睛。",
-                "接著是藍蟹跳起來，用黏答答的液體封住老虎的嘴巴。",
-                "白年糕利用「熱呼呼」的特性，在老虎張口時燙住了牠的嘴。",
-                "當老虎痛得跑到水缸邊洗臉時，藍蟹夾住了牠的鼻子或手。",
-                "草蓆負責在門口絆倒老虎，讓牠摔個四腳朝天。",
-                "最後由木背架將被草蓆捲住的老虎揹起，奮力扔到遠方。"
-            ],
-            correct: [0, 3, 4, 5],
-            explanation: "解析：(1) 第二擊是「雞蛋」跳起用蛋液打臉，並非藍蟹；(4) 草蓆是「捲住」踩到它的老虎，並非單純絆倒（雖然踩到是觸發點，但重點在捲住與後續配合）。更正：題目選項(4)描述草蓆在門口絆倒，文中描述是老虎踩到草蓆，草蓆翻身捲住。選項描述略有出入但核心動作是捲住配合背架，而選項2明顯錯誤。"
-        },
-        {
-            id: 4,
-            question: "關於課文中出現的詞彙與修辭技巧，下列分析哪些正確？",
-            options: [
-                "「飛砂走石」是用來形容老虎登場時風勢強大、氣勢駭人的樣子。",
-                "「熱呼呼」、「黑漆漆」、「黏答答」屬於ABB式的疊字形容詞，增強感官描寫。",
-                "「面無血色」形容婆婆因為憤怒而臉色脹紅。",
-                "「虎口逃生」比喻從極度危險的困境中成功脫身。",
-                "文中使用了「先……接著……最後……」的句型來描寫戰鬥過程的層次感。",
-                "「陰森森」是用來形容冬至當天早晨陽光普照的樣子。"
-            ],
-            correct: [0, 1, 3, 4],
-            explanation: "解析：(2)「面無血色」是指極度驚恐導致臉色慘白，非憤怒；(5)「陰森森」形容幽暗恐懼的氣氛，與陽光普照相反。"
-        },
-        {
-            id: 5,
-            question: "關於本課的「擬人法」角色運用，請選出所有正確參與「抗虎聯盟」的器物：",
-            options: [
-                "栗子 (Chestnut)",
-                "雞蛋 (Egg)",
-                "掃把 (Broom)",
-                "藍蟹 (Blue Crab)",
-                "白年糕 (White Rice Cake)",
-                "菜刀 (Kitchen Knife)",
-                "草蓆 (Straw Mat)",
-                "木背架 (Wooden Carrier)"
-            ],
-            correct: [0, 1, 3, 4, 6, 7],
-            explanation: "解析：掃把與菜刀並未出現在本課的助攻名單中。正確名單為：栗子、雞蛋、藍蟹、白年糕、草蓆、木背架。"
-        },
-        {
-            id: 6,
-            question: "關於字音字形辨析與句型結構，下列敘述哪些正確？",
-            options: [
-                "「栗」子與「粟」米（小米）字形相似，要注意分辨。",
-                "「橫」這個字在「橫衝直撞」時讀作二聲（ㄏㄥˊ），表示方位或水平。",
-                "「橫」這個字在「發橫財」或「蠻橫」時讀作四聲（ㄏㄥˋ）。",
-                "「即便……也……」這個句型表示一種假設語氣，強調決心。",
-                "「不光……也……」是用來表示轉折關係，前後語意相反。"
-            ],
-            correct: [0, 1, 2, 3],
-            explanation: "解析：(4)「不光……也……」是遞進複句（不僅...而且...），表示程度更進一步，而非轉折相反。"
-        },
-        {
-            id: 7,
-            question: "關於本課的深層意涵與文化背景，下列解讀哪些恰當？",
-            options: [
-                "紅豆粥在韓國傳統文化中，具有「驅邪避凶」的特殊意義。",
-                "老虎僅僅是一隻野獸，不具備任何象徵意義。",
-                "故事中的小器物象徵社會中的弱勢群體，強調小人物也能有大作為。",
-                "婆婆的語氣隨著情節改變，從哀求恐懼轉為與器物們溫馨互動。",
-                "本課想傳達的核心價值是「依靠強者才能生存」。"
-            ],
-            correct: [0, 2, 3],
-            explanation: "解析：(1) 老虎象徵強大的困難或惡勢力；(4) 核心價值是「團結力量大」以及弱者聯手的力量，而非單純依賴強者。"
-        }
-    ];
+    function checkAnswers() {
+        // 正確答案設定
+        const correctAnswers = {
+            q1: ['B', 'C', 'E'],
+            q2: ['A', 'C', 'D'],
+            q3: ['A', 'C', 'D', 'E'],
+            q4: ['A', 'B', 'D'],
+            q5: ['B', 'C', 'D']
+        };
 
-    function renderQuiz() {
-        const quizArea = document.getElementById('quiz-area');
-        let html = '';
-
-        quizData.forEach((item, index) => {
-            html += `
-                <div class="question-card" id="card-${index}">
-                    <div class="question-title">Q${item.id}. ${item.question}</div>
-                    <div class="options-group">
-                        ${item.options.map((opt, optIndex) => `
-                            <label class="option-label" for="q${index}_opt${optIndex}">
-                                <input type="checkbox" id="q${index}_opt${optIndex}" name="q${index}" value="${optIndex}">
-                                ${opt}
-                            </label>
-                        `).join('')}
-                    </div>
-                    <div class="result-section" id="result-${index}"></div>
-                </div>
-            `;
-        });
-
-        quizArea.innerHTML = html;
-    }
-
-    function submitQuiz() {
         let score = 0;
-        let totalQuestions = quizData.length;
+        let totalQuestions = 5;
 
-        quizData.forEach((item, index) => {
-            const selectedOptions = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(cb => parseInt(cb.value));
-            const resultDiv = document.getElementById(`result-${index}`);
-            const card = document.getElementById(`card-${index}`);
-            
-            // Checking logic: Arrays must match exactly (ignoring order, but sort helps)
-            const isCorrect = JSON.stringify(selectedOptions.sort()) === JSON.stringify(item.correct.sort());
+        // 遍歷每一題
+        for (let i = 1; i <= totalQuestions; i++) {
+            const questionName = 'q' + i;
+            const checkboxes = document.getElementsByName(questionName);
+            const explanationDiv = document.getElementById(questionName + '-expl');
+            let selectedValues = [];
+            let allCorrect = true;
 
-            if (isCorrect) {
-                score++;
-                card.style.border = "2px solid var(--correct-color)";
-                resultDiv.innerHTML = `<div style="color: var(--correct-color); font-weight: bold;">✅ 回答正確！</div>`;
-            } else {
-                card.style.border = "2px solid var(--wrong-color)";
-                resultDiv.innerHTML = `<div style="color: var(--wrong-color); font-weight: bold;">❌ 回答錯誤</div>`;
+            // 獲取使用者選中的選項
+            for (let checkbox of checkboxes) {
+                if (checkbox.checked) {
+                    selectedValues.push(checkbox.value);
+                }
             }
 
-            // Append detailed explanation
-            resultDiv.innerHTML += `<div class="explanation">${item.explanation}</div>`;
-            resultDiv.style.display = 'block';
-
-            // Visual feedback on options
-            const labels = document.querySelectorAll(`#card-${index} .option-label`);
-            labels.forEach((label, i) => {
-                if (item.correct.includes(i)) {
-                    label.classList.add('correct-answer');
-                    if (!selectedOptions.includes(i)) {
-                        label.innerHTML += " (漏選)";
-                    }
-                } else if (selectedOptions.includes(i)) {
-                    label.classList.add('wrong-answer');
+            // 比對答案 (必須完全一致才算對)
+            const correctSet = correctAnswers[questionName];
+            
+            // 檢查是否選了錯誤的選項
+            for (let val of selectedValues) {
+                if (!correctSet.includes(val)) {
+                    allCorrect = false;
+                    break;
                 }
-            });
-        });
+            }
+            // 檢查是否漏選了正確的選項
+            if (selectedValues.length !== correctSet.length) {
+                allCorrect = false;
+            }
 
-        const scoreDisplay = document.getElementById('score-display');
-        scoreDisplay.innerHTML = `你的得分：${score} / ${totalQuestions}`;
-        scoreDisplay.style.display = 'block';
+            // 顯示解析
+            explanationDiv.style.display = 'block';
+            
+            // 標記題目區塊顏色
+            const block = document.getElementById(questionName + '-block');
+            if (allCorrect) {
+                score++;
+                block.style.borderLeftColor = '#2ecc71'; // 綠色表示正確
+                block.style.backgroundColor = '#eafaf1';
+            } else {
+                block.style.borderLeftColor = '#e74c3c'; // 紅色表示錯誤
+                block.style.backgroundColor = '#fdeea';
+            }
+        }
+
+        // 顯示總分
+        const resultArea = document.getElementById('resultArea');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        resultArea.style.display = 'block';
+        scoreDisplay.innerText = `您的得分：${score} / ${totalQuestions}`;
         
-        // Scroll to score
-        scoreDisplay.scrollIntoView({behavior: "smooth"});
+        // 滾動到底部
+        resultArea.scrollIntoView({behavior: "smooth"});
     }
-
-    // Initialize
-    renderQuiz();
 </script>
 
 </body>
