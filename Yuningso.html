@@ -3,185 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家鄉的節慶、禮俗與文化融合 - 高階複選測驗</title>
+    <title>家鄉故事導覽員 - 深度理解測驗</title>
     <style>
+        :root {
+            --primary-color: #5D4037; /* 深褐色，代表土地與歷史 */
+            --secondary-color: #8D6E63;
+            --accent-color: #FF7043; /* 活潑的橘色，代表導覽的熱情 */
+            --bg-color: #FBE9E7;
+            --card-bg: #ffffff;
+            --text-color: #3E2723;
+        }
+
         body {
-            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 5px solid #2c3e50;
         }
-        h1 {
+
+        header {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        p.intro {
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 30px;
-        }
-        .question-block {
-            margin-bottom: 25px;
+            margin-bottom: 40px;
             padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #fff;
-            transition: all 0.3s ease;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .question-block:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 5px solid #3498db;
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
         }
+
+        p.intro {
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
         .question-title {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.2em;
             margin-bottom: 15px;
-            color: #2980b9;
+            color: var(--primary-color);
         }
-        .options label {
-            display: block;
-            margin-bottom: 10px;
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
         }
-        .options label:hover {
-            background-color: #f0f8ff;
+
+        .option-label:hover {
+            background-color: #f5f5f5;
         }
+
         input[type="checkbox"] {
-            margin-right: 10px;
+            margin-top: 5px;
+            margin-right: 12px;
             transform: scale(1.2);
+            cursor: pointer;
         }
+
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #27ae60;
+            background-color: var(--accent-color);
             color: white;
-            font-size: 1.2em;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: #219150;
-        }
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            display: none;
-        }
-        .correct-feedback {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .incorrect-feedback {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .explanation {
-            margin-top: 5px;
+            border-radius: 8px;
+            font-size: 1.2em;
             font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+            margin-top: 20px;
         }
+
+        .submit-btn:hover {
+            background-color: #F4511E;
+            transform: translateY(-2px);
+        }
+
+        /* Analysis Box Styles */
+        .analysis {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #EFEBE9;
+            border-radius: 8px;
+            border: 1px solid #D7CCC8;
+            display: none; /* Hidden by default */
+        }
+
+        .analysis h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .analysis-text {
+            font-size: 0.95em;
+        }
+
+        .correct-tag {
+            color: #2E7D32;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .incorrect-tag {
+            color: #C62828;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .user-result {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>📝 家鄉節慶與禮俗 - 高階挑戰測驗</h1>
-    <p class="intro">請注意：本測驗為<b>複選題</b>，每題至少有兩個正確答案。請根據文本內容，選出所有正確的選項。</p>
+    <header>
+        <h1>🗺️ 家鄉故事導覽員認證測驗</h1>
+        <p class="intro">請根據簡報內容，選出所有正確的選項。注意：每題均為複選題，少選或多選皆不給分。</p>
+    </header>
 
     <form id="quizForm">
         
-        <div class="question-block" id="q1">
-            <div class="question-title">1. 關於「農曆新年」的習俗與其象徵意義，下列配對與描述哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 「除舊布新」主要透過大掃除來體現，通常在除夕當晚進行。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 年夜飯中的「餃子」因形似元寶，象徵財富；「紅燒魚」則象徵年年有餘。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 壓歲錢是除夕夜由長輩給予晚輩的紅包，代表對孩子的祝福與期許。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 「拜年走春」活動通常發生在農曆12月29日或30日，親友間會互道恭喜。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 年夜飯中的火鍋具有「團圓」的象徵意義，是圍爐時常見的菜色。</label>
+        <div class="question-card" id="q1">
+            <div class="question-title">1. 關於「家鄉故事導覽員」專案的核心目標與整體架構，下列敘述哪些是正確的？</div>
+            <div class="options-group">
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="A">
+                    A. 專案的最終產出目標僅止於製作一份「家鄉故事地圖」，不包含口語表達的訓練。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="B">
+                    B. 整個專案流程被劃分為五個環環相扣的階段，從資料蒐集開始，至成果發表結束。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="C">
+                    C. 此方法論強調一個完整的閉環，涵蓋規劃、執行、驗證與分享。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="D">
+                    D. 資料整理階段只需要考慮故事的趣味性，無需過度考究來源標註。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q1" value="E">
+                    E. 專案旨在訓練參與者掌握蒐集故事、製作地圖並向他人介紹的完整技能。
+                </label>
             </div>
-            <div class="feedback" id="feedback-q1"></div>
+            <div class="analysis">
+                <span class="user-result"></span>
+                <h4>老師解析：</h4>
+                <div class="analysis-text">
+                    <strong>正確答案：B, C, E</strong><br>
+                    <ul>
+                        <li><strong>B & E 正確：</strong>根據摘要與核心目標，專案分為五個階段，目標包含蒐集、製作地圖以及「向他人進行介紹」（導覽）。</li>
+                        <li><strong>C 正確：</strong>執行摘要最後一段明確提到此方法論注重「規劃、執行、驗證與分享的完整閉環」。</li>
+                        <li><strong>A 錯誤：</strong>目標明確包含「以導覽員的身份向公眾介紹」，不僅止於地圖製作。</li>
+                        <li><strong>D 錯誤：</strong>資料整理階段明確強調了「來源標註的必要性」。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="question-block" id="q2">
-            <div class="question-title">2. 根據文本，關於漢人傳統節日（元宵、清明、端午、中秋）的敘述，哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 端午節（農曆5月5日）插艾草的習俗，在早期具有祛病、防蚊與防疫的觀念。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 元宵節又稱「小過年」，核心活動包含掃墓祭祖與吃潤餅。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 中秋節（農曆8月15日）吃月餅的習俗中，月餅在古代曾被用來傳遞軍情。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 清明節（國曆4月4-6日）除了傳統掃墓，現代社會也發展出「線上祭祖」的形式。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 端午節的午時立蛋活動，若成功則象徵家庭團圓。</label>
+        <div class="question-card" id="q2">
+            <div class="question-title">2. 在「第一階段：資料蒐集策略」中，文件對於蒐集途徑與事前準備有詳細規定，請選出符合文本內容的選項：</div>
+            <div class="options-group">
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="A">
+                    A. 主要的蒐集途徑包含實地走訪、網路查詢、查閱書籍以及訪問長輩四種。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="B">
+                    B. 「工作準備表」中的 5W 要素包含：Who (對象)、What (問題)、When (時間)、Where (地點) 以及 Why (訪談動機)。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="C">
+                    C. 實地走訪是指親自前往具有歷史或文化意義的景點進行勘查。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="D">
+                    D. 「工作準備表」中的第五個 W 指的是 "What to bring"，即準備所需攜帶的物品（如筆記本、錄音設備）。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q2" value="E">
+                    E. 訪問長輩被視為最直接的資訊來源，主要用於向圖書館館員請教文獻資料。
+                </label>
             </div>
-            <div class="feedback" id="feedback-q2"></div>
+            <div class="analysis">
+                <span class="user-result"></span>
+                <h4>老師解析：</h4>
+                <div class="analysis-text">
+                    <strong>正確答案：A, C, D</strong><br>
+                    <ul>
+                        <li><strong>A & C 正確：</strong>符合「四大蒐集途徑」的描述。</li>
+                        <li><strong>D 正確：</strong>文本中明確定義第五個要素是「物 (What to bring)」，而非 Why。</li>
+                        <li><strong>B 錯誤：</strong>文本中的 5W 是指人(Who)、事(What-問題)、時(When)、地(Where)、物(What to bring)。並不包含 Why (動機)。</li>
+                        <li><strong>E 錯誤：</strong>訪問長輩是向「家族或鄰里長者」請教，而非圖書館館員（那是查閱書籍的途徑）。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="question-block" id="q3">
-            <div class="question-title">3. 關於原住民族祭典「邵族祖靈祭 (Lus'an)」與「阿美族豐年祭 (Ilisin)」的比較，下列哪些敘述符合文本內容？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 邵族祖靈祭於國曆9月舉行，是該族的新年，由祭司（先生媽）主持儀式。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 阿美族豐年祭的主要活動包括準備「祖靈籃」，內含祖先衣物作為祖靈居所。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 邵族的儀式中包含「擦拭手臂」，象徵去除穢氣與不順利。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 阿美族豐年祭於國曆7月至9月舉行，族人會穿著傳統服飾圍圈跳舞，感謝神靈眷顧。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 兩者的共通點在於都使用杵音儀式來宣告新年的到來。</label>
+        <div class="question-card" id="q3">
+            <div class="question-title">3. 針對「第二階段：長輩訪談執行準則」，下列哪些步驟符合標準作業程序（SOP）的要求？</div>
+            <div class="options-group">
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="A">
+                    A. 【訪問前】必須提前將擬定好的題目提供給受訪者。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="B">
+                    B. 【訪問前】若要進行錄音或錄影，必須禮貌地取得受訪者授權。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="C">
+                    C. 【訪問時】若受訪者回答偏離主題，應立即打斷並修正方向，以確保效率。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="D">
+                    D. 【訪問後】整理後的紀錄必須交由受訪者確認（內容核實），以確保無誤。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q3" value="E">
+                    E. 【訪問後】主要工作是將訪談內容製作成逐字稿，無需進行摘要。
+                </label>
             </div>
-            <div class="feedback" id="feedback-q3"></div>
+            <div class="analysis">
+                <span class="user-result"></span>
+                <h4>老師解析：</h4>
+                <div class="analysis-text">
+                    <strong>正確答案：A, B, D</strong><br>
+                    <ul>
+                        <li><strong>A & B 正確：</strong>屬於【訪問前】的預約溝通與取得授權步驟。</li>
+                        <li><strong>D 正確：</strong>屬於【訪問後】的內容核實步驟，這是尊重與準確性的關鍵。</li>
+                        <li><strong>C 錯誤：</strong>【訪問時】的準則強調「依照預定順序提問」和「專注傾聽」，並未提及要「立即打斷」，這違背了尊重的原則。</li>
+                        <li><strong>E 錯誤：</strong>【訪問後】的第一點是「資料摘要」，即整理成重點摘要，而非單純的逐字稿且不摘要。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="question-block" id="q4">
-            <div class="question-title">4. 現代台灣社會融合了外來文化與在地特色節慶，下列關於這些現代節日的描述哪些正確？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 潑水節源自緬甸、泰國等地的新年，在台灣的活動規範中禁止使用高壓水槍與潑灑髒水。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 雲林國際偶戲節於9月底至10月中舉行，雲林因擁有全台最多布袋戲團而被稱為偶戲重鎮。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 嘉義阿里山櫻花季主要結合了當地聞名的「日出、溫泉、森林」三大自然美景。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 耶誕節在台灣被視為如同西方的「農曆春節」，是家人團聚的日子，商圈亦會布置主題營造氣氛。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 國慶日（10月10日）的活動通常包含總統府前的升旗典禮，而元旦（1月1日）則主要以遊行和煙火為主。</label>
+        <div class="question-card" id="q4">
+            <div class="question-title">4. 在「第三階段：資料整理與分析」與「第四階段：地圖製作」中，下列哪些操作原則是正確的？</div>
+            <div class="options-group">
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="A">
+                    A. 資料篩選的原則是依據「主題重要性」，例如保留具地方特色的土地公廟傳說。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="B">
+                    B. 為了吸引讀者，過於驚悚的鬼故事也應該被保留並標註為重點。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="C">
+                    C. 地圖製作的第一步是繪製主要幹道，接著才是決定範圍與方位。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="D">
+                    D. 篇幅較長的文字內容，可採用便條紙浮貼或在地圖外側撰寫說明並以編號對應。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q4" value="E">
+                    E. 地圖完成後的品質檢核清單中，包含了檢查是否能輕易找到「我的學校」以及是否有方位標示。
+                </label>
             </div>
-            <div class="feedback" id="feedback-q4"></div>
+            <div class="analysis">
+                <span class="user-result"></span>
+                <h4>老師解析：</h4>
+                <div class="analysis-text">
+                    <strong>正確答案：A, D, E</strong><br>
+                    <ul>
+                        <li><strong>A 正確：</strong>符合資料篩選標準的應用範例。</li>
+                        <li><strong>D 正確：</strong>符合內容呈現方式與規範中的文字處理建議。</li>
+                        <li><strong>E 正確：</strong>符合品質檢核清單的具體項目。</li>
+                        <li><strong>B 錯誤：</strong>資料篩選範例中明確指出應「移除」過於驚悚或不適合公開傳播的鬼故事。</li>
+                        <li><strong>C 錯誤：</strong>製作流程的順序是：先「決定範圍與方位」，第二步才是「標示主要道路」。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="question-block" id="q5">
-            <div class="question-title">5. 在「新生兒的祝福儀式」中，不同的儀式代表不同的意義與做法。請選出正確的配對：</div>
-            <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 收涎：在嬰兒出生滿四個月時舉行，象徵收起口水，祝福孩子快快長大。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 抓週：嬰兒滿一週歲時舉行，若抓到「聽診器」象徵未來可能從事科技業。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 滿月：在嬰兒出生滿一個月時舉行慶祝。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 抓週：若抓到「筆墨」象徵未來可能成為作家；抓到「算盤」則象徵商人或會計。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 收涎：儀式中會將紅包掛在寶寶脖子上，由親友給予祝福。</label>
+        <div class="question-card" id="q5">
+            <div class="question-title">5. 關於「第五階段：導覽成果發表」，文本提出了哪些具體的推廣方式？</div>
+            <div class="options-group">
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="A">
+                    A. 靜態公開展示：將故事地圖張貼於校園等公共場合供人閱覽。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="B">
+                    B. 商業出版發行：將地圖集結成冊，在書店進行販售。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="C">
+                    C. 數位化網路導覽：將導覽內容拍攝成影片並上傳至網路平台。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="D">
+                    D. 動態定點解說：安排成員輪流到其他班級或特定地點進行口頭解說。
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="q5" value="E">
+                    E. 沉浸式實地導覽：親自帶領觀眾實際走訪景點進行深度解說。
+                </label>
             </div>
-            <div class="feedback" id="feedback-q5"></div>
-        </div>
-
-        <div class="question-block" id="q6">
-            <div class="question-title">6. 關於「成年禮」與「婚嫁」的生命禮俗，下列敘述哪些符合各族群的傳統？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q6" value="A"> A. 漢人的成年禮「做十六歲」中，鑽過「七娘媽亭」後須將護身符取下，象徵成年。</label>
-                <label><input type="checkbox" name="q6" value="B"> B. 客家人的成年禮稱為「脫絭」，是在滿16歲或結婚時，回到石母面前脫去繫有銅錢的紅線。</label>
-                <label><input type="checkbox" name="q6" value="C"> C. 魯凱族婚俗中的「盪秋千」儀式，新娘盪得愈高，象徵新郎愈有能力負擔家庭重任。</label>
-                <label><input type="checkbox" name="q6" value="D"> D. 漢人婚俗中，新娘下禮車前會摸橘子或蘋果，並贈予紅包，象徵吉利平安。</label>
-                <label><input type="checkbox" name="q6" value="E"> E. 阿美族的成年禮是透過祭拜祖先與「鑽桌腳」來完成，象徵通過考驗。</label>
+            <div class="analysis">
+                <span class="user-result"></span>
+                <h4>老師解析：</h4>
+                <div class="analysis-text">
+                    <strong>正確答案：A, C, D, E</strong><br>
+                    <ul>
+                        <li><strong>A, C, D, E 正確：</strong>這四項皆為文本中「第五階段：導覽成果發表」所列出的有效發表方式。</li>
+                        <li><strong>B 錯誤：</strong>文本中並未提及商業出版或書店販售，僅提到校園張貼、班級解說、網路影片與實地導覽。</li>
+                    </ul>
+                </div>
             </div>
-            <div class="feedback" id="feedback-q6"></div>
         </div>
 
         <button type="button" class="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
@@ -189,52 +360,48 @@
 </div>
 
 <script>
+    // Answer Key configuration
+    const correctAnswers = {
+        q1: ['B', 'C', 'E'],
+        q2: ['A', 'C', 'D'],
+        q3: ['A', 'B', 'D'],
+        q4: ['A', 'D', 'E'],
+        q5: ['A', 'C', 'D', 'E']
+    };
+
     function checkAnswers() {
-        // Correct Answer Key
-        const answers = {
-            q1: ['B', 'C', 'E'],
-            q2: ['A', 'C', 'D'],
-            q3: ['A', 'C', 'D'],
-            q4: ['A', 'B', 'D'],
-            q5: ['A', 'C', 'D'],
-            q6: ['A', 'B', 'D']
-        };
-
-        // Explanations for feedback
-        const explanations = {
-            q1: "解析：A錯誤，大掃除是在「年前」進行，而非除夕當晚。D錯誤，拜年走春是在春節（農曆1月1日）期間，除夕是圍爐。",
-            q2: "解析：B錯誤，掃墓祭祖與吃潤餅是「清明節」的習俗，元宵節是看花燈吃元宵。E錯誤，立蛋成功象徵「獲得好運」，而非家庭團圓。",
-            q3: "解析：B錯誤，準備祖靈籃是「邵族」的習俗。E錯誤，杵音儀式是「邵族」的特色，阿美族以歌舞為主。",
-            q4: "解析：C錯誤，阿里山聞名的是「雲海」，而非溫泉。E錯誤，元旦是升旗典禮，國慶日才有遊行和煙火。",
-            q5: "解析：B錯誤，抓到聽診器象徵醫生，滑鼠/平板才象徵科技業。E錯誤，收涎是掛「餅乾」而非紅包。",
-            q6: "解析：C錯誤，盪秋千盪得愈高象徵「夫妻愛情堅定」，新郎抱新娘才象徵負擔家庭重任。E錯誤，阿美族成年禮是透過賽跑、歌舞等訓練課程。"
-        };
-
         let score = 0;
-        let totalQuestions = Object.keys(answers).length;
+        const totalQuestions = Object.keys(correctAnswers).length;
 
-        for (let q in answers) {
-            const selected = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(e => e.value);
-            const correct = answers[q];
-            const feedbackDiv = document.getElementById(`feedback-${q}`);
-            
-            // Check if selected matches correct exactly (Set comparison logic)
-            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+        for (let qId in correctAnswers) {
+            const container = document.getElementById(qId);
+            const userInputs = container.querySelectorAll('input[type="checkbox"]:checked');
+            const userValues = Array.from(userInputs).map(input => input.value).sort();
+            const correctValues = correctAnswers[qId].sort();
+            const resultSpan = container.querySelector('.user-result');
+            const analysisBox = container.querySelector('.analysis');
+
+            // Show Analysis Box
+            analysisBox.style.display = 'block';
+
+            // Check correctness (exact match required for multiple choice)
+            const isCorrect = JSON.stringify(userValues) === JSON.stringify(correctValues);
 
             if (isCorrect) {
-                feedbackDiv.innerHTML = "✅ <b>回答正確！</b>";
-                feedbackDiv.className = "feedback correct-feedback";
-                feedbackDiv.style.display = "block";
                 score++;
+                resultSpan.innerHTML = `你的答案：${userValues.join(', ')} <span class="correct-tag">⭕ 完全正確</span>`;
+                container.style.borderLeft = "5px solid #2E7D32"; // Green border
+                container.style.backgroundColor = "#E8F5E9";
             } else {
-                feedbackDiv.innerHTML = `❌ <b>回答錯誤。</b><br>正確答案是：${correct.join(", ")}。<br><div class="explanation">${explanations[q]}</div>`;
-                feedbackDiv.className = "feedback incorrect-feedback";
-                feedbackDiv.style.display = "block";
+                const userStr = userValues.length > 0 ? userValues.join(', ') : '未作答';
+                resultSpan.innerHTML = `你的答案：${userStr} <span class="incorrect-tag">❌ 答錯了</span>`;
+                container.style.borderLeft = "5px solid #C62828"; // Red border
+                container.style.backgroundColor = "#FFEBEE";
             }
         }
-        
-        // Scroll to top or alert score
-        alert(`測驗結束！你的得分是：${score} / ${totalQuestions}`);
+
+        // Scroll to top or show summary alert
+        alert(`測驗完成！\n你答對了 ${score} / ${totalQuestions} 題。\n請往下滑動查看每一題的詳細解析。`);
     }
 </script>
 
