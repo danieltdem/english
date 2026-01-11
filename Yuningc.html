@@ -1,88 +1,105 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南一版四上國語第七課《到此「藝」遊》深度測驗</title>
+    <title>《第八課：四季的頭髮》高難度挑戰測驗</title>
     <style>
         :root {
-            --primary-color: #8d5b4c; /* 磚紅色，呼應魯班街 */
-            --secondary-color: #556b2f; /* 深綠色，呼應月河 */
-            --accent-color: #e6b422; /* 金黃色，呼應落羽松 */
-            --bg-color: #fdfbf7;
-            --text-color: #333;
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f7fa;
+            --accent-color: #ff6b6b;
+            --correct-color: #2ecc71;
+            --wrong-color: #e74c3c;
+            --text-color: #2c3e50;
         }
-
         body {
-            font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
-            background-color: var(--bg-color);
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 10px solid var(--primary-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
         h1 {
             text-align: center;
             color: var(--primary-color);
-            border-bottom: 2px dashed var(--accent-color);
-            padding-bottom: 20px;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
-
-        .intro-text {
-            background-color: #f0f4e8;
+        .intro {
+            background-color: #eef2f3;
             padding: 15px;
             border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 0.95em;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
         }
-
         .question-block {
-            margin-bottom: 30px;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 10px;
             padding: 20px;
-            border: 1px solid #eee;
-            border-radius: 8px;
+            margin-bottom: 25px;
             transition: transform 0.2s;
         }
-
         .question-block:hover {
-            background-color: #fafafa;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-
         .question-title {
             font-weight: bold;
             font-size: 1.1em;
             margin-bottom: 15px;
-            color: var(--primary-color);
+            color: #34495e;
         }
-
-        .options label {
-            display: block;
-            margin-bottom: 10px;
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
             cursor: pointer;
-            padding: 8px;
-            border-radius: 4px;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: var(--secondary-color);
+            transition: background 0.2s;
         }
-
-        .options label:hover {
-            background-color: #f0f0f0;
+        .option-label:hover {
+            background-color: #e1e8ed;
         }
-
         input[type="checkbox"] {
-            margin-right: 10px;
+            margin-right: 12px;
             transform: scale(1.2);
+            cursor: pointer;
         }
-
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.95em;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
         .submit-btn {
             display: block;
             width: 100%;
@@ -94,185 +111,214 @@
             font-size: 1.2em;
             cursor: pointer;
             transition: background 0.3s;
+            margin-top: 30px;
         }
-
         .submit-btn:hover {
-            background-color: #6d4236;
+            background-color: #357abd;
         }
-
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            font-size: 0.9em;
-        }
-
-        .correct {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .score-display {
+        .score-board {
             text-align: center;
             font-size: 1.5em;
-            font-weight: bold;
             margin-top: 20px;
-            color: var(--secondary-color);
+            font-weight: bold;
+            color: var(--accent-color);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>《到此「藝」遊》核心知識挑戰</h1>
-    
-    <div class="intro-text">
-        <p>歡迎來到測驗教室！這份測驗共有 5 道高難度題目。請注意，<strong>每一題都是「複選題」</strong>，這意味著每題至少有兩個以上的正確選項。你需要全神貫注，回憶課文中的遊覽路線、感官描寫以及核心價值觀。準備好了嗎？</p>
+    <h1>📝 《四季的頭髮》隨堂大挑戰</h1>
+    <div class="intro">
+        <p><strong>老師的話：</strong>這份測驗非常具有挑戰性！所有題目皆為<strong>多選題</strong>（每題有 2 個或更多正確答案）。你需要找出所有符合課文描述或正確語法的選項才算得分。請仔細閱讀每一個選項，加油！</p>
     </div>
 
     <form id="quizForm">
         <div class="question-block" id="q1">
-            <div class="question-title">1. 關於課文的「體裁主旨」與「作者的核心價值觀」，下列敘述哪些是完全正確的？（請選擇所有正確答案）</div>
-            <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 本文體裁屬於說明文，主要在客觀介紹傳統藝術中心的歷史沿革。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 作者在文昌街購買了捏麵人作為紀念品，因為這是傳統技藝的象徵。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 文章的核心結論強調「心靈的滿足」勝過「物質的擁有」。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 作者最終帶回家的禮物是無形的「滿心喜悅」，並準備與父母分享。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 這是一篇記敘文（遊記），依照遊覽的空間順序來安排段落結構。</label>
-                <label><input type="checkbox" name="q1" value="F"> F. 作者認為紀念品太過昂貴，因此不得不選擇不購買任何東西。</label>
+            <div class="question-title">1. 關於本詩的寫作架構與核心修辭，下列分析哪些是正確的？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q1" value="A"> A. 本詩運用「擬人法」，將四季視為擁有不同性格的人物。</label>
+                <label class="option-label"><input type="checkbox" name="q1" value="B"> B. 本詩運用「譬喻法」，將雨、雪、草等自然景物比喻為頭髮。</label>
+                <label class="option-label"><input type="checkbox" name="q1" value="C"> C. 寫作順序依照傳統的「春、夏、秋、冬」時間軸進行描寫。</label>
+                <label class="option-label"><input type="checkbox" name="q1" value="D"> D. 將春天置於文末，是為了象徵生機與希望，營造積極向上的結尾。</label>
+                <label class="option-label"><input type="checkbox" name="q1" value="E"> E. 每一段落均以「.....的頭髮長怎樣？」作為開頭問句。</label>
             </div>
-            <div class="feedback" id="feedback1"></div>
+            <div class="feedback" id="feedback-q1"></div>
         </div>
 
         <div class="question-block" id="q2">
-            <div class="question-title">2. 請回憶作者在「魯班街」與「臨水劇場」的遊覽經歷，下列哪些「景點—感官體驗—心理感受」的配對或描述是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 在魯班街，作者觀賞了閃爍著七彩光芒的琉璃藝術品，感到目不轉睛。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 在臨水劇場，作者看到演員翻跟斗和走鋼索，不禁為他們捏一把冷汗。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 魯班街的建築特色是充滿現代感的鋼筋水泥大樓。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 臨水劇場上演出的劇碼是《葛瑪蘭公主》。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 作者在魯班街體驗了藍染工藝，並親手製作了一個手提袋。</label>
-                <label><input type="checkbox" name="q2" value="F"> F. 魯班街的傳習所內展示了陶器、玉石和藍染等傳統工藝。</label>
+            <div class="question-title">2. 關於「夏天」形象的描述與比喻，下列哪些選項符合課文內容？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q2" value="A"> A. 夏天的頭髮被比喻為「西北雨」，特徵是又急又長。</label>
+                <label class="option-label"><input type="checkbox" name="q2" value="B"> B. 夏天的形象被描繪成一位冷靜優雅的紳士。</label>
+                <label class="option-label"><input type="checkbox" name="q2" value="C"> C. 詩中描述夏天脾氣火爆，是個急性子。</label>
+                <label class="option-label"><input type="checkbox" name="q2" value="D"> D. 西北雨巨大的聲響，嚇得大地流出了眼淚（指積水）。</label>
+                <label class="option-label"><input type="checkbox" name="q2" value="E"> E. 夏天的頭髮是柔軟且呈現金黃色的。</label>
             </div>
-            <div class="feedback" id="feedback2"></div>
+            <div class="feedback" id="feedback-q2"></div>
         </div>
 
         <div class="question-block" id="q3">
-            <div class="question-title">3. 關於「月河」遊船及「文昌街」的描寫，課文運用了豐富的視覺摹寫與修辭。下列哪些選項準確反映了課文內容？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 遊月河時，作者看見了深綠色的湖水和金黃的落羽松。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 文昌街上，作者描述了「有人買了圓滾滾的金魚造型香包，有人買了五顏六色的捏麵人」，這是使用了並列複句。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 月河上的石拱橋被描寫為「爬滿綠色植物」。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 在文昌街，作者對於是否購買紀念品感到非常猶豫，最後在同學勸說下買了香包。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 遊船時有白色的水鳥飛過，微風拂面，充滿了歡笑聲。</label>
-                <label><input type="checkbox" name="q3" value="F"> F. 文昌街的特色小店主要販售現代電子產品與流行服飾。</label>
+            <div class="question-title">3. 關於「秋天」與「冬天」的頭髮比喻，下列配對與描述哪些正確？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q3" value="A"> A. 秋天的頭髮是滿山遍野的芒草（白背芒）。</label>
+                <label class="option-label"><input type="checkbox" name="q3" value="B"> B. 秋天的形象活潑調皮，頭髮隨風飛舞，比賽誰先親到天空的臉龐。</label>
+                <label class="option-label"><input type="checkbox" name="q3" value="C"> C. 冬天的頭髮是冰冰涼涼的山頂白雪。</label>
+                <label class="option-label"><input type="checkbox" name="q3" value="D"> D. 詩中將滑雪板比喻為「髮夾」，固定住冬天的頭髮。</label>
+                <label class="option-label"><input type="checkbox" name="q3" value="E"> E. 冬天用滑雪板當作梳子，梳理出一條條長辮子。</label>
             </div>
-            <div class="feedback" id="feedback3"></div>
+            <div class="feedback" id="feedback-q3"></div>
         </div>
 
         <div class="question-block" id="q4">
-            <div class="question-title">4. 針對本課的「字音字形」與「關鍵詞彙」，下列辨析哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 「不禁」的「禁」讀作一聲（jīn），意思是「控制不住，由不得自己」。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 「門禁」、「禁止」的「禁」讀作四聲（jìn），意思是「制止、不准許」。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 「陶」器與「淘」氣的部首不同，前者與土有關，後者與水有關，不可混用。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 「流連忘返」的意思是玩得太開心而忘記了回家的路，通常帶有貶義。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 形近字辨析：「繩索」的「索」下方是「糸」，而「樸素」的「素」下方也是「糸」，兩者字形完全相同。</label>
-                <label><input type="checkbox" name="q4" value="F"> F. 「弱不禁風」的「禁」讀作一聲（jīn），含有「承受、忍受」之意。</label>
+            <div class="question-title">4. 針對「春天」的描寫，以下哪些選項精準捕捉了詩中的意象？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q4" value="A"> A. 春天的頭髮是剛冒出來的短短小青草。</label>
+                <label class="option-label"><input type="checkbox" name="q4" value="B"> B. 春天表現出慵懶、緩慢的特質。</label>
+                <label class="option-label"><input type="checkbox" name="q4" value="C"> C. 詩中形容春天的動作是努力踮起腳尖、挺直腰桿。</label>
+                <label class="option-label"><input type="checkbox" name="q4" value="D"> D. 春天生長速度極快，範圍極廣，用「一散千里」來形容。</label>
+                <label class="option-label"><input type="checkbox" name="q4" value="E"> E. 春天的形象是可愛且充滿活力的。</label>
             </div>
-            <div class="feedback" id="feedback4"></div>
+            <div class="feedback" id="feedback-q4"></div>
         </div>
 
         <div class="question-block" id="q5">
-            <div class="question-title">5. 深入探討課文中的修辭技巧與短語結構，下列分析哪些符合本課教學重點？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 「捏一把冷汗」是慣用語（成語），用來形容極度擔心或緊張的情緒。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 「為之一亮」意指看到美好的事物時，眼睛變得明亮，通常表示驚豔或讚賞。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 短語練習「(穿過) (爬滿綠色植物) 的 (石拱橋)」結構為「(動詞) (動態/形容詞) 的 (名詞)」。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 課文中運用大量的聽覺描寫，例如描寫琉璃藝術品時強調了其發出的清脆聲響。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 「目不轉睛」形容被精彩事物吸引，專注地看，在文中是用來描寫觀看琉璃藝術品的情境。</label>
-                <label><input type="checkbox" name="q5" value="F"> F. 作者使用「晴朗」來形容當天的心情，而非天氣。</label>
+            <div class="question-title">5. 關於形近字「辮、辦、辯、瓣」的字形與用法，下列哪些敘述正確？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q5" value="A"> A. 「辯」的部首是「言」，與說話有關，例如：辯論。</label>
+                <label class="option-label"><input type="checkbox" name="q5" value="B"> B. 「瓣」的部首是「辛」，例如：花瓣。</label>
+                <label class="option-label"><input type="checkbox" name="q5" value="C"> C. 「辮」的部首是「糸」，指編織的頭髮，例如：髮辮。</label>
+                <label class="option-label"><input type="checkbox" name="q5" value="D"> D. 「辦」的部首是「力」，表示出力做事，例如：辦公桌。</label>
+                <label class="option-label"><input type="checkbox" name="q5" value="E"> E. 「沒辦法」的「辦」應該寫成「辨」。</label>
             </div>
-            <div class="feedback" id="feedback5"></div>
+            <div class="feedback" id="feedback-q5"></div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
-        <div class="score-display" id="scoreDisplay"></div>
+        <div class="question-block" id="q6">
+            <div class="question-title">6. 請選出「框」與「眶」、「披」與「波」的正確用法或部首說明：</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q6" value="A"> A. 「眼眶」是指眼睛周圍，部首應為「目」。</label>
+                <label class="option-label"><input type="checkbox" name="q6" value="B"> B. 「門框」通常指堅硬物體，部首應為「木」。</label>
+                <label class="option-label"><input type="checkbox" name="q6" value="C"> C. 「披風」的「披」部首是「衣」，因為是衣服的一種。</label>
+                <label class="option-label"><input type="checkbox" name="q6" value="D"> D. 「水波」的「波」部首是「水」。</label>
+                <label class="option-label"><input type="checkbox" name="q6" value="E"> E. 「披頭散髮」的「披」部首是「手」，動作意指覆蓋或搭在肩背上。</label>
+            </div>
+            <div class="feedback" id="feedback-q6"></div>
+        </div>
+
+        <div class="question-block" id="q7">
+            <div class="question-title">7. 關於成語「一散千里」與詞語「西北雨」的解釋與應用，哪些正確？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q7" value="A"> A. 「一散千里」形容事物向外擴散，範圍非常廣大。</label>
+                <label class="option-label"><input type="checkbox" name="q7" value="B"> B. 課文用「一散千里」來形容西北雨雨勢猛烈。</label>
+                <label class="option-label"><input type="checkbox" name="q7" value="C"> C. 「西北雨」指台灣夏季午後常見的雷陣雨，特徵是來得快、去得也快。</label>
+                <label class="option-label"><input type="checkbox" name="q7" value="D"> D. 造句：「學生聽到下課鐘聲，立刻一散千里。」用法是恰當的。</label>
+                <label class="option-label"><input type="checkbox" name="q7" value="E"> E. 「西北雨」通常雨勢綿長，會下一整天。</label>
+            </div>
+            <div class="feedback" id="feedback-q7"></div>
+        </div>
+
+        <div class="question-block" id="q8">
+            <div class="question-title">8. 課文中使用了多個疊字詞語來增強描寫效果，下列哪些解釋是正確的？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q8" value="A"> A. 「冰涼涼」是用來形容溫度的詞語。</label>
+                <label class="option-label"><input type="checkbox" name="q8" value="B"> B. 「灰濛濛」是用來形容天空昏暗的樣子。</label>
+                <label class="option-label"><input type="checkbox" name="q8" value="C"> C. 「滑溜溜」是用來形容聲音很悅耳。</label>
+                <label class="option-label"><input type="checkbox" name="q8" value="D"> D. 「冷絲絲」是用來形容微冷的感覺。</label>
+                <label class="option-label"><input type="checkbox" name="q8" value="E"> E. 這些疊字詞語主要用於形容夏天的特徵。</label>
+            </div>
+            <div class="feedback" id="feedback-q8"></div>
+        </div>
+
+        <div class="question-block" id="q9">
+            <div class="question-title">9. 關於本課的核心句型結構，下列哪些造句符合原課文的邏輯與修辭？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q9" value="A"> A. 句型「(比誰先) (游到) (大海) 的 (懷抱)」符合模仿秋天的句型結構。</label>
+                <label class="option-label"><input type="checkbox" name="q9" value="B"> B. 句型「(秋天) 的 (衣裳) 是 (楓葉)」運用了「名詞+特徵+譬喻」的結構。</label>
+                <label class="option-label"><input type="checkbox" name="q9" value="C"> C. 句型「(白雲) 的 (床鋪) 是 (藍天)」符合模仿季節與頭髮的譬喻句型。</label>
+                <label class="option-label"><input type="checkbox" name="q9" value="D"> D. 原文範例「(夏天) 的 (頭髮) 是 (西北雨)」是明喻的一種。</label>
+                <label class="option-label"><input type="checkbox" name="q9" value="E"> E. 句型「(比誰先) (跑得) (快)」是一個完整的模仿句型。</label>
+            </div>
+            <div class="feedback" id="feedback-q9"></div>
+        </div>
+
+        <div class="question-block" id="q10">
+            <div class="question-title">10. 綜合比較，四季形象中，下列哪些「動作」或「特徵」的配對是正確的？</div>
+            <div class="options-group">
+                <label class="option-label"><input type="checkbox" name="q10" value="A"> A. 夏天：大聲哭泣（下雨）嚇到大地。</label>
+                <label class="option-label"><input type="checkbox" name="q10" value="B"> B. 秋天：與天空玩遊戲，比賽親吻天空的臉龐。</label>
+                <label class="option-label"><input type="checkbox" name="q10" value="C"> C. 冬天：為自己梳理長辮子（滑雪痕跡）。</label>
+                <label class="option-label"><input type="checkbox" name="q10" value="D"> D. 春天：彎著腰，慢慢地從土裡爬出來。</label>
+                <label class="option-label"><input type="checkbox" name="q10" value="E"> E. 全文旨在表現大自然四季更迭的生命力。</label>
+            </div>
+            <div class="feedback" id="feedback-q10"></div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案 (Check Answers)</button>
+        <div class="score-board" id="scoreBoard"></div>
     </form>
 </div>
 
 <script>
+    const correctAnswers = {
+        q1: ['A', 'B', 'D'],
+        q2: ['A', 'C', 'D'],
+        q3: ['A', 'B', 'C', 'E'],
+        q4: ['A', 'C', 'D', 'E'],
+        q5: ['A', 'C', 'D'],
+        q6: ['A', 'B', 'D', 'E'],
+        q7: ['A', 'C', 'D'],
+        q8: ['A', 'B', 'D'],
+        q9: ['A', 'B', 'C', 'D'],
+        q10: ['A', 'B', 'C', 'E']
+    };
+
+    const explanations = {
+        q1: "解析：C 錯誤，寫作順序是獨特的「夏→秋→冬→春」；E 錯誤，每一段是以「...的頭髮在哪裡？」開頭。",
+        q2: "解析：B 錯誤，夏天是脾氣火爆的急性子；E 錯誤，夏天的頭髮是西北雨（雨水），並非金黃色柔軟。",
+        q3: "解析：D 錯誤，滑雪板是被比喻為「梳子」，用來梳理雪地（頭髮）。",
+        q4: "解析：B 錯誤，春天形象是充滿活力、動作迅速（一散千里），並非慵懶緩慢。",
+        q5: "解析：B 錯誤，花瓣的「瓣」部首是「瓜」；E 錯誤，沒辦法的「辦」部首是「力」，辨是辨別。",
+        q6: "解析：C 錯誤，披風的「披」部首是「手」，指披搭在身上的動作。",
+        q7: "解析：B 錯誤，一散千里是用來形容「春天青草生長」；E 錯誤，西北雨特徵是來快去快，時間短暫。",
+        q8: "解析：C 錯誤，滑溜溜是形容光滑，不是聲音。",
+        q9: "解析：E 錯誤，該句型結構不完整，缺少了受詞或補語的完整譬喻結構（如：比誰先爬到大樹的肩膀）。",
+        q10: "解析：D 錯誤，春天是「努力踮起腳尖、挺直腰桿」，不是彎著腰。"
+    };
+
     function checkAnswers() {
-        // 定義正確答案
-        const correctAnswers = {
-            q1: ['C', 'D', 'E'],
-            q2: ['A', 'B', 'D', 'F'],
-            q3: ['A', 'B', 'C', 'E'],
-            q4: ['A', 'B', 'C', 'F'],
-            q5: ['A', 'B', 'C', 'E']
-        };
-
-        // 定義解析
-        const explanations = {
-            q1: "解析：A錯誤，體裁是記敘文（遊記）；B錯誤，那是「有人」買的，作者沒買；F錯誤，作者不買是因為選擇「心靈滿足」而非金錢因素。",
-            q2: "解析：C錯誤，魯班街是古色古香的磚紅色建築；E錯誤，文中提到傳習所有藍染，但未提及作者親手製作。",
-            q3: "解析：D錯誤，作者最終決定不買任何東西；F錯誤，文昌街是充滿傳統民俗技藝與生活工藝的特色小店。",
-            q4: "解析：D錯誤，「流連忘返」指留戀愛慕捨不得離開，通常為正面或中性描述；E錯誤，索（上方有十）與素（上方有三橫）字形不同。",
-            q5: "解析：D錯誤，琉璃藝術品強調的是「閃爍七彩光芒」的視覺描寫；F錯誤，「晴朗」在文中是用來形容天氣（陽光普照）。"
-        };
-
         let score = 0;
-        let totalQuestions = 5;
+        let totalQuestions = Object.keys(correctAnswers).length;
 
-        // 檢查每一題
-        for (let i = 1; i <= totalQuestions; i++) {
-            const qKey = 'q' + i;
-            const checkboxes = document.getElementsByName(qKey);
-            const feedbackDiv = document.getElementById('feedback' + i);
+        for (let qId in correctAnswers) {
+            const correctSet = new Set(correctAnswers[qId]);
+            const selectedOptions = document.querySelectorAll(`input[name="${qId}"]:checked`);
+            const selectedValues = Array.from(selectedOptions).map(cb => cb.value);
+            const feedbackDiv = document.getElementById(`feedback-${qId}`);
             
-            let selectedValues = [];
-            for (let cb of checkboxes) {
-                if (cb.checked) {
-                    selectedValues.push(cb.value);
-                }
-            }
-
-            // 排序以便比較
-            selectedValues.sort();
-            correctAnswers[qKey].sort();
-
-            // 判斷是否全對
-            const isCorrect = JSON.stringify(selectedValues) === JSON.stringify(correctAnswers[qKey]);
+            // Logic: Must select ALL correct answers and NO wrong answers
+            let isCorrect = selectedValues.length === correctSet.size && 
+                            selectedValues.every(val => correctSet.has(val));
 
             if (isCorrect) {
                 score++;
                 feedbackDiv.className = "feedback correct";
-                feedbackDiv.innerHTML = "<strong>回答正確！</strong><br>" + explanations[qKey];
+                feedbackDiv.innerHTML = "<strong>✅ 答對了！</strong><br>" + explanations[qId];
             } else {
-                feedbackDiv.className = "feedback incorrect";
-                feedbackDiv.innerHTML = "<strong>回答錯誤或不完整。</strong><br>正確答案應為：" + correctAnswers[qKey].join(', ') + "。<br>" + explanations[qKey];
+                feedbackDiv.className = "feedback wrong";
+                feedbackDiv.innerHTML = "<strong>❌ 答錯了/未選全。</strong><br>" + explanations[qId];
             }
             feedbackDiv.style.display = "block";
         }
 
-        // 顯示總分
-        const scoreDisplay = document.getElementById('scoreDisplay');
-        if (score === totalQuestions) {
-            scoreDisplay.innerHTML = "太棒了！你獲得了滿分 5/5！看來你已經完全掌握了《到此「藝」遊》的精髓！";
-        } else {
-            scoreDisplay.innerHTML = `你的得分是 ${score} / ${totalQuestions}。別灰心，請閱讀解析並再試一次！`;
-        }
+        const scoreBoard = document.getElementById("scoreBoard");
+        scoreBoard.textContent = `你的得分：${score} / ${totalQuestions}`;
         
-        // 滾動到最下方
-        scoreDisplay.scrollIntoView({behavior: "smooth"});
+        if (score === totalQuestions) {
+            scoreBoard.textContent += " 🎉 太厲害了！完全掌握！";
+        } else {
+            scoreBoard.textContent += " 💪 再接再厲，看解析複習一下吧！";
+        }
     }
 </script>
 
