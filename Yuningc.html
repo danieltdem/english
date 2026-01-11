@@ -3,54 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《戴斗笠的地藏》深度閱讀理解測驗</title>
+    <title>南一版四上國語第七課《到此「藝」遊》深度測驗</title>
     <style>
+        :root {
+            --primary-color: #8d5b4c; /* 磚紅色，呼應魯班街 */
+            --secondary-color: #556b2f; /* 深綠色，呼應月河 */
+            --accent-color: #e6b422; /* 金黃色，呼應落羽松 */
+            --bg-color: #fdfbf7;
+            --text-color: #333;
+        }
+
         body {
-            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
+            font-family: "Microsoft JhengHei", "Segoe UI", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: #fff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-top: 10px solid #8e44ad;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--primary-color);
         }
+
         h1 {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px dashed var(--accent-color);
+            padding-bottom: 20px;
         }
-        .intro {
-            text-align: center;
-            color: #7f8c8d;
+
+        .intro-text {
+            background-color: #f0f4e8;
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 30px;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
+
         .question-block {
             margin-bottom: 30px;
             padding: 20px;
-            background-color: #fafafa;
-            border-left: 5px solid #bdc3c7;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: transform 0.2s;
         }
+
         .question-block:hover {
-            background-color: #f0f3f4;
-            border-left-color: #8e44ad;
+            background-color: #fafafa;
         }
+
         .question-title {
             font-weight: bold;
             font-size: 1.1em;
             margin-bottom: 15px;
-            color: #2c3e50;
+            color: var(--primary-color);
         }
+
         .options label {
             display: block;
             margin-bottom: 10px;
@@ -58,18 +73,21 @@
             padding: 8px;
             border-radius: 4px;
         }
+
         .options label:hover {
-            background-color: #e8e8e8;
+            background-color: #f0f0f0;
         }
+
         input[type="checkbox"] {
             margin-right: 10px;
             transform: scale(1.2);
         }
+
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #8e44ad;
+            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 8px;
@@ -77,218 +95,184 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+
         .submit-btn:hover {
-            background-color: #732d91;
+            background-color: #6d4236;
         }
-        .result-area {
-            margin-top: 20px;
-            padding: 20px;
-            display: none;
-        }
-        .explanation {
+
+        .feedback {
             margin-top: 10px;
             padding: 10px;
-            background-color: #e8f6f3;
-            border: 1px solid #d0e9c6;
-            color: #2c7a38;
             border-radius: 5px;
             display: none;
             font-size: 0.9em;
         }
-        .error-msg {
-            color: #c0392b;
-            font-weight: bold;
+
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
+
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
         .score-display {
             text-align: center;
             font-size: 1.5em;
             font-weight: bold;
-            color: #8e44ad;
-            margin-bottom: 20px;
+            margin-top: 20px;
+            color: var(--secondary-color);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>《戴斗笠的地藏》深度閱讀理解測驗</h1>
-    <p class="intro">請仔細閱讀題目，並選出所有正確的選項（複選題）。<br>
-    測驗範圍涵蓋：故事架構、深層寓意、生字詞語及修辭分析。</p>
+    <h1>《到此「藝」遊》核心知識挑戰</h1>
+    
+    <div class="intro-text">
+        <p>歡迎來到測驗教室！這份測驗共有 5 道高難度題目。請注意，<strong>每一題都是「複選題」</strong>，這意味著每題至少有兩個以上的正確選項。你需要全神貫注，回憶課文中的遊覽路線、感官描寫以及核心價值觀。準備好了嗎？</p>
+    </div>
 
     <form id="quizForm">
-        
-        <div class="question-block" id="q1-block">
-            <div class="question-title">1. 關於本文獻的「執行摘要」與「核心價值觀」，以下哪些敘述完全符合文本分析？</div>
+        <div class="question-block" id="q1">
+            <div class="question-title">1. 關於課文的「體裁主旨」與「作者的核心價值觀」，下列敘述哪些是完全正確的？（請選擇所有正確答案）</div>
             <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 故事的核心思想僅限於「善有善報」的因果論，強調物質回報的重要性。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 故事中最溫暖的部分被認為是老婆婆在得知生意失敗後，沒有責備反而讚揚丈夫。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 文本傳達的深層寓意包含「知足」與「互相體諒」的家庭美德。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 故事的主角是一對居住在海邊漁村的老夫妻，以捕魚和製作斗笠維生。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 家人間的精神支持與善良品格被視為超越物質財富的重要價值。</label>
+                <label><input type="checkbox" name="q1" value="A"> A. 本文體裁屬於說明文，主要在客觀介紹傳統藝術中心的歷史沿革。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 作者在文昌街購買了捏麵人作為紀念品，因為這是傳統技藝的象徵。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 文章的核心結論強調「心靈的滿足」勝過「物質的擁有」。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 作者最終帶回家的禮物是無形的「滿心喜悅」，並準備與父母分享。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 這是一篇記敘文（遊記），依照遊覽的空間順序來安排段落結構。</label>
+                <label><input type="checkbox" name="q1" value="F"> F. 作者認為紀念品太過昂貴，因此不得不選擇不購買任何東西。</label>
             </div>
-            <div class="explanation" id="q1-expl">
-                <strong>解析：</strong><br>
-                A 錯誤：文本提到除了善有善報，還有更深層的家庭美德。<br>
-                B 正確：文本明確指出這是「故事最溫暖的地方」。<br>
-                C 正確：這是文本強調的第二個核心價值觀。<br>
-                D 錯誤：老夫妻居住在「日本深山」，以「耕作」維生。<br>
-                E 正確：這是深層寓意分析中的重點。
-            </div>
+            <div class="feedback" id="feedback1"></div>
         </div>
 
-        <div class="question-block" id="q2-block">
-            <div class="question-title">2. 根據「故事架構」中的情節概述，下列關於老爺爺下山販售斗笠的過程與轉折，哪些是正確的？</div>
-            
+        <div class="question-block" id="q2">
+            <div class="question-title">2. 請回憶作者在「魯班街」與「臨水劇場」的遊覽經歷，下列哪些「景點—感官體驗—心理感受」的配對或描述是正確的？</div>
             <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 老爺爺下山的起因是因為接近新年，老婆婆希望能品嚐年糕。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 老爺爺在村裡賣出了兩頂斗笠，剩下的五頂送給了地藏菩薩。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 途經的地藏菩薩像共有六尊，但老爺爺只剩下五頂斗笠。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 為了幫最後一尊地藏遮雪，老爺爺解下了自己的頭巾。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 老爺爺回家時因為擔心被責備，所以先在門外猶豫了很久才進屋。</label>
+                <label><input type="checkbox" name="q2" value="A"> A. 在魯班街，作者觀賞了閃爍著七彩光芒的琉璃藝術品，感到目不轉睛。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 在臨水劇場，作者看到演員翻跟斗和走鋼索，不禁為他們捏一把冷汗。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 魯班街的建築特色是充滿現代感的鋼筋水泥大樓。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 臨水劇場上演出的劇碼是《葛瑪蘭公主》。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 作者在魯班街體驗了藍染工藝，並親手製作了一個手提袋。</label>
+                <label><input type="checkbox" name="q2" value="F"> F. 魯班街的傳習所內展示了陶器、玉石和藍染等傳統工藝。</label>
             </div>
-            <div class="explanation" id="q2-expl">
-                <strong>解析：</strong><br>
-                A 正確：這是故事的「起因」。<br>
-                B 錯誤：文本指出「一頂斗笠也沒賣出去」。<br>
-                C 正確：共有六尊菩薩，老爺爺有五頂斗笠（因為沒賣出去）。<br>
-                D 正確：這是老爺爺無私善行的具體表現。<br>
-                E 錯誤：文本僅提到他「原以為會受到責備」，並未提及他在門外猶豫的行為細節。
-            </div>
+            <div class="feedback" id="feedback2"></div>
         </div>
 
-        <div class="question-block" id="q3-block">
-            <div class="question-title">3. 關於故事的「結果」與「深層寓意」，下列描述哪些符合文本內容？</div>
+        <div class="question-block" id="q3">
+            <div class="question-title">3. 關於「月河」遊船及「文昌街」的描寫，課文運用了豐富的視覺摹寫與修辭。下列哪些選項準確反映了課文內容？</div>
             <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 除夕半夜，屋外傳來了奇特的歌聲，這是回報降臨的徵兆。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 隔天清晨，老夫妻發現門外堆滿了金銀財寶，從此過著富裕的生活。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 老夫妻看見遠處有戴著斗笠和頭巾的六尊地藏身影，消失在雪地中。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 文本強調「善有善報」的因果循環，解決了老夫妻過年的困境。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 故事結局證明了老爺爺的無心善舉（無私贈予）最終轉化為實質的福報。</label>
+                <label><input type="checkbox" name="q3" value="A"> A. 遊月河時，作者看見了深綠色的湖水和金黃的落羽松。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 文昌街上，作者描述了「有人買了圓滾滾的金魚造型香包，有人買了五顏六色的捏麵人」，這是使用了並列複句。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 月河上的石拱橋被描寫為「爬滿綠色植物」。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 在文昌街，作者對於是否購買紀念品感到非常猶豫，最後在同學勸說下買了香包。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 遊船時有白色的水鳥飛過，微風拂面，充滿了歡笑聲。</label>
+                <label><input type="checkbox" name="q3" value="F"> F. 文昌街的特色小店主要販售現代電子產品與流行服飾。</label>
             </div>
-            <div class="explanation" id="q3-expl">
-                <strong>解析：</strong><br>
-                A 正確：這是「結果」階段的細節。<br>
-                B 錯誤：門外堆滿的是「米、青菜、魚和年糕等豐富的物資」，並非金銀財寶。<br>
-                C 正確：這是老夫妻目睹的景象。<br>
-                D 正確：這是核心主旨之一。<br>
-                E 正確：這是對因果循環的分析。
-            </div>
+            <div class="feedback" id="feedback3"></div>
         </div>
 
-        <div class="question-block" id="q4-block">
-            <div class="question-title">4. 請根據「關鍵詞彙解析」部分，選出下列字詞注音與解釋完全正確的選項：</div>
+        <div class="question-block" id="q4">
+            <div class="question-title">4. 針對本課的「字音字形」與「關鍵詞彙」，下列辨析哪些是正確的？</div>
             <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 「貧」（ㄆㄧㄣˊ）：意指生活窮困，缺乏。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 「宜」（ㄧˊ）：意指合適、價格低廉。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 「耐」（ㄋㄞˋ）：意指無法忍受痛苦。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 「隱」（ㄧㄣˇ）：意指不明顯、遮蔽。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 「傍」（ㄆㄤˊ）：意指接近某個時間點。</label>
+                <label><input type="checkbox" name="q4" value="A"> A. 「不禁」的「禁」讀作一聲（jīn），意思是「控制不住，由不得自己」。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 「門禁」、「禁止」的「禁」讀作四聲（jìn），意思是「制止、不准許」。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 「陶」器與「淘」氣的部首不同，前者與土有關，後者與水有關，不可混用。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 「流連忘返」的意思是玩得太開心而忘記了回家的路，通常帶有貶義。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 形近字辨析：「繩索」的「索」下方是「糸」，而「樸素」的「素」下方也是「糸」，兩者字形完全相同。</label>
+                <label><input type="checkbox" name="q4" value="F"> F. 「弱不禁風」的「禁」讀作一聲（jīn），含有「承受、忍受」之意。</label>
             </div>
-            <div class="explanation" id="q4-expl">
-                <strong>解析：</strong><br>
-                A 正確：符合文本定義。<br>
-                B 正確：符合文本定義。<br>
-                C 錯誤：文本定義為「經得起長時間的使用或考驗」。<br>
-                D 正確：符合文本定義。<br>
-                E 錯誤：文本標註注音為「ㄅㄤˋ」。
-            </div>
+            <div class="feedback" id="feedback4"></div>
         </div>
 
-        <div class="question-block" id="q5-block">
-            <div class="question-title">5. 關於「重要句型」與「形近字辨析」，下列說明哪些是正確的？</div>
+        <div class="question-block" id="q5">
+            <div class="question-title">5. 深入探討課文中的修辭技巧與短語結構，下列分析哪些符合本課教學重點？</div>
             <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 「不但……反而……」屬於「因果複句」，用來解釋事情的原因。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 句型例句：「弟弟打破花瓶，不但沒有隱瞞，反而主動向媽媽認錯。」</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 「貧」與「貪」的字形相似，但「貧」指窮困，「貪」指不知足。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 「繼」與「斷」的意思相反，「繼」是接連不斷，「斷」是分開。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 文本中的轉折複句是用來強調老婆婆雖然生氣，但最後還是原諒了老公。</label>
+                <label><input type="checkbox" name="q5" value="A"> A. 「捏一把冷汗」是慣用語（成語），用來形容極度擔心或緊張的情緒。</label>
+                <label><input type="checkbox" name="q5" value="B"> B. 「為之一亮」意指看到美好的事物時，眼睛變得明亮，通常表示驚豔或讚賞。</label>
+                <label><input type="checkbox" name="q5" value="C"> C. 短語練習「(穿過) (爬滿綠色植物) 的 (石拱橋)」結構為「(動詞) (動態/形容詞) 的 (名詞)」。</label>
+                <label><input type="checkbox" name="q5" value="D"> D. 課文中運用大量的聽覺描寫，例如描寫琉璃藝術品時強調了其發出的清脆聲響。</label>
+                <label><input type="checkbox" name="q5" value="E"> E. 「目不轉睛」形容被精彩事物吸引，專注地看，在文中是用來描寫觀看琉璃藝術品的情境。</label>
+                <label><input type="checkbox" name="q5" value="F"> F. 作者使用「晴朗」來形容當天的心情，而非天氣。</label>
             </div>
-            <div class="explanation" id="q5-expl">
-                <strong>解析：</strong><br>
-                A 錯誤：此句型為「轉折複句」，表達結果與預期相反。<br>
-                B 正確：這是文本提供的應用範例。<br>
-                C 正確：這是形近字辨析的重點。<br>
-                D 正確：這是形近字辨析的重點。<br>
-                E 錯誤：老婆婆「不但沒有怪他」，表示她根本沒有生氣，而不是生氣後原諒。
-            </div>
+            <div class="feedback" id="feedback5"></div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗並查看解析</button>
-    </form>
-
-    <div class="result-area" id="resultArea">
+        <button type="button" class="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
         <div class="score-display" id="scoreDisplay"></div>
-        <p style="text-align: center;">請查看上方各題的詳細解析，了解您答對或答錯的原因。</p>
-    </div>
+    </form>
 </div>
 
 <script>
     function checkAnswers() {
-        // 正確答案設定
+        // 定義正確答案
         const correctAnswers = {
-            q1: ['B', 'C', 'E'],
-            q2: ['A', 'C', 'D'],
-            q3: ['A', 'C', 'D', 'E'],
-            q4: ['A', 'B', 'D'],
-            q5: ['B', 'C', 'D']
+            q1: ['C', 'D', 'E'],
+            q2: ['A', 'B', 'D', 'F'],
+            q3: ['A', 'B', 'C', 'E'],
+            q4: ['A', 'B', 'C', 'F'],
+            q5: ['A', 'B', 'C', 'E']
+        };
+
+        // 定義解析
+        const explanations = {
+            q1: "解析：A錯誤，體裁是記敘文（遊記）；B錯誤，那是「有人」買的，作者沒買；F錯誤，作者不買是因為選擇「心靈滿足」而非金錢因素。",
+            q2: "解析：C錯誤，魯班街是古色古香的磚紅色建築；E錯誤，文中提到傳習所有藍染，但未提及作者親手製作。",
+            q3: "解析：D錯誤，作者最終決定不買任何東西；F錯誤，文昌街是充滿傳統民俗技藝與生活工藝的特色小店。",
+            q4: "解析：D錯誤，「流連忘返」指留戀愛慕捨不得離開，通常為正面或中性描述；E錯誤，索（上方有十）與素（上方有三橫）字形不同。",
+            q5: "解析：D錯誤，琉璃藝術品強調的是「閃爍七彩光芒」的視覺描寫；F錯誤，「晴朗」在文中是用來形容天氣（陽光普照）。"
         };
 
         let score = 0;
         let totalQuestions = 5;
 
-        // 遍歷每一題
+        // 檢查每一題
         for (let i = 1; i <= totalQuestions; i++) {
-            const questionName = 'q' + i;
-            const checkboxes = document.getElementsByName(questionName);
-            const explanationDiv = document.getElementById(questionName + '-expl');
+            const qKey = 'q' + i;
+            const checkboxes = document.getElementsByName(qKey);
+            const feedbackDiv = document.getElementById('feedback' + i);
+            
             let selectedValues = [];
-            let allCorrect = true;
-
-            // 獲取使用者選中的選項
-            for (let checkbox of checkboxes) {
-                if (checkbox.checked) {
-                    selectedValues.push(checkbox.value);
+            for (let cb of checkboxes) {
+                if (cb.checked) {
+                    selectedValues.push(cb.value);
                 }
             }
 
-            // 比對答案 (必須完全一致才算對)
-            const correctSet = correctAnswers[questionName];
-            
-            // 檢查是否選了錯誤的選項
-            for (let val of selectedValues) {
-                if (!correctSet.includes(val)) {
-                    allCorrect = false;
-                    break;
-                }
-            }
-            // 檢查是否漏選了正確的選項
-            if (selectedValues.length !== correctSet.length) {
-                allCorrect = false;
-            }
+            // 排序以便比較
+            selectedValues.sort();
+            correctAnswers[qKey].sort();
 
-            // 顯示解析
-            explanationDiv.style.display = 'block';
-            
-            // 標記題目區塊顏色
-            const block = document.getElementById(questionName + '-block');
-            if (allCorrect) {
+            // 判斷是否全對
+            const isCorrect = JSON.stringify(selectedValues) === JSON.stringify(correctAnswers[qKey]);
+
+            if (isCorrect) {
                 score++;
-                block.style.borderLeftColor = '#2ecc71'; // 綠色表示正確
-                block.style.backgroundColor = '#eafaf1';
+                feedbackDiv.className = "feedback correct";
+                feedbackDiv.innerHTML = "<strong>回答正確！</strong><br>" + explanations[qKey];
             } else {
-                block.style.borderLeftColor = '#e74c3c'; // 紅色表示錯誤
-                block.style.backgroundColor = '#fdeea';
+                feedbackDiv.className = "feedback incorrect";
+                feedbackDiv.innerHTML = "<strong>回答錯誤或不完整。</strong><br>正確答案應為：" + correctAnswers[qKey].join(', ') + "。<br>" + explanations[qKey];
             }
+            feedbackDiv.style.display = "block";
         }
 
         // 顯示總分
-        const resultArea = document.getElementById('resultArea');
         const scoreDisplay = document.getElementById('scoreDisplay');
-        resultArea.style.display = 'block';
-        scoreDisplay.innerText = `您的得分：${score} / ${totalQuestions}`;
+        if (score === totalQuestions) {
+            scoreDisplay.innerHTML = "太棒了！你獲得了滿分 5/5！看來你已經完全掌握了《到此「藝」遊》的精髓！";
+        } else {
+            scoreDisplay.innerHTML = `你的得分是 ${score} / ${totalQuestions}。別灰心，請閱讀解析並再試一次！`;
+        }
         
-        // 滾動到底部
-        resultArea.scrollIntoView({behavior: "smooth"});
+        // 滾動到最下方
+        scoreDisplay.scrollIntoView({behavior: "smooth"});
     }
 </script>
 
