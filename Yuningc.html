@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第十一課《豆粥婆婆》深度理解測驗</title>
+    <title>第十一課：豆粥婆婆 - 深度理解測驗</title>
     <style>
         :root {
-            --primary-color: #8B4513; /* 栗子/豆粥色 */
-            --secondary-color: #D2691E;
-            --bg-color: #FAF0E6; /* 米色背景 */
-            --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --accent-color: #228B22; /* 象徵自然/草蓆 */
+            --primary-color: #d35400; /* 紅豆色 */
+            --secondary-color: #fcece0; /* 豆粥底色 */
+            --accent-color: #e67e22;
+            --text-color: #2c3e50;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
         }
 
         body {
-            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--secondary-color);
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
@@ -26,41 +26,51 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--primary-color);
         }
 
         header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        h1 { margin: 0; font-size: 2.2em; }
-        p.subtitle { margin-top: 10px; opacity: 0.9; }
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            background-color: #fff8f0;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
 
         .question-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--secondary-color);
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
             transition: transform 0.2s;
         }
 
         .question-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .question-title {
-            font-size: 1.2em;
             font-weight: bold;
+            font-size: 1.2em;
             margin-bottom: 15px;
-            color: var(--primary-color);
+            color: #34495e;
         }
 
         .options-group {
@@ -69,285 +79,284 @@
             gap: 10px;
         }
 
-        label {
+        .option-label {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             cursor: pointer;
             padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #eee;
+            border-radius: 6px;
+            background-color: #f8f9fa;
             transition: background-color 0.2s;
         }
 
-        label:hover {
-            background-color: #FFF5E6;
+        .option-label:hover {
+            background-color: #e9ecef;
         }
 
         input[type="checkbox"] {
             margin-right: 12px;
-            margin-top: 5px;
             transform: scale(1.2);
+            accent-color: var(--primary-color);
         }
 
-        button#submit-btn {
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--accent-color);
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 20px;
+            font-weight: bold;
         }
 
-        button#submit-btn:hover {
-            background-color: #1a6b1a;
+        .submit-btn:hover {
+            background-color: #ba4a00;
         }
 
-        .result-area {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
+        .result-section {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
             display: none;
         }
 
         .explanation {
             margin-top: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-left: 3px solid #6c757d;
             font-size: 0.9em;
+            color: #555;
+            background: #fdf2e9;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--text-color);
+            color: white;
+            border-radius: 8px;
             display: none;
         }
 
-        .correct { color: green; font-weight: bold; }
-        .incorrect { color: red; font-weight: bold; }
-        .missed { color: orange; font-weight: bold; }
-
+        /* Utility classes for results */
+        .correct-answer {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+        .wrong-answer {
+            color: var(--wrong-color);
+            text-decoration: line-through;
+        }
+        .missed-answer {
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>第十一課《豆粥婆婆》挑戰測驗</h1>
-        <p class="subtitle">測驗小幫手為您準備的高難度複選題</p>
-        <p style="font-size: 0.9em;">⚠️ 注意：每題均為複選題，請選出所有正確答案。</p>
+        <h1>🍲 豆粥婆婆：核心知識挑戰</h1>
+        <p>請選出所有正確的選項，團結你的智慧來擊敗這份考卷吧！</p>
     </header>
 
-    <form id="quiz-form">
-        
-        <div class="question-card" id="q1">
-            <div class="question-title">1. 關於故事的核心主旨與情節背景，下列敘述哪些是完全正確的？</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q1" value="A"> A. 故事的核心主旨僅在於強調老年人生活的智慧與烹飪技巧。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 這是一篇改寫自韓國民間故事的記敘文，目的是引導讀者理解團結合作的力量。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 故事的轉折點在於冬至當天，婆婆因為即將被老虎吃掉而傷心大哭，引發了器物們的關切。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 老虎之所以同意延後吃掉婆婆，是因為婆婆答應在冬至那天會煮美味的年糕湯給牠吃。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 故事結尾老虎被徹底擊敗，從此不敢再踏足婆婆的家，展現了「發揮所長，同心協力克服困難」的寓意。</label>
-            </div>
-            <div class="explanation" id="exp-q1">
-                <strong>解析：</strong><br>
-                A 錯誤：主旨是「發揮所長，同心協力克服困難」。<br>
-                B 正確：符合教材分析中的執行摘要。<br>
-                C 正確：這是故事經過的觸發事件。<br>
-                D 錯誤：婆婆是請老虎讓她喝完「豆粥」後再吃她，並非年糕湯。<br>
-                E 正確：符合故事結果與主旨。
-            </div>
-        </div>
-
-        <div class="question-card" id="q2">
-            <div class="question-title">2. 在「擊退老虎」的戰役中，各個器物如何利用其物理特性進行攻擊？請選出所有正確的配對描述。</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q2" value="A"> A. 栗子：利用堅硬的外殼，率先往老虎的頭部進行敲擊。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 雞蛋：利用其圓滾滾的特性讓老虎滑倒，使其無法站穩。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 藍蟹：使用銳利的蟹鉗，夾住了老虎的鼻子。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 石臼：憑藉沉重的重量，從高處落下重擊老虎。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 草蓆：發揮其覆蓋與捲曲的特性，將受傷的老虎捲起來使其無法動彈。</label>
-                <label><input type="checkbox" name="q2" value="F"> F. 錐子：利用尖銳的頂端，負責最後將老虎抬走並丟棄。</label>
-            </div>
-            <div class="explanation" id="exp-q2">
-                <strong>解析：</strong><br>
-                A 正確：栗子負責敲擊虎頭。<br>
-                B 錯誤：雞蛋是打在老虎眼睛上影響視線；讓老虎滑倒的是「牛糞」。<br>
-                C 正確：藍蟹負責夾住鼻子。<br>
-                D 正確：石臼負責從高處重擊。<br>
-                E 正確：草蓆負責捲起老虎。<br>
-                F 錯誤：錐子是負責刺向老虎；負責抬走老虎的是「木背架」。
-            </div>
-        </div>
-
-        <div class="question-card" id="q3">
-            <div class="question-title">3. 關於本課出現的名詞與動詞形容詞，下列解釋與例句應用哪些是正確的？</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q3" value="A"> A. 「虎口逃生」比喻經歷極大的危機後才安全逃脫。例句：這場車禍只有他一人生還，真是虎口逃生。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 「齒頰留香」是用來形容因受驚嚇而臉色發白的樣子。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 「陰森森」形容陰沉可怕的樣子，可用來形容殺手的表情或恐怖的氛圍。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 「品嘗」意指狼吞虎嚥地吃東西，不需在意味道。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 「水缸」是指以陶土燒製的盛水容器，特徵通常為口大底小、呈圓鼓形。</label>
-            </div>
-            <div class="explanation" id="exp-q3">
-                <strong>解析：</strong><br>
-                A 正確：解釋與例句皆符合教材。<br>
-                B 錯誤：「齒頰留香」是形容食物美味令人回味無窮；形容受驚嚇臉色發白的是「面無血色」。<br>
-                C 正確：符合教材對「陰森森」的定義。<br>
-                D 錯誤：「品嘗」是指「仔細地品味」，與狼吞虎嚥相反。<br>
-                E 正確：符合教材中對水缸的描述。
-            </div>
-        </div>
-
-        <div class="question-card" id="q4">
-            <div class="question-title">4. 本課介紹了多種重要句型，下列關於這些句型的功能說明與造句，哪些運用得當？</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q4" value="A"> A. 「先……接著……最後……」的功能是說明一連串動作，強調不可顛倒的順序性。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 「即便……也……」屬於遞進複句，表示不止於前者，還有後者。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 「不光……也……」的例句可以是：小珊不光數學不錯，英文也很棒。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 「等到……再……」表示兩個連續動作的先後順序。例如：等到明年中秋節，我們再相約一起烤肉。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 使用「即便……也……」造句：即便今天是雨天，我也要去公園跑步。</label>
-            </div>
-            <div class="explanation" id="exp-q4">
-                <strong>解析：</strong><br>
-                A 正確：這是敘事寫作的重要句型。<br>
-                B 錯誤：「即便……也……」是假設複句（前句提出假設，後句說明結果）；遞進複句是「不光……也……」。<br>
-                C 正確：正確使用了遞進複句。<br>
-                D 正確：正確表示了時間順序。<br>
-                E 正確：符合假設複句的用法。
-            </div>
-        </div>
-
-        <div class="question-card" id="q5">
-            <div class="question-title">5. 針對字音字形與多音字的辨析，請選出下列正確的選項：</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q5" value="A"> A. 「橫」字讀作「ㄏㄥˋ」時，意思為粗暴猛烈，如「蠻橫」；讀作「ㄏㄥˊ」時指方向或雜亂，如「橫衝直撞」。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 「栗」子（ㄌㄧˋ）與「粟」（ㄙㄨˋ，小米）字形相似，但「栗」下方是木，「粟」下方是米。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 「黏」讀作「ㄋㄧㄢˊ」時形容有黏性；讀作「ㄓㄢ」時作動詞用，指黏貼物品。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 「漿」與「槳」的差別在於部首，「豆漿」是水部，「船槳」是木部，注音分別為「ㄐㄧㄤ」與「ㄐㄧㄤˇ」。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 「頰」的注音是「ㄐㄧㄚˊ」，與「夾」同音，指的是臉部的兩側。</label>
-            </div>
-            <div class="explanation" id="exp-q5">
-                <strong>解析：</strong><br>
-                A 正確：符合多音字「橫」的解析。<br>
-                B 正確：正確區分了栗（ㄌㄧˋ）與粟（ㄙㄨˋ）。<br>
-                C 正確：符合多音字「黏」的解析。<br>
-                D 正確：解釋了字形與讀音的區別。<br>
-                E 正確：符合字音字形辨析。
-            </div>
-        </div>
-
-        <div class="question-card" id="q6">
-            <div class="question-title">6. 關於寫作技巧與修辭的應用，下列分析哪些符合本課教學重點？</div>
-            <div class="options-group">
-                <label><input type="checkbox" name="q6" value="A"> A. 描寫婆婆說「一吃完粥，老虎就要吃我了！」時，應搭配「喜極而泣」的表情來呈現反差效果。</label>
-                <label><input type="checkbox" name="q6" value="B"> B. 運用疊字形容詞與名詞的短語結構，如「熱呼呼的豆粥」、「黑漆漆的地下室」，能增強描述的生動感。</label>
-                <label><input type="checkbox" name="q6" value="C"> C. 器物們說「放心，我們有辦法！」時，應展現出「堅定」的語氣。</label>
-                <label><input type="checkbox" name="q6" value="D"> D. 成語「飛砂走石」在課文中是用來形容婆婆煮豆粥時熱氣騰騰的樣子。</label>
-                <label><input type="checkbox" name="q6" value="E"> E. 四字語詞結構「(動詞)在(地點)(四字語詞)」的練習中，可以用「躺在沙發上昏昏欲睡」來替換。</label>
-            </div>
-            <div class="explanation" id="exp-q6">
-                <strong>解析：</strong><br>
-                A 錯誤：婆婆當時面臨死亡威脅，應是「悲傷語氣」或「淚流滿面」，而非喜極而泣。<br>
-                B 正確：這是本課的短語結構練習重點。<br>
-                C 正確：器物們決心幫助婆婆，語氣應為堅定。<br>
-                D 錯誤：「飛砂走石」是形容狂風造成的景象，並非形容煮粥。<br>
-                E 正確：符合句型結構替換練習。
-            </div>
-        </div>
-
-        <button type="button" id="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
-    </form>
-
-    <div id="result-area" class="result-area">
-        <h2 id="score-display"></h2>
-        <p>請往下捲動查看每一題的詳細解析。</p>
+    <div class="intro">
+        <p><strong>測驗規則：</strong>本測驗共有 7 題，每題均為<strong>複選題</strong>（至少有兩個正確答案）。請仔細閱讀文本細節，將所有正確選項勾選出來才算得分。</p>
     </div>
 
+    <div id="quiz-area">
+        </div>
+
+    <button class="submit-btn" onclick="submitQuiz()">提交答案並查看解析</button>
+    
+    <div id="score-display" class="score-board"></div>
 </div>
 
 <script>
-    // 正確答案設定
-    const correctAnswers = {
-        q1: ['B', 'C', 'E'],
-        q2: ['A', 'C', 'D', 'E'],
-        q3: ['A', 'C', 'E'],
-        q4: ['A', 'C', 'D', 'E'],
-        q5: ['A', 'B', 'C', 'D', 'E'],
-        q6: ['B', 'C', 'E']
-    };
+    const quizData = [
+        {
+            id: 1,
+            question: "關於《豆粥婆婆》這篇課文的主旨、文體與來源，下列敘述哪些是正確的？",
+            options: [
+                "本文的主旨強調「團結力量大」，即使是弱小的個體也能戰勝強敵。",
+                "這是一篇改寫自中國傳統民間故事的文章。",
+                "文體屬於記敘文，具有明確的角色、情節與背景。",
+                "故事中的反派角色是貪婪且凶猛的老虎，象徵生活中的困境。",
+                "故事結局是悲劇，婆婆雖然煮了豆粥，最後仍不幸犧牲。",
+                "故事中運用了大量擬人法，讓無生命的器物具有人的情感與行動。"
+            ],
+            correct: [0, 2, 3, 5],
+            explanation: "解析：(1)本文改寫自「韓國」民間故事，而非中國；(4)結局是婆婆與器物們快樂生活，老虎被趕跑，屬於喜劇結局。"
+        },
+        {
+            id: 2,
+            question: "關於故事的情節發展（起因、經過、結果），請選出所有符合文本內容的描述：",
+            options: [
+                "故事的起因是老虎想吃掉婆婆，婆婆苦苦哀求希望能活到冬至。",
+                "婆婆與老虎約定，等到喝完紅豆粥後再讓老虎吃掉她。",
+                "冬至當天，婆婆因為害怕而表現得非常冷靜，面無血色地煮粥。",
+                "器物們幫助婆婆的條件是婆婆必須分給他們金銀財寶。",
+                "老虎在天黑後進入屋內，發現屋內燈火通明，氣氛溫馨。",
+                "結局實現了「虎口逃生」，老虎被趕跑後再也不敢回來。"
+            ],
+            correct: [0, 1, 5],
+            explanation: "解析：(2)冬至當天婆婆是「傷心大哭」，並非冷靜；(3)器物們並未要求財寶，而是因為同情（或分享豆粥）而幫忙；(4)老虎進屋時，屋內是「黑漆漆」、「陰森森」的。"
+        },
+        {
+            id: 3,
+            question: "請回憶這場「連環計」的戰鬥過程，選出正確的攻擊順序與方式描述：",
+            options: [
+                "栗子是第一個發動攻擊的角色，敲中了老虎的頭或眼睛。",
+                "接著是藍蟹跳起來，用黏答答的液體封住老虎的嘴巴。",
+                "白年糕利用「熱呼呼」的特性，在老虎張口時燙住了牠的嘴。",
+                "當老虎痛得跑到水缸邊洗臉時，藍蟹夾住了牠的鼻子或手。",
+                "草蓆負責在門口絆倒老虎，讓牠摔個四腳朝天。",
+                "最後由木背架將被草蓆捲住的老虎揹起，奮力扔到遠方。"
+            ],
+            correct: [0, 3, 4, 5],
+            explanation: "解析：(1) 第二擊是「雞蛋」跳起用蛋液打臉，並非藍蟹；(4) 草蓆是「捲住」踩到它的老虎，並非單純絆倒（雖然踩到是觸發點，但重點在捲住與後續配合）。更正：題目選項(4)描述草蓆在門口絆倒，文中描述是老虎踩到草蓆，草蓆翻身捲住。選項描述略有出入但核心動作是捲住配合背架，而選項2明顯錯誤。"
+        },
+        {
+            id: 4,
+            question: "關於課文中出現的詞彙與修辭技巧，下列分析哪些正確？",
+            options: [
+                "「飛砂走石」是用來形容老虎登場時風勢強大、氣勢駭人的樣子。",
+                "「熱呼呼」、「黑漆漆」、「黏答答」屬於ABB式的疊字形容詞，增強感官描寫。",
+                "「面無血色」形容婆婆因為憤怒而臉色脹紅。",
+                "「虎口逃生」比喻從極度危險的困境中成功脫身。",
+                "文中使用了「先……接著……最後……」的句型來描寫戰鬥過程的層次感。",
+                "「陰森森」是用來形容冬至當天早晨陽光普照的樣子。"
+            ],
+            correct: [0, 1, 3, 4],
+            explanation: "解析：(2)「面無血色」是指極度驚恐導致臉色慘白，非憤怒；(5)「陰森森」形容幽暗恐懼的氣氛，與陽光普照相反。"
+        },
+        {
+            id: 5,
+            question: "關於本課的「擬人法」角色運用，請選出所有正確參與「抗虎聯盟」的器物：",
+            options: [
+                "栗子 (Chestnut)",
+                "雞蛋 (Egg)",
+                "掃把 (Broom)",
+                "藍蟹 (Blue Crab)",
+                "白年糕 (White Rice Cake)",
+                "菜刀 (Kitchen Knife)",
+                "草蓆 (Straw Mat)",
+                "木背架 (Wooden Carrier)"
+            ],
+            correct: [0, 1, 3, 4, 6, 7],
+            explanation: "解析：掃把與菜刀並未出現在本課的助攻名單中。正確名單為：栗子、雞蛋、藍蟹、白年糕、草蓆、木背架。"
+        },
+        {
+            id: 6,
+            question: "關於字音字形辨析與句型結構，下列敘述哪些正確？",
+            options: [
+                "「栗」子與「粟」米（小米）字形相似，要注意分辨。",
+                "「橫」這個字在「橫衝直撞」時讀作二聲（ㄏㄥˊ），表示方位或水平。",
+                "「橫」這個字在「發橫財」或「蠻橫」時讀作四聲（ㄏㄥˋ）。",
+                "「即便……也……」這個句型表示一種假設語氣，強調決心。",
+                "「不光……也……」是用來表示轉折關係，前後語意相反。"
+            ],
+            correct: [0, 1, 2, 3],
+            explanation: "解析：(4)「不光……也……」是遞進複句（不僅...而且...），表示程度更進一步，而非轉折相反。"
+        },
+        {
+            id: 7,
+            question: "關於本課的深層意涵與文化背景，下列解讀哪些恰當？",
+            options: [
+                "紅豆粥在韓國傳統文化中，具有「驅邪避凶」的特殊意義。",
+                "老虎僅僅是一隻野獸，不具備任何象徵意義。",
+                "故事中的小器物象徵社會中的弱勢群體，強調小人物也能有大作為。",
+                "婆婆的語氣隨著情節改變，從哀求恐懼轉為與器物們溫馨互動。",
+                "本課想傳達的核心價值是「依靠強者才能生存」。"
+            ],
+            correct: [0, 2, 3],
+            explanation: "解析：(1) 老虎象徵強大的困難或惡勢力；(4) 核心價值是「團結力量大」以及弱者聯手的力量，而非單純依賴強者。"
+        }
+    ];
 
-    function checkAnswers() {
-        let totalQuestions = 6;
+    function renderQuiz() {
+        const quizArea = document.getElementById('quiz-area');
+        let html = '';
+
+        quizData.forEach((item, index) => {
+            html += `
+                <div class="question-card" id="card-${index}">
+                    <div class="question-title">Q${item.id}. ${item.question}</div>
+                    <div class="options-group">
+                        ${item.options.map((opt, optIndex) => `
+                            <label class="option-label" for="q${index}_opt${optIndex}">
+                                <input type="checkbox" id="q${index}_opt${optIndex}" name="q${index}" value="${optIndex}">
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="result-section" id="result-${index}"></div>
+                </div>
+            `;
+        });
+
+        quizArea.innerHTML = html;
+    }
+
+    function submitQuiz() {
         let score = 0;
-        let resultHTML = "";
+        let totalQuestions = quizData.length;
 
-        for (let i = 1; i <= totalQuestions; i++) {
-            const qId = 'q' + i;
-            const userAnswers = Array.from(document.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value);
-            const correctSet = correctAnswers[qId];
+        quizData.forEach((item, index) => {
+            const selectedOptions = Array.from(document.querySelectorAll(`input[name="q${index}"]:checked`)).map(cb => parseInt(cb.value));
+            const resultDiv = document.getElementById(`result-${index}`);
+            const card = document.getElementById(`card-${index}`);
             
-            // 顯示解析
-            document.getElementById(`exp-${qId}`).style.display = 'block';
-
-            // 判斷對錯 (全對才算分)
-            const isCorrect = userAnswers.length === correctSet.length && userAnswers.every(val => correctSet.includes(val));
-            
-            // 標記選項顏色
-            const checkboxes = document.querySelectorAll(`input[name="${qId}"]`);
-            checkboxes.forEach(cb => {
-                const parentLabel = cb.parentElement;
-                // 重置樣式
-                parentLabel.style.backgroundColor = '';
-                parentLabel.style.border = '1px solid #eee';
-
-                if (correctSet.includes(cb.value)) {
-                    // 這是正確答案之一
-                    parentLabel.style.backgroundColor = '#d4edda'; // 淺綠背景
-                    parentLabel.style.border = '1px solid #c3e6cb';
-                    if (!cb.checked) {
-                        parentLabel.innerHTML += ' <span class="missed">(漏選)</span>';
-                    } else {
-                        parentLabel.innerHTML += ' <span class="correct">(正確)</span>';
-                    }
-                } else {
-                    // 這是錯誤選項
-                    if (cb.checked) {
-                        parentLabel.style.backgroundColor = '#f8d7da'; // 淺紅背景
-                        parentLabel.style.border = '1px solid #f5c6cb';
-                        parentLabel.innerHTML += ' <span class="incorrect">(選錯)</span>';
-                    }
-                }
-            });
+            // Checking logic: Arrays must match exactly (ignoring order, but sort helps)
+            const isCorrect = JSON.stringify(selectedOptions.sort()) === JSON.stringify(item.correct.sort());
 
             if (isCorrect) {
                 score++;
+                card.style.border = "2px solid var(--correct-color)";
+                resultDiv.innerHTML = `<div style="color: var(--correct-color); font-weight: bold;">✅ 回答正確！</div>`;
+            } else {
+                card.style.border = "2px solid var(--wrong-color)";
+                resultDiv.innerHTML = `<div style="color: var(--wrong-color); font-weight: bold;">❌ 回答錯誤</div>`;
             }
-        }
 
-        const resultArea = document.getElementById('result-area');
-        resultArea.style.display = 'block';
-        
-        let feedback = "";
-        if (score === totalQuestions) {
-            resultArea.style.backgroundColor = "#d4edda";
-            feedback = "太厲害了！你完全掌握了《豆粥婆婆》的內容！";
-        } else if (score >= totalQuestions / 2) {
-            resultArea.style.backgroundColor = "#fff3cd";
-            feedback = "表現不錯！但還有一些細節需要注意喔。";
-        } else {
-            resultArea.style.backgroundColor = "#f8d7da";
-            feedback = "再接再厲！建議重新複習一下課文內容與解析。";
-        }
+            // Append detailed explanation
+            resultDiv.innerHTML += `<div class="explanation">${item.explanation}</div>`;
+            resultDiv.style.display = 'block';
 
-        document.getElementById('score-display').innerText = `你的得分：${score} / ${totalQuestions} 題全對。${feedback}`;
-        document.getElementById('submit-btn').innerText = "測驗結束，請查看下方解析";
-        document.getElementById('submit-btn').disabled = true;
-        document.getElementById('submit-btn').style.backgroundColor = "#6c757d";
+            // Visual feedback on options
+            const labels = document.querySelectorAll(`#card-${index} .option-label`);
+            labels.forEach((label, i) => {
+                if (item.correct.includes(i)) {
+                    label.classList.add('correct-answer');
+                    if (!selectedOptions.includes(i)) {
+                        label.innerHTML += " (漏選)";
+                    }
+                } else if (selectedOptions.includes(i)) {
+                    label.classList.add('wrong-answer');
+                }
+            });
+        });
+
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.innerHTML = `你的得分：${score} / ${totalQuestions}`;
+        scoreDisplay.style.display = 'block';
         
-        // 滾動到底部
-        resultArea.scrollIntoView({behavior: "smooth"});
+        // Scroll to score
+        scoreDisplay.scrollIntoView({behavior: "smooth"});
     }
+
+    // Initialize
+    renderQuiz();
 </script>
 
 </body>
