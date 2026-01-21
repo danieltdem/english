@@ -144,13 +144,13 @@
         .practice-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* 改為靠上對齊，因為右邊可能會有記憶法文字 */
-            padding: 15px 0;
+            align-items: center;
+            padding: 12px 0;
             border-bottom: 1px solid #444;
         }
-        .col-zh { width: 30%; text-align: left; font-size: 16px; color: #ffcc00; padding-top: 5px; }
-        .col-input { width: 35%; }
-        .col-ans { width: 35%; text-align: left; padding-left: 10px; } /* 調整寬度和對齊 */
+        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; }
+        .col-input { width: 40%; }
+        .col-ans { width: 25%; text-align: right; color: #4CAF50; font-weight: bold; font-size: 18px;}
 
         .practice-input {
             width: 90%;
@@ -184,9 +184,7 @@
             padding: 10px;
         }
 
-        .answer-block { display: none; }
-        .answer-word { color: #4CAF50; font-weight: bold; font-size: 18px; }
-        .answer-mnemonic { color: #aaa; font-size: 12px; margin-top: 4px; line-height: 1.4; }
+        .answer-text { display: none; }
         
         .list-header {
             display: flex; 
@@ -250,9 +248,9 @@
             </div>
 
             <div class="list-header">
-                <span style="width:30%">中文意思</span>
-                <span style="width:35%">拼寫練習</span>
-                <span style="width:35%; text-align:left; padding-left:10px;">正確答案 & 記憶法</span>
+                <span style="width:35%">中文意思</span>
+                <span style="width:40%">拼寫練習</span>
+                <span style="width:25%; text-align:right;">正確答案</span>
             </div>
         </div>
         
@@ -264,21 +262,21 @@
 
     <script>
         const words = [
-            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 聽起來像 `all` (所有)。所有人 (`All`) 都在大廳 (`hall`) 集合。' },
-            { en: 'highway', zh: '公路 (ㄍㄨㄥ ㄌㄨˋ)', mnemonic: '`high` (高的) + `way` (道路)。一條可以讓你開得很高 (`high`) 速的道路 (`way`) 就是公路 (`highway`)。' },
-            { en: 'hospital', zh: '醫院 (ㄧ ㄩㄢˋ)', mnemonic: '`hospital` 裡有 `spit` (吐口水)。如果有人對你吐口水 (`spit`) 害你生病，你就得去醫院 (`hospital`)。' },
-            { en: 'hotel', zh: '旅館 (ㄌㄩˇ ㄍㄨㄢˇ)', mnemonic: '`hot` (熱) + `el` (tell, 告訴)。打電話告訴 (`tell`) 櫃台，旅館 (`hotel`) 房間太熱 (`hot`) 了。' },
-            { en: 'Korea', zh: '韓國 (ㄏㄢˊ ㄍㄨㄛˊ)', mnemonic: '`Korea` 聽起來像 `career` (職業)。他在韓國 (`Korea`) 發展他的職業 (`career`)。' },
-            { en: 'library', zh: '圖書館 (ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ)', mnemonic: '`li` (lie, 說謊) + `brary` (berry, 莓果)。不要說謊 (`lie`) 說你沒有在圖書館 (`library`) 吃莓果 (`berry`)。' },
-            { en: 'mall', zh: '購物中心 (ㄍㄡˋ ㄨˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`mall` 聽起來像 `all` (全部)。購物中心 (`mall`) 裡有你想買的全部 (`all`) 東西。' },
-            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (做記號) + `et` (it)。在你想買的東西上做記號 (`mark`)，然後去市場 (`market`) 買它 (`it`)。' },
-            { en: 'museum', zh: '博物館 (ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ)', mnemonic: '`muse` (繆思女神) + `um`。繆思女神 (`Muse`) 住在博物館 (`museum`) 裡激發藝術靈感。' },
-            { en: 'Paris', zh: '巴黎 (ㄅㄚ ㄌㄧˊ)', mnemonic: '`Paris` 聽起來像 `pair is` (一對是)。這一對 (`pair`) 情侶正在巴黎 (`Paris`)。' },
-            { en: 'park', zh: '公園 (ㄍㄨㄥ ㄩㄢˊ)', mnemonic: '`park` (公園) 和 `bark` (狗叫) 押韻。小狗在公園 (`park`) 裡大叫 (`bark`)。' },
-            { en: 'parking lot', zh: '停車場 (ㄊㄧㄥˊ ㄔㄜ ㄔㄤˇ)', mnemonic: '`park` (停車) + `ing` + `lot` (很多)。這個地方停了 (`parking`) 很多 (`a lot`) 車，就是停車場 (`parking lot`)。' },
-            { en: 'Philippines', zh: '菲律賓 (ㄈㄟ ㄌㄩˋ ㄅㄧㄣ)', mnemonic: '`Philip` (菲利普) + `pines` (pineapples, 鳳梨)。菲利普 (`Philip`) 在菲律賓 (`Philippines`) 吃鳳梨 (`pines`)。' },
-            { en: 'platform', zh: '月台 (ㄩㄝˋ ㄊㄞˊ)', mnemonic: '`plat` (plate, 盤子/平坦的) + `form` (形狀)。一個平坦 (`flat`) 形狀 (`form`) 的地方，讓人站立，就是月台 (`platform`)。' },
-            { en: 'playground', zh: '操場；遊樂場 (ㄘㄠ ㄔㄤˇ)', mnemonic: '`play` (玩) + `ground` (地面)。可以讓你在地面 (`ground`) 上玩 (`play`) 的地方，就是操場 (`playground`)。' }
+            { en: 'ankle', zh: '腳踝 (ㄐㄧㄠˇ ㄏㄨㄞˊ)', mnemonic: '`ankle` (腳踝) 聽起來像 `uncle` (叔叔)。我的叔叔 (`uncle`) 扭傷了他的腳踝 (`ankle`)。' },
+            { en: 'arm', zh: '手臂 (ㄕㄡˇ ㄅㄧˋ)', mnemonic: '`arm` (手臂) 聽起來像 `army` (軍隊)。軍隊 (`army`) 需要強壯的手臂 (`arm`) 來戰鬥。' },
+            { en: 'beard', zh: '鬍鬚 (ㄏㄨˊ ㄒㄩ)', mnemonic: '`beard` (鬍鬚) 裡有 `bear` (熊)。想像一隻熊 (`bear`) 留著長長的鬍鬚 (`beard`)。' },
+            { en: 'blood', zh: '血 (ㄒㄧㄝˇ)', mnemonic: '`blood` (血) 和 `flood` (洪水) 押韻。傷口流出的血 (`blood`) 像洪水 (`flood`) 一樣。' },
+            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '`body` (身體) 聽起來像 `buddy` (夥伴)。好好照顧你的身體 (`body`)，它是你最好的夥伴 (`buddy`)。' },
+            { en: 'bone', zh: '骨頭 (ㄍㄨˇ ㄊㄡ˙)', mnemonic: '`bone` (骨頭) 和 `one` (一) 很像。這隻狗嘴裡叼著一 (`one`) 根骨頭 (`bone`)。' },
+            { en: 'brain', zh: '大腦 (ㄉㄚˋ ㄋㄠˇ)', mnemonic: '`brain` (大腦) 裡有 `rain` (雨)。大腦 (`brain`) 像是在經歷一場點子雨 (`rain`)。' },
+            { en: 'chin', zh: '下巴 (ㄒㄧㄚˋ ㄅㄚ)', mnemonic: '`chin` (下巴) 裡有 `in` (在...裡面)。你的下巴 (`chin`) 在 (`in`) 你的臉下面。' },
+            { en: 'ear', zh: '耳朵 (ㄦˇ ㄉㄨㄛ˙)', mnemonic: '`hear` (聽見) 裡有 `ear` (耳朵)。你用耳朵 (`ear`) 來聽見 (`hear`) 聲音。' },
+            { en: 'eye', zh: '眼睛 (ㄧㄢˇ ㄐㄧㄥ)', mnemonic: '`eye` (眼睛) 這個字的形狀就像一張臉：兩個 `e` 是眼睛，中間的 `y` 是鼻子。' },
+            { en: 'face', zh: '臉 (ㄌㄧㄢˇ)', mnemonic: '`face` (臉) 裡有 `ace` (王牌/高手)。他是一個做鬼臉 (`face`) 的高手 (`ace`)。' },
+            { en: 'finger', zh: '手指 (ㄕㄡˇ ㄓˇ)', mnemonic: '`fin` (魚鰭) + `ger`。手指 (`finger`) 就像是長在手上的小魚鰭 (`fin`)。' },
+            { en: 'foot', zh: '腳 (ㄐㄧㄠˇ)', mnemonic: '`foot` (腳) 和 `boot` (靴子) 押韻。把靴子 (`boot`) 穿在腳 (`foot`) 上。' },
+            { en: 'hair', zh: '頭髮 (ㄊㄡˊ ㄈㄚˇ)', mnemonic: '`hair` (頭髮) 和 `air` (空氣) 押韻。頭髮 (`hair`) 在空氣 (`air`) 中飄逸。' },
+            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `sand` (沙子) 押韻。用手 (`hand`) 抓起沙子 (`sand`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -300,6 +298,7 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
+            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -331,10 +330,7 @@
                         <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
                     </div>
                     <div class="col-ans">
-                        <div id="ans-block-${index}" class="answer-block">
-                            <div class="answer-word">${word.en}</div>
-                            <div class="answer-mnemonic">${word.mnemonic}</div>
-                        </div>
+                        <div id="ans-${index}" class="answer-text">${word.en}</div>
                     </div>
                 `;
                 listContainer.appendChild(row);
@@ -350,7 +346,7 @@
 
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
-            const answerBlocks = document.querySelectorAll('.answer-block');
+            const answers = document.querySelectorAll('.answer-text');
             const inputs = document.querySelectorAll('.practice-input');
 
             areAnswersVisible = !areAnswersVisible; // 切換狀態
@@ -360,7 +356,7 @@
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50'; // 綠色
                 
-                answerBlocks.forEach(el => el.style.display = 'block'); // 顯示答案
+                answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
                 // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
@@ -381,7 +377,7 @@
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f'; // 紅色
                 
-                answerBlocks.forEach(el => el.style.display = 'none'); // 隱藏答案
+                answers.forEach(el => el.style.display = 'none'); // 隱藏答案
             }
         }
 
@@ -448,11 +444,11 @@
                 return;
             }
 
+            // 考試模式：不分大小寫比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
 
-            // 這裡進行不分大小寫的比較
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
