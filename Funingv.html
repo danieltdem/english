@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共16題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,21 +262,22 @@
 
     <script>
         const words = [
-            { en: 'airport', zh: '機場 (ㄐㄧ ㄔㄤˇ)', mnemonic: '`air` (空氣/飛機) + `port` (港口)。飛機的港口就是機場 (`airport`)。' },
-            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '`A` + `merry` (快樂的) + `car` (車)。想像一輛快樂的車 (`A merry car`) 行駛在美國 (`America`)。' },
-            { en: 'Asia', zh: '亞洲 (ㄧㄚˋ ㄓㄡ)', mnemonic: '`As` (像) + `I` (我) + `a`. `As I am`. 像我一樣，我是亞洲人。' },
-            { en: 'Australia', zh: '澳洲 (ㄠˋ ㄓㄡ)', mnemonic: '`Au` (化學符號金) + `stra` (star, 星星) + `lia`。' },
-            { en: 'bakery', zh: '麵包店 (ㄇㄧㄢˋ ㄅㄠ ㄉㄧㄢˋ)', mnemonic: '`bake` (烘烤) + `ry` (場所)。烘烤東西的地方就是麵包店 (`bakery`)。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`bank` 也有「河岸」的意思。河流 (River) 裡有水流 (current)，銀行 (`bank`) 裡有貨幣 (currency)。' },
-            { en: 'bar', zh: '酒吧 (ㄐㄧㄡˇ ㄅㄚ)', mnemonic: '`bar` 也可以指「條/棒」。想像在酒吧 (`bar`) 吃一條 (`bar`) 巧克力。' },
-            { en: 'base', zh: '基地 (ㄐㄧ ㄉㄧˋ)', mnemonic: '`base` (壘包/基礎)。打棒球 (`baseball`) 時要跑向壘包 (`base`)。' },
-            { en: 'basement', zh: '地下室 (ㄉㄧˋ ㄒㄧㄚˋ ㄕˋ)', mnemonic: '`base` (底部) + `cement` (水泥)。房子的底部通常是水泥做的，就是地下室 (`basement`)。' },
-            { en: 'block', zh: '街區 (ㄐㄧㄝ ㄑㄩ)', mnemonic: '街區 (`block`) 就像一個巨大的積木 (`block`)。' },
-            { en: 'bookstore', zh: '書店 (ㄕㄨ ㄉㄧㄢˋ)', mnemonic: '`book` (書) + `store` (商店)。賣書的商店就是書店 (`bookstore`)。' },
-            { en: 'bridge', zh: '橋 (ㄑㄧㄠˊ)', mnemonic: '`bridge` (橋) 聽起來像 `fridge` (冰箱)。想像一座用冰箱 (`fridge`) 堆成的橋 (`bridge`)。' },
-            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` (英國人) + `rain` (雨)。英國 (`Britain`) 的英國人 (`Brit`) 總是遇到下雨 (`rain`)。' },
-            { en: 'cafeteria', zh: '自助餐廳 (ㄗˋ ㄓㄨˋ ㄘㄢ ㄊㄧㄥ)', mnemonic: '`cafe` (咖啡廳) + `bacteria` (細菌)。小心不乾淨的自助餐廳 (`cafeteria`) 會有細菌 (`bacteria`)。' },
-            { en: 'campus', zh: '校園 (ㄒㄧㄠˋ ㄩㄢˊ)', mnemonic: '`camp` (營隊) + `us` (我們)。大學校園 (`campus`) 就像是「我們」 (`us`) 的「營隊」 (`camp`)。' }
+            { en: 'Canada', zh: '加拿大 (ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ)', mnemonic: '`Can` (可以) + `a` + `da` (dad, 爸爸)。爸爸在加拿大可以 (`Can a da`) 做到。' },
+            { en: 'castle', zh: '城堡 (ㄔㄥˊ ㄅㄠˇ)', mnemonic: '`cast` (施法) + `le`。女巫對這座城堡 (`castle`) 施了法 (`cast`)。' },
+            { en: 'center', zh: '中心 (ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`cent` (一分錢) + `er`。在硬幣 (`cent`) 的中心 (`center`)。' },
+            { en: 'church', zh: '教堂 (ㄐㄧㄠˋ ㄊㄤˊ)', mnemonic: '`ch` + `ur` + `ch`。教堂 (`church`) 總是以 `ch` 開頭並以 `ch` 結尾。' },
+            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '`ci` (see, 看) + `ty` (tea, 茶)。在城市 (`city`) 裡看 (`see`) 著人們喝茶 (`tea`)。' },
+            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coat` (外套) + `s`。海邊很冷，記得在海岸 (`coast`) 邊穿上外套 (`coat`)。' },
+            { en: 'company', zh: '公司 (ㄍㄨㄥ ㄙ)', mnemonic: '`come` (來) + `pan` (平底鍋) + `y`。帶著平底鍋 (`pan`) 來 (`come`) 公司 (`company`) 煮飯。' },
+            { en: 'country', zh: '國家 (ㄍㄨㄛˊ ㄐㄧㄚ)', mnemonic: '`count` (數) + `ry` (try)。試著 (`try`) 數一數 (`count`) 世界有多少國家 (`country`)。' },
+            { en: 'department store', zh: '百貨公司 (ㄅㄞˇ ㄏㄨㄛˋ ㄍㄨㄥ ㄙ)', mnemonic: '`department` (部門) + `store` (商店)。這是一家有很多部門 (`department`) 的大型商店 (`store`)。' },
+            { en: 'downtown', zh: '市中心 (ㄕˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`down` (下去) + `town` (城鎮)。讓我們下去 (`down`) 城鎮 (`town`) 的中心地帶 (`downtown`)。' },
+            { en: 'Europe', zh: '歐洲 (ㄡ ㄓㄡ)', mnemonic: '`Euro` (歐元) + `pe` (people, 人)。歐洲 (`Europe`) 人使用歐元 (`Euro`)。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '`fact` (事實) + `ory`。工廠 (`factory`) 會製造污染是一個事實 (`fact`)。' },
+            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '`far` (遠) + `m`。那個農場 (`farm`) 離這裡很遠 (`far`)。' },
+            { en: 'garage', zh: '車庫 (ㄔㄜ ㄎㄨˋ)', mnemonic: '`garbage` (垃圾) 去掉 `b`。不要把垃圾 (`garbage`) 堆在車庫 (`garage`) 裡。' },
+            { en: 'Germany', zh: '德國 (ㄉㄜˊ ㄍㄨㄛˊ)', mnemonic: '`Ger` (germ, 病菌) + `many` (很多)。這裡有很多 (`many`) 病菌 (`germ`) 嗎？不，這裡是德國 (`Germany`)。' },
+            { en: 'gym', zh: '體育館 (ㄊㄧˇ ㄩˋ ㄍㄨㄢˇ)', mnemonic: '`gym` 和 `swim` (游泳) 押韻。去體育館 (`gym`) 裡的泳池游泳 (`swim`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -298,6 +299,7 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
+            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -362,7 +364,6 @@
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     
-                    // 不分大小寫比對
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
@@ -448,7 +449,6 @@
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
 
-            // 不分大小寫比對
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
