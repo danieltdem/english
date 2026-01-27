@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共18題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,24 +262,21 @@
 
     <script>
         const words = [
-            { en: 'head', zh: '頭 (ㄊㄡˊ)', mnemonic: '`He` (他) + `ad` (add, 增加)。他 (`He`) 在頭上加 (`ad`) 了一頂帽子。' },
-            { en: 'headache', zh: '頭痛 (ㄊㄡˊ ㄊㄨㄥˋ)', mnemonic: '`head` (頭) + `ache` (痛)。這個字就是「頭」+「痛」。' },
-            { en: 'heart', zh: '心臟 (ㄒㄧㄣ ㄗㄤˋ)', mnemonic: '`hear` (聽見) + `t`。你可以聽見 (`hear`) 你的心跳 (`heart`) 聲。' },
-            { en: 'hip', zh: '臀部 (ㄊㄨㄣˊ ㄅㄨˋ)', mnemonic: '`hip` 聽起來像 `hop` (跳)。你用臀部 (`hip`) 來跳躍 (`hop`)。' },
-            { en: 'knee', zh: '膝蓋 (ㄒㄧ ㄍㄞˋ)', mnemonic: '`k` + `need` (需要)。我需要 (`need`) 我的膝蓋 (`knee`) 才能跪下。' },
-            { en: 'lip', zh: '嘴唇 (ㄗㄨㄟˇ ㄔㄨㄣˊ)', mnemonic: '`lip` 和 `sip` (啜飲) 押韻。你用嘴唇 (`lip`) 來啜飲 (`sip`) 飲料。' },
-            { en: 'mouth', zh: '嘴巴 (ㄗㄨㄟˇ ㄅㄚ˙)', mnemonic: '`mouth` 和 `south` (南方) 押韻。嘴巴 (`mouth`) 在臉的南方 (`south`)。' },
-            { en: 'nail', zh: '指甲 (ㄓˇ ㄐㄧㄚˇ)', mnemonic: '`nail` (指甲/釘子) 裡有 `snail` (蝸牛)。蝸牛 (`snail`) 沒有指甲 (`nail`)。' },
-            { en: 'neck', zh: '脖子 (ㄅㄛˊ ㄗ˙)', mnemonic: '`neck` 和 `check` (檢查) 押韻。檢查 (`check`) 你的脖子 (`neck`) 上有沒有戴項鍊。' },
-            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`no` (不) + `se`。不 (`No`) 要聞我的鼻子 (`nose`)。' },
-            { en: 'stomach', zh: '胃 (ㄨㄟˋ)', mnemonic: '`stow` (裝載) + `mach` (machine, 機器)。胃就像一個裝載 (`stow`) 食物的機器 (`mach`ine)。' },
-            { en: 'stomachache', zh: '胃痛 (ㄨㄟˋ ㄊㄨㄥˋ)', mnemonic: '`stomach` (胃) + `ache` (痛)。' },
-            { en: 'throat', zh: '喉嚨 (ㄏㄡˊ ㄌㄨㄥˊ)', mnemonic: '`throw` (丟) + `at`。把食物丟進 (`throw at`) 喉嚨 (`throat`) 裡。' },
-            { en: 'toe', zh: '腳趾 (ㄐㄧㄠˇ ㄓˇ)', mnemonic: '`toe` 和 `hoe` (鋤頭) 押韻。小心不要把鋤頭 (`hoe`) 砸到你的腳趾 (`toe`)。' },
-            { en: 'tongue', zh: '舌頭 (ㄕㄜˊ ㄊㄡ˙)', mnemonic: '`ton` (噸) + `gue`。講話時不要讓你的舌頭 (`tongue`) 重得像一噸 (`ton`) 一樣。' },
-            { en: 'tooth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`too` (太) + `th`。我有太 (`too`) 多的牙齒 (`tooth`) 了。' },
-            { en: 'toothache', zh: '牙痛 (ㄧㄚˊ ㄊㄨㄥˋ)', mnemonic: '`tooth` (牙齒) + `ache` (痛)。' },
-            { en: 'tummy', zh: '肚子 (ㄉㄨˋ ㄗ˙)', mnemonic: '`tummy` 和 `yummy` (好吃的) 押韻。好吃的 (`yummy`) 食物都進了我的肚子 (`tummy`)。' }
+            { en: 'airport', zh: '機場 (ㄐㄧ ㄔㄤˇ)', mnemonic: '`air` (空氣/飛機) + `port` (港口)。飛機的港口就是機場 (`airport`)。' },
+            { en: 'America', zh: '美國 (ㄇㄟˇ ㄍㄨㄛˊ)', mnemonic: '`A` + `merry` (快樂的) + `car` (車)。想像一輛快樂的車 (`A merry car`) 行駛在美國 (`America`)。' },
+            { en: 'Asia', zh: '亞洲 (ㄧㄚˋ ㄓㄡ)', mnemonic: '`As` (像) + `I` (我) + `a`. `As I am`. 像我一樣，我是亞洲人。' },
+            { en: 'Australia', zh: '澳洲 (ㄠˋ ㄓㄡ)', mnemonic: '`Au` (化學符號金) + `stra` (star, 星星) + `lia`。' },
+            { en: 'bakery', zh: '麵包店 (ㄇㄧㄢˋ ㄅㄠ ㄉㄧㄢˋ)', mnemonic: '`bake` (烘烤) + `ry` (場所)。烘烤東西的地方就是麵包店 (`bakery`)。' },
+            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`bank` 也有「河岸」的意思。河流 (River) 裡有水流 (current)，銀行 (`bank`) 裡有貨幣 (currency)。' },
+            { en: 'bar', zh: '酒吧 (ㄐㄧㄡˇ ㄅㄚ)', mnemonic: '`bar` 也可以指「條/棒」。想像在酒吧 (`bar`) 吃一條 (`bar`) 巧克力。' },
+            { en: 'base', zh: '基地 (ㄐㄧ ㄉㄧˋ)', mnemonic: '`base` (壘包/基礎)。打棒球 (`baseball`) 時要跑向壘包 (`base`)。' },
+            { en: 'basement', zh: '地下室 (ㄉㄧˋ ㄒㄧㄚˋ ㄕˋ)', mnemonic: '`base` (底部) + `cement` (水泥)。房子的底部通常是水泥做的，就是地下室 (`basement`)。' },
+            { en: 'block', zh: '街區 (ㄐㄧㄝ ㄑㄩ)', mnemonic: '街區 (`block`) 就像一個巨大的積木 (`block`)。' },
+            { en: 'bookstore', zh: '書店 (ㄕㄨ ㄉㄧㄢˋ)', mnemonic: '`book` (書) + `store` (商店)。賣書的商店就是書店 (`bookstore`)。' },
+            { en: 'bridge', zh: '橋 (ㄑㄧㄠˊ)', mnemonic: '`bridge` (橋) 聽起來像 `fridge` (冰箱)。想像一座用冰箱 (`fridge`) 堆成的橋 (`bridge`)。' },
+            { en: 'Britain', zh: '英國 (ㄧㄥ ㄍㄨㄛˊ)', mnemonic: '`Brit` (英國人) + `rain` (雨)。英國 (`Britain`) 的英國人 (`Brit`) 總是遇到下雨 (`rain`)。' },
+            { en: 'cafeteria', zh: '自助餐廳 (ㄗˋ ㄓㄨˋ ㄘㄢ ㄊㄧㄥ)', mnemonic: '`cafe` (咖啡廳) + `bacteria` (細菌)。小心不乾淨的自助餐廳 (`cafeteria`) 會有細菌 (`bacteria`)。' },
+            { en: 'campus', zh: '校園 (ㄒㄧㄠˋ ㄩㄢˊ)', mnemonic: '`camp` (營隊) + `us` (我們)。大學校園 (`campus`) 就像是「我們」 (`us`) 的「營隊」 (`camp`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -301,7 +298,6 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
-            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -340,7 +336,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派) - 支援 Enter 鍵
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -361,11 +357,12 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 批改每一個輸入框
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     
+                    // 不分大小寫比對
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
@@ -451,7 +448,7 @@
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
 
-            // 考試模式：檢查答案 (不分大小寫)
+            // 不分大小寫比對
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
