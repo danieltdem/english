@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共13題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,21 +262,19 @@
 
     <script>
         const words = [
-            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 聽起來像 `all` (所有)。所有人 (`All`) 都在大廳 (`hall`) 集合。' },
-            { en: 'highway', zh: '公路 (ㄍㄨㄥ ㄌㄨˋ)', mnemonic: '`high` (高的) + `way` (道路)。一條可以讓你開得很高 (`high`) 速的道路 (`way`) 就是公路 (`highway`)。' },
-            { en: 'hospital', zh: '醫院 (ㄧ ㄩㄢˋ)', mnemonic: '`hospital` 裡有 `spit` (吐口水)。如果有人對你吐口水 (`spit`) 害你生病，你就得去醫院 (`hospital`)。' },
-            { en: 'hotel', zh: '旅館 (ㄌㄩˇ ㄍㄨㄢˇ)', mnemonic: '`hot` (熱) + `el` (tell, 告訴)。打電話告訴 (`tell`) 櫃台，旅館 (`hotel`) 房間太熱 (`hot`) 了。' },
-            { en: 'Korea', zh: '韓國 (ㄏㄢˊ ㄍㄨㄛˊ)', mnemonic: '`Korea` 聽起來像 `career` (職業)。他在韓國 (`Korea`) 發展他的職業 (`career`)。' },
-            { en: 'library', zh: '圖書館 (ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ)', mnemonic: '`li` (lie, 說謊) + `brary` (berry, 莓果)。不要說謊 (`lie`) 說你沒有在圖書館 (`library`) 吃莓果 (`berry`)。' },
-            { en: 'mall', zh: '購物中心 (ㄍㄡˋ ㄨˋ ㄓㄨㄥ ㄒㄧㄣ)', mnemonic: '`mall` 聽起來像 `all` (全部)。購物中心 (`mall`) 裡有你想買的全部 (`all`) 東西。' },
-            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (做記號) + `et` (it)。在你想買的東西上做記號 (`mark`)，然後去市場 (`market`) 買它 (`it`)。' },
-            { en: 'museum', zh: '博物館 (ㄅㄛˊ ㄨˋ ㄍㄨㄢˇ)', mnemonic: '`muse` (繆思女神) + `um`。繆思女神 (`Muse`) 住在博物館 (`museum`) 裡激發藝術靈感。' },
-            { en: 'Paris', zh: '巴黎 (ㄅㄚ ㄌㄧˊ)', mnemonic: '`Paris` 聽起來像 `pair is` (一對是)。這一對 (`pair`) 情侶正在巴黎 (`Paris`)。' },
-            { en: 'park', zh: '公園 (ㄍㄨㄥ ㄩㄢˊ)', mnemonic: '`park` (公園) 和 `bark` (狗叫) 押韻。小狗在公園 (`park`) 裡大叫 (`bark`)。' },
-            { en: 'parking lot', zh: '停車場 (ㄊㄧㄥˊ ㄔㄜ ㄔㄤˇ)', mnemonic: '`park` (停車) + `ing` + `lot` (很多)。這個地方停了 (`parking`) 很多 (`a lot`) 車，就是停車場 (`parking lot`)。' },
-            { en: 'Philippines', zh: '菲律賓 (ㄈㄟ ㄌㄩˋ ㄅㄧㄣ)', mnemonic: '`Philip` (菲利普) + `pines` (pineapples, 鳳梨)。菲利普 (`Philip`) 在菲律賓 (`Philippines`) 吃鳳梨 (`pines`)。' },
-            { en: 'platform', zh: '月台 (ㄩㄝˋ ㄊㄞˊ)', mnemonic: '`plat` (plate, 盤子/平坦的) + `form` (形狀)。一個平坦 (`flat`) 形狀 (`form`) 的地方，讓人站立，就是月台 (`platform`)。' },
-            { en: 'playground', zh: '操場；遊樂場 (ㄘㄠ ㄔㄤˇ)', mnemonic: '`play` (玩) + `ground` (地面)。可以讓你在地面 (`ground`) 上玩 (`play`) 的地方，就是操場 (`playground`)。' }
+            { en: 'region', zh: '地區 (ㄉㄧˋ ㄑㄩ)', mnemonic: '`region` (地區) 聽起來像 `religion` (宗教)。每個地區 (`region`) 都有它自己的宗教 (`religion`)。' },
+            { en: 'restaurant', zh: '餐廳 (ㄘㄢ ㄊㄧㄥ)', mnemonic: '`rest` (休息) + `aur` (gold, 金子) + `ant` (螞蟻)。螞蟻 (`ant`) 在餐廳 (`restaurant`) 休息 (`rest`)，還找到了金子 (`aur`)。' },
+            { en: 'restroom', zh: '洗手間 (ㄒㄧˇ ㄕㄡˇ ㄐㄧㄢ)', mnemonic: '`rest` (休息) + `room` (房間)。一個讓你休息 (`rest`) 的房間 (`room`)，通常指洗手間 (`restroom`)。' },
+            { en: 'Russia', zh: '俄羅斯 (ㄜˊ ㄌㄨㄛˊ ㄙ)', mnemonic: '`Russia` 聽起來像 `Rush` (衝/趕) + `ia`。在俄羅斯 (`Russia`) 不要太衝忙 (`rush`)。' },
+            { en: 'school', zh: '學校 (ㄒㄩㄝˊ ㄒㄧㄠˋ)', mnemonic: '`school` (學校) 聽起來像 `s` + `cool` (酷)。學校 (`school`) 是一個很酷 (`cool`) 的地方。' },
+            { en: 'shop', zh: '商店 (ㄕㄤ ㄉㄧㄢˋ)', mnemonic: '`shop` (商店) 聽起來像 `chop` (切/砍)。你去肉店 (`shop`) 看屠夫切 (`chop`) 肉。' },
+            { en: 'Singapore', zh: '新加坡 (ㄒㄧㄣ ㄐㄧㄚ ㄆㄛ)', mnemonic: '`Sing` (唱歌) + `a` + `pore` (毛孔)。在新加坡 (`Singapore`)，大家興奮到用全身的毛孔 (`pore`) 在唱歌 (`sing`)。' },
+            { en: 'station', zh: '車站 (ㄔㄜ ㄓㄢˋ)', mnemonic: '`station` (車站) 裡有 `stay` (停留)。人們在車站 (`station`) 停留 (`stay`) 等車。' },
+            { en: 'supermarket', zh: '超市 (ㄔㄠ ㄕˋ)', mnemonic: '`super` (超級) + `market` (市場)。一個超級 (`super`) 大的市場 (`market`) 就是超市 (`supermarket`)。' },
+            { en: 'temple', zh: '寺廟 (ㄙˋ ㄇㄧㄠˋ)', mnemonic: '`temple` (寺廟) 聽起來像 `temporary` (暫時的)。生命是短暫的 (`temporary`)，所以去寺廟 (`temple`) 祈禱吧。' },
+            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下去) 押韻。讓我們下去 (`down`) 城鎮 (`town`) 逛逛。' },
+            { en: 'university', zh: '大學 (ㄉㄚˋ ㄒㄩㄝˊ)', mnemonic: '`universe` (宇宙) + `city` (城市)。大學 (`university`) 就像是宇宙 (`universe`) 中一座充滿知識的城市 (`city`)。' },
+            { en: 'zoo', zh: '動物園 (ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ)', mnemonic: '`zoo` 看起來像 `200`。動物園 (`zoo`) 裡有超過兩百 (`200`) 種動物。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -358,9 +356,8 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框
+                // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
-                    // 使用 .toLowerCase() 確保比對時不分大小寫
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     
@@ -445,7 +442,7 @@
                 return;
             }
 
-            // 使用 .toLowerCase() 確保比對時不分大小寫
+            // 考試模式：不分大小寫
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
