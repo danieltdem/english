@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的 AI 英文家教 (記憶版)</title>
+    <title>寧寧的 AI 英文家教 (Gemma 3)</title>
     <style>
         :root {
-            --primary-color: #4a90e2;
-            --bg-color: #f4f7f6;
+            --primary-color: #2c974b; /* Gemma 的代表色通常偏向綠色系，稍微改一下讓妳有新鮮感 */
+            --bg-color: #f0f7f4;
             --chat-bg: #ffffff;
-            --teacher-msg-bg: #e3f2fd;
+            --teacher-msg-bg: #e6ffed;
             --student-msg-bg: #f5f5f5;
         }
 
@@ -88,7 +88,7 @@
         }
 
         button:hover {
-            background-color: #357abd;
+            background-color: #21853d;
         }
 
         button.secondary {
@@ -176,7 +176,7 @@
 <body>
 
 <div class="container">
-    <h1>👩‍🏫 寧寧的 AI 英文家教</h1>
+    <h1>👩‍🏫 寧寧的 AI 英文家教 (Gemma 版)</h1>
 
     <div id="keyStatus" class="saved-key-info" style="display: none;">
         <span>🔑 已載入儲存的 API Key</span>
@@ -184,10 +184,10 @@
     </div>
 
     <div id="apiKeyModal" class="api-modal">
-        <h3>🔐 請輸入 Gemini API Key</h3>
+        <h3>🔐 請輸入 Google API Key</h3>
         <p style="font-size: 0.9em; margin-bottom: 15px;">
-            為了開始上課，請輸入你的 API Key。<br>
-            程式會自動將它存在你的瀏覽器裡，下次就不用再輸入囉！
+            系統將使用 <b>Gemma 3 12B</b> 模型。<br>
+            程式會自動將 Key 存在你的瀏覽器裡，下次就不用再輸入囉！
         </p>
         <div style="display: flex; gap: 10px; justify-content: center;">
             <input type="password" id="apiKeyInput" placeholder="貼上 API Key..." style="max-width: 300px;">
@@ -198,7 +198,7 @@
     <div class="exercise-area" id="exerciseArea">
         <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">📝 出一題新的中翻英</button>
         
-        <div class="question-box" id="questionText">請點擊上方按鈕，老師就會出題囉！</div>
+        <div class="question-box" id="questionText">請點擊上方按鈕，Gemma 老師就會出題囉！</div>
         
         <textarea id="studentAnswer" rows="3" placeholder="請在此輸入你的英文翻譯..."></textarea>
         
@@ -206,7 +206,7 @@
             <button onclick="gradeAnswer()" id="gradeBtn">✅ 批改答案</button>
         </div>
 
-        <div id="loading" class="loading">老師正在思考中... 🧠</div>
+        <div id="loading" class="loading">Gemma 老師正在思考中... 🧠</div>
         
         <div id="feedback" class="feedback-area"></div>
     </div>
@@ -229,20 +229,17 @@
 
     // --- 1. 核心邏輯：儲存與讀取 Key ---
 
-    // 網頁載入時執行
     window.onload = function() {
         checkSavedKey();
     }
 
     function checkSavedKey() {
-        // 從瀏覽器 LocalStorage 嘗試讀取
         const savedKey = localStorage.getItem('gemini_my_key');
-        
         if (savedKey) {
             apiKey = savedKey;
-            showExerciseUI(); // 有 Key，直接顯示練習介面
+            showExerciseUI(); 
         } else {
-            showInputUI();    // 沒 Key，顯示輸入框
+            showInputUI();
         }
     }
 
@@ -252,12 +249,9 @@
             alert('請輸入 API Key 喔！');
             return;
         }
-        
-        // 儲存到 LocalStorage
         localStorage.setItem('gemini_my_key', input.trim());
         apiKey = input.trim();
-        
-        alert('✅ Key 已儲存！下次打開網頁不用再輸入了。');
+        alert('✅ Key 已儲存！開始使用 Gemma 模型。');
         showExerciseUI();
     }
 
@@ -265,7 +259,7 @@
         if(confirm('確定要移除儲存的 API Key 嗎？')) {
             localStorage.removeItem('gemini_my_key');
             apiKey = '';
-            location.reload(); // 重新整理網頁
+            location.reload(); 
         }
     }
 
@@ -281,7 +275,7 @@
         document.getElementById('exerciseArea').style.display = 'none';
     }
 
-    // --- 2. 老師功能 (Gemini API) ---
+    // --- 2. 老師功能 (Gemini API 呼叫 Gemma) ---
 
     function parseMarkdown(text) {
         let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -292,8 +286,12 @@
     async function callGemini(prompt, history = []) {
         if (!apiKey) return;
 
-        // 使用 gemini-3-flash-preview (如果不穩定可自行改回 gemini-1.5-flash)
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        // 【修改點】 這裡更換成了 Gemma 3 的模型 ID
+        // 注意：如果 API 回傳 404 Not Found，表示該 Key 的權限無法存取 Gemma，
+        // 建議改回 'gemini-1.5-flash'
+        const modelId = 'gemma-3-12b-it'; 
+        
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${apiKey}`;
         
         let contents = history.map(h => ({
             role: h.role,
@@ -317,13 +315,13 @@
             const data = await response.json();
             
             if (data.error) throw new Error(data.error.message);
-            if (!data.candidates || !data.candidates[0]) throw new Error("API 回傳異常");
+            if (!data.candidates || !data.candidates[0]) throw new Error("API 回傳異常，可能是模型不支援");
 
             return data.candidates[0].content.parts[0].text;
         } catch (error) {
             console.error('Error:', error);
-            alert('發生錯誤：' + error.message);
-            // 如果 Key 錯誤，提示使用者重設
+            alert(`發生錯誤：${error.message}\n\n(提示：如果顯示 model not found，表示 API Key 可能尚未支援 Gemma 模型，建議改回 Gemini)`);
+            
             if (error.message.includes('API key not valid')) {
                 clearKey();
             }
@@ -335,7 +333,6 @@
 
     async function generateQuestion() {
         showLoading(true);
-        // 重置介面
         document.getElementById('studentAnswer').value = '';
         document.getElementById('feedback').style.display = 'none';
         document.getElementById('chatSection').style.display = 'none';
@@ -361,16 +358,16 @@
         }
         showLoading(true);
         
+        // 為了讓 Gemma 也能聽懂指令，這裡的 Prompt 稍微精簡化一點
         const prompt = `
         題目：${currentQuestion}
         學生的回答：${answer}
         
-        請扮演一位親切、有耐心的英文老師（你可以叫學生「寧寧」）。
-        1. 評分並指出文法或用詞錯誤。
-        2. 解釋為什麼錯，並提供正確的觀念。
-        3. 給出 2-3 種更好的道地講法。
-        4. 語氣要鼓勵學生。
-        請用繁體中文回答。
+        請扮演英文老師「寧寧的家教」。
+        1. 評分並指出錯誤。
+        2. 解釋文法或用詞。
+        3. 給出 2 個更好的道地講法。
+        請用繁體中文回答，語氣要親切。
         `;
 
         const feedback = await callGemini(prompt);
@@ -419,7 +416,6 @@
     function showLoading(show) {
         document.getElementById('loading').style.display = show ? 'block' : 'none';
         const buttons = document.querySelectorAll('button');
-        // 排除掉「更換 Key」的按鈕，以免卡死
         buttons.forEach(b => {
             if (!b.classList.contains('secondary')) b.disabled = show;
         });
