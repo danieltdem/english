@@ -28,6 +28,7 @@
             max-width: 600px;
             max-height: 90vh; /* 限制最大高度 */
             position: relative;
+            /* 考試模式需要捲動，練習模式我們自己處理捲動，所以這裡預設 auto */
             overflow-y: auto; 
         }
 
@@ -67,7 +68,7 @@
         .menu-btn:hover { background-color: #e68900; }
         .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; }
 
-        /* --- 考試模式樣式 --- */
+        /* --- 考試模式樣式 (維持原樣) --- */
         #exam-screen { display: none; }
         .exam-input {
             padding: 10px;
@@ -261,26 +262,26 @@
 
     <script>
         const words = [
-            { en: 'supper', zh: '晚餐 (ㄨㄢˇ ㄘㄢ)', mnemonic: '`supper` 聽起來像 `super` (超級)。晚餐 (`supper`) 是一天中最超級 (`super`) 的一餐。' },
-            { en: 'surface', zh: '表面 (ㄅㄧㄠˇ ㄇㄧㄢˋ)', mnemonic: '`sur` + `face` (臉)。臉 (`face`) 就是我們身體的表面 (`surface`)。' },
-            { en: 'surprise', zh: '驚喜 (ㄐㄧㄥ ㄒㄧˇ)', mnemonic: '`sur` + `prize` (獎品)。得到一個獎品 (`prize`) 是一個大驚喜 (`surprise`)。' },
-            { en: 'task', zh: '任務 (ㄖㄣˋ ㄨˋ)', mnemonic: '`task` 和 `mask` (口罩) 押韻。你的任務 (`task`) 是戴上口罩 (`mask`)。' },
-            { en: 'thing', zh: '東西 (ㄉㄨㄥ ㄒㄧ)', mnemonic: '`th` + `king` (國王)。國王 (`king`) 手上拿著一個奇怪的東西 (`thing`)。' },
-            { en: 'ticket', zh: '票 (ㄆㄧㄠˋ)', mnemonic: '`tick` (壁蝨) + `et`。買一張票 (`ticket`) 去看跳舞的壁蝨 (`tick`)。' },
-            { en: 'time', zh: '時間 (ㄕˊ ㄐㄧㄢ)', mnemonic: '`time` (時間) 裡有 `Tim`。Tim 總是沒有時間 (`time`)。' },
-            { en: 'tip', zh: '小費；尖端 (ㄒㄧㄠˇ ㄈㄟˋ)', mnemonic: '`tip` 和 `top` (頂端) 很像。把小費 (`tip`) 放在桌子的頂端 (`top`)。' },
-            { en: 'tomorrow', zh: '明天 (ㄇㄧㄥˊ ㄊㄧㄢ)', mnemonic: '`Tom` + `or` + `row` (划船)。Tom 明天 (`tomorrow`) 會去划船 (`row`)。' },
-            { en: 'tool', zh: '工具 (ㄍㄨㄥ ㄐㄩˋ)', mnemonic: '`too` (太) + `l` (long, 長)。這個工具 (`tool`) 太 (`too`) 長了。' },
-            { en: 'toothbrush', zh: '牙刷 (ㄧㄚˊ ㄕㄨㄚ)', mnemonic: '`tooth` (牙齒) + `brush` (刷子)。用來刷 (`brush`) 牙齒 (`tooth`) 的就是牙刷 (`toothbrush`)。' },
-            { en: 'top', zh: '頂端 (ㄉㄧㄥˇ ㄉㄨㄢ)', mnemonic: '`top` 和 `stop` (停止) 押韻。爬到頂端 (`top`) 就可以停止 (`stop`) 了。' },
-            { en: 'topic', zh: '主題 (ㄓㄨˇ ㄊㄧˊ)', mnemonic: '`top` (頂部的) + `pic` (picture, 圖片)。這張置頂的圖片 (`top pic`) 是今天的主題 (`topic`)。' },
-            { en: 'tower', zh: '塔 (ㄊㄚˇ)', mnemonic: '`tower` (塔) 和 `power` (力量) 押韻。這座高塔 (`tower`) 象徵著力量 (`power`)。' },
-            { en: 'toy', zh: '玩具 (ㄨㄢˊ ㄐㄩˋ)', mnemonic: '`toy` (玩具) 和 `boy` (男孩) 押韻。那個男孩 (`boy`) 喜歡他的玩具 (`toy`)。' },
-            { en: 'trace', zh: '痕跡 (ㄏㄣˊ ㄐㄧ)', mnemonic: '`trace` (痕跡) 和 `race` (賽跑) 押韻。賽跑 (`race`) 在跑道上留下了痕跡 (`trace`)。' },
-            { en: 'traffic', zh: '交通 (ㄐㄧㄠ ㄊㄨㄥ)', mnemonic: '`traffic` (交通) 聽起來像 `tragic` (悲慘的)。糟糕的交通 (`traffic`) 真是悲慘 (`tragic`)。' },
-            { en: 'train', zh: '火車 (ㄏㄨㄛˇ ㄔㄜ)', mnemonic: '`train` (火車) 和 `rain` (雨) 押韻。火車 (`train`) 在雨 (`rain`) 中行駛。' },
-            { en: 'trash', zh: '垃圾 (ㄌㄜˋ ㄙㄜˋ)', mnemonic: '`ash` (灰燼) + `tray` (盤子)。把煙灰 (`ash`) 倒進垃圾 (`trash`) 桶。' },
-            { en: 'trick', zh: '惡作劇 (ㄜˋ ㄗㄨㄛˋ ㄐㄩˋ)', mnemonic: '`trick` (惡作劇) 和 `brick` (磚塊) 押韻。不要用磚塊 (`brick`) 開玩笑 (`trick`)，很危險。' }
+            { en: 'trouble', zh: '麻煩 (ㄇㄚˊ ㄈㄢˊ)', mnemonic: '`trouble` (麻煩) = `t` + `rubble` (碎石堆)。在碎石堆裡會遇到麻煩 (`trouble`)。' },
+            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)', mnemonic: '`truck` (卡車) 聽起來像 `track` (軌道)。卡車行駛在軌道般的路上。' },
+            { en: 'truth', zh: '真相 (ㄓㄣ ㄒㄧㄤˋ)', mnemonic: '`Ruth` (人名) 總是說實話 (`truth`)。' },
+            { en: 'Tuesday', zh: '星期二 (ㄒㄧㄥ ㄑㄧˊ ㄦˋ)', mnemonic: '`Tuesday` 聽起來像 `Two` (二) + `s` + `day`。一週的第二天。' },
+            { en: 'tunnel', zh: '隧道 (ㄙㄨㄟˋ ㄉㄠˋ)', mnemonic: '`tun` (噸) + `nel` (nail, 釘子)。隧道 (`tunnel`) 裡有一噸 (`tun`) 重的釘子。' },
+            { en: 'user', zh: '使用者 (ㄕˇ ㄩㄥˋ ㄓㄜˇ)', mnemonic: '`use` (使用) + `r` (人)。使用的人就是使用者 (`user`)。' },
+            { en: 'vacation', zh: '假期 (ㄐㄧㄚˋ ㄑㄧ)', mnemonic: '`vacate` (空出) + `tion`。把時間空出來 (`vacate`) 去度假 (`vacation`)。' },
+            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)', mnemonic: '`valley` (山谷) 就像 `wall-ey`。兩面像牆 (`wall`) 一樣的山中間就是山谷。' },
+            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`Val` (Valentine, 情人) + `U` (你) + `E`。對情人 (`Val`) 來說，你 (`U`) 有很高的價值 (`value`)。' },
+            { en: 'violin', zh: '小提琴 (ㄒㄧㄠˇ ㄊㄧˊ ㄑㄧㄣ)', mnemonic: '`Viol` (violence, 暴力) + `in` (裡面)。小提琴 (`violin`) 的音樂裡沒有暴力 (`violence`)。' },
+            { en: 'visitor', zh: '訪客 (ㄈㄤˇ ㄎㄜˋ)', mnemonic: '`visit` (拜訪) + `or` (人)。來拜訪 (`visit`) 的人就是訪客 (`visitor`)。' },
+            { en: 'vocabulary', zh: '字彙 (ㄗˋ ㄏㄨㄟˋ)', mnemonic: '`vocal` (聲音) + `bulary`。用聲音 (`vocal`) 說出來的字彙 (`vocabulary`)。' },
+            { en: 'voice', zh: '聲音 (ㄕㄥ ㄧㄣ)', mnemonic: '`V` + `O` + `Ice` (冰)。美好的聲音 (`voice`) 可以融化冰 (`ice`) 冷的心。' },
+            { en: 'volleyball', zh: '排球 (ㄆㄞˊ ㄑㄧㄡˊ)', mnemonic: '`volley` (攔網/齊射) + `ball` (球)。將球 (`ball`) 在空中攔截擊回 (`volley`) 的運動。' },
+            { en: 'weapon', zh: '武器 (ㄨˇ ㄑㄧˋ)', mnemonic: '`We` (我們) + `ap` (ape, 猿猴) + `on` (在...上)。我們 (`We`) 給猿猴 (`ape`) 裝備了武器 (`weapon`)。' },
+            { en: 'wedding', zh: '婚禮 (ㄏㄨㄣ ㄌㄧˇ)', mnemonic: '`Wed` (結婚) + `ding` (鐘聲)。婚禮 (`wedding`) 上聽到了叮噹 (`ding`) 的鐘聲。' },
+            { en: 'Wednesday', zh: '星期三 (ㄒㄧㄥ ㄑㄧˊ ㄙㄢ)', mnemonic: '`Wed` (結婚) + `nes` + `day`。記住拼法：Wed-nes-day (在星期三結婚)。' },
+            { en: 'weekday', zh: '平日 (ㄆㄧㄥˊ ㄖˋ)', mnemonic: '`week` (週) + `day` (日)。週間的日子就是平日 (`weekday`)。' },
+            { en: 'weekend', zh: '週末 (ㄓㄡ ㄇㄛˋ)', mnemonic: '`week` (週) + `end` (結束)。一週的結束 (`end`) 就是週末 (`weekend`)。' },
+            { en: 'wonder', zh: '驚奇；想知道 (ㄐㄧㄥ ㄑㄧˊ)', mnemonic: '`Won` (贏) + `der` (the)。我想知道 (`wonder`) 誰贏了 (`Won`) 比賽。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -296,31 +297,32 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
-            startGame(); 
+            startGame(); // 初始化考試
         }
 
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
+            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
-            renderPracticeList(); 
-            resetPracticeState(); 
+            renderPracticeList(); // 產生練習列表
+            resetPracticeState(); // 重置按鈕狀態
         }
 
         /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false;
+        let areAnswersVisible = false; // 追蹤目前答案是否顯示
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
             btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f'; 
+            btn.style.backgroundColor = '#d32f2f'; // 紅色
         }
 
         function renderPracticeList() {
             const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = ''; 
+            listContainer.innerHTML = ''; // 清空
 
             words.forEach((word, index) => {
                 const row = document.createElement('div');
@@ -340,7 +342,7 @@
             });
         }
 
-        // 監聽鍵盤事件 (事件委派) - 按下 Enter 觸發批改
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -352,14 +354,14 @@
             const answers = document.querySelectorAll('.answer-text');
             const inputs = document.querySelectorAll('.practice-input');
 
-            areAnswersVisible = !areAnswersVisible; 
+            areAnswersVisible = !areAnswersVisible; // 切換狀態
 
             if (areAnswersVisible) {
-                // 顯示答案 & 批改
+                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50'; 
+                btn.style.backgroundColor = '#4CAF50'; // 綠色
                 
-                answers.forEach(el => el.style.display = 'block'); 
+                answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
                 // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
@@ -376,16 +378,16 @@
                 });
 
             } else {
-                // 隱藏答案
+                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f'; 
+                btn.style.backgroundColor = '#d32f2f'; // 紅色
                 
-                answers.forEach(el => el.style.display = 'none'); 
+                answers.forEach(el => el.style.display = 'none'); // 隱藏答案
             }
         }
 
 
-        /* --- 考試模式邏輯 --- */
+        /* --- 考試模式邏輯 (原程式碼) --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -409,6 +411,7 @@
             wrongWords = [];
             isWaitingToContinue = false;
             
+            // 重置UI
             document.getElementById('exam-restart').style.display = 'none';
             document.getElementById('exam-retest').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
@@ -446,7 +449,7 @@
                 return;
             }
 
-            // 考試模式：轉成小寫比對，不分大小寫
+            // 轉為小寫比對 (不分大小寫)
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -502,6 +505,7 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
+        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
