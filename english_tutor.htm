@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的 AI 英文家教 (Gemini 3)</title>
+    <title>寧寧的 AI 英文家教 (記憶版)</title>
     <style>
         :root {
             --primary-color: #4a90e2;
@@ -41,7 +41,33 @@
             margin-bottom: 10px;
         }
 
-        input[type="text"], textarea {
+        /* API Key 輸入區塊 */
+        .api-modal {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            text-align: center;
+        }
+
+        .api-modal h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+
+        .saved-key-info {
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eee;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        input[type="password"], input[type="text"], textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -65,6 +91,12 @@
             background-color: #357abd;
         }
 
+        button.secondary {
+            background-color: #6c757d;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
@@ -76,6 +108,7 @@
             border-radius: 10px;
             padding: 20px;
             background: #fafafa;
+            display: none; /* 預設隱藏，有 Key 才顯示 */
         }
 
         .question-box {
@@ -92,9 +125,9 @@
             background-color: var(--teacher-msg-bg);
             border-radius: 8px;
             border-left: 5px solid var(--primary-color);
-            display: none; /* 初始隱藏 */
+            display: none;
             line-height: 1.6;
-            white-space: pre-wrap; /* 保留換行 */
+            white-space: pre-wrap;
         }
 
         /* 聊天區塊 */
@@ -102,6 +135,7 @@
             margin-top: 20px;
             border-top: 2px solid #eee;
             padding-top: 20px;
+            display: none;
         }
 
         .chat-history {
@@ -142,7 +176,24 @@
 <body>
 
 <div class="container">
-    <h1>👩‍🏫 寧寧的專屬英文家教 (Gemini 3.0)</h1>
+    <h1>👩‍🏫 寧寧的 AI 英文家教</h1>
+
+    <div id="keyStatus" class="saved-key-info" style="display: none;">
+        <span>🔑 已載入儲存的 API Key</span>
+        <button class="secondary" onclick="clearKey()">更換/登出</button>
+    </div>
+
+    <div id="apiKeyModal" class="api-modal">
+        <h3>🔐 請輸入 Gemini API Key</h3>
+        <p style="font-size: 0.9em; margin-bottom: 15px;">
+            為了開始上課，請輸入你的 API Key。<br>
+            程式會自動將它存在你的瀏覽器裡，下次就不用再輸入囉！
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <input type="password" id="apiKeyInput" placeholder="貼上 API Key..." style="max-width: 300px;">
+            <button onclick="saveKey()">確認儲存</button>
+        </div>
+    </div>
 
     <div class="exercise-area" id="exerciseArea">
         <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">📝 出一題新的中翻英</button>
@@ -160,10 +211,9 @@
         <div id="feedback" class="feedback-area"></div>
     </div>
 
-    <div class="chat-section" id="chatSection" style="display: none;">
+    <div class="chat-section" id="chatSection">
         <h3>💬 課後提問</h3>
-        <div class="chat-history" id="chatHistory">
-            </div>
+        <div class="chat-history" id="chatHistory"></div>
         <div style="display: flex; gap: 10px;">
             <input type="text" id="followUpInput" placeholder="對這題還有疑問嗎？盡管問我...">
             <button onclick="askFollowUp()">發送</button>
@@ -172,14 +222,67 @@
 </div>
 
 <script>
-    // 你的 API Key
-    const apiKey = 'AIzaSyBal8aTKQIdn-4V5lvCr0TVVoXbtBB7RLc';
-    
+    let apiKey = '';
     let currentQuestion = '';
     let currentFeedback = '';
     let conversationHistory = [];
 
-    // Markdown 解析器
+    // --- 1. 核心邏輯：儲存與讀取 Key ---
+
+    // 網頁載入時執行
+    window.onload = function() {
+        checkSavedKey();
+    }
+
+    function checkSavedKey() {
+        // 從瀏覽器 LocalStorage 嘗試讀取
+        const savedKey = localStorage.getItem('gemini_my_key');
+        
+        if (savedKey) {
+            apiKey = savedKey;
+            showExerciseUI(); // 有 Key，直接顯示練習介面
+        } else {
+            showInputUI();    // 沒 Key，顯示輸入框
+        }
+    }
+
+    function saveKey() {
+        const input = document.getElementById('apiKeyInput').value;
+        if (input.trim() === '') {
+            alert('請輸入 API Key 喔！');
+            return;
+        }
+        
+        // 儲存到 LocalStorage
+        localStorage.setItem('gemini_my_key', input.trim());
+        apiKey = input.trim();
+        
+        alert('✅ Key 已儲存！下次打開網頁不用再輸入了。');
+        showExerciseUI();
+    }
+
+    function clearKey() {
+        if(confirm('確定要移除儲存的 API Key 嗎？')) {
+            localStorage.removeItem('gemini_my_key');
+            apiKey = '';
+            location.reload(); // 重新整理網頁
+        }
+    }
+
+    function showExerciseUI() {
+        document.getElementById('apiKeyModal').style.display = 'none';
+        document.getElementById('keyStatus').style.display = 'flex';
+        document.getElementById('exerciseArea').style.display = 'block';
+    }
+
+    function showInputUI() {
+        document.getElementById('apiKeyModal').style.display = 'block';
+        document.getElementById('keyStatus').style.display = 'none';
+        document.getElementById('exerciseArea').style.display = 'none';
+    }
+
+    // --- 2. 老師功能 (Gemini API) ---
+
     function parseMarkdown(text) {
         let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         html = html.replace(/^\* (.*$)/gm, '• $1<br>');
@@ -187,10 +290,11 @@
     }
 
     async function callGemini(prompt, history = []) {
-        // 修改點：這裡已更新為 gemini-3-flash-preview
+        if (!apiKey) return;
+
+        // 使用 gemini-3-flash-preview (如果不穩定可自行改回 gemini-1.5-flash)
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
         
-        // 建構 payload
         let contents = history.map(h => ({
             role: h.role,
             parts: [{ text: h.text }]
@@ -201,9 +305,7 @@
             parts: [{ text: prompt }]
         });
 
-        const payload = {
-            contents: contents
-        };
+        const payload = { contents: contents };
 
         try {
             const response = await fetch(url, {
@@ -214,26 +316,26 @@
 
             const data = await response.json();
             
-            if (data.error) {
-                console.error('API Error:', data.error);
-                throw new Error(data.error.message);
-            }
-            
-            if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-                throw new Error("API 回傳格式不如預期，可能是網路問題");
-            }
+            if (data.error) throw new Error(data.error.message);
+            if (!data.candidates || !data.candidates[0]) throw new Error("API 回傳異常");
 
             return data.candidates[0].content.parts[0].text;
         } catch (error) {
             console.error('Error:', error);
             alert('發生錯誤：' + error.message);
+            // 如果 Key 錯誤，提示使用者重設
+            if (error.message.includes('API key not valid')) {
+                clearKey();
+            }
             return null;
         }
     }
 
-    // 1. 出題功能
+    // --- 3. 互動功能 ---
+
     async function generateQuestion() {
         showLoading(true);
+        // 重置介面
         document.getElementById('studentAnswer').value = '';
         document.getElementById('feedback').style.display = 'none';
         document.getElementById('chatSection').style.display = 'none';
@@ -251,14 +353,12 @@
         showLoading(false);
     }
 
-    // 2. 批改功能
     async function gradeAnswer() {
         const answer = document.getElementById('studentAnswer').value;
         if (!answer.trim()) {
             alert('請先輸入你的答案喔！');
             return;
         }
-
         showLoading(true);
         
         const prompt = `
@@ -279,16 +379,13 @@
             const feedbackDiv = document.getElementById('feedback');
             feedbackDiv.innerHTML = parseMarkdown(feedback);
             feedbackDiv.style.display = 'block';
-            
             document.getElementById('chatSection').style.display = 'block';
-            
             conversationHistory.push({ role: "user", text: `我的翻譯是：${answer}` });
             conversationHistory.push({ role: "model", text: feedback });
         }
         showLoading(false);
     }
 
-    // 3. 追問功能
     async function askFollowUp() {
         const input = document.getElementById('followUpInput');
         const question = input.value;
@@ -296,11 +393,9 @@
 
         addChatBubble(question, 'student');
         input.value = '';
-        
         const loadingBubble = addChatBubble('...', 'teacher', true);
 
         const response = await callGemini(question, conversationHistory);
-        
         loadingBubble.remove();
 
         if (response) {
@@ -324,10 +419,12 @@
     function showLoading(show) {
         document.getElementById('loading').style.display = show ? 'block' : 'none';
         const buttons = document.querySelectorAll('button');
-        buttons.forEach(b => b.disabled = show);
+        // 排除掉「更換 Key」的按鈕，以免卡死
+        buttons.forEach(b => {
+            if (!b.classList.contains('secondary')) b.disabled = show;
+        });
     }
 </script>
 
 </body>
-
 </html>
