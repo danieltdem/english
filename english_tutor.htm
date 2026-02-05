@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的 AI 英文家教 (Gemma 3)</title>
+    <title>寧寧的 AI 英文家教 (隨機出題版)</title>
     <style>
         :root {
-            --primary-color: #2c974b; /* Gemma 的代表色通常偏向綠色系，稍微改一下讓妳有新鮮感 */
-            --bg-color: #f0f7f4;
-            --chat-bg: #ffffff;
-            --teacher-msg-bg: #e6ffed;
-            --student-msg-bg: #f5f5f5;
+            --primary-color: #6a11cb; /* 換個優雅的紫色，代表更有創意的版本 */
+            --bg-color: #f3f4f6;
+            --teacher-msg-bg: #e0c3fc;
+            --student-msg-bg: #ffffff;
         }
 
         body {
@@ -50,11 +49,6 @@
             text-align: center;
         }
 
-        .api-modal h3 {
-            margin-top: 0;
-            color: #856404;
-        }
-
         .saved-key-info {
             font-size: 0.9em;
             color: #666;
@@ -67,7 +61,7 @@
             margin-bottom: 10px;
         }
 
-        input[type="password"], input[type="text"], textarea {
+        input, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -87,20 +81,9 @@
             transition: background 0.3s;
         }
 
-        button:hover {
-            background-color: #21853d;
-        }
-
-        button.secondary {
-            background-color: #6c757d;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-        
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+        button:hover { filter: brightness(1.1); }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        button.secondary { background-color: #6c757d; padding: 5px 10px; font-size: 12px; }
 
         /* 練習區塊 */
         .exercise-area {
@@ -108,7 +91,17 @@
             border-radius: 10px;
             padding: 20px;
             background: #fafafa;
-            display: none; /* 預設隱藏，有 Key 才顯示 */
+            display: none; 
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: #ff9a9e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin-bottom: 5px;
         }
 
         .question-box {
@@ -124,7 +117,6 @@
             padding: 15px;
             background-color: var(--teacher-msg-bg);
             border-radius: 8px;
-            border-left: 5px solid var(--primary-color);
             display: none;
             line-height: 1.6;
             white-space: pre-wrap;
@@ -153,16 +145,8 @@
             max-width: 80%;
         }
 
-        .msg.teacher {
-            background-color: var(--teacher-msg-bg);
-            align-self: flex-start;
-        }
-
-        .msg.student {
-            background-color: var(--student-msg-bg);
-            align-self: flex-end;
-            text-align: right;
-        }
+        .msg.teacher { background-color: var(--teacher-msg-bg); align-self: flex-start; }
+        .msg.student { background-color: var(--student-msg-bg); align-self: flex-end; border: 1px solid #ddd; }
 
         .loading {
             text-align: center;
@@ -170,53 +154,49 @@
             font-style: italic;
             display: none;
         }
-
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>👩‍🏫 寧寧的 AI 英文家教 (Gemma 版)</h1>
+    <h1>👩‍🏫 寧寧的 AI 英文家教 (v5.0)</h1>
 
     <div id="keyStatus" class="saved-key-info" style="display: none;">
-        <span>🔑 已載入儲存的 API Key</span>
-        <button class="secondary" onclick="clearKey()">更換/登出</button>
+        <span>🔑 API Key 已就緒</span>
+        <button class="secondary" onclick="clearKey()">更換 Key</button>
     </div>
 
     <div id="apiKeyModal" class="api-modal">
-        <h3>🔐 請輸入 Google API Key</h3>
-        <p style="font-size: 0.9em; margin-bottom: 15px;">
-            系統將使用 <b>Gemma 3 12B</b> 模型。<br>
-            程式會自動將 Key 存在你的瀏覽器裡，下次就不用再輸入囉！
-        </p>
+        <h3>🔐 設定 API Key</h3>
+        <p>請輸入 Gemini API Key (將自動儲存於瀏覽器)</p>
         <div style="display: flex; gap: 10px; justify-content: center;">
             <input type="password" id="apiKeyInput" placeholder="貼上 API Key..." style="max-width: 300px;">
-            <button onclick="saveKey()">確認儲存</button>
+            <button onclick="saveKey()">儲存</button>
         </div>
     </div>
 
     <div class="exercise-area" id="exerciseArea">
-        <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">📝 出一題新的中翻英</button>
+        <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">🎲 隨機出一題</button>
         
-        <div class="question-box" id="questionText">請點擊上方按鈕，Gemma 老師就會出題囉！</div>
+        <div id="topicTag" style="display:none;" class="topic-badge">主題：生活</div>
+        <div class="question-box" id="questionText">請點擊上方按鈕開始...</div>
         
-        <textarea id="studentAnswer" rows="3" placeholder="請在此輸入你的英文翻譯..."></textarea>
+        <textarea id="studentAnswer" rows="3" placeholder="輸入你的翻譯..."></textarea>
         
         <div style="margin-top: 10px; text-align: right;">
-            <button onclick="gradeAnswer()" id="gradeBtn">✅ 批改答案</button>
+            <button onclick="gradeAnswer()" id="gradeBtn">✅ 批改</button>
         </div>
 
-        <div id="loading" class="loading">Gemma 老師正在思考中... 🧠</div>
-        
+        <div id="loading" class="loading">老師正在思考... 🧠</div>
         <div id="feedback" class="feedback-area"></div>
     </div>
 
     <div class="chat-section" id="chatSection">
-        <h3>💬 課後提問</h3>
+        <h3>💬 提問</h3>
         <div class="chat-history" id="chatHistory"></div>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="followUpInput" placeholder="對這題還有疑問嗎？盡管問我...">
-            <button onclick="askFollowUp()">發送</button>
+            <input type="text" id="followUpInput" placeholder="有問題盡管問...">
+            <button onclick="askFollowUp()">送出</button>
         </div>
     </div>
 </div>
@@ -224,43 +204,33 @@
 <script>
     let apiKey = '';
     let currentQuestion = '';
-    let currentFeedback = '';
     let conversationHistory = [];
 
-    // --- 1. 核心邏輯：儲存與讀取 Key ---
+    // 主題抽獎箱：定義各種生活情境
+    const topics = [
+        "去餐廳點餐", "在機場辦理登機", "看醫生與健康", "週末的休閒活動", 
+        "辦公室與工作", "購物與殺價", "迷路問路", "天氣與季節", 
+        "介紹自己的家庭", "討論喜歡的電影", "預訂飯店", "搭乘大眾運輸",
+        "使用手機與科技", "烹飪與食物", "朋友之間的閒聊"
+    ];
 
-    window.onload = function() {
-        checkSavedKey();
-    }
+    window.onload = function() { checkSavedKey(); }
 
     function checkSavedKey() {
         const savedKey = localStorage.getItem('gemini_my_key');
-        if (savedKey) {
-            apiKey = savedKey;
-            showExerciseUI(); 
-        } else {
-            showInputUI();
-        }
+        if (savedKey) { apiKey = savedKey; showExerciseUI(); } else { showInputUI(); }
     }
 
     function saveKey() {
-        const input = document.getElementById('apiKeyInput').value;
-        if (input.trim() === '') {
-            alert('請輸入 API Key 喔！');
-            return;
-        }
-        localStorage.setItem('gemini_my_key', input.trim());
-        apiKey = input.trim();
-        alert('✅ Key 已儲存！開始使用 Gemma 模型。');
+        const input = document.getElementById('apiKeyInput').value.trim();
+        if (!input) return alert('請輸入 Key');
+        localStorage.setItem('gemini_my_key', input);
+        apiKey = input;
         showExerciseUI();
     }
 
     function clearKey() {
-        if(confirm('確定要移除儲存的 API Key 嗎？')) {
-            localStorage.removeItem('gemini_my_key');
-            apiKey = '';
-            location.reload(); 
-        }
+        if(confirm('確定清除 Key？')) { localStorage.removeItem('gemini_my_key'); location.reload(); }
     }
 
     function showExerciseUI() {
@@ -275,62 +245,42 @@
         document.getElementById('exerciseArea').style.display = 'none';
     }
 
-    // --- 2. 老師功能 (Gemini API 呼叫 Gemma) ---
-
+    // Markdown 處理
     function parseMarkdown(text) {
         let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         html = html.replace(/^\* (.*$)/gm, '• $1<br>');
         return html;
     }
 
+    // API 呼叫核心
     async function callGemini(prompt, history = []) {
         if (!apiKey) return;
-
-        // 【修改點】 這裡更換成了 Gemma 3 的模型 ID
-        // 注意：如果 API 回傳 404 Not Found，表示該 Key 的權限無法存取 Gemma，
-        // 建議改回 'gemini-1.5-flash'
-        const modelId = 'gemma-3-12b-it'; 
+        // 建議改回使用 gemini-1.5-flash，因為它在處理這種創意隨機性上比 Gemma 穩定
+        // 如果妳堅持要用 Gemma，可以把下面這行改成 gemma-3-12b-it
+        const modelId = 'gemini-1.5-flash'; 
         
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${apiKey}`;
         
-        let contents = history.map(h => ({
-            role: h.role,
-            parts: [{ text: h.text }]
-        }));
-        
-        contents.push({
-            role: "user",
-            parts: [{ text: prompt }]
-        });
-
-        const payload = { contents: contents };
+        let contents = history.map(h => ({ role: h.role, parts: [{ text: h.text }] }));
+        contents.push({ role: "user", parts: [{ text: prompt }] });
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ contents: contents })
             });
-
             const data = await response.json();
-            
             if (data.error) throw new Error(data.error.message);
-            if (!data.candidates || !data.candidates[0]) throw new Error("API 回傳異常，可能是模型不支援");
-
             return data.candidates[0].content.parts[0].text;
         } catch (error) {
-            console.error('Error:', error);
-            alert(`發生錯誤：${error.message}\n\n(提示：如果顯示 model not found，表示 API Key 可能尚未支援 Gemma 模型，建議改回 Gemini)`);
-            
-            if (error.message.includes('API key not valid')) {
-                clearKey();
-            }
+            console.error(error);
+            alert('錯誤：' + error.message);
             return null;
         }
     }
 
-    // --- 3. 互動功能 ---
-
+    // --- 1. 出題功能 (加入隨機性) ---
     async function generateQuestion() {
         showLoading(true);
         document.getElementById('studentAnswer').value = '';
@@ -339,7 +289,20 @@
         document.getElementById('chatHistory').innerHTML = '';
         conversationHistory = []; 
 
-        const prompt = "你是我的英文老師。請出一個「中文句子」讓我練習翻譯成英文。句子難度適合中級學習者，生活化一點。請只回傳該中文句子，不要有其他廢話。";
+        // 隨機抽一個主題
+        const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+        // 顯示主題給學生看
+        const tag = document.getElementById('topicTag');
+        tag.innerText = `主題：${randomTopic}`;
+        tag.style.display = 'inline-block';
+
+        // Prompt：強制指定主題，並加入隨機亂碼 (Date.now) 確保每次請求都不同
+        const prompt = `
+        你是我的英文老師。請出一個關於「${randomTopic}」的中文句子讓我練習翻譯。
+        難度：中級 (適合一般生活對話)。
+        請只回傳該中文句子，不要有其他廢話。
+        (Random Seed: ${Date.now()})
+        `;
         
         const question = await callGemini(prompt);
         if (question) {
@@ -350,32 +313,27 @@
         showLoading(false);
     }
 
+    // --- 2. 批改功能 ---
     async function gradeAnswer() {
         const answer = document.getElementById('studentAnswer').value;
-        if (!answer.trim()) {
-            alert('請先輸入你的答案喔！');
-            return;
-        }
+        if (!answer.trim()) return alert('請輸入答案');
         showLoading(true);
         
-        // 為了讓 Gemma 也能聽懂指令，這裡的 Prompt 稍微精簡化一點
         const prompt = `
         題目：${currentQuestion}
-        學生的回答：${answer}
+        學生的翻譯：${answer}
         
-        請扮演英文老師「寧寧的家教」。
-        1. 評分並指出錯誤。
-        2. 解釋文法或用詞。
-        3. 給出 2 個更好的道地講法。
-        請用繁體中文回答，語氣要親切。
+        請扮演親切的英文老師。
+        1. 評分 (1-100)。
+        2. 指出哪裡翻得好，哪裡有文法錯誤。
+        3. 提供 2 個更自然的英文講法。
+        請用繁體中文回答。
         `;
 
         const feedback = await callGemini(prompt);
         if (feedback) {
-            currentFeedback = feedback;
-            const feedbackDiv = document.getElementById('feedback');
-            feedbackDiv.innerHTML = parseMarkdown(feedback);
-            feedbackDiv.style.display = 'block';
+            document.getElementById('feedback').innerHTML = parseMarkdown(feedback);
+            document.getElementById('feedback').style.display = 'block';
             document.getElementById('chatSection').style.display = 'block';
             conversationHistory.push({ role: "user", text: `我的翻譯是：${answer}` });
             conversationHistory.push({ role: "model", text: feedback });
@@ -383,42 +341,38 @@
         showLoading(false);
     }
 
+    // --- 3. 追問功能 ---
     async function askFollowUp() {
         const input = document.getElementById('followUpInput');
-        const question = input.value;
-        if (!question.trim()) return;
+        const text = input.value.trim();
+        if (!text) return;
 
-        addChatBubble(question, 'student');
+        addBubble(text, 'student');
         input.value = '';
-        const loadingBubble = addChatBubble('...', 'teacher', true);
+        const loading = addBubble('...', 'teacher', true);
 
-        const response = await callGemini(question, conversationHistory);
-        loadingBubble.remove();
+        const response = await callGemini(text, conversationHistory);
+        loading.remove();
 
         if (response) {
-            addChatBubble(response, 'teacher');
-            conversationHistory.push({ role: "user", text: question });
+            addBubble(response, 'teacher');
+            conversationHistory.push({ role: "user", text: text });
             conversationHistory.push({ role: "model", text: response });
         }
     }
 
-    function addChatBubble(text, type, isLoading = false) {
-        const history = document.getElementById('chatHistory');
+    function addBubble(text, type, temp = false) {
         const div = document.createElement('div');
         div.className = `msg ${type}`;
         div.innerHTML = parseMarkdown(text);
-        if (isLoading) div.id = 'tempLoading';
-        history.appendChild(div);
-        history.scrollTop = history.scrollHeight;
+        document.getElementById('chatHistory').appendChild(div);
         return div;
     }
 
     function showLoading(show) {
         document.getElementById('loading').style.display = show ? 'block' : 'none';
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(b => {
-            if (!b.classList.contains('secondary')) b.disabled = show;
-        });
+        const btns = document.querySelectorAll('button:not(.secondary)');
+        btns.forEach(b => b.disabled = show);
     }
 </script>
 
