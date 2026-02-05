@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的 AI 英文家教 (隨機出題版)</title>
+    <title>寧寧的 AI 英文家教 (Gemma 3)</title>
     <style>
         :root {
-            --primary-color: #6a11cb; /* 換個優雅的紫色，代表更有創意的版本 */
-            --bg-color: #f3f4f6;
-            --teacher-msg-bg: #e0c3fc;
-            --student-msg-bg: #ffffff;
+            --primary-color: #d93025; /* 改個顏色換換心情 */
+            --bg-color: #fff8f8;
+            --chat-bg: #ffffff;
+            --teacher-msg-bg: #ffebeb;
+            --student-msg-bg: #f5f5f5;
         }
 
         body {
@@ -40,15 +41,6 @@
             margin-bottom: 10px;
         }
 
-        /* API Key 輸入區塊 */
-        .api-modal {
-            background-color: #fff3cd;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ffeeba;
-            text-align: center;
-        }
-
         .saved-key-info {
             font-size: 0.9em;
             color: #666;
@@ -61,7 +53,15 @@
             margin-bottom: 10px;
         }
 
-        input, textarea {
+        .api-modal {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            text-align: center;
+        }
+
+        input[type="password"], input[type="text"], textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -81,27 +81,27 @@
             transition: background 0.3s;
         }
 
-        button:hover { filter: brightness(1.1); }
-        button:disabled { background-color: #ccc; cursor: not-allowed; }
-        button.secondary { background-color: #6c757d; padding: 5px 10px; font-size: 12px; }
+        button:hover {
+            background-color: #b92b27;
+        }
 
-        /* 練習區塊 */
+        button.secondary {
+            background-color: #6c757d;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
         .exercise-area {
             border: 1px solid #eee;
             border-radius: 10px;
             padding: 20px;
             background: #fafafa;
-            display: none; 
-        }
-
-        .topic-badge {
-            display: inline-block;
-            background-color: #ff9a9e;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8em;
-            margin-bottom: 5px;
+            display: none;
         }
 
         .question-box {
@@ -117,12 +117,12 @@
             padding: 15px;
             background-color: var(--teacher-msg-bg);
             border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
             display: none;
             line-height: 1.6;
             white-space: pre-wrap;
         }
 
-        /* 聊天區塊 */
         .chat-section {
             margin-top: 20px;
             border-top: 2px solid #eee;
@@ -145,8 +145,16 @@
             max-width: 80%;
         }
 
-        .msg.teacher { background-color: var(--teacher-msg-bg); align-self: flex-start; }
-        .msg.student { background-color: var(--student-msg-bg); align-self: flex-end; border: 1px solid #ddd; }
+        .msg.teacher {
+            background-color: var(--teacher-msg-bg);
+            align-self: flex-start;
+        }
+
+        .msg.student {
+            background-color: var(--student-msg-bg);
+            align-self: flex-end;
+            text-align: right;
+        }
 
         .loading {
             text-align: center;
@@ -159,44 +167,44 @@
 <body>
 
 <div class="container">
-    <h1>👩‍🏫 寧寧的 AI 英文家教 (v5.0)</h1>
+    <h1>👩‍🏫 寧寧的 AI 英文家教 (隨機出題版)</h1>
 
     <div id="keyStatus" class="saved-key-info" style="display: none;">
-        <span>🔑 API Key 已就緒</span>
-        <button class="secondary" onclick="clearKey()">更換 Key</button>
+        <span>🔑 已載入 API Key (Gemma 3 12B)</span>
+        <button class="secondary" onclick="clearKey()">更換/登出</button>
     </div>
 
     <div id="apiKeyModal" class="api-modal">
-        <h3>🔐 設定 API Key</h3>
-        <p>請輸入 Gemini API Key (將自動儲存於瀏覽器)</p>
+        <h3>🔐 請輸入 Google API Key</h3>
+        <p>系統將使用 <b>Gemma 3 12B</b> 模型。<br>Key 會存在瀏覽器中。</p>
         <div style="display: flex; gap: 10px; justify-content: center;">
             <input type="password" id="apiKeyInput" placeholder="貼上 API Key..." style="max-width: 300px;">
-            <button onclick="saveKey()">儲存</button>
+            <button onclick="saveKey()">確認儲存</button>
         </div>
     </div>
 
     <div class="exercise-area" id="exerciseArea">
-        <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">🎲 隨機出一題</button>
+        <button onclick="generateQuestion()" style="width: 100%; margin-bottom: 15px;">🎲 隨機出一題中翻英</button>
         
-        <div id="topicTag" style="display:none;" class="topic-badge">主題：生活</div>
         <div class="question-box" id="questionText">請點擊上方按鈕開始...</div>
         
-        <textarea id="studentAnswer" rows="3" placeholder="輸入你的翻譯..."></textarea>
+        <textarea id="studentAnswer" rows="3" placeholder="請在此輸入你的英文翻譯..."></textarea>
         
         <div style="margin-top: 10px; text-align: right;">
-            <button onclick="gradeAnswer()" id="gradeBtn">✅ 批改</button>
+            <button onclick="gradeAnswer()" id="gradeBtn">✅ 批改答案</button>
         </div>
 
-        <div id="loading" class="loading">老師正在思考... 🧠</div>
+        <div id="loading" class="loading">Gemma 老師正在想題目... 🧠</div>
+        
         <div id="feedback" class="feedback-area"></div>
     </div>
 
     <div class="chat-section" id="chatSection">
-        <h3>💬 提問</h3>
+        <h3>💬 課後提問</h3>
         <div class="chat-history" id="chatHistory"></div>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="followUpInput" placeholder="有問題盡管問...">
-            <button onclick="askFollowUp()">送出</button>
+            <input type="text" id="followUpInput" placeholder="有疑問盡管問...">
+            <button onclick="askFollowUp()">發送</button>
         </div>
     </div>
 </div>
@@ -204,15 +212,8 @@
 <script>
     let apiKey = '';
     let currentQuestion = '';
+    let currentFeedback = '';
     let conversationHistory = [];
-
-    // 主題抽獎箱：定義各種生活情境
-    const topics = [
-        "去餐廳點餐", "在機場辦理登機", "看醫生與健康", "週末的休閒活動", 
-        "辦公室與工作", "購物與殺價", "迷路問路", "天氣與季節", 
-        "介紹自己的家庭", "討論喜歡的電影", "預訂飯店", "搭乘大眾運輸",
-        "使用手機與科技", "烹飪與食物", "朋友之間的閒聊"
-    ];
 
     window.onload = function() { checkSavedKey(); }
 
@@ -222,15 +223,18 @@
     }
 
     function saveKey() {
-        const input = document.getElementById('apiKeyInput').value.trim();
-        if (!input) return alert('請輸入 Key');
-        localStorage.setItem('gemini_my_key', input);
-        apiKey = input;
+        const input = document.getElementById('apiKeyInput').value;
+        if (input.trim() === '') { alert('請輸入 API Key'); return; }
+        localStorage.setItem('gemini_my_key', input.trim());
+        apiKey = input.trim();
         showExerciseUI();
     }
 
     function clearKey() {
-        if(confirm('確定清除 Key？')) { localStorage.removeItem('gemini_my_key'); location.reload(); }
+        if(confirm('確定要移除儲存的 API Key 嗎？')) {
+            localStorage.removeItem('gemini_my_key');
+            location.reload(); 
+        }
     }
 
     function showExerciseUI() {
@@ -245,42 +249,58 @@
         document.getElementById('exerciseArea').style.display = 'none';
     }
 
-    // Markdown 處理
     function parseMarkdown(text) {
         let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         html = html.replace(/^\* (.*$)/gm, '• $1<br>');
         return html;
     }
 
-    // API 呼叫核心
-    async function callGemini(prompt, history = []) {
+    async function callGemini(prompt, history = [], temperature = 0.7) {
         if (!apiKey) return;
-        // 建議改回使用 gemini-1.5-flash，因為它在處理這種創意隨機性上比 Gemma 穩定
-        // 如果妳堅持要用 Gemma，可以把下面這行改成 gemma-3-12b-it
-        const modelId = 'gemini-1.5-flash'; 
-        
+
+        const modelId = 'gemma-3-12b-it'; 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${apiKey}`;
         
-        let contents = history.map(h => ({ role: h.role, parts: [{ text: h.text }] }));
-        contents.push({ role: "user", parts: [{ text: prompt }] });
+        let contents = history.map(h => ({
+            role: h.role,
+            parts: [{ text: h.text }]
+        }));
+        
+        contents.push({
+            role: "user",
+            parts: [{ text: prompt }]
+        });
+
+        // 這裡加入了 generationConfig 來控制隨機性 (temperature)
+        const payload = { 
+            contents: contents,
+            generationConfig: {
+                temperature: temperature
+            }
+        };
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: contents })
+                body: JSON.stringify(payload)
             });
+
             const data = await response.json();
+            
             if (data.error) throw new Error(data.error.message);
+            if (!data.candidates || !data.candidates[0]) throw new Error("API 回傳異常");
+
             return data.candidates[0].content.parts[0].text;
         } catch (error) {
-            console.error(error);
-            alert('錯誤：' + error.message);
+            console.error('Error:', error);
+            alert(`發生錯誤：${error.message}`);
+            if (error.message.includes('API key not valid')) clearKey();
             return null;
         }
     }
 
-    // --- 1. 出題功能 (加入隨機性) ---
+    // --- 隨機出題邏輯 ---
     async function generateQuestion() {
         showLoading(true);
         document.getElementById('studentAnswer').value = '';
@@ -289,22 +309,35 @@
         document.getElementById('chatHistory').innerHTML = '';
         conversationHistory = []; 
 
-        // 隨機抽一個主題
+        // 1. 定義隨機主題庫
+        const topics = [
+            "計畫週末去哪裡玩", "在餐廳點餐", "抱怨工作太忙", "分享最近看的一部電影", 
+            "去醫院看病", "在機場辦理登機", "網購退貨", "詢問路人方向", 
+            "天氣變化", "與朋友的爭執", "未來的夢想", "童年的回憶",
+            "在咖啡廳工作", "領養寵物", "準備考試"
+        ];
+        
+        // 2. 隨機選一個
         const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-        // 顯示主題給學生看
-        const tag = document.getElementById('topicTag');
-        tag.innerText = `主題：${randomTopic}`;
-        tag.style.display = 'inline-block';
+        
+        // 3. 加上時間戳記 (Timestamp) 確保每次 Prompt 在電腦看起來都不一樣
+        const timestamp = new Date().getTime();
 
-        // Prompt：強制指定主題，並加入隨機亂碼 (Date.now) 確保每次請求都不同
         const prompt = `
-        你是我的英文老師。請出一個關於「${randomTopic}」的中文句子讓我練習翻譯。
-        難度：中級 (適合一般生活對話)。
-        請只回傳該中文句子，不要有其他廢話。
-        (Random Seed: ${Date.now()})
+        你是我的英文老師。
+        請出一個關於「${randomTopic}」的中文句子讓我練習翻譯成英文。
+        
+        要求：
+        1. 句子難度適合中級學習者。
+        2. 生活化一點。
+        3. 請只回傳該中文句子，不要有其他廢話。
+        
+        (Random Seed: ${timestamp})
         `;
         
-        const question = await callGemini(prompt);
+        // 呼叫時把 temperature 調高到 1.0 (最隨機)
+        const question = await callGemini(prompt, [], 1.0);
+        
         if (question) {
             currentQuestion = question;
             document.getElementById('questionText').innerText = question;
@@ -313,27 +346,29 @@
         showLoading(false);
     }
 
-    // --- 2. 批改功能 ---
     async function gradeAnswer() {
         const answer = document.getElementById('studentAnswer').value;
-        if (!answer.trim()) return alert('請輸入答案');
+        if (!answer.trim()) { alert('請先輸入答案'); return; }
         showLoading(true);
         
         const prompt = `
         題目：${currentQuestion}
-        學生的翻譯：${answer}
+        學生的回答：${answer}
         
-        請扮演親切的英文老師。
-        1. 評分 (1-100)。
-        2. 指出哪裡翻得好，哪裡有文法錯誤。
-        3. 提供 2 個更自然的英文講法。
+        請扮演親切的英文老師「寧寧的家教」。
+        1. 評分並指出錯誤。
+        2. 解釋文法或用詞。
+        3. 給出 2 個更好的道地講法。
         請用繁體中文回答。
         `;
 
+        // 批改時不需要太隨機，用預設值 0.7 即可
         const feedback = await callGemini(prompt);
         if (feedback) {
-            document.getElementById('feedback').innerHTML = parseMarkdown(feedback);
-            document.getElementById('feedback').style.display = 'block';
+            currentFeedback = feedback;
+            const feedbackDiv = document.getElementById('feedback');
+            feedbackDiv.innerHTML = parseMarkdown(feedback);
+            feedbackDiv.style.display = 'block';
             document.getElementById('chatSection').style.display = 'block';
             conversationHistory.push({ role: "user", text: `我的翻譯是：${answer}` });
             conversationHistory.push({ role: "model", text: feedback });
@@ -341,38 +376,40 @@
         showLoading(false);
     }
 
-    // --- 3. 追問功能 ---
     async function askFollowUp() {
         const input = document.getElementById('followUpInput');
-        const text = input.value.trim();
-        if (!text) return;
+        const question = input.value;
+        if (!question.trim()) return;
 
-        addBubble(text, 'student');
+        addChatBubble(question, 'student');
         input.value = '';
-        const loading = addBubble('...', 'teacher', true);
+        const loadingBubble = addChatBubble('...', 'teacher', true);
 
-        const response = await callGemini(text, conversationHistory);
-        loading.remove();
+        const response = await callGemini(question, conversationHistory);
+        loadingBubble.remove();
 
         if (response) {
-            addBubble(response, 'teacher');
-            conversationHistory.push({ role: "user", text: text });
+            addChatBubble(response, 'teacher');
+            conversationHistory.push({ role: "user", text: question });
             conversationHistory.push({ role: "model", text: response });
         }
     }
 
-    function addBubble(text, type, temp = false) {
+    function addChatBubble(text, type, isLoading = false) {
+        const history = document.getElementById('chatHistory');
         const div = document.createElement('div');
         div.className = `msg ${type}`;
         div.innerHTML = parseMarkdown(text);
-        document.getElementById('chatHistory').appendChild(div);
+        if (isLoading) div.id = 'tempLoading';
+        history.appendChild(div);
+        history.scrollTop = history.scrollHeight;
         return div;
     }
 
     function showLoading(show) {
         document.getElementById('loading').style.display = show ? 'block' : 'none';
-        const btns = document.querySelectorAll('button:not(.secondary)');
-        btns.forEach(b => b.disabled = show);
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(b => { if (!b.classList.contains('secondary')) b.disabled = show; });
     }
 </script>
 
