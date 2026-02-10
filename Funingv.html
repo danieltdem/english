@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共13題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,19 +262,21 @@
 
     <script>
         const words = [
-            { en: 'region', zh: '地區 (ㄉㄧˋ ㄑㄩ)', mnemonic: '`region` (地區) 聽起來像 `religion` (宗教)。每個地區 (`region`) 都有它自己的宗教 (`religion`)。' },
-            { en: 'restaurant', zh: '餐廳 (ㄘㄢ ㄊㄧㄥ)', mnemonic: '`rest` (休息) + `aur` (gold, 金子) + `ant` (螞蟻)。螞蟻 (`ant`) 在餐廳 (`restaurant`) 休息 (`rest`)，還找到了金子 (`aur`)。' },
-            { en: 'restroom', zh: '洗手間 (ㄒㄧˇ ㄕㄡˇ ㄐㄧㄢ)', mnemonic: '`rest` (休息) + `room` (房間)。一個讓你休息 (`rest`) 的房間 (`room`)，通常指洗手間 (`restroom`)。' },
-            { en: 'Russia', zh: '俄羅斯 (ㄜˊ ㄌㄨㄛˊ ㄙ)', mnemonic: '`Russia` 聽起來像 `Rush` (衝/趕) + `ia`。在俄羅斯 (`Russia`) 不要太衝忙 (`rush`)。' },
-            { en: 'school', zh: '學校 (ㄒㄩㄝˊ ㄒㄧㄠˋ)', mnemonic: '`school` (學校) 聽起來像 `s` + `cool` (酷)。學校 (`school`) 是一個很酷 (`cool`) 的地方。' },
-            { en: 'shop', zh: '商店 (ㄕㄤ ㄉㄧㄢˋ)', mnemonic: '`shop` (商店) 聽起來像 `chop` (切/砍)。你去肉店 (`shop`) 看屠夫切 (`chop`) 肉。' },
-            { en: 'Singapore', zh: '新加坡 (ㄒㄧㄣ ㄐㄧㄚ ㄆㄛ)', mnemonic: '`Sing` (唱歌) + `a` + `pore` (毛孔)。在新加坡 (`Singapore`)，大家興奮到用全身的毛孔 (`pore`) 在唱歌 (`sing`)。' },
-            { en: 'station', zh: '車站 (ㄔㄜ ㄓㄢˋ)', mnemonic: '`station` (車站) 裡有 `stay` (停留)。人們在車站 (`station`) 停留 (`stay`) 等車。' },
-            { en: 'supermarket', zh: '超市 (ㄔㄠ ㄕˋ)', mnemonic: '`super` (超級) + `market` (市場)。一個超級 (`super`) 大的市場 (`market`) 就是超市 (`supermarket`)。' },
-            { en: 'temple', zh: '寺廟 (ㄙˋ ㄇㄧㄠˋ)', mnemonic: '`temple` (寺廟) 聽起來像 `temporary` (暫時的)。生命是短暫的 (`temporary`)，所以去寺廟 (`temple`) 祈禱吧。' },
-            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下去) 押韻。讓我們下去 (`down`) 城鎮 (`town`) 逛逛。' },
-            { en: 'university', zh: '大學 (ㄉㄚˋ ㄒㄩㄝˊ)', mnemonic: '`universe` (宇宙) + `city` (城市)。大學 (`university`) 就像是宇宙 (`universe`) 中一座充滿知識的城市 (`city`)。' },
-            { en: 'zoo', zh: '動物園 (ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ)', mnemonic: '`zoo` 看起來像 `200`。動物園 (`zoo`) 裡有超過兩百 (`200`) 種動物。' }
+            { en: 'afternoon', zh: '下午 (ㄒㄧㄚˋ ㄨˇ)', mnemonic: '`after` (在...之後) + `noon` (中午)。中午之後就是下午 (`afternoon`)。' },
+            { en: 'air', zh: '空氣 (ㄎㄨㄥ ㄑㄧˋ)', mnemonic: '`air` (空氣) 聽起來像 `hair` (頭髮) 去掉 `h`。我們需要空氣 (`air`) 就像我們頭上有頭髮 (`hair`) 一樣自然。' },
+            { en: 'autumn', zh: '秋天 (ㄑㄧㄡ ㄊㄧㄢ)', mnemonic: '`Au` (化學符號金) + `tumn` (turn, 轉變)。樹葉在秋天 (`autumn`) 轉變成金黃色。' },
+            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`Ban` (禁止) + `k`。如果你搶銀行 (`bank`)，你就會被禁止 (`Ban`) 進入。' },
+            { en: 'beach', zh: '海灘 (ㄏㄞˇ ㄊㄢ)', mnemonic: '`beach` (海灘) 和 `peach` (桃子) 押韻。想像你在海灘 (`beach`) 上吃著桃子 (`peach`)。' },
+            { en: 'climate', zh: '氣候 (ㄑㄧˋ ㄏㄡˋ)', mnemonic: '`climb` (爬) + `mate` (夥伴)。夥伴 (`mate`)，當你爬 (`climb`) 山時，氣候 (`climate`) 會改變。' },
+            { en: 'dawn', zh: '黎明 (ㄌㄧˊ ㄇㄧㄥˊ)', mnemonic: '`Dawn` 聽起來像 `Down` (下)。太陽在黃昏下山 (`down`)，但在黎明 (`dawn`) 升起。' },
+            { en: 'diamond', zh: '鑽石 (ㄗㄨㄢˋ ㄕˊ)', mnemonic: '`die` (死/硬的) + `a` + `mond` (世界)。鑽石 (`diamond`) 是世界上最硬的東西。' },
+            { en: 'earth', zh: '地球 (ㄉㄧˋ ㄑㄧㄡˊ)', mnemonic: '`Ear` (耳朵) + `th`。地球 (`Earth`) 這個字裡藏著耳朵 (`ear`)，我們要傾聽地球的聲音。' },
+            { en: 'electric', zh: '電的 (ㄉㄧㄢˋ ㄉㄜ˙)', mnemonic: '`elec` (election, 選舉) + `trick` (把戲)。那場選舉 (`election`) 贏得有點像變了個電的 (`electric`) 把戲 (`trick`)。' },
+            { en: 'environment', zh: '環境 (ㄏㄨㄢˊ ㄐㄧㄥˋ)', mnemonic: '中間藏著 `iron` (鐵)。鋼鐵人 (`Iron` Man) 想要保護環境 (`environment`)。' },
+            { en: 'evening', zh: '傍晚 (ㄅㄤ ㄨㄢˇ)', mnemonic: '`Eve` (夏娃) + `ning` (running, 跑)。夏娃 (`Eve`) 在傍晚 (`evening`) 跑步。' },
+            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`Flow` (流動) + `er`。花朵 (`flower`) 在風中隨風飄動 (`flow`)。' },
+            { en: 'fog', zh: '霧 (ㄨˋ)', mnemonic: '`fog` (霧) 聽起來像 `frog` (青蛙) 少了 `r`。一隻青蛙 (`frog`) 在霧 (`fog`) 裡迷路了。' },
+            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`For` (為了) + `rest` (休息)。去森林 (`forest`) 是為了休息 (`for rest`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -442,7 +444,6 @@
                 return;
             }
 
-            // 考試模式：不分大小寫
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
