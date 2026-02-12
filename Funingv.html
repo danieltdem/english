@@ -262,21 +262,21 @@
 
     <script>
         const words = [
-            { en: 'afternoon', zh: '下午 (ㄒㄧㄚˋ ㄨˇ)', mnemonic: '`after` (在...之後) + `noon` (中午)。中午之後就是下午 (`afternoon`)。' },
-            { en: 'air', zh: '空氣 (ㄎㄨㄥ ㄑㄧˋ)', mnemonic: '`air` (空氣) 聽起來像 `hair` (頭髮) 去掉 `h`。我們需要空氣 (`air`) 就像我們頭上有頭髮 (`hair`) 一樣自然。' },
-            { en: 'autumn', zh: '秋天 (ㄑㄧㄡ ㄊㄧㄢ)', mnemonic: '`Au` (化學符號金) + `tumn` (turn, 轉變)。樹葉在秋天 (`autumn`) 轉變成金黃色。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`Ban` (禁止) + `k`。如果你搶銀行 (`bank`)，你就會被禁止 (`Ban`) 進入。' },
-            { en: 'beach', zh: '海灘 (ㄏㄞˇ ㄊㄢ)', mnemonic: '`beach` (海灘) 和 `peach` (桃子) 押韻。想像你在海灘 (`beach`) 上吃著桃子 (`peach`)。' },
-            { en: 'climate', zh: '氣候 (ㄑㄧˋ ㄏㄡˋ)', mnemonic: '`climb` (爬) + `mate` (夥伴)。夥伴 (`mate`)，當你爬 (`climb`) 山時，氣候 (`climate`) 會改變。' },
-            { en: 'dawn', zh: '黎明 (ㄌㄧˊ ㄇㄧㄥˊ)', mnemonic: '`Dawn` 聽起來像 `Down` (下)。太陽在黃昏下山 (`down`)，但在黎明 (`dawn`) 升起。' },
-            { en: 'diamond', zh: '鑽石 (ㄗㄨㄢˋ ㄕˊ)', mnemonic: '`die` (死/硬的) + `a` + `mond` (世界)。鑽石 (`diamond`) 是世界上最硬的東西。' },
-            { en: 'earth', zh: '地球 (ㄉㄧˋ ㄑㄧㄡˊ)', mnemonic: '`Ear` (耳朵) + `th`。地球 (`Earth`) 這個字裡藏著耳朵 (`ear`)，我們要傾聽地球的聲音。' },
-            { en: 'electric', zh: '電的 (ㄉㄧㄢˋ ㄉㄜ˙)', mnemonic: '`elec` (election, 選舉) + `trick` (把戲)。那場選舉 (`election`) 贏得有點像變了個電的 (`electric`) 把戲 (`trick`)。' },
-            { en: 'environment', zh: '環境 (ㄏㄨㄢˊ ㄐㄧㄥˋ)', mnemonic: '中間藏著 `iron` (鐵)。鋼鐵人 (`Iron` Man) 想要保護環境 (`environment`)。' },
-            { en: 'evening', zh: '傍晚 (ㄅㄤ ㄨㄢˇ)', mnemonic: '`Eve` (夏娃) + `ning` (running, 跑)。夏娃 (`Eve`) 在傍晚 (`evening`) 跑步。' },
-            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`Flow` (流動) + `er`。花朵 (`flower`) 在風中隨風飄動 (`flow`)。' },
-            { en: 'fog', zh: '霧 (ㄨˋ)', mnemonic: '`fog` (霧) 聽起來像 `frog` (青蛙) 少了 `r`。一隻青蛙 (`frog`) 在霧 (`fog`) 裡迷路了。' },
-            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`For` (為了) + `rest` (休息)。去森林 (`forest`) 是為了休息 (`for rest`)。' }
+            { en: 'grass', zh: '草 (ㄘㄠˇ)', mnemonic: '`grass` (草) 聽起來像 `glass` (玻璃)。想像草地上長滿了玻璃 (`glass`) 而不是草 (`grass`)。' },
+            { en: 'hill', zh: '小山 (ㄒㄧㄠˇ ㄕㄢ)', mnemonic: '`hill` (小山) 和 `kill` (殺) 押韻。爬這座小山 (`hill`) 累到簡直要了我的命 (`kill` me)。' },
+            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` (是) + `land` (陸地)。島嶼 (`island`) 就「是」一塊被水包圍的「陸地」。' },
+            { en: 'lake', zh: '湖泊 (ㄏㄨˊ ㄆㄛˋ)', mnemonic: '`lake` (湖) 和 `cake` (蛋糕) 押韻。想像一個巨大的蛋糕 (`cake`) 漂浮在湖 (`lake`) 面上。' },
+            { en: 'land', zh: '陸地 (ㄌㄨˋ ㄉㄧˋ)', mnemonic: '`land` (陸地) 和 `hand` (手) 押韻。用你的手 (`hand`) 觸摸陸地 (`land`)。' },
+            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` (葉子) 和 `leave` (離開) 很像。秋天時，葉子 (`leaf`) 會離開 (`leave`) 樹木掉落。' },
+            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)', mnemonic: '`light` (光) + `ning`。閃電 (`lightning`) 就是天空中忽明忽暗的亮光 (`light`)。' },
+            { en: 'midnight', zh: '午夜 (ㄨˇ ㄧㄝˋ)', mnemonic: '`mid` (中間) + `night` (夜晚)。夜晚 (`night`) 的中間 (`mid`) 就是午夜 (`midnight`)。' },
+            { en: 'moon', zh: '月亮 (ㄩㄝˋ ㄌㄧㄤˋ)', mnemonic: '`moon` (月亮) 和 `spoon` (湯匙) 押韻。傳說中乳牛拿著湯匙 (`spoon`) 跳過了月亮 (`moon`)。' },
+            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (`mount`) 這座山 (`mountain`) 後就開始下雨 (`rain`) 了。' },
+            { en: 'nature', zh: '大自然 (ㄉㄚˋ ㄗˋ ㄖㄢˊ)', mnemonic: '`nature` (自然) 和 `future` (未來) 相關。保護大自然 (`nature`) 就是保護我們的未來 (`future`)。' },
+            { en: 'ocean', zh: '海洋 (ㄏㄞˇ ㄧㄤˊ)', mnemonic: '`ocean` (海洋) 裡有 `ea` (sea, 海)。海洋 (`ocean`) 比海 (`sea`) 還要大，就像是一個巨大的 "O"。' },
+            { en: 'planet', zh: '行星 (ㄒㄧㄥˊ ㄒㄧㄥ)', mnemonic: '`plan` (計畫) + `et` (it)。我們需要一個計畫 (`plan`) 來拯救這個星球 (`planet`)。' },
+            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` (池塘) 和 `bond` (龐德) 押韻。想像詹姆士龐德 (`Bond`) 正在一個小池塘 (`pond`) 裡游泳。' },
+            { en: 'pool', zh: '水池 (ㄕㄨㄟˇ ㄔˊ)', mnemonic: '`pool` (水池) 和 `cool` (涼爽的) 押韻。跳進水池 (`pool`) 裡會讓你感到很涼爽 (`cool`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -444,6 +444,7 @@
                 return;
             }
 
+            // 考試模式：不分大小寫比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
