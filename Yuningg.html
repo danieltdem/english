@@ -218,9 +218,9 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共19題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
-        <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
+        <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (不分大小寫)">
         <br>
         <button id="exam-submit" class="exam-btn">提交</button>
         <div id="exam-result" style="font-size: 20px; margin-top: 20px;"></div>
@@ -262,26 +262,25 @@
 
     <script>
         const words = [
-            { en: 'taste', zh: '嘗起來 (ㄔㄤˊ ㄑㄧˇ ㄌㄞˊ)', mnemonic: '`taste` (嘗) 和 `paste` (漿糊) 押韻。不要吃漿糊，要嘗嘗 (taste) 食物。' },
-            { en: 'watch', zh: '手錶；觀看 (ㄕㄡˇ ㄅㄧㄠˇ)', mnemonic: '`watch` (手錶) 聽起來像 `witch` (女巫)。看著 (watch) 那個女巫 (witch)。' },
-            { en: 'accept', zh: '接受 (ㄐㄧㄝ ㄕㄡˋ)', mnemonic: '`ac` (向前) + `cept` (拿)。主動去拿，就是接受 (accept)。' },
-            { en: 'achieve', zh: '達成 (ㄉㄚˊ ㄔㄥˊ)', mnemonic: '`a` + `chief` (首領)。一個首領 (chief) 可以達成 (achieve) 任何事。' },
-            { en: 'act', zh: '行動；表演 (ㄒㄧㄥˊ ㄉㄨㄥˋ)', mnemonic: '`act` (行動) 是 `action` (動作) 的開頭。Action!' },
-            { en: 'add', zh: '增加 (ㄗㄥ ㄐㄧㄚ)', mnemonic: '`add` (增加) 倒過來是 `dad` (爸爸)。爸爸 (dad) 增加了 (add) 家庭的收入。' },
-            { en: 'admire', zh: '欽佩 (ㄑㄧㄣ ㄆㄟˋ)', mnemonic: '`add` (增加) + `more` (更多)。當你欽佩 (admire) 某人時，你會為他增加更多 (add more) 價值。' },
-            { en: 'advise', zh: '建議 (ㄐㄧㄢˋ ㄧˋ)', mnemonic: '`advise` (建議) 聽起來像 `add` + `wise` (聰明的)。給予聰明的 (wise) 意見，就是建議 (advise)。' },
-            { en: 'affect', zh: '影響 (ㄧㄥˇ ㄒㄧㄤˇ)', mnemonic: '`affect` (影響) 聽起來像 `effect` (效果)。`A` for Action (動作) -> Affect (影響)。' },
-            { en: 'agree', zh: '同意 (ㄊㄨㄥˊ ㄧˋ)', mnemonic: '`a` + `green` (綠色)。當你同意 (agree) 時，你就是給了綠 (green) 燈。' },
-            { en: 'allow', zh: '允許 (ㄩㄣˇ ㄒㄩˇ)', mnemonic: '`all` (全部) + `ow` (喔)。允許 (allow) 全部 (all) 的人進來。' },
-            { en: 'apologize', zh: '道歉 (ㄉㄠˋ ㄑㄧㄢˋ)', mnemonic: '`Apollo` (阿波羅) + `gize` (guys, 傢伙)。阿波羅 (Apollo) 向那些傢伙 (guys) 道歉 (apologize)。' },
-            { en: 'appear', zh: '出現 (ㄔㄨ ㄒㄧㄢˋ)', mnemonic: '`a` + `pear` (梨子)。一顆梨子 (pear) 突然出現 (appear) 在桌上。' },
-            { en: 'appreciate', zh: '感激；欣賞 (ㄍㄢˇ ㄐㄧ)', mnemonic: '`a` + `precious` (珍貴的) + `ate` (吃)。我很感激 (appreciate) 你吃了 (ate) 這麼珍貴 (precious) 的食物。' },
-            { en: 'argue', zh: '爭論 (ㄓㄥ ㄌㄨㄣˋ)', mnemonic: '`argue` 聽起來像 `Argh! You!`。當你爭論 (argue) 時，你會生氣地說「啊！你！」。' },
-            { en: 'arrange', zh: '安排 (ㄢ ㄆㄞˊ)', mnemonic: '`a` + `range` (範圍/排列)。安排 (arrange) 一排 (range) 東西。' },
-            { en: 'arrive', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '`arrive` 裡有 `river` (河)。我們到達 (arrive) 了河 (river) 邊。' },
-            { en: 'ask', zh: '詢問 (ㄒㄩㄣˊ ㄨㄣˋ)', mnemonic: '`ask` (詢問) 和 `task` (任務) 押韻。詢問 (ask) 關於任務 (task) 的事。' },
-            { en: 'assume', zh: '假設 (ㄐㄧㄚˇ ㄕㄜˋ)', mnemonic: '`ass` (驢/傻瓜) + `u` (你) + `me` (我)。當你隨便假設 (assume) 時，你就是把 `u` 和 `me` 變成了 `ass` (傻瓜)。' },
-            { en: 'attack', zh: '攻擊 (ㄍㄨㄥ ㄐㄧˊ)', mnemonic: '`a` + `tack` (圖釘)。用圖釘 (tack) 進行攻擊 (attack)。' }
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空/無)。為了安全，你要避免 (avoid) 掉進空洞 (void) 裡。' },
+            { en: 'bake', zh: '烘烤 (ㄏㄨㄥ ㄎㄠˇ)', mnemonic: '`bake` (烘烤) 和 `cake` (蛋糕) 押韻。你要烘烤 (bake) 一個蛋糕 (cake)。' },
+            { en: 'bark', zh: '吠叫 (ㄈㄟˋ ㄐㄧㄠˋ)', mnemonic: '`bark` (吠叫) 和 `dark` (黑暗) 押韻。狗常常在黑暗 (dark) 中吠叫 (bark)。' },
+            { en: 'bathe', zh: '洗澡 (ㄒㄧˇ ㄗㄠˇ)', mnemonic: '`bath` (澡盆) + `e`。在澡盆 (bath) 裡面洗澡 (bathe)。' },
+            { en: 'bear', zh: '忍受；熊 (ㄖㄣˇ ㄕㄡˋ)', mnemonic: '想像你要「忍受」(bear) 一隻沉重的「熊」(bear) 坐在你身上。' },
+            { en: 'beat', zh: '擊敗；敲打 (ㄐㄧˊ ㄅㄞˋ)', mnemonic: '`b` + `eat` (吃)。想像為了搶東西吃 (eat) 而把別人擊敗 (beat)。' },
+            { en: 'begin', zh: '開始 (ㄎㄞ ㄕˇ)', mnemonic: '`be` + `gin` (聽起來像 gym 健身房)。成為 (be) 健康的人，從開始 (begin) 去健身房 (gym) 做起。' },
+            { en: 'behave', zh: '表現乖巧 (ㄅㄧㄠˇ ㄒㄧㄢˋ)', mnemonic: '`be` (是) + `have` (有)。你「是」(be) 什麼樣的人，就會「有」(have) 什麼樣的表現 (behave)。' },
+            { en: 'believe', zh: '相信 (ㄒㄧㄤ ㄒㄧㄣˋ)', mnemonic: '單字中間藏著 `lie` (說謊)。記住：永遠不要相信 (be`lie`ve) 一個謊言 (lie)。' },
+            { en: 'belong', zh: '屬於 (ㄕㄨˇ ㄩˊ)', mnemonic: '`be` (是) + `long` (長久)。要長久 (long) 待在一個地方，你才會覺得自己屬於 (belong) 這裡。' },
+            { en: 'bite', zh: '咬 (ㄧㄠˇ)', mnemonic: '`bite` (咬) 的發音聽起來像 `bike` (腳踏車)。小心那隻狗會咬 (bite) 你的腳踏車 (bike) 輪胎。' },
+            { en: 'blame', zh: '責備 (ㄗㄜˊ ㄅㄟˋ)', mnemonic: '`b` + `lame` (跛腳的/差勁的)。因為表現太差勁 (lame) 而受到責備 (blame)。' },
+            { en: 'blow', zh: '吹 (ㄔㄨㄟ)', mnemonic: '`b` + `low` (低)。風吹 (blow) 得很低 (low)。' },
+            { en: 'boil', zh: '煮沸 (ㄓㄨˇ ㄈㄟˋ)', mnemonic: '`boil` (煮沸) 聽起來像 `oil` (油)。將油 (oil) 加熱到煮沸 (boil)。' },
+            { en: 'borrow', zh: '借入 (ㄐㄧㄝˋ ㄖㄨˋ)', mnemonic: '`borrow` (借) 和 `sorrow` (悲傷) 押韻。一直向別人借 (borrow) 錢，最後會帶來悲傷 (sorrow)。' },
+            { en: 'bother', zh: '打擾 (ㄉㄚˇ ㄖㄠˇ)', mnemonic: '`bother` 和 `brother` (兄弟) 只差一個 `r`。弟弟總是很喜歡打擾 (bother) 他的哥哥 (brother)。' },
+            { en: 'break', zh: '打破；休息 (ㄉㄚˇ ㄆㄛˋ)', mnemonic: '踩剎車 (`brake`，發音與 break 相同) 是為了避免發生車禍而打破 (break) 東西。' },
+            { en: 'bring', zh: '帶來 (ㄉㄞˋ ㄌㄞˊ)', mnemonic: '`b` + `ring` (戒指)。請為我帶來 (bring) 那枚戒指 (ring)。' },
+            { en: 'broadcast', zh: '廣播 (ㄍㄨㄤˇ ㄅㄛ)', mnemonic: '`broad` (廣泛的) + `cast` (投射)。把訊息廣泛地投射出去，就是廣播 (broadcast)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -303,7 +302,6 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
-            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -311,18 +309,18 @@
         }
 
         /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false; // 追蹤目前答案是否顯示
+        let areAnswersVisible = false;
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
             btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f'; // 紅色
+            btn.style.backgroundColor = '#d32f2f';
         }
 
         function renderPracticeList() {
             const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = ''; // 清空
+            listContainer.innerHTML = '';
 
             words.forEach((word, index) => {
                 const row = document.createElement('div');
@@ -342,7 +340,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派)
+        // 監聽整個練習列表的鍵盤事件 (事件委派)，不分大小寫處理都在下方邏輯
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -354,16 +352,15 @@
             const answers = document.querySelectorAll('.answer-text');
             const inputs = document.querySelectorAll('.practice-input');
 
-            areAnswersVisible = !areAnswersVisible; // 切換狀態
+            areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50'; // 綠色
+                btn.style.backgroundColor = '#4CAF50';
                 
-                answers.forEach(el => el.style.display = 'block'); // 顯示答案
+                answers.forEach(el => el.style.display = 'block');
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 批改每一個輸入框 (這裡使用 .toLowerCase() 確保不分大小寫都能算對)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -378,16 +375,15 @@
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f'; // 紅色
+                btn.style.backgroundColor = '#d32f2f';
                 
-                answers.forEach(el => el.style.display = 'none'); // 隱藏答案
+                answers.forEach(el => el.style.display = 'none');
             }
         }
 
 
-        /* --- 考試模式邏輯 (原程式碼) --- */
+        /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -411,7 +407,6 @@
             wrongWords = [];
             isWaitingToContinue = false;
             
-            // 重置UI
             document.getElementById('exam-restart').style.display = 'none';
             document.getElementById('exam-retest').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
@@ -449,7 +444,7 @@
                 return;
             }
 
-            // 考試模式：檢查答案 (不分大小寫)
+            // 考試模式：轉成小寫來比對，所以也是不分大小寫的！
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -505,7 +500,6 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
-        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
