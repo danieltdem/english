@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,21 +262,18 @@
 
     <script>
         const words = [
-            { en: 'grass', zh: '草 (ㄘㄠˇ)', mnemonic: '`grass` (草) 聽起來像 `glass` (玻璃)。想像草地上長滿了玻璃 (`glass`) 而不是草 (`grass`)。' },
-            { en: 'hill', zh: '小山 (ㄒㄧㄠˇ ㄕㄢ)', mnemonic: '`hill` (小山) 和 `kill` (殺) 押韻。爬這座小山 (`hill`) 累到簡直要了我的命 (`kill` me)。' },
-            { en: 'island', zh: '島嶼 (ㄉㄠˇ ㄩˇ)', mnemonic: '`is` (是) + `land` (陸地)。島嶼 (`island`) 就「是」一塊被水包圍的「陸地」。' },
-            { en: 'lake', zh: '湖泊 (ㄏㄨˊ ㄆㄛˋ)', mnemonic: '`lake` (湖) 和 `cake` (蛋糕) 押韻。想像一個巨大的蛋糕 (`cake`) 漂浮在湖 (`lake`) 面上。' },
-            { en: 'land', zh: '陸地 (ㄌㄨˋ ㄉㄧˋ)', mnemonic: '`land` (陸地) 和 `hand` (手) 押韻。用你的手 (`hand`) 觸摸陸地 (`land`)。' },
-            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` (葉子) 和 `leave` (離開) 很像。秋天時，葉子 (`leaf`) 會離開 (`leave`) 樹木掉落。' },
-            { en: 'lightning', zh: '閃電 (ㄕㄢˇ ㄉㄧㄢˋ)', mnemonic: '`light` (光) + `ning`。閃電 (`lightning`) 就是天空中忽明忽暗的亮光 (`light`)。' },
-            { en: 'midnight', zh: '午夜 (ㄨˇ ㄧㄝˋ)', mnemonic: '`mid` (中間) + `night` (夜晚)。夜晚 (`night`) 的中間 (`mid`) 就是午夜 (`midnight`)。' },
-            { en: 'moon', zh: '月亮 (ㄩㄝˋ ㄌㄧㄤˋ)', mnemonic: '`moon` (月亮) 和 `spoon` (湯匙) 押韻。傳說中乳牛拿著湯匙 (`spoon`) 跳過了月亮 (`moon`)。' },
-            { en: 'mountain', zh: '山 (ㄕㄢ)', mnemonic: '`mount` (登上) + `rain` (雨)。登上 (`mount`) 這座山 (`mountain`) 後就開始下雨 (`rain`) 了。' },
-            { en: 'nature', zh: '大自然 (ㄉㄚˋ ㄗˋ ㄖㄢˊ)', mnemonic: '`nature` (自然) 和 `future` (未來) 相關。保護大自然 (`nature`) 就是保護我們的未來 (`future`)。' },
-            { en: 'ocean', zh: '海洋 (ㄏㄞˇ ㄧㄤˊ)', mnemonic: '`ocean` (海洋) 裡有 `ea` (sea, 海)。海洋 (`ocean`) 比海 (`sea`) 還要大，就像是一個巨大的 "O"。' },
-            { en: 'planet', zh: '行星 (ㄒㄧㄥˊ ㄒㄧㄥ)', mnemonic: '`plan` (計畫) + `et` (it)。我們需要一個計畫 (`plan`) 來拯救這個星球 (`planet`)。' },
-            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` (池塘) 和 `bond` (龐德) 押韻。想像詹姆士龐德 (`Bond`) 正在一個小池塘 (`pond`) 裡游泳。' },
-            { en: 'pool', zh: '水池 (ㄕㄨㄟˇ ㄔˊ)', mnemonic: '`pool` (水池) 和 `cool` (涼爽的) 押韻。跳進水池 (`pool`) 裡會讓你感到很涼爽 (`cool`)。' }
+            { en: 'rain', zh: '雨 (ㄩˇ)', mnemonic: '`rain` (雨) 聽起來像 `train` (火車)。想像一列火車 (`train`) 在大雨 (`rain`) 中行駛。' },
+            { en: 'rainbow', zh: '彩虹 (ㄘㄞˇ ㄏㄨㄥˊ)', mnemonic: '`rain` (雨) + `bow` (弓)。雨 (`rain`) 後天空中出現的彩色弓 (`bow`)，就是彩虹 (`rainbow`)。' },
+            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)', mnemonic: '`river` 裡面有 `driver` (司機)。這個司機 (`driver`) 沿著河流 (`river`) 開車。' },
+            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`rose` (玫瑰) 聽起來像 `nose` (鼻子)。用你的鼻子 (`nose`) 去聞美麗的玫瑰 (`rose`)。' },
+            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`sea` (海) 和 `see` (看見) 發音相同。我希望能看見 (`see`) 美麗的大海 (`sea`)。' },
+            { en: 'season', zh: '季節 (ㄐㄧˋ ㄐㄧㄝˊ)', mnemonic: '`sea` (海) + `son` (兒子)。大海 (`sea`) 的兒子 (`son`) 經歷了春夏秋冬四個季節 (`season`)。' },
+            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`seed` (種子) 聽起來像 `see` (看見) + `d`。看見 (`see`) 種子 (`seed`) 發芽長大。' },
+            { en: 'shore', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`shore` (海岸) 聽起來像 `sure` (確定的)。我確定 (`sure`) 我們已經到了海岸 (`shore`)。' },
+            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`sky` (天空) 聽起來像 `ski` (滑雪)。想像你可以從天空 (`sky`) 上滑雪 (`ski`) 下來。' },
+            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢的)。雪 (`snow`) 總是慢慢地 (`slow`) 飄落下來。' },
+            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`spring` (春天) 也是「彈簧」的意思。春天 (`spring`) 萬物像彈簧一樣充滿生機地彈出來。' },
+            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '`star` (星星) 倒過來拼是 `rats` (老鼠)。想像天上的星星 (`star`) 變成了發光的小老鼠 (`rats`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -444,7 +441,7 @@
                 return;
             }
 
-            // 考試模式：不分大小寫比對
+            // 不分大小寫比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
