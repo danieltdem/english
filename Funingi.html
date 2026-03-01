@@ -262,21 +262,21 @@
 
     <script>
         const words = [
-            { en: 'finish', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`fin` (魚鰭/結束) + `ish`。魚鰭 (`fin`) 是魚的尾端，代表結束 (`finish`)。' },
-            { en: 'neatly', zh: '整潔地 (ㄓㄥˇ ㄐㄧㄝˊ ㄉㄜ˙)', mnemonic: '`neat` (整潔的) + `ly`。把東西放整潔 (`neat`) 就是整潔地 (`neatly`)。' },
-            { en: 'leave', zh: '離開 (ㄌㄧˊ ㄎㄞ)', mnemonic: '聽起來像 `leaf` (葉子)。葉子 (`leaf`) 落下離開 (`leave`) 了樹。' },
-            { en: 'space', zh: '空間 (ㄎㄨㄥ ㄐㄧㄢ)', mnemonic: '`s` + `pace` (步調)。在太空 (`space`) 中很難保持走路的步調 (`pace`)。' },
-            { en: 'speak', zh: '說話 (ㄕㄨㄛ ㄏㄨㄚˋ)', mnemonic: '`s` + `peak` (山頂)。站在山頂 (`peak`) 上大聲說話 (`speak`)。' },
-            { en: 'picture', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: '`pick` (挑選) + `ture`。挑選 (`pick`) 最好的景色來拍照片 (`picture`)。' },
-            { en: 'whale', zh: '鯨魚 (ㄐㄧㄥ ㄩˊ)', mnemonic: '`w` + `hale` (強壯的)。鯨魚 (`whale`) 是海裡強壯 (`hale`) 的動物。' },
-            { en: 'white', zh: '白色 (ㄅㄞˊ ㄙㄜˋ)', mnemonic: '`white` 聽起來像 `light` (光)。白色的 (`white`) 光 (`light`)。' },
-            { en: 'dolphin', zh: '海豚 (ㄏㄞˇ ㄊㄨㄣˊ)', mnemonic: '`dol` (doll, 洋娃娃) + `phin` (fin, 鰭)。像洋娃娃 (`doll`) 一樣可愛且有鰭 (`fin`) 的就是海豚 (`dolphin`)。' },
-            { en: 'phone', zh: '電話 (ㄉㄧㄢˋ ㄏㄨㄚˋ)', mnemonic: '`p` + `hone` (磨練)。用電話 (`phone`) 磨練 (`hone`) 溝通技巧。' },
-            { en: 'deaf', zh: '聾的 (ㄌㄨㄥˊ ㄉㄜ˙)', mnemonic: '`deaf` 和 `leaf` (葉子) 押韻。聽不見聲音 (`deaf`) 就像葉子 (`leaf`) 一樣安靜。' },
-            { en: 'hall', zh: '大廳 (ㄉㄚˋ ㄊㄧㄥ)', mnemonic: '`hall` (大廳) 聽起來像 `all` (所有)。所有人 (`all`) 都在大廳 (`hall`) 集合。' },
-            { en: 'born', zh: '出生 (ㄔㄨ ㄕㄥ)', mnemonic: '`born` 和 `corn` (玉米) 押韻。想像他出生 (`born`) 在玉米 (`corn`) 田裡。' },
-            { en: 'cousin', zh: '表(堂)兄弟姊妹 (ㄅㄧㄠˇ ㄒㄩㄥ ㄉㄧˋ ㄐㄧㄝˇ ㄇㄟˋ)', mnemonic: '`count` (數) + `sin` (罪)。數 (`count`) 堂表兄弟姊妹 (`cousin`) 的罪 (`sin`) 是不好的。' },
-            { en: 'cross', zh: '穿越 (ㄔㄨㄢ ㄩㄝˋ)', mnemonic: '`cross` 和 `boss` (老闆) 押韻。不要穿越/作對 (`cross`) 老闆 (`boss`) 的意思。' }
+            { en: 'lift', zh: '舉起 (ㄐㄩˇ ㄑㄧˇ)', mnemonic: '`lift` 聽起來像 `gift` (禮物)。想像你要「舉起」(lift) 一個很重的大禮物 (gift)。<br><a href="https://mnemonicdictionary.com/word/lift" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'magazine', zh: '雜誌 (ㄗㄚˊ ㄓˋ)', mnemonic: '想像一個神奇的 (`magic`) 場景 (`scene`)，裡面有很多豐富的圖片和故事，這就是雜誌 (`magazine`)。<br><a href="https://mnemonicdictionary.com/word/magazine" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'another', zh: '另一個 (ㄌㄧㄥˋ ㄧˊ ㄍㄜˋ)', mnemonic: '拆成 `an` (一個) + `other` (其他的)。「一個其他的」東西，就是「另一個」 (`another`)。<br><a href="https://mnemonicdictionary.com/word/another" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'preview', zh: '預習 (ㄩˋ ㄒㄧˊ)', mnemonic: '`pre` (在...之前) + `view` (看)。在正式上課「之前」先「看」過，就是預習 (`preview`)。<br><a href="https://mnemonicdictionary.com/word/preview" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'front', zh: '前面 (ㄑㄧㄢˊ ㄇㄧㄢˋ)', mnemonic: '站在最前線面對 (`confront`) 挑戰，`front` 就是「前面」的意思。<br><a href="https://mnemonicdictionary.com/word/front" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'insect', zh: '昆蟲 (ㄎㄨㄣ ㄔㄨㄥˊ)', mnemonic: '`in` (在...裡面) + `sect` (部分)。昆蟲 (`insect`) 的身體構造就是分成好幾個部分 (`sect`) 的。<br><a href="https://mnemonicdictionary.com/word/insect" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'laugh', zh: '笑 (ㄒㄧㄠˋ)', mnemonic: '可以記這句話的首字母：`L`et `A`ll `U`s `G`et `H`appy! (讓我們大家都開心！)，開心就會笑 (`laugh`)。<br><a href="https://mnemonicdictionary.com/word/laugh" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'invite', zh: '邀請 (ㄧㄠ ㄑㄧㄥˇ)', mnemonic: '`in` (進來) + `vite` (聽起來像 bite 咬一口)。「邀請」(`invite`) 朋友進來家裡吃點東西 (`bite`)。<br><a href="https://mnemonicdictionary.com/word/invite" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'hour', zh: '小時 (ㄒㄧㄠˇ ㄕˊ)', mnemonic: '`hour` 和 `our` (我們的) 發音一模一樣。這一個「小時」(`hour`) 是「我們的」(`our`) 歡樂時光。<br><a href="https://mnemonicdictionary.com/word/hour" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'author', zh: '作者 (ㄗㄨㄛˋ ㄓㄜˇ)', mnemonic: '`author` (作者) 和 `authority` (權威) 有相同的字根。一位作者 (`author`) 就是他這本書的權威。<br><a href="https://mnemonicdictionary.com/word/author" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'text', zh: '文字 (ㄨㄣˊ ㄗˋ)', mnemonic: '`text` (文字) 和 `next` (下一個) 押韻。讀完這段文字 (`text`)，就換下一段 (`next`)。<br><a href="https://mnemonicdictionary.com/word/text" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'joy', zh: '快樂 (ㄎㄨㄞˋ ㄌㄜˋ)', mnemonic: '可以記這句話的首字母：`J`ump `O`ver `Y`ou (開心地跳過你)，表示非常快樂 (`joy`)。<br><a href="https://mnemonicdictionary.com/word/joy" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'all over', zh: '到處 (ㄉㄠˋ ㄔㄨˋ)', mnemonic: '`all` (全部) + `over` (在...之上)。全部都覆蓋在上面，就是「到處」(`all over`) 都有。<br><a href="https://mnemonicdictionary.com/word/all-over" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'important', zh: '重要的 (ㄓㄨㄥˋ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`import` (進口) + `ant` (螞蟻)。這是一隻專門負責進口 (`import`) 的螞蟻 (`ant`)，對蟻巢非常「重要的」(`important`)。<br><a href="https://mnemonicdictionary.com/word/important" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' },
+            { en: 'early', zh: '早的 (ㄗㄠˇ ㄉㄜ˙)', mnemonic: '`ear` (耳朵) + `ly`。早上要很「早」(`early`) 起床，才能聽到鳥兒在耳朵 (`ear`) 邊唱歌。<br><a href="https://mnemonicdictionary.com/word/early" target="_blank" style="font-size: 14px; color: #4CAF50;">來源: Mnemonic Dictionary</a>' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -337,7 +337,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派)
+        // 監聽整個練習列表的鍵盤事件 (事件委派)，支援按下Enter顯示所有答案
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -358,7 +358,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 不分大小寫批改每一個輸入框
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -444,6 +444,7 @@
                 return;
             }
 
+            // 不分大小寫判斷正確與否
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
