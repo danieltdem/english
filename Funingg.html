@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,18 +262,21 @@
 
     <script>
         const words = [
-            { en: 'rain', zh: '雨 (ㄩˇ)', mnemonic: '`rain` (雨) 聽起來像 `train` (火車)。想像一列火車 (`train`) 在大雨 (`rain`) 中行駛。' },
-            { en: 'rainbow', zh: '彩虹 (ㄘㄞˇ ㄏㄨㄥˊ)', mnemonic: '`rain` (雨) + `bow` (弓)。雨 (`rain`) 後天空中出現的彩色弓 (`bow`)，就是彩虹 (`rainbow`)。' },
-            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)', mnemonic: '`river` 裡面有 `driver` (司機)。這個司機 (`driver`) 沿著河流 (`river`) 開車。' },
-            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`rose` (玫瑰) 聽起來像 `nose` (鼻子)。用你的鼻子 (`nose`) 去聞美麗的玫瑰 (`rose`)。' },
-            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`sea` (海) 和 `see` (看見) 發音相同。我希望能看見 (`see`) 美麗的大海 (`sea`)。' },
-            { en: 'season', zh: '季節 (ㄐㄧˋ ㄐㄧㄝˊ)', mnemonic: '`sea` (海) + `son` (兒子)。大海 (`sea`) 的兒子 (`son`) 經歷了春夏秋冬四個季節 (`season`)。' },
-            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`seed` (種子) 聽起來像 `see` (看見) + `d`。看見 (`see`) 種子 (`seed`) 發芽長大。' },
-            { en: 'shore', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`shore` (海岸) 聽起來像 `sure` (確定的)。我確定 (`sure`) 我們已經到了海岸 (`shore`)。' },
-            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`sky` (天空) 聽起來像 `ski` (滑雪)。想像你可以從天空 (`sky`) 上滑雪 (`ski`) 下來。' },
-            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢的)。雪 (`snow`) 總是慢慢地 (`slow`) 飄落下來。' },
-            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`spring` (春天) 也是「彈簧」的意思。春天 (`spring`) 萬物像彈簧一樣充滿生機地彈出來。' },
-            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '`star` (星星) 倒過來拼是 `rats` (老鼠)。想像天上的星星 (`star`) 變成了發光的小老鼠 (`rats`)。' }
+            { en: 'summer', zh: '夏天 (ㄒㄧㄚˋ ㄊㄧㄢ)', mnemonic: '`summer` (夏天) 聽起來像 `summary` (總結)。夏天 (`summer`) 的總結 (`summary`) 就是「熱」。' },
+            { en: 'sun', zh: '太陽 (ㄊㄞˋ ㄧㄤˊ)', mnemonic: '`sun` (太陽) 聽起來像 `son` (兒子)。太陽 (`sun`) 就像是天空的兒子 (`son`)，帶來光明。' },
+            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `ature` (nature, 自然)。大自然的脾氣 (`temper`) 就是天氣的溫度 (`temperature`)。' },
+            { en: 'tree', zh: '樹 (ㄕㄨˋ)', mnemonic: '`tree` (樹) 和 `three` (三) 發音很像。想像那裡有三 (`three`) 棵樹 (`tree`)。' },
+            { en: 'typhoon', zh: '颱風 (ㄊㄞˊ ㄈㄥ)', mnemonic: '`tie` (綁) + `phone` (電話)。颱風 (`typhoon`) 天風很大，要把電話 (`phone`) 綁好 (`tie`) 免得被吹走。' },
+            { en: 'universe', zh: '宇宙 (ㄩˇ ㄓㄡˋ)', mnemonic: '`uni` (單一) + `verse` (詩/轉動)。宇宙 (`universe`) 是一個包含一切的單一 (`uni`) 整體。' },
+            { en: 'weather', zh: '天氣 (ㄊㄧㄢ ㄑㄧˋ)', mnemonic: '`weather` (天氣) 和 `whether` (是否) 發音相同。不管天氣 (`weather`) 如何，我們都要決定是否 (`whether`) 出門。' },
+            { en: 'winter', zh: '冬天 (ㄉㄨㄥ ㄊㄧㄢ)', mnemonic: '`win` (wind, 風) + `ter`。冬天 (`winter`) 時，風 (`wind`) 會變得更加刺骨寒冷。' },
+            { en: 'world', zh: '世界 (ㄕˋ ㄐㄧㄝˋ)', mnemonic: '`word` (單字) 中間加了 `l` (love, 愛)。這個世界 (`world`) 需要更多的愛 (`love`)。' },
+            { en: 'bag', zh: '袋子 (ㄉㄞˋ ㄗ˙)', mnemonic: '`bag` (袋子) 聽起來像 `beg` (乞求)。乞丐拿著袋子 (`bag`) 乞求 (`beg`) 食物。' },
+            { en: 'belt', zh: '皮帶 (ㄆㄧˊ ㄉㄞˋ)', mnemonic: '`bell` (鈴鐺) + `t`。他在皮帶 (`belt`) 上掛了一個鈴鐺 (`bell`) 當裝飾。' },
+            { en: 'blouse', zh: '女用襯衫 (ㄋㄩˇ ㄩㄥˋ ㄔㄣˋ ㄕㄢ)', mnemonic: '`b` + `louse` (蝨子)。這件漂亮的女用襯衫 (`blouse`) 上居然有一隻蝨子 (`louse`)！' },
+            { en: 'cap', zh: '棒球帽 (ㄅㄤˋ ㄑㄧㄡˊ ㄇㄠˋ)', mnemonic: '`cap` 是 `captain` (隊長) 的前三個字母。隊長 (`captain`) 頭上通常會戴著一頂棒球帽 (`cap`)。' },
+            { en: 'centimeter', zh: '公分 (ㄍㄨㄥ ㄈㄣ)', mnemonic: '`cent` (百) + `meter` (公尺)。一百 (`cent`) 分之一公尺就是一公分 (`centimeter`)。' },
+            { en: 'circle', zh: '圓圈 (ㄩㄢˊ ㄑㄩㄢ)', mnemonic: '`circle` (圓圈) 和 `circus` (馬戲團) 有相同的開頭。馬戲團 (`circus`) 的表演場地通常是圓圈 (`circle`) 形狀的。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -379,7 +382,7 @@
         }
 
 
-        /* --- 考試模式邏輯 (原程式碼) --- */
+        /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -441,7 +444,7 @@
                 return;
             }
 
-            // 不分大小寫比對
+            // 轉小寫後比對，達到不分大小寫的效果
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
