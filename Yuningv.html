@@ -28,7 +28,6 @@
             max-width: 600px;
             max-height: 90vh; /* 限制最大高度 */
             position: relative;
-            /* 考試模式需要捲動，練習模式我們自己處理捲動，所以這裡預設 auto */
             overflow-y: auto; 
         }
 
@@ -68,7 +67,7 @@
         .menu-btn:hover { background-color: #e68900; }
         .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; }
 
-        /* --- 考試模式樣式 (維持原樣) --- */
+        /* --- 考試模式樣式 --- */
         #exam-screen { display: none; }
         .exam-input {
             padding: 10px;
@@ -100,39 +99,32 @@
             background-color: #2c2c2c; /* 深灰色背景 */
             color: #f0f0f0;
             border: 4px solid #8b4513; /* 深棕色邊框 */
-            
-            /* 使用 Flexbox 來做上下分割 */
             flex-direction: column; 
-            padding: 0; /* 移除內距，讓頭部貼邊 */
-            overflow: hidden; /* 禁止整個容器捲動 */
+            padding: 0; 
+            overflow: hidden; 
         }
         
-        /* 練習模式下的 body 背景 */
         body.practice-mode { background-color: #1a1a1a; }
 
-        /* 固定在頂部的區域 */
         .practice-fixed-top {
             background-color: #2c2c2c;
-            padding: 15px 20px 5px 20px; /* 上 左右 下 */
+            padding: 15px 20px 5px 20px; 
             border-bottom: 2px solid #555;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            flex-shrink: 0; /* 防止被壓縮 */
+            flex-shrink: 0; 
             z-index: 10;
         }
 
-        /* 頂部按鈕群組 */
         .top-btn-group {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
 
-        /* 可捲動的列表區域 */
         #practice-list-container {
-            flex-grow: 1; /* 佔滿剩餘空間 */
-            overflow-y: auto; /* 只有這裡可以捲動 */
+            flex-grow: 1; 
+            overflow-y: auto; 
             padding: 10px 20px 20px 20px;
-            /* 自定義捲軸樣式 (Chrome/Safari) */
             scrollbar-width: thin;
             scrollbar-color: #555 #2c2c2c;
         }
@@ -178,7 +170,7 @@
         .header-back-btn {
             background-color: #607d8b;
             color: white;
-            width: 30%; /* 較小的寬度 */
+            width: 30%; 
             margin: 0;
             font-size: 14px;
             padding: 10px;
@@ -218,7 +210,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫（大小寫皆可）。共27題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -233,7 +225,6 @@
     </div>
 
     <div id="practice-screen" class="container">
-        
         <div class="practice-fixed-top">
             <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
             
@@ -261,22 +252,35 @@
     </div>
 
     <script>
+        // 更新為新的 27 個單字
         const words = [
-            { en: 'hat', zh: '帽子 (ㄇㄠˋ ㄗ˙)', mnemonic: '`hat` 聽起來像 `Head At Top` (頭在上面)。帽子 (`hat`) 就是戴在頭頂上的。' },
-            { en: 'height', zh: '高度 (ㄍㄠ ㄉㄨˋ)', mnemonic: '`height` (高度) 裡有 `eight` (八)。這棵樹的高度 (`height`) 是八 (`eight`) 公尺。' },
-            { en: 'inch', zh: '英吋 (ㄧㄥ ㄘㄨㄣˋ)', mnemonic: '`inch` (英吋) 聽起來像 `pinch` (捏)。捏 (`pinch`) 一下的距離大約就是一英吋 (`inch`)。' },
-            { en: 'jacket', zh: '夾克 (ㄐㄧㄚˊ ㄎㄜˋ)', mnemonic: '`Jack` (傑克) + `et`。傑克 (`Jack`) 穿上了他的夾克 (`jacket`)。' },
-            { en: 'jeans', zh: '牛仔褲 (ㄋㄧㄡˊ ㄗㄞˇ ㄎㄨˋ)', mnemonic: '`Jean` (珍) + `s`。珍 (`Jean`) 穿著她的牛仔褲 (`jeans`)。' },
-            { en: 'kilogram', zh: '公斤 (ㄍㄨㄥ ㄐㄧㄣ)', mnemonic: '`kilo` (千) + `gram` (克)。一千克就是一公斤 (`kilogram`)。' },
-            { en: 'kilometer', zh: '公里 (ㄍㄨㄥ ㄌㄧˇ)', mnemonic: '`kilo` (千) + `meter` (公尺)。一千公尺就是一公里 (`kilometer`)。' },
-            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '`length` (長度) 來自 `long` (長)。問東西多長 (`long`)，就是在問它的長度 (`length`)。' },
-            { en: 'line', zh: '線 (ㄒㄧㄢˋ)', mnemonic: '`line` (線) 和 `fine` (細的) 押韻。這是一條很細的線 (`fine line`)。' },
-            { en: 'mask', zh: '口罩；面具 (ㄇㄧㄢˋ ㄐㄩˋ)', mnemonic: '`mask` 聽起來像 `ask` (要求)。老闆要求 (`ask`) 員工必須戴口罩 (`mask`)。' },
-            { en: 'mile', zh: '英里 (ㄧㄥ ㄌㄧˇ)', mnemonic: '`mile` 裡有 `smile` (微笑)。「微笑」(`smile`) 這個字裡，兩個 `s` 之間隔了一英里 (`mile`)。' },
-            { en: 'million', zh: '百萬 (ㄅㄞˇ ㄨㄢˋ)', mnemonic: '`mill` (工廠) + `lion` (獅子)。想像一個工廠 (`mill`) 裡生產了一百萬 (`million`) 隻玩具獅子 (`lion`)。' },
-            { en: 'minute', zh: '分鐘 (ㄈㄣ ㄓㄨㄥ)', mnemonic: '`min` (mini, 迷你) + `ute`。分鐘 (`minute`) 是一段迷你的時間。' },
-            { en: 'necklace', zh: '項鍊 (ㄒㄧㄤˋ ㄌㄧㄢˋ)', mnemonic: '`neck` (脖子) + `lace` (蕾絲/帶子)。繫在脖子 (`neck`) 上的裝飾帶子，就是項鍊 (`necklace`)。' },
-            { en: 'needle', zh: '針 (ㄓㄣ)', mnemonic: '`needle` 聽起來像 `need` (需要)。你需要 (`need`) 一根針 (`needle`) 來縫衣服。' }
+            { en: 'turn', zh: '轉動 (ㄓㄨㄢˇ ㄉㄨㄥˋ)', mnemonic: '`turn` 聽起來像 `U-turn` (U型迴轉)。開車時來個 U-turn 就是轉動 (`turn`) 你的方向盤。' },
+            { en: 'society', zh: '社會 (ㄕㄜˋ ㄏㄨㄟˋ)', mnemonic: '`soci` (social, 社交的) + `ety`。充滿各種社交 (`social`) 關係的群體，就是社會 (`society`)。' },
+            { en: 'team member', zh: '團隊成員 (ㄊㄨㄢˊ ㄉㄨㄟˋ ㄔㄥˊ ㄩㄢˊ)', mnemonic: '`team` (團隊) + `member` (成員)。這是一個很直接的組合字喔！' },
+            { en: 'teamwork', zh: '團隊合作 (ㄊㄨㄢˊ ㄉㄨㄟˋ ㄏㄜˊ ㄗㄨㄛˋ)', mnemonic: '`team` (團隊) + `work` (工作)。整個團隊一起工作，就是團隊合作 (`teamwork`)。' },
+            { en: 'alone', zh: '單獨的 (ㄉㄢ ㄉㄨˊ ㄉㄜ˙)', mnemonic: '`al` (all, 全部) + `one` (一)。全部 (`all`) 只有你一個人 (`one`)，那就是單獨的 (`alone`)。' },
+            { en: 'leaf', zh: '樹葉 (ㄕㄨˋ ㄧㄝˋ)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。到了秋天，樹葉 (`leaf`) 就會離開 (`leave`) 樹枝掉下來。' },
+            { en: 'calf', zh: '小牛 (ㄒㄧㄠˇ ㄋㄧㄡˊ)', mnemonic: '`calf` 和 `half` (一半) 押韻。小牛 (`calf`) 的體型只有成牛的一半 (`half`)。' },
+            { en: 'life', zh: '生命/生活 (ㄕㄥ ㄇㄧㄥˋ)', mnemonic: '來自 `live` (活著)。只要你還活著 (`live`)，你就擁有生命 (`life`)。' },
+            { en: 'ox', zh: '公牛 (ㄍㄨㄥ ㄋㄧㄡˊ)', mnemonic: '可以看字母形狀來記：`O` 是公牛圓圓的頭，`X` 是牠交叉的牛角。' },
+            { en: 'wife', zh: '妻子 (ㄑㄧ ㄗ˙)', mnemonic: '`wife` 和 `life` (生活/生命) 押韻。妻子 (`wife`) 是陪伴你一生 (`life`) 的人。' },
+            { en: 'half', zh: '一半 (ㄧˊ ㄅㄢˋ)', mnemonic: '`h` + `alf` (all, 全部)。不是全部 (`all`)，只有一半 (`half`)。' },
+            { en: 'mouse', zh: '老鼠 (ㄌㄠˇ ㄕㄨˇ)', mnemonic: '`mouse` 和 `house` (房子) 押韻。老鼠 (`mouse`) 常常偷偷住在人類的房子 (`house`) 裡。' },
+            { en: 'wolf', zh: '狼 (ㄌㄤˊ)', mnemonic: '把 `wolf` 反過來拼就是 `flow` (流動)。狼 (`wolf`) 在森林裡移動時就像水流 (`flow`) 一樣順暢安靜。' },
+            { en: 'thief', zh: '小偷 (ㄒㄧㄠˇ ㄊㄡ)', mnemonic: '`the` + `ief` (聽起來像 chief, 首領)。偷東西的首領 (`chief`) 就是小偷 (`thief`)。' },
+            { en: 'loaf', zh: '一條(麵包) (ㄧˋ ㄊㄧㄠˊ)', mnemonic: '`loaf` 和 `leaf` (樹葉) 長得很像。想像古人把一條 (`loaf`) 麵包用樹葉 (`leaf`) 包起來烤。' },
+            { en: 'goose', zh: '鵝 (ㄜˊ)', mnemonic: '`goose` 和 `loose` (鬆脫的) 押韻。這隻鵝 (`goose`) 從農場裡掙脫跑出來 (`loose`) 了！' },
+            { en: 'knife', zh: '刀 (ㄉㄠ)', mnemonic: '`k` 不發音。`knight` (騎士) 打仗會佩帶 `knife` (刀)，它們都是 `kn` 開頭喔。' },
+            { en: 'shelf', zh: '架子 (ㄐㄧㄚˋ ㄗ˙)', mnemonic: '`shelf` 聽起來像 `shell` (貝殼)。把你在海邊撿到的漂亮貝殼 (`shell`) 擺在架子 (`shelf`) 上。' },
+            { en: 'scarf', zh: '圍巾 (ㄨㄟˊ ㄐㄧㄣ)', mnemonic: '`s` + `car` (車子) + `f`。冬天開著敞篷車 (`car`) 兜風，你需要一條圍巾 (`scarf`) 保暖。' },
+            { en: 'themselves', zh: '他們自己 (ㄊㄚ ㄇㄣˊ ㄗˋ ㄐㄧˇ)', mnemonic: '`them` (他們) + `selves` (self 的複數，自己)。' },
+            { en: 'Paris', zh: '巴黎 (ㄅㄚ ㄌㄧˊ)', mnemonic: '`Paris` 聽起來像 `Pair is` (一對是)。這一對 (`pair`) 戀人現在正在巴黎 (`Paris`) 度假。' },
+            { en: 'super', zh: '超級的 (ㄔㄠ ㄐㄧˊ ㄉㄜ˙)', mnemonic: '聯想 `Superman` (超人)。超人的能力是超級的 (`super`)。' },
+            { en: 'photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: '`photo` 來自 `photograph`。我們現在都用 `phone` (手機) 來拍照片 (`photo`)。' },
+            { en: 'sheet', zh: '床單/一張紙 (ㄔㄨㄤˊ ㄉㄢ)', mnemonic: '`sheet` 和 `sheep` (羊) 很像。一隻羊 (`sheep`) 睡在白色的床單 (`sheet`) 上。' },
+            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個真誠的微笑 (`smile`)，它的感染力可以傳播好幾英里 (`mile`) 遠。' },
+            { en: 'shark', zh: '鯊魚 (ㄕㄚ ㄩˊ)', mnemonic: '`shark` 和 `dark` (黑暗) 押韻。鯊魚 (`shark`) 喜歡躲在黑暗 (`dark`) 的深海裡。' },
+            { en: 'plate', zh: '盤子 (ㄆㄢˊ ㄗ˙)', mnemonic: '`p` + `late` (遲到)。如果你太晚遲到 (`late`) 來到餐桌，你的盤子 (`plate`) 裡就會空空如也！' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -298,7 +302,6 @@
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
-            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
             renderPracticeList(); // 產生練習列表
@@ -334,13 +337,28 @@
                     </div>
                 `;
                 listContainer.appendChild(row);
+
+                // 為每個新產生的輸入框加入按鍵監聽 (按 Enter 自動批改)
+                const inputEl = document.getElementById(`p-input-${index}`);
+                inputEl.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        toggleAllAnswers();
+                    }
+                });
             });
         }
 
         // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
-                toggleAllAnswers();
+                // 如果 areAnswersVisible 為 false，代表現在是隱藏狀態，按下 Enter 就觸發顯示
+                // 這個判斷是為了避免在輸入框按下 Enter 觸發兩次（事件冒泡）
+                if(!areAnswersVisible){
+                     toggleAllAnswers();
+                } else if(e.target.tagName !== "INPUT") {
+                     // 如果已經顯示了，且焦點不在輸入框上，按 Enter 可以隱藏
+                     toggleAllAnswers();
+                }
             }
         });
 
@@ -358,7 +376,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (不分大小寫)
+                // 批改每一個輸入框 (轉為小寫做比對)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -382,7 +400,7 @@
         }
 
 
-        /* --- 考試模式邏輯 (原程式碼) --- */
+        /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -444,7 +462,7 @@
                 return;
             }
 
-            // 轉小寫，實現不分大小寫比對
+            // 轉小寫進行驗證，不分大小寫都算對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -459,6 +477,7 @@
                     nextQuestion();
                 }, 1500);
             } else {
+                // 如果答錯，顯示正確答案和記憶法
                 document.getElementById('exam-result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
