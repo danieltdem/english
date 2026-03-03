@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,18 +262,20 @@
 
     <script>
         const words = [
-            { en: 'rain', zh: '雨 (ㄩˇ)', mnemonic: '`rain` (雨) 聽起來像 `train` (火車)。想像一列火車 (`train`) 在大雨 (`rain`) 中行駛。' },
-            { en: 'rainbow', zh: '彩虹 (ㄘㄞˇ ㄏㄨㄥˊ)', mnemonic: '`rain` (雨) + `bow` (弓)。雨 (`rain`) 後天空中出現的彩色弓 (`bow`)，就是彩虹 (`rainbow`)。' },
-            { en: 'river', zh: '河流 (ㄏㄜˊ ㄌㄧㄡˊ)', mnemonic: '`river` 裡面有 `driver` (司機)。這個司機 (`driver`) 沿著河流 (`river`) 開車。' },
-            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`rose` (玫瑰) 聽起來像 `nose` (鼻子)。用你的鼻子 (`nose`) 去聞美麗的玫瑰 (`rose`)。' },
-            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`sea` (海) 和 `see` (看見) 發音相同。我希望能看見 (`see`) 美麗的大海 (`sea`)。' },
-            { en: 'season', zh: '季節 (ㄐㄧˋ ㄐㄧㄝˊ)', mnemonic: '`sea` (海) + `son` (兒子)。大海 (`sea`) 的兒子 (`son`) 經歷了春夏秋冬四個季節 (`season`)。' },
-            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`seed` (種子) 聽起來像 `see` (看見) + `d`。看見 (`see`) 種子 (`seed`) 發芽長大。' },
-            { en: 'shore', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`shore` (海岸) 聽起來像 `sure` (確定的)。我確定 (`sure`) 我們已經到了海岸 (`shore`)。' },
-            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`sky` (天空) 聽起來像 `ski` (滑雪)。想像你可以從天空 (`sky`) 上滑雪 (`ski`) 下來。' },
-            { en: 'snow', zh: '雪 (ㄒㄩㄝˇ)', mnemonic: '`snow` (雪) 聽起來像 `slow` (慢的)。雪 (`snow`) 總是慢慢地 (`slow`) 飄落下來。' },
-            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`spring` (春天) 也是「彈簧」的意思。春天 (`spring`) 萬物像彈簧一樣充滿生機地彈出來。' },
-            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '`star` (星星) 倒過來拼是 `rats` (老鼠)。想像天上的星星 (`star`) 變成了發光的小老鼠 (`rats`)。' }
+            { en: 'eat', zh: '吃 (ㄔ)', mnemonic: '`eat` (吃) 聽起來像 `it` (它)。把它 (`it`) 吃 (`eat`) 掉！' },
+            { en: 'nonliving', zh: '無生命的 (ㄨˊ ㄕㄥ ㄇㄧㄥˋ ㄉㄜ˙)', mnemonic: '`non` (不/無) + `living` (活著的)。不具備生命特徵的東西就是無生命的 (`nonliving`)。' },
+            { en: 'drink', zh: '喝 (ㄏㄜ)', mnemonic: '`drink` 裡面藏著 `ink` (墨水)。要小心，千萬不要把墨水 (`ink`) 當成飲料喝 (`drink`) 下去喔！' },
+            { en: 'breathe', zh: '呼吸 (ㄏㄨ ㄒㄧ)', mnemonic: '拆解成 `b` + `rest` (休息) + `he` (他)。當他 (`he`) 在休息 (`rest`) 時，會平靜地呼吸 (`breathe`)。' },
+            { en: 'move', zh: '移動 (ㄧˊ ㄉㄨㄥˋ)', mnemonic: '`move` 聽起來像 `movie` (電影)。電影 (`movie`) 其實就是連續移動 (`move`) 的圖片組成的。' },
+            { en: 'this', zh: '這個 (ㄓㄜˋ ㄍㄜ˙)', mnemonic: '`this` 聽起來像 `kiss` (親吻)。我想要親吻 (`kiss`) 這個 (`this`) 可愛的小狗。' },
+            { en: 'that', zh: '那個 (ㄋㄚˋ ㄍㄜ˙)', mnemonic: '`that` 包含 `hat` (帽子)。你看那邊那個 (`that`) 人戴著一頂奇怪的帽子 (`hat`)。' },
+            { en: 'mother', zh: '母親 (ㄇㄨˇ ㄑㄧㄣ)', mnemonic: '`m` + `other` (其他人)。對每個人來說，母親 (`mother`) 的地位勝過所有其他人 (`other`)。' },
+            { en: 'father', zh: '父親 (ㄈㄨˋ ㄑㄧㄣ)', mnemonic: '`fat` (胖的) + `her` (她)。(這是一個幽默的記憶法) 父親 (`father`) 總愛開玩笑說她 (`her`) 變胖 (`fat`) 了。' },
+            { en: 'zoo', zh: '動物園 (ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ)', mnemonic: '字母長得很像數字 `200`。這個動物園 (`zoo`) 裡面住著超過 200 種動物喔！' },
+            { en: 'yes', zh: '是的 (ㄕˋ ㄉㄜ˙)', mnemonic: '包含 `eyes` (眼睛) 的字母。當你開心說是的 (`yes`) 時，眼睛 (`eyes`) 都會笑彎了。' },
+            { en: 'we', zh: '我們 (ㄨㄛˇ ㄇㄣˊ)', mnemonic: '把 `we` (我們) 的 w 上下顛倒，就會變成 `me` (我)。很多個「我」(`me`) 聚在一起就成了「我們」(`we`)。' },
+            { en: 'up', zh: '向上 (ㄒㄧㄤˋ ㄕㄤˋ)', mnemonic: '`up` 的第一個字母 `U`，就像是一個開口向上 (`up`) 的杯子。' },
+            { en: 'the', zh: '這/那 (ㄓㄜˋ / ㄋㄚˋ)', mnemonic: '包含 `he` (他)。他 (`he`) 就是那個 (`the`) 我們在找的人。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -379,7 +381,7 @@
         }
 
 
-        /* --- 考試模式邏輯 (原程式碼) --- */
+        /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -441,7 +443,7 @@
                 return;
             }
 
-            // 不分大小寫比對
+            // 對答案時，將使用者輸入和正確答案都轉為小寫，達到不分大小寫的效果
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -461,7 +463,7 @@
                 document.getElementById('game-image').src = 'incorrect.png';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
+                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}<br><br><small>資料來源：https://mnemonicdictionary.com/</small>`;
                 mnemonicEl.style.display = 'block';
                 
                 document.getElementById('exam-submit').textContent = '繼續';
