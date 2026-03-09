@@ -26,9 +26,8 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             width: 90%;
             max-width: 600px;
-            max-height: 90vh; /* 限制最大高度 */
+            max-height: 90vh;
             position: relative;
-            /* 考試模式需要捲動，練習模式我們自己處理捲動，所以這裡預設 auto */
             overflow-y: auto; 
         }
 
@@ -68,7 +67,7 @@
         .menu-btn:hover { background-color: #e68900; }
         .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; }
 
-        /* --- 考試模式樣式 (維持原樣) --- */
+        /* --- 考試模式樣式 --- */
         #exam-screen { display: none; }
         .exam-input {
             padding: 10px;
@@ -94,45 +93,38 @@
         }
         #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px;}
 
-        /* --- 練習模式樣式 (固定頭部) --- */
+        /* --- 練習模式樣式 --- */
         #practice-screen { 
             display: none; 
-            background-color: #2c2c2c; /* 深灰色背景 */
+            background-color: #2c2c2c; 
             color: #f0f0f0;
-            border: 4px solid #8b4513; /* 深棕色邊框 */
-            
-            /* 使用 Flexbox 來做上下分割 */
+            border: 4px solid #8b4513; 
             flex-direction: column; 
-            padding: 0; /* 移除內距，讓頭部貼邊 */
-            overflow: hidden; /* 禁止整個容器捲動 */
+            padding: 0; 
+            overflow: hidden; 
         }
         
-        /* 練習模式下的 body 背景 */
         body.practice-mode { background-color: #1a1a1a; }
 
-        /* 固定在頂部的區域 */
         .practice-fixed-top {
             background-color: #2c2c2c;
-            padding: 15px 20px 5px 20px; /* 上 左右 下 */
+            padding: 15px 20px 5px 20px; 
             border-bottom: 2px solid #555;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            flex-shrink: 0; /* 防止被壓縮 */
+            flex-shrink: 0; 
             z-index: 10;
         }
 
-        /* 頂部按鈕群組 */
         .top-btn-group {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
 
-        /* 可捲動的列表區域 */
         #practice-list-container {
-            flex-grow: 1; /* 佔滿剩餘空間 */
-            overflow-y: auto; /* 只有這裡可以捲動 */
+            flex-grow: 1; 
+            overflow-y: auto; 
             padding: 10px 20px 20px 20px;
-            /* 自定義捲軸樣式 (Chrome/Safari) */
             scrollbar-width: thin;
             scrollbar-color: #555 #2c2c2c;
         }
@@ -178,7 +170,7 @@
         .header-back-btn {
             background-color: #607d8b;
             color: white;
-            width: 30%; /* 較小的寬度 */
+            width: 30%; 
             margin: 0;
             font-size: 14px;
             padding: 10px;
@@ -262,20 +254,20 @@
 
     <script>
         const words = [
-            { en: 'eat', zh: '吃 (ㄔ)', mnemonic: '`eat` (吃) 聽起來像 `it` (它)。把它 (`it`) 吃 (`eat`) 掉！' },
-            { en: 'nonliving', zh: '無生命的 (ㄨˊ ㄕㄥ ㄇㄧㄥˋ ㄉㄜ˙)', mnemonic: '`non` (不/無) + `living` (活著的)。不具備生命特徵的東西就是無生命的 (`nonliving`)。' },
-            { en: 'drink', zh: '喝 (ㄏㄜ)', mnemonic: '`drink` 裡面藏著 `ink` (墨水)。要小心，千萬不要把墨水 (`ink`) 當成飲料喝 (`drink`) 下去喔！' },
-            { en: 'breathe', zh: '呼吸 (ㄏㄨ ㄒㄧ)', mnemonic: '拆解成 `b` + `rest` (休息) + `he` (他)。當他 (`he`) 在休息 (`rest`) 時，會平靜地呼吸 (`breathe`)。' },
-            { en: 'move', zh: '移動 (ㄧˊ ㄉㄨㄥˋ)', mnemonic: '`move` 聽起來像 `movie` (電影)。電影 (`movie`) 其實就是連續移動 (`move`) 的圖片組成的。' },
-            { en: 'this', zh: '這個 (ㄓㄜˋ ㄍㄜ˙)', mnemonic: '`this` 聽起來像 `kiss` (親吻)。我想要親吻 (`kiss`) 這個 (`this`) 可愛的小狗。' },
-            { en: 'that', zh: '那個 (ㄋㄚˋ ㄍㄜ˙)', mnemonic: '`that` 包含 `hat` (帽子)。你看那邊那個 (`that`) 人戴著一頂奇怪的帽子 (`hat`)。' },
-            { en: 'mother', zh: '母親 (ㄇㄨˇ ㄑㄧㄣ)', mnemonic: '`m` + `other` (其他人)。對每個人來說，母親 (`mother`) 的地位勝過所有其他人 (`other`)。' },
-            { en: 'father', zh: '父親 (ㄈㄨˋ ㄑㄧㄣ)', mnemonic: '`fat` (胖的) + `her` (她)。(這是一個幽默的記憶法) 父親 (`father`) 總愛開玩笑說她 (`her`) 變胖 (`fat`) 了。' },
-            { en: 'zoo', zh: '動物園 (ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ)', mnemonic: '字母長得很像數字 `200`。這個動物園 (`zoo`) 裡面住著超過 200 種動物喔！' },
-            { en: 'yes', zh: '是的 (ㄕˋ ㄉㄜ˙)', mnemonic: '包含 `eyes` (眼睛) 的字母。當你開心說是的 (`yes`) 時，眼睛 (`eyes`) 都會笑彎了。' },
-            { en: 'we', zh: '我們 (ㄨㄛˇ ㄇㄣˊ)', mnemonic: '把 `we` (我們) 的 w 上下顛倒，就會變成 `me` (我)。很多個「我」(`me`) 聚在一起就成了「我們」(`we`)。' },
-            { en: 'up', zh: '向上 (ㄒㄧㄤˋ ㄕㄤˋ)', mnemonic: '`up` 的第一個字母 `U`，就像是一個開口向上 (`up`) 的杯子。' },
-            { en: 'the', zh: '這/那 (ㄓㄜˋ / ㄋㄚˋ)', mnemonic: '包含 `he` (他)。他 (`he`) 就是那個 (`the`) 我們在找的人。' }
+            { en: 'alive', zh: '活著的 (ㄏㄨㄛˊ ㄓㄜ˙ ㄉㄜ˙)', mnemonic: '`a` (一個) + `live` (生活/活著)。一個正在生活的人就是活著的 (`alive`)。' },
+            { en: 'energy', zh: '能量 (ㄋㄥˊ ㄌㄧㄤˋ)', mnemonic: '聽起來像 `inner-g` (內在的G)。能量 (`energy`) 來自於內在 (`inner`) 的力量。' },
+            { en: 'exercise', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)', mnemonic: '拆成 `ex` (extra, 額外的) + `size` (尺寸)。運動 (`exercise`) 是減掉身體額外尺寸 (`extra size`) 最好的方法！' },
+            { en: 'food', zh: '食物 (ㄕˊ ㄨˋ)', mnemonic: '聽起來像 `foot` (腳)。我們需要吃食物 (`food`) 才能有體力用雙腳 (`foot`) 站立。' },
+            { en: 'health', zh: '健康 (ㄐㄧㄢˋ ㄎㄤ)', mnemonic: '裡面有 `heal` (治癒)。治癒 (`heal`) 疾病才能恢復健康 (`health`)。' },
+            { en: 'three', zh: '三 (ㄙㄢ)', mnemonic: '聽起來像 `tree` (樹)。想像那裡有三 (`three`) 棵樹 (`tree`)。' },
+            { en: 'teeth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '聽起來像 `tea` (茶) + `th`。喝太多茶 (`tea`) 如果不刷牙，牙齒 (`teeth`) 會變黃喔。' },
+            { en: 'think', zh: '思考 (ㄙ ㄎㄠˇ)', mnemonic: '裡面有 `ink` (墨水)。作家用墨水 (`ink`) 寫下他們思考 (`think`) 的內容。' },
+            { en: 'bath', zh: '洗澡 (ㄒㄧˇ ㄗㄠˇ)', mnemonic: '聽起來像 `path` (小徑)。在泥濘的小徑 (`path`) 上走完後，你需要洗個澡 (`bath`)。' },
+            { en: 'rat', zh: '老鼠 (ㄌㄠˇ ㄕㄨˇ)', mnemonic: '和 `cat` (貓) 押韻。貓 (`cat`) 最喜歡抓老鼠 (`rat`) 了。' },
+            { en: 'pan', zh: '平底鍋 (ㄆㄧㄥˊ ㄉㄧˇ ㄍㄨㄛ)', mnemonic: '包含在 `Japan` (日本) 這個字裡面。想像日本人 (`Japan`) 拿著一個平底鍋 (`pan`) 做料理。' },
+            { en: 'old', zh: '老的 (ㄌㄠˇ ㄉㄜ˙)', mnemonic: '和 `gold` (黃金) 押韻。俗話說「薑還是老的辣」，老 (`old`) 的東西就像黃金 (`gold`) 一樣珍貴。' },
+            { en: 'pin', zh: '大頭針 (ㄉㄚˋ ㄊㄡˊ ㄓㄣ)', mnemonic: '聽起來像 `pain` (疼痛)。不小心被大頭針 (`pin`) 扎到會感覺疼痛 (`pain`)。' },
+            { en: 'run', zh: '跑 (ㄆㄠˇ)', mnemonic: '和 `sun` (太陽) 押韻。在太陽 (`sun`) 底下跑步 (`run`) 會流很多汗。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -291,32 +283,31 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
-            startGame(); // 初始化考試
+            startGame(); 
         }
 
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'none';
-            // 這裡設定 display: flex 是為了配合 CSS 中的 flex-direction: column 佈局
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
-            renderPracticeList(); // 產生練習列表
-            resetPracticeState(); // 重置按鈕狀態
+            renderPracticeList(); 
+            resetPracticeState(); 
         }
 
         /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false; // 追蹤目前答案是否顯示
+        let areAnswersVisible = false; 
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
             btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f'; // 紅色
+            btn.style.backgroundColor = '#d32f2f'; 
         }
 
         function renderPracticeList() {
             const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = ''; // 清空
+            listContainer.innerHTML = ''; 
 
             words.forEach((word, index) => {
                 const row = document.createElement('div');
@@ -336,7 +327,7 @@
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件 (事件委派)
+        // 監聽整個練習列表的鍵盤事件
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -348,17 +339,17 @@
             const answers = document.querySelectorAll('.answer-text');
             const inputs = document.querySelectorAll('.practice-input');
 
-            areAnswersVisible = !areAnswersVisible; // 切換狀態
+            areAnswersVisible = !areAnswersVisible; 
 
             if (areAnswersVisible) {
                 // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50'; // 綠色
+                btn.style.backgroundColor = '#4CAF50'; 
                 
-                answers.forEach(el => el.style.display = 'block'); // 顯示答案
+                answers.forEach(el => el.style.display = 'block'); 
 
-                // 批改每一個輸入框 (不分大小寫)
                 inputs.forEach((input, index) => {
+                    // toLowerCase() 確保大小寫都能算對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     
@@ -374,9 +365,9 @@
             } else {
                 // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f'; // 紅色
+                btn.style.backgroundColor = '#d32f2f'; 
                 
-                answers.forEach(el => el.style.display = 'none'); // 隱藏答案
+                answers.forEach(el => el.style.display = 'none'); 
             }
         }
 
@@ -405,7 +396,6 @@
             wrongWords = [];
             isWaitingToContinue = false;
             
-            // 重置UI
             document.getElementById('exam-restart').style.display = 'none';
             document.getElementById('exam-retest').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
@@ -443,7 +433,7 @@
                 return;
             }
 
-            // 對答案時，將使用者輸入和正確答案都轉為小寫，達到不分大小寫的效果
+            // toLowerCase() 確保大小寫都能算對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -463,7 +453,7 @@
                 document.getElementById('game-image').src = 'incorrect.png';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}<br><br><small>資料來源：https://mnemonicdictionary.com/</small>`;
+                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
                 mnemonicEl.style.display = 'block';
                 
                 document.getElementById('exam-submit').textContent = '繼續';
