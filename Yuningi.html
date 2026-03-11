@@ -218,7 +218,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共11題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共8題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫">
         <br>
@@ -262,17 +262,14 @@
 
     <script>
         const words = [
-            { en: 'behave', zh: '表現 (ㄅㄧㄠˇ ㄒㄧㄢˋ)', mnemonic: '`be` (是) + `have` (有)。你「是」(be) 什麼樣的人，就會「有」(have) 什麼樣的表現 (behave)。' },
-            { en: 'perch', zh: '棲息 (ㄑㄧ ㄒㄧ)', mnemonic: '`perch` 聽起來像 `search` (搜尋)。鳥兒在棲息 (perch) 前會先搜尋 (search) 一個好地方。' },
-            { en: 'bunch', zh: '一束；一串 (ㄧ ㄕㄨˋ)', mnemonic: '`bunch` 聽起來像 `lunch` (午餐)。我們的午餐 (lunch) 是一串 (bunch) 香蕉。' },
-            { en: 'worth', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`w` + `earth` (地球)。地球上的資源是有著無窮的價值 (worth)。' },
-            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '裡面有 `board` (木板)。用木板 (board) 圍起來的地方就是邊界 (border)。' },
-            { en: 'rotate', zh: '旋轉 (ㄒㄩㄢˊ ㄓㄨㄢˇ)', mnemonic: '裡面有 `rate` (速率)。地球繞著太陽旋轉 (rotate) 的速率 (rate) 是固定的。' },
-            { en: 'move along', zh: '前進 (ㄑㄧㄢˊ ㄐㄧㄣˋ)', mnemonic: '`move` (移動) + `along` (沿著)。警察維持秩序時常說「Move along」，意思是請大家繼續沿著路向前進，不要逗留。' },
-            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '`reach` 和 `rich` (富有) 很像。富有的 (rich) 人可以輕易到達 (reach) 任何地方。' },
-            { en: 'rise', zh: '上升 (ㄕㄤˋ ㄕㄥ)', mnemonic: '`rise` (上升) 聽起來像 `rice` (米飯)。煮熟的米飯 (rice) 會冒出上升 (rise) 的熱氣。' },
-            { en: 'fetch', zh: '拿來 (ㄋㄚˊ ㄌㄞˊ)', mnemonic: '拆成 `f` (for) + `each` (每一個)。為了每一個 (for each) 人把他們需要的東西拿來 (fetch)。' },
-            { en: 'sketch', zh: '素描 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '`sk` (skill, 技巧) + `etch` (蝕刻)。用你的技巧 (skill) 畫出一張草圖或素描 (sketch)。' }
+            { en: 'kaohsiung', zh: '高雄 (ㄍㄠ ㄒㄩㄥˊ)', mnemonic: '這是一個專有名詞，發音直譯 Kaohsiung。台灣南部的港都，也是著名的觀光大城。' },
+            { en: 'wreck', zh: '殘骸；破壞 (ㄘㄢˊ ㄏㄞˊ)', mnemonic: '`wreck` 聽起來像 `break` (打破)。當你打破 (`break`) 某樣東西後，剩下的就是殘骸 (`wreck`)。' },
+            { en: 'twitch', zh: '抽搐 (ㄔㄡ ㄔㄨˋ)', mnemonic: '`twitch` 聽起來像 `witch` (女巫)。那個女巫 (`witch`) 唸了咒語，讓他的臉開始抽搐 (`twitch`)。' },
+            { en: 'limb', zh: '四肢 (ㄙˋ ㄓ)', mnemonic: '`limb` (四肢) 和 `climb` (攀爬) 押韻。我們用四肢 (`limb`) 來攀爬 (`climb`)。' },
+            { en: 'patch', zh: '補丁 (ㄅㄨˇ ㄉㄧㄥ)', mnemonic: '`patch` (補丁) 和 `match` (相配) 押韻。找一個能相配 (`match`) 的補丁 (`patch`) 來補衣服。' },
+            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '`any` (任何) + `way` (方式)。用任何 (`any`) 方式 (`way`) 都可以，無論如何 (`anyway`) 都要完成。' },
+            { en: 'clutch', zh: '緊握 (ㄐㄧㄣˇ ㄨㄛˋ)', mnemonic: '當你開手排車時，你需要緊握 (`clutch`) 方向盤並踩離合器 (`clutch`)。' },
+            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (尋常的)。合在一起就是不尋常的 (`unusual`)。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -330,6 +327,14 @@
                     </div>
                 `;
                 listContainer.appendChild(row);
+
+                // 為每個新產生的輸入框加入按鍵監聽
+                const inputEl = document.getElementById(`p-input-${index}`);
+                inputEl.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        toggleAllAnswers();
+                    }
+                });
             });
         }
 
@@ -354,7 +359,7 @@
                 
                 answers.forEach(el => el.style.display = 'block'); // 顯示答案
 
-                // 批改每一個輸入框 (轉小寫比對)
+                // 批改每一個輸入框 (這裡使用 toLowerCase 達成不分大小寫)
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -378,7 +383,7 @@
         }
 
 
-        /* --- 考試模式邏輯 (原程式碼) --- */
+        /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
         let totalQuestions = words.length;
@@ -440,10 +445,9 @@
                 return;
             }
 
-            // 轉為小寫比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
-            const correctAnswer = q.en.toLowerCase();
+            const correctAnswer = q.en.toLowerCase(); // 不分大小寫的比對關鍵
 
             if (userAnswer === correctAnswer) {
                 score++;
