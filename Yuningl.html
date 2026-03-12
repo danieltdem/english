@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Listening Test for Youning</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f9; color: #333; display: flex; justify-content: center; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 800px; width: 100%; text-align: center; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .score-board { font-size: 18px; font-weight: bold; color: #fff; background: #3498db; padding: 8px 20px; border-radius: 30px; }
+        
+        .question-box { background: #fff; padding: 20px; border-radius: 10px; border: 2px solid #f0f0f0; margin-bottom: 20px; }
+        
+        .controls { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .btn { border: none; padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .audio-btn { background: #2ecc71; color: white; box-shadow: 0 4px 0 #27ae60; }
+        .audio-btn:active { transform: translateY(3px); box-shadow: none; }
+        .next-btn { background-color: #34495e; color: white; box-shadow: 0 4px 0 #2c3e50; }
+        .next-btn:active { transform: translateY(3px); box-shadow: none; }
+
+        .options { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .option-btn { padding: 15px; border: 2px solid #ddd; background: #fff; border-radius: 10px; cursor: pointer; transition: 0.2s; font-size: 17px; text-align: left; line-height: 1.4; }
+        .option-btn:hover:not([disabled]) { border-color: #3498db; background-color: #f0f9ff; }
+        .option-btn[disabled] { cursor: default; }
+
+        #analysis-box { margin-top: 25px; padding: 20px; background: #fff; border: 2px solid #e74c3c; border-radius: 10px; text-align: left; display: none; animation: fadeIn 0.5s; }
+        .script-text { font-style: italic; color: #2c3e50; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #ddd; line-height: 1.5; }
+        .translation-text { color: #7f8c8d; margin-bottom: 15px; line-height: 1.5; }
+        .vocab-list { background: #fdf2f2; padding: 15px; border-radius: 8px; }
+        .vocab-item { margin-bottom: 8px; font-size: 15px; }
+        .vocab-word { font-weight: bold; color: #c0392b; }
+
+        .hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2 style="margin:0;">Advanced Listening Test</h2>
+        <div class="score-board">Score: <span id="current-score">0</span> / <span id="total-questions">0</span></div>
+    </div>
+    
+    <div id="quiz-area">
+        <div class="question-box">
+            <p id="q-type" style="color: #95a5a6; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; font-weight: bold;"></p>
+            <h3 id="q-text">Ready? Listen to the audio below.</h3>
+            
+            <div class="controls">
+                <button class="btn audio-btn" onclick="playFullScript()">🔊 Play Audio</button>
+                <button id="next-btn" class="btn next-btn hidden" onclick="nextQuestion()">Next Question ➔</button>
+            </div>
+
+            <div id="options-container" class="options"></div>
+        </div>
+        
+        <p id="feedback" style="font-size: 20px; font-weight: bold;"></p>
+        
+        <div id="analysis-box">
+            <h4 style="margin-top:0; color: #e74c3c;">Learning Note</h4>
+            <div class="script-text"><strong>Full Script:</strong> <br><span id="display-script"></span></div>
+            <div class="translation-text"><strong>Translation:</strong> <br><span id="display-translation"></span></div>
+            <div class="vocab-list">
+                <strong>Key Vocabulary:</strong>
+                <div id="display-vocab" style="margin-top: 8px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 嚴格使用友寧單字表的內容來出題
+    const quizData = [
+        {
+            type: "Question 1: Nature Observation",
+            script: "Man 1: Did you observe the motion of the glowing lightning? Woman 1: Yes, the pattern appears to repeat over the valley. Narrator 1: Question: What did they observe?",
+            translation: "男1：你有觀察那發光閃電的運動嗎？\n女1：有，那種模式似乎在山谷上方重複出現。\n旁白1：問題：他們觀察了什麼？",
+            options: ["A. The pattern of the lightning.", "B. A dandelion in the valley.", "C. A silver umbrella."],
+            correct: 0,
+            vocab: [
+                { word: "observe", detail: "觀察 (v.)" },
+                { word: "motion", detail: "運動 / 移動 (n.)" },
+                { word: "pattern", detail: "模式 / 規律 (n.)" },
+                { word: "appear", detail: "似乎 / 出現 (v.)" },
+                { word: "repeat", detail: "重複 (v.)" }
+            ]
+        },
+        {
+            type: "Question 2: Finding the Way",
+            script: "Woman 2: Please repeat the direction for the electric channel. Man 2: Go to the bottom of the building, then find the exit. Narrator 2: Question: Where should the woman go?",
+            translation: "女2：請重複去那個電子通道的方向。\n男2：走到建築物的底部，然後找到出口。\n旁白2：問題：這個女人應該去哪裡？",
+            options: ["A. To the bottom of the building.", "B. To the hospital.", "C. To the electric factory."],
+            correct: 0,
+            vocab: [
+                { word: "electric", detail: "電的 / 導電的 (adj.)" },
+                { word: "bottom", detail: "底部 (n.)" },
+                { word: "exit", detail: "出口 (n.)" },
+                { word: "building", detail: "建築物 (n.)" }
+            ]
+        },
+        {
+            type: "Question 3: Chores",
+            script: "Man 1: I suggest we polish the bucket until it is bright. Woman 2: Excellent. Then we can fetch water from the river. Narrator 1: Question: What does the man suggest?",
+            translation: "男1：我建議我們把水桶擦亮，直到它變得很亮。\n女2：太棒了。然後我們就可以從河裡打水。\n旁白1：問題：這個男人建議做什麼？",
+            options: ["A. Fetch water from the river.", "B. Polish the bucket.", "C. Throw the bucket."],
+            correct: 1,
+            vocab: [
+                { word: "suggest", detail: "建議 (v.)" },
+                { word: "polish", detail: "擦亮 (v.)" },
+                { word: "until", detail: "直到... (conj.)" },
+                { word: "river", detail: "河流 (n.)" }
+            ]
+        },
+        {
+            type: "Question 4: House Inspection",
+            script: "Woman 1: I am disappointed with this muddy closet. Man 2: Let's inspect it as soon as possible. Narrator 2: Question: How does the woman feel about the closet?",
+            translation: "女1：我對這個泥濘的衣櫥感到很失望。\n男2：我們盡快檢查一下吧。\n旁白2：問題：女人對衣櫥有什麼感覺？",
+            options: ["A. She thinks it is excellent.", "B. She is disappointed.", "C. She is amazed."],
+            correct: 1,
+            vocab: [
+                { word: "disappointed", detail: "失望的 (adj.)" },
+                { word: "closet", detail: "衣櫥 (n.)" },
+                { word: "inspect", detail: "檢查 (v.)" },
+                { word: "possible", detail: "可能的 (adj.)" }
+            ]
+        },
+        {
+            type: "Question 5: Weather Warning",
+            script: "Man 2: The temperature is chilly. I see lightning in the distance. Woman 1: You should bring an umbrella outside. Narrator 1: Question: Why should the man bring an umbrella?",
+            translation: "男2：氣溫很冷。我看到遠處有閃電。\n女1：你到外面應該帶把傘。\n旁白1：問題：為什麼男人應該帶傘？",
+            options: ["A. Because of the chilly temperature and lightning.", "B. Because it is summer.", "C. Because he is going to the hospital."],
+            correct: 0,
+            vocab: [
+                { word: "temperature", detail: "氣溫 (n.)" },
+                { word: "chilly", detail: "寒冷的 (adj.)" },
+                { word: "distance", detail: "距離 / 遠處 (n.)" },
+                { word: "umbrella", detail: "雨傘 (n.)" }
+            ]
+        },
+        {
+            type: "Question 6: Future Plans",
+            script: "Woman 2: The government will develop a new electric industry. Man 1: They will build a huge factory in the valley. Narrator 2: Question: What will the government develop?",
+            translation: "女2：政府將發展一個新的電子工業。\n男1：他們會在山谷裡建一座巨大的工廠。\n旁白2：問題：政府將發展什麼？",
+            options: ["A. A new hospital.", "B. A new electric industry.", "C. A beautiful forest."],
+            correct: 1,
+            vocab: [
+                { word: "government", detail: "政府 (n.)" },
+                { word: "develop", detail: "發展 (v.)" },
+                { word: "industry", detail: "工業 (n.)" },
+                { word: "factory", detail: "工廠 (n.)" }
+            ]
+        },
+        {
+            type: "Question 7: Science Experiment",
+            script: "Man 1: The result of the brain experiment will amaze everyone. Woman 1: Yes, this knowledge is excellent. Narrator 1: Question: What are they discussing?",
+            translation: "男1：這個大腦實驗的結果會讓所有人驚訝。\n女1：是的，這個知識太棒了。\n旁白1：問題：他們在討論什麼？",
+            options: ["A. A recipe for cheese.", "B. An experiment.", "C. A foreign language."],
+            correct: 1,
+            vocab: [
+                { word: "experiment", detail: "實驗 (n.)" },
+                { word: "brain", detail: "大腦 (n.)" },
+                { word: "amaze", detail: "使驚訝 (v.)" },
+                { word: "knowledge", detail: "知識 (n.)" }
+            ]
+        },
+        {
+            type: "Question 8: Animal Survival",
+            script: "Woman 2: How do animals survive in the harsh desert? Man 2: They avoid the heat and hide in the hollow. Narrator 2: Question: What is the conversation about?",
+            translation: "女2：動物如何在嚴酷的沙漠中生存？\n男2：牠們避開高溫並躲在空洞裡。\n旁白2：問題：這段對話是關於什麼？",
+            options: ["A. Surviving in the harsh desert.", "B. Exploring a huge mountain.", "C. Swimming in the river."],
+            correct: 0,
+            vocab: [
+                { word: "survive", detail: "生存 (v.)" },
+                { word: "harsh", detail: "嚴酷的 (adj.)" },
+                { word: "desert", detail: "沙漠 (n.)" },
+                { word: "avoid", detail: "避開 (v.)" }
+            ]
+        },
+        {
+            type: "Question 9: Food Tasting",
+            script: "Man 2: This recipe has an unusual flavor. Woman 2: It is different from the normal, mild taste. Narrator 1: Question: What are they talking about?",
+            translation: "男2：這個食譜有一種不尋常的風味。\n女2：這和正常的、溫和的味道不一樣。\n旁白1：問題：他們在談論什麼？",
+            options: ["A. A normal cheese.", "B. An unusual flavor.", "C. A perfect lemon."],
+            correct: 1,
+            vocab: [
+                { word: "recipe", detail: "食譜 (n.)" },
+                { word: "unusual", detail: "不尋常的 (adj.)" },
+                { word: "flavor", detail: "風味 (n.)" },
+                { word: "mild", detail: "溫和的 (adj.)" }
+            ]
+        },
+        {
+            type: "Question 10: Making Memories",
+            script: "Woman 1: Use your camera to capture this amazing moment. Man 1: I will. This huge mountain is excellent. Narrator 2: Question: What is the man going to do?",
+            translation: "女1：用你的相機捕捉這個驚人的時刻。\n男1：我會的。這座巨大的山太棒了。\n旁白2：問題：這個男人打算做什麼？",
+            options: ["A. Capture the mountain with a camera.", "B. Sketch the island.", "C. Disappear in the forest."],
+            correct: 0,
+            vocab: [
+                { word: "camera", detail: "相機 (n.)" },
+                { word: "amazing", detail: "驚人的 (adj.)" },
+                { word: "moment", detail: "時刻 (n.)" },
+                { word: "mountain", detail: "山 (n.)" }
+            ]
+        }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let hasAnswered = false;
+    const synth = window.speechSynthesis;
+    let roleVoices = {}; // 存放不同角色的聲音設定
+
+    // 多重角色聲音分配系統
+    function initVoices() {
+        let voices = synth.getVoices().filter(v => v.lang.includes('en'));
+        if (voices.length === 0) return;
+
+        // 嘗試根據名稱分類男聲、女聲與英國腔(旁白)
+        let maleVoices = voices.filter(v => /David|Alex|Male|George/i.test(v.name));
+        let femaleVoices = voices.filter(v => /Zira|Samantha|Female|Victoria/i.test(v.name));
+        let ukVoices = voices.filter(v => v.lang.includes('GB'));
+
+        // 如果系統聲音不夠多，就重複利用但打亂順序以求最大差異
+        if (maleVoices.length < 2) maleVoices = [...voices].reverse();
+        if (femaleVoices.length < 2) femaleVoices = [...voices];
+        if (ukVoices.length < 2) ukVoices = [...voices].slice(1);
+
+        roleVoices = {
+            "Man 1:": maleVoices[0] || voices[0],
+            "Man 2:": maleVoices[1] || voices[1],
+            "Woman 1:": femaleVoices[0] || voices[2],
+            "Woman 2:": femaleVoices[1] || voices[3],
+            "Narrator 1:": ukVoices[0] || voices[4],
+            "Narrator 2:": ukVoices[1] || voices[5]
+        };
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = initVoices;
+    }
+
+    function loadQuestion() {
+        const q = quizData[currentQ];
+        hasAnswered = false;
+        document.getElementById('total-questions').innerText = quizData.length;
+        document.getElementById('q-type').innerText = q.type;
+        document.getElementById('q-text').innerText = "Listen carefully and choose the best answer.";
+        document.getElementById('feedback').innerText = "";
+        document.getElementById('analysis-box').style.display = "none";
+        document.getElementById('next-btn').classList.add('hidden');
+        
+        const optionsDiv = document.getElementById('options-container');
+        optionsDiv.innerHTML = "";
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(index);
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function playFullScript() {
+        if (synth.speaking) synth.cancel();
+        initVoices(); // 確保聲音已載入
+        
+        // 解析文本，自動切換 6 種不同的聲音
+        const parts = quizData[currentQ].script.split(/(Man 1:|Man 2:|Woman 1:|Woman 2:|Narrator 1:|Narrator 2:)/).filter(p => p.trim() !== "");
+        let currentVoice = roleVoices["Narrator 1:"]; // 預設聲音
+
+        parts.forEach((part) => {
+            const text = part.trim();
+            if (roleVoices[text]) { 
+                currentVoice = roleVoices[text]; // 切換角色聲音
+                return; 
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = currentVoice;
+            utterance.lang = currentVoice ? currentVoice.lang : 'en-US';
+            utterance.rate = 0.9; // 進階難度語速
+            synth.speak(utterance);
+        });
+    }
+
+    function checkAnswer(choice) {
+        const q = quizData[currentQ];
+        const feedback = document.getElementById('feedback');
+        const analysisBox = document.getElementById('analysis-box');
+        
+        if (choice === q.correct) {
+            feedback.innerText = "Correct! Great job! ✨";
+            feedback.style.color = "#2ecc71";
+            if (!hasAnswered) {
+                score++;
+                document.getElementById('current-score').innerText = score;
+            }
+        } else {
+            feedback.innerText = "Incorrect! Keep learning... ✍️";
+            feedback.style.color = "#e74c3c";
+        }
+
+        // 格式化顯示腳本與翻譯
+        let formattedScript = q.script.replace(/(Man 1:|Man 2:|Woman 1:|Woman 2:|Narrator 1:|Narrator 2:)/g, '<br><strong>$1</strong>');
+        document.getElementById('display-script').innerHTML = formattedScript;
+        document.getElementById('display-translation').innerHTML = q.translation.replace(/\n/g, '<br>');
+        
+        const vocabDiv = document.getElementById('display-vocab');
+        vocabDiv.innerHTML = "";
+        q.vocab.forEach(v => {
+            vocabDiv.innerHTML += `<div class="vocab-item"><span class="vocab-word">${v.word}</span>: ${v.detail}</div>`;
+        });
+
+        analysisBox.style.display = "block";
+        hasAnswered = true;
+        document.getElementById('next-btn').classList.remove('hidden');
+        
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => b.disabled = true);
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if (currentQ < quizData.length) {
+            loadQuestion();
+        } else {
+            showFinalResult();
+        }
+    }
+
+    function showFinalResult() {
+        const percent = Math.round((score / quizData.length) * 100);
+        let comment = percent >= 80 ? "Outstanding Performance!" : "Keep practicing, you're doing great!";
+        
+        document.getElementById('quiz-area').innerHTML = `
+            <div style="padding: 40px 0;">
+                <h2>Test Completed!</h2>
+                <h1 style="font-size: 60px; color: #3498db; margin: 10px 0;">${percent}%</h1>
+                <p style="font-size: 18px;">Correct: ${score} / ${quizData.length}</p>
+                <p style="font-size: 16px; color: #7f8c8d; font-style: italic;">${comment}</p>
+                <button class="btn audio-btn" style="margin-top: 20px;" onclick="location.reload()">Try Again</button>
+            </div>
+        `;
+    }
+
+    window.onload = loadQuestion;
+</script>
+
+</body>
+</html>
