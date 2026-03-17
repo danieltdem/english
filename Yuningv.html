@@ -25,7 +25,7 @@
             border-radius: 15px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             width: 90%;
-            max-width: 650px; /* 稍微加寬以容納較長的記憶法 */
+            max-width: 650px; /* 稍微加寬以容納新按鈕 */
             max-height: 90vh;
             position: relative;
             overflow-y: auto; 
@@ -85,7 +85,7 @@
             margin-top: 10px;
             color: #3d5afe;
             text-align: left;
-            padding: 10px;
+            padding: 15px;
             border: 1px solid #e0e0e0;
             border-radius: 5px;
             background-color: #f3f4ff;
@@ -136,13 +136,28 @@
         .practice-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* 讓內容靠上對齊，因為可能有記憶法展開 */
+            align-items: flex-start;
             padding: 15px 0;
             border-bottom: 1px solid #444;
+            flex-wrap: wrap; /* 讓內容太長時可以換行 */
         }
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; padding-top: 5px;}
-        .col-input { width: 35%; padding-top: 2px;}
-        .col-ans { width: 30%; text-align: right; display: flex; flex-direction: column; align-items: flex-end;}
+        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; margin-top: 8px;}
+        .col-input { width: 35%; margin-top: 8px;}
+        .col-ans { width: 30%; text-align: right; color: #4CAF50; font-weight: bold; font-size: 18px; margin-top: 8px;}
+        
+        /* 練習模式中的記憶法提示 */
+        .practice-mnemonic-box {
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            color: #82b1ff;
+            background-color: #1e3a5f;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+            line-height: 1.4;
+        }
 
         .practice-input {
             width: 90%;
@@ -176,23 +191,8 @@
             padding: 10px;
         }
 
-        .answer-text { display: none; width: 100%; }
-        .correct-word-text { color: #4CAF50; font-weight: bold; font-size: 18px; }
+        .answer-text { display: none; }
         
-        /* 練習模式專用記憶法框 */
-        .practice-mnemonic {
-            display: none; 
-            font-size: 13px; 
-            color: #b3e5fc; 
-            margin-top: 8px; 
-            background-color: #1b3a4b; 
-            padding: 8px; 
-            border-radius: 5px; 
-            text-align: left;
-            line-height: 1.4;
-            border-left: 3px solid #03a9f4;
-        }
-
         .list-header {
             display: flex; 
             justify-content: space-between; 
@@ -201,12 +201,27 @@
             margin-top: 10px;
             padding-bottom: 5px;
         }
+        
+        /* 朗讀按鈕小樣式 */
+        .speak-btn {
+            background-color: #03a9f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .speak-btn:hover { background-color: #0288d1; }
+
     </style>
 </head>
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
+        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
         <h1>英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -222,7 +237,7 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
         <h1>單字拼寫測驗</h1>
         <p>請根據給出的中文意思，輸入正確的英文拼寫。共26題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
@@ -241,6 +256,7 @@
     <div id="practice-screen" class="container">
         <div class="practice-fixed-top">
             <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
+            
             <div class="top-btn-group">
                 <button class="header-back-btn" onclick="goHome()">
                     回首頁<br><span style="font-size:0.8em">ㄏㄨㄟˊ ㄕㄡˇ ㄧㄝˋ</span>
@@ -250,6 +266,7 @@
                     <br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
                 </button>
             </div>
+
             <div class="list-header">
                 <span style="width:35%">中文意思</span>
                 <span style="width:35%">拼寫練習</span>
@@ -264,33 +281,44 @@
     </div>
 
     <script>
+        // Chrome 語音合成朗讀功能
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'en-US'; // 設定為美式英文發音
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('抱歉，您的瀏覽器不支援語音朗讀功能喔！');
+            }
+        }
+
         const words = [
-            { en: 'add', zh: '增加 (ㄗㄥ ㄐㄧㄚ)', mnemonic: '`add` (增加) 和 `ad` (廣告) 發音相同。好的廣告 (`ad`) 可以為產品增加 (`add`) 價值。' },
-            { en: 'cooperate', zh: '合作 (ㄏㄜˊ ㄗㄨㄛˋ)', mnemonic: '`co` (一起) + `operate` (操作/工作)。大家一起 (`co`) 工作 (`operate`) 就是合作 (`cooperate`)。' },
-            { en: 'enough', zh: '足夠的 (ㄗㄨˊ ㄍㄡˋ ㄉㄜ˙)', mnemonic: '`e` + `nough` (rough, 艱難)。即使在艱難 (`rough`) 的時候，只要有愛就足夠 (`enough`) 了。' },
-            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`poss` 聽起來像 `boss` (老闆) + `ible` (able, 能夠)。只要老闆 (`boss`) 說能夠 (`able`) 做的，就是可能的 (`possible`)。' },
-            { en: 'share', zh: '分享 (ㄈㄣ ㄒㄧㄤˇ)', mnemonic: '`share` 裡有 `hare` (野兔)。想像一隻野兔 (`hare`) 和你分享 (`share`) 牠的胡蘿蔔。' },
-            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '`set` (設置) + `tle` (tile, 磁磚)。把磁磚設置 (`set`) 好了，就表示房子蓋好可以定居 (`settle`) 了。' },
-            { en: 'angle', zh: '角度 (ㄐㄧㄠˇ ㄉㄨˋ)', mnemonic: '`angle` (角度) 和 `angel` (天使) 拼法很像。從這個角度 (`angle`) 看，她就像個天使 (`angel`)。' },
-            { en: 'title', zh: '標題 (ㄅㄧㄠ ㄊㄧˊ)', mnemonic: '`tie` (繫上) + `tale` (故事)。為這個故事 (`tale`) 繫上 (`tie`) 一個完美的標題 (`title`)。' },
-            { en: 'bubble', zh: '泡泡 (ㄆㄠˋ ㄆㄠˋ)', mnemonic: '`bub` (聽起來像 bob, 浮動) + `ble`。在水面上上下浮動 (`bob`) 的就是泡泡 (`bubble`)。' },
-            { en: 'trouble', zh: '麻煩 (ㄇㄚˊ ㄈㄢˊ)', mnemonic: '`t` + `route` (路線) + `block` (阻塞)。這條路線 (`route`) 被阻塞 (`block`) 了，真是個大麻煩 (`trouble`)。' },
-            { en: 'sparkle', zh: '閃耀 (ㄕㄢˇ ㄧㄠˋ)', mnemonic: '`spark` (火花) + `le`。有一點小火花 (`spark`) 就會閃閃發光 (`sparkle`)。' },
-            { en: 'kettle', zh: '水壺 (ㄕㄨㄟˇ ㄏㄨˊ)', mnemonic: '`kettle` (水壺) 和 `cattle` (牛群) 只有一個字母不同。牛仔們在牛群 (`cattle`) 旁用水壺 (`kettle`) 煮水。' },
-            { en: 'simple', zh: '簡單的 (ㄐㄧㄢˇ ㄉㄢ ㄉㄜ˙)', mnemonic: '`simple` 和 `dimple` (酒窩) 押韻。她露出一個帶有酒窩 (`dimple`) 的簡單 (`simple`) 微笑。' },
-            { en: 'scramble', zh: '攀爬；爭奪 (ㄆㄢ ㄆㄚˊ)', mnemonic: '`scream` (尖叫) + `amble` (漫步)。情況太混亂了，大家一邊尖叫 (`scream`) 一邊爭奪 (`scramble`)。' },
-            { en: 'terrible', zh: '可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)', mnemonic: '`terror` (恐懼) + `ible` (able)。能夠 (`able`) 引起恐懼 (`terror`) 的事物就是可怕的 (`terrible`)。' },
-            { en: 'puzzle', zh: '謎題 (ㄇㄧˊ ㄊㄧˊ)', mnemonic: '`puzzle` (謎題) 和 `pizza` (披薩) 拼法有點像。要怎麼把這個披薩 (`pizza`) 平分，真是一個謎題 (`puzzle`)。' },
-            { en: 'scribble', zh: '塗鴉；亂寫 (ㄊㄨˊ ㄧㄚ)', mnemonic: '`script` (手稿) + `babble` (胡言亂語)。寫出來的手稿 (`script`) 像胡言亂語 (`babble`) 一樣，這就是亂寫 (`scribble`)。' },
-            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '`tremble` 裡面有 `trem` (聽起來像 train, 火車)。火車 (`train`) 經過時，地面會震動發抖 (`tremble`)。' },
-            { en: 'double', zh: '雙倍的 (ㄕㄨㄤ ㄅㄟˋ ㄉㄜ˙)', mnemonic: '`do` (做) + `uble` (able, 能夠)。能夠 (`able`) 做 (`do`) 兩次，就是雙倍的 (`double`)。' },
-            { en: 'trickle', zh: '滴；細流 (ㄉㄧ)', mnemonic: '`trickle` (細流) 和 `dribble` (滴下) 意思和發音相近，都有水滴慢慢落下、滴滴答答的感覺。' },
-            { en: 'shoot', zh: '射擊 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '`shoo` (發出噓聲趕走) + `t`。發出聲音趕走 (`shoo`) 敵人，然後射擊 (`shoot`)。' },
-            { en: 'trip', zh: '旅行；絆倒 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`tree` (樹) + `p`。在旅行 (`trip`) 中不小心被樹 (`tree`) 根絆倒 (`trip`) 了。' },
-            { en: 'short', zh: '短的；矮的 (ㄉㄨㄢˇ ㄉㄜ˙)', mnemonic: '`shirt` (襯衫) 的 `i` 變成 `o`。這是一件很短的 (`short`) 襯衫 (`shirt`)。' },
-            { en: 'tooth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`two` (二) + `th`。小嬰兒長出了兩顆 (`two`) 新牙齒 (`tooth`)。' },
-            { en: 'marry', zh: '結婚 (ㄐㄧㄝˊ ㄏㄨㄣ)', mnemonic: '`marry` (結婚) 和 `merry` (歡樂的) 發音幾乎一樣。結婚 (`marry`) 是一件充滿歡樂 (`merry`) 的事。' },
-            { en: 'metal', zh: '金屬 (ㄐㄧㄣ ㄕㄨˇ)', mnemonic: '`met` (meet的過去式, 遇見) + `all` (全部)。這種堅硬的材料遇見 (`met`) 了我們全部 (`all`) 的需求，這就是金屬 (`metal`)。' }
+            { en: 'script', zh: '劇本 (ㄐㄩˋ ㄅㄣˇ)', mnemonic: '`script` (劇本) 裡有 `rip` (撕裂)。這個劇本 (`script`) 寫得太爛了，被導演生氣地撕裂 (`rip`) 了。' },
+            { en: 'dialogue', zh: '對話 (ㄉㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`dia` (兩個) + `logue` (說話)。兩個人之間的說話就是對話 (`dialogue`)。' },
+            { en: 'suggestion', zh: '建議 (ㄐㄧㄢˋ ㄧˋ)', mnemonic: '來自 `suggest` (建議) + `ion` (名詞字尾)。提出你的想法讓別人參考就是建議。' },
+            { en: 'barely', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`bare` (裸露、勉強) + `ly`。只能勉強做到，表示「幾乎不」(`barely`)。' },
+            { en: 'nightmare', zh: '惡夢 (ㄜˋ ㄇㄥˋ)', mnemonic: '`night` (夜晚) + `mare` (母馬)。在夜晚 (`night`) 夢到被可怕的母馬 (`mare`) 追趕，真是一場惡夢 (`nightmare`)。' },
+            { en: 'close', zh: '關閉 / 靠近 (ㄍㄨㄢ ㄅㄧˋ)', mnemonic: '距離很近 (`close`) 的門，你只要一伸手就能輕易關上 (`close`)。' },
+            { en: 'sight', zh: '視力 / 景象 (ㄕˋ ㄌㄧˋ)', mnemonic: '`sight` (視力) 和 `light` (光線) 押韻。有光線 (`light`) 才能有好的視力 (`sight`) 看到美麗的景象。' },
+            { en: 'poor', zh: '貧窮的 (ㄆㄧㄣˊ ㄑㄩㄥˊ ㄉㄜ˙)', mnemonic: '`poor` (貧窮的) 和 `door` (門) 押韻。貧窮的 (`poor`) 人家常常連一扇完好的門 (`door`) 都沒有。' },
+            { en: 'peek', zh: '偷看 (ㄊㄡ ㄎㄢˋ)', mnemonic: '`peek` (偷看) 中間有兩個像眼睛的 `e`。想像用兩隻眼睛 (`ee`) 從門縫偷看 (`peek`)。' },
+            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '`groan` (呻吟) 聽起來像 `grown` (長大)。長大 (`grown`) 伴隨著成長的痛苦，讓人忍不住呻吟 (`groan`)。' },
+            { en: 'waste', zh: '浪費 (ㄌㄤˋ ㄈㄟˋ)', mnemonic: '`waste` (浪費) 聽起來像 `waist` (腰)。吃太多浪費 (`waste`) 錢，肥肉還會長在腰 (`waist`) 上。' },
+            { en: 'clothes', zh: '衣服 (ㄧ ㄈㄨˊ)', mnemonic: '`cloth` (布料) + `es`。很多塊布料 (`cloth`) 縫在一起就變成了衣服 (`clothes`)。' },
+            { en: 'miner', zh: '礦工 (ㄎㄨㄤˋ ㄍㄨㄥ)', mnemonic: '`mine` (礦坑) + `er` (人)。在礦坑 (`mine`) 裡辛苦工作的人就是礦工 (`miner`)。' },
+            { en: 'pour', zh: '倒水 (ㄉㄠˋ ㄕㄨㄟˇ)', mnemonic: '`pour` (倒) 和 `sour` (酸的) 押韻。這杯牛奶已經變酸 (`sour`) 了，趕快把它倒掉 (`pour`)。' },
+            { en: 'site', zh: '地點 (ㄉㄧˋ ㄉㄧㄢˇ)', mnemonic: '`site` (地點) 聽起來像 `sight` (視力)。你需要好的視力 (`sight`) 來尋找絕佳的建築地點 (`site`)。' },
+            { en: 'peak', zh: '山峰 (ㄕㄢ ㄈㄥ)', mnemonic: '`peak` (山峰) 裡面有 `pea` (豌豆)。想像山峰 (`peak`) 頂端長了一顆巨大的神奇豌豆 (`pea`)。' },
+            { en: 'waist', zh: '腰 (ㄧㄠ)', mnemonic: '`waist` (腰) 和 `waste` (浪費) 發音相同。浪費 (`waste`) 掉的零食熱量，最後都變成了腰 (`waist`) 上的肥肉。' },
+            { en: 'grown', zh: '長大的 (ㄓㄤˇ ㄉㄚˋ ㄉㄜ˙)', mnemonic: '`grow` (生長) + `n`。已經生長 (`grow`) 完畢的狀態，就是已經長大 (`grown`) 了。' },
+            { en: 'pore', zh: '毛孔 (ㄇㄠˊ ㄎㄨㄥˇ)', mnemonic: '`pore` (毛孔) 聽起來像 `pour` (倒)。運動後，汗水從毛孔 (`pore`) 像倒水 (`pour`) 一樣流出來。' },
+            { en: 'minor', zh: '未成年的/次要的 (ㄨㄟˋ ㄔㄥˊ ㄋㄧㄢˊ)', mnemonic: '`min` (mini, 微小) + `or`。年紀和體型還很微小 (`mini`) 的人就是未成年 (`minor`)。' },
+            { en: 'truck', zh: '卡車 (ㄎㄚˇ ㄔㄜ)', mnemonic: '`truck` (卡車) 聽起來像 `track` (軌道)。大卡車 (`truck`) 在像是軌道 (`track`) 般筆直的公路上行駛。' },
+            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '`reach` (到達) 和 `peach` (桃子) 押韻。努力伸長手，去到達 (`reach`) 樹頂摘那顆桃子 (`peach`)。' },
+            { en: 'trap', zh: '陷阱 (ㄒㄧㄢˋ ㄐㄧㄥˇ)', mnemonic: '`trap` (陷阱) 反過來拼是 `part` (部分)。陷阱 (`trap`) 總是完美地隱藏在環境的一部分 (`part`) 裡。' },
+            { en: 'uncle', zh: '叔叔/伯伯 (ㄕㄨˊ ㄕㄨ˙)', mnemonic: '`uncle` (叔叔) 聽起來像 `ankle` (腳踝)。叔叔 (`uncle`) 運動時不小心扭到了腳踝 (`ankle`)。' },
+            { en: 'youth', zh: '青春 (ㄑㄧㄥ ㄔㄨㄣ)', mnemonic: '`youth` (青春) 裡面包含著 `you` (你)。你 (`you`) 現在正處於最美好的青春 (`youth`) 時期。' },
+            { en: 'trust', zh: '信任 (ㄒㄧㄣˋ ㄖㄣˋ)', mnemonic: '`true` (真實) + `st`。因為對方說的話都是真實的 (`true`)，所以你非常信任 (`trust`) 他。' }
         ];
 
         /* --- 頁面切換邏輯 --- */
@@ -306,7 +334,7 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
-            startGame();
+            startGame(); 
         }
 
         function goToPractice() {
@@ -314,46 +342,48 @@
             document.getElementById('exam-screen').style.display = 'none';
             document.getElementById('practice-screen').style.display = 'flex'; 
             document.body.classList.add('practice-mode');
-            renderPracticeList();
-            resetPracticeState();
+            renderPracticeList(); 
+            resetPracticeState(); 
         }
 
         /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false;
+        let areAnswersVisible = false; 
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
             btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f';
+            btn.style.backgroundColor = '#d32f2f'; 
         }
 
         function renderPracticeList() {
             const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = '';
+            listContainer.innerHTML = ''; 
 
             words.forEach((word, index) => {
                 const row = document.createElement('div');
                 row.className = 'practice-row';
+                // 在結構中加入朗讀按鈕和記憶法提示區塊
                 row.innerHTML = `
-                    <div class="col-zh">
-                        ${word.zh}
-                    </div>
+                    <div class="col-zh">${word.zh}</div>
                     <div class="col-input">
                         <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
                     </div>
                     <div class="col-ans">
-                        <div id="ans-wrap-${index}" class="answer-text">
-                            <span class="correct-word-text">${word.en}</span>
-                            <div id="p-mnemonic-${index}" class="practice-mnemonic">💡 記憶法：<br>${word.mnemonic}</div>
+                        <div id="ans-${index}" class="answer-text">
+                            ${word.en}
+                            <button class="speak-btn" onclick="speakWord('${word.en}')" title="唸出單字">🔊</button>
                         </div>
+                    </div>
+                    <div id="p-mnemonic-${index}" class="practice-mnemonic-box">
+                        💡 <b>記憶提示：</b>${word.mnemonic}
                     </div>
                 `;
                 listContainer.appendChild(row);
             });
         }
 
-        // 監聽整個練習列表的鍵盤事件
+        // 監聽整個練習列表的鍵盤事件 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -362,19 +392,19 @@
 
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
-            const answerWrappers = document.querySelectorAll('.answer-text');
+            const answers = document.querySelectorAll('.answer-text');
             const inputs = document.querySelectorAll('.practice-input');
 
-            areAnswersVisible = !areAnswersVisible;
+            areAnswersVisible = !areAnswersVisible; 
 
             if (areAnswersVisible) {
                 // 顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50';
+                btn.style.backgroundColor = '#4CAF50'; 
                 
-                answerWrappers.forEach(el => el.style.display = 'block');
+                answers.forEach(el => el.style.display = 'block'); 
 
-                // 批改並決定是否顯示記憶法 (轉小寫處理以達到不分大小寫)
+                // 批改每一個輸入框
                 inputs.forEach((input, index) => {
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
@@ -387,16 +417,20 @@
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicBox.style.display = 'block'; // 答錯則顯示記憶法
+                        // 只要答錯 (包含沒填寫)，就顯示記憶法
+                        mnemonicBox.style.display = 'block';
                     }
                 });
 
             } else {
                 // 隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f';
+                btn.style.backgroundColor = '#d32f2f'; 
                 
-                answerWrappers.forEach(el => el.style.display = 'none');
+                answers.forEach(el => el.style.display = 'none');
+                
+                // 隱藏所有的記憶法框
+                document.querySelectorAll('.practice-mnemonic-box').forEach(el => el.style.display = 'none');
             }
         }
 
@@ -453,6 +487,8 @@
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
             updateScore();
+            // 讓輸入框自動獲得焦點，方便連續答題
+            document.getElementById('exam-answer').focus();
         }
 
         function checkExamAnswer() {
@@ -462,7 +498,6 @@
                 return;
             }
 
-            // 這裡也統一轉成小寫，達到不分大小寫的判斷
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -482,7 +517,13 @@
                 document.getElementById('game-image').src = 'incorrect.png';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}`;
+                // 答錯時顯示記憶法，並加上朗讀按鈕
+                mnemonicEl.innerHTML = `
+                    💡 <b>記憶提示：</b>${q.mnemonic}
+                    <div style="margin-top: 15px; text-align: center;">
+                        <button class="speak-btn" style="font-size:16px; padding:8px 15px;" onclick="speakWord('${q.en}')">🔊 唸出這個字</button>
+                    </div>
+                `;
                 mnemonicEl.style.display = 'block';
                 
                 document.getElementById('exam-submit').textContent = '繼續';
