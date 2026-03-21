@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單字拼寫遊戲 & 練習</title>
+    <title>單字拼寫遊戲 & 練習 (語音發音版)</title>
     <style>
         /* 全局設定 */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             height: 100vh;
             display: flex;
@@ -23,20 +23,20 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             width: 90%;
-            max-width: 600px;
-            max-height: 90vh; /* 限制最大高度 */
+            max-width: 650px; /* 稍微加寬以容納新內容 */
+            max-height: 90vh; 
             position: relative;
             overflow-y: auto; 
         }
 
-        h1 { margin-top: 0; }
+        h1 { margin-top: 0; color: #2c3e50; }
         
         /* 圖片樣式 */
         .game-image {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
             height: auto;
             object-fit: contain;
             margin-bottom: 15px;
@@ -50,155 +50,183 @@
             border-radius: 8px;
             cursor: pointer;
             margin: 10px;
-            transition: transform 0.1s, background-color 0.3s;
+            transition: transform 0.1s, background-color 0.3s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        button:active { transform: scale(0.95); }
+        button:active { transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.1); }
 
-        /* --- 發音按鈕樣式 --- */
+        /* 語音按鈕特別樣式 */
         .tts-btn {
-            font-size: 14px;
-            padding: 5px 10px;
-            background-color: #2196F3;
+            background-color: #3498db;
             color: white;
-            border-radius: 4px;
-            margin-left: 10px;
-            display: inline-block;
-            vertical-align: middle;
+            font-size: 15px;
+            padding: 8px 15px;
+            margin: 5px 0 10px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
-        .tts-btn:hover { background-color: #1976D2; }
+        .tts-btn:hover { background-color: #2980b9; }
 
         /* --- 首頁選單樣式 --- */
         #menu-screen { display: block; }
         .menu-btn {
             display: block;
             width: 80%;
-            margin: 15px auto;
-            background-color: #ff9800;
+            margin: 20px auto;
+            background-color: #ff9800; 
             color: white;
             font-weight: bold;
+            font-size: 22px;
+            padding: 15px;
         }
         .menu-btn:hover { background-color: #e68900; }
-        .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; }
+        .ruby-text { font-size: 0.7em; display: block; margin-bottom: 4px; font-weight: normal; opacity: 0.9;}
 
         /* --- 考試模式樣式 --- */
         #exam-screen { display: none; }
         .exam-input {
-            padding: 10px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 20px;
             width: 70%;
             margin-bottom: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            text-align: center;
         }
-        .exam-btn { background-color: #4CAF50; color: white; }
-        .exam-btn:hover { background-color: #45a049; }
+        .exam-input:focus { outline: none; border-color: #3498db; }
+        .exam-btn { background-color: #27ae60; color: white; font-weight: bold; }
+        .exam-btn:hover { background-color: #219653; }
         
         #mnemonic {
             font-size: 16px;
-            margin-top: 10px;
-            color: #3d5afe;
+            margin-top: 15px;
+            color: #2c3e50;
             text-align: left;
             padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            background-color: #f3f4ff;
+            border-left: 5px solid #3498db;
+            border-radius: 0 8px 8px 0;
+            background-color: #ebf5fb;
             line-height: 1.6;
         }
-        #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px;}
+        #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px; color: #e74c3c;}
 
-        /* --- 練習模式樣式 --- */
+        /* --- 練習模式樣式 (固定頭部 + 暗色系) --- */
         #practice-screen { 
             display: none; 
-            background-color: #2c2c2c; 
-            color: #f0f0f0;
-            border: 4px solid #8b4513; 
+            background-color: #2b2b2b; 
+            color: #e0e0e0;
+            border: 5px solid #5d4037; 
             flex-direction: column; 
             padding: 0; 
             overflow: hidden; 
         }
         
-        body.practice-mode { background-color: #1a1a1a; }
+        body.practice-mode { background-color: #121212; }
 
         .practice-fixed-top {
-            background-color: #2c2c2c;
-            padding: 15px 20px 5px 20px; 
-            border-bottom: 2px solid #555;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            background-color: #1e1e1e;
+            padding: 20px 25px 10px 25px; 
+            border-bottom: 3px solid #ff9800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             flex-shrink: 0; 
             z-index: 10;
         }
 
         .top-btn-group {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 10px;
         }
 
         #practice-list-container {
             flex-grow: 1; 
             overflow-y: auto; 
-            padding: 10px 20px 20px 20px;
+            padding: 15px 25px 30px 25px;
             scrollbar-width: thin;
-            scrollbar-color: #555 #2c2c2c;
+            scrollbar-color: #666 #2b2b2b;
         }
         
-        #practice-list-container::-webkit-scrollbar { width: 8px; }
-        #practice-list-container::-webkit-scrollbar-track { background: #2c2c2c; }
-        #practice-list-container::-webkit-scrollbar-thumb { background-color: #555; border-radius: 4px; }
+        #practice-list-container::-webkit-scrollbar { width: 10px; }
+        #practice-list-container::-webkit-scrollbar-track { background: #2b2b2b; }
+        #practice-list-container::-webkit-scrollbar-thumb { background-color: #666; border-radius: 5px; }
+
+        .practice-item-container {
+            border-bottom: 1px solid #444;
+            padding: 15px 0;
+            display: flex;
+            flex-direction: column;
+        }
 
         .practice-row {
             display: flex;
             justify-content: space-between;
-            align-items: center; /* 為了排版整齊，改為 top 對齊 */
-            padding: 15px 0;
-            border-bottom: 1px solid #444;
-            align-items: flex-start;
+            align-items: center;
+            width: 100%;
         }
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; padding-top: 8px;}
-        .col-input { width: 35%; }
-        .col-ans { width: 30%; text-align: left; color: #4CAF50; font-weight: bold; font-size: 18px;}
+        
+        .col-zh { width: 35%; text-align: left; font-size: 17px; color: #ffd54f; font-weight: bold; }
+        .col-input { width: 40%; }
+        .col-ans { width: 25%; text-align: right; color: #66bb6a; font-weight: bold; font-size: 19px; letter-spacing: 1px;}
 
         .practice-input {
-            width: 85%;
-            padding: 8px;
-            font-size: 16px;
-            background-color: #444;
+            width: 90%;
+            padding: 10px;
+            font-size: 17px;
+            background-color: #383838;
             color: white;
-            border: 2px solid #666;
-            border-radius: 5px;
+            border: 2px solid #555;
+            border-radius: 6px;
+            text-align: center;
         }
-        .practice-input.correct { border-color: #4CAF50; background-color: #2e4a2e; }
-        .practice-input.wrong { border-color: #f44336; background-color: #4a2e2e; }
+        .practice-input:focus { outline: none; border-color: #ff9800; }
+        .practice-input.correct { border-color: #4CAF50; background-color: #1b3320; color: #a5d6a7;}
+        .practice-input.wrong { border-color: #f44336; background-color: #3b1c1c; color: #ffab91;}
+
+        .practice-feedback {
+            background-color: #1e272e;
+            border-left: 4px solid #e74c3c;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border-radius: 0 6px 6px 0;
+            text-align: left;
+            font-size: 15px;
+            color: #d2dae2;
+            line-height: 1.5;
+            display: none; /* 預設隱藏 */
+        }
 
         .global-toggle-btn {
-            background-color: #d32f2f;
+            background-color: #e53935;
             color: white;
             width: 100%;
             margin: 0;
             font-weight: bold;
-            font-size: 16px;
-            padding: 10px;
+            font-size: 18px;
+            padding: 12px;
         }
-        .global-toggle-btn:hover { background-color: #b71c1c; }
+        .global-toggle-btn:hover { background-color: #c62828; }
 
         .header-back-btn {
-            background-color: #607d8b;
+            background-color: #546e7a;
             color: white;
             width: 30%; 
             margin: 0;
-            font-size: 14px;
-            padding: 10px;
+            font-size: 15px;
+            padding: 12px;
         }
+        .header-back-btn:hover { background-color: #37474f; }
 
         .answer-text { display: none; }
         
         .list-header {
             display: flex; 
             justify-content: space-between; 
-            color: #aaa; 
-            font-size: 14px; 
-            margin-top: 10px;
-            padding-bottom: 5px;
+            color: #9e9e9e; 
+            font-size: 15px; 
+            margin-top: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #555;
         }
 
     </style>
@@ -208,7 +236,7 @@
     <div id="menu-screen" class="container">
         <img src="initial.png" alt="Menu" class="game-image">
         <h1>英文單字挑戰</h1>
-        <p>請選擇模式：</p>
+        <p style="color: #7f8c8d;">不分大小寫，答錯提供語音與記憶法！</p>
         
         <button class="menu-btn" onclick="goToExam()">
             <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
@@ -224,38 +252,38 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫（大小寫皆可）。</p>
-        <div id="question" style="font-size: 24px; margin: 20px 0;"></div>
+        <p style="color:#555;">請根據給出的中文意思，輸入正確的英文拼寫。<br>共29題，順序隨機。</p>
+        <div id="question" style="font-size: 26px; font-weight: bold; margin: 25px 0; color: #2980b9;"></div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫" autocomplete="off">
         <br>
-        <button id="exam-submit" class="exam-btn">提交</button>
-        <div id="exam-result" style="font-size: 20px; margin-top: 20px;"></div>
+        <button id="exam-submit" class="exam-btn">提交答案</button>
+        <div id="exam-result" style="font-size: 22px; margin-top: 20px; font-weight: bold;"></div>
         <div id="mnemonic" style="display: none;"></div>
-        <div id="score" style="font-size: 18px; margin-top: 10px;">分數: 0 / 0</div>
+        <div id="score" style="font-size: 18px; margin-top: 15px; color: #7f8c8d; font-weight: bold;">分數: 0 / 0</div>
         <div id="wrong-words"></div>
         <button id="exam-restart" class="exam-btn" style="display: none;">重新開始</button>
-        <button id="exam-retest" class="exam-btn" style="display: none;">重測錯題</button>
-        <button class="menu-btn" style="background-color:#607d8b; width: 60%; margin-top: 20px;" onclick="goHome()">回首頁</button>
+        <button id="exam-retest" class="exam-btn" style="display: none; background-color: #f39c12;">重測錯題</button>
+        <button class="menu-btn" style="background-color:#7f8c8d; width: 60%; margin-top: 25px; font-size: 18px;" onclick="goHome()">回首頁</button>
     </div>
 
     <div id="practice-screen" class="container">
         <div class="practice-fixed-top">
-            <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
+            <h2 style="color: #ffca28; margin: 0 0 15px 0; text-shadow: 1px 1px 2px #000;">單字超級練習室</h2>
             
             <div class="top-btn-group">
                 <button class="header-back-btn" onclick="goHome()">
-                    回首頁<br><span style="font-size:0.8em">ㄏㄨㄟˊ ㄕㄡˇ ㄧㄝˋ</span>
+                    回首頁<br><span style="font-size:0.8em; opacity:0.8;">ㄏㄨㄟˊ ㄕㄡˇ ㄧㄝˋ</span>
                 </button>
                 <button id="toggle-all-btn" class="global-toggle-btn" style="width: 70%;" onclick="toggleAllAnswers()">
                     顯示所有答案 / 批改
-                    <br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
+                    <br><span style="font-size:0.8em; opacity:0.9;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
                 </button>
             </div>
 
             <div class="list-header">
                 <span style="width:35%">中文意思</span>
-                <span style="width:35%">拼寫練習</span>
-                <span style="width:30%; text-align:left;">正確答案 & 提示</span>
+                <span style="width:40%">拼寫練習 (按 Enter 批改)</span>
+                <span style="width:25%; text-align:right;">正確答案</span>
             </div>
         </div>
         
@@ -266,43 +294,52 @@
     </div>
 
     <script>
-        const words = [
-            { en: 'except', zh: '除了 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '`ex` (出去) + `cept` (拿)。把某個東西拿出去，就是「除了」它。' },
-            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '聽起來像 `stress` (壓力)。感到有壓力時，就伸展身體放鬆。' },
-            { en: 'German', zh: '德國人/德語 (ㄉㄜˊ ㄍㄨㄛˊ ㄖㄣˊ)', mnemonic: '這個字可以直接記憶，與 Germany (德國) 相關。' },
-            { en: 'contrast', zh: '對比 (ㄉㄨㄟˋ ㄅㄧˇ)', mnemonic: '`contra` (相反) + `st` (stand 站)。站在相反的立場，就是對比。' },
-            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述中「指出」重點。' },
-            { en: 'treat', zh: '對待/請客 (ㄉㄨㄟˋ ㄉㄞˋ / ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '聽起來像 `eat` (吃)。我請客 (treat)，我們去吃 (eat) 吧！' },
-            { en: 'develop', zh: '發展 (ㄈㄚ ㄓㄢˇ)', mnemonic: '`de` (反轉) + `envelop` (包裝)。打開包裝，讓事物「發展」出來。' },
-            { en: 'supply', zh: '供應 (ㄍㄨㄥ ㄧㄥˋ)', mnemonic: '`sup` (在...下面) + `ply` (填滿)。從下面源源不絕地填滿，就是供應。' },
-            { en: 'bring', zh: '帶來 (ㄉㄞˋ ㄌㄞˊ)', mnemonic: '`b` + `ring` (戒指)。男孩帶來 (bring) 了一枚戒指 (ring) 求婚。' },
-            { en: 'growth', zh: '成長 (ㄔㄥˊ ㄓㄤˇ)', mnemonic: '`grow` (生長) + `th`。生長的名詞就是成長。' },
-            { en: 'wreck', zh: '破壞/殘骸 (ㄆㄛˋ ㄏㄨㄞˋ)', mnemonic: '聽起來像 `break` (打破)。打破之後就變成了殘骸 (wreck)。' },
-            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (外) + `press` (壓)。把心裡的感受向外擠壓出來，就是表達。' },
-            { en: 'clutch', zh: '緊握 (ㄐㄧㄣˇ ㄨㄛˋ)', mnemonic: '開手排車要踩離合器 (`clutch`)，並緊握 (`clutch`) 方向盤。' },
-            { en: 'visualize', zh: '想像/視覺化 (ㄒㄧㄤˇ ㄒㄧㄤˋ)', mnemonic: '`visual` (視覺的) + `ize` (化)。在腦海中把它視覺化，就是想像。' },
-            { en: 'brief', zh: '簡短的 (ㄐㄧㄢˇ ㄉㄨㄢˇ ㄉㄜ˙)', mnemonic: '你的公事包 (`briefcase`) 裡裝的都是簡短的 (`brief`) 文件。' },
-            { en: 'fetch', zh: '拿來 (ㄋㄚˊ ㄌㄞˊ)', mnemonic: '想像丟飛盤給狗狗，跟牠說 "Fetch!" (去拿來！)。' },
-            { en: 'handle', zh: '處理/把手 (ㄔㄨˇ ㄌㄧˇ)', mnemonic: '用手 (`hand`) 去握住把手 (`handle`)，並好好處理 (`handle`) 問題。' },
-            { en: 'harsh', zh: '嚴厲的/刺耳的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '聽起來像 `hard` (困難的/堅硬的)。態度堅硬就會顯得嚴厲 (`harsh`)。' },
-            { en: 'twitch', zh: '抽搐 (ㄔㄡ ㄔㄨˋ)', mnemonic: '聽起來像 `witch` (女巫)。女巫施咒讓他的臉開始抽搐 (`twitch`)。' },
-            { en: 'notice', zh: '注意 (ㄓㄨˋ ㄧˋ)', mnemonic: '看到告示牌 (`notice`)，你就會注意 (`notice`) 到某些事情。' },
-            { en: 'sketch', zh: '素描/草圖 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '用你的技巧 (`skill` -> `sk`) 來畫草圖 (`sketch`)。' },
-            { en: 'quite', zh: '相當/完全 (ㄒㄧㄤ ㄉㄤ)', mnemonic: '聽起來像 `quiet` (安靜的)。這裡相當 (`quite`) 安靜 (`quiet`)。' },
-            { en: 'arrest', zh: '逮捕 (ㄉㄞˋ ㄅㄨˇ)', mnemonic: '`a` + `rest` (休息)。被逮捕 (`arrest`) 之後，只能在監獄裡休息 (`rest`) 了。' }
-        ];
-
-        /* --- 發音功能 --- */
+        // 加入 Chrome TTS 語音朗讀功能
         function speakWord(word) {
             if ('speechSynthesis' in window) {
+                // 先停止當前可能在播放的語音
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'en-US'; 
-                utterance.rate = 0.9; // 稍微放慢一點比較清楚
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // 稍微放慢一點點，聽得更清楚
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("您的瀏覽器不支援語音發音功能。");
+                alert("抱歉，您的瀏覽器不支援語音朗讀功能。");
             }
         }
+
+        // 題庫設定：包含 29 個新單字與記憶法 (tcuce 修正為 truce)
+        const words = [
+            { en: 'humor', zh: '幽默 (ㄧㄡ ㄇㄛˋ)', mnemonic: '`humor` 聽起來像 `human` (人類) + `more` (更多)。人類 (human) 的生活需要更多 (more) 幽默 (humor) 才會開心。' },
+            { en: 'unique', zh: '獨特的 (ㄉㄨˊ ㄊㄜˋ ㄉㄜ˙)', mnemonic: '`uni` 代表「單一」的意思。世界上只有唯一一個的，就是獨一無二、獨特的 (`unique`)。' },
+            { en: 'troop', zh: '軍隊 (ㄐㄩㄣ ㄉㄨㄟˋ)', mnemonic: '`troop` (軍隊) 聽起來像 `group` (團體)。軍隊 (`troop`) 就是一個非常有紀律的武裝團體 (`group`)。' },
+            { en: 'chore', zh: '家事 (ㄐㄧㄚ ㄕˋ)', mnemonic: '做家事 (`chore`) 累到讓人想「求」救。或者聯想 `core` (核心)，做家事是維持一個家庭運作的核心日常。' },
+            { en: 'expert', zh: '專家 (ㄓㄨㄢ ㄐㄧㄚ)', mnemonic: '`ex` (出) + `pert` (perfect, 完美)。在某個領域表現得近乎完美 (`perfect`) 的出眾人物，就是專家 (`expert`)。' },
+            { en: 'order', zh: '命令/點餐 (ㄇㄧㄥˋ ㄌㄧㄥˋ)', mnemonic: '`order` 包含 `or` (或者)。老闆下命令 (`order`) 時，你沒有「或者」(`or`) 的選擇餘地，只能照做。' },
+            { en: 'truce', zh: '休戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '`truce` 聽起來像 `true` (真實的) + `peace` (和平)。只有在休戰 (`truce`) 之後，雙方才會有真實的和平 (`true peace`)。' },
+            { en: 'field', zh: '田野 (ㄊㄧㄢˊ ㄧㄝˇ)', mnemonic: '`field` 聽起來像 `filled` (充滿的)。一望無際的田野 (`field`) 裡充滿了 (`filled`) 綠色的小草與農作物。' },
+            { en: 'support', zh: '支持 (ㄓ ㄔˊ)', mnemonic: '`sup` (super, 超級) + `port` (港口)。一個超級 (`super`) 大的港口 (`port`) 能夠支持 (`support`) 許多巨大的貨輪停泊。' },
+            { en: 'although', zh: '雖然 (ㄙㄨㄟ ㄖㄢˊ)', mnemonic: '`al` (all, 全部) + `though` (雖然)。`although` 和 `though` 都是雖然的意思，但加上 `all` 語氣更正式、更強烈。' },
+            { en: 'record', zh: '紀錄 (ㄐㄧˋ ㄌㄨˋ)', mnemonic: '`re` (再次) + `cord` (繩索)。古人用繩索打結來記事，把事情再次 (`re`) 留存在繩子 (`cord`) 上，就是紀錄 (`record`)。' },
+            { en: 'landform', zh: '地形 (ㄉㄧˋ ㄒㄧㄥˊ)', mnemonic: '`land` (土地) + `form` (形狀)。土地 (`land`) 在地表上表現出來的物理形狀 (`form`)，就稱為地形 (`landform`)。' },
+            { en: 'fourteen', zh: '十四 (ㄕˊ ㄙˋ)', mnemonic: '非常直觀的組合字：`four` (四) + `teen` (十幾)。四加十就是十四 (`fourteen`)。' },
+            { en: 'truly', zh: '真正地 (ㄓㄣ ㄓㄥˋ ㄉㄧˋ)', mnemonic: '來自 `true` (真實的) 加上副詞字尾 `ly`。記得要把結尾的 e 去掉，變成 `truly`。' },
+            { en: 'port', zh: '港口 (ㄍㄤˇ ㄎㄡˇ)', mnemonic: '`port` (港口) 是一切進口 (`import`) 和出口 (`export`) 貨物集散的核心樞紐。' },
+            { en: 'lay', zh: '放置/產卵 (ㄈㄤˋ ㄓˋ)', mnemonic: '`lay` 和 `play` (玩耍) 押韻。小狗玩 (`play`) 累了，就把骨頭放下 (`lay`) 來，躺著休息。' },
+            { en: 'control', zh: '控制 (ㄎㄨㄥˋ ㄓˋ)', mnemonic: '`con` (一起) + `troll` (搗蛋鬼)。我們必須團結一起 (`con`) 來控制 (`control`) 網路上的搗蛋鬼 (`troll`)。' },
+            { en: 'focus', zh: '專注 (ㄓㄨㄢ ㄓㄨˋ)', mnemonic: '記住這個口訣：`F.O.C.U.S.` = `Forgetting Other Cares, U See?` (忘記其他的煩惱，你懂嗎？)。這就是專注的最高境界。' },
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '`de` + `sire` (國王/閣下)。一位國王 (`sire`) 對於權力與領土總是有著無限的渴望 (`desire`)。' },
+            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '`spring` 同時有彈簧的意思。在春天 (`spring`)，萬物就像彈簧一樣充滿生機地向上彈起生長。' },
+            { en: 'grand', zh: '宏偉的 (ㄏㄨㄥˊ ㄨㄟˇ ㄉㄜ˙)', mnemonic: '`grand` 聽起來像 `ground` (地面)。一座宏偉的 (`grand`) 建築，必須建立在非常穩固的地面 (`ground`) 基礎上。' },
+            { en: 'market', zh: '市場 (ㄕˋ ㄔㄤˇ)', mnemonic: '`mark` (標記) + `et` (it, 它)。商人會先把商品標記 (`mark`) 好價格，然後拿去市場 (`market`) 賣掉它 (`it`)。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。前方有一個危險的深淵 (`void`)，你當然要盡可能地避免 (`avoid`) 掉進去。' },
+            { en: 'lab', zh: '實驗室 (ㄕˊ ㄧㄢˋ ㄕˋ)', mnemonic: '`lab` 其實就是 `laboratory` (實驗室) 的縮寫，它是科學家在裡面進行辛勤勞動 (`labor`) 的地方。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難的) + `ly`。要做這件事情實在太困難 (`hard`) 了，所以我幾乎不 (`hardly`) 會去做它。' },
+            { en: 'general', zh: '一般的/將軍 (ㄐㄧㄢ ㄐㄩㄣ)', mnemonic: '將軍 (`general`) 在軍隊中通常 (`generally`) 負責指揮整體的行動，所以衍生出「一般的、整體的」意思。' },
+            { en: 'usually', zh: '通常 (ㄊㄨㄥ ㄔㄤˊ)', mnemonic: '來自 `usual` (平常的) 加上副詞字尾 `ly`。這是我平常 (`usual`) 習慣做的事，也就是通常 (`usually`)。' },
+            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '`any` (任何) + `way` (方式/路)。不管走哪一條路 (`any way`)，無論如何 (`anyway`) 我都要到達目的地。' },
+            { en: 'eastern', zh: '東方的 (ㄉㄨㄥ ㄈㄤ ㄉㄜ˙)', mnemonic: '`east` (東方) 加上形容詞字尾 `ern`。位在東方 (`east`) 區域的事物，就是東方的 (`eastern`)。' }
+        ];
 
         /* --- 頁面切換邏輯 --- */
         function goHome() {
@@ -330,13 +367,13 @@
         }
 
         /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false; 
+        let areAnswersVisible = false;
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
-            btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f'; 
+            btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em; opacity:0.9;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
+            btn.style.backgroundColor = '#e53935'; 
         }
 
         function renderPracticeList() {
@@ -344,22 +381,29 @@
             listContainer.innerHTML = ''; 
 
             words.forEach((word, index) => {
-                const row = document.createElement('div');
-                row.className = 'practice-row';
-                row.innerHTML = `
-                    <div class="col-zh">${word.zh}</div>
-                    <div class="col-input">
-                        <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
+                const itemContainer = document.createElement('div');
+                itemContainer.className = 'practice-item-container';
+                
+                itemContainer.innerHTML = `
+                    <div class="practice-row">
+                        <div class="col-zh">${word.zh}</div>
+                        <div class="col-input">
+                            <input type="text" class="practice-input" id="p-input-${index}" placeholder="請輸入拼寫..." autocomplete="off">
+                        </div>
+                        <div class="col-ans">
+                            <div id="ans-${index}" class="answer-text">${word.en}</div>
+                        </div>
                     </div>
-                    <div class="col-ans">
-                        <div id="ans-${index}" class="answer-text"></div>
+                    <div id="p-feedback-${index}" class="practice-feedback">
+                        <button class="tts-btn" onclick="speakWord('${word.en}')">🔊 唸出單字</button>
+                        <div>💡 <b>記憶提示：</b><br>${word.mnemonic}</div>
                     </div>
                 `;
-                listContainer.appendChild(row);
+                listContainer.appendChild(itemContainer);
             });
         }
 
-        // 監聽 Enter 鍵來切換答案
+        // 練習區的全局 Enter 鍵監聽
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -374,47 +418,37 @@
             areAnswersVisible = !areAnswersVisible; 
 
             if (areAnswersVisible) {
-                // 顯示答案 & 批改
-                btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50'; 
+                // 狀態：顯示答案 & 批改
+                btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em; opacity:0.9;">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
+                btn.style.backgroundColor = '#27ae60'; 
                 
+                answers.forEach(el => el.style.display = 'block'); 
+
                 inputs.forEach((input, index) => {
+                    // 不分大小寫的比對邏輯
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
-                    const ansContainer = document.getElementById(`ans-${index}`);
+                    const feedbackBox = document.getElementById(`p-feedback-${index}`);
                     
-                    ansContainer.style.display = 'block';
-
-                    // 判斷對錯 (不分大小寫)
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        // 答對時只顯示單字與發音按鈕
-                        ansContainer.innerHTML = `
-                            ${words[index].en} 
-                            <button class="tts-btn" onclick="speakWord('${words[index].en}')">🔊 唸出</button>
-                        `;
+                        feedbackBox.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        // 答錯時顯示單字、發音按鈕，以及記憶法
-                        ansContainer.innerHTML = `
-                            <div style="margin-bottom:5px;">
-                                ${words[index].en} 
-                                <button class="tts-btn" onclick="speakWord('${words[index].en}')">🔊 唸出</button>
-                            </div>
-                            <div style="font-size:13px; color:#ffb74d; font-weight:normal; line-height:1.4;">
-                                💡 ${words[index].mnemonic}
-                            </div>
-                        `;
+                        feedbackBox.style.display = 'block'; // 答錯顯示提示與語音
                     }
                 });
 
             } else {
-                // 隱藏答案
-                btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f'; 
+                // 狀態：隱藏答案
+                btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em; opacity:0.9;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
+                btn.style.backgroundColor = '#e53935'; 
+                
                 answers.forEach(el => el.style.display = 'none'); 
+                // 隱藏時也把所有提示框收起來，保持畫面乾淨
+                document.querySelectorAll('.practice-feedback').forEach(el => el.style.display = 'none');
             }
         }
 
@@ -448,7 +482,7 @@
             document.getElementById('wrong-words').textContent = '';
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
-            document.getElementById('exam-submit').textContent = '提交';
+            document.getElementById('exam-submit').textContent = '提交答案';
             document.getElementById('game-image').src = 'initial.png';
             document.getElementById('mnemonic').style.display = 'none';
             
@@ -461,18 +495,19 @@
                 return;
             }
             const mnemonicEl = document.getElementById('mnemonic');
-            mnemonicEl.innerHTML = '';
+            mnemonicEl.textContent = '';
             mnemonicEl.style.display = 'none';
 
             isWaitingToContinue = false;
-            document.getElementById('exam-submit').textContent = '提交';
+            document.getElementById('exam-submit').textContent = '提交答案';
             const q = questions[currentQuestion];
-            document.getElementById('question').textContent = `輸入 "${q.zh}" 的英文拼寫：`;
-            document.getElementById('exam-answer').value = '';
+            document.getElementById('question').textContent = `請輸入 "${q.zh}" 的拼寫：`;
+            
+            const inputEl = document.getElementById('exam-answer');
+            inputEl.value = '';
+            inputEl.focus(); // 自動將游標放回輸入框
             document.getElementById('exam-result').textContent = '';
             updateScore();
-            // 自動 focus 輸入框
-            document.getElementById('exam-answer').focus();
         }
 
         function checkExamAnswer() {
@@ -488,29 +523,27 @@
 
             if (userAnswer === correctAnswer) {
                 score++;
-                document.getElementById('exam-result').textContent = '正確！';
-                document.getElementById('exam-result').style.color = 'green';
+                document.getElementById('exam-result').textContent = '答對了！非常棒！';
+                document.getElementById('exam-result').style.color = '#27ae60';
                 document.getElementById('game-image').src = 'correct.png';
                 setTimeout(() => {
                     currentQuestion++;
                     nextQuestion();
-                }, 1500);
+                }, 1200);
             } else {
-                document.getElementById('exam-result').textContent = `錯誤。正確答案是：${q.en}`;
-                document.getElementById('exam-result').style.color = 'red';
+                document.getElementById('exam-result').textContent = `哎呀錯了。正確答案是：${q.en}`;
+                document.getElementById('exam-result').style.color = '#e74c3c';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示記憶法與發音按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
+                // 在考試模式答錯時，同樣提供語音按鈕與記憶法
                 mnemonicEl.innerHTML = `
-                    <div style="margin-bottom:10px;">
-                        <button class="tts-btn" style="margin-left:0;" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
-                    </div>
-                    💡 <b>記憶提示：</b>${q.mnemonic}
+                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出單字</button>
+                    <div>💡 <b>記憶提示：</b><br>${q.mnemonic}</div>
                 `;
                 mnemonicEl.style.display = 'block';
                 
-                document.getElementById('exam-submit').textContent = '繼續';
+                document.getElementById('exam-submit').textContent = '我知道了，繼續下一題';
                 wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
                 isWaitingToContinue = true;
             }
@@ -518,26 +551,29 @@
         }
 
         function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
+            document.getElementById('score').textContent = `目前分數: ${score} / ${totalQuestions}`;
         }
 
         function endGame() {
             document.getElementById('mnemonic').style.display = 'none';
-            document.getElementById('question').textContent = '測驗結束！';
+            document.getElementById('question').textContent = '測驗結束囉！辛苦了！';
             document.getElementById('exam-answer').style.display = 'none';
             document.getElementById('exam-submit').style.display = 'none';
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+                document.getElementById('wrong-words').textContent = '太厲害了！你全部都答對了！🎉';
+                document.getElementById('wrong-words').style.color = '#27ae60';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '你答錯的單字：\n';
+                let wrongText = '這幾題我們再複習一下：\n\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                    wrongText += `❌ ${w.zh} \n正確是 "${w.en}" (你寫成 "${w.user}")\n\n`;
                 });
-                document.getElementById('wrong-words').textContent = wrongText;
+                const wrongDiv = document.getElementById('wrong-words');
+                wrongDiv.textContent = wrongText;
+                wrongDiv.style.color = '#e74c3c';
                 document.getElementById('exam-retest').style.display = 'inline-block';
             }
             document.getElementById('exam-restart').style.display = 'inline-block';
