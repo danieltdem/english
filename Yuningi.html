@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共22題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,28 +276,26 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'effective', zh: '有效的 (ㄧㄡˇ ㄒㄧㄠˋ ㄉㄜ˙)', mnemonic: '`effect` (影響/效果) + `ive`。有效率的東西才能帶來好效果 (`effect`)。' },
-            { en: 'multiple', zh: '多個的 (ㄉㄨㄛ ㄍㄜˋ ㄉㄜ˙)', mnemonic: '`multi` (多個) + `ple`。想像有很多 (`multi`) 蘋果 (apple -> `ple`)。' },
-            { en: 'lawyer', zh: '律師 (ㄌㄩˋ ㄕ)', mnemonic: '`law` (法律) + `yer` (的人)。專門研究法律 (`law`) 的人就是律師。' },
-            { en: 'thrill', zh: '興奮 (ㄒㄧㄥ ㄈㄣˋ)', mnemonic: '聽起來像 `three ill` (三個生病的)。想像三個生重病的人突然痊癒了，真是令人興奮 (`thrill`)！' },
-            { en: 'although', zh: '雖然 (ㄙㄨㄟ ㄖㄢˊ)', mnemonic: '`al` (all, 全部) + `though` (雖然)。雖然 (`although`) 全部 (`all`) 的人都反對，我還是要去做。' },
-            { en: 'species', zh: '物種 (ㄨˋ ㄓㄨㄥˇ)', mnemonic: '聽起來像 `special` (特別的)。地球上的每一個物種 (`species`) 都是獨一無二且特別的 (`special`)。' },
-            { en: 'issue', zh: '議題 (ㄧˋ ㄊㄧˊ)', mnemonic: '`is` + `sue` (控告)。如果這是一個嚴重的議題 (`issue`)，人們可能就會 (`is`) 互相控告 (`sue`)。' },
-            { en: 'grand', zh: '宏偉的 (ㄏㄨㄥˊ ㄨㄟˇ ㄉㄜ˙)', mnemonic: '聽起來像 `grandfather` (祖父)。祖父在家族中是個宏偉、地位重大 (`grand`) 的人物。' },
-            { en: 'course', zh: '課程 (ㄎㄜˋ ㄔㄥˊ)', mnemonic: '聽起來像 `of course` (當然)。當然 (`of course`) 你必須要修這門課程 (`course`)。' },
-            { en: 'interest', zh: '興趣 (ㄒㄧㄥˋ ㄑㄩˋ)', mnemonic: '`inter` (在...之間) + `rest` (休息)。在休息 (`rest`) 的空檔之間，你會去做你感興趣 (`interest`) 的事。' },
-            { en: 'develop', zh: '發展 (ㄈㄚ ㄓㄢˇ)', mnemonic: '`de` + `velop` (envelope, 信封)。把計畫從信封裡拿出來，開始發展 (`develop`) 它。' },
-            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對權力有著強烈的渴望 (`desire`)。' },
-            { en: 'unique', zh: '獨特的 (ㄉㄨˊ ㄊㄜˋ ㄉㄜ˙)', mnemonic: '`uni` 代表「單一/一」。所以是獨一無二、獨特的 (`unique`)。' },
-            { en: 'visualize', zh: '想像 (ㄒㄧㄤˇ ㄒㄧㄤˋ)', mnemonic: '`visual` (視覺的) + `ize` (化)。把事情在腦海中「視覺化」，也就是想像 (`visualize`)。' },
-            { en: 'contrast', zh: '對比 (ㄉㄨㄟˋ ㄅㄧˇ)', mnemonic: '`contra` 代表「相反的」。有相反 (`contra`) 的特徵，放在一起就能產生對比 (`contrast`)。' },
-            { en: 'form', zh: '形成 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for` + `m` (men)。為 (`for`) 這些男人 (`men`) 形成 (`form`) 一個團隊。' },
-            { en: 'creature', zh: '生物 (ㄕㄥ ㄨˋ)', mnemonic: '`create` (創造) + `ure`。被大自然所創造 (`create`) 出來的東西，就是生物 (`creature`)。' },
-            { en: 'notice', zh: '注意 (ㄓㄨˋ ㄧˋ)', mnemonic: '`no` (沒有) + `ice` (冰)。注意 (`notice`)！你的飲料裡沒有加冰塊 (`no ice`)。' },
-            { en: 'twitch', zh: '抽搐 (ㄔㄡ ㄔㄨˋ)', mnemonic: '聽起來像 `witch` (女巫)。女巫 (`witch`) 施展魔法，讓他的臉開始抽搐 (`twitch`)。' },
-            { en: 'quite', zh: '相當 (ㄒㄧㄤ ㄉㄤ)', mnemonic: '和 `quiet` (安靜的) 很像，只差最後兩個字母。這間房間相當 (`quite`) 安靜 (`quiet`)。' },
-            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (向外) + `press` (擠壓)。把你內心的想法向外擠壓 (`press`) 出來，就是表達 (`express`)。' },
-            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難的) + `ly`。如果一件事做起來很困難 (`hard`)，那你「幾乎不」(`hardly`) 會想去做它。' }
+            { en: 'brief', zh: '簡短的 (ㄐㄧㄢˇ ㄉㄨㄢˇ ㄉㄜ˙)', mnemonic: '`brief` 聽起來像 `beef` (牛肉)。把長篇大論縮減成精華的「牛肉」(`beef`)，就是簡短的 (`brief`)。' },
+            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述 (`dictate`) 中指出 (`indicate`) 重要的部分。' },
+            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` 聽起來像 `die` (死亡)。想像兩個人為了劃分 (`divide`) 財產而決鬥至死 (`die`)。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。為了不掉進空虛的深淵 (`void`)，你必須避免 (`avoid`) 走那條路。' },
+            { en: 'streak', zh: '條紋；連續 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '`streak` 聽起來像 `stream` (溪流)。一條溪流 (`stream`) 就像是大地的一道條紋 (`streak`)。' },
+            { en: 'complete', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (一起) + `plete` (滿)。全部都滿了，就是完成 (`complete`)。' },
+            { en: 'wonder', zh: '想知道；奇蹟 (ㄒㄧㄤˇ ㄓ ㄉㄠˋ)', mnemonic: '`wonder` 聽起來像 `wander` (漫遊)。當你四處漫遊 (`wander`) 時，你會想知道 (`wonder`) 接下來會遇到什麼奇蹟。' },
+            { en: 'surge', zh: '湧現；激增 (ㄩㄥˇ ㄒㄧㄢˋ)', mnemonic: '`surge` 聽起來像 `urge` (強烈的慾望)。有一股強烈的慾望 (`urge`) 想要讓成績激增 (`surge`)。' },
+            { en: 'direct', zh: '直接的；引導 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`direction` (方向)。給予明確的方向 (`direction`) 來引導 (`direct`)，這是最直接的 (`direct`) 方式。' },
+            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '`center` (中心) + `al`。位於中心 (`center`) 的就是中央的 (`central`)。' },
+            { en: 'attend', zh: '出席 (ㄔㄨ ㄒㄧˊ)', mnemonic: '`at` + `ten` (十)。早上十點 (`ten`) 必須準時出席 (`attend`) 課程。' },
+            { en: 'attention', zh: '注意力 (ㄓㄨˋ ㄧˋ ㄌㄧˋ)', mnemonic: '`attend` (出席) 的名詞形式。你出席 (`attend`) 課程時，必須集中注意力 (`attention`)。' },
+            { en: 'cause', zh: '導致；原因 (ㄉㄠˇ ㄓˋ)', mnemonic: '`because` (因為) 裡面包含了 `cause`。因為 (`because`) 這個原因，才導致 (`cause`) 了這個結果。' },
+            { en: 'continue', zh: '繼續 (ㄐㄧˋ ㄒㄩˋ)', mnemonic: '`con` + `tin` (罐頭) + `ue`。把食物裝進罐頭 (`tin`) 裡，讓它的保存期限可以繼續 (`continue`) 下去。' },
+            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) + `son` (兒子)。父母有時候會把自己的兒子 (`son`) 拿來做比較 (`comparison`)。' },
+            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`broad` 聽起來像 `board` (木板)。想像一塊非常寬廣的 (`broad`) 木板 (`board`)。' },
+            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '`cent` (一百)。一個世紀 (`century`) 就是一百 (`cent`) 年。' },
+            { en: 'design', zh: '設計 (ㄕㄜˋ ㄐㄧˋ)', mnemonic: '`de` + `sign` (標誌)。一個好的設計 (`design`) 是一個好產品的標誌 (`sign`)。' },
+            { en: 'lead', zh: '領導；引導 (ㄌㄧㄥˇ ㄉㄠˇ)', mnemonic: '`leader` (領導者) 的動詞。領導者 (`leader`) 負責引導 (`lead`) 大家。' },
+            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`ex` (向外) + `plore` (聽起來像 pour, 傾倒)。向外 (`ex`) 傾注所有的精力去探索 (`explore`) 未知。' }
         ];
 
         /* --- 語音朗讀 API --- */
