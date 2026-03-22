@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,26 +276,27 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'brief', zh: '簡短的 (ㄐㄧㄢˇ ㄉㄨㄢˇ ㄉㄜ˙)', mnemonic: '`brief` 聽起來像 `beef` (牛肉)。把長篇大論縮減成精華的「牛肉」(`beef`)，就是簡短的 (`brief`)。' },
-            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述 (`dictate`) 中指出 (`indicate`) 重要的部分。' },
-            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` 聽起來像 `die` (死亡)。想像兩個人為了劃分 (`divide`) 財產而決鬥至死 (`die`)。' },
-            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。為了不掉進空虛的深淵 (`void`)，你必須避免 (`avoid`) 走那條路。' },
-            { en: 'streak', zh: '條紋；連續 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '`streak` 聽起來像 `stream` (溪流)。一條溪流 (`stream`) 就像是大地的一道條紋 (`streak`)。' },
-            { en: 'complete', zh: '完成 (ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (一起) + `plete` (滿)。全部都滿了，就是完成 (`complete`)。' },
-            { en: 'wonder', zh: '想知道；奇蹟 (ㄒㄧㄤˇ ㄓ ㄉㄠˋ)', mnemonic: '`wonder` 聽起來像 `wander` (漫遊)。當你四處漫遊 (`wander`) 時，你會想知道 (`wonder`) 接下來會遇到什麼奇蹟。' },
-            { en: 'surge', zh: '湧現；激增 (ㄩㄥˇ ㄒㄧㄢˋ)', mnemonic: '`surge` 聽起來像 `urge` (強烈的慾望)。有一股強烈的慾望 (`urge`) 想要讓成績激增 (`surge`)。' },
-            { en: 'direct', zh: '直接的；引導 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`direction` (方向)。給予明確的方向 (`direction`) 來引導 (`direct`)，這是最直接的 (`direct`) 方式。' },
-            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '`center` (中心) + `al`。位於中心 (`center`) 的就是中央的 (`central`)。' },
-            { en: 'attend', zh: '出席 (ㄔㄨ ㄒㄧˊ)', mnemonic: '`at` + `ten` (十)。早上十點 (`ten`) 必須準時出席 (`attend`) 課程。' },
-            { en: 'attention', zh: '注意力 (ㄓㄨˋ ㄧˋ ㄌㄧˋ)', mnemonic: '`attend` (出席) 的名詞形式。你出席 (`attend`) 課程時，必須集中注意力 (`attention`)。' },
-            { en: 'cause', zh: '導致；原因 (ㄉㄠˇ ㄓˋ)', mnemonic: '`because` (因為) 裡面包含了 `cause`。因為 (`because`) 這個原因，才導致 (`cause`) 了這個結果。' },
-            { en: 'continue', zh: '繼續 (ㄐㄧˋ ㄒㄩˋ)', mnemonic: '`con` + `tin` (罐頭) + `ue`。把食物裝進罐頭 (`tin`) 裡，讓它的保存期限可以繼續 (`continue`) 下去。' },
-            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) + `son` (兒子)。父母有時候會把自己的兒子 (`son`) 拿來做比較 (`comparison`)。' },
-            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`broad` 聽起來像 `board` (木板)。想像一塊非常寬廣的 (`broad`) 木板 (`board`)。' },
-            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '`cent` (一百)。一個世紀 (`century`) 就是一百 (`cent`) 年。' },
-            { en: 'design', zh: '設計 (ㄕㄜˋ ㄐㄧˋ)', mnemonic: '`de` + `sign` (標誌)。一個好的設計 (`design`) 是一個好產品的標誌 (`sign`)。' },
-            { en: 'lead', zh: '領導；引導 (ㄌㄧㄥˇ ㄉㄠˇ)', mnemonic: '`leader` (領導者) 的動詞。領導者 (`leader`) 負責引導 (`lead`) 大家。' },
-            { en: 'explore', zh: '探索 (ㄊㄢˋ ㄙㄨㄛˇ)', mnemonic: '`ex` (向外) + `plore` (聽起來像 pour, 傾倒)。向外 (`ex`) 傾注所有的精力去探索 (`explore`) 未知。' }
+            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` 聽起來像 `leave` (留下) + `st`。把最不重要 (`least` important) 的東西留下 (`leave`)。' },
+            { en: 'model', zh: '模型/模特兒 (ㄇㄛˊ ㄒㄧㄥˊ)', mnemonic: '聯想 `mode` (模式/風格)。模特兒 (`model`) 在伸展台上展現了最新的時尚風格 (`mode`)。' },
+            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (嬰兒床) + `ton` (噸)。一噸 (`ton`) 的棉花 (`cotton`) 可以做成很多柔軟的嬰兒床 (`cot`)。' },
+            { en: 'weight', zh: '重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)', mnemonic: '`we` (我們) + `eight` (八)。我們 (`we`) 八 (`eight`) 個人的重量 (`weight`) 加起來很驚人。' },
+            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`lo` (low, 低) + `cal` (call, 叫)。在當地 (`local`) 講話不用太大聲，低聲 (`low`) 叫 (`call`) 就聽得到了。' },
+            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`sea` (海) + `rch` (rich, 富有)。在茫茫大海 (`sea`) 中搜尋 (`search`) 寶藏會讓人變富有 (`rich`)。' },
+            { en: 'thunder', zh: '雷聲 (ㄌㄟˊ ㄕㄥ)', mnemonic: '`th` + `under` (在...下面)。打雷 (`thunder`) 時，大家都躲在屋簷下 (`under`)。' },
+            { en: 'element', zh: '元素 (ㄩㄢˊ ㄙㄨˋ)', mnemonic: '`eleven` (十一) + `men` (男人)。11個男人 (`men`) 是組成一支足球隊的基本元素 (`element`)。' },
+            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下去) 押韻。讓我們下去 (`down`) 城鎮 (`town`) 逛逛吧。' },
+            { en: 'revise', zh: '複習/修改 (ㄈㄨˋ ㄒㄧˊ)', mnemonic: '`re` (再次) + `vise` (vision, 看)。再次 (`re`) 審視 (`vision`) 內容，就是複習修改 (`revise`)。' },
+            { en: 'direction', zh: '方向 (ㄈㄤ ㄒㄧㄤˋ)', mnemonic: '`direct` (直接) + `ion`。直接 (`direct`) 指出你要去的方向 (`direction`)。' },
+            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`re` (回) + `spond` (sponsor, 贊助)。收到贊助 (`sponsor`) 後，必須給予回 (`re`) 應 (`respond`)。' },
+            { en: 'jewel', zh: '珠寶 (ㄓㄨ ㄅㄠˇ)', mnemonic: '`jew` (猶太人) + `el` (well, 好)。猶太人 (`jew`) 很擅長 (`well`) 經營珠寶 (`jewel`) 生意。' },
+            { en: 'main', zh: '主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`main` 聽起來像 `man` (男人)。在這個故事裡，這個男人 (`man`) 是主要的 (`main`) 角色。' },
+            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`public` (大眾) + `sh`。把書推向大眾 (`public`) 就是出版 (`publish`)。' },
+            { en: 'further', zh: '進一步的 (ㄐㄧㄣˋ ㄧ ㄅㄨˋ ㄉㄜ˙)', mnemonic: '由 `far` (遠) 變化而來。比遠 (`far`) 還要更遠，就是進一步的 (`further`)。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`cert` (certificate, 證書)。拿到證書 (`certificate`) 就代表事情已經確定 (`certain`) 了。' },
+            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (再次) + `turn` (轉向)。再次 (`re`) 轉向 (`turn`) 原來的方向，就是返回 (`return`)。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (per, 每一個) + `pose` (姿勢)。他擺出的每一個 (`per`) 姿勢 (`pose`) 都有特定的目的 (`purpose`)。' },
+            { en: 'custom', zh: '習俗 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '聯想 `customer` (顧客)。每個地方的顧客 (`customer`) 都有不同的消費習俗 (`custom`)。' },
+            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (`carve`) 出美麗的曲線 (`curve`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -309,7 +310,7 @@
             }
         }
 
-        /* --- 安全洗牌演算法 (避免舊版瀏覽器語法衝突) --- */
+        /* --- 安全洗牌演算法 --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -333,7 +334,6 @@
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
             
-            // 確保每次點擊都重新初始化陣列
             startGame(words);
         }
 
@@ -446,7 +446,6 @@
         let isWaitingToContinue = false;
 
         function startGame(wordList) {
-            // 安全檢查：確保傳入的單字表是有效的陣列
             let listToUse = words;
             if (wordList && Array.isArray(wordList) && wordList.length > 0) {
                 listToUse = wordList;
@@ -479,7 +478,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; // 安全檢查防呆
+            if (!q) return;
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -494,7 +493,7 @@
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
-            // 延遲一點點聚焦，避免有些瀏覽器切換畫面時聚焦失效
+            // 自動聚焦輸入框
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
