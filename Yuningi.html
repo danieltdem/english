@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,27 +276,26 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '`least` 聽起來像 `leave` (留下) + `st`。把最不重要 (`least` important) 的東西留下 (`leave`)。' },
-            { en: 'model', zh: '模型/模特兒 (ㄇㄛˊ ㄒㄧㄥˊ)', mnemonic: '聯想 `mode` (模式/風格)。模特兒 (`model`) 在伸展台上展現了最新的時尚風格 (`mode`)。' },
-            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (嬰兒床) + `ton` (噸)。一噸 (`ton`) 的棉花 (`cotton`) 可以做成很多柔軟的嬰兒床 (`cot`)。' },
-            { en: 'weight', zh: '重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)', mnemonic: '`we` (我們) + `eight` (八)。我們 (`we`) 八 (`eight`) 個人的重量 (`weight`) 加起來很驚人。' },
-            { en: 'local', zh: '當地的 (ㄉㄤ ㄉㄧˋ ㄉㄜ˙)', mnemonic: '`lo` (low, 低) + `cal` (call, 叫)。在當地 (`local`) 講話不用太大聲，低聲 (`low`) 叫 (`call`) 就聽得到了。' },
-            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`sea` (海) + `rch` (rich, 富有)。在茫茫大海 (`sea`) 中搜尋 (`search`) 寶藏會讓人變富有 (`rich`)。' },
-            { en: 'thunder', zh: '雷聲 (ㄌㄟˊ ㄕㄥ)', mnemonic: '`th` + `under` (在...下面)。打雷 (`thunder`) 時，大家都躲在屋簷下 (`under`)。' },
-            { en: 'element', zh: '元素 (ㄩㄢˊ ㄙㄨˋ)', mnemonic: '`eleven` (十一) + `men` (男人)。11個男人 (`men`) 是組成一支足球隊的基本元素 (`element`)。' },
-            { en: 'town', zh: '城鎮 (ㄔㄥˊ ㄓㄣˋ)', mnemonic: '`town` (城鎮) 和 `down` (下去) 押韻。讓我們下去 (`down`) 城鎮 (`town`) 逛逛吧。' },
-            { en: 'revise', zh: '複習/修改 (ㄈㄨˋ ㄒㄧˊ)', mnemonic: '`re` (再次) + `vise` (vision, 看)。再次 (`re`) 審視 (`vision`) 內容，就是複習修改 (`revise`)。' },
-            { en: 'direction', zh: '方向 (ㄈㄤ ㄒㄧㄤˋ)', mnemonic: '`direct` (直接) + `ion`。直接 (`direct`) 指出你要去的方向 (`direction`)。' },
-            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`re` (回) + `spond` (sponsor, 贊助)。收到贊助 (`sponsor`) 後，必須給予回 (`re`) 應 (`respond`)。' },
-            { en: 'jewel', zh: '珠寶 (ㄓㄨ ㄅㄠˇ)', mnemonic: '`jew` (猶太人) + `el` (well, 好)。猶太人 (`jew`) 很擅長 (`well`) 經營珠寶 (`jewel`) 生意。' },
-            { en: 'main', zh: '主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`main` 聽起來像 `man` (男人)。在這個故事裡，這個男人 (`man`) 是主要的 (`main`) 角色。' },
-            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`public` (大眾) + `sh`。把書推向大眾 (`public`) 就是出版 (`publish`)。' },
-            { en: 'further', zh: '進一步的 (ㄐㄧㄣˋ ㄧ ㄅㄨˋ ㄉㄜ˙)', mnemonic: '由 `far` (遠) 變化而來。比遠 (`far`) 還要更遠，就是進一步的 (`further`)。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`cert` (certificate, 證書)。拿到證書 (`certificate`) 就代表事情已經確定 (`certain`) 了。' },
-            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (再次) + `turn` (轉向)。再次 (`re`) 轉向 (`turn`) 原來的方向，就是返回 (`return`)。' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (per, 每一個) + `pose` (姿勢)。他擺出的每一個 (`per`) 姿勢 (`pose`) 都有特定的目的 (`purpose`)。' },
-            { en: 'custom', zh: '習俗 (ㄒㄧˊ ㄙㄨˊ)', mnemonic: '聯想 `customer` (顧客)。每個地方的顧客 (`customer`) 都有不同的消費習俗 (`custom`)。' },
-            { en: 'curve', zh: '曲線 (ㄑㄩ ㄒㄧㄢˋ)', mnemonic: '`curve` 聽起來像 `carve` (雕刻)。他在木頭上雕刻 (`carve`) 出美麗的曲線 (`curve`)。' }
+            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (回/再一次) + `turn` (轉向)。轉過身往回走，就是返回 (`return`)。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (聽起來像 pour, 倒) + `pose` (姿勢)。你擺出這個姿勢 (`pose`) 一定有某種目的 (`purpose`)。' },
+            { en: 'although', zh: '雖然 (ㄙㄨㄟ ㄖㄢˊ)', mnemonic: '`al` (all, 全部) + `though` (雖然)。雖然 (`although`) 全部 (`all`) 的人都反對，我還是要去做。' },
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對權力和領土總是有著強烈的渴望 (`desire`)。' },
+            { en: 'form', zh: '形成 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for` + `m` (men)。為 (`for`) 這些男人 (`men`) 形成 (`form`) 一個堅強的團隊。' },
+            { en: 'multiple', zh: '多個的 (ㄉㄨㄛ ㄍㄜˋ ㄉㄜ˙)', mnemonic: '`multi` (多個) + `ple` (聽起來像 apple)。想像籃子裡有很多 (`multi`) 蘋果 (`apple`)。' },
+            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`di` (die, 死) + `rect` (correct, 正確)。如果你不給出直接的 (`direct`) 答案，情況會很糟糕。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。為了避免 (`avoid`) 掉入空虛 (`void`)，你要小心避開危險。' },
+            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '來自 compare。`com` (一起) + `paris` (巴黎) + `on`。把不同城市放在一起和巴黎 (`Paris`) 做比較 (`comparison`)。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 `curtain` (窗簾)。當窗簾 (`curtain`) 拉開時，外面的天氣如何就很確定 (`certain`) 了。' },
+            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連小狗尾巴 (`tail`) 最末端的細節 (`detail`) 都要注意到。' },
+            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (聽起來像 monk, 和尚)。看到一個和尚 (`monk`) 站在人群之中 (`among`)。' },
+            { en: 'former', zh: '前任的 (ㄑㄧㄢˊ ㄖㄣˋ ㄉㄜ˙)', mnemonic: '`form` (形式) + `er`。以前的舊形式，現在已經變成前任的 (`former`) 了。' },
+            { en: 'sketch', zh: '素描 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '`sk` (skill, 技巧) + `etch` (刻畫)。用你的繪畫技巧畫出來的草圖就是素描 (`sketch`)。' },
+            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (out, 向外) + `press` (擠壓)。把你內心的想法向外擠壓 (`press`) 出來，就是表達 (`express`)。' },
+            { en: 'unique', zh: '獨特的 (ㄉㄨˊ ㄊㄜˋ ㄉㄜ˙)', mnemonic: '`uni` 代表「單一/一」(像 unicorn 獨角獸)。所以是獨一無二、獨特的 (`unique`)。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難的) + `ly`。如果一件事做起來很困難 (`hard`)，那你「幾乎不」(`hardly`) 會想去做它。' },
+            { en: 'quite', zh: '相當 (ㄒㄧㄤ ㄉㄤ)', mnemonic: '和 `quiet` (安靜的) 長得很像，只差最後兩個字母順序。這間圖書館相當 (`quite`) 安靜 (`quiet`)。' },
+            { en: 'support', zh: '支持 (ㄓ ㄔˊ)', mnemonic: '`sup` (sub, 在下面) + `port` (港口/支撐)。在下方用力支撐，就是給予支持 (`support`)。' },
+            { en: 'diagram', zh: '圖表 (ㄊㄨˊ ㄅㄧㄠˇ)', mnemonic: '`dia` (through, 透過) + `gram` (write/draw, 畫)。透過畫圖來解釋資訊的東西就是圖表 (`diagram`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -406,7 +405,7 @@
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷：都轉換成小寫來比對
+                    // 大小寫不拘的判斷
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -487,13 +486,11 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
-            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
-            // 自動聚焦輸入框
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
@@ -506,7 +503,7 @@
                 return;
             }
 
-            // 大小寫不拘的判斷：都轉換成小寫來比對
+            // 大小寫不拘的判斷
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
