@@ -1,565 +1,110 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miro International School - Review Test Simulation</title>
+    <title>Spectrum Spelling Grade 4 複習測驗</title>
     <style>
-        :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f5f7fa;
-            --correct-color: #2ecc71;
-            --wrong-color: #e74c3c;
-            --text-color: #2c3e50;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #eef2f5;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 30px;
-            border-top: 5px solid var(--primary-color);
-        }
-
-        h1 { margin: 0; color: var(--primary-color); font-size: 1.8rem; }
-        h2 { font-size: 1.2rem; color: #666; margin-top: 5px; }
-
-        section {
-            background: #fff;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        h3 {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .instruction {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        /* Input Styles */
-        input[type="text"] {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 5px;
-            transition: border 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .question-block {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: var(--secondary-color);
-            border-radius: 8px;
-        }
-
-        .feedback {
-            font-weight: bold;
-            margin-left: 10px;
-            font-size: 0.9rem;
-        }
-        .correct { color: var(--correct-color); }
-        .wrong { color: var(--wrong-color); }
-
-        button.check-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-
-        button.check-btn:hover {
-            background-color: #357abd;
-        }
-
-        .mcq-option {
-            display: block;
-            margin: 5px 0;
-            cursor: pointer;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .vocab-grid { grid-template-columns: 1fr; }
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; font-size: 1.2em; background: #eaf2f8; padding: 10px; border-left: 5px solid #3498db; }
+        .question-row { margin-bottom: 15px; display: flex; align-items: center; flex-wrap: wrap; }
+        .question-label { flex: 0 0 250px; font-weight: bold; }
+        input[type="text"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 150px; font-size: 16px; }
+        button { display: block; width: 100%; padding: 15px; background-color: #27ae60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 30px; transition: background 0.3s; }
+        button:hover { background-color: #219150; }
+        .feedback { margin-top: 10px; padding: 15px; border-radius: 6px; display: none; background-color: #f9f9f9; border-left: 4px solid #7f8c8d; }
+        .correct { color: #27ae60; font-weight: bold; }
+        .incorrect { color: #e74c3c; font-weight: bold; }
+        .explanation { font-size: 0.9em; color: #555; margin-top: 5px; }
+        .grammar-note { color: #8e44ad; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Miro International School</h1>
-    <h2>Review Test Simulation (Interactive)</h2>
-    <p>Student: <strong>Ningning</strong> | Grade 4 Review</p>
-</header>
+<div class="container">
+    <h1>📝 英文拼字複習 (Grade 4)</h1>
+    <p>寧寧，請根據圖片內容填入正確的單字，完成後點擊最下方的按鈕查看詳解喔！</p>
 
-<section id="part1">
-    <h3>P4-A: Spelling Words (Weeks 10-17)</h3>
-    <p class="instruction">Translate the Chinese words into English (請看中文輸入英文單字).</p>
-    
-    <div class="vocab-grid" id="vocabContainer">
-        </div>
-    <button class="check-btn" onclick="checkVocab()">Check Vocabulary</button>
-</section>
+    <h2>Part 1: Write the antonym (反義字)</h2>
+    <div id="antonyms-list"></div>
 
-<section id="part2">
-    <h3>A: Reading: Reach</h3>
-    <div class="question-block">
-        <label>1. Why is the North American wood frog amazing? (p.61) (2 points)</label>
-        <input type="text" id="read1" placeholder="Type your answer...">
-        <span class="feedback" id="read1-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>2. What happens to ponds in the winter? (p.60) (2 points)</label>
-        <input type="text" id="read2" placeholder="Type your answer...">
-        <span class="feedback" id="read2-fb"></span>
-    </div>
+    <h2>Part 2: Write the word that belongs (分類詞)</h2>
+    <div id="wordgroups-list"></div>
 
-    <h3>B: What makes the seasons?</h3>
-    <p class="instruction">Fill in the missing words: sprinkling rain / showers / hardly there / light / red and gold</p>
-    
-    <div class="question-block">
-        <p>The sun grows dim, the wind blows cold. Green leaves turn to <input type="text" id="season1" style="width: 150px;">.</p>
-        <span class="feedback" id="season1-fb"></span>
-    </div>
-    <div class="question-block">
-        <p>The day began with <input type="text" id="season2" style="width: 150px;"> tapping on the window pane.</p>
-        <span class="feedback" id="season2-fb"></span>
-    </div>
-    <div class="question-block">
-        <p>Plants that once were <input type="text" id="season3" style="width: 150px;"> now have flowers.</p>
-        <span class="feedback" id="season3-fb"></span>
-    </div>
-    <div class="question-block">
-        <p>Spring's mild weather wakes the seeds, bringing <input type="text" id="season4" style="width: 150px;"> each seed needs.</p>
-        <span class="feedback" id="season4-fb"></span>
-    </div>
-    <div class="question-block">
-        <p>Plants grow best in summer <input type="text" id="season5" style="width: 150px;"> when the days are long and warm and bright.</p>
-        <span class="feedback" id="season5-fb"></span>
-    </div>
-    <button class="check-btn" onclick="checkReading()">Check Reading</button>
-</section>
-
-<section id="part3">
-    <h3>C: Adverbs</h3>
-    <p class="instruction">Write the adverbs of these adjectives (1 point each)</p>
-    <div class="vocab-grid" id="adverbContainer">
-        </div>
-    <br>
-    <p class="instruction">D: Now choose 5 of the adverbs from above and make sentences (Self-practice, no auto-check).</p>
-    <textarea style="width:100%; height:80px; padding:10px; border:1px solid #ddd;" placeholder="Write your sentences here for practice..."></textarea>
-    
-    <button class="check-btn" onclick="checkAdverbs()">Check Adverbs</button>
-</section>
-
-<section id="part4">
-    <h3>E: Grammar - Present Perfect Simple</h3>
-    <p class="instruction">Change these sentences to the present perfect tense.</p>
-    
-    <div class="question-block">
-        <label>1. I saw a penguin.</label>
-        <input type="text" id="gram1" placeholder="Ex: I have seen a penguin.">
-        <span class="feedback" id="gram1-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>2. Did they eat breakfast?</label>
-        <input type="text" id="gram2">
-        <span class="feedback" id="gram2-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>3. Jenny didn't finish her homework.</label>
-        <input type="text" id="gram3">
-        <span class="feedback" id="gram3-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>4. We lived here for a year.</label>
-        <input type="text" id="gram4">
-        <span class="feedback" id="gram4-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>5. It didn't rain for a long time.</label>
-        <input type="text" id="gram5">
-        <span class="feedback" id="gram5-fb"></span>
-    </div>
-    <button class="check-btn" onclick="checkGrammar()">Check Grammar</button>
-</section>
-
-<section id="part5">
-    <h3>F: Fix the order and make sentences using present perfect simple</h3>
-    
-    <div class="question-block">
-        <label>1. eat / a / hamburger / I / already</label>
-        <input type="text" id="order1">
-        <span class="feedback" id="order1-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>2. ever / Japan / Jack / to / be / ?</label>
-        <input type="text" id="order2">
-        <span class="feedback" id="order2-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>3. we / wash / car / the / just</label>
-        <input type="text" id="order3">
-        <span class="feedback" id="order3-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>4. boys / the / the park / not go / to / yet</label>
-        <input type="text" id="order4">
-        <span class="feedback" id="order4-fb"></span>
-    </div>
-    <button class="check-btn" onclick="checkOrder()">Check Order</button>
-</section>
-
-<section id="part6">
-    <h3>G: Past Simple vs Present Perfect (Chart)</h3>
-    <p class="instruction">Look at the chart (Jane & Bob) and answer the questions.</p>
-    <div style="background:#fff; border:1px solid #999; padding:10px; margin-bottom:15px; font-size:0.9rem;">
-        <strong>Chart Data:</strong><br>
-        <strong>Jane:</strong> Homework this morning | Pizza: X | Travel: England last year<br>
-        <strong>Bob:</strong> Homework: X | Pizza: 3 pizzas last week | Travel: Canada in 1990
-    </div>
-
-    <div class="question-block">
-        <label>1. Has Jane written her homework recently? (Example)</label>
-        <p style="color:blue;">Yes, she has. She wrote her homework this morning.</p>
-    </div>
-
-    <div class="question-block">
-        <label>2. Bob / homework?</label>
-        <input type="text" id="chart2" placeholder="Has Bob written...? No, ...">
-        <span class="feedback" id="chart2-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>3. Jane / pizza?</label>
-        <input type="text" id="chart3" placeholder="Has Jane eaten...? No, ...">
-        <span class="feedback" id="chart3-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>4. Bob / pizza?</label>
-        <input type="text" id="chart4" placeholder="Has Bob eaten...? Yes, ...">
-        <span class="feedback" id="chart4-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>5. Jane / travel?</label>
-        <input type="text" id="chart5" placeholder="Has Jane traveled...? Yes, ...">
-        <span class="feedback" id="chart5-fb"></span>
-    </div>
-    <div class="question-block">
-        <label>6. Bob / travel?</label>
-        <input type="text" id="chart6" placeholder="Has Bob traveled...? Yes, ...">
-        <span class="feedback" id="chart6-fb"></span>
-    </div>
-    <button class="check-btn" onclick="checkChart()">Check Answers</button>
-</section>
-
-<section id="part7">
-    <h3>H: Circle the correct answer</h3>
-    
-    <div class="question-block">
-        <p>1. We ___________ to the zoo before.</p>
-        <label class="mcq-option"><input type="radio" name="mcq1" value="a"> a) go</label>
-        <label class="mcq-option"><input type="radio" name="mcq1" value="b"> b) have went</label>
-        <label class="mcq-option"><input type="radio" name="mcq1" value="c"> c) have been</label>
-        <span class="feedback" id="mcq1-fb"></span>
-    </div>
-
-    <div class="question-block">
-        <p>2. Ruby and Tim ___________ dinner at 9pm.</p>
-        <label class="mcq-option"><input type="radio" name="mcq2" value="a"> a) eat</label>
-        <label class="mcq-option"><input type="radio" name="mcq2" value="b"> b) have eaten</label>
-        <label class="mcq-option"><input type="radio" name="mcq2" value="c"> c) ate</label>
-        <span class="feedback" id="mcq2-fb"></span>
-    </div>
-
-    <div class="question-block">
-        <p>3. Which pencil do you like? I like the blue ___________.</p>
-        <label class="mcq-option"><input type="radio" name="mcq3" value="a"> a) one</label>
-        <label class="mcq-option"><input type="radio" name="mcq3" value="b"> b) ones</label>
-        <label class="mcq-option"><input type="radio" name="mcq3" value="c"> c) pencil</label>
-        <span class="feedback" id="mcq3-fb"></span>
-    </div>
-
-    <div class="question-block">
-        <p>4. I'd like some ___________.</p>
-        <label class="mcq-option"><input type="radio" name="mcq4" value="a"> a) ice cream</label>
-        <label class="mcq-option"><input type="radio" name="mcq4" value="b"> b) apple</label>
-        <label class="mcq-option"><input type="radio" name="mcq4" value="c"> c) orange</label>
-        <span class="feedback" id="mcq4-fb"></span>
-    </div>
-
-    <div class="question-block">
-        <p>5. I have ___________ this movie.</p>
-        <label class="mcq-option"><input type="radio" name="mcq5" value="a"> a) watching</label>
-        <label class="mcq-option"><input type="radio" name="mcq5" value="b"> b) watch</label>
-        <label class="mcq-option"><input type="radio" name="mcq5" value="c"> c) seen</label>
-        <span class="feedback" id="mcq5-fb"></span>
-    </div>
-    <button class="check-btn" onclick="checkMCQ()">Check MCQ</button>
-</section>
+    <button onclick="checkAnswers()">送出答案並查看詳解</button>
+</div>
 
 <script>
-    // --- Data & Logic ---
+const data = {
+    antonyms: [
+        { q: "1. same", a: "different", exp: "Different (不同的) 是 same (相同的) 的相反詞。" },
+        { q: "2. rich", a: "poor", exp: "Poor (貧窮的) 是 rich (富有) 的相反詞。" },
+        { q: "3. husbands", a: "wives", exp: "Wives (妻子們) 是 husband 的複數對應詞。注意：wife 的複數要去掉 f 改成 ves。" },
+        { q: "4. wonderful", a: "terrible", exp: "Terrible (糟糕的/可怕的) 與 wonderful (極好的) 程度完全相反。" },
+        { q: "5. forget", a: "remember", exp: "Remember (記得) 是 forget (忘記) 的相反動作。" },
+        { q: "6. old", a: "young", exp: "Young (年輕的) 用來描述年紀，與 old (老的) 相反。" },
+        { q: "7. complex", a: "simple", exp: "Simple (簡單的) 與 complex (複雜的) 相對。" },
+        { q: "8. open", a: "close", exp: "Close (關閉) 是 open (開啟) 的反義字。" },
+        { q: "9. question", a: "answer", exp: "Answer (回答) 是對 question (提問) 的回應。" },
+        { q: "10. for", a: "against", exp: "Against (反對) 在支持/反對的語境下是 for (贊成) 的相反詞。" }
+    ],
+    groups: [
+        { q: "11. eighths, fourths, thirds,", a: "halves", exp: "這組全是『分數 (Fractions)』。Halves (一半) 是 half 的複數型態。" },
+        { q: "12. chicks, lambs, foals,", a: "calves", exp: "這組全是『幼年動物』。Calves (小牛) 是 calf 的複數。Chicks(小雞), lambs(小羊), foals(小馬)。" },
+        { q: "13. plates, forks, spoons,", a: "knives", exp: "這組是『餐具 (Cutlery/Tableware)』。Knives (刀子) 是 knife 的複數。" },
+        { q: "14. hill, volcano, cliff,", a: "mountain", exp: "這組是『地形 (Landforms)』。Mountain (山) 與丘陵、火山、懸崖同類。" },
+        { q: "15. point, line, side,", a: "angle", exp: "這組是『幾何術語 (Geometry)』。Angle (角度) 與點、線、面相關。" },
+        { q: "16. riddle, mystery, maze,", a: "puzzle", exp: "這組是『智力挑戰 (Brain teasers)』。Puzzle (謎題/拼圖) 與謎語、神祕事物、迷宮同類。" },
+        { q: "17. moan, shriek, cry,", a: "groan", exp: "這組是『聲音 (Sounds)』，特別是不舒服的聲音。Groan (呻吟) 與呻吟、尖叫、哭喊同類。" },
+        { q: "18. twice, couple, pair,", a: "double", exp: "這組與『數字 2 (Groups of two)』有關。Double (兩倍) 與兩次、一對同義。" }
+    ]
+};
 
-    // 1. Vocabulary List (Page 1)
-    const vocabList = [
-        { en: "price", zh: "價格" }, { en: "evidence", zh: "證據" },
-        { en: "capital", zh: "首都/資本" }, { en: "surprise", zh: "驚喜" },
-        { en: "protect", zh: "保護" }, { en: "unsure", zh: "不確定" },
-        { en: "library", zh: "圖書館" }, { en: "chore", zh: "家務/雜務" },
-        { en: "diamond", zh: "鑽石" }, { en: "motion", zh: "移動/動作" },
-        { en: "before", zh: "之前" }, { en: "volcano", zh: "火山" },
-        { en: "stolen", zh: "被偷的" }, { en: "border", zh: "邊界" },
-        { en: "swallow", zh: "吞嚥/燕子" }, { en: "perfect", zh: "完美的" },
-        { en: "smooth", zh: "光滑的" }, { en: "return", zh: "返回" },
-        { en: "regular", zh: "規則的" }, { en: "certain", zh: "確定的" },
-        { en: "continue", zh: "繼續" }, { en: "central", zh: "中央的" },
-        { en: "dream", zh: "夢" }, { en: "flavor", zh: "口味/風味" }
-    ];
-
-    // Render Vocab
-    const vocabContainer = document.getElementById('vocabContainer');
-    vocabList.forEach((word, index) => {
-        const div = document.createElement('div');
-        div.className = 'question-block';
-        div.innerHTML = `
-            <label>${index + 1}. ${word.zh}</label>
-            <input type="text" id="vocab-${index}" autocomplete="off">
-            <span class="feedback" id="vocab-fb-${index}"></span>
-        `;
-        vocabContainer.appendChild(div);
+function render() {
+    const antList = document.getElementById('antonyms-list');
+    data.antonyms.forEach((item, index) => {
+        antList.innerHTML += `
+            <div class="question-row">
+                <div class="question-label">${item.q}</div>
+                <input type="text" id="ant-${index}">
+                <div id="ant-fb-${index}" class="feedback"></div>
+            </div>`;
     });
 
-    function normalize(str) {
-        return str.trim().toLowerCase().replace(/[.,?!]/g, "").replace(/\s+/g, " ");
-    }
+    const grpList = document.getElementById('wordgroups-list');
+    data.groups.forEach((item, index) => {
+        grpList.innerHTML += `
+            <div class="question-row">
+                <div class="question-label">${item.q}</div>
+                <input type="text" id="grp-${index}">
+                <div id="grp-fb-${index}" class="feedback"></div>
+            </div>`;
+    });
+}
 
-    function checkVocab() {
-        vocabList.forEach((word, index) => {
-            const input = document.getElementById(`vocab-${index}`).value;
-            const feedback = document.getElementById(`vocab-fb-${index}`);
-            if (normalize(input) === normalize(word.en)) {
-                feedback.innerHTML = "✔ Correct!";
-                feedback.className = "feedback correct";
-            } else {
-                feedback.innerHTML = `✘ Answer: ${word.en}`;
-                feedback.className = "feedback wrong";
-            }
-        });
-    }
-
-    // 2. Reading
-    function checkReading() {
-        // Simple keyword check for open questions
-        const r1 = document.getElementById('read1').value.toLowerCase();
-        const r1fb = document.getElementById('read1-fb');
-        if(r1.includes("freeze") || r1.includes("solid") || r1.includes("thaw")) {
-            r1fb.innerHTML = "✔ Good key points!"; r1fb.className = "feedback correct";
-        } else {
-            r1fb.innerHTML = "Note: It freezes solid in winter and thaws in spring."; r1fb.className = "feedback wrong";
-        }
-
-        const r2 = document.getElementById('read2').value.toLowerCase();
-        const r2fb = document.getElementById('read2-fb');
-        if(r2.includes("freeze") || r2.includes("ice")) {
-            r2fb.innerHTML = "✔ Correct!"; r2fb.className = "feedback correct";
-        } else {
-            r2fb.innerHTML = "✘ Suggestion: They freeze over."; r2fb.className = "feedback wrong";
-        }
-
-        // Fill blanks
-        const answers = [
-            {id: 'season1', ans: 'red and gold'},
-            {id: 'season2', ans: 'sprinkling rain'},
-            {id: 'season3', ans: 'hardly there'},
-            {id: 'season4', ans: 'showers'},
-            {id: 'season5', ans: 'light'}
-        ];
-        
-        answers.forEach(item => {
-            const val = document.getElementById(item.id).value;
-            const fb = document.getElementById(item.id + '-fb');
-            if (normalize(val) === normalize(item.ans)) {
-                fb.innerHTML = "✔"; fb.className = "feedback correct";
-            } else {
-                fb.innerHTML = `✘ ${item.ans}`; fb.className = "feedback wrong";
-            }
-        });
-    }
-
-    // 3. Adverbs
-    const adverbs = [
-        { adj: "slow", adv: "slowly" }, { adj: "happy", adv: "happily" },
-        { adj: "quiet", adv: "quietly" }, { adj: "beautiful", adv: "beautifully" },
-        { adj: "angry", adv: "angrily" }, { adj: "good", adv: "well" },
-        { adj: "fast", adv: "fast" }, { adj: "hungry", adv: "hungrily" },
-        { adj: "quick", adv: "quickly" }, { adj: "careful", adv: "carefully" }
-    ];
-
-    const advContainer = document.getElementById('adverbContainer');
-    adverbs.forEach((item, idx) => {
-        const div = document.createElement('div');
-        div.className = 'question-block';
-        div.innerHTML = `
-            <label>${idx+1}. ${item.adj} -> </label>
-            <input type="text" id="adv-${idx}" style="width:120px;">
-            <span class="feedback" id="adv-fb-${idx}"></span>
-        `;
-        advContainer.appendChild(div);
+function checkAnswers() {
+    data.antonyms.forEach((item, index) => {
+        const userAns = document.getElementById(`ant-${index}`).value.trim().toLowerCase();
+        const fb = document.getElementById(`ant-fb-${index}`);
+        fb.style.display = 'block';
+        const isCorrect = userAns === item.a.toLowerCase();
+        fb.innerHTML = `<span class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '✅ 正確' : '❌ 答案是: ' + item.a}</span>
+                        <div class="explanation">${item.exp}</div>`;
     });
 
-    function checkAdverbs() {
-        adverbs.forEach((item, idx) => {
-            const val = document.getElementById(`adv-${idx}`).value;
-            const fb = document.getElementById(`adv-fb-${idx}`);
-            if (normalize(val) === normalize(item.adv)) {
-                fb.innerHTML = "✔"; fb.className = "feedback correct";
-            } else {
-                fb.innerHTML = `✘ ${item.adv}`; fb.className = "feedback wrong";
-            }
-        });
-    }
+    data.groups.forEach((item, index) => {
+        const userAns = document.getElementById(`grp-${index}`).value.trim().toLowerCase();
+        const fb = document.getElementById(`grp-fb-${index}`);
+        fb.style.display = 'block';
+        const isCorrect = userAns === item.a.toLowerCase();
+        fb.innerHTML = `<span class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '✅ 正確' : '❌ 答案是: ' + item.a}</span>
+                        <div class="explanation">${item.exp}</div>`;
+    });
+}
 
-    // 4. Grammar
-    const grammarAns = [
-        "i have seen a penguin",
-        "have they eaten breakfast",
-        "jenny has not finished her homework", // or hasn't
-        "we have lived here for a year",
-        "it has not rained for a long time" // or hasn't
-    ];
-
-    function checkGrammar() {
-        for(let i=0; i<5; i++) {
-            const val = document.getElementById(`gram${i+1}`).value;
-            const fb = document.getElementById(`gram${i+1}-fb`);
-            // Basic normalization to handle "hasn't" vs "has not"
-            let cleanVal = normalize(val).replace("n't", " not");
-            let cleanAns = grammarAns[i].replace("n't", " not"); // Though answers above use 'not' or 'hasn't'
-            
-            // Allow contraction variations
-            if (cleanVal === cleanAns || normalize(val) === grammarAns[i].replace("not", "n't")) {
-                fb.innerHTML = "✔ Correct!"; fb.className = "feedback correct";
-            } else {
-                fb.innerHTML = `✘ Answer: ${grammarAns[i].replace("i ", "I ")}`; fb.className = "feedback wrong";
-            }
-        }
-    }
-
-    // 5. Order
-    const orderAns = [
-        "i have already eaten a hamburger",
-        "has jack ever been to japan",
-        "we have just washed the car",
-        "the boys have not gone to the park yet"
-    ];
-
-    function checkOrder() {
-        for(let i=0; i<4; i++) {
-            const val = document.getElementById(`order${i+1}`).value;
-            const fb = document.getElementById(`order${i+1}-fb`);
-            let cleanVal = normalize(val);
-            if (cleanVal === orderAns[i]) {
-                fb.innerHTML = "✔ Perfect!"; fb.className = "feedback correct";
-            } else {
-                fb.innerHTML = `✘ Try: ${orderAns[i]}`; fb.className = "feedback wrong";
-            }
-        }
-    }
-
-    // 6. Chart
-    const chartAns = [
-        // 1 is example
-        "has bob written his homework recently no he has not", // 2
-        "has jane eaten any pizza this month no she has not", // 3
-        "has bob eaten any pizza this month yes he has he ate three pizzas last week", // 4
-        "has jane traveled lately yes she has she went to england last year", // 5
-        "has bob traveled lately yes he has he went to canada in 1990" // 6
-    ];
-
-    function checkChart() {
-        // IDs are chart2 to chart6
-        const ids = [2, 3, 4, 5, 6];
-        ids.forEach((num, idx) => {
-            let val = document.getElementById(`chart${num}`).value;
-            const fb = document.getElementById(`chart${num}-fb`);
-            
-            // Normalize: remove punctuation, lowercase, replace n't
-            let cleanVal = normalize(val).replace("n't", " not");
-            let target = chartAns[idx];
-            
-            // Relaxed matching for complex sentences (check key phrases)
-            if (cleanVal.includes(target) || cleanVal === target) {
-                 fb.innerHTML = "✔ Excellent!"; fb.className = "feedback correct";
-            } else {
-                // Show a formatted hint
-                fb.innerHTML = "✘ Check grammar/spelling. (Tip: Watch Past Simple for specific times!)"; 
-                fb.className = "feedback wrong";
-            }
-        });
-    }
-
-    // 7. MCQ
-    const mcqAns = ['c', 'c', 'a', 'a', 'c'];
-    function checkMCQ() {
-        mcqAns.forEach((ans, idx) => {
-            const name = `mcq${idx+1}`;
-            const fb = document.getElementById(`${name}-fb`);
-            const selected = document.querySelector(`input[name="${name}"]:checked`);
-            
-            if (!selected) {
-                fb.innerHTML = "Please select an answer.";
-                fb.className = "feedback wrong";
-                return;
-            }
-            
-            if (selected.value === ans) {
-                fb.innerHTML = "✔ Correct!"; fb.className = "feedback correct";
-            } else {
-                fb.innerHTML = `✘ The correct answer is ${ans})`; fb.className = "feedback wrong";
-            }
-        });
-    }
-
+render();
 </script>
-
 </body>
 </html>
