@@ -276,26 +276,26 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'form', zh: '形成 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for` + `m` (men)。為 (`for`) 這些男人 (`men`) 形成 (`form`) 一個團隊。' },
-            { en: 'although', zh: '雖然 (ㄙㄨㄟ ㄖㄢˊ)', mnemonic: '`al` (all, 全部) + `though` (雖然)。雖然 (`although`) 全部 (`all`) 的人都反對，我還是要去做。' },
-            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`b` + `road` (道路)。這是一條非常寬廣的 (`broad`) 道路 (`road`)。' },
-            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `ature`。當人的脾氣 (`temper`) 上來時，體表溫度 (`temperature`) 也會跟著升高。' },
-            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '`stretch` (伸展) 聽起來像 `stress` (壓力)。當你感到有壓力 (`stress`) 時，你會伸展 (`stretch`) 身體來放鬆一下。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`cer` (sir, 先生) + `tain`。先生 (`sir`)，我很確定 (`certain`) 這是對的。' },
-            { en: 'arrest', zh: '逮捕 (ㄉㄞˋ ㄅㄨˇ)', mnemonic: '`a` + `rest` (休息)。警察逮捕 (`arrest`) 了小偷，讓他去牢裡休息 (`rest`)。' },
-            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (貓呼嚕聲) + `pose` (姿勢)。貓咪擺出這個姿勢 (`pose`) 的目的 (`purpose`) 是什麼？' },
-            { en: 'contrast', zh: '對比 (ㄉㄨㄟˋ ㄅㄧˇ)', mnemonic: '`contra` (相反) + `st`。有相反 (`contra`) 的特徵，放在一起就能產生對比 (`contrast`)。' },
-            { en: 'except', zh: '除了...之外 (ㄔㄨˊ ㄌㄜ˙ ㄓ ㄨㄞˋ)', mnemonic: '`ex` (向外) + `cept` (拿/取)。把它拿 (`cept`) 到外面 (`ex`)，也就是「除了它之外」 (`except`)。' },
-            { en: 'further', zh: '更進一步的 (ㄍㄥˋ ㄐㄧㄣˋ ㄧˊ ㄅㄨˋ ㄉㄜ˙)', mnemonic: '`fur` (毛皮) + `ther` (there, 那裡)。那裡 (`there`) 的毛皮 (`fur`) 需要更進一步 (`further`) 的加工。' },
-            { en: 'capital', zh: '首都 / 資金 (ㄕㄡˇ ㄉㄨ / ㄗ ㄐㄧㄣ)', mnemonic: '`cap` (帽子) + `it` + `al` (all)。一國之都就像是所有 (`all`) 城市戴的帽子 (`cap`)，也就是首都 (`capital`)。' },
-            { en: 'control', zh: '控制 (ㄎㄨㄥˋ ㄓˋ)', mnemonic: '`con` + `troll` (山怪)。你必須控制 (`control`) 住那隻失控的山怪 (`troll`)。' },
-            { en: 'chore', zh: '瑣事 / 家務 (ㄙㄨㄛˇ ㄕˋ / ㄐㄧㄚ ㄨˋ)', mnemonic: '`chore` 和 `bore` (令人厭煩的事) 押韻。做家務瑣事 (`chore`) 真的很令人厭煩 (`bore`)。' },
-            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空無/虛空)。為了避免 (`avoid`) 掉進虛空 (`void`) 裡，我們要小心走路。' },
-            { en: 'return', zh: '返回 (ㄈㄢˇ ㄏㄨㄟˊ)', mnemonic: '`re` (再一次) + `turn` (轉向)。再一次 (`re`) 轉向 (`turn`) 往回走，就是返回 (`return`)。' },
-            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`com` (共同) + `paris` (巴黎) + `on`。把你的城市和巴黎 (`Paris`) 共同放在一起做個比較 (`comparison`)。' },
-            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '`border` (邊界) 和 `order` (命令) 很像。軍隊接到命令 (`order`) 去守衛邊界 (`border`)。' },
-            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭泣)。`screech` 就是指像哭喊一樣刺耳的尖叫聲。' },
-            { en: 'escape', zh: '逃跑 (ㄊㄠˊ ㄆㄠˇ)', mnemonic: '`es` + `cape` (披風)。超人留下他的披風 (`cape`) 逃跑 (`escape`) 了。' }
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對權力有著強烈的渴望 (`desire`)。' },
+            { en: 'record', zh: '記錄 (ㄐㄧˋ ㄌㄨˋ)', mnemonic: '`re` (重複) + `cord` (繩子)。古人重複在繩子 (`cord`) 上打結來做記錄 (`record`)。' },
+            { en: 'banner', zh: '橫幅；旗幟 (ㄏㄥˊ ㄈㄨˊ)', mnemonic: '`ban` (禁止) + `ner`。橫幅 (`banner`) 上寫著禁止 (`ban`) 進入的標語。' },
+            { en: 'scrape', zh: '刮 (ㄍㄨㄚ)', mnemonic: '`scrape` 聽起來像 `scrap` (碎片)。當你刮 (`scrape`) 東西時，會產生很多碎片 (`scrap`)。' },
+            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '來自 `direction` (方向)。朝著正確的方向 (`direction`) 直接 (`direct`) 前進。' },
+            { en: 'develop', zh: '發展 (ㄈㄚ ㄓㄢˇ)', mnemonic: '`de` + `velop` (envelope, 信封)。把計畫從信封 (`envelope`) 裡拿出來，開始發展 (`develop`) 它。' },
+            { en: 'lawyer', zh: '律師 (ㄌㄩˋ ㄕ)', mnemonic: '`law` (法律) + `yer` (的人)。專門研究法律 (`law`) 的人就是律師 (`lawyer`)。' },
+            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`for` + `mall` (購物中心)。去參加購物中心 (`mall`) 的開幕剪綵，要穿著正式的 (`formal`) 服裝。' },
+            { en: 'Asian', zh: '亞洲的 (ㄧㄚˇ ㄓㄡ ㄉㄜ˙)', mnemonic: '`Asia` (亞洲) + `n`。跟亞洲 (`Asia`) 有關的人事物就是亞洲的 (`Asian`)。' },
+            { en: 'steak', zh: '牛排 (ㄋㄧㄡˊ ㄆㄞˊ)', mnemonic: '`steak` 發音似 `stake` (木樁)。想像一塊像木樁 (`stake`) 一樣厚實的牛排 (`steak`)。' },
+            { en: 'baby\'s', zh: '嬰兒的 (ㄧㄥ ㄦˊ ㄉㄜ˙)', mnemonic: '`baby` (嬰兒) + `\'s` (的)。屬於嬰兒 (`baby`) 的東西。' },
+            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (熱帶) + `al`。跟熱帶 (`tropic`) 有關的氣候或植物就是熱帶的 (`tropical`)。' },
+            { en: 'against', zh: '反對；對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再一次) + `st` (street, 街道)。在街道 (`street`) 上再一次 (`again`) 聚集，對抗 (`against`) 敵人。' },
+            { en: 'palm', zh: '手掌；棕櫚樹 (ㄕㄡˇ ㄓㄤˇ)', mnemonic: '`palm` 聽起來像 `calm` (平靜的)。把手掌 (`palm`) 放在胸口讓自己平靜 (`calm`) 下來。' },
+            { en: 'awhile', zh: '片刻 (ㄆㄧㄢˋ ㄎㄜˋ)', mnemonic: '`a` (一個) + `while` (一段時間)。一小段時間就是片刻 (`awhile`)。' },
+            { en: 'chalk', zh: '粉筆 (ㄈㄣˇ ㄅㄧˇ)', mnemonic: '`chalk` 和 `talk` (說話) 押韻。老師一邊說話 (`talk`)，一邊用粉筆 (`chalk`) 寫字。' },
+            { en: 'weight', zh: '重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)', mnemonic: '`we` (我們) + `eight` (八)。我們的重量 (`weight`) 剛好都是八 (`eight`) 公斤。' },
+            { en: 'streak', zh: '條紋 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '聯想 `s-treak`，聽起來像 `see track` (看見軌道)。軌道 (`track`) 就是一條長長的線條或條紋 (`streak`)。' },
+            { en: 'jewel', zh: '珠寶 (ㄓㄨ ㄅㄠˇ)', mnemonic: '`Jew` (猶太人) + `el`。猶太商人 (`Jew`) 常做珍貴的珠寶 (`jewel`) 生意。' },
+            { en: 'former', zh: '前任的；以前的 (ㄑㄧㄢˊ ㄖㄣˋ ㄉㄜ˙)', mnemonic: '聽起來像 `farmer` (農夫)。前任的 (`former`) 總統現在退休去當農夫 (`farmer`) 了。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -309,7 +309,7 @@
             }
         }
 
-        /* --- 安全洗牌演算法 --- */
+        /* --- 安全洗牌演算法 (避免舊版瀏覽器語法衝突) --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -333,6 +333,7 @@
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
             
+            // 確保每次點擊都重新初始化陣列
             startGame(words);
         }
 
@@ -371,7 +372,7 @@
                         <div class="col-ans">
                             <div id="ans-${index}" class="answer-text">
                                 ${word.en}
-                                <button class="tts-btn" onclick="speakWord('${word.en}')" title="唸出單字">🔊</button>
+                                <button class="tts-btn" onclick="speakWord('${word.en.replace(/'/g, "\\'")}')" title="唸出單字">🔊</button>
                             </div>
                         </div>
                     </div>
@@ -405,7 +406,7 @@
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷
+                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -417,7 +418,7 @@
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯顯示提示
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
@@ -428,6 +429,7 @@
                 
                 answers.forEach(el => el.style.display = 'none');
                 
+                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -444,6 +446,7 @@
         let isWaitingToContinue = false;
 
         function startGame(wordList) {
+            // 安全檢查：確保傳入的單字表是有效的陣列
             let listToUse = words;
             if (wordList && Array.isArray(wordList) && wordList.length > 0) {
                 listToUse = wordList;
@@ -476,7 +479,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; // 安全檢查防呆
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -485,11 +488,13 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
+            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
+            // 延遲一點點聚焦，避免有些瀏覽器切換畫面時聚焦失效
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
@@ -502,6 +507,7 @@
                 return;
             }
 
+            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -525,7 +531,7 @@
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
                     <br><br>
-                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
+                    <button class="tts-btn" onclick="speakWord('${q.en.replace(/'/g, "\\'")}')">🔊 唸出正確單字</button>
                 `;
                 mnemonicEl.style.display = 'block';
                 
