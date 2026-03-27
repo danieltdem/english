@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共20題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,26 +276,18 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對權力有著強烈的渴望 (`desire`)。' },
-            { en: 'record', zh: '記錄 (ㄐㄧˋ ㄌㄨˋ)', mnemonic: '`re` (重複) + `cord` (繩子)。古人重複在繩子 (`cord`) 上打結來做記錄 (`record`)。' },
-            { en: 'banner', zh: '橫幅；旗幟 (ㄏㄥˊ ㄈㄨˊ)', mnemonic: '`ban` (禁止) + `ner`。橫幅 (`banner`) 上寫著禁止 (`ban`) 進入的標語。' },
-            { en: 'scrape', zh: '刮 (ㄍㄨㄚ)', mnemonic: '`scrape` 聽起來像 `scrap` (碎片)。當你刮 (`scrape`) 東西時，會產生很多碎片 (`scrap`)。' },
-            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '來自 `direction` (方向)。朝著正確的方向 (`direction`) 直接 (`direct`) 前進。' },
-            { en: 'develop', zh: '發展 (ㄈㄚ ㄓㄢˇ)', mnemonic: '`de` + `velop` (envelope, 信封)。把計畫從信封 (`envelope`) 裡拿出來，開始發展 (`develop`) 它。' },
-            { en: 'lawyer', zh: '律師 (ㄌㄩˋ ㄕ)', mnemonic: '`law` (法律) + `yer` (的人)。專門研究法律 (`law`) 的人就是律師 (`lawyer`)。' },
-            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`for` + `mall` (購物中心)。去參加購物中心 (`mall`) 的開幕剪綵，要穿著正式的 (`formal`) 服裝。' },
-            { en: 'Asian', zh: '亞洲的 (ㄧㄚˇ ㄓㄡ ㄉㄜ˙)', mnemonic: '`Asia` (亞洲) + `n`。跟亞洲 (`Asia`) 有關的人事物就是亞洲的 (`Asian`)。' },
-            { en: 'steak', zh: '牛排 (ㄋㄧㄡˊ ㄆㄞˊ)', mnemonic: '`steak` 發音似 `stake` (木樁)。想像一塊像木樁 (`stake`) 一樣厚實的牛排 (`steak`)。' },
-            { en: 'baby\'s', zh: '嬰兒的 (ㄧㄥ ㄦˊ ㄉㄜ˙)', mnemonic: '`baby` (嬰兒) + `\'s` (的)。屬於嬰兒 (`baby`) 的東西。' },
-            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (熱帶) + `al`。跟熱帶 (`tropic`) 有關的氣候或植物就是熱帶的 (`tropical`)。' },
-            { en: 'against', zh: '反對；對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再一次) + `st` (street, 街道)。在街道 (`street`) 上再一次 (`again`) 聚集，對抗 (`against`) 敵人。' },
-            { en: 'palm', zh: '手掌；棕櫚樹 (ㄕㄡˇ ㄓㄤˇ)', mnemonic: '`palm` 聽起來像 `calm` (平靜的)。把手掌 (`palm`) 放在胸口讓自己平靜 (`calm`) 下來。' },
-            { en: 'awhile', zh: '片刻 (ㄆㄧㄢˋ ㄎㄜˋ)', mnemonic: '`a` (一個) + `while` (一段時間)。一小段時間就是片刻 (`awhile`)。' },
-            { en: 'chalk', zh: '粉筆 (ㄈㄣˇ ㄅㄧˇ)', mnemonic: '`chalk` 和 `talk` (說話) 押韻。老師一邊說話 (`talk`)，一邊用粉筆 (`chalk`) 寫字。' },
-            { en: 'weight', zh: '重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)', mnemonic: '`we` (我們) + `eight` (八)。我們的重量 (`weight`) 剛好都是八 (`eight`) 公斤。' },
-            { en: 'streak', zh: '條紋 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '聯想 `s-treak`，聽起來像 `see track` (看見軌道)。軌道 (`track`) 就是一條長長的線條或條紋 (`streak`)。' },
-            { en: 'jewel', zh: '珠寶 (ㄓㄨ ㄅㄠˇ)', mnemonic: '`Jew` (猶太人) + `el`。猶太商人 (`Jew`) 常做珍貴的珠寶 (`jewel`) 生意。' },
-            { en: 'former', zh: '前任的；以前的 (ㄑㄧㄢˊ ㄖㄣˋ ㄉㄜ˙)', mnemonic: '聽起來像 `farmer` (農夫)。前任的 (`former`) 總統現在退休去當農夫 (`farmer`) 了。' }
+            { en: 'central', zh: '中心的 (ㄓㄨㄥ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`center` (中心) 的形容詞。位於中心 (`center`) 的事物就是 `central`。' },
+            { en: 'truce', zh: '休戰；停戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '聽起來像 `true` (真正的) + `peace` (和平)。達成休戰 (`truce`) 之後，才能有真正的和平。' },
+            { en: 'publish', zh: '出版；發行 (ㄔㄨ ㄅㄢˇ)', mnemonic: '裡面有 `public` (公眾)。把作品公開給大眾 (`public`) 知道，就是出版 (`publish`)。' },
+            { en: 'scream', zh: '尖叫 (ㄐㄧㄢ ㄐㄧㄠˋ)', mnemonic: '`s` + `cream` (鮮奶油)。想像看到一隻蟲掉進你的冰淇淋 (ice `cream`) 裡，你嚇得大聲尖叫 (`scream`)。' },
+            { en: 'strap', zh: '帶子；皮帶 (ㄉㄞˋ ㄗ˙)', mnemonic: '`s` + `trap` (陷阱)。獵人用皮帶 (`strap`) 佈置了一個陷阱 (`trap`)。' },
+            { en: 'effective', zh: '有效的 (ㄧㄡˇ ㄒㄧㄠˋ ㄉㄜ˙)', mnemonic: '`effect` (影響/效果) + `ive`。能帶來好效果 (`effect`) 的方法就是有效的 (`effective`)。' },
+            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '聽起來像 `draw` (畫)。在正式寫作前先畫 (`draw`) 出來的輪廓就是草稿 (`draft`)。' },
+            { en: 'treat', zh: '請客；對待 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`t` + `reat` (聽起來像 eat, 吃)。我來請客 (`treat`)！我們一起去吃 (`eat`) 大餐吧！' },
+            { en: 'humor', zh: '幽默 (ㄧㄡ ㄇㄛˋ)', mnemonic: '聽起來像 `human` (人類)。懂得幽默 (`humor`) 是人類 (`human`) 很棒的特質。' },
+            { en: 'support', zh: '支持 (ㄓ ㄔˊ)', mnemonic: '`sup` (在下面) + `port` (港口/支撐點)。在下面給你力量，就是支持 (`support`) 你。' },
+            { en: 'abroad', zh: '在國外 (ㄗㄞˋ ㄍㄨㄛˊ ㄨㄞˋ)', mnemonic: '`a` + `broad` (寬廣的)。出國 (`abroad`) 可以讓你擁有更寬廣 (`broad`) 的視野。' },
+            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '聽起來像 `leave` (留下) + `st`。把最不重要、最少的 (`least`) 東西留下 (`leave`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -309,7 +301,7 @@
             }
         }
 
-        /* --- 安全洗牌演算法 (避免舊版瀏覽器語法衝突) --- */
+        /* --- 安全洗牌演算法 --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -333,7 +325,6 @@
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
             
-            // 確保每次點擊都重新初始化陣列
             startGame(words);
         }
 
@@ -372,7 +363,7 @@
                         <div class="col-ans">
                             <div id="ans-${index}" class="answer-text">
                                 ${word.en}
-                                <button class="tts-btn" onclick="speakWord('${word.en.replace(/'/g, "\\'")}')" title="唸出單字">🔊</button>
+                                <button class="tts-btn" onclick="speakWord('${word.en}')" title="唸出單字">🔊</button>
                             </div>
                         </div>
                     </div>
@@ -399,14 +390,12 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -414,28 +403,25 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
+                        mnemonicDiv.style.display = 'none'; 
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block'; 
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
             }
         }
-
 
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
@@ -446,7 +432,6 @@
         let isWaitingToContinue = false;
 
         function startGame(wordList) {
-            // 安全檢查：確保傳入的單字表是有效的陣列
             let listToUse = words;
             if (wordList && Array.isArray(wordList) && wordList.length > 0) {
                 listToUse = wordList;
@@ -479,7 +464,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; // 安全檢查防呆
+            if (!q) return;
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -488,13 +473,11 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
-            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
-            // 延遲一點點聚焦，避免有些瀏覽器切換畫面時聚焦失效
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
@@ -507,7 +490,6 @@
                 return;
             }
 
-            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -526,12 +508,11 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
                     <br><br>
-                    <button class="tts-btn" onclick="speakWord('${q.en.replace(/'/g, "\\'")}')">🔊 唸出正確單字</button>
+                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
                 `;
                 mnemonicEl.style.display = 'block';
                 
@@ -555,12 +536,12 @@
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對了！';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '你答錯的單字：\n';
+                let wrongText = '妳答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
