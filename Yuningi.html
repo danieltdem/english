@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的單字拼寫遊戲 & 練習</title>
+    <title>單字拼寫遊戲 & 練習</title>
     <style>
         /* 全局設定 */
         body {
@@ -219,7 +219,7 @@
 
     <div id="menu-screen" class="container">
         <img src="initial.png" alt="Menu" class="game-image">
-        <h1>寧寧的英文單字挑戰</h1>
+        <h1>英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
         <button class="menu-btn" onclick="goToExam()">
@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共12題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共29題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,18 +276,35 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'central', zh: '中心的 (ㄓㄨㄥ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`center` (中心) 的形容詞。位於中心 (`center`) 的事物就是 `central`。' },
-            { en: 'truce', zh: '休戰；停戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '聽起來像 `true` (真正的) + `peace` (和平)。達成休戰 (`truce`) 之後，才能有真正的和平。' },
-            { en: 'publish', zh: '出版；發行 (ㄔㄨ ㄅㄢˇ)', mnemonic: '裡面有 `public` (公眾)。把作品公開給大眾 (`public`) 知道，就是出版 (`publish`)。' },
-            { en: 'scream', zh: '尖叫 (ㄐㄧㄢ ㄐㄧㄠˋ)', mnemonic: '`s` + `cream` (鮮奶油)。想像看到一隻蟲掉進你的冰淇淋 (ice `cream`) 裡，你嚇得大聲尖叫 (`scream`)。' },
-            { en: 'strap', zh: '帶子；皮帶 (ㄉㄞˋ ㄗ˙)', mnemonic: '`s` + `trap` (陷阱)。獵人用皮帶 (`strap`) 佈置了一個陷阱 (`trap`)。' },
-            { en: 'effective', zh: '有效的 (ㄧㄡˇ ㄒㄧㄠˋ ㄉㄜ˙)', mnemonic: '`effect` (影響/效果) + `ive`。能帶來好效果 (`effect`) 的方法就是有效的 (`effective`)。' },
-            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '聽起來像 `draw` (畫)。在正式寫作前先畫 (`draw`) 出來的輪廓就是草稿 (`draft`)。' },
-            { en: 'treat', zh: '請客；對待 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`t` + `reat` (聽起來像 eat, 吃)。我來請客 (`treat`)！我們一起去吃 (`eat`) 大餐吧！' },
-            { en: 'humor', zh: '幽默 (ㄧㄡ ㄇㄛˋ)', mnemonic: '聽起來像 `human` (人類)。懂得幽默 (`humor`) 是人類 (`human`) 很棒的特質。' },
-            { en: 'support', zh: '支持 (ㄓ ㄔˊ)', mnemonic: '`sup` (在下面) + `port` (港口/支撐點)。在下面給你力量，就是支持 (`support`) 你。' },
-            { en: 'abroad', zh: '在國外 (ㄗㄞˋ ㄍㄨㄛˊ ㄨㄞˋ)', mnemonic: '`a` + `broad` (寬廣的)。出國 (`abroad`) 可以讓你擁有更寬廣 (`broad`) 的視野。' },
-            { en: 'least', zh: '最少的 (ㄗㄨㄟˋ ㄕㄠˇ ㄉㄜ˙)', mnemonic: '聽起來像 `leave` (留下) + `st`。把最不重要、最少的 (`least`) 東西留下 (`leave`)。' }
+            { en: 'streak', zh: '條紋；連勝 (ㄊㄧㄠˊ ㄨㄣˊ)', mnemonic: '`streak` 聽起來像 `stream` (溪流)。溪流就像是大地上的一道長長的條紋。' },
+            { en: 'except', zh: '除了...之外 (ㄔㄨˊ ㄌㄜ˙...ㄓ ㄨㄞˋ)', mnemonic: '`ex` (出/外) + `cept` (拿)。把它拿出去不在計算之內，就是「除了...之外」。' },
+            { en: "hamster's", zh: '倉鼠的 (ㄘㄤ ㄕㄨˇ ㄉㄜ˙)', mnemonic: '`ham` (火腿) + `ster`。喜歡把食物塞滿雙頰像火腿一樣的可愛寵物就是倉鼠 (hamster)。記得這題有加上 `\\'s` 表示「的」喔！' },
+            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`public` (大眾)。將作品印出來公開給大眾 (public) 看，就是出版 (`publish`)。' },
+            { en: 'contrast', zh: '對比 (ㄉㄨㄟˋ ㄅㄧˇ)', mnemonic: '`contra` 有「相反」的意思。把有相反特徵的東西放在一起看，就能產生強烈的對比。' },
+            { en: 'treat', zh: '對待；請客 (ㄉㄨㄟˋ ㄉㄞˋ)', mnemonic: '聽起來像 `eat` (吃)。我請客 (`treat`) 帶你去吃 (`eat`) 好料的！' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (per, 每個) + `pose` (姿勢)。模特兒擺出每一個姿勢 (pose) 都是有特定目的的。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 `curtain` (窗簾)。早上拉開窗簾，你就能確定外面的天氣好不好了。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛)。為了不讓心靈感到空虛 (`void`)，我們要盡量避免做壞事。' },
+            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '聽起來像 `stress` (壓力)。當你感到有壓力 (`stress`) 時，站起來伸展 (`stretch`) 一下身體會舒服很多喔！' },
+            { en: 'order', zh: '點餐；命令 (ㄉㄧㄢˇ ㄘㄢ)', mnemonic: '`or` (或者) + `der` (there, 那裡)。你要在這裡點餐，還是去那裡 (`there`) 點？' },
+            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`form` (形式) + `al`。符合規定形式的服裝或場合，就是正式的 (`formal`)。' },
+            { en: 'form', zh: '形成；表格 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for men`。為 (`for`) 這些男人 (`men`) 形成一個專屬的團隊。' },
+            { en: 'direct', zh: '直接的 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`di` + `rect` (正確/直的)。一直往正確的方向走不拐彎，就是直接的 (`direct`)。' },
+            { en: 'complete', zh: '完整的；完成 (ㄨㄢˊ ㄓㄥˇ ㄉㄜ˙)', mnemonic: '`com` (全部) + `plete` (滿)。全部都填滿了，就是完整的，或是代表任務完成了！' },
+            { en: 'normal', zh: '正常的 (ㄓㄥˋ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`norm` (規範) + `al`。一切都符合常規和規範，就是正常的 (`normal`)。' },
+            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄔㄚˊ)', mnemonic: '`ob` + `serve` (服務)。優秀的服務生需要隨時仔細觀察 (`observe`) 客人的需求來提供服務。' },
+            { en: 'field', zh: '田野；領域 (ㄊㄧㄢˊ ㄧㄝˇ)', mnemonic: '聽起來像 `filled` (充滿)。這片田野 (`field`) 裡充滿 (`filled`) 了綠油油的草地。' },
+            { en: 'hardly', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`hard` (困難) + `ly`。這件事做起來太困難 (`hard`) 了，所以我幾乎不 (`hardly`) 會想去做。' },
+            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '`any` (任何) + `way` (方式/道路)。用任何方式都要做到，也就是無論如何 (`anyway`)。' },
+            { en: 'shield', zh: '盾牌 (ㄉㄨㄣˋ ㄆㄞˊ)', mnemonic: '`sh` (she, 她) + `held` (hold的過去式, 握住)。她握住 (`held`) 了一面盾牌 (`shield`) 來保護自己。' },
+            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '聽起來有點像 `never give`。從不給予別人幫助，這是一種負面的 (`negative`) 態度。' },
+            { en: 'general', zh: '一般的；將軍 (ㄧˋ ㄅㄢ ㄉㄜ˙)', mnemonic: '將軍 (`general`) 的職責就是負責管理一般的 (`general`) 士兵。' },
+            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`pos` (pose, 姿勢) + `sible` (able, 能夠)。只要你有能力擺出這個姿勢，那就是有可能的 (`possible`)。' },
+            { en: 'settle', zh: '解決；安頓 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '聽起來像 `set` (設置)。把所有事情都設置、安排好了，問題就解決 (`settle`) 了。' },
+            { en: 'enough', zh: '足夠的 (ㄗㄨˊ ㄍㄡˋ ㄉㄜ˙)', mnemonic: '聽起來有點像 `rough` (粗糙)。雖然這東西做得有點粗糙 (`rough`)，但目前也足夠 (`enough`) 使用了。' },
+            { en: 'scramble', zh: '爭奪；炒蛋 (ㄓㄥ ㄉㄨㄛˊ)', mnemonic: '`scream` (尖叫) + `able`。大家尖叫著爭奪 (`scramble`) 桌上好吃的炒蛋 (scrambled eggs)。' },
+            { en: 'terrible', zh: '可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)', mnemonic: '`terror` (恐懼) + `ible`。會給人帶來極度恐懼的事物，就是非常可怕的 (`terrible`)。' },
+            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '聽起來像 `temple` (寺廟)。寒冬中，他在一間破舊的寺廟 (`temple`) 裡冷得發抖 (`tremble`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -324,7 +341,6 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
-            
             startGame(words);
         }
 
@@ -390,6 +406,7 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
+                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
@@ -403,25 +420,28 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
+                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
             } else {
+                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
+                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
             }
         }
+
 
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
@@ -464,7 +484,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -508,11 +528,12 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
+                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
                     <br><br>
-                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
+                    <button class="tts-btn" onclick="speakWord('${q.en.replace(/'/g, "\\'")}')">🔊 唸出正確單字</button>
                 `;
                 mnemonicEl.style.display = 'block';
                 
@@ -536,12 +557,12 @@
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對了！';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '妳答錯的單字：\n';
+                let wrongText = '你答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
