@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共19題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共22題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,25 +276,28 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'further', zh: '進一步的 (ㄐㄧㄣˋ ㄧ ㄅㄨˋ ㄉㄜ˙)', mnemonic: '`fur` (毛皮) + `ther` (there, 那裡)。把毛皮丟到那裡，代表你想把它丟得**更遠/進一步** (further)。' },
-            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述 (dictate) 中**指出** (indicate) 重點。' },
-            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '`set` (設置) + `tle` (little, 小的)。把一個小問題設置好，就是**解決** (settle) 它了。' },
-            { en: 'except', zh: '除了...之外 (ㄔㄨˊ ㄌㄜ˙)', mnemonic: '`ex` (out, 向外) + `cept` (take, 拿)。把某個東西拿出去，不包含在內，就是**除了** (except) 它。' },
-            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄔㄚˊ)', mnemonic: '`ob` + `serve` (服務)。服務生在服務時，必須隨時**觀察** (observe) 客人的需求。' },
-            { en: 'trickle', zh: '滴答地流 (ㄉㄧ ㄉㄚ ㄉㄧˋ ㄌㄧㄡˊ)', mnemonic: '`trick` (惡作劇) + `le` (little)。惡作劇地讓水一小滴一小滴地**流** (trickle) 下來。' },
-            { en: 'rotate', zh: '旋轉 (ㄒㄩㄢˊ ㄓㄨㄢˇ)', mnemonic: '地球繞著太陽**旋轉** (rotate) 的速率 (`rate`) 是固定的。' },
-            { en: 'direct', zh: '直接的；指揮 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`director` 是導演，導演的工作就是**直接指揮** (direct) 演員。' },
-            { en: 'publish', zh: '出版 (ㄔㄨ ㄅㄢˇ)', mnemonic: '`public` (公眾) + `sh` (show, 展示)。把作品向公眾展示，就是**出版** (publish)。' },
-            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '來自 `long` (長的)。加上 `th` 變成名詞形式，就是**長度** (length)。' },
-            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空無/空洞)。為了保持安全，我們必須**避免** (avoid) 掉進空洞 (void) 裡。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 `sir` + `train`。先生 (sir)，火車 (train) **確定** (certain) 會準時到達嗎？' },
-            { en: 'treat', zh: '對待；請客 (ㄉㄨㄟˋ ㄉㄞˋ)', mnemonic: '裡面有 `eat` (吃)。帶朋友去吃 (`eat`) 好料的，這就是好好的**對待** / **請客** (treat)。' },
-            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (再次) + `arrange` (安排)。再次安排就是**重新排列** (rearrange)。' },
-            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`boss` (老闆) + `able` (有能力的)。如果老闆 (boss) 是個有能力的人，那什麼事情都是**可能的** (possible)。' },
-            { en: 'form', zh: '形成 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for` + `m` (men)。為 (for) 這些男人們**形成** (form) 一個團隊。' },
-            { en: 'scramble', zh: '爭奪；攀爬 (ㄓㄥ ㄉㄨㄛˊ)', mnemonic: '`scream` (尖叫) + `able`。大家為了**爭奪** (scramble) 限量商品，尖叫聲不斷。' },
-            { en: 'dialogue', zh: '對話 (ㄉㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`dia` (兩者/之間) + `logue` (說話)。兩個人之間的言語交流就是**對話** (dialogue)。' },
-            { en: 'script', zh: '劇本 (ㄐㄩˋ ㄅㄣˇ)', mnemonic: '和 `describe` (描述) 是同一個字根。用文字描述下來的東西，就是**劇本** (script)。' }
+            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`search` 裡有 `sea` (海洋)。在茫茫大海 (sea) 中尋找 (`search`)。' },
+            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (再次) + `arrange` (排列)。再次排列就是重新排列 (`rearrange`)。' },
+            { en: 'against', zh: '反對/對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再一次) + `st` (strike 打擊)。再一次打擊，代表你對抗、反對 (`against`) 某件事。' },
+            { en: 'direct', zh: '直接的/指導 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`director` (導演) 會直接 (`direct`) 指導演員。' },
+            { en: 'treat', zh: '請客/對待 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`treat` 裡有 `eat` (吃)。請客 (`treat`) 當然就是要去吃 (`eat`) 好料！' },
+            { en: 'trickle', zh: '滴/細流 (ㄉㄧ ㄌㄧㄡˊ)', mnemonic: '聽起來像 `trick` (惡作劇) + `little` (一點點)。水龍頭一點點滴水 (`trickle`) 像在惡作劇。' },
+            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄘㄚˊ)', mnemonic: '`ob` + `serve` (服務)。服務生 (`serve`) 需要仔細觀察 (`observe`) 客人的需求。' },
+            { en: 'settle', zh: '安頓/解決 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '聽起來像 `set` (設置) + `table` (桌子)。把桌子設置好，準備安頓 (`settle`) 下來。' },
+            { en: 'sight', zh: '視力/景象 (ㄕˋ ㄌㄧˋ)', mnemonic: '`sight` 和 `light` (光) 押韻。有光 (`light`) 才會有視覺 (`sight`)。' },
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王)。國王 (`sire`) 對權力有著無限的渴望 (`desire`)。' },
+            { en: 'groan', zh: '呻吟/抱怨 (ㄕㄣ ㄧㄣ)', mnemonic: '`groan` 和 `grown` (長大) 發音一樣。長大的成年人 (`grown`) 總是有很多抱怨和呻吟 (`groan`)。' },
+            { en: 'waste', zh: '浪費 (ㄌㄤˋ ㄈㄟˋ)', mnemonic: '`waste` 和 `waist` (腰) 發音一樣。浪費 (`waste`) 食物會讓你的腰圍 (`waist`) 變粗。' },
+            { en: 'clothes', zh: '衣服 (ㄧ ㄈㄨˊ)', mnemonic: '`cloth` (布料) + `es`。很多塊布料拼在一起就成了衣服 (`clothes`)。' },
+            { en: 'site', zh: '地點/網站 (ㄉㄧˋ ㄉㄧㄢˇ)', mnemonic: '和 `sight` (視力) 發音相同。一個好地點 (`site`) 通常有很好的視野 (`sight`)。' },
+            { en: 'scramble', zh: '攀爬/爭搶 (ㄆㄢ ㄆㄚˊ)', mnemonic: '聯想 `scrambled eggs` (炒蛋)。把蛋打散爭搶混合，就像人們爭搶 (`scramble`) 一樣。' },
+            { en: 'grand', zh: '宏偉的 (ㄏㄨㄥˊ ㄨㄟˇ ㄉㄜ˙)', mnemonic: '聯想 `grandfather` (祖父)。祖父在家族中是個地位宏偉 (`grand`) 的人物。' },
+            { en: 'difficult', zh: '困難的 (ㄎㄨㄣˋ ㄋㄢˊ ㄉㄜ˙)', mnemonic: '`diff` (different, 不同的) + `cult` (教派)。要理解不同的教派是很困難的 (`difficult`)。' },
+            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。為了安全，你要避免 (`avoid`) 掉進深淵 (`void`) 裡。' },
+            { en: 'threat', zh: '威脅 (ㄨㄟ ㄒㄧㄝˊ)', mnemonic: '聽起來像 `treat` (請客)。不請客 (`treat`) 的話，我就要威脅 (`threat`) 你！(不給糖就搗蛋)' },
+            { en: 'experiment', zh: '實驗 (ㄕˊ ㄧㄢˋ)', mnemonic: '`expert` (專家) + `men` (男人們)。專家們 (`expert men`) 正在做實驗 (`experiment`)。' },
+            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (回歸線) + `al`。在回歸線附近的地區就是熱帶的 (`tropical`)。' },
+            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '和 `rich` (富有) 很像。富有的人 (`rich`) 可以輕易到達 (`reach`) 世界各地。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -404,7 +407,7 @@
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷：都轉換成小寫來比對
+                    // 大小寫不拘
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -503,7 +506,7 @@
                 return;
             }
 
-            // 大小寫不拘的判斷：都轉換成小寫來比對
+            // 大小寫不拘的判斷
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
