@@ -218,7 +218,7 @@
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
+        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -234,9 +234,9 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共22題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,28 +276,21 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '`search` 裡有 `sea` (海洋)。在茫茫大海 (sea) 中尋找 (`search`)。' },
             { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (再次) + `arrange` (排列)。再次排列就是重新排列 (`rearrange`)。' },
-            { en: 'against', zh: '反對/對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再一次) + `st` (strike 打擊)。再一次打擊，代表你對抗、反對 (`against`) 某件事。' },
-            { en: 'direct', zh: '直接的/指導 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙)', mnemonic: '`director` (導演) 會直接 (`direct`) 指導演員。' },
-            { en: 'treat', zh: '請客/對待 (ㄑㄧㄥˇ ㄎㄜˋ)', mnemonic: '`treat` 裡有 `eat` (吃)。請客 (`treat`) 當然就是要去吃 (`eat`) 好料！' },
-            { en: 'trickle', zh: '滴/細流 (ㄉㄧ ㄌㄧㄡˊ)', mnemonic: '聽起來像 `trick` (惡作劇) + `little` (一點點)。水龍頭一點點滴水 (`trickle`) 像在惡作劇。' },
-            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄘㄚˊ)', mnemonic: '`ob` + `serve` (服務)。服務生 (`serve`) 需要仔細觀察 (`observe`) 客人的需求。' },
-            { en: 'settle', zh: '安頓/解決 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '聽起來像 `set` (設置) + `table` (桌子)。把桌子設置好，準備安頓 (`settle`) 下來。' },
-            { en: 'sight', zh: '視力/景象 (ㄕˋ ㄌㄧˋ)', mnemonic: '`sight` 和 `light` (光) 押韻。有光 (`light`) 才會有視覺 (`sight`)。' },
-            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王)。國王 (`sire`) 對權力有著無限的渴望 (`desire`)。' },
-            { en: 'groan', zh: '呻吟/抱怨 (ㄕㄣ ㄧㄣ)', mnemonic: '`groan` 和 `grown` (長大) 發音一樣。長大的成年人 (`grown`) 總是有很多抱怨和呻吟 (`groan`)。' },
-            { en: 'waste', zh: '浪費 (ㄌㄤˋ ㄈㄟˋ)', mnemonic: '`waste` 和 `waist` (腰) 發音一樣。浪費 (`waste`) 食物會讓你的腰圍 (`waist`) 變粗。' },
-            { en: 'clothes', zh: '衣服 (ㄧ ㄈㄨˊ)', mnemonic: '`cloth` (布料) + `es`。很多塊布料拼在一起就成了衣服 (`clothes`)。' },
-            { en: 'site', zh: '地點/網站 (ㄉㄧˋ ㄉㄧㄢˇ)', mnemonic: '和 `sight` (視力) 發音相同。一個好地點 (`site`) 通常有很好的視野 (`sight`)。' },
-            { en: 'scramble', zh: '攀爬/爭搶 (ㄆㄢ ㄆㄚˊ)', mnemonic: '聯想 `scrambled eggs` (炒蛋)。把蛋打散爭搶混合，就像人們爭搶 (`scramble`) 一樣。' },
-            { en: 'grand', zh: '宏偉的 (ㄏㄨㄥˊ ㄨㄟˇ ㄉㄜ˙)', mnemonic: '聯想 `grandfather` (祖父)。祖父在家族中是個地位宏偉 (`grand`) 的人物。' },
-            { en: 'difficult', zh: '困難的 (ㄎㄨㄣˋ ㄋㄢˊ ㄉㄜ˙)', mnemonic: '`diff` (different, 不同的) + `cult` (教派)。要理解不同的教派是很困難的 (`difficult`)。' },
-            { en: 'avoid', zh: '避免 (ㄅㄧˋ ㄇㄧㄢˇ)', mnemonic: '`a` + `void` (空虛/深淵)。為了安全，你要避免 (`avoid`) 掉進深淵 (`void`) 裡。' },
-            { en: 'threat', zh: '威脅 (ㄨㄟ ㄒㄧㄝˊ)', mnemonic: '聽起來像 `treat` (請客)。不請客 (`treat`) 的話，我就要威脅 (`threat`) 你！(不給糖就搗蛋)' },
-            { en: 'experiment', zh: '實驗 (ㄕˊ ㄧㄢˋ)', mnemonic: '`expert` (專家) + `men` (男人們)。專家們 (`expert men`) 正在做實驗 (`experiment`)。' },
-            { en: 'tropical', zh: '熱帶的 (ㄖㄜˋ ㄉㄞˋ ㄉㄜ˙)', mnemonic: '`tropic` (回歸線) + `al`。在回歸線附近的地區就是熱帶的 (`tropical`)。' },
-            { en: 'reach', zh: '到達 (ㄉㄠˋ ㄉㄚˊ)', mnemonic: '和 `rich` (富有) 很像。富有的人 (`rich`) 可以輕易到達 (`reach`) 世界各地。' }
+            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對領土和權力有著強烈的渴望 (`desire`)。' },
+            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '`groan` (呻吟) 和 `grown` (長大的) 發音相同。長大的 (`grown`) 過程中遇到挫折，有時會忍不住呻吟 (`groan`)。' },
+            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '`set` (設置) + `tle` (table 的後半部)。把餐桌 (`table`) 設置 (`set`) 好，準備在這裡定居 (`settle`) 下來。' },
+            { en: 'propose', zh: '提議 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (提議) 裡面有 `purpose` (目的)。當你提議 (`propose`) 時，你心中一定有一個目的 (`purpose`)。' },
+            { en: 'punch', zh: '一拳 (ㄧˋ ㄑㄩㄢˊ)', mnemonic: '`p` + `unch` (lunch)。有人偷吃了你的午餐 (`lunch`)，所以你氣得給他一拳 (`punch`)。' },
+            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`re` (回) + `spond` (sponsor, 贊助者)。贊助者 (`sponsor`) 寫信來，我們必須立刻做出回應 (`respond`)。' },
+            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`neg` (no/拒絕) + `ative`。一直說「不」(`no`)，會給人一種很負面的 (`negative`) 感覺。' },
+            { en: 'against', zh: '反對 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`a` + `gain` (獲得) + `st`。如果你反對 (`against`) 某人，他就不會獲得 (`gain`) 任何支持。' },
+            { en: 'travel', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`tra` (train, 火車) + `vel`。搭火車 (`train`) 去旅行 (`travel`) 是件快樂的事。' },
+            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '`tremble` 聽起來像 `terrible` (可怕的)。遇到可怕的 (`terrible`) 事情會讓你發抖 (`tremble`)。' },
+            { en: 'minor', zh: '次要的；未成年的 (ㄘˋ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`minor` 和 `miner` (礦工) 發音相同。想像一個未成年的 (`minor`) 人去當礦工 (`miner`)。' },
+            { en: 'youth', zh: '青春 (ㄑㄧㄥ ㄔㄨㄣ)', mnemonic: '`you` (你) + `th`。你 (`you`) 正處於美好的青春 (`youth`) 年華。' },
+            { en: 'metal', zh: '金屬 (ㄐㄧㄣ ㄕㄨˇ)', mnemonic: '`metal` (金屬) 聽起來像 `petal` (花瓣)。想像一朵用金屬 (`metal`) 做成的堅硬花瓣 (`petal`)。' },
+            { en: 'grown', zh: '長大的 (ㄓㄤˇ ㄉㄚˋ ㄉㄜ˙)', mnemonic: '`grow` (生長) + `n`。已經生長 (`grow`) 完成了，也就是長大的 (`grown`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -400,14 +393,12 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -415,22 +406,20 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
+                        mnemonicDiv.style.display = 'none'; 
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block'; 
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -466,7 +455,11 @@
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
+            
+            const gameImg = document.getElementById('game-image');
+            gameImg.src = 'initial.png';
+            gameImg.style.display = 'inline-block';
+            
             document.getElementById('mnemonic').style.display = 'none';
             
             nextQuestion();
@@ -479,7 +472,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -488,7 +481,6 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
-            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
@@ -506,7 +498,6 @@
                 return;
             }
 
-            // 大小寫不拘的判斷
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -525,7 +516,6 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
@@ -567,7 +557,6 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
-        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
