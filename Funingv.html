@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共10題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共28題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,16 +276,34 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'sunshine', zh: '陽光 (ㄧㄤˊ ㄍㄨㄤ)', mnemonic: '`sun` (太陽) + `shine` (發光)。太陽發出的光芒就是陽光 (`sunshine`)。' },
-            { en: 'plant', zh: '植物 (ㄓˊ ㄨˋ)', mnemonic: '`plan` (計畫) + `t` (tree, 樹)。計畫 (`plan`) 種植一棵樹 (`tree`)，就是植物 (`plant`)。' },
-            { en: 'fly', zh: '飛 (ㄈㄟ)', mnemonic: '`fly` (飛) 和 `sky` (天空) 押韻。鳥兒在天空 (`sky`) 中自由地飛 (`fly`)。' },
-            { en: 'run', zh: '跑 (ㄆㄠˇ)', mnemonic: '`run` (跑) 和 `sun` (太陽) 押韻。在溫暖的太陽 (`sun`) 底下開心地奔跑 (`run`)。' },
-            { en: 'feed', zh: '餵食 (ㄨㄟˋ ㄕˊ)', mnemonic: '`fee` (費用) + `d` (dog, 狗)。你需要花點費用 (`fee`) 買飼料來餵食 (`feed`) 你的狗 (`dog`)。' },
-            { en: 'tea', zh: '茶 (ㄔㄚˊ)', mnemonic: '`tea` (茶) 的發音和字母 `T` 完全一樣。想像一個 `T` 字形的茶杯。' },
-            { en: 'see', zh: '看見 (ㄎㄢˋ ㄐㄧㄢˋ)', mnemonic: '`see` 裡面有兩個 `e`，就像兩隻眼睛。用兩隻眼睛來看見 (`see`) 美麗的事物。' },
-            { en: 'row', zh: '划船 (ㄏㄨㄚˊ ㄔㄨㄢˊ)', mnemonic: '`row` 聽起來像 `roll` (滾動)。在水上划船 (`row`) 時，水波會滾動 (`roll`)。' },
-            { en: 'ox', zh: '公牛 (ㄍㄨㄥ ㄋㄧㄡˊ)', mnemonic: '字母 `O` 就像牛張大的嘴巴或鼻子，字母 `X` 就像兩根交叉的牛角。合起來就是一頭公牛 (`ox`) 的臉。' },
-            { en: 'tip', zh: '提示/小費 (ㄊㄧˊ ㄕˋ)', mnemonic: '傳說 `TIP` 是 `To Insure Promptness` (為了確保服務迅速) 的字母縮寫，所以我們要給小費 (`tip`) 作為提示。' }
+            { en: 'step', zh: '步驟；踩 (ㄅㄨˋ ㄓㄡˋ)', mnemonic: '聽起來像 `tap` (輕踏)。你走的每一步 (`step`) 都在輕踏 (`tap`) 地面。' },
+            { en: 'begin', zh: '開始 (ㄎㄞ ㄕˇ)', mnemonic: '`be` (是) + `gin` (琴酒)。讓琴酒 (`gin`) 來開始 (`begin`) 這場派對吧！' },
+            { en: 'straw', zh: '稻草；吸管 (ㄉㄠˋ ㄘㄠˇ)', mnemonic: '`st` + `raw` (生的/未加工的)。稻草 (`straw`) 是一種未加工的 (`raw`) 材料。' },
+            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '`dry` (乾燥的) 聽起來像 `cry` (哭)。不要哭 (`cry`)，眼淚很快就會乾 (`dry`) 了。' },
+            { en: 'collect', zh: '收集 (ㄕㄡ ㄐㄧˊ)', mnemonic: '`col` (一起) + `lect` (select, 選擇)。把選擇 (`select`) 的東西放在一起，就是收集 (`collect`)。' },
+            { en: 'king', zh: '國王 (ㄍㄨㄛˊ ㄨㄤˊ)', mnemonic: '`king` (國王) 和 `ring` (戒指) 押韻。國王 (`king`) 戴著珍貴的戒指 (`ring`)。' },
+            { en: 'long', zh: '長的 (ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`long` (長的) 和 `song` (歌曲) 押韻。那是一首很長 (`long`) 的歌 (`song`)。' },
+            { en: 'bank', zh: '銀行；河岸 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`bank` (銀行) 和 `tank` (坦克) 押韻。銀行 (`bank`) 的守衛像坦克 (`tank`) 一樣森嚴。' },
+            { en: 'pink', zh: '粉紅色 (ㄈㄣˇ ㄏㄨㄥˊ ㄙㄜˋ)', mnemonic: '`pink` (粉紅色) 裡有 `ink` (墨水)。想像用粉紅色 (`pink`) 的墨水 (`ink`) 畫畫。' },
+            { en: 'war', zh: '戰爭 (ㄓㄢˋ ㄓㄥ)', mnemonic: '`war` (戰爭) 反過來拼是 `raw` (原始的)。戰爭展現了人類原始 (`raw`) 的本性。' },
+            { en: 'test', zh: '考試；測試 (ㄎㄠˇ ㄕˋ)', mnemonic: '`test` (考試) 和 `best` (最好的) 押韻。你必須在考試 (`test`) 中拿出最好 (`best`) 的表現。' },
+            { en: 'try', zh: '嘗試 (ㄔㄤˊ ㄕˋ)', mnemonic: '`try` (嘗試) 和 `cry` (哭) 押韻。失敗了不要哭 (`cry`)，再嘗試 (`try`) 一次就好。' },
+            { en: 'map', zh: '地圖 (ㄉㄧˋ ㄊㄨˊ)', mnemonic: '`map` (地圖) 和 `cap` (帽子) 押韻。戴上帽子 (`cap`)，拿著地圖 (`map`) 去探險吧。' },
+            { en: 'way', zh: '道路；方式 (ㄉㄠˋ ㄌㄨˋ)', mnemonic: '`way` (方式) 和 `say` (說) 押韻。請告訴我該怎麼說 (`say`) 的方法 (`way`)。' },
+            { en: 'size', zh: '尺寸 (ㄔˇ ㄘㄨㄣˋ)', mnemonic: '`size` (尺寸) 和 `prize` (獎品) 押韻。獎品 (`prize`) 的尺寸 (`size`) 很重要！' },
+            { en: 'color', zh: '顏色 (ㄧㄢˊ ㄙㄜˋ)', mnemonic: '`color` 聽起來像 `collar` (衣領)。他襯衫的衣領 (`collar`) 顏色 (`color`) 很鮮豔。' },
+            { en: 'shape', zh: '形狀 (ㄒㄧㄥˊ ㄓㄨㄤˋ)', mnemonic: '`shape` 裡有 `ape` (猿猴)。猿猴 (`ape`) 的形狀 (`shape`) 跟人類很像。' },
+            { en: 'ribbon', zh: '緞帶 (ㄉㄨㄢˋ ㄉㄞˋ)', mnemonic: '`rib` (肋骨) + `bon` (bone, 骨頭)。想像把緞帶 (`ribbon`) 綁在肋骨 (`rib bone`) 上。' },
+            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '`shirt` (襯衫) 和 `skirt` (裙子) 很像。襯衫 (`shirt`) 穿上面，裙子 (`skirt`) 穿下面。' },
+            { en: 'wind', zh: '風 (ㄈㄥ)', mnemonic: '`wind` (風) 裡有 `win` (贏)。風 (`wind`) 幫助我們贏 (`win`) 得了帆船比賽。' },
+            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `band` (樂團) 押韻。給這個樂團 (`band`) 拍拍手 (`hand`)！' },
+            { en: 'tent', zh: '帳篷 (ㄓㄤˋ ㄆㄥˊ)', mnemonic: '`tent` 裡有 `ten` (十)。十 (`ten`) 個男人睡在一個帳篷 (`tent`) 裡。' },
+            { en: 'paint', zh: '畫畫；顏料 (ㄏㄨㄚˋ ㄏㄨㄚˋ)', mnemonic: '`paint` 裡有 `pain` (痛苦)。要畫 (`paint`) 出傑作必須經歷努力的痛苦 (`pain`)。' },
+            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`sea` (海) 和 `see` (看見) 發音相同。你從這裡可以看見 (`see`) 海 (`sea`)。' },
+            { en: 'pay', zh: '支付 (ㄓ ㄈㄨˋ)', mnemonic: '`pay` (支付) 和 `play` (玩) 押韻。你必須付費 (`pay`) 才能玩 (`play`) 這個遊戲。' },
+            { en: 'pie', zh: '派 (ㄆㄞˋ)', mnemonic: '`pie` (派) 和 `tie` (領帶) 押韻。小心別把派 (`pie`) 掉在你的領帶 (`tie`) 上！' },
+            { en: 'shy', zh: '害羞的 (ㄏㄞˋ ㄒㄧㄡ ㄉㄜ˙)', mnemonic: '`shy` (害羞的) 和 `sky` (天空) 押韻。害羞的 (`shy`) 男孩只敢抬頭看天空 (`sky`)。' },
+            { en: 'sell', zh: '賣 (ㄇㄞˋ)', mnemonic: '`sell` (賣) 和 `bell` (鈴鐺) 押韻。想賣 (`sell`) 東西時就搖鈴鐺 (`bell`) 吸引客人。' }
         ];
 
         /* --- 語音朗讀 API --- */
