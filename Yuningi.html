@@ -218,7 +218,7 @@
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
+        <img src="initial.png" alt="Menu" class="game-image">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -234,9 +234,9 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共36題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,21 +276,42 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (再次) + `arrange` (排列)。再次排列就是重新排列 (`rearrange`)。' },
-            { en: 'desire', zh: '渴望 (ㄎㄜˇ ㄨㄤˋ)', mnemonic: '聽起來像 `sire` (國王/陛下)。國王 (`sire`) 對領土和權力有著強烈的渴望 (`desire`)。' },
-            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '`groan` (呻吟) 和 `grown` (長大的) 發音相同。長大的 (`grown`) 過程中遇到挫折，有時會忍不住呻吟 (`groan`)。' },
-            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ)', mnemonic: '`set` (設置) + `tle` (table 的後半部)。把餐桌 (`table`) 設置 (`set`) 好，準備在這裡定居 (`settle`) 下來。' },
-            { en: 'propose', zh: '提議 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (提議) 裡面有 `purpose` (目的)。當你提議 (`propose`) 時，你心中一定有一個目的 (`purpose`)。' },
-            { en: 'punch', zh: '一拳 (ㄧˋ ㄑㄩㄢˊ)', mnemonic: '`p` + `unch` (lunch)。有人偷吃了你的午餐 (`lunch`)，所以你氣得給他一拳 (`punch`)。' },
-            { en: 'respond', zh: '回應 (ㄏㄨㄟˊ ㄧㄥˋ)', mnemonic: '`re` (回) + `spond` (sponsor, 贊助者)。贊助者 (`sponsor`) 寫信來，我們必須立刻做出回應 (`respond`)。' },
-            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`neg` (no/拒絕) + `ative`。一直說「不」(`no`)，會給人一種很負面的 (`negative`) 感覺。' },
-            { en: 'against', zh: '反對 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`a` + `gain` (獲得) + `st`。如果你反對 (`against`) 某人，他就不會獲得 (`gain`) 任何支持。' },
-            { en: 'travel', zh: '旅行 (ㄌㄩˇ ㄒㄧㄥˊ)', mnemonic: '`tra` (train, 火車) + `vel`。搭火車 (`train`) 去旅行 (`travel`) 是件快樂的事。' },
-            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '`tremble` 聽起來像 `terrible` (可怕的)。遇到可怕的 (`terrible`) 事情會讓你發抖 (`tremble`)。' },
-            { en: 'minor', zh: '次要的；未成年的 (ㄘˋ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`minor` 和 `miner` (礦工) 發音相同。想像一個未成年的 (`minor`) 人去當礦工 (`miner`)。' },
-            { en: 'youth', zh: '青春 (ㄑㄧㄥ ㄔㄨㄣ)', mnemonic: '`you` (你) + `th`。你 (`you`) 正處於美好的青春 (`youth`) 年華。' },
-            { en: 'metal', zh: '金屬 (ㄐㄧㄣ ㄕㄨˇ)', mnemonic: '`metal` (金屬) 聽起來像 `petal` (花瓣)。想像一朵用金屬 (`metal`) 做成的堅硬花瓣 (`petal`)。' },
-            { en: 'grown', zh: '長大的 (ㄓㄤˇ ㄉㄚˋ ㄉㄜ˙)', mnemonic: '`grow` (生長) + `n`。已經生長 (`grow`) 完成了，也就是長大的 (`grown`)。' }
+            { en: 'multiple', zh: '多個的 (ㄉㄨㄛ ㄍㄜˋ ㄉㄜ˙)', mnemonic: '`multi` (多個) + `ple`。想像有很多 (`multi`) 蘋果 (apple -> `ple`)。' },
+            { en: 'scribble', zh: '塗鴉；亂寫 (ㄊㄨˊ ㄧㄚ；ㄌㄨㄢˋ ㄒㄧㄝˇ)', mnemonic: '`scribble` 聽起來像 `scrabble` (拼字遊戲)。在玩拼字遊戲時在紙上亂寫 (`scribble`)。' },
+            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '`groan` (呻吟) 聽起來像 `grown` (長大的)。長大 (`grown`) 後伴隨著許多痛苦的呻吟 (`groan`)。' },
+            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 裡有 `scree` (聽起來像 scream，尖叫)。發出像煞車一樣刺耳的尖叫聲 (`screech`)。' },
+            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (monkey, 猴子)。一隻猩猩混在猴子 (`monkey`) 之中 (`among`)。' },
+            { en: 'source', zh: '來源 (ㄌㄞˊ ㄩㄢˊ)', mnemonic: '`source` (來源) 聽起來像 `sauce` (醬汁)。這種美味醬汁 (`sauce`) 的來源 (`source`) 是一個秘密。' },
+            { en: 'negative', zh: '負面的 (ㄈㄨˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`nega` 聽起來像 `neglect` (忽略)。不要忽略那些負面的 (`negative`) 情緒。' },
+            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (重新) + `arrange` (安排)。將東西重新安排 (`rearrange`)。' },
+            { en: 'cooperate', zh: '合作 (ㄏㄜˊ ㄗㄨㄛˋ)', mnemonic: '`co` (共同) + `operate` (操作)。大家共同操作 (`operate`) 一台機器，這就是合作 (`cooperate`)。' },
+            { en: 'stretch', zh: '伸展 (ㄕㄣ ㄓㄢˇ)', mnemonic: '`stretch` 聽起來像 `stress` (壓力)。壓力 (`stress`) 大時需要伸展 (`stretch`) 身體。' },
+            { en: 'direct', zh: '直接的；指導 (ㄓˊ ㄐㄧㄝ ㄉㄜ˙；ㄓˇ ㄉㄠˇ)', mnemonic: '`di` + `rect` (correct, 正確的)。指導 (`direct`) 別人走正確的 (`correct`) 直接路線。' },
+            { en: 'against', zh: '反對；倚靠 (ㄈㄢˇ ㄉㄨㄟˋ；ㄧˇ ㄎㄠˋ)', mnemonic: '`a` + `gain` (獲得) + `st` (strike, 罷工)。為了獲得 (`gain`) 權益而發起罷工，反對 (`against`) 老闆。' },
+            { en: 'noble', zh: '高貴的 (ㄍㄠ ㄍㄨㄟˋ ㄉㄜ˙)', mnemonic: '`no` (沒有) + `ble` (bull, 吹牛)。高貴的 (`noble`) 人從不吹牛 (`no bull`)。' },
+            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`form` (形式) + `al`。穿著很有形式 (`form`)，也就是很正式的 (`formal`)。' },
+            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`possi` 聽起來像 `boss` (老闆)。老闆 (`boss`) 說這一切都是可能的 (`possible`)。' },
+            { en: 'still', zh: '仍然 (ㄖㄥˊ ㄖㄢˊ)', mnemonic: '`s` + `till` (直到)。直到 (`till`) 現在，事情仍然 (`still`) 是這樣。' },
+            { en: 'suggestion', zh: '建議 (ㄐㄧㄢˋ ㄧˋ)', mnemonic: '`suggest` (建議) + `ion`。這是一個很好的建議 (`suggestion`)。' },
+            { en: 'sight', zh: '視力；景象 (ㄕˋ ㄌㄧˋ；ㄐㄧㄥˇ ㄒㄧㄤˋ)', mnemonic: '`sight` 聽起來像 `light` (光)。有光 (`light`) 才能有視力 (`sight`) 看到景象。' },
+            { en: 'record', zh: '紀錄 (ㄐㄧˋ ㄌㄨˋ)', mnemonic: '`re` (一再) + `cord` (繩子)。古人用繩子 (`cord`) 打結來一再紀錄 (`record`) 事情。' },
+            { en: 'central', zh: '中央的 (ㄓㄨㄥ ㄧㄤ ㄉㄜ˙)', mnemonic: '`center` (中心) 的形容詞。位於城市中心的 (`central`)。' },
+            { en: 'heard', zh: '聽到 (ㄊㄧㄥ ㄉㄠˋ)', mnemonic: '`hear` (聽) 的過去式。用耳朵 (`ear`) 聽 (`hear`)，我已經聽到了 (`heard`)。' },
+            { en: 'barely', zh: '幾乎不 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`bare` (裸露的) + `ly`。幾乎沒有穿衣服，也就是幾乎不 (`barely`)。' },
+            { en: 'complete', zh: '完整的；完成 (ㄨㄢˊ ㄓㄥˇ ㄉㄜ˙；ㄨㄢˊ ㄔㄥˊ)', mnemonic: '`com` (共同) + `plete` (pleat, 摺痕)。把所有摺痕拼湊起來，就完成了 (`complete`) 完整的作品。' },
+            { en: 'granddaughter', zh: '孫女 (ㄙㄨㄣ ㄋㄩˇ)', mnemonic: '`grand` (宏偉的) + `daughter` (女兒)。宏偉的女兒，即孫女 (`granddaughter`)。' },
+            { en: 'palm', zh: '手掌；棕櫚樹 (ㄕㄡˇ ㄓㄤˇ；ㄓㄨㄥ ㄌㄩˇ ㄕㄨˋ)', mnemonic: '把手掌 (`palm`) 放在棕櫚樹 (`palm`) 上。' },
+            { en: 'control', zh: '控制 (ㄎㄨㄥˋ ㄓˋ)', mnemonic: '`con` (共同) + `trol` (troll, 巨魔)。大家一起控制 (`control`) 住那隻巨魔 (`troll`)。' },
+            { en: 'minor', zh: '次要的；未成年人 (ㄘˋ ㄧㄠˋ ㄉㄜ˙；ㄨㄟˋ ㄔㄥˊ ㄋㄧㄢˊ ㄖㄣˊ)', mnemonic: '`mini` (迷你的)。年紀比較迷你的就是未成年人 (`minor`)，也是次要的。' },
+            { en: 'dialogue', zh: '對話 (ㄉㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`dia` (兩個) + `logue` (說話)。兩個人之間的談話就是對話 (`dialogue`)。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (per, 每個) + `pose` (姿勢)。擺每個姿勢 (`pose`) 都是有目的 (`purpose`) 的。' },
+            { en: 'perfect', zh: '完美的 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`per` (每個) + `fect` (fact, 事實)。每個事實 (`fact`) 都正確，這就是完美的 (`perfect`)。' },
+            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) 的名詞。`com` (共同) + `pair` (一對)。把一對東西放在一起做比較 (`comparison`)。' },
+            { en: 'course', zh: '課程 (ㄎㄜˋ ㄔㄥˊ)', mnemonic: '聽起來像 `of course` (當然)。當然 (`of course`) 你必須要修這門課程 (`course`)。' },
+            { en: 'handle', zh: '處理；把手 (ㄔㄨˇ ㄌㄧˇ；ㄅㄚˇ ㄕㄡˇ)', mnemonic: '`hand` (手) + `le`。用手 (`hand`) 握住把手 (`handle`) 來處理 (`handle`) 事情。' },
+            { en: 'neither', zh: '兩者都不 (ㄌㄧㄤˇ ㄓㄜˇ ㄉㄡ ㄅㄨˋ)', mnemonic: '`n` (not) + `either` (兩者之一)。兩者都不 (`neither`)。' },
+            { en: 'voter', zh: '投票者 (ㄊㄡˊ ㄆㄧㄠˋ ㄓㄜˇ)', mnemonic: '`vote` (投票) + `r` (的人)。投票 (`vote`) 的人就是投票者 (`voter`)。' },
+            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每個) + `haps` (happen, 發生)。每件事都有可能發生 (`happen`)，所以說也許 (`perhaps`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -393,6 +414,7 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
+                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
@@ -406,15 +428,16 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
+                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
             } else {
+                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
@@ -455,11 +478,7 @@
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            
-            const gameImg = document.getElementById('game-image');
-            gameImg.src = 'initial.png';
-            gameImg.style.display = 'inline-block';
-            
+            document.getElementById('game-image').src = 'initial.png';
             document.getElementById('mnemonic').style.display = 'none';
             
             nextQuestion();
@@ -472,7 +491,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; 
+            if (!q) return;
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
