@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共28題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,34 +276,21 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'step', zh: '步驟 / 步 (ㄅㄨˋ ㄓㄡˋ)', mnemonic: '把 `step` 倒過來拼是 `pets` (寵物)。你的寵物會跟隨你的每一個步伐 (`step`)。' },
-            { en: 'begin', zh: '開始 (ㄎㄞ ㄕˇ)', mnemonic: '`beg` (乞求) + `in` (進來)。乞求 (`beg`) 讓我進來 (`in`) 開始 (`begin`) 吧。' },
-            { en: 'straw', zh: '吸管 / 稻草 (ㄒㄧ ㄍㄨㄢˇ)', mnemonic: '`straw` 聽起來像 `draw` (畫畫)。想像用吸管 (`straw`) 沾水畫畫 (`draw`)。' },
-            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '`dry` (乾燥) 聽起來像 `cry` (哭)。不要哭 (`cry`)，眼淚很快就會乾 (`dry`) 了。' },
-            { en: 'collect', zh: '收集 (ㄕㄡ ㄐㄧˊ)', mnemonic: '`col` (共同) + `lect` (選擇)。把大家選擇的東西共同聚集在一起，就是收集 (`collect`)。' },
-            { en: 'king', zh: '國王 (ㄍㄨㄛˊ ㄨㄤˊ)', mnemonic: '`king` (國王) 和 `ring` (戒指) 押韻。國王 (`king`) 手上戴著閃亮的戒指 (`ring`)。' },
-            { en: 'long', zh: '長的 (ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`long` (長) 和 `song` (歌曲) 押韻。這是一首非常長 (`long`) 的歌曲 (`song`)。' },
-            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '`bank` (銀行) 和 `tank` (坦克) 押韻。想像用坦克 (`tank`) 來保護銀行 (`bank`) 裡的錢。' },
-            { en: 'pink', zh: '粉紅色 (ㄈㄣˇ ㄏㄨㄥˊ ㄙㄜˋ)', mnemonic: '`pig` (豬) + `ink` (墨水)。這隻豬 (`pig`) 掉進了粉紅色 (`pink`) 的墨水 (`ink`) 裡。' },
-            { en: 'war', zh: '戰爭 (ㄓㄢˋ ㄓㄥ)', mnemonic: '`war` (戰爭) 倒過來是 `raw` (生的/未加工的)。戰爭 (`war`) 會把一切破壞回最原始 (`raw`) 的狀態。' },
-            { en: 'test', zh: '考試 (ㄎㄠˇ ㄕˋ)', mnemonic: '`test` (考試) 和 `rest` (休息) 押韻。考試 (`test`) 結束後就可以好好休息 (`rest`) 了。' },
-            { en: 'try', zh: '嘗試 (ㄔㄤˊ ㄕˋ)', mnemonic: '`try` (嘗試) 和 `cry` (哭泣) 押韻。遇到困難不要哭 (`cry`)，要勇於嘗試 (`try`)。' },
-            { en: 'map', zh: '地圖 (ㄉㄧˋ ㄊㄨˊ)', mnemonic: '`map` (地圖) 和 `cap` (帽子) 押韻。把地圖 (`map`) 藏在帽子 (`cap`) 裡。' },
-            { en: 'way', zh: '道路 / 方法 (ㄉㄠˋ ㄌㄨˋ)', mnemonic: '`way` (道路) 和 `day` (白天) 押韻。在白天 (`day`) 比較容易找到正確的道路 (`way`)。' },
-            { en: 'size', zh: '尺寸 (ㄔˇ ㄘㄨㄣˋ)', mnemonic: '`size` (尺寸) 和 `prize` (獎品) 押韻。這個獎品 (`prize`) 的尺寸 (`size`) 非常大。' },
-            { en: 'color', zh: '顏色 (ㄧㄢˊ ㄙㄜˋ)', mnemonic: '聯想 `collar` (衣領)。你的衣領 (`collar`) 是什麼顏色 (`color`)？' },
-            { en: 'shape', zh: '形狀 (ㄒㄧㄥˊ ㄓㄨㄤˋ)', mnemonic: '`shape` (形狀) 裡面有 `ape` (猿猴)。那隻猿猴 (`ape`) 擺出了一個奇怪的形狀 (`shape`)。' },
-            { en: 'ribbon', zh: '緞帶 (ㄉㄨㄢˋ ㄉㄞˋ)', mnemonic: '`rib` (肋骨) + `bon` (bone, 骨頭)。想像用緞帶 (`ribbon`) 把肋骨 (`rib`) 綁成蝴蝶結。' },
-            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '`shirt` (襯衫) 和 `skirt` (裙子) 很像。男生穿襯衫 (`shirt`)，女生穿裙子 (`skirt`)。' },
-            { en: 'wind', zh: '風 (ㄈㄥ)', mnemonic: '`win` (贏) + `d`。順著風 (`wind`) 跑，你就會贏 (`win`)。' },
-            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '`hand` (手) 和 `band` (樂團) 押韻。用你的手 (`hand`) 為樂團 (`band`) 拍手。' },
-            { en: 'tent', zh: '帳篷 (ㄓㄤˋ ㄆㄥˊ)', mnemonic: '`ten` (十) + `t`。這個帳篷 (`tent`) 大到可以睡十 (`ten`) 個人。' },
-            { en: 'paint', zh: '畫漆 / 畫 (ㄏㄨㄚˋ)', mnemonic: '`pain` (痛苦) + `t`。畫畫 (`paint`) 畫不好是一件令人痛苦 (`pain`) 的事。' },
-            { en: 'sea', zh: '海 (ㄏㄞˇ)', mnemonic: '`see` (看見) 和 `sea` (海) 發音相同。你可以看見 (`see`) 美麗的大海 (`sea`)。' },
-            { en: 'pay', zh: '支付 (ㄓ ㄈㄨˋ)', mnemonic: '`pay` (支付) 和 `play` (玩) 押韻。玩 (`play`) 遊戲之前需要先支付 (`pay`) 費用。' },
-            { en: 'pie', zh: '派 (ㄆㄞˋ)', mnemonic: '`pie` (派) 和 `tie` (領帶) 押韻。他一邊吃派 (`pie`) 一邊打著領帶 (`tie`)。' },
-            { en: 'shy', zh: '害羞的 (ㄏㄞˋ ㄒㄧㄡ ㄉㄜ˙)', mnemonic: '`she` (她) + `y`。她 (`she`) 是一個非常害羞的 (`shy`) 女孩。' },
-            { en: 'sell', zh: '賣 (ㄇㄞˋ)', mnemonic: '`sell` (賣) 和 `shell` (貝殼) 押韻。他在海邊賣 (`sell`) 貝殼 (`shell`)。' }
+            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`flower` 裡有 `flow` (流動)。花朵在微風中像水流一樣流動。' },
+            { en: 'petal', zh: '花瓣 (ㄏㄨㄚ ㄅㄢˋ)', mnemonic: '`petal` 和 `pedal` (踏板) 發音很像。一朵花的花瓣就像是蜜蜂停下來的腳踏板。' },
+            { en: 'sun', zh: '太陽 (ㄊㄞˋ ㄧㄤˊ)', mnemonic: '`sun` 和 `son` (兒子) 發音相同。太陽就像是天空的兒子，每天都會升起。' },
+            { en: 'bud', zh: '花蕾/芽 (ㄏㄨㄚ ㄌㄟˇ)', mnemonic: '`bud` 聽起來像 `bed` (床)。花蕾 (`bud`) 就像是花朵還沒長大前睡覺的床 (`bed`)。' },
+            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 和 `leave` (離開) 很像。到了秋天，葉子 (`leaf`) 就會離開 (`leave`) 樹木掉落下來。' },
+            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`seed` 裡面有 `see` (看見)。種下種子 (`seed`)，你就可以看見 (`see`) 它慢慢長大。' },
+            { en: 'belt', zh: '皮帶 (ㄆㄧˊ ㄉㄞˋ)', mnemonic: '`belt` (皮帶) 和 `melt` (融化) 押韻。塑膠皮帶 (`belt`) 遇到高溫就會融化 (`melt`)。' },
+            { en: 'adult', zh: '成年人 (ㄔㄥˊ ㄋㄧㄢˊ ㄖㄣˊ)', mnemonic: '`a` + `dult` (聽起來像 dull，無聊的)。有些成年人 (`adult`) 長大後就變得有點無聊 (`dull`) 了。' },
+            { en: 'lamp', zh: '燈 (ㄉㄥ)', mnemonic: '`lamp` (燈) 和 `camp` (露營) 押韻。去露營 (`camp`) 的時候，一定要帶一盞燈 (`lamp`)。' },
+            { en: 'camp', zh: '露營 (ㄌㄨˋ ㄧㄥˊ)', mnemonic: '`camp` (露營) 和 `lamp` (燈) 押韻。因為晚上在野外很暗，所以露營 (`camp`) 必須要有燈 (`lamp`)。' },
+            { en: 'nod', zh: '點頭 (ㄉㄧㄢˇ ㄊㄡˊ)', mnemonic: '`no` + `d`。當你不想說不 (`no`) 的時候，你就點頭 (`nod`) 表示同意。' },
+            { en: 'mat', zh: '墊子 (ㄉㄧㄢˋ ㄗ˙)', mnemonic: '`mat` (墊子) 和 `cat` (貓咪) 押韻。貓咪 (`cat`) 最喜歡躺在軟軟的墊子 (`mat`) 上。' },
+            { en: 'mud', zh: '泥巴 (ㄋㄧˊ ㄅㄚ)', mnemonic: '`mud` 聽起來像 `mad` (生氣的)。如果你不小心踩到泥巴 (`mud`) 弄髒鞋子，你一定會很生氣 (`mad`)。' },
+            { en: 'push', zh: '推 (ㄊㄨㄟ)', mnemonic: '`push` (推) 和 `bush` (灌木叢) 押韻。不要把人推 (`push`) 進灌木叢 (`bush`) 裡。' },
+            { en: 'connect', zh: '連接 (ㄌㄧㄢˊ ㄐㄧㄝ)', mnemonic: '`con` (一起) + `nect` (聽起來像 neck 脖子)。連接 (`connect`) 就像脖子把頭和身體連在一起一樣。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -443,7 +430,6 @@
             }
         }
 
-
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
@@ -500,7 +486,7 @@
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
-            // 延遲一點點聚焦
+            // 延遲一點點聚焦，避免有些瀏覽器切換畫面時聚焦失效
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
@@ -561,12 +547,12 @@
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對！';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '妳答錯的單字：\n';
+                let wrongText = '你答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
