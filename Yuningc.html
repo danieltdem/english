@@ -3,69 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>傳統戲曲文化與心得寫作 深度挑戰測驗</title>
+    <title>〈舞吧！小飛魚〉深度檢測</title>
     <style>
         body {
-            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
-            background-color: #fdf5e6;
-            color: #3e2723;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            color: #004d40;
             line-height: 1.6;
             padding: 20px;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #fff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 6px solid #d32f2f;
         }
         h1 {
             text-align: center;
-            color: #d32f2f;
-            border-bottom: 2px dashed #ffb300;
-            padding-bottom: 15px;
-        }
-        .intro {
-            background-color: #fff8e1;
-            padding: 15px;
-            border-left: 4px solid #ffb300;
-            margin-bottom: 30px;
-            font-size: 0.95em;
+            color: #00796b;
+            border-bottom: 2px solid #b2dfdb;
+            padding-bottom: 10px;
         }
         .question-block {
             margin-bottom: 25px;
             padding: 20px;
-            background-color: #fafafa;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background-color: #f1f8e9;
+            border-left: 5px solid #8bc34a;
+            border-radius: 5px;
         }
         .question-title {
             font-weight: bold;
             font-size: 1.1em;
             margin-bottom: 15px;
-            color: #1565c0;
         }
-        .option-label {
+        label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
-            padding: 5px;
-            transition: background-color 0.2s;
-        }
-        .option-label:hover {
-            background-color: #e3f2fd;
         }
         input[type="checkbox"] {
             margin-right: 10px;
-            transform: scale(1.2);
         }
-        .btn-submit {
+        button {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #d32f2f;
+            background-color: #00796b;
             color: white;
             border: none;
             border-radius: 8px;
@@ -73,134 +58,145 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .btn-submit:hover {
-            background-color: #b71c1c;
+        button:hover {
+            background-color: #004d40;
         }
-        .feedback {
+        .explanation {
+            display: none;
             margin-top: 15px;
             padding: 15px;
-            border-radius: 6px;
-            display: none;
-            font-weight: bold;
+            background-color: #ffebee;
+            border-left: 5px solid #f44336;
+            border-radius: 5px;
+            color: #b71c1c;
+            font-size: 0.95em;
         }
-        .correct-text { color: #2e7d32; background-color: #e8f5e9; border: 1px solid #c8e6c9; }
-        .wrong-text { color: #c62828; background-color: #ffebee; border: 1px solid #ffcdd2; }
-        .explanation {
-            font-weight: normal;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #424242;
+        .correct-msg {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            border-radius: 5px;
+            color: #1b5e20;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🎭 傳統戲曲與寫作綜合測驗 🎭</h1>
-    <div class="intro">
-        <strong>測驗說明：</strong>本測驗為高難度複選題（多選題）。每道題目皆有<strong>兩個或兩個以上</strong>的正確選項。請仔細閱讀選項，勾選出所有正確的描述。若答錯將會顯示解析，協助您釐清觀念。
-    </div>
-
+    <h1>🌊 〈舞吧！小飛魚〉主題分析與核心洞察 測驗 🐟</h1>
+    <p style="text-align: center;">請注意：本測驗為<b>高難度複選題</b>，每題皆有<b>兩個或兩個以上</b>的正確選項。請勾選所有正確答案。</p>
+    
     <form id="quizForm">
-        <div class="question-block" id="qb-q1">
-            <div class="question-title">1. 關於「布袋戲（掌中戲）」的藝術特徵與表演構造，下列敘述哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q1" value="A"> A) 為了支撐劇烈動作，布袋戲偶的軀幹與四肢主要由堅巧的木材雕刻而成。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="B"> B) 「十指弄成百萬兵」一語，精準點出了操偶師需透過靈活指法來賦予木偶生命的核心技術。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="C"> C) 一場布袋戲演出的成功，不僅仰賴操偶，更是結合了配音、音效及操偶師製作木偶功力的綜合藝術。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="D"> D) 舞台上的燈光與打鬥聲等聲光效果，主要目的是為了掩蓋操偶師指法操作上的瑕疵。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="E"> E) 演師在進行操控時，是將手直接套入由布料製成的偶服之中進行表演。</label>
-            <div class="feedback" id="feedback-q1"></div>
+        <div class="question-block" id="q1-block">
+            <div class="question-title">1. 關於〈舞吧！小飛魚〉的文本背景與敘事結構，下列敘述哪些是正確的？</div>
+            <label><input type="checkbox" name="q1" value="A"> A. 本文的文體為記敘文，主要記錄達悟族學童文化認同的蛻變歷程。</label>
+            <label><input type="checkbox" name="q1" value="B"> B. 故事發生於臺東縣蘭嶼鄉椰油國小，推動此事件的關鍵人物是一位來自臺灣本島的顏老師。</label>
+            <label><input type="checkbox" name="q1" value="C"> C. 文本的核心主旨，在於教導學生如何精進傳統舞蹈的技巧，以便在波蘭國際藝術節獲得冠軍。</label>
+            <label><input type="checkbox" name="q1" value="D"> D. 在故事的「起因」階段，男童們立刻了解了顏老師的苦心，並欣然接受穿著傳統服飾。</label>
+            <label><input type="checkbox" name="q1" value="E"> E. 該團隊名稱為「小飛魚文化展演隊」，最終成功站上波蘭國際藝術節的舞台向世界展示文化。</label>
+            <div class="explanation" id="exp-q1">
+                <b>解析：</b>正確答案為 <b>A, B, E</b>。<br>
+                (C) 錯誤，核心主旨是「認同並發覺自身文化的珍貴價值，學習尊重多元文化」，而非僅為了獲獎或精進舞蹈技巧。<br>
+                (D) 錯誤，「起因」是顏老師希望推廣文化，而「經過」階段初期男孩們強烈抗拒穿著丁字褲，並未立刻接受。
+            </div>
+            <div class="correct-msg" id="corr-q1">答對了！你對文本的背景與結構掌握得非常精確。</div>
         </div>
 
-        <div class="question-block" id="qb-q2">
-            <div class="question-title">2. 針對「歌仔戲」的發祥與藝術特點，下列敘述哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q2" value="A"> A) 發祥於宜蘭的歌仔戲，是全由真人演員扮演角色的表演形式，為台灣民間極興盛的傳統戲曲。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="B"> B) 在歌仔戲的傳統行當劃分中，通常將年輕的男性角色稱為「小旦」，而年輕女性角色稱為「小生」。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="C"> C) 歌仔戲演員主要透過流利的國語唱腔，搭配身段與表情來傳遞戲劇張力。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="D"> D) 鼓樂在歌仔戲中具有重要地位，常與演員的唱腔、動作及表情搭配，共同傳達劇中情感。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="E"> E) 相較於布袋戲，歌仔戲因為是真人演出，往往更能直接與台下觀眾產生深刻的情感共鳴。</label>
-            <div class="feedback" id="feedback-q2"></div>
+        <div class="question-block" id="q2-block">
+            <div class="question-title">2. 展演隊在成立與發展的過程中，經歷了深刻的文化衝突與蛻變。下列關於此歷程的分析，哪些符合文本內容？</div>
+            <label><input type="checkbox" name="q2" value="A"> A. 男童初期對「丁字褲」極度排斥，因為他們認為那是「族裡老人穿的」，反映出年輕一代與傳統文化間的認知斷層。</label>
+            <label><input type="checkbox" name="q2" value="B"> B. 顏老師發現學生排斥後，立即採用了強迫與嚴格的紀律要求，才讓學生在短時間內克服恐懼。</label>
+            <label><input type="checkbox" name="q2" value="C"> C. 顏老師作為文化橋樑，投入了「九牛二虎之力」，透過長達九年的長期的陪伴與引導，才讓孩子轉變心態。</label>
+            <label><input type="checkbox" name="q2" value="D"> D. 在波蘭的國際舞台演出是關鍵轉折點，觀眾的喝采將孩子們心中的羞恥感轉化為了對民族標記的自豪。</label>
+            <label><input type="checkbox" name="q2" value="E"> E. 學生們之所以能建立文化自信，主要是因為他們原本就對自身的族群文化抱有強烈的優越感。</label>
+            <div class="explanation" id="exp-q2">
+                <b>解析：</b>正確答案為 <b>A, C, D</b>。<br>
+                (B) 錯誤，文本指出顏老師「並非強迫，而是透過長期的陪伴與引導」。<br>
+                (E) 錯誤，學生一開始對自身傳統文化（如丁字褲）抱持負面觀感與羞恥感，並非一開始就有優越感。
+            </div>
+            <div class="correct-msg" id="corr-q2">完全正確！你精準捕捉了學生心理蛻變與老師教學策略的核心。</div>
         </div>
 
-        <div class="question-block" id="qb-q3">
-            <div class="question-title">3. 依據文本中的「心得報告結構與寫作指南」，下列關於寫作步驟與內容的敘述，哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q3" value="A"> A) 在基本格式的「觀察紀錄」中，只需記錄演員台詞，不需包含音效或燈光等周邊細節，以免失焦。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="B"> B) 寫作加油站的第三站「觀察」，強調應透過視覺、聽覺、觸覺等多重感官來全面收集資料。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="C"> C) 第二站「聚焦」的主要目的，是廣泛尋找所有感興趣的活動與場景，並盡可能將它們全部寫入報告中。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="D"> D) 在實地觀察時，利用園區地圖或進行拍照，是輔助記憶並豐富觀察細節的有效方法。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="E"> E) 第四站「記錄」階段，鼓勵運用豐富的詞彙與成語延伸，以更生動地描寫所見景物與情緒。</label>
-            <div class="feedback" id="feedback-q3"></div>
+        <div class="question-block" id="q3-block">
+            <div class="question-title">3. 根據文本第四部分的「關鍵詞彙與語法應用」，下列敘述哪些是正確的？</div>
+            <label><input type="checkbox" name="q3" value="A"> A. 「丁字褲」是達悟族男女皆可穿著的特有傳統服飾，形狀如「丁」字。</label>
+            <label><input type="checkbox" name="q3" value="B"> B. 「甩髮」是達悟族女性傳統舞蹈中的關鍵動作。</label>
+            <label><input type="checkbox" name="q3" value="C"> C. 句型「不再是……而是……」可用於精準表達狀態的轉換，例如學生對傳統服飾從否定到肯定的心理變化。</label>
+            <label><input type="checkbox" name="q3" value="D"> D. 詞彙「甚至」是一個表達轉折與否定的連接詞，用於推翻前一句話的論點。</label>
+            <label><input type="checkbox" name="q3" value="E"> E. 「九牛二虎之力」形容費盡極大的力量，在文本中呼應了顏老師九年來不懈的引導過程。</label>
+            <div class="explanation" id="exp-q3">
+                <b>解析：</b>正確答案為 <b>B, C, E</b>。<br>
+                (A) 錯誤，「丁字褲」是達悟族特有的「男性」傳統服飾，女性並不穿著。<br>
+                (D) 錯誤，「甚至」是表達「更進一層」的連接詞，而非用於轉折或否定。
+            </div>
+            <div class="correct-msg" id="corr-q3">太棒了！你對文本的語文詞彙與修辭應用理解得很透徹。</div>
         </div>
 
-        <div class="question-block" id="qb-q4">
-            <div class="question-title">4. 文本中引用了多句名言來反映戲曲文化內涵與學習態度，下列關於引言與其內涵的配對，哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q4" value="A"> A) 「一口道盡千秋事，十指弄成百萬兵」：主要用來形容歌仔戲演員在台上分飾多角的精湛演技。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="B"> B) 「臺上一分鐘，臺下十年功」：深刻表達了一場成功的演出背後，需要長年累月辛勤努力的無名付出。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="C"> C) 「讀萬卷書，行萬里路」：勉勵學習者應將書本上的理論知識與實地考察並重，不可偏廢。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="D"> D) 「百聞不如一見」：強調聽別人敘述再多，其效果也比不上親身前往現場進行實踐與觀察。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="E"> E) 這些引言純粹是為了增加心得報告的字數，與實際的戲曲欣賞或人生哲理並無關聯。</label>
-            <div class="feedback" id="feedback-q4"></div>
+        <div class="question-block" id="q4-block">
+            <div class="question-title">4. 關於教材中圖解的「達悟族傳統服飾」知識點，下列描述哪些與文本相符？</div>
+            <label><input type="checkbox" name="q4" value="A"> A. 達悟族人在穿著傳統服飾時，無論男女皆有一個共同特徵，那就是「不穿鞋」。</label>
+            <label><input type="checkbox" name="q4" value="B"> B. 傳統上衣為男性專屬，通常以鮮豔的紅色與黑色相間織紋為主，象徵慶典的喜悅。</label>
+            <label><input type="checkbox" name="q4" value="C"> C. 「禮刀」是祭典時配戴的物品，其象徵著神聖與力量。</label>
+            <label><input type="checkbox" name="q4" value="D"> D. 達悟族的傳統飾品，通常是使用金屬、銀片或貝類等材質製成。</label>
+            <label><input type="checkbox" name="q4" value="E"> E. 丁字褲作為男性的傳統標誌，其穿法相當隨意且無特定規範，以方便活動為主。</label>
+            <div class="explanation" id="exp-q4">
+                <b>解析：</b>正確答案為 <b>A, C, D</b>。<br>
+                (B) 錯誤，傳統上衣「男、女皆有」，且通常以「青、白色相間」的織紋為主。<br>
+                (E) 錯誤，文本特別標註丁字褲的穿法「具備特定的文化技術」，並非隨意無規範。
+            </div>
+            <div class="correct-msg" id="corr-q4">答得好！你完整掌握了達悟族傳統服飾的文化細節。</div>
         </div>
 
-        <div class="question-block" id="qb-q5">
-            <div class="question-title">5. 關於文本提及的語文應用（字形辨析、詞彙與句型練習），下列敘述哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q5" value="A"> A) 在字形辨析中，「驗」常搭配「經驗」，「臉」用於「臉色」，兩者部首不同；而「撿」則用於「拾取/撿拾」。</label>
-            <label class="option-label"><input type="checkbox" name="q5" value="B"> B) 「音效」一詞的釋義，是指由聲音所製造的效果，其主要作用在於增進現場演出的真實感。</label>
-            <label class="option-label"><input type="checkbox" name="q5" value="C"> C) 「不但會……也會……還會……」屬於遞進句型，適合用來描述人物具備多種遞進的優點或能力。</label>
-            <label class="option-label"><input type="checkbox" name="q5" value="D"> D) 「一會兒……一會兒……」作為交替句型，是用來描述兩種穩定不變的狀態同時存在。</label>
-            <label class="option-label"><input type="checkbox" name="q5" value="E"> E) 辨析字形時，「姿勢」與「情勢」的「勢」字雖然相同，但前者指山谷的形狀，後者指太極拳的招式。</label>
-            <div class="feedback" id="feedback-q5"></div>
+        <div class="question-block" id="q5-block">
+            <div class="question-title">5. 總結〈舞吧！小飛魚〉的深層啟示，這場「文化復育運動」的成功，歸功於文本提及的哪三大要素？</div>
+            <label><input type="checkbox" name="q5" value="A"> A. 外界的欣賞與引導：如顏老師對異文化的熱愛與九年來的陪伴。</label>
+            <label><input type="checkbox" name="q5" value="B"> B. 內在的覺醒與勇氣：學生們最終克服了自卑感，重新接納了祖先的遺產。</label>
+            <label><input type="checkbox" name="q5" value="C"> C. 媒體的強力包裝：透過網路行銷與商業運作，將傳統舞蹈轉化為流行文化。</label>
+            <label><input type="checkbox" name="q5" value="D"> D. 大眾的肯定與尊重：國際舞台上的掌聲，強化了學童對族群文化的保存意識。</label>
+            <label><input type="checkbox" name="q5" value="E"> E. 服飾的現代化改良：將傳統「老人的衣服」進行西式剪裁，以迎合國際評審的審美觀。</label>
+            <div class="explanation" id="exp-q5">
+                <b>解析：</b>正確答案為 <b>A, B, D</b>。<br>
+                (C) 錯誤，文本並未提及網路行銷或商業運作的強力包裝。<br>
+                (E) 錯誤，學生是改變「心態」，將原本被視為「老人的衣服」的傳統服飾轉化為驕傲，並未提及進行西式剪裁或現代化改良。
+            </div>
+            <div class="correct-msg" id="corr-q5">完美作答！你深刻理解了這篇課文背後的文化傳承意義。</div>
         </div>
 
-        <button type="button" class="btn-submit" onclick="checkAnswers()">送出答案，查看結果</button>
+        <button type="button" onclick="checkAnswers()">送出答案並觀看解析</button>
     </form>
 </div>
 
 <script>
-    const correctAnswers = {
-        q1: ['B', 'C', 'E'],
-        q2: ['A', 'D', 'E'],
-        q3: ['B', 'D', 'E'],
-        q4: ['B', 'C', 'D'],
-        q5: ['A', 'B', 'C']
-    };
-
-    const explanations = {
-        q1: "【解析】<br>A錯誤：文本中明確指出，布袋戲偶除了偶頭、手掌與足部外，軀幹與四肢均由「布料」製成。<br>D錯誤：燈光與打鬥聲等聲光效果是為了配合指法，「緊扣觀眾心弦，令其目不轉睛」，而非掩飾瑕疵。<br>B、C、E 均為文本中正確的描述。",
-        q2: "【解析】<br>B錯誤：角色劃分正好顛倒，年輕男性是「小生」，年輕女性是「小旦」。<br>C錯誤：歌仔戲是以「閩南語」演唱為主。<br>A、D、E 均為正確傳達歌仔戲特徵的選項。",
-        q3: "【解析】<br>A錯誤：觀察紀錄應當「詳細記載」，包含表演方式以及「演出細節（如音效、演員表現）」。<br>C錯誤：第二站「聚焦」是「確認主題」後，記錄具體的時間與地點，而非廣泛尋找。<br>B、D、E 皆符合文本中推薦的寫作步驟與技巧。",
-        q4: "【解析】<br>A錯誤：「一口道盡千秋事...」是專門用來形容「布袋戲」操偶師分飾多角與操控偶件的高超技藝。<br>E錯誤：文本明言這些名言皆「反映表演藝術艱辛與智慧」，具備深刻內涵。<br>B、C、D 完美對應了名言所傳達的實踐與苦練精神。",
-        q5: "【解析】<br>D錯誤：交替句型「一會兒...一會兒...」是用來描述狀態不穩定、交替出現的情況（如天氣一會兒冷，一會兒熱），而非穩定同時存在。<br>E錯誤：「谷」對應山谷，「拳」對應太極拳，與「勢」的辨析（姿勢/情勢）無關。<br>A、B、C 準確掌握了文本提供的語文應用精要。"
-    };
-
-    function arraysEqual(a, b) {
-        if (a === b) return true;
-        if (a == null || b == null) return false;
-        if (a.length !== b.length) return false;
-        let sortedA = [...a].sort();
-        let sortedB = [...b].sort();
-        for (let i = 0; i < sortedA.length; ++i) {
-            if (sortedA[i] !== sortedB[i]) return false;
-        }
-        return true;
-    }
-
     function checkAnswers() {
-        for (let i = 1; i <= 5; i++) {
-            let qName = 'q' + i;
-            let checkboxes = document.querySelectorAll(`input[name="${qName}"]:checked`);
+        const answers = {
+            q1: ['A', 'B', 'E'],
+            q2: ['A', 'C', 'D'],
+            q3: ['B', 'C', 'E'],
+            q4: ['A', 'C', 'D'],
+            q5: ['A', 'B', 'D']
+        };
+
+        for (let q in answers) {
+            const checkboxes = document.querySelectorAll(`input[name="${q}"]:checked`);
             let userAnswers = Array.from(checkboxes).map(cb => cb.value);
-            let correctAns = correctAnswers[qName];
-            
-            let feedbackDiv = document.getElementById('feedback-' + qName);
-            feedbackDiv.style.display = 'block';
-            
-            if (arraysEqual(userAnswers, correctAns)) {
-                feedbackDiv.className = 'feedback correct-text';
-                feedbackDiv.innerHTML = '✅ 答對了！您完全掌握了這個概念。';
+            let isCorrect = (userAnswers.length === answers[q].length) && 
+                            userAnswers.every(val => answers[q].includes(val));
+
+            const expDiv = document.getElementById(`exp-${q}`);
+            const corrDiv = document.getElementById(`corr-${q}`);
+            const blockDiv = document.getElementById(`${q}-block`);
+
+            if (isCorrect) {
+                expDiv.style.display = "none";
+                corrDiv.style.display = "block";
+                blockDiv.style.borderLeftColor = "#4caf50";
             } else {
-                feedbackDiv.className = 'feedback wrong-text';
-                feedbackDiv.innerHTML = `❌ 答錯囉！正確答案包含：${correctAns.join(', ')}。<div class="explanation">${explanations[qName]}</div>`;
+                expDiv.style.display = "block";
+                corrDiv.style.display = "none";
+                blockDiv.style.borderLeftColor = "#f44336";
             }
         }
     }
