@@ -3,197 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小飛魚文化測驗 - 挑戰你的文化洞察力！</title>
+    <title>苗栗客家「螃龍」文化深度測驗</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
-            color: #004d40;
-            padding: 20px;
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: #f4f1ea;
+            color: #333;
             line-height: 1.6;
+            padding: 20px;
         }
-        .quiz-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            max-width: 850px;
-            margin: auto;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 10px solid #c0392b; /* 客家節慶紅 */
         }
         h1 {
             text-align: center;
-            color: #00796b;
-            border-bottom: 3px dashed #00acc1;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            color: #c0392b;
+            border-bottom: 2px dashed #c0392b;
+            padding-bottom: 10px;
         }
         .intro {
-            text-align: center;
-            font-size: 1.1em;
-            color: #00695c;
+            background: #fdf2f2;
+            padding: 15px;
+            border-left: 5px solid #e67e22;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        .question {
             margin-bottom: 30px;
-        }
-        .question-block {
-            margin-bottom: 35px;
             padding: 20px;
-            background: #ffffff;
-            border-left: 6px solid #26a69a;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fafafa;
         }
-        .question-text {
+        .question p {
             font-weight: bold;
-            font-size: 1.15em;
-            margin-bottom: 15px;
-            color: #004d40;
+            font-size: 1.1em;
+            color: #2c3e50;
         }
-        .option-label {
+        .options label {
             display: block;
             margin: 10px 0;
-            padding: 12px 15px;
-            background: #e0f2f1;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.1s;
+            padding: 5px;
+            transition: background 0.2s;
         }
-        .option-label:hover {
-            background: #b2dfdb;
-            transform: translateX(5px);
+        .options label:hover {
+            background-color: #eee;
         }
-        input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
-            accent-color: #00796b;
-        }
-        button.submit-btn {
+        button {
             display: block;
             width: 100%;
             padding: 15px;
-            font-size: 1.3em;
-            font-weight: bold;
-            background-color: #00897b;
+            background-color: #c0392b;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            margin-top: 30px;
+            margin-top: 20px;
         }
-        button.submit-btn:hover {
-            background-color: #00695c;
-            box-shadow: 0 5px 15px rgba(0,137,123,0.4);
+        button:hover {
+            background-color: #a93226;
         }
-        .feedback {
+        .explanation {
             display: none;
             margin-top: 15px;
             padding: 15px;
-            border-radius: 8px;
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
             font-size: 0.95em;
-        }
-        .feedback.correct {
-            background: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            color: #2e7d32;
-        }
-        .feedback.wrong {
-            background: #fff3e0;
-            border-left: 5px solid #ff9800;
-            color: #e65100;
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>🌊 舞吧！小飛魚 深度文化測驗 🐟</h1>
-    <p class="intro">歡迎來到測驗挑戰！本測驗為**複選題**，每題皆有**兩個或以上**的正確選項。<br>請仔細閱讀，選出所有符合文本概念的敘述。</p>
+<div class="container">
+    <h1>🔥 苗栗螃龍文化：深度挑戰測驗 🔥</h1>
+    <div class="intro">
+        親愛的同學：這是一份複選題測驗，請仔細閱讀選項。每一題都有兩個以上的正確答案，考驗你對文本細節的觀察力！
+    </div>
 
     <form id="quizForm">
-        
-        <div class="question-block" id="q1-block">
-            <div class="question-text">1. 關於〈舞吧！小飛魚〉的文本性質、背景設定與敘事結構，下列敘述哪些是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q1" value="A"> A) 本文體裁為記敘文，主要記錄了小飛魚文化展演隊從排斥傳統到建立民族自豪感的蛻變歷程。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="B"> B) 顏老師作為達悟族部落的在地長老，以九牛二虎之力推動傳統文化的復育與傳承。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="C"> C) 故事的發展經歷了「起因、經過、結果、結語」四個階段，其中登上波蘭國際舞台為展現文化自信的關鍵結果。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="D"> D) 男童初期對傳統服飾的抗拒，反映出年輕世代與傳統文化間存在著嚴重的認知斷層。</label>
-            <label class="option-label"><input type="checkbox" name="q1" value="E"> E) 文本的核心主旨僅限於客觀記錄椰油國小學童出國比賽奪冠的歷程，並未涉及深層的心理轉變。</label>
-            <div class="feedback" id="feedback-q1"></div>
-        </div>
+        <div class="question">
+            <p>1. 關於「螃龍」的名稱釋義與文化象徵，下列敘述哪些正確？（複選）</p>
+            <div class="options">
+                <label><input type="checkbox" name="q1" value="A"> A. 「螃」（Pang）在客家話中意指以鞭炮炸龍的動作。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 客家人將「螃龍」視為神明造訪，認為能帶來好運。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 「炸龍」的習俗主要是為了慶祝農曆正月初一。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 民間相信「越炸越旺」，火光與煙硝象徵運勢蒸蒸日上。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 螃龍活動僅是純粹的娛樂，與族群認同或鄉土情感無關。</label>
+            </div>
+            </div>
 
-        <div class="question-block" id="q2-block">
-            <div class="question-text">2. 關於核心衝突的化解與文化復育運動的要素，下列分析哪些符合文本意旨？</div>
-            <label class="option-label"><input type="checkbox" name="q2" value="A"> A) 顏老師的教學策略並非採用權威式的強迫，而是透過長期的陪伴與引導，讓孩子逐漸接納傳統。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="B"> B) 國際觀眾的喝采扮演了「大眾的肯定與尊重」之角色，促使孩子們將傳統服飾視為引以為傲的民族標記。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="C"> C) 孩子們起初認為丁字褲是「族裡老人穿的」，這顯示他們完全不了解丁字褲的穿著技術，因而產生排斥。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="D"> D) 文本中提到的文化復育三大要素，顏老師的角色完美體現了其中的「內在的覺醒與勇氣」。</label>
-            <label class="option-label"><input type="checkbox" name="q2" value="E"> E) 學生克服原本對於穿著丁字褲在眾人面前展演的自卑感，正是文化復育要素中「內在的覺醒與勇氣」的展現。</label>
-            <div class="feedback" id="feedback-q2"></div>
-        </div>
+        <div class="question">
+            <p>2. 下列關於螃龍活動「六個階段」的描述，哪些是完全符合文本內容的？（複選）</p>
+            <div class="options">
+                <label><input type="checkbox" name="q2" value="A"> A. 「糊龍」是製作神龍，為整個活動的起點。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 「祥龍點睛」在玉清宮舉行，目的是賦予神龍靈氣。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 「跈龍」一詞中的「跈」在客語中發音為「ten」，意為「跟隨」。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 「化龍返天」是活動的高潮，神龍在煙硝中穿梭，民眾投擲鞭炮。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 「迎龍」象徵家家戶戶期待好運與福氣降臨。</label>
+            </div>
+            </div>
 
-        <div class="question-block" id="q3-block">
-            <div class="question-text">3. 關於文本中的關鍵詞彙應用與字義辨析，下列選項哪些是正確無誤的？</div>
-            <label class="option-label"><input type="checkbox" name="q3" value="A"> A) 「甩髮」為達悟族男性與女性在慶典中皆會頻繁使用的傳統舞蹈動作，象徵力量。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="B"> B) 「九牛二虎之力」在文中極適合用來形容顏老師為了宣導並說服孩子們穿上傳統服飾所付出的極大心力。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="C"> C) 「不再是……而是……」的句型，精準傳達了傳統服飾在孩子心中「否定負面觀感並轉化為肯定驕傲」的狀態轉換。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="D"> D) 連接詞「甚至」在文意表達上，主要用於呈現前後句的強烈對比與轉折語氣。</label>
-            <label class="option-label"><input type="checkbox" name="q3" value="E"> E) 在字義辨析中，「勉勵」與「鼓勵」皆帶有激發、勸勉對方努力之意；「歸屬」則帶有一種從屬、認同的關係。</label>
-            <div class="feedback" id="feedback-q3"></div>
-        </div>
+        <div class="question">
+            <p>3. 關於「祥龍點睛」與「螃龍之夜」的細節，下列哪些描述是正確的？（複選）</p>
+            <div class="options">
+                <label><input type="checkbox" name="q3" value="A"> A. 點睛儀式前，神龍的狀態被描述為「雙眼無神，毫無生氣」。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 點睛時使用「硃砂紅墨」點入雙眼，象徵凡物轉化為具有守護能量的神靈。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 螃龍之夜時，民眾雖然害怕爆竹聲，但認為那是維持秩序的必要手段。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 螃龍之夜的視覺景象包含「灰色濃煙」與「金黃火光」。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 信眾認為炸龍是「驅邪避災、守護家園」的必要過程。</label>
+            </div>
+            </div>
 
-        <br><br>
+        <div class="question">
+            <p>4. 根據文本提供的詞語解釋與辨析，下列應用哪些是正確的？（複選）</p>
+            <div class="options">
+                <label><input type="checkbox" name="q4" value="A"> A. 「序幕」可用來形容重大事件的開端，例如：點睛儀式拉開了慶典的序幕。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 「穿梭」形容往來頻繁，例如：神龍在街道間穿梭。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 「儀」代表法規程序（如：禮儀），「義」代表公正合宜（如：正義）。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 「懷」代表不良、惡劣；「壞」代表存有、抱著。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 「挨家挨戶」意指依照次序一家接著一家。</label>
+            </div>
+            </div>
 
-        <div class="question-block" id="q4-block">
-            <div class="question-text">4. 根據文本中的「達悟族傳統服飾圖解」知識點，下列哪些穿搭描述是正確的？</div>
-            <label class="option-label"><input type="checkbox" name="q4" value="A"> A) 丁字褲為達悟族男性的傳統標誌，其特殊的形狀與穿法皆具備特定的文化技術。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="B"> B) 為了符合現代舞台規範，達悟族人在穿著傳統服飾展演時，必須穿著特製的傳統草鞋。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="C"> C) 傳統上衣的編織圖騰中，女性服飾以青白相間為主，男性服飾則通常以紅黑相間來區別性別。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="D"> D) 族人在傳統裝扮中使用的飾品，其材質主要涵蓋了金屬、銀片或貝類。</label>
-            <label class="option-label"><input type="checkbox" name="q4" value="E"> E) 展演或參與祭典時，配戴的「禮刀」具有象徵神聖與力量的深刻文化意涵。</label>
-            <div class="feedback" id="feedback-q4"></div>
-        </div>
+        <div class="question">
+            <p>5. 關於「生氣」一詞的多義性以及文本的結論，下列敘述哪些符合內容？（複選）</p>
+            <div class="options">
+                <label><input type="checkbox" name="q5" value="A"> A. 「生氣」可指活潑有朝氣，如：點睛後的龍充滿生氣。</label>
+                <label><input type="checkbox" name="q5" value="B"> B. 「生氣」可指發怒，如：他忘了帶器材，讓人很生氣。</label>
+                <label><input type="checkbox" name="q5" value="C"> C. 曉霜收到阿公送的「福菜」與「明信片」，象徵文化的代際傳遞。</label>
+                <label><input type="checkbox" name="q5" value="D"> D. 「化龍返天」象徵神龍功德圓滿，火化後返回天庭。</label>
+                <label><input type="checkbox" name="q5" value="E"> E. 文本強調，比起熱鬧的活動，更重要的是讓後輩能深刻認識並尊重客家文化。</label>
+            </div>
+            </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案，查看解析！</button>
+        <button type="button" onclick="checkAnswers()">提交測驗</button>
     </form>
+
+    <div id="result" style="display:none; margin-top: 20px; padding: 20px; border-radius: 10px;"></div>
 </div>
 
 <script>
     function checkAnswers() {
-        // 定義正確答案 (陣列形式以符合複選)
         const answers = {
-            q1: ['A', 'C', 'D'],
-            q2: ['A', 'B', 'E'],
-            q3: ['B', 'C', 'E'],
-            q4: ['A', 'D', 'E']
+            q1: ['A', 'B', 'D'],
+            q2: ['A', 'B', 'C', 'E'],
+            q3: ['A', 'B', 'D', 'E'],
+            q4: ['A', 'B', 'C', 'E'],
+            q5: ['A', 'B', 'C', 'D', 'E']
         };
 
-        // 定義解析內容
         const explanations = {
-            q1: "【解析】(B) 錯誤，顏老師來自臺灣本島，並非在地長老。(E) 錯誤，核心主旨包含了深層的文化認同與心理蛻變，非僅客觀記錄賽事。",
-            q2: "【解析】(C) 錯誤，抗拒是因為覺得是「老人穿的」且在眾人前穿需要勇氣，而非技術問題。(D) 錯誤，顏老師代表的是「外界的欣賞與引導」。",
-            q3: "【解析】(A) 錯誤，「甩髮」是達悟族女性傳統舞蹈中的關鍵動作。(D) 錯誤，「甚至」是表達更進一層的遞進連接詞，而非對比轉折。",
-            q4: "【解析】(B) 錯誤，傳統上男女皆不穿鞋（打赤腳）。(C) 錯誤，文本指出上衣「男、女皆有，通常以青、白色相間的織紋為主」，未提及紅黑區別性別。"
+            q1: "解析：(C) 應為農曆正月十五元宵節而非正月初一；(E) 文本強調這能強化家鄉情感與族群認同。",
+            q2: "解析：(D) 活動高潮是「螃龍之夜」，「化龍返天」是活動的結尾（火化燃燒）。",
+            q3: "解析：(C) 文本中提到爆竹聲震天是為了「驅邪避災」，並非為了「維持秩序」。",
+            q4: "解析：(D) 選項將字義顛倒了，「懷」是存有（如懷抱），「壞」是不良（如壞人）。",
+            q5: "解析：此題所有選項皆正確，完整涵蓋了詞彙多義性、文本情節與最終傳承的核心價值。"
         };
 
-        // 批改與回饋邏輯
-        for (let i = 1; i <= 4; i++) {
-            let qName = 'q' + i;
-            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
-            let correct = answers[qName];
-            let feedbackEl = document.getElementById(`feedback-${qName}`);
-            
-            feedbackEl.style.display = 'block';
-            
-            // 檢查陣列是否完全相同 (排序後轉字串比較)
-            let isCorrect = (selected.sort().toString() === correct.sort().toString());
+        let score = 0;
+        let total = 5;
+        let report = "<h3>測驗結果報告：</h3>";
 
+        for (let i = 1; i <= total; i++) {
+            const qName = 'q' + i;
+            const selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
+            const correct = answers[qName];
+            
+            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+            
             if (isCorrect) {
-                feedbackEl.className = 'feedback correct';
-                feedbackEl.innerHTML = `✅ 恭喜答對！完全掌握了此題的重點。<br>${explanations[qName]}`;
+                score++;
+                report += `<p style="color: green;">第 ${i} 題 正確！✅</p>`;
             } else {
-                feedbackEl.className = 'feedback wrong';
-                feedbackEl.innerHTML = `❌ 哎呀，少選或多選囉！正確答案是：${correct.join(', ')}。<br>${explanations[qName]}`;
+                report += `<p style="color: red;">第 ${i} 題 錯誤 ❌ (正確答案為: ${correct.join(', ')})<br><small>${explanations[qName]}</small></p>`;
             }
         }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.style.backgroundColor = score === total ? '#d4edda' : '#f8d7da';
+        resultDiv.innerHTML = report + `<h4>總分：${score} / ${total}</h4>`;
+        window.scrollTo(0, document.body.scrollHeight);
     }
 </script>
 
