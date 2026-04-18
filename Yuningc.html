@@ -1,66 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>苗栗客家「螃龍」文化深度測驗</title>
+    <title>苗栗客家螃龍文化深度挑戰賽</title>
     <style>
         body {
             font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #f4f1ea;
-            color: #333;
+            background-color: #fff5e6;
+            color: #4a2c2c;
             line-height: 1.6;
             padding: 20px;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #fff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 10px solid #c0392b; /* 客家節慶紅 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 10px solid #e67e22;
         }
         h1 {
             text-align: center;
-            color: #c0392b;
-            border-bottom: 2px dashed #c0392b;
+            color: #d35400;
+            border-bottom: 2px dashed #e67e22;
             padding-bottom: 10px;
         }
-        .intro {
-            background: #fdf2f2;
+        .quiz-intro {
+            background: #fdf2e9;
             padding: 15px;
             border-left: 5px solid #e67e22;
-            margin-bottom: 25px;
-            font-style: italic;
+            margin-bottom: 20px;
         }
         .question {
-            margin-bottom: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #fafafa;
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
         }
-        .question p {
+        .question-text {
             font-weight: bold;
             font-size: 1.1em;
+            margin-bottom: 10px;
             color: #2c3e50;
         }
         .options label {
             display: block;
-            margin: 10px 0;
+            margin-bottom: 8px;
             cursor: pointer;
             padding: 5px;
-            transition: background 0.2s;
+            transition: background 0.3s;
         }
         .options label:hover {
-            background-color: #eee;
+            background-color: #fff9f0;
         }
-        button {
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #c0392b;
+            background-color: #e67e22;
             color: white;
             border: none;
             border-radius: 5px;
@@ -68,130 +70,172 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        button:hover {
-            background-color: #a93226;
+        .submit-btn:hover {
+            background-color: #d35400;
         }
-        .explanation {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #e8f6f3;
-            border-left: 5px solid #1abc9c;
-            font-size: 0.95em;
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #7f8c8d;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🔥 苗栗螃龍文化：深度挑戰測驗 🔥</h1>
-    <div class="intro">
-        親愛的同學：這是一份複選題測驗，請仔細閱讀選項。每一題都有兩個以上的正確答案，考驗你對文本細節的觀察力！
+    <h1>🔥 螃龍文化：高難度複選挑戰 🔥</h1>
+    
+    <div class="quiz-intro">
+        各位挑戰者請注意：本測驗所有題目皆為<strong>複選題</strong>。你必須選出<strong>所有正確</strong>的選項才能得分。這不僅是記憶力的考驗，更是對細節理解的終極對決！
     </div>
 
     <form id="quizForm">
         <div class="question">
-            <p>1. 關於「螃龍」的名稱釋義與文化象徵，下列敘述哪些正確？（複選）</p>
+            <p class="question-text">1. 關於「螃龍」活動的文化核心與象徵意涵，下列敘述哪些正確？</p>
             <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 「螃」（Pang）在客家話中意指以鞭炮炸龍的動作。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 客家人將「螃龍」視為神明造訪，認為能帶來好運。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 「炸龍」的習俗主要是為了慶祝農曆正月初一。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 民間相信「越炸越旺」，火光與煙硝象徵運勢蒸蒸日上。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 螃龍活動僅是純粹的娛樂，與族群認同或鄉土情感無關。</label>
+                <label><input type="checkbox" name="q1" value="A"> 「螃」在客家話中意指以鞭炮炸龍的動作。</label>
+                <label><input type="checkbox" name="q1" value="B"> 客家人將神龍登門視為「神明造訪」，具備宗教意涵。</label>
+                <label><input type="checkbox" name="q1" value="C"> 炸龍活動象徵「越炸越旺」，預示運勢隨火光蒸蒸日上。</label>
+                <label><input type="checkbox" name="q1" value="D"> 此活動的核心價值包含強化家鄉情感與族群精神認同。</label>
+                <label><input type="checkbox" name="q1" value="E"> 螃龍活動主要在農曆正月初一舉行，象徵一年的開端。</label>
             </div>
             </div>
 
         <div class="question">
-            <p>2. 下列關於螃龍活動「六個階段」的描述，哪些是完全符合文本內容的？（複選）</p>
+            <p class="question-text">2. 根據螃龍活動的六階段流程，關於前三個階段的描述，哪些是正確的？</p>
             <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 「糊龍」是製作神龍，為整個活動的起點。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 「祥龍點睛」在玉清宮舉行，目的是賦予神龍靈氣。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 「跈龍」一詞中的「跈」在客語中發音為「ten」，意為「跟隨」。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 「化龍返天」是活動的高潮，神龍在煙硝中穿梭，民眾投擲鞭炮。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 「迎龍」象徵家家戶戶期待好運與福氣降臨。</label>
+                <label><input type="checkbox" name="q2" value="A"> 「糊龍」是整個活動的起點，負責製作神龍。</label>
+                <label><input type="checkbox" name="q2" value="B"> 「祥龍點睛」地點通常選在玉清宮，具有拉開序幕的功能。</label>
+                <label><input type="checkbox" name="q2" value="C"> 點睛儀式後，神龍會由「充滿神采」轉為「靈氣逼人」。</label>
+                <label><input type="checkbox" name="q2" value="D"> 「迎龍」代表家家戶戶期待好運與福氣隨著神龍降臨。</label>
+                <label><input type="checkbox" name="q2" value="E"> 祥龍點睛使用的工具包含硃砂紅墨。</label>
             </div>
             </div>
 
         <div class="question">
-            <p>3. 關於「祥龍點睛」與「螃龍之夜」的細節，下列哪些描述是正確的？（複選）</p>
+            <p class="question-text">3. 針對「跈龍」與「踩街」階段的細節分析，正確的選項有哪些？</p>
             <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 點睛儀式前，神龍的狀態被描述為「雙眼無神，毫無生氣」。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 點睛時使用「硃砂紅墨」點入雙眼，象徵凡物轉化為具有守護能量的神靈。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 螃龍之夜時，民眾雖然害怕爆竹聲，但認為那是維持秩序的必要手段。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 螃龍之夜的視覺景象包含「灰色濃煙」與「金黃火光」。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 信眾認為炸龍是「驅邪避災、守護家園」的必要過程。</label>
+                <label><input type="checkbox" name="q3" value="A"> 「跈」（ten）在客家話中的意思即為「跟隨」。</label>
+                <label><input type="checkbox" name="q3" value="B"> 民眾跟隨神龍的目的是為了「吸取龍氣」並尋求吉利。</label>
+                <label><input type="checkbox" name="q3" value="C"> 踩街盛況反映了客家族群強大的凝聚力。</label>
+                <label><input type="checkbox" name="q3" value="D"> 跈龍是螃龍活動的最後一個階段，象徵功德圓滿。</label>
+                <label><input type="checkbox" name="q3" value="E"> 文獻描述此階段會有成千上萬的民眾湧入街頭。</label>
             </div>
             </div>
 
         <div class="question">
-            <p>4. 根據文本提供的詞語解釋與辨析，下列應用哪些是正確的？（複選）</p>
+            <p class="question-text">4. 關於「螃龍之夜」與「化龍返天」的視覺與情感描述，哪些符合文本內容？</p>
             <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 「序幕」可用來形容重大事件的開端，例如：點睛儀式拉開了慶典的序幕。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 「穿梭」形容往來頻繁，例如：神龍在街道間穿梭。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 「儀」代表法規程序（如：禮儀），「義」代表公正合宜（如：正義）。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 「懷」代表不良、惡劣；「壞」代表存有、抱著。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 「挨家挨戶」意指依照次序一家接著一家。</label>
+                <label><input type="checkbox" name="q4" value="A"> 螃龍之夜是活動的最高潮，神龍穿梭於灰色濃煙與金黃火光中。</label>
+                <label><input type="checkbox" name="q4" value="B"> 民眾向龍身投擲鞭炮被視為驅邪避災、守護家園的必要過程。</label>
+                <label><input type="checkbox" name="q4" value="C"> 「化龍返天」是以火點燃神龍，象徵其返回天庭保佑蒼生。</label>
+                <label><input type="checkbox" name="q4" value="D"> 螃龍之夜的氣氛被文獻描述為「莊嚴肅穆且安靜」。</label>
+                <label><input type="checkbox" name="q4" value="E"> 化龍返天標誌著神龍完成了在人間的功德。</label>
             </div>
             </div>
 
         <div class="question">
-            <p>5. 關於「生氣」一詞的多義性以及文本的結論，下列敘述哪些符合內容？（複選）</p>
+            <p class="question-text">5. 下列關於文本中詞語的解釋與應用，哪些組合是正確的？</p>
             <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 「生氣」可指活潑有朝氣，如：點睛後的龍充滿生氣。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 「生氣」可指發怒，如：他忘了帶器材，讓人很生氣。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 曉霜收到阿公送的「福菜」與「明信片」，象徵文化的代際傳遞。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 「化龍返天」象徵神龍功德圓滿，火化後返回天庭。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 文本強調，比起熱鬧的活動，更重要的是讓後輩能深刻認識並尊重客家文化。</label>
+                <label><input type="checkbox" name="q5" value="A"> 「序幕」可用來指稱重大事件的開端。</label>
+                <label><input type="checkbox" name="q5" value="B"> 「高潮」比喻事物發展中最高漲、最緊張的時刻。</label>
+                <label><input type="checkbox" name="q5" value="C"> 「穿梭」形容往來次數極少，如同隱形一般。</label>
+                <label><input type="checkbox" name="q5" value="D"> 「毫無」的意思是「一點也沒有」。</label>
+                <label><input type="checkbox" name="q5" value="E"> 「挨家挨戶」意指依照次序一家接著一家。</label>
             </div>
             </div>
 
-        <button type="button" onclick="checkAnswers()">提交測驗</button>
+        <div class="question">
+            <p class="question-text">6. 根據「字義與字形辨析」單元，下列哪些用法是正確的？</p>
+            <div class="options">
+                <label><input type="checkbox" name="q6" value="A"> 他「懷」著滿懷希望參加螃龍活動。（存有、抱著）</label>
+                <label><input type="checkbox" name="q6" value="B"> 破「壞」傳統文化是不良的行為。（不良、惡劣）</label>
+                <label><input type="checkbox" name="q6" value="C"> 參加祭典要遵守相關禮「義」。（法規、程序）</label>
+                <label><input type="checkbox" name="q6" value="D"> 這種為家鄉奮鬥的精神非常有正「儀」感。（公正合宜）</label>
+                <label><input type="checkbox" name="q6" value="E"> 「儀」式與「義」氣的字義與用法並不相同。</label>
+            </div>
+            </div>
+
+        <div class="question">
+            <p class="question-text">7. 文中提到「生氣」一詞具備多義性，下列敘述哪些符合文本分析？</p>
+            <div class="options">
+                <label><input type="checkbox" name="q7" value="A"> 可指「活潑有朝氣」，如點睛後的龍充滿生氣。</label>
+                <label><input type="checkbox" name="q7" value="B"> 可指「發怒」，如因為忘了帶器材而生氣。</label>
+                <label><input type="checkbox" name="q7" value="C"> 點睛前的神龍被形容為「毫無生氣」。</label>
+                <label><input type="checkbox" name="q7" value="D"> 在螃龍活動中，生氣通常指的是民眾對噪音感到不悅。</label>
+                <label><input type="checkbox" name="q7" value="E"> 文中透過龍的轉變來示範「生氣」的不同語境。</label>
+            </div>
+            </div>
+
+        <div class="question">
+            <p class="question-text">8. 關於《螃龍慶元宵》的結論與文化傳承，正確的理解包含哪些？</p>
+            <div class="options">
+                <label><input type="checkbox" name="q8" value="A"> 本文不僅是民俗記錄，更是一次家鄉記憶的重塑。</label>
+                <label><input type="checkbox" name="q8" value="B"> 阿公送的「螃龍明信片」與「福菜」象徵傳統的代際傳遞。</label>
+                <label><input type="checkbox" name="q8" value="C"> 認識並尊重鄉土文化比單純參與熱鬧活動更重要。</label>
+                <label><input type="checkbox" name="q8" value="D"> 螃龍這項技藝在現代社會中已經失去價值，僅供參考。</label>
+                <label><input type="checkbox" name="q8" value="E"> 文化的傳承能讓獨特的民俗技藝持續發光。</label>
+            </div>
+            </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗並查看解析</button>
     </form>
 
-    <div id="result" style="display:none; margin-top: 20px; padding: 20px; border-radius: 10px;"></div>
+    <div id="result" style="margin-top: 20px; display: none; padding: 20px; border-radius: 10px; background: #e8f6f3;">
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2024 苗栗客家文化研究室 - 測驗小幫手製作
 </div>
 
 <script>
     function checkAnswers() {
-        const answers = {
-            q1: ['A', 'B', 'D'],
-            q2: ['A', 'B', 'C', 'E'],
-            q3: ['A', 'B', 'D', 'E'],
+        const correctAnswers = {
+            q1: ['A', 'B', 'C', 'D'],
+            q2: ['A', 'B', 'D', 'E'],
+            q3: ['A', 'B', 'C', 'E'],
             q4: ['A', 'B', 'C', 'E'],
-            q5: ['A', 'B', 'C', 'D', 'E']
-        };
-
-        const explanations = {
-            q1: "解析：(C) 應為農曆正月十五元宵節而非正月初一；(E) 文本強調這能強化家鄉情感與族群認同。",
-            q2: "解析：(D) 活動高潮是「螃龍之夜」，「化龍返天」是活動的結尾（火化燃燒）。",
-            q3: "解析：(C) 文本中提到爆竹聲震天是為了「驅邪避災」，並非為了「維持秩序」。",
-            q4: "解析：(D) 選項將字義顛倒了，「懷」是存有（如懷抱），「壞」是不良（如壞人）。",
-            q5: "解析：此題所有選項皆正確，完整涵蓋了詞彙多義性、文本情節與最終傳承的核心價值。"
+            q5: ['A', 'B', 'D', 'E'],
+            q6: ['A', 'B', 'E'],
+            q7: ['A', 'B', 'C', 'E'],
+            q8: ['A', 'B', 'C', 'E']
         };
 
         let score = 0;
-        let total = 5;
-        let report = "<h3>測驗結果報告：</h3>";
+        let total = 8;
+        let feedback = "<h2>測驗結果解析</h2>";
 
         for (let i = 1; i <= total; i++) {
-            const qName = 'q' + i;
-            const selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
-            const correct = answers[qName];
+            let qName = 'q' + i;
+            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
+            let correct = correctAnswers[qName];
             
-            const isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+            let isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
             
-            if (isCorrect) {
-                score++;
-                report += `<p style="color: green;">第 ${i} 題 正確！✅</p>`;
-            } else {
-                report += `<p style="color: red;">第 ${i} 題 錯誤 ❌ (正確答案為: ${correct.join(', ')})<br><small>${explanations[qName]}</small></p>`;
-            }
+            feedback += `<p><strong>第 ${i} 題：${isCorrect ? '<span style="color:green;">正確</span>' : '<span style="color:red;">不完全正確</span>'}</strong><br>`;
+            feedback += `正確答案是：${correct.join(', ')}<br>`;
+            
+            if (isCorrect) score++;
+            
+            // 解析內容
+            const rationales = [
+                "解析：螃龍意指炸龍，神龍登門是神明造訪，象徵越炸越旺。元宵節是正月十五而非初一。",
+                "解析：點睛在玉清宮舉行，用硃砂。神龍是從「無神」變「神采」，而非靈氣轉靈氣。",
+                "解析：跈即跟隨，目的是吸取龍氣。化龍返天才最後一個階段。",
+                "解析：螃龍之夜氣氛熱鬧非凡而非安靜。化龍象徵功德圓滿回天庭。",
+                "解析：穿梭形容次數頻繁，而非極少。",
+                "解析：儀指的是法規程序（禮儀），義指的是公正合宜（正義）。",
+                "解析：文中提到龍點睛後充滿生氣（朝氣），但也列舉了發怒的解釋作為對比。",
+                "解析：文本強調傳統文化在現代持續發光，而非失去價值。"
+            ];
+            feedback += `<small>${rationales[i-1]}</small></p><hr>`;
         }
 
         const resultDiv = document.getElementById('result');
         resultDiv.style.display = 'block';
-        resultDiv.style.backgroundColor = score === total ? '#d4edda' : '#f8d7da';
-        resultDiv.innerHTML = report + `<h4>總分：${score} / ${total}</h4>`;
+        resultDiv.innerHTML = `<h3>你的得分：${score} / ${total}</h3>` + feedback;
         window.scrollTo(0, document.body.scrollHeight);
     }
 </script>
