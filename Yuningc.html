@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蝶之生：生命成長與語文學習 綜合測驗</title>
+    <title>活出生命奇蹟：力克·胡哲生命歷程 挑戰測驗</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4fdf4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Microsoft JhengHei';
+            background-color: #f0f8ff;
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -15,37 +15,36 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #ffffff;
+            background: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 8px solid #66bb6a;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #2e7d32;
             text-align: center;
-            border-bottom: 2px dashed #a5d6a7;
-            padding-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-        .intro {
-            background-color: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 0.95em;
+        p.intro {
+            text-align: center;
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 30px;
         }
         .question-block {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #fafafa;
-            border-left: 5px solid #81c784;
-            border-radius: 5px;
+            background: #fdfefe;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .question-text {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.15em;
             margin-bottom: 15px;
-            color: #1b5e20;
+            color: #2980b9;
         }
         .options label {
             display: block;
@@ -53,188 +52,192 @@
             cursor: pointer;
             padding: 8px;
             border-radius: 5px;
-            transition: background-color 0.2s;
+            transition: background 0.3s;
         }
         .options label:hover {
-            background-color: #e8f5e9;
-        }
-        input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+            background: #eaf2f8;
         }
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #4caf50;
+            background-color: #27ae60;
             color: white;
             font-size: 1.2em;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
         .submit-btn:hover {
-            background-color: #388e3c;
-        }
-        .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            display: none;
-            font-size: 0.95em;
-        }
-        .correct {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #2ecc71;
         }
         .explanation {
-            margin-top: 10px;
-            font-weight: normal;
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.95em;
         }
-        #result-summary {
+        .result-summary {
+            display: none;
             text-align: center;
             font-size: 1.5em;
             font-weight: bold;
             margin-top: 20px;
-            color: #2e7d32;
-            display: none;
+            padding: 20px;
+            border-radius: 8px;
         }
+        .score-good { background-color: #d4edda; color: #155724; }
+        .score-bad { background-color: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🦋 蝶之生：綜合挑戰測驗 🦋</h1>
-    <div class="intro">
-        <strong>測驗小幫手提醒：</strong>這是一份高難度的複選題測驗！每一題都有<strong>兩個或以上的正確選項</strong>，請仔細閱讀每一字每一句，並勾選所有您認為正確的答案。準備好了嗎？展翅高飛吧！
-    </div>
+    <h1>力克·胡哲生命歷程 挑戰測驗</h1>
+    <p class="intro">請注意：本測驗為<b>高難度複選題</b>，每題皆有<b>兩個以上</b>的正確選項。請勾選所有符合敘述的答案！</p>
 
     <form id="quizForm">
         
-        <div class="question-block" id="q1-block">
-            <div class="question-text">1. 關於「蝶之生」中蝴蝶的成長歷程與其象徵的生命哲理，下列敘述哪些是正確的？</div>
+        <div class="question-block">
+            <div class="question-text">1. 關於力克·胡哲早期的生理限制與奮鬥過程，下列敘述哪些是正確的？（複選）</div>
             <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 幼蟲階段最大的生存考驗在於如何快速進入化蛹狀態，以躲避天敵的追擊。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 蛹中的「靜止不動的時間」並非真正的停滯，而是為了未來長遠之路所作的適當休息與修煉。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 羽化的過程包含打破蛹殼、將身體拉出、撐平羽衣並晾乾雙翅等按部就班的步驟，象徵成長無法投機取巧。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 生命被定義為「一場場的挑戰」，只要能在幼蟲期安然度過天敵威脅，羽化成蝶後便不再有挑戰。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 蝴蝶破蛹而出並展開高飛的過程，具體展現了「勇於邁向挑戰，突破自我」的成長精神。</label>
+                <label><input type="checkbox" name="q1" value="A"> A) 力克出生時完全沒有四肢，連腳趾或任何形式的腳部構造都沒有。</label>
+                <label><input type="checkbox" name="q1" value="B" data-correct="true"> B) 為了站起來，即使面臨身體摩擦導致的破皮流血與精疲力竭，他仍堅持靠自己的力量。</label>
+                <label><input type="checkbox" name="q1" value="C"> C) 小時候他在嘗試挪動身體時，主要依賴醫院提供的特製輔助義肢來支撐。</label>
+                <label><input type="checkbox" name="q1" value="D" data-correct="true"> D) 他曾經需要利用頭部頂住牆壁，以此費力地挪動自己的身體。</label>
+                <label><input type="checkbox" name="q1" value="E" data-correct="true"> E) 他不願受困於床上，最終學會利用天生變形的「小小腳」來支撐身體。</label>
             </div>
-            <div class="feedback" id="q1-feedback"></div>
+            <div class="explanation" id="exp-q1">
+                <b>【解析】</b><br>
+                正確答案為 B、D、E。<br>
+                A 錯誤：文本指出他並非完全沒有腳部構造，而是有兩個變形的「小小腳」。<br>
+                C 錯誤：文本並未提及依賴醫院特製輔助義肢，而是靠自己利用頭部頂牆與小小腳支撐。<br>
+                B、D、E 皆精確符合文本中「早期困難」與「奮鬥過程」的描述。
+            </div>
         </div>
 
-        <div class="question-block" id="q2-block">
-            <div class="question-text">2. 根據教材中的核心詞彙定義與應用，下列哪些句子的詞語使用是完全正確且符合其釋義的？</div>
+        <div class="question-block">
+            <div class="question-text">2. 在心理轉折與自我認同的階段，下列哪些因素或行動促成了力克的蛻變與成功？（複選）</div>
             <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 經過多年的「修煉」，他終於在才藝大賽中展現出令人驚豔的「絕技」。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 太陽剛「破曉」，市場的攤販們就已經開始忙碌地準備一天的生計了。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 醜小鴨經歷了「蛻變」，終於成為一隻美麗的天鵝，這表示牠的本質與外觀發生了根本性的改變。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 國慶日的遊行隊伍「翩翩」地向前「移動」，展現出莊嚴肅穆的氣氛。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 為了躲避突如其來的傾盆大雨，他「雀躍」地逃跑到了屋簷下。</label>
+                <label><input type="checkbox" name="q2" value="A"> A) 父母教導力克要勇敢反擊同學的嘲諷，藉此在學校建立威信與自信心。</label>
+                <label><input type="checkbox" name="q2" value="B"> B) 為了融入校園，他選擇隱藏自己的缺點並保持沉默，直到被老師指派為學生會會長。</label>
+                <label><input type="checkbox" name="q2" value="C" data-correct="true"> C) 力克主動接近同學並分享自己的故事，成功打破了他人異樣的眼光。</label>
+                <label><input type="checkbox" name="q2" value="D" data-correct="true"> D) 父母的鼓勵引導他不要在意別人的眼光，轉而以積極正面的態度接納自己。</label>
+                <label><input type="checkbox" name="q2" value="E" data-correct="true"> E) 他不僅融入校園生活，更憑藉自身的人格魅力與影響力被推舉為學生會會長。</label>
             </div>
-            <div class="feedback" id="q2-feedback"></div>
+            <div class="explanation" id="exp-q2">
+                <b>【解析】</b><br>
+                正確答案為 C、D、E。<br>
+                A 錯誤：父母是教導他「不要在意別人的眼光」，而非「反擊嘲諷」。<br>
+                B 錯誤：他是「主動接近同學」並非保持沉默，且是被「推舉」而非老師指派。<br>
+                C、D、E 均正確反映了他在家人支持與求學時期的積極行動與領導才能。
+            </div>
         </div>
 
-        <div class="question-block" id="q3-block">
-            <div class="question-text">3. 關於教材中提到的句型邏輯（譬喻句型與「或」的選擇句），下列哪些分析或造句是正確的？</div>
+        <div class="question-block">
+            <div class="question-text">3. 關於力克的極限挑戰、卓越成就及其核心生命哲學，下列敘述何者正確？（複選）</div>
             <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 根據教材的譬喻句型結構，「歷史是一面面的鏡子」與「閱讀是一關關的冒險」皆屬於正確的句型應用。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 使用「或」連接的兩個事項，在邏輯上代表這兩件事情可以同時發生並存。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 「午餐時間，我可以選擇吃便當或吃麵」這句話正確示範了「或」的選擇性關係，代表只能從中選擇一種情況。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 「爸爸下班後，會選擇搭乘公車、捷運或騎乘公共單車回家」表示爸爸每天下班都會同時使用這三種交通工具。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 「生命是一場場的挑戰」此句型旨在透過具體的量詞與名詞搭配，豐富文句的意象與表達。</label>
+                <label><input type="checkbox" name="q3" value="A" data-correct="true"> A) 他在夏威夷成功挑戰衝浪，展現如海豚般敏捷的動作，徹底打破人們對殘障人士的刻板印象。</label>
+                <label><input type="checkbox" name="q3" value="B"> B) 力克創辦了名為「沒有四肢的人生」的營利組織，透過全球巡迴演講籌措個人生活資金。</label>
+                <label><input type="checkbox" name="q3" value="C" data-correct="true"> C) 他認為雖然自己沒有健全的四肢，但這份「與眾不同」是生命中的另一種美好。</label>
+                <label><input type="checkbox" name="q3" value="D"> D) 他的核心理念主張：人應該執著於面對自身的痛苦，才能將悲劇轉化為奇蹟。</label>
+                <label><input type="checkbox" name="q3" value="E" data-correct="true"> E) 他的著名格言是：「如果你等不到奇蹟，那就讓自己成為一個奇蹟。」</label>
             </div>
-            <div class="feedback" id="q3-feedback"></div>
+            <div class="explanation" id="exp-q3">
+                <b>【解析】</b><br>
+                正確答案為 A、C、E。<br>
+                B 錯誤：「沒有四肢的人生」是一個「非營利組織（NGO）」，主要目的是鼓勵無數人，而非營利或籌措個人資金。<br>
+                D 錯誤：文本提到他主張「與其執著於自身的痛苦，不如走出自我」，將注意力放在需要幫助的人身上。<br>
+                A、C、E 皆正確對應文本的具體成就與名言。
+            </div>
         </div>
 
-        <div class="question-block" id="q4-block">
-            <div class="question-text">4. 在字形辨析與字義深入學習中，下列哪些關於漢字的解釋與字形區分是正確的？</div>
+        <div class="question-block">
+            <div class="question-text">4. 本文在敘事結構上採取了嚴謹的「起、承、轉、合」，下列關於結構對應的分析哪些是正確的？（複選）</div>
             <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 「晾」屬於日部，意思是把東西放在陽光下使乾燥；而「涼」屬於水部，代表溫度低、涼爽。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 「殼」字是殳部，用來指物體堅硬的外皮；「穀」字是禾部，指糧食作物的總稱。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 「煉」字具有「用火燒使物質精純」或「用火熬製」之意，例如「煉鋼」與「煉丹」。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 「絕」字在「絕招」和「絕對」中，都代表「阻斷、隔開」的意思。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 「奮」字在「奮筆疾書」中的意思是「振作」，與「奮鬥」中的意思完全相同。</label>
+                <label><input type="checkbox" name="q4" value="A"> A) 「起」的部分以力克在夏威夷衝浪的壯舉直接開頭，營造令人嘆為觀止的震撼感。</label>
+                <label><input type="checkbox" name="q4" value="B" data-correct="true"> B) 「起」的部分藉由描寫力克在演講台上「蹦跳」，引發讀者對其生理狀態與活力反差的好奇。</label>
+                <label><input type="checkbox" name="q4" value="C" data-correct="true"> C) 「承」的段落主要回溯他小時候努力站起來的艱辛過程，以及求學時期的挑戰。</label>
+                <label><input type="checkbox" name="q4" value="D"> D) 「轉」的部分聚焦於描述力克創立非營利組織並推動全球演講的艱難歷程。</label>
+                <label><input type="checkbox" name="q4" value="E" data-correct="true"> E) 「合」的部分總結了生命意義，藉此鼓勵讀者勇敢突破限制，活出生命的可能。</label>
             </div>
-            <div class="feedback" id="q4-feedback"></div>
+            <div class="explanation" id="exp-q4">
+                <b>【解析】</b><br>
+                正確答案為 B、C、E。<br>
+                A 錯誤：夏威夷衝浪的壯舉是安排在「轉」的部分，而非「起」。<br>
+                D 錯誤：「轉」的部分是描述「在夏威夷衝浪的壯舉，展現生命的高峰」，而非創立組織。<br>
+                B、C、E 完全符合文本對課文結構分析的設定。
+            </div>
         </div>
 
-        <div class="question-block" id="q5-block">
-            <div class="question-text">5. 結合蝴蝶的生物學階段與副詞描寫技巧，若要生動地描繪蝴蝶的成長，下列哪些敘述是適切且符合教材規範的？</div>
+        <div class="question-block">
+            <div class="question-text">5. 根據文本提供的「重要詞彙釋義」與「句型練習與應用」，下列敘述或應用範例哪些是正確的？（複選）</div>
             <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 幼蟲在樹葉上「偷偷」觀察四周，以躲避鳥啄與「蟻」咬的威脅。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 蝴蝶破蛹而出後，會「稍稍」移動身體，接著撐平羽衣並「晾」乾雙翅。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 為了形容蝴蝶急促飛行的樣子，我們必須使用副詞「翩翩」來修飾。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 幼蟲化「蛹」後進入封存狀態，此時牠會「努力」工作以儲備破殼而出的能量。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 羽化完成後，蝴蝶展翅「翩翩」起舞，展開了全新的生命旅程。</label>
+                <label><input type="checkbox" name="q5" value="A"> A) 詞彙「激盪」在文中主要用以形容事物極好，令人讚嘆，例如他在浪頭上的翻轉表現。</label>
+                <label><input type="checkbox" name="q5" value="B" data-correct="true"> B) 詞彙「嘆為觀止」的釋義為形容事物極好，令人讚嘆，在文中用來形容其衝浪表現。</label>
+                <label><input type="checkbox" name="q5" value="C" data-correct="true"> C) 「與其事後手忙腳亂，不如天睡前就整理好。」屬於文本介紹的「選擇與優先」句型。</label>
+                <label><input type="checkbox" name="q5" value="D"> D) 「即便天氣炎熱，遊客們仍興致不減。」屬於文本介紹的「遞進句」句型應用。</label>
+                <label><input type="checkbox" name="q5" value="E" data-correct="true"> E) 詞彙「掙扎」的釋義為：費盡全力勉強支撐或抵抗。</label>
             </div>
-            <div class="feedback" id="q5-feedback"></div>
+            <div class="explanation" id="exp-q5">
+                <b>【解析】</b><br>
+                正確答案為 B、C、E。<br>
+                A 錯誤：「激盪」的意思是「因受衝擊而動盪，形容情緒受到強烈刺激」，形容事物極好的詞是「嘆為觀止」。<br>
+                D 錯誤：「即便……仍……」是屬於「假設與轉折」句型，而非遞進句（遞進句是「不僅……甚至……」）。<br>
+                B、C、E 的詞義釋義與句型歸類皆符合文本資訊。
+            </div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案並查看解析</button>
-        <div id="result-summary"></div>
-
+        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案並看解析</button>
     </form>
+
+    <div id="resultSummary" class="result-summary"></div>
 </div>
 
 <script>
-    const correctAnswers = {
-        q1: ['B', 'C', 'E'],
-        q2: ['A', 'B', 'C'],
-        q3: ['A', 'C', 'E'],
-        q4: ['A', 'B', 'C'],
-        q5: ['A', 'B', 'E']
-    };
-
-    const explanations = {
-        q1: "<strong>解析：</strong>選項 A 錯誤，教材指出幼蟲期考驗是日曬雨淋與天敵，並未提及「快速化蛹以躲避」；選項 D 錯誤，生命是「一場場的挑戰」，羽化後仍有新的旅程與挑戰。選項 B、C、E 皆正確傳達了教材的生命哲理與成長階段。",
-        q2: "<strong>解析：</strong>選項 D 錯誤，「翩翩」形容動作輕盈，不適合用來形容莊嚴肅穆的遊行隊伍；選項 E 錯誤，「雀躍」是形容高興得跳躍，不適合用於躲避大雨的慌張逃跑。選項 A、B、C 詞彙運用皆正確。",
-        q3: "<strong>解析：</strong>選項 B 錯誤，「或」表示兩者不能並存；選項 D 錯誤，爸爸不可能「同時」搭乘公車、捷運又騎單車，只能擇一。選項 A、C、E 完美契合教材的句型邏輯。",
-        q4: "<strong>解析：</strong>選項 D 錯誤，「絕招」的「絕」是卓越、獨一無二，「絕對」的「絕」是必定、確定；選項 E 錯誤，「奮筆疾書」的「奮」是舉起、振動，而「奮鬥」的「奮」是振作。選項 A、B、C 皆正確辨析了字形與字義。",
-        q5: "<strong>解析：</strong>選項 C 錯誤，形容急促應使用「匆匆」，「翩翩」是形容輕盈；選項 D 錯誤，蛹的階段是「靜止不動的時間」，而非努力工作。選項 A、B、E 皆正確地結合了生物知識、字形與副詞應用。"
-    };
-
     function checkAnswers() {
-        let totalScore = 0;
-        const totalQuestions = Object.keys(correctAnswers).length;
+        const totalQuestions = 5;
+        let score = 0;
 
-        for (let q in correctAnswers) {
-            const checkboxes = document.querySelectorAll(`input[name="${q}"]`);
-            let userAnswers = [];
+        for (let i = 1; i <= totalQuestions; i++) {
+            const checkboxes = document.querySelectorAll(`input[name="q${i}"]`);
+            let allCorrect = true;
+            
             checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    userAnswers.push(cb.value);
+                const isCorrectOption = cb.getAttribute('data-correct') === 'true';
+                if (cb.checked && !isCorrectOption) {
+                    allCorrect = false; // Selected a wrong option
+                }
+                if (!cb.checked && isCorrectOption) {
+                    allCorrect = false; // Missed a correct option
                 }
             });
 
-            const correct = correctAnswers[q];
-            // Check if arrays are equal (ignoring order, though values are sorted A-E)
-            const isCorrect = (userAnswers.length === correct.length) && userAnswers.every(val => correct.includes(val));
-            
-            const feedbackDiv = document.getElementById(`${q}-feedback`);
-            feedbackDiv.style.display = "block";
+            // Show explanation
+            document.getElementById(`exp-q${i}`).style.display = "block";
 
-            if (isCorrect) {
-                totalScore++;
-                feedbackDiv.className = "feedback correct";
-                feedbackDiv.innerHTML = `✔️ <strong>答對了！</strong><div class="explanation">${explanations[q]}</div>`;
-            } else {
-                feedbackDiv.className = "feedback incorrect";
-                feedbackDiv.innerHTML = `❌ <strong>答錯囉！正確解答是：${correct.join(', ')}。</strong><div class="explanation">${explanations[q]}</div>`;
+            if (allCorrect) {
+                score++;
             }
         }
 
-        const summaryDiv = document.getElementById("result-summary");
-        summaryDiv.style.display = "block";
-        summaryDiv.innerHTML = `測驗完成！您的總得分是：${totalScore} / ${totalQuestions}`;
+        // Show Result
+        const resultDiv = document.getElementById('resultSummary');
+        resultDiv.style.display = "block";
+        if (score === totalQuestions) {
+            resultDiv.className = "result-summary score-good";
+            resultDiv.innerHTML = `太棒了！你答對了 ${score} / ${totalQuestions} 題，完全掌握了文本精髓！`;
+        } else {
+            resultDiv.className = "result-summary score-bad";
+            resultDiv.innerHTML = `你答對了 ${score} / ${totalQuestions} 題。複選題確實有難度，請查看上方的解析來釐清觀念喔！`;
+        }
+        
+        // Scroll to top of results or bottom
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 </script>
 
