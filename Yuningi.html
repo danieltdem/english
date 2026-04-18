@@ -218,7 +218,7 @@
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
+        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -234,9 +234,9 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,27 +276,20 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'affect', zh: '影響 (ㄧㄥˇ ㄒㄧㄤˇ)', mnemonic: '`affect` 和 `effect` (效果) 很像。產生效果的動作就是去「影響」(`affect`)。' },
-            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ / ㄉㄧㄥˋ ㄐㄩ)', mnemonic: '`set` (安置)。讓事情或自己「安置」下來，就是解決或定居 (`settle`)。' },
-            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連尾巴 (`tail`) 最末端的細節 (`detail`) 都要注意到。' },
-            { en: 'terrible', zh: '可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)', mnemonic: '`terror` (恐懼) + `ible`。令人感到恐懼的就是可怕的 (`terrible`)。' },
-            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每) + `haps` (happen, 發生)。每件事情都有可能發生，也就是「也許」(`perhaps`)。' },
-            { en: 'tourist', zh: '遊客 (ㄧㄡˊ ㄎㄜˋ)', mnemonic: '`tour` (旅行) + `ist` (人)。去旅行的人就是遊客 (`tourist`)。' },
-            { en: 'scribble', zh: '塗鴉 (ㄊㄨˊ ㄧㄚ)', mnemonic: '`scribble` 聽起來像 `scrabble` (拼字遊戲)。玩拼字遊戲時在紙上亂寫亂畫就是塗鴉 (`scribble`)。' },
-            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '聽起來像 `a monkey` (一隻猴子)。想像有一隻猴子隱藏「在...之中」(`among`)。' },
-            { en: 'measure', zh: '測量 (ㄘㄜˋ ㄌㄧㄤˊ)', mnemonic: '`me` (我) + `sure` (確定)。我 (`me`) 要「測量」(`measure`) 一下才能「確定」(`sure`)。' },
-            { en: 'against', zh: '反對；倚靠 (ㄈㄢˇ ㄉㄨㄟˋ / ㄧ ㄎㄠˋ)', mnemonic: '`again` (再一次) + `st` (strike, 打擊)。再一次打擊它，表示你「反對」(`against`) 它。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`cert` (certificate, 證書) + `ain`。拿到證書就代表事情是「確定的」(`certain`)。' },
-            { en: 'German', zh: '德國人 (ㄉㄜˊ ㄍㄨㄛˊ ㄖㄣˊ)', mnemonic: '`germ` (細菌) + `man` (男人)。這個男人發現了細菌，他是個德國人 (`German`)。' },
-            { en: 'royal', zh: '皇室的 (ㄏㄨㄤˊ ㄕˋ ㄉㄜ˙)', mnemonic: '`royal` 聽起來像 `loyal` (忠誠的)。人們對皇室 (`royal`) 家族非常忠誠 (`loyal`)。' },
-            { en: 'general', zh: '一般的；將軍 (ㄧˋ ㄅㄢ ㄉㄜ˙ / ㄐㄧㄤ ㄐㄩㄣ)', mnemonic: '`gen` (產生) + `eral` (all, 全部)。產生給全部人用的，就是「一般的」(`general`)。' },
-            { en: 'waste', zh: '浪費 (ㄌㄤˋ ㄈㄟˋ)', mnemonic: '`waste` (浪費) 和 `waist` (腰) 發音相同。吃太多浪費 (`waste`) 食物，會讓你的腰 (`waist`) 變粗。' },
-            { en: 'multiple', zh: '多個的 (ㄉㄨㄛ ㄍㄜˋ ㄉㄜ˙)', mnemonic: '`multi` (多個) + `ple`。想像有很多 (`multi`) 蘋果 (apple -> `ple`)。' },
-            { en: 'propose', zh: '提議 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (提議) 裡面有 `purpose` (目的)。當你提議 (`propose`) 時，你心中一定有一個目的 (`purpose`)。' },
-            { en: 'harsh', zh: '嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`harsh` 聽起來像 `hard` (困難的)。面對嚴厲的 (`harsh`) 條件，生活會變得很困難 (`hard`)。' },
-            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭)。`screech` 就是指像哭喊一樣的尖叫聲。' },
-            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`pos` (post, 發布) + `sible` (able, 能夠)。能夠發布出來的消息，通常是「可能的」(`possible`)。' },
-            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) + `son` (兒子)。父母總是喜歡把自己的兒子 (`son`) 拿來做比較 (`comparison`)。' }
+            { en: 'unique', zh: '獨特的 (ㄉㄨˊ ㄊㄜˋ ㄉㄜ˙)', mnemonic: '`uni` (一個)。字首 `uni` 代表單一，所以是獨一無二、獨特的。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'script', zh: '腳本 (ㄐㄧㄠˇ ㄅㄣˇ)', mnemonic: '`script` 聽起來像 `describe` (描述) 的後半段。腳本就是用來描述場景和對白的文字。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'block', zh: '阻擋；街區 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (`block`)，它會阻擋 (`block`) 整個街區 (`block`) 的交通。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'croak', zh: '蛙鳴；沙啞地說 (ㄨㄚ ㄇㄧㄥˊ)', mnemonic: '`croak` 聽起來像 `crow` (烏鴉) + `oak` (橡樹)。停在橡樹上的烏鴉發出像青蛙一樣沙啞的叫聲。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'scramble', zh: '攀爬；爭奪 (ㄆㄢ ㄆㄚˊ)', mnemonic: '`s` + `crumble` (碎裂)。為了爭奪 (`scramble`) 東西，大家擠成一團把東西都弄碎 (`crumble`) 了。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'sketch', zh: '素描；草圖 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '運用你的技巧 (`skill` -> `sk`etch) 來畫一張素描 (`sketch`)。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'check', zh: '檢查；支票 (ㄐㄧㄢˇ ㄔㄚˊ)', mnemonic: '去銀行兌換支票 (`check`) 之前，櫃檯人員會先仔細檢查 (`check`) 簽名。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每一) + `haps` (happen, 發生)。每一種情況都有可能發生，也就是「也許」會成真。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'price', zh: '價格 (ㄐㄧㄚˋ ㄍㄜˊ)', mnemonic: '`p` + `rice` (米)。在古代，米 (`rice`) 也是一種貨幣，用來衡量物品的價格 (`price`)。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`pos` (post, 郵寄) + `sible` (able, 能夠)。這封信是能夠 (`able`) 郵寄到的，代表這件事是可能的 (`possible`)。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (尋常的)。字面上結合起來就是不尋常的。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`value` 聽起來像 `well` (好) + `you` (你)。對你 (`you`) 很好 (`well`) 的東西，通常都非常有價值。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (monk, 和尚)。想像一個 (`a`) 偽裝者藏在和尚 (`monk`) 之中 (`among`)。(參考網址: https://mnemonicdictionary.com/)' },
+            { en: 'natural', zh: '自然的 (ㄗˋ ㄖㄢˊ ㄉㄜ˙)', mnemonic: '來自 `nature` (自然)。大自然孕育出來的，就是自然的。(參考網址: https://mnemonicdictionary.com/)' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -412,11 +405,11 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
+                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
@@ -427,12 +420,12 @@
                 
                 answers.forEach(el => el.style.display = 'none');
                 
+                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
             }
         }
-
 
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
@@ -462,7 +455,12 @@
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
+            
+            // 避免圖檔遺失造成破圖，加上 onerror
+            const gameImg = document.getElementById('game-image');
+            gameImg.src = 'initial.png';
+            gameImg.style.display = 'inline-block';
+            
             document.getElementById('mnemonic').style.display = 'none';
             
             nextQuestion();
