@@ -2,212 +2,202 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>水的奇妙現象：深度自我挑戰測驗</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自然科學挑戰：力與運動的奧秘</title>
     <style>
         body {
-            font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #e0f7fa;
-            color: #004d40;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
             line-height: 1.6;
             padding: 20px;
         }
-        .container {
+        .quiz-container {
             max-width: 800px;
-            background-color: #ffffff;
-            margin: auto;
+            margin: 0 auto;
+            background: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-left: 10px solid #00acc1;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #00838f;
             text-align: center;
-            border-bottom: 2px solid #b2ebf2;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
         }
         .intro {
-            font-style: italic;
-            background: #f1f8e9;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .question {
-            margin-bottom: 25px;
+            background-color: #e8f6f3;
             padding: 15px;
-            border: 1px solid #e0e0e0;
             border-radius: 8px;
-            background-color: #fafafa;
-        }
-        .question p {
+            border-left: 5px solid #1abc9c;
+            margin-bottom: 25px;
             font-weight: bold;
-            color: #006064;
         }
-        .option {
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fdfefe;
+            border: 1px solid #d5dbdb;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .question-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .question-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+        .option-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             cursor: pointer;
-            padding: 5px;
-            border-radius: 4px;
-            transition: background 0.3s;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
         }
-        .option:hover {
-            background-color: #e1f5fe;
+        .option-label:hover {
+            background-color: #ecf0f1;
         }
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        button {
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #00acc1;
+            background-color: #e74c3c;
             color: white;
+            font-size: 1.2em;
+            font-weight: bold;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
         }
-        button:hover {
-            background-color: #00838f;
+        .submit-btn:hover {
+            background-color: #c0392b;
         }
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-            text-align: center;
-            white-space: pre-line;
+        .feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+        .feedback.correct {
+            background-color: #d4efdf;
+            color: #196f3d;
+            border: 1px solid #1e8449;
+        }
+        .feedback.incorrect {
+            background-color: #fadbd8;
+            color: #78281f;
+            border: 1px solid #c0392b;
+        }
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            background: rgba(255,255,255,0.6);
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🌊 水的物理特性：專家級複選測驗</h1>
-    <p class="intro">注意：本測驗所有題目均為「複選題」，請選出所有正確的選項。細節是成功的關鍵！</p>
-    
+<div class="quiz-container">
+    <h1>🔬 自然科學挑戰：力與運動之綜合分析</h1>
+    <div class="intro">
+        💡 測驗小提醒：本測驗為「高難度複選題」。每道題目皆有兩個或以上的正確選項，請務必將所有正確的選項都勾選出來喔！
+    </div>
+
     <form id="quizForm">
-        <div class="question">
-            <p>1. 關於「水受重力流動」與「毛細現象」的描述，下列哪些實例屬於「重力流動」的範疇？</p>
-            <label class="option"><input type="checkbox" name="q1" value="A"> A. 屋簷下的雨滴滴落</label>
-            <label class="option"><input type="checkbox" name="q1" value="B"> B. 水彩在畫紙上自然暈開</label>
-            <label class="option"><input type="checkbox" name="q1" value="C"> C. 瀑布由山壁奔騰而下</label>
-            <label class="option"><input type="checkbox" name="q1" value="D"> D. 水龍頭開啟後水流向水槽</label>
-            <label class="option"><input type="checkbox" name="q1" value="E"> E. 放在桌上的抹布吸取溢出的水</label>
+        <div class="question-block" id="qb1">
+            <div class="question-title">1. 關於「力的觀測與分類」，根據文本敘述，下列選項哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q1" value="A"> A. 力本身是不可見的，但我們能透過觀察物體形狀的改變來證明其存在。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="B"> B. 游泳圈能浮於水面與大王蓮支撐重量，兩者在物理分類的力源上皆屬於「水力」的應用。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="C"> C. 磁力與地球引力皆能使物體產生運動狀態的改變，例如磁鐵吸引迴紋針與失去支撐的物體掉落。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="D"> D. 根據文本對動物「獸力」的描述，獸力僅能用來改變物體的位置（如載運物品），無法對環境或物體造成形狀或結構的改變。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="E"> E. 攔截飛行中的飛盤使其停止，與彈撥彈珠使其由靜止開始滾動，兩者皆屬於力造成的「運動情形改變」。</label>
+            <div class="feedback" id="fb1"></div>
         </div>
 
-        <div class="question">
-            <p>2. 在進行「水平面」觀測實驗時，下列哪些敘述符合文本中的觀測結果？</p>
-            <label class="option"><input type="checkbox" name="q2" value="A"> A. 傾斜水壺倒水時，壺內的水面會與地面保持平行</label>
-            <label class="option"><input type="checkbox" name="q2" value="B"> B. 靜止的水面會與棉線建立的「基準線」相互平行</label>
-            <label class="option"><input type="checkbox" name="q2" value="C"> C. 容器的形狀會微幅改變靜止水面的水平狀態</label>
-            <label class="option"><input type="checkbox" name="q2" value="D"> D. 不論寶特瓶是橫放或直放，靜止後的水面高度特性不變</label>
-            <label class="option"><input type="checkbox" name="q2" value="E"> E. 水量的多寡是決定水面是否能達到水平的關鍵變因</label>
+        <div class="question-block" id="qb2">
+            <div class="question-title">2. 探討物體受力後的「形狀變化與可逆性」及「運動情形」，下列哪些觀念符合科學事實？</div>
+            <label class="option-label"><input type="checkbox" name="q2" value="A"> A. 只要施加足夠的時間，任何原先具備彈性可恢復原狀的物體，最終皆會必然轉變為無法恢復的塑性變形。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="B"> B. 捏塑油土與折彎鐵絲，皆屬於施力停止後無法自動恢復原狀的「塑性變形」。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="C"> C. 橡皮筋具有極佳的彈性，因此無論受到多大的拉力或拉扯多久，皆能完全恢復原狀，屬於絕對可逆的作用。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="D"> D. 將色紙撕開與折斷粉筆，這兩者在物理現象的分類中，皆屬於「結構破壞」且為不可逆的狀態。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="E"> E. 當強風吹動風車時，除了產生運動狀態的改變（使扇葉轉動），也可能同時造成扇葉形狀的微小改變（連帶效應）。</label>
+            <div class="feedback" id="fb2"></div>
         </div>
 
-        <div class="question">
-            <p>3. 使用注射筒進行「連通管原理」實驗時，下列哪些發現是正確的？</p>
-            <label class="option"><input type="checkbox" name="q3" value="A"> A. 當兩端注射筒高度一致，水位刻度亦會相同</label>
-            <label class="option"><input type="checkbox" name="q3" value="B"> B. 提升端的水會流向較低端，直到兩端高度恢復相同</label>
-            <label class="option"><input type="checkbox" name="q3" value="C"> C. 若更換不同直徑大小的注射筒，實驗結果將會改變</label>
-            <label class="option"><input type="checkbox" name="q3" value="D"> D. 兩端高度差距過大可能導致水從低端噴出</label>
-            <label class="option"><input type="checkbox" name="q3" value="E"> E. 水在連通管中移動是為了尋求動能與位能的完全平衡</label>
+        <div class="question-block" id="qb3">
+            <div class="question-title">3. 關於「力的測量」與「科學表示法」，下列敘述哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q3" value="A"> A. 為了精確描述力，需要標示力的三要素，其中「作用點」是以箭頭尾端的圓點來代表施力接觸物體的位置。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="B"> B. 在力的科學符號表示法中，箭頭線段的長短可以用來表示力的大小，線段愈長代表力愈大。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="C"> C. 橡皮筋效應的實驗結果證明，橡皮筋的伸長量與吊掛重物的重量成反比例關係。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="D"> D. 透過測量具彈性物體受力後的形變程度（例如觀察橡皮筋長度的變化），我們可以將力的大小進行客觀的定量表示。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="E"> E. 力的「方向」只能透過觀察物體形狀改變的延伸路徑來主觀判斷，無法在圖形上用科學符號明確標示。</label>
+            <div class="feedback" id="fb3"></div>
         </div>
 
-        <div class="question">
-            <p>4. 下列關於「連通管原理」在生活中的應用與原理說明，哪些是正確的？</p>
-            <label class="option"><input type="checkbox" name="q4" value="A"> A. 熱水瓶外部水位表的高度與瓶內水量一致</label>
-            <label class="option"><input type="checkbox" name="q4" value="B"> B. 簡易水平儀利用裝水塑膠管兩端水位來測量是否水平</label>
-            <label class="option"><input type="checkbox" name="q4" value="C"> C. 茶壺壺嘴若設計得比壺身低，裝水時易從壺嘴溢出</label>
-            <label class="option"><input type="checkbox" name="q4" value="D"> D. 洗手檯 U 形管是利用虹吸現象來阻隔臭氣</label>
-            <label class="option"><input type="checkbox" name="q4" value="E"> E. U 形管內積存的水被稱為「水封」</label>
+        <div class="question-block" id="qb4">
+            <div class="question-title">4. 在「動力傳送媒介與應用」領域，依據文本所述，下列哪些原理解析與應用實例配對正確？</div>
+            <label class="option-label"><input type="checkbox" name="q4" value="A"> A. 吹箭與落葉吹風機，皆是利用「氣體」作為動力傳送的媒介來達成特定的工作目的。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="B"> B. 液壓千斤頂是依據「阿基米德原理」，透過油作為液體媒介，使小活塞處的施力在大活塞處放大推力。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="C"> C. 牛頓擺展現了「固體傳送」動力的現象，動力能夠穿過中間緊密排列的球體，使另一端的球體彈出。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="D"> D. 荷蘭藝術家泰奧·揚生發明的「風力仿生獸」，其動力傳輸路徑是先由機器腳部產生動力，再逆向傳送至扇葉使其轉動。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="E"> E. 在兩個連通的注射器實驗中，若向下壓 A 活塞，動力會經由內部液體的壓力傳送，導致 B 活塞向上移動。</label>
+            <div class="feedback" id="fb4"></div>
         </div>
 
-        <div class="question">
-            <p>5. 若要成功觸發「虹吸現象」，必須滿足下列哪些關鍵條件？</p>
-            <label class="option"><input type="checkbox" name="q5" value="A"> A. 塑膠管內必須事先裝滿水，不可有空氣</label>
-            <label class="option"><input type="checkbox" name="q5" value="B"> B. 出水口的位置必須高於容器（水源）的水面</label>
-            <label class="option"><input type="checkbox" name="q5" value="C"> C. 出水口的位置必須低於容器（水源）的水面</label>
-            <label class="option"><input type="checkbox" name="q5" value="D"> D. 入水口必須持續保持在水面之下以維持連續性</label>
-            <label class="option"><input type="checkbox" name="q5" value="E"> E. 管路的材質必須是透明的塑膠管才能產生壓力差</label>
-        </div>
-
-        <div class="question">
-            <p>6. 在模擬水族箱換水的虹吸實驗中，下列關於出水口位置與流動關係的敘述何者正確？</p>
-            <label class="option"><input type="checkbox" name="q6" value="A"> A. 出水口低於容器 A 水面時，水會持續流出</label>
-            <label class="option"><input type="checkbox" name="q6" value="B"> B. 出水口高於容器 A 水面時，管內水會流回容器 A</label>
-            <label class="option"><input type="checkbox" name="q6" value="C"> C. 出水口與容器 A 水面等高時，水會停止流動</label>
-            <label class="option"><input type="checkbox" name="q6" value="D"> D. 出水口只要在容器 A 的邊緣之上，水就會流出</label>
-            <label class="option"><input type="checkbox" name="q6" value="E"> E. 當所有連通杯子的水位持平時，虹吸引水接力會停止流動</label>
-        </div>
-
-        <div class="question">
-            <p>7. 關於「虹吸式馬桶」與「九龍公道杯」的結合原理，下列哪些敘述是正確的？</p>
-            <label class="option"><input type="checkbox" name="q7" value="A"> A. 虹吸式馬桶沖水時會使 U 形管充滿水以觸發虹吸力</label>
-            <label class="option"><input type="checkbox" name="q7" value="B"> B. 馬桶沖完水後，會根據虹吸現象保持一定水位隔絕臭氣</label>
-            <label class="option"><input type="checkbox" name="q7" value="C"> C. 九龍公道杯在酒量未超過 U 形管最高點時，遵循連通管原理</label>
-            <label class="option"><input type="checkbox" name="q7" value="D"> D. 當酒量超過公道杯內管最高處，杯內的酒會全部流光</label>
-            <label class="option"><input type="checkbox" name="q7" value="E"> E. 九龍公道杯僅利用了毛細現象來導引液體</label>
-        </div>
-
-        <div class="question">
-            <p>8. 現代建築物利用科學原理進行給水，下列哪些描述符合文本內容？</p>
-            <label class="option"><input type="checkbox" name="q8" value="A"> A. 屋頂水塔設置在高處是為了增加位能以產生水壓</label>
-            <label class="option"><input type="checkbox" name="q8" value="B"> B. 給水系統主要結合了連通管原理與重力流動</label>
-            <label class="option"><input type="checkbox" name="q8" value="C"> C. 地下室儲水槽的水是直接利用虹吸現象抽往屋頂的</label>
-            <label class="option"><input type="checkbox" name="q8" value="D"> D. 水塔的主要功能包含儲水調節以及自動送水</label>
-            <label class="option"><input type="checkbox" name="q8" value="E"> E. 每個樓層的水龍頭與屋頂水塔形成了一個巨大的連通管系統</label>
-        </div>
-
-        <button type="button" onclick="checkAnswers()">提交測驗</button>
+        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案看解析</button>
     </form>
-    <div id="result"></div>
 </div>
 
 <script>
-    const answers = {
-        q1: ['A', 'C', 'D'],
-        q2: ['A', 'B', 'D'],
-        q3: ['A', 'B', 'D'],
-        q4: ['A', 'B', 'C', 'E'],
-        q5: ['A', 'C', 'D'],
-        q6: ['A', 'B', 'C', 'E'],
-        q7: ['A', 'C', 'D'],
-        q8: ['A', 'B', 'D', 'E']
-    };
-
-    const explanations = {
-        q1: "解析：A、C、D 皆為重力導致由高往低流；B、E 為毛細現象（細縫移動）。",
-        q2: "解析：A、B、D 正確。C 錯在形狀不影響水平；E 錯在水量不影響水平狀態。",
-        q3: "解析：A、B、D 正確。C 錯在變因測試顯示更換大小結果不變；E 文本未提及動能平衡細節。",
-        q4: "解析：A、B、C、E 正確。D 錯誤，U 形管阻隔臭氣是利用『連通管原理』產生的水封，而非虹吸。",
-        q5: "解析：A、C、D 正確。B 錯誤（必須低於）；E 錯誤（與透明度無關）。",
-        q6: "解析：A、B、C、E 均符合實驗觀測。D 錯誤，必須低於水面而非僅在邊緣。",
-        q7: "解析：A、C、D 正確。B 錯誤，保持水位隔絕臭氣是利用『連通管原理』；E 錯誤，它是結合連通管與虹吸。",
-        q8: "解析：A、B ... 這些皆符合。C 錯誤，地下室的水是利用『抽水馬達』抽上去的。"
-    };
-
     function checkAnswers() {
-        let score = 0;
-        let total = Object.keys(answers).length;
-        let feedback = "";
+        // 定義標準答案與解析
+        const answers = {
+            q1: { 
+                correct: ['A', 'C', 'E'], 
+                exp: "B錯誤：游泳圈與大王蓮皆屬於「浮力」的應用，而非水力（水力為推動水車等）。D錯誤：狗挖洞即屬於獸力改變地表結構形狀的例子。" 
+            },
+            q2: { 
+                correct: ['B', 'D', 'E'], 
+                exp: "A錯誤：並非「任何」物體都會必然轉變，而是「施力過大或持續時間過長」才有損壞或改變的可能。C錯誤：橡皮筋存在臨界點限制，過度或長期拉扯會斷裂或鬆弛。" 
+            },
+            q3: { 
+                correct: ['A', 'B', 'D'], 
+                exp: "C錯誤：橡皮筋伸長量與重物重量成「正比」（吊掛數量越多，長度越長）。E錯誤：力的方向可以直接用箭頭指向的方向來明確表示。" 
+            },
+            q4: { 
+                correct: ['A', 'C', 'E'], 
+                exp: "B錯誤：液壓千斤頂是依據「帕斯卡原理」，而非阿基米德原理。D錯誤：風力仿生獸是風吹動扇葉後，將動力傳送到「腳部」，方向顛倒了。" 
+            }
+        };
 
-        for (let q in answers) {
-            let userChoices = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(el => el.value);
-            let correctChoices = answers[q];
+        for (let i = 1; i <= 4; i++) {
+            let qName = 'q' + i;
+            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(cb => cb.value);
+            let correct = answers[qName].correct;
             
-            let isCorrect = userChoices.length === correctChoices.length && userChoices.every(val => correctChoices.includes(val));
+            // 判斷是否全對（無漏選、無錯選）
+            let isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
+            let feedbackDiv = document.getElementById('fb' + i);
             
+            feedbackDiv.style.display = 'block';
             if (isCorrect) {
-                score++;
-                feedback += `第 ${q.slice(1)} 題：正確！\n`;
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = `<strong>✔️ 答對了！</strong> 恭喜您完全掌握本題重點。`;
             } else {
-                feedback += `第 ${q.slice(1)} 題：錯誤。正確答案是 ${correctChoices.join(', ')}。\n   ${explanations[q]}\n`;
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = `<strong>❌ 答錯囉！或者有漏選。</strong> 正確解答為：${correct.join(', ')}。<br><div class="explanation">💡 <strong>小幫手解析：</strong>${answers[qName].exp}</div>`;
             }
         }
-
-        document.getElementById('result').innerText = `您的得分：${score} / ${total}\n\n${feedback}`;
     }
 </script>
 
