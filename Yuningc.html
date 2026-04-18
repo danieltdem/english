@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦋 蝶之生：生命成長與語文學習進階測驗</title>
+    <title>蝶之生：生命成長與語文學習 綜合測驗</title>
     <style>
         body {
-            font-family: 'Microsoft JhengHei', Arial, sans-serif;
-            background-color: #f0f8f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4fdf4;
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -15,195 +15,228 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background-color: #ffffff;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 8px solid #4caf50;
+            border-top: 8px solid #66bb6a;
         }
         h1 {
-            text-align: center;
             color: #2e7d32;
+            text-align: center;
             border-bottom: 2px dashed #a5d6a7;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
-        .question-block {
-            background: #fafafa;
-            border-left: 5px solid #81c784;
-            padding: 15px 20px;
+        .intro {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 25px;
-            border-radius: 5px;
-        }
-        .question-title {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #1b5e20;
-            margin-bottom: 10px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-        label:hover {
-            background: #e8f5e9;
-        }
-        .explanation {
-            display: none;
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #ffebee;
-            border-left: 4px solid #ef5350;
-            color: #c62828;
-            border-radius: 4px;
             font-size: 0.95em;
         }
-        button {
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-left: 5px solid #81c784;
+            border-radius: 5px;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #1b5e20;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .options label:hover {
+            background-color: #e8f5e9;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
             background-color: #4caf50;
             color: white;
+            font-size: 1.2em;
             border: none;
             border-radius: 8px;
-            font-size: 1.2em;
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
-        button:hover {
+        .submit-btn:hover {
             background-color: #388e3c;
         }
-        .result-message {
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            font-size: 0.95em;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+        }
+        #result-summary {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.5em;
             font-weight: bold;
             margin-top: 20px;
-            color: #1565c0;
+            color: #2e7d32;
+            display: none;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🦋 蝶之生：進階挑戰測驗 🦋</h1>
-    <p style="text-align: center;">請根據《蝶之生》教材內容作答。注意：每題皆為<b>複選題</b>，必須完全選對才能過關喔！</p>
+    <h1>🦋 蝶之生：綜合挑戰測驗 🦋</h1>
+    <div class="intro">
+        <strong>測驗小幫手提醒：</strong>這是一份高難度的複選題測驗！每一題都有<strong>兩個或以上的正確選項</strong>，請仔細閱讀每一字每一句，並勾選所有您認為正確的答案。準備好了嗎？展翅高飛吧！
+    </div>
 
     <form id="quizForm">
         
-        <div class="question-block" id="block-q1">
-            <div class="question-title">1. 關於「蝶之生」課文中所描述的蝴蝶生命週期與其象徵的生命哲理，下列敘述哪些是正確的？</div>
-            <label><input type="checkbox" name="q1" value="A"> A. 幼蟲階段生存不易，必須撐過日曬雨淋，並隨時躲避鳥啄與蟻咬等天敵的威脅。</label>
-            <label><input type="checkbox" name="q1" value="B"> B. 幼蟲化蛹後進入封存狀態的「靜止不動」，象徵著生命成長的停滯期，需要被動等待救援。</label>
-            <label><input type="checkbox" name="q1" value="C"> C. 羽化成蝶的過程包含：掙脫打破蛹殼、將身體拉出、撐平羽衣並晾乾雙翅，最後才能展開高飛。</label>
-            <label><input type="checkbox" name="q1" value="D"> D. 生命的成長可以尋求捷徑，只要掌握「修煉成蝶的絕技」，就能投機取巧快速獲得成功。</label>
-            <label><input type="checkbox" name="q1" value="E"> E. 課文核心主旨將生命定義為「一場場的挑戰」，強調適當的休息是為了走更長遠的路，且必須按部就班。</label>
-            <div class="explanation" id="exp-q1">
-                <b>解析：</b><br>
-                B 選項錯誤：蛹期的靜止不動並非停滯與被動，而是被描述為「修煉成蝶的絕技」。<br>
-                D 選項錯誤：教材特別強調成長不能「投機取巧」，必須按部就班。<br>
-                正確選項為 A、C、E。
+        <div class="question-block" id="q1-block">
+            <div class="question-text">1. 關於「蝶之生」中蝴蝶的成長歷程與其象徵的生命哲理，下列敘述哪些是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q1" value="A"> A. 幼蟲階段最大的生存考驗在於如何快速進入化蛹狀態，以躲避天敵的追擊。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 蛹中的「靜止不動的時間」並非真正的停滯，而是為了未來長遠之路所作的適當休息與修煉。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 羽化的過程包含打破蛹殼、將身體拉出、撐平羽衣並晾乾雙翅等按部就班的步驟，象徵成長無法投機取巧。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 生命被定義為「一場場的挑戰」，只要能在幼蟲期安然度過天敵威脅，羽化成蝶後便不再有挑戰。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 蝴蝶破蛹而出並展開高飛的過程，具體展現了「勇於邁向挑戰，突破自我」的成長精神。</label>
             </div>
+            <div class="feedback" id="q1-feedback"></div>
         </div>
 
-        <div class="question-block" id="block-q2">
-            <div class="question-title">2. 根據教材中對於核心詞彙的定義與應用，下列哪些選項的用法與解釋是完全正確的？</div>
-            <label><input type="checkbox" name="q2" value="A"> A. 「絕技」指的是超群卓越的技能，其中「絕」字的意思與「隔絕」中的「絕」字義相同。</label>
-            <label><input type="checkbox" name="q2" value="B"> B. 「蛻變」比喻事物發生根本性的轉變，例如：她由一個怯生生的小女孩蛻變成亭亭玉立的少女。</label>
-            <label><input type="checkbox" name="q2" value="C"> C. 「破曉」指的是傍晚太陽剛下山的時候，適合用來造句：我們在破曉時分欣賞美麗的夕陽。</label>
-            <label><input type="checkbox" name="q2" value="D"> D. 「修煉」一詞中，「煉」的原意包含用火燒或高溫加熱使物質精純，在課文中引申為修心養身使本質提升。</label>
-            <label><input type="checkbox" name="q2" value="E"> E. 「移動」的意思是改變原來的位置或方向，例如：遊行隊伍緩緩向前移動。</label>
-            <div class="explanation" id="exp-q2">
-                <b>解析：</b><br>
-                A 選項錯誤：「絕技」的絕是卓越、獨一無二；「隔絕」的絕是阻斷。兩者字義不同。<br>
-                C 選項錯誤：「破曉」指的是天剛亮的時候，並非傍晚。<br>
-                正確選項為 B、D、E。
+        <div class="question-block" id="q2-block">
+            <div class="question-text">2. 根據教材中的核心詞彙定義與應用，下列哪些句子的詞語使用是完全正確且符合其釋義的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q2" value="A"> A. 經過多年的「修煉」，他終於在才藝大賽中展現出令人驚豔的「絕技」。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 太陽剛「破曉」，市場的攤販們就已經開始忙碌地準備一天的生計了。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 醜小鴨經歷了「蛻變」，終於成為一隻美麗的天鵝，這表示牠的本質與外觀發生了根本性的改變。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 國慶日的遊行隊伍「翩翩」地向前「移動」，展現出莊嚴肅穆的氣氛。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 為了躲避突如其來的傾盆大雨，他「雀躍」地逃跑到了屋簷下。</label>
             </div>
+            <div class="feedback" id="q2-feedback"></div>
         </div>
 
-        <div class="question-block" id="block-q3">
-            <div class="question-title">3. 關於副詞的運用及「或」與譬喻句型的邏輯解析，下列哪些敘述符合教材規範？</div>
-            <label><input type="checkbox" name="q3" value="A"> A. 副詞能使動作描寫更具體，例如描寫蝴蝶飛行可以用「翩翩」形容輕盈，用「匆匆」形容急促。</label>
-            <label><input type="checkbox" name="q3" value="B"> B. 在描寫動作時，使用「慌張」來修飾「觀察」，以及使用「偷偷」來修飾「逃跑」，是最生動且符合常理的搭配。</label>
-            <label><input type="checkbox" name="q3" value="C"> C. 譬喻句型「[名詞] 是 [量詞] [形容詞] 的 [名詞]」，可以寫成：閱讀是一關關的冒險、挫折是一道道的傷疤。</label>
-            <label><input type="checkbox" name="q3" value="D"> D. 「或」用於連接兩個不能並存的事項，代表所說的事情只會有其中一種情況發生。</label>
-            <label><input type="checkbox" name="q3" value="E"> E. 「爸爸下班後，會選擇搭乘公車、捷運或騎乘公共單車回家。」這句話代表爸爸每天都會同時使用這三種交通工具。</label>
-            <div class="explanation" id="exp-q3">
-                <b>解析：</b><br>
-                B 選項錯誤：根據教材，應為「偷偷（觀察）」與「慌張（逃跑）」。<br>
-                E 選項錯誤：「或」表示選擇性關係，代表不能同時並存，只會選擇其中一種交通工具。<br>
-                正確選項為 A、C、D。
+        <div class="question-block" id="q3-block">
+            <div class="question-text">3. 關於教材中提到的句型邏輯（譬喻句型與「或」的選擇句），下列哪些分析或造句是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q3" value="A"> A. 根據教材的譬喻句型結構，「歷史是一面面的鏡子」與「閱讀是一關關的冒險」皆屬於正確的句型應用。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 使用「或」連接的兩個事項，在邏輯上代表這兩件事情可以同時發生並存。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 「午餐時間，我可以選擇吃便當或吃麵」這句話正確示範了「或」的選擇性關係，代表只能從中選擇一種情況。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 「爸爸下班後，會選擇搭乘公車、捷運或騎乘公共單車回家」表示爸爸每天下班都會同時使用這三種交通工具。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 「生命是一場場的挑戰」此句型旨在透過具體的量詞與名詞搭配，豐富文句的意象與表達。</label>
             </div>
+            <div class="feedback" id="q3-feedback"></div>
         </div>
 
-        <div class="question-block" id="block-q4">
-            <div class="question-title">4. 語文學習中常有易混淆的字形，根據教材提供的辨析，下列哪些選項的字形、部首配對及字義說明是正確的？</div>
-            <label><input type="checkbox" name="q4" value="A"> A. 「蟻」與「儀」字形相似，前者屬蟲部（如螞蟻），後者屬人部；「蛻」與「說」字形相似，兩者皆屬於言部。</label>
-            <label><input type="checkbox" name="q4" value="B"> B. 「晾」屬於日部，意思是把東西放在陽光下使乾燥；「涼」屬於水部，表示溫度低或涼爽。</label>
-            <label><input type="checkbox" name="q4" value="C"> C. 「殼」字屬於殳部，指物體堅硬的外皮（如蛹殼）；「穀」字屬於禾部，是糧食作物的總稱。</label>
-            <label><input type="checkbox" name="q4" value="D"> D. 「奮」字除了有振作的意思（如奮鬥），也含有舉起、振動之意（如奮筆疾書）。</label>
-            <label><input type="checkbox" name="q4" value="E"> E. 「絕」字在所有的詞彙中（如絕招、隔絕、杜絕、絕對），都只有「停止」這一個唯一的解釋。</label>
-            <div class="explanation" id="exp-q4">
-                <b>解析：</b><br>
-                A 選項錯誤：「蛻」屬於蟲部，表示變化；「說」才屬於言部。<br>
-                E 選項錯誤：「絕」有許多字義，絕招（卓越）、隔絕（阻斷）、杜絕（停止）、絕對（必定），並非只有一種解釋。<br>
-                正確選項為 B、C、D。
+        <div class="question-block" id="q4-block">
+            <div class="question-text">4. 在字形辨析與字義深入學習中，下列哪些關於漢字的解釋與字形區分是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q4" value="A"> A. 「晾」屬於日部，意思是把東西放在陽光下使乾燥；而「涼」屬於水部，代表溫度低、涼爽。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 「殼」字是殳部，用來指物體堅硬的外皮；「穀」字是禾部，指糧食作物的總稱。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 「煉」字具有「用火燒使物質精純」或「用火熬製」之意，例如「煉鋼」與「煉丹」。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 「絕」字在「絕招」和「絕對」中，都代表「阻斷、隔開」的意思。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 「奮」字在「奮筆疾書」中的意思是「振作」，與「奮鬥」中的意思完全相同。</label>
             </div>
+            <div class="feedback" id="q4-feedback"></div>
         </div>
 
-        <button type="button" onclick="checkAnswers()">交卷並觀看成績</button>
-        <div id="resultMessage" class="result-message"></div>
+        <div class="question-block" id="q5-block">
+            <div class="question-text">5. 結合蝴蝶的生物學階段與副詞描寫技巧，若要生動地描繪蝴蝶的成長，下列哪些敘述是適切且符合教材規範的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q5" value="A"> A. 幼蟲在樹葉上「偷偷」觀察四周，以躲避鳥啄與「蟻」咬的威脅。</label>
+                <label><input type="checkbox" name="q5" value="B"> B. 蝴蝶破蛹而出後，會「稍稍」移動身體，接著撐平羽衣並「晾」乾雙翅。</label>
+                <label><input type="checkbox" name="q5" value="C"> C. 為了形容蝴蝶急促飛行的樣子，我們必須使用副詞「翩翩」來修飾。</label>
+                <label><input type="checkbox" name="q5" value="D"> D. 幼蟲化「蛹」後進入封存狀態，此時牠會「努力」工作以儲備破殼而出的能量。</label>
+                <label><input type="checkbox" name="q5" value="E"> E. 羽化完成後，蝴蝶展翅「翩翩」起舞，展開了全新的生命旅程。</label>
+            </div>
+            <div class="feedback" id="q5-feedback"></div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案並查看解析</button>
+        <div id="result-summary"></div>
+
     </form>
+</div>
 
-    <script>
-        function checkAnswers() {
-            // 定義正確答案
-            const correctAnswers = {
-                q1: ['A', 'C', 'E'],
-                q2: ['B', 'D', 'E'],
-                q3: ['A', 'C', 'D'],
-                q4: ['B', 'C', 'D']
-            };
+<script>
+    const correctAnswers = {
+        q1: ['B', 'C', 'E'],
+        q2: ['A', 'B', 'C'],
+        q3: ['A', 'C', 'E'],
+        q4: ['A', 'B', 'C'],
+        q5: ['A', 'B', 'E']
+    };
 
-            let allCorrect = true;
+    const explanations = {
+        q1: "<strong>解析：</strong>選項 A 錯誤，教材指出幼蟲期考驗是日曬雨淋與天敵，並未提及「快速化蛹以躲避」；選項 D 錯誤，生命是「一場場的挑戰」，羽化後仍有新的旅程與挑戰。選項 B、C、E 皆正確傳達了教材的生命哲理與成長階段。",
+        q2: "<strong>解析：</strong>選項 D 錯誤，「翩翩」形容動作輕盈，不適合用來形容莊嚴肅穆的遊行隊伍；選項 E 錯誤，「雀躍」是形容高興得跳躍，不適合用於躲避大雨的慌張逃跑。選項 A、B、C 詞彙運用皆正確。",
+        q3: "<strong>解析：</strong>選項 B 錯誤，「或」表示兩者不能並存；選項 D 錯誤，爸爸不可能「同時」搭乘公車、捷運又騎單車，只能擇一。選項 A、C、E 完美契合教材的句型邏輯。",
+        q4: "<strong>解析：</strong>選項 D 錯誤，「絕招」的「絕」是卓越、獨一無二，「絕對」的「絕」是必定、確定；選項 E 錯誤，「奮筆疾書」的「奮」是舉起、振動，而「奮鬥」的「奮」是振作。選項 A、B、C 皆正確辨析了字形與字義。",
+        q5: "<strong>解析：</strong>選項 C 錯誤，形容急促應使用「匆匆」，「翩翩」是形容輕盈；選項 D 錯誤，蛹的階段是「靜止不動的時間」，而非努力工作。選項 A、B、E 皆正確地結合了生物知識、字形與副詞應用。"
+    };
 
-            // 檢查每一題
-            for (let i = 1; i <= 4; i++) {
-                const questionName = 'q' + i;
-                const checkboxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
-                const userAnswers = Array.from(checkboxes).map(cb => cb.value);
-                const expectedAnswers = correctAnswers[questionName];
-                
-                // 比對陣列是否完全相同
-                const isCorrect = userAnswers.length === expectedAnswers.length && 
-                                  userAnswers.every(val => expectedAnswers.includes(val));
+    function checkAnswers() {
+        let totalScore = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
 
-                const explanationDiv = document.getElementById('exp-q' + i);
-                const blockDiv = document.getElementById('block-q' + i);
-
-                if (isCorrect) {
-                    explanationDiv.style.display = 'none';
-                    blockDiv.style.borderLeftColor = '#81c784'; // 綠色
-                } else {
-                    explanationDiv.style.display = 'block';
-                    blockDiv.style.borderLeftColor = '#ef5350'; // 紅色提醒
-                    allCorrect = false;
+        for (let q in correctAnswers) {
+            const checkboxes = document.querySelectorAll(`input[name="${q}"]`);
+            let userAnswers = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    userAnswers.push(cb.value);
                 }
-            }
+            });
 
-            const resultDiv = document.getElementById('resultMessage');
-            if (allCorrect) {
-                resultDiv.style.color = '#2e7d32';
-                resultDiv.innerText = "🎉 恭喜您！所有挑戰題均完全答對，您已經完全吸收了《蝶之生》的精華！";
+            const correct = correctAnswers[q];
+            // Check if arrays are equal (ignoring order, though values are sorted A-E)
+            const isCorrect = (userAnswers.length === correct.length) && userAnswers.every(val => correct.includes(val));
+            
+            const feedbackDiv = document.getElementById(`${q}-feedback`);
+            feedbackDiv.style.display = "block";
+
+            if (isCorrect) {
+                totalScore++;
+                feedbackDiv.className = "feedback correct";
+                feedbackDiv.innerHTML = `✔️ <strong>答對了！</strong><div class="explanation">${explanations[q]}</div>`;
             } else {
-                resultDiv.style.color = '#c62828';
-                resultDiv.innerText = "💪 有些題目答錯或漏選囉！請參考紅框處的解析，訂正後再試一次吧！";
+                feedbackDiv.className = "feedback incorrect";
+                feedbackDiv.innerHTML = `❌ <strong>答錯囉！正確解答是：${correct.join(', ')}。</strong><div class="explanation">${explanations[q]}</div>`;
             }
         }
-    </script>
-</div>
+
+        const summaryDiv = document.getElementById("result-summary");
+        summaryDiv.style.display = "block";
+        summaryDiv.innerHTML = `測驗完成！您的總得分是：${totalScore} / ${totalQuestions}`;
+    }
+</script>
 
 </body>
 </html>
