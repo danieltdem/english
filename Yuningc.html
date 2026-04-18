@@ -1,242 +1,208 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>苗栗客家螃龍文化深度挑戰賽</title>
+    <title>傳統戲曲文化與心得寫作 深度挑戰測驗</title>
     <style>
         body {
-            font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #fff5e6;
-            color: #4a2c2c;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #fdf5e6;
+            color: #3e2723;
             line-height: 1.6;
             padding: 20px;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background-color: #fff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-top: 10px solid #e67e22;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 6px solid #d32f2f;
         }
         h1 {
             text-align: center;
-            color: #d35400;
-            border-bottom: 2px dashed #e67e22;
-            padding-bottom: 10px;
+            color: #d32f2f;
+            border-bottom: 2px dashed #ffb300;
+            padding-bottom: 15px;
         }
-        .quiz-intro {
-            background: #fdf2e9;
+        .intro {
+            background-color: #fff8e1;
             padding: 15px;
-            border-left: 5px solid #e67e22;
-            margin-bottom: 20px;
+            border-left: 4px solid #ffb300;
+            margin-bottom: 30px;
+            font-size: 0.95em;
         }
-        .question {
+        .question-block {
             margin-bottom: 25px;
-            padding: 15px;
-            border: 1px solid #eee;
+            padding: 20px;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
         }
-        .question-text {
+        .question-title {
             font-weight: bold;
             font-size: 1.1em;
-            margin-bottom: 10px;
-            color: #2c3e50;
+            margin-bottom: 15px;
+            color: #1565c0;
         }
-        .options label {
+        .option-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             cursor: pointer;
             padding: 5px;
-            transition: background 0.3s;
+            transition: background-color 0.2s;
         }
-        .options label:hover {
-            background-color: #fff9f0;
+        .option-label:hover {
+            background-color: #e3f2fd;
         }
         input[type="checkbox"] {
             margin-right: 10px;
+            transform: scale(1.2);
         }
-        .submit-btn {
+        .btn-submit {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #e67e22;
+            background-color: #d32f2f;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1.2em;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.3s;
         }
-        .submit-btn:hover {
-            background-color: #d35400;
+        .btn-submit:hover {
+            background-color: #b71c1c;
         }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            font-weight: bold;
+        }
+        .correct-text { color: #2e7d32; background-color: #e8f5e9; border: 1px solid #c8e6c9; }
+        .wrong-text { color: #c62828; background-color: #ffebee; border: 1px solid #ffcdd2; }
+        .explanation {
+            font-weight: normal;
+            margin-top: 10px;
             font-size: 0.9em;
-            color: #7f8c8d;
+            color: #424242;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🔥 螃龍文化：高難度複選挑戰 🔥</h1>
-    
-    <div class="quiz-intro">
-        各位挑戰者請注意：本測驗所有題目皆為<strong>複選題</strong>。你必須選出<strong>所有正確</strong>的選項才能得分。這不僅是記憶力的考驗，更是對細節理解的終極對決！
+    <h1>🎭 傳統戲曲與寫作綜合測驗 🎭</h1>
+    <div class="intro">
+        <strong>測驗說明：</strong>本測驗為高難度複選題（多選題）。每道題目皆有<strong>兩個或兩個以上</strong>的正確選項。請仔細閱讀選項，勾選出所有正確的描述。若答錯將會顯示解析，協助您釐清觀念。
     </div>
 
     <form id="quizForm">
-        <div class="question">
-            <p class="question-text">1. 關於「螃龍」活動的文化核心與象徵意涵，下列敘述哪些正確？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> 「螃」在客家話中意指以鞭炮炸龍的動作。</label>
-                <label><input type="checkbox" name="q1" value="B"> 客家人將神龍登門視為「神明造訪」，具備宗教意涵。</label>
-                <label><input type="checkbox" name="q1" value="C"> 炸龍活動象徵「越炸越旺」，預示運勢隨火光蒸蒸日上。</label>
-                <label><input type="checkbox" name="q1" value="D"> 此活動的核心價值包含強化家鄉情感與族群精神認同。</label>
-                <label><input type="checkbox" name="q1" value="E"> 螃龍活動主要在農曆正月初一舉行，象徵一年的開端。</label>
-            </div>
-            </div>
+        <div class="question-block" id="qb-q1">
+            <div class="question-title">1. 關於「布袋戲（掌中戲）」的藝術特徵與表演構造，下列敘述哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q1" value="A"> A) 為了支撐劇烈動作，布袋戲偶的軀幹與四肢主要由堅巧的木材雕刻而成。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="B"> B) 「十指弄成百萬兵」一語，精準點出了操偶師需透過靈活指法來賦予木偶生命的核心技術。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="C"> C) 一場布袋戲演出的成功，不僅仰賴操偶，更是結合了配音、音效及操偶師製作木偶功力的綜合藝術。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="D"> D) 舞台上的燈光與打鬥聲等聲光效果，主要目的是為了掩蓋操偶師指法操作上的瑕疵。</label>
+            <label class="option-label"><input type="checkbox" name="q1" value="E"> E) 演師在進行操控時，是將手直接套入由布料製成的偶服之中進行表演。</label>
+            <div class="feedback" id="feedback-q1"></div>
+        </div>
 
-        <div class="question">
-            <p class="question-text">2. 根據螃龍活動的六階段流程，關於前三個階段的描述，哪些是正確的？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> 「糊龍」是整個活動的起點，負責製作神龍。</label>
-                <label><input type="checkbox" name="q2" value="B"> 「祥龍點睛」地點通常選在玉清宮，具有拉開序幕的功能。</label>
-                <label><input type="checkbox" name="q2" value="C"> 點睛儀式後，神龍會由「充滿神采」轉為「靈氣逼人」。</label>
-                <label><input type="checkbox" name="q2" value="D"> 「迎龍」代表家家戶戶期待好運與福氣隨著神龍降臨。</label>
-                <label><input type="checkbox" name="q2" value="E"> 祥龍點睛使用的工具包含硃砂紅墨。</label>
-            </div>
-            </div>
+        <div class="question-block" id="qb-q2">
+            <div class="question-title">2. 針對「歌仔戲」的發祥與藝術特點，下列敘述哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q2" value="A"> A) 發祥於宜蘭的歌仔戲，是全由真人演員扮演角色的表演形式，為台灣民間極興盛的傳統戲曲。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="B"> B) 在歌仔戲的傳統行當劃分中，通常將年輕的男性角色稱為「小旦」，而年輕女性角色稱為「小生」。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="C"> C) 歌仔戲演員主要透過流利的國語唱腔，搭配身段與表情來傳遞戲劇張力。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="D"> D) 鼓樂在歌仔戲中具有重要地位，常與演員的唱腔、動作及表情搭配，共同傳達劇中情感。</label>
+            <label class="option-label"><input type="checkbox" name="q2" value="E"> E) 相較於布袋戲，歌仔戲因為是真人演出，往往更能直接與台下觀眾產生深刻的情感共鳴。</label>
+            <div class="feedback" id="feedback-q2"></div>
+        </div>
 
-        <div class="question">
-            <p class="question-text">3. 針對「跈龍」與「踩街」階段的細節分析，正確的選項有哪些？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> 「跈」（ten）在客家話中的意思即為「跟隨」。</label>
-                <label><input type="checkbox" name="q3" value="B"> 民眾跟隨神龍的目的是為了「吸取龍氣」並尋求吉利。</label>
-                <label><input type="checkbox" name="q3" value="C"> 踩街盛況反映了客家族群強大的凝聚力。</label>
-                <label><input type="checkbox" name="q3" value="D"> 跈龍是螃龍活動的最後一個階段，象徵功德圓滿。</label>
-                <label><input type="checkbox" name="q3" value="E"> 文獻描述此階段會有成千上萬的民眾湧入街頭。</label>
-            </div>
-            </div>
+        <div class="question-block" id="qb-q3">
+            <div class="question-title">3. 依據文本中的「心得報告結構與寫作指南」，下列關於寫作步驟與內容的敘述，哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q3" value="A"> A) 在基本格式的「觀察紀錄」中，只需記錄演員台詞，不需包含音效或燈光等周邊細節，以免失焦。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="B"> B) 寫作加油站的第三站「觀察」，強調應透過視覺、聽覺、觸覺等多重感官來全面收集資料。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="C"> C) 第二站「聚焦」的主要目的，是廣泛尋找所有感興趣的活動與場景，並盡可能將它們全部寫入報告中。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="D"> D) 在實地觀察時，利用園區地圖或進行拍照，是輔助記憶並豐富觀察細節的有效方法。</label>
+            <label class="option-label"><input type="checkbox" name="q3" value="E"> E) 第四站「記錄」階段，鼓勵運用豐富的詞彙與成語延伸，以更生動地描寫所見景物與情緒。</label>
+            <div class="feedback" id="feedback-q3"></div>
+        </div>
 
-        <div class="question">
-            <p class="question-text">4. 關於「螃龍之夜」與「化龍返天」的視覺與情感描述，哪些符合文本內容？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> 螃龍之夜是活動的最高潮，神龍穿梭於灰色濃煙與金黃火光中。</label>
-                <label><input type="checkbox" name="q4" value="B"> 民眾向龍身投擲鞭炮被視為驅邪避災、守護家園的必要過程。</label>
-                <label><input type="checkbox" name="q4" value="C"> 「化龍返天」是以火點燃神龍，象徵其返回天庭保佑蒼生。</label>
-                <label><input type="checkbox" name="q4" value="D"> 螃龍之夜的氣氛被文獻描述為「莊嚴肅穆且安靜」。</label>
-                <label><input type="checkbox" name="q4" value="E"> 化龍返天標誌著神龍完成了在人間的功德。</label>
-            </div>
-            </div>
+        <div class="question-block" id="qb-q4">
+            <div class="question-title">4. 文本中引用了多句名言來反映戲曲文化內涵與學習態度，下列關於引言與其內涵的配對，哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q4" value="A"> A) 「一口道盡千秋事，十指弄成百萬兵」：主要用來形容歌仔戲演員在台上分飾多角的精湛演技。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="B"> B) 「臺上一分鐘，臺下十年功」：深刻表達了一場成功的演出背後，需要長年累月辛勤努力的無名付出。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="C"> C) 「讀萬卷書，行萬里路」：勉勵學習者應將書本上的理論知識與實地考察並重，不可偏廢。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="D"> D) 「百聞不如一見」：強調聽別人敘述再多，其效果也比不上親身前往現場進行實踐與觀察。</label>
+            <label class="option-label"><input type="checkbox" name="q4" value="E"> E) 這些引言純粹是為了增加心得報告的字數，與實際的戲曲欣賞或人生哲理並無關聯。</label>
+            <div class="feedback" id="feedback-q4"></div>
+        </div>
 
-        <div class="question">
-            <p class="question-text">5. 下列關於文本中詞語的解釋與應用，哪些組合是正確的？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> 「序幕」可用來指稱重大事件的開端。</label>
-                <label><input type="checkbox" name="q5" value="B"> 「高潮」比喻事物發展中最高漲、最緊張的時刻。</label>
-                <label><input type="checkbox" name="q5" value="C"> 「穿梭」形容往來次數極少，如同隱形一般。</label>
-                <label><input type="checkbox" name="q5" value="D"> 「毫無」的意思是「一點也沒有」。</label>
-                <label><input type="checkbox" name="q5" value="E"> 「挨家挨戶」意指依照次序一家接著一家。</label>
-            </div>
-            </div>
+        <div class="question-block" id="qb-q5">
+            <div class="question-title">5. 關於文本提及的語文應用（字形辨析、詞彙與句型練習），下列敘述哪些是正確的？</div>
+            <label class="option-label"><input type="checkbox" name="q5" value="A"> A) 在字形辨析中，「驗」常搭配「經驗」，「臉」用於「臉色」，兩者部首不同；而「撿」則用於「拾取/撿拾」。</label>
+            <label class="option-label"><input type="checkbox" name="q5" value="B"> B) 「音效」一詞的釋義，是指由聲音所製造的效果，其主要作用在於增進現場演出的真實感。</label>
+            <label class="option-label"><input type="checkbox" name="q5" value="C"> C) 「不但會……也會……還會……」屬於遞進句型，適合用來描述人物具備多種遞進的優點或能力。</label>
+            <label class="option-label"><input type="checkbox" name="q5" value="D"> D) 「一會兒……一會兒……」作為交替句型，是用來描述兩種穩定不變的狀態同時存在。</label>
+            <label class="option-label"><input type="checkbox" name="q5" value="E"> E) 辨析字形時，「姿勢」與「情勢」的「勢」字雖然相同，但前者指山谷的形狀，後者指太極拳的招式。</label>
+            <div class="feedback" id="feedback-q5"></div>
+        </div>
 
-        <div class="question">
-            <p class="question-text">6. 根據「字義與字形辨析」單元，下列哪些用法是正確的？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q6" value="A"> 他「懷」著滿懷希望參加螃龍活動。（存有、抱著）</label>
-                <label><input type="checkbox" name="q6" value="B"> 破「壞」傳統文化是不良的行為。（不良、惡劣）</label>
-                <label><input type="checkbox" name="q6" value="C"> 參加祭典要遵守相關禮「義」。（法規、程序）</label>
-                <label><input type="checkbox" name="q6" value="D"> 這種為家鄉奮鬥的精神非常有正「儀」感。（公正合宜）</label>
-                <label><input type="checkbox" name="q6" value="E"> 「儀」式與「義」氣的字義與用法並不相同。</label>
-            </div>
-            </div>
-
-        <div class="question">
-            <p class="question-text">7. 文中提到「生氣」一詞具備多義性，下列敘述哪些符合文本分析？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q7" value="A"> 可指「活潑有朝氣」，如點睛後的龍充滿生氣。</label>
-                <label><input type="checkbox" name="q7" value="B"> 可指「發怒」，如因為忘了帶器材而生氣。</label>
-                <label><input type="checkbox" name="q7" value="C"> 點睛前的神龍被形容為「毫無生氣」。</label>
-                <label><input type="checkbox" name="q7" value="D"> 在螃龍活動中，生氣通常指的是民眾對噪音感到不悅。</label>
-                <label><input type="checkbox" name="q7" value="E"> 文中透過龍的轉變來示範「生氣」的不同語境。</label>
-            </div>
-            </div>
-
-        <div class="question">
-            <p class="question-text">8. 關於《螃龍慶元宵》的結論與文化傳承，正確的理解包含哪些？</p>
-            <div class="options">
-                <label><input type="checkbox" name="q8" value="A"> 本文不僅是民俗記錄，更是一次家鄉記憶的重塑。</label>
-                <label><input type="checkbox" name="q8" value="B"> 阿公送的「螃龍明信片」與「福菜」象徵傳統的代際傳遞。</label>
-                <label><input type="checkbox" name="q8" value="C"> 認識並尊重鄉土文化比單純參與熱鬧活動更重要。</label>
-                <label><input type="checkbox" name="q8" value="D"> 螃龍這項技藝在現代社會中已經失去價值，僅供參考。</label>
-                <label><input type="checkbox" name="q8" value="E"> 文化的傳承能讓獨特的民俗技藝持續發光。</label>
-            </div>
-            </div>
-
-        <button type="button" class="submit-btn" onclick="checkAnswers()">提交測驗並查看解析</button>
+        <button type="button" class="btn-submit" onclick="checkAnswers()">送出答案，查看結果</button>
     </form>
-
-    <div id="result" style="margin-top: 20px; display: none; padding: 20px; border-radius: 10px; background: #e8f6f3;">
-    </div>
-</div>
-
-<div class="footer">
-    &copy; 2024 苗栗客家文化研究室 - 測驗小幫手製作
 </div>
 
 <script>
-    function checkAnswers() {
-        const correctAnswers = {
-            q1: ['A', 'B', 'C', 'D'],
-            q2: ['A', 'B', 'D', 'E'],
-            q3: ['A', 'B', 'C', 'E'],
-            q4: ['A', 'B', 'C', 'E'],
-            q5: ['A', 'B', 'D', 'E'],
-            q6: ['A', 'B', 'E'],
-            q7: ['A', 'B', 'C', 'E'],
-            q8: ['A', 'B', 'C', 'E']
-        };
+    const correctAnswers = {
+        q1: ['B', 'C', 'E'],
+        q2: ['A', 'D', 'E'],
+        q3: ['B', 'D', 'E'],
+        q4: ['B', 'C', 'D'],
+        q5: ['A', 'B', 'C']
+    };
 
-        let score = 0;
-        let total = 8;
-        let feedback = "<h2>測驗結果解析</h2>";
+    const explanations = {
+        q1: "【解析】<br>A錯誤：文本中明確指出，布袋戲偶除了偶頭、手掌與足部外，軀幹與四肢均由「布料」製成。<br>D錯誤：燈光與打鬥聲等聲光效果是為了配合指法，「緊扣觀眾心弦，令其目不轉睛」，而非掩飾瑕疵。<br>B、C、E 均為文本中正確的描述。",
+        q2: "【解析】<br>B錯誤：角色劃分正好顛倒，年輕男性是「小生」，年輕女性是「小旦」。<br>C錯誤：歌仔戲是以「閩南語」演唱為主。<br>A、D、E 均為正確傳達歌仔戲特徵的選項。",
+        q3: "【解析】<br>A錯誤：觀察紀錄應當「詳細記載」，包含表演方式以及「演出細節（如音效、演員表現）」。<br>C錯誤：第二站「聚焦」是「確認主題」後，記錄具體的時間與地點，而非廣泛尋找。<br>B、D、E 皆符合文本中推薦的寫作步驟與技巧。",
+        q4: "【解析】<br>A錯誤：「一口道盡千秋事...」是專門用來形容「布袋戲」操偶師分飾多角與操控偶件的高超技藝。<br>E錯誤：文本明言這些名言皆「反映表演藝術艱辛與智慧」，具備深刻內涵。<br>B、C、D 完美對應了名言所傳達的實踐與苦練精神。",
+        q5: "【解析】<br>D錯誤：交替句型「一會兒...一會兒...」是用來描述狀態不穩定、交替出現的情況（如天氣一會兒冷，一會兒熱），而非穩定同時存在。<br>E錯誤：「谷」對應山谷，「拳」對應太極拳，與「勢」的辨析（姿勢/情勢）無關。<br>A、B、C 準確掌握了文本提供的語文應用精要。"
+    };
 
-        for (let i = 1; i <= total; i++) {
-            let qName = 'q' + i;
-            let selected = Array.from(document.querySelectorAll(`input[name="${qName}"]:checked`)).map(el => el.value);
-            let correct = correctAnswers[qName];
-            
-            let isCorrect = selected.length === correct.length && selected.every(val => correct.includes(val));
-            
-            feedback += `<p><strong>第 ${i} 題：${isCorrect ? '<span style="color:green;">正確</span>' : '<span style="color:red;">不完全正確</span>'}</strong><br>`;
-            feedback += `正確答案是：${correct.join(', ')}<br>`;
-            
-            if (isCorrect) score++;
-            
-            // 解析內容
-            const rationales = [
-                "解析：螃龍意指炸龍，神龍登門是神明造訪，象徵越炸越旺。元宵節是正月十五而非初一。",
-                "解析：點睛在玉清宮舉行，用硃砂。神龍是從「無神」變「神采」，而非靈氣轉靈氣。",
-                "解析：跈即跟隨，目的是吸取龍氣。化龍返天才最後一個階段。",
-                "解析：螃龍之夜氣氛熱鬧非凡而非安靜。化龍象徵功德圓滿回天庭。",
-                "解析：穿梭形容次數頻繁，而非極少。",
-                "解析：儀指的是法規程序（禮儀），義指的是公正合宜（正義）。",
-                "解析：文中提到龍點睛後充滿生氣（朝氣），但也列舉了發怒的解釋作為對比。",
-                "解析：文本強調傳統文化在現代持續發光，而非失去價值。"
-            ];
-            feedback += `<small>${rationales[i-1]}</small></p><hr>`;
+    function arraysEqual(a, b) {
+        if (a === b) return true;
+        if (a == null || b == null) return false;
+        if (a.length !== b.length) return false;
+        let sortedA = [...a].sort();
+        let sortedB = [...b].sort();
+        for (let i = 0; i < sortedA.length; ++i) {
+            if (sortedA[i] !== sortedB[i]) return false;
         }
+        return true;
+    }
 
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `<h3>你的得分：${score} / ${total}</h3>` + feedback;
-        window.scrollTo(0, document.body.scrollHeight);
+    function checkAnswers() {
+        for (let i = 1; i <= 5; i++) {
+            let qName = 'q' + i;
+            let checkboxes = document.querySelectorAll(`input[name="${qName}"]:checked`);
+            let userAnswers = Array.from(checkboxes).map(cb => cb.value);
+            let correctAns = correctAnswers[qName];
+            
+            let feedbackDiv = document.getElementById('feedback-' + qName);
+            feedbackDiv.style.display = 'block';
+            
+            if (arraysEqual(userAnswers, correctAns)) {
+                feedbackDiv.className = 'feedback correct-text';
+                feedbackDiv.innerHTML = '✅ 答對了！您完全掌握了這個概念。';
+            } else {
+                feedbackDiv.className = 'feedback wrong-text';
+                feedbackDiv.innerHTML = `❌ 答錯囉！正確答案包含：${correctAns.join(', ')}。<div class="explanation">${explanations[qName]}</div>`;
+            }
+        }
     }
 </script>
 
