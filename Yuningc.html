@@ -3,263 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活出生命奇蹟 - 深度挑戰測驗</title>
+    <title>〈走過就知道〉深度閱讀理解測驗</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-            color: #004d40;
-            line-height: 1.8;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* 象徵從黑夜恐懼到光明的轉變 */
+            color: #333;
+            line-height: 1.6;
             padding: 20px;
+            margin: 0;
         }
         .container {
-            max-width: 850px;
-            margin: auto;
-            background: white;
-            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         h1 {
-            color: #00796b;
             text-align: center;
-            border-bottom: 3px dashed #4db6ac;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
+            color: #1a2a6c;
+            border-bottom: 3px solid #b21f1f;
+            padding-bottom: 10px;
         }
-        .intro {
+        p.intro {
             text-align: center;
-            color: #d84315;
             font-weight: bold;
-            background-color: #fbe9e7;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 30px;
+            color: #555;
         }
         .question-block {
-            background-color: #f1f8e9;
-            padding: 25px;
-            border-radius: 12px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #fdbb2d;
+            padding: 15px 20px;
             margin-bottom: 25px;
-            border-left: 6px solid #8bc34a;
-            transition: all 0.3s ease;
+            border-radius: 5px;
         }
-        .question-block:hover {
-            box-shadow: 0 4px 12px rgba(139, 195, 74, 0.2);
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #222;
         }
-        h3 {
-            margin-top: 0;
-            color: #2e7d32;
-        }
-        .options {
-            list-style-type: none;
-            padding: 0;
-        }
-        .options li {
-            margin: 10px 0;
-        }
-        .options label {
-            display: flex;
-            align-items: baseline;
+        .option {
+            display: block;
+            margin-bottom: 10px;
             cursor: pointer;
-            padding: 10px 15px;
-            border-radius: 8px;
-            background-color: #ffffff;
-            border: 1px solid #c5e1a5;
-            transition: background 0.2s, border 0.2s;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
         }
-        .options label:hover {
-            background-color: #e8f5e9;
-            border-color: #8bc34a;
+        .option:hover {
+            background-color: #e0e0e0;
         }
         input[type="checkbox"] {
-            margin-right: 15px;
+            margin-right: 10px;
             transform: scale(1.2);
-            accent-color: #4caf50;
         }
-        button {
-            background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
+        .submit-btn {
             display: block;
             width: 100%;
-            margin-top: 30px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 15px;
+            background-color: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 77, 64, 0.3);
+        .submit-btn:hover {
+            background-color: #b21f1f;
         }
         .explanation {
             display: none;
-            background-color: #fff3e0;
-            padding: 20px;
-            border-radius: 8px;
             margin-top: 15px;
-            border-left: 6px solid #ff9800;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            font-size: 0.95em;
+            border-radius: 4px;
         }
-        .explanation h4 {
-            margin-top: 0;
-            color: #e65100;
-        }
-        .correct-feedback { color: #2e7d32; font-weight: bold; }
-        .wrong-feedback { color: #c62828; font-weight: bold; }
+        .correct-text { color: #28a745; font-weight: bold; }
+        .wrong-text { color: #dc3545; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🌊 活出生命奇蹟：力克·胡哲 深度分析測驗 🌊</h1>
-    <div class="intro">
-        ⚠️ 測驗說明：本測驗為「高難度複選題」。每一題皆有【兩個或以上】的正確選項。請仔細思考後勾選所有正確答案！
-    </div>
+    <h1>〈走過就知道〉深度閱讀理解測驗</h1>
+    <p class="intro">請注意：本測驗為「複選題」，每題皆有兩個或以上的正確選項。請勾選所有正確敘述。</p>
 
     <form id="quizForm">
-        
-        <div class="question-block" id="qb1">
-            <h3>1. 關於力克·胡哲先天面臨的生理限制與早期的奮鬥過程，下列敘述哪些是正確的？</h3>
-            <ul class="options">
-                <li><label><input type="checkbox" name="q1" value="A"> A. 他出生時便沒有四肢，全身上下僅有兩隻畸形的「小小腳」。</label></li>
-                <li><label><input type="checkbox" name="q1" value="B"> B. 童年時期，他為了能靠自己站起來，需要利用頭部頂住牆壁來費力挪動身體。</label></li>
-                <li><label><input type="checkbox" name="q1" value="C"> C. 因為身體摩擦經常導致破皮流血，為了避免感染，他多數時間聽從建議安靜地待在床上。</label></li>
-                <li><label><input type="checkbox" name="q1" value="D"> D. 儘管過程中常流汗流血且精疲力竭，他最終仍成功學會利用「小小腳」來支撐身體。</label></li>
-                <li><label><input type="checkbox" name="q1" value="E"> E. 他的生理缺陷使他完全喪失了行動能力，必須完全仰賴他人的物理搬運才能移動。</label></li>
-            </ul>
-            <div class="explanation" id="exp1">
-                <h4>👨‍🏫 老師解析：</h4>
-                <p><strong>正確選項：A, B, D</strong></p>
-                <p>C 是錯的，因為文本明確指出他「不願受困於床上」，並未選擇安靜待在床上；E 是錯的，他最後靠自己的力量站起來，並非完全喪失行動能力。</p>
+        <div class="question-block" id="q1-block">
+            <div class="question-text">1. 關於作者在小學時遇到的旱災與前往水圳取水的背景設定，下列敘述哪些是正確的？</div>
+            <label class="option"><input type="checkbox" name="q1" value="A"> A. 旱象發生在作者小學四年級的三月，田地因缺水而龜裂得像「一塊塊豆腐乾」。</label>
+            <label class="option"><input type="checkbox" name="q1" value="B"> B. 為了解決旱災，全村村民必須在深夜同時出動，共同引水灌溉以搶救農作物。</label>
+            <label class="option"><input type="checkbox" name="q1" value="C"> C. 當父親在墳場基地發現忘記帶鋤頭時，因水流湍急需要人力看顧，迫使作者必須獨自回家拿取。</label>
+            <label class="option"><input type="checkbox" name="q1" value="D"> D. 配水時間被安排在深夜一點至兩點的時段，且必須經過墳場，這些客觀環境加深了主角的心理壓力。</label>
+            <label class="option"><input type="checkbox" name="q1" value="E"> E. 父親之所以忘記帶鋤頭，是因為水圳基地位於村莊中央，距離家中很近，認為不需要帶齊工具。</label>
+            
+            <div class="explanation" id="exp-q1">
+                <strong>【解析】</strong><br>
+                正確選項為：<span class="correct-text">A, C, D</span><br>
+                B 錯誤：村民是「依序輪流引水灌溉（輪灌）」，而非同時出動。<br>
+                E 錯誤：水圳基地是位於「墳場」，並非村莊中央，正是因為距離與地點陰森才構成本文的核心挑戰。
             </div>
         </div>
 
-        <div class="question-block" id="qb2">
-            <h3>2. 力克·胡哲的成功關鍵在於他對自身缺陷的心理轉折與自我認同。在家人與求學階段中，下列哪些描述符合文本內容？</h3>
-            <ul class="options">
-                <li><label><input type="checkbox" name="q2" value="A"> A. 父母教導他要勇於反擊那些對他投以異樣眼光的人，以建立強悍的自我防衛機制。</label></li>
-                <li><label><input type="checkbox" name="q2" value="B"> B. 在父母的鼓勵下，他學會不在意別人的眼光，並轉以積極正面的態度接納自己。</label></li>
-                <li><label><input type="checkbox" name="q2" value="C"> C. 學生時期，他並沒有封閉自我，反而主動接近同學並分享自己的故事。</label></li>
-                <li><label><input type="checkbox" name="q2" value="D"> D. 他不僅成功融入校園，甚至展現出領導才能，被推舉為學生會會長。</label></li>
-                <li><label><input type="checkbox" name="q2" value="E"> E. 學校的老師因為同情他的遭遇，特例直接任命他為學生會會長以建立他的自信。</label></li>
-            </ul>
-            <div class="explanation" id="exp2">
-                <h4>👨‍🏫 老師解析：</h4>
-                <p><strong>正確選項：B, C, D</strong></p>
-                <p>A 是錯的，父母是教他「不要在意別人眼光、接納自己」，而非教他強悍反擊；E 是錯的，文本指出他是憑藉「人格魅力與影響力被推舉」，而非老師特例任命。</p>
+        <div class="question-block" id="q2-block">
+            <div class="question-text">2. 文本中生動地刻劃了作者獨自穿越墳場時的恐懼反應。關於這些心理與生理的深度描寫，下列哪些選項完全符合課文分析？</div>
+            <label class="option"><input type="checkbox" name="q2" value="A"> A. 恐懼在語言與行為上表現為：連說四次「我……」的結巴，以及如同打開水龍頭般無法控制的淚水。</label>
+            <label class="option"><input type="checkbox" name="q2" value="B"> B. 在極度恐懼下，作者產生了感官與心理的扭曲，將原本平坦的牛車路，錯覺成上下劇烈搖晃的「危險吊橋」。</label>
+            <label class="option"><input type="checkbox" name="q2" value="C"> C. 聽覺上的恐懼被放大，牙齒因寒冷與害怕而「嗒嗒嗒」作響，心跳聲更被誇飾為「重擊的鼓聲」。</label>
+            <label class="option"><input type="checkbox" name="q2" value="D"> D. 因為極度害怕，作者在奔跑時感覺腎上腺素激發，原本需要十幾二十分鐘的路程，彷彿「短短三分鐘」就走完了。</label>
+            <label class="option"><input type="checkbox" name="q2" value="E"> E. 作者除了呼吸急促、雙腿發軟之外，還因為過度驚嚇而出現了視聽幻覺，看見了許多具體的鬼影。</label>
+
+            <div class="explanation" id="exp-q2">
+                <strong>【解析】</strong><br>
+                正確選項為：<span class="correct-text">A, B, C</span><br>
+                D 錯誤：時間感是被拉長的，原本僅需「短短三分鐘」的路程，在恐懼驅使下感覺像是走了「一、二十分鐘」。<br>
+                E 錯誤：文本中提到眼前一片模糊、聽見各種怪聲作響，但並未具體描寫「看見許多具體的鬼影」，這是作者自己內心的預期恐懼。
             </div>
         </div>
 
-        <div class="question-block" id="qb3">
-            <h3>3. 力克不僅克服困難，更挑戰了生命的極限並提出了獨特的生命哲學。關於他的成就與思想，下列選項哪些正確？</h3>
-            <ul class="options">
-                <li><label><input type="checkbox" name="q3" value="A"> A. 他認為「美好」有絕對的生理標準，而他透過後天的努力達到了這個標準。</label></li>
-                <li><label><input type="checkbox" name="q3" value="B"> B. 他創辦了非營利組織「沒有四肢的人生」，並透過巡迴世界各地的演講鼓勵了無數人。</label></li>
-                <li><label><input type="checkbox" name="q3" value="C"> C. 他在夏威夷挑戰衝浪時，雖然因為沒有四肢而頻頻落水，但其「屢敗屢戰」的精神令人嘆為觀止。</label></li>
-                <li><label><input type="checkbox" name="q3" value="D"> D. 他主張與其執著於自身的痛苦，不如走出自我，將注意力放在需要幫助的人身上。</label></li>
-                <li><label><input type="checkbox" name="q3" value="E"> E. 他的著名格言是：「如果你等不到奇蹟，那就讓自己成為一個奇蹟。」</label></li>
-            </ul>
-            <div class="explanation" id="exp3">
-                <h4>👨‍🏫 老師解析：</h4>
-                <p><strong>正確選項：B, D, E</strong></p>
-                <p>A 是錯的，他認為美好是一種「見地」，與眾不同是「生命中的另一種美好」；C 是錯的，文本強調他衝浪時「動作敏捷如海豚，在浪頭上翻轉、跳動」，並非強調頻頻落水。</p>
+        <div class="question-block" id="q3-block">
+            <div class="question-text">3. 當作者順利拿回鋤頭後，其心態與感官發生了劇烈轉變。關於挑戰後的體悟與文章主旨，下列敘述哪些是正確的？</div>
+            <label class="option"><input type="checkbox" name="q3" value="A"> A. 拿回鋤頭後，作者的聽覺發生了轉變，原本令人害怕的怪異聲響，變成了分外悅耳的蟋蟀叫聲。</label>
+            <label class="option"><input type="checkbox" name="q3" value="B"> B. 課文的核心體悟在於傳達「實踐出真知」：只要勇敢接受挑戰、跨出第一步，就會發現事情不如想像中可怕。</label>
+            <label class="option"><input type="checkbox" name="q3" value="C"> C. 作者體會到，只要事前做好充分的準備並攜帶好工具（如鋤頭），就可以完全避開生活中所有的恐懼。</label>
+            <label class="option"><input type="checkbox" name="q3" value="D"> D. 感官的恢復象徵著心理障礙的克服，表現為「視覺變亮不再只有黑暗」以及「雙腿不再發軟、腳步輕快」。</label>
+            <label class="option"><input type="checkbox" name="q3" value="E"> E. 文章結論指出，預期恐懼是無法被戰勝的，人類只能透過轉移注意力來忽視黑暗與鬼怪的存在。</label>
+
+            <div class="explanation" id="exp-q3">
+                <strong>【解析】</strong><br>
+                正確選項為：<span class="correct-text">A, B, D</span><br>
+                C 錯誤：文章主旨在於強調「行動」與「勇敢面對」，而非僅僅依賴工具準備來避開恐懼。<br>
+                E 錯誤：文章的結論明確指出，透過行動與實踐，作者最終「戰勝了」對黑暗和恐懼的心理陰影，而非只是轉移注意力。
             </div>
         </div>
 
-        <div class="question-block" id="qb4">
-            <h3>4. 本文採取了嚴謹的「起、承、轉、合」敘事結構來加強感染力。下列關於段落結構對應的敘述，哪些是正確的？</h3>
-            <ul class="options">
-                <li><label><input type="checkbox" name="q4" value="A"> A. 【起】：以力克在演講台上「蹦跳」開頭，利用生理狀態與活力的反差引發讀者好奇。</label></li>
-                <li><label><input type="checkbox" name="q4" value="B"> B. 【轉】：主要回溯他小時候努力站起來的艱辛過程以及求學時期的心理掙扎。</label></li>
-                <li><label><input type="checkbox" name="q4" value="C"> C. 【轉】：描述他在夏威夷成功衝浪的壯舉，展現出生命的巔峰與不可思議的潛能。</label></li>
-                <li><label><input type="checkbox" name="q4" value="D"> D. 【合】：總結生命的意義，鼓勵讀者勇敢突破限制，活出屬於自己生命的可能。</label></li>
-                <li><label><input type="checkbox" name="q4" value="E"> E. 【承】：承接開頭，描述了他早期為了克服肢體障礙所付出的血汗，以及求學的挑戰。</label></li>
-            </ul>
-            <div class="explanation" id="exp4">
-                <h4>👨‍🏫 老師解析：</h4>
-                <p><strong>正確選項：A, C, D, E</strong></p>
-                <p>B 是錯的，回溯小時候的艱辛與求學挑戰屬於「承」的部分，而非「轉」。「轉」是夏威夷衝浪的壯舉。</p>
+        <div class="question-block" id="q4-block">
+            <div class="question-text">4. 根據教材內容中的語文學習要點，下列關於生字、詞語解釋、字音辨析與修辭句型的敘述，哪些是正確的？</div>
+            <label class="option"><input type="checkbox" name="q4" value="A"> A. 「裂」字的部首為「衣」，總筆畫 12 畫；「懼」字的部首為「心」，總筆畫 21 畫。</label>
+            <label class="option"><input type="checkbox" name="q4" value="B"> B. 「心跳像重擊的鼓聲」與「選手像狂奔的羚羊」皆運用了明喻（像...）的修辭手法。</label>
+            <label class="option"><input type="checkbox" name="q4" value="C"> C. 詞語「兩腿發軟」是指因過度勞累而兩腿無力；「應付」則是指對事或人採取合宜的應對措施。</label>
+            <label class="option"><input type="checkbox" name="q4" value="D"> D. 關於字音辨析，「扛」作為「肩負」之意時念作「ㄍㄤ」；作為「兩手舉重物」之意時念作「ㄎㄤˊ」。</label>
+            <label class="option"><input type="checkbox" name="q4" value="E"> E. 句子「雖然停電造成不便，可是當我抬頭看見滿天星辰，才發現生活中有許多美好的事物」是一個轉折句。</label>
+
+            <div class="explanation" id="exp-q4">
+                <strong>【解析】</strong><br>
+                正確選項為：<span class="correct-text">A, B, E</span><br>
+                C 錯誤：「兩腿發軟」在本文與解釋中是指「因驚恐、害怕而兩腿無力，站不起來」，並非因為勞累。<br>
+                D 錯誤：字音顛倒了。「扛」作為肩負時念作「ㄎㄤˊ」（如：扛起重擔）；作為兩手舉重物時念作「ㄍㄤ」（如：力能扛鼎）。
             </div>
         </div>
 
-        <div class="question-block" id="qb5">
-            <h3>5. 關於文本分析中所提及的重要詞彙釋義以及句型應用，下列選項哪些是完全正確的？</h3>
-            <ul class="options">
-                <li><label><input type="checkbox" name="q5" value="A"> A. 「激盪」在文中主要用來形容夏威夷海浪受到礁石阻擋而產生的劇烈水花。</label></li>
-                <li><label><input type="checkbox" name="q5" value="B"> B. 「嘆為觀止」意指事物極好令人讚嘆，文中專門用來形容力克令人驚豔的衝浪表現。</label></li>
-                <li><label><input type="checkbox" name="q5" value="C"> C. 「不僅……甚至……」為遞進句型，用以表達程度更進一層的意思。</label></li>
-                <li><label><input type="checkbox" name="q5" value="D"> D. 「即便……仍……」為包含假設與轉折語氣的句型，強調在某種條件下結果依然不變。</label></li>
-                <li><label><input type="checkbox" name="q5" value="E"> E. 文中所宣揚的核心精神，印證了人生寬度與深度取決於面對困難時的選擇，而非天生條件。</label></li>
-            </ul>
-            <div class="explanation" id="exp5">
-                <h4>👨‍🏫 老師解析：</h4>
-                <p><strong>正確選項：B, C, D, E</strong></p>
-                <p>A 是錯的，「激盪」在文本釋義中是指「因受衝擊而動盪，文中形容『情緒』受到強烈刺激」，並非物理上的海浪水花。</p>
-            </div>
-        </div>
-
-        <button type="button" onclick="checkAnswers()">送出答案 ＆ 查看解析</button>
+        <button type="button" class="submit-btn" onclick="checkAnswers()">交卷並觀看解析</button>
     </form>
 </div>
 
 <script>
     function checkAnswers() {
-        // 定義每一題的正確答案
-        const correctAnswers = {
-            q1: ['A', 'B', 'D'],
-            q2: ['B', 'C', 'D'],
-            q3: ['B', 'D', 'E'],
-            q4: ['A', 'C', 'D', 'E'],
-            q5: ['B', 'C', 'D', 'E']
+        // 正確答案設定
+        const answers = {
+            q1: ['A', 'C', 'D'],
+            q2: ['A', 'B', 'C'],
+            q3: ['A', 'B', 'D'],
+            q4: ['A', 'B', 'E']
         };
 
-        let allPerfect = true;
+        let allCorrect = true;
 
-        for (let i = 1; i <= 5; i++) {
-            let questionName = 'q' + i;
-            let checkboxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
-            let userAnswers = Array.from(checkboxes).map(cb => cb.value);
-            let targetAnswers = correctAnswers[questionName];
+        for (let q in answers) {
+            let selected = [];
+            let checkboxes = document.querySelectorAll(`input[name="${q}"]:checked`);
+            checkboxes.forEach((cb) => selected.push(cb.value));
+
+            // 檢查是否完全答對 (選中的和正確答案陣列完全一致)
+            let isCorrect = selected.length === answers[q].length && selected.every(val => answers[q].includes(val));
             
-            // 判斷是否完全正確（選出的跟正確的一模一樣）
-            let isCorrect = (userAnswers.length === targetAnswers.length) && 
-                            userAnswers.every(val => targetAnswers.includes(val));
-
-            let expDiv = document.getElementById('exp' + i);
-            let qBlock = document.getElementById('qb' + i);
-            
-            expDiv.style.display = 'block';
-
+            let block = document.getElementById(`${q}-block`);
             if (isCorrect) {
-                qBlock.style.borderLeftColor = '#2e7d32'; // 深綠色代表答對
-                expDiv.style.borderLeftColor = '#2e7d32';
-                expDiv.style.backgroundColor = '#e8f5e9';
-                expDiv.innerHTML = '<h4 class="correct-feedback">🎉 恭喜你，這題完全答對了！</h4>' + expDiv.innerHTML.replace('<h4>👨‍🏫 老師解析：</h4>', '');
+                block.style.borderLeftColor = "#28a745"; // 綠色代表正確
             } else {
-                allPerfect = false;
-                qBlock.style.borderLeftColor = '#c62828'; // 紅色代表有錯
-                expDiv.style.borderLeftColor = '#c62828';
-                expDiv.style.backgroundColor = '#ffebee';
-                expDiv.innerHTML = '<h4 class="wrong-feedback">💡 哎呀，有漏選或是多選喔！來看看解析：</h4>' + expDiv.innerHTML.replace('<h4>👨‍🏫 老師解析：</h4>', '');
+                block.style.borderLeftColor = "#dc3545"; // 紅色代表有錯誤或未選全
+                allCorrect = false;
             }
-            
-            // 停用選項，防止重複作答
-            let allCheckboxes = document.querySelectorAll(`input[name="${questionName}"]`);
-            allCheckboxes.forEach(cb => cb.disabled = true);
+
+            // 顯示解析
+            document.getElementById(`exp-${q}`).style.display = "block";
         }
 
-        let btn = document.querySelector('button');
-        if (allPerfect) {
-            btn.innerText = "🏆 太棒了！全部滿分過關！";
-            btn.style.background = "linear-gradient(135deg, #4caf50 0%, #2e7d32 100%)";
+        if(allCorrect){
+            alert("太棒了！你完全答對了所有高難度複選題！你對課文的理解非常透徹！");
         } else {
-            btn.innerText = "📚 測驗結束，請仔細閱讀上方的錯題解析喔！";
-            btn.style.background = "linear-gradient(135deg, #f57c00 0%, #ef6c00 100%)";
+            alert("有些題目沒有完全答對喔！請往下查看詳細解析，把不熟悉的觀念補齊吧！");
         }
-        btn.disabled = true;
     }
 </script>
 
