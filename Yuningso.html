@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家鄉水資源管理與利用 - 挑戰級複選測驗</title>
+    <title>家鄉的山與海：深度挑戰測驗</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e0f7fa;
-            color: #004d40;
+            background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
+            color: #333;
             line-height: 1.6;
             padding: 20px;
         }
@@ -17,239 +17,159 @@
             margin: 0 auto;
             background-color: #ffffff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 8px solid #00acc1;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         h1 {
             text-align: center;
-            color: #00838f;
+            color: #2e7d32;
+            border-bottom: 2px solid #81c784;
+            padding-bottom: 10px;
         }
         .intro {
             text-align: center;
-            font-weight: bold;
+            color: #555;
+            font-style: italic;
             margin-bottom: 30px;
-            color: #00695c;
         }
         .question-block {
-            background-color: #f1f8e9;
-            margin-bottom: 25px;
+            background-color: #f9fbf9;
+            border-left: 5px solid #1976d2;
             padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #8bc34a;
+            margin-bottom: 25px;
+            border-radius: 4px;
         }
         .question-title {
-            font-size: 1.1em;
             font-weight: bold;
+            font-size: 1.1em;
             margin-bottom: 15px;
+            color: #1565c0;
         }
-        .options label {
+        .option {
             display: block;
             margin-bottom: 10px;
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             cursor: pointer;
-            padding: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s;
         }
-        .options label:hover {
-            background-color: #dcedc8;
-            border-radius: 5px;
+        .option:hover {
+            background-color: #e3f2fd;
         }
-        button {
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            font-size: 1.2em;
+            background-color: #0277bd;
             color: white;
-            background-color: #00acc1;
             border: none;
             border-radius: 8px;
+            font-size: 1.2em;
             cursor: pointer;
-            margin-top: 20px;
+            font-weight: bold;
             transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #00838f;
-        }
-        .feedback {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 5px;
-            display: none;
-        }
-        .feedback.wrong {
-            background-color: #ffebee;
-            border-left: 5px solid #f44336;
-            color: #c62828;
-            display: block;
-        }
-        .feedback.correct {
-            background-color: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            color: #2e7d32;
-            display: block;
-        }
-        .score-display {
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-            color: #d84315;
-            display: none;
+        .submit-btn:hover {
+            background-color: #01579b;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>💧 家鄉水資源管理與利用 - 挑戰級測驗</h1>
-    <p class="intro">請注意：本測驗所有題目皆為「複選題」，每題至少有兩個以上的正確選項。請勾選所有你認為正確的答案！</p>
+    <h1>🏔️ 家鄉的山與海：資源轉型與永續發展測驗 🌊</h1>
+    <p class="intro">這是一份高難度的複選測驗。請仔細閱讀選項，每題皆有兩個或以上的正確答案。</p>
 
     <form id="quizForm">
         
-        <div class="question-block" id="qb1">
-            <div class="question-title">1. 關於早期水資源利用與河道運輸的歷史演進，下列敘述哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 先民若居住地距離水源較遠，會透過挖掘、打通土地的方式開鑿水井或水道來取得生活用水。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 早期民眾的日常生活與河川密不可分，河邊常作為洗衣、消暑或捕捉魚蝦的場所。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 早期用於搭船渡河的「舢舨」是一種深底木船，特別適合在水深較深的河中行駛。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 「中式帆船」主要是平底設計，多用於淺水區域的載運貨物。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 在陸路交通不便的時期，河川具備重要的航運功能。</label>
-            </div>
-            <div class="feedback" id="fb1">
-                <strong>解析：</strong><br>
-                C 錯誤：舢舨是「平底」木船，適合行駛於「淺水」的河中。<br>
-                D 錯誤：中式帆船是用於行駛在「水深較深」的河中來載運貨物。<br>
-                正確答案為 A, B, E。
-            </div>
+        <div class="question-block">
+            <div class="question-title">1. 關於臺灣山林資源的開發歷史與影響，下列敘述哪些是正確的？</div>
+            <label class="option">
+                <input type="checkbox" name="q1" value="A"> A. 早期原住民對山林的利用奠基於「不過度捕殺」與「分享」的共生智慧，並以採集野菜及種植小米為食。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q1" value="B"> B. 漢人提煉樟腦的技術是將樟樹幹削成木片進行水蒸餾，且樹齡越年輕的樟樹，其樟腦萃取比例越高。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q1" value="C"> C. 阿里山森林鐵路最初的興建目的是為了帶動高山觀光產業，並連帶使嘉義市發展成「木材都市」。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q1" value="D"> D. 花蓮林田山過去曾是生活機能完善的伐木社區（設有醫務室、學校等），現今已成功轉型為林業文化園區。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q1" value="E"> E. 近代因經濟利益驅動的大面積山林開發，直接導致了野生動物棲息地遭破壞，且壓縮了原住民的生活空間。
+            </label>
         </div>
 
-        <div class="question-block" id="qb2">
-            <div class="question-title">2. 現代自來水體系支持了多元的社會活動與產業需求。根據文本，下列關於現代產業用水需求的敘述哪些正確？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 農業在面臨缺水時期，常常需要依賴抽取地下水來補足灌溉農田的需求。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 畜牧業在飼養雞、鴨、豬等禽畜時，需要大量的水源來維持飼養環境的清潔。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 旅館業中的游泳池及戲水設施，屬於現代用水體系中的「工業加工」需求。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 農產品加工廠與飲料工廠在製造與清洗過程中，皆需要大量符合規範的合規水源。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 服務業餐廳的烹煮與環境清潔用水，主要依賴雨撲滿收集的雨水以節省成本。</label>
-            </div>
-            <div class="feedback" id="fb2">
-                <strong>解析：</strong><br>
-                C 錯誤：旅館的游泳池設施屬於「服務業」用水，而非工業加工。<br>
-                E 錯誤：文本中指出餐廳烹煮與清潔屬於服務業對現代便利供水的需求，並未提及主要依賴雨撲滿。雨撲滿的水主要用於澆灌與沖馬桶。<br>
-                正確答案為 A, B, D。
-            </div>
+        <div class="question-block">
+            <div class="question-title">2. 面對當前山林環境的挑戰，現代山林政策與守護行動包含了下列哪些正確觀念與具體作為？</div>
+            <label class="option">
+                <input type="checkbox" name="q2" value="A"> A. 為了落實「環境保育」，政府目前的政策是全面禁止任何木材的砍伐與買賣，僅推廣造林。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q2" value="B"> B. 綠色消費的具體行動之一，是提倡選購經「政府認證」的本土木材，或具備「國際認證」永續經營的進口木材。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q2" value="C"> C. 「無痕山林（LNT）」原則鼓勵登山者除了帶走自身垃圾外，也可適度採集山中的野生植物回家進行人工復育。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q2" value="D"> D. 確保親近山林時的安全，除了準備適當的裝備外，更強調事前的行程規劃與詳細的天氣觀測。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q2" value="E"> E. 政府與民間積極推動重新造林，並將以往的林場規劃為國家森林遊樂區或林業文化園區以推動環境教育。
+            </label>
         </div>
 
-        <div class="question-block" id="qb3">
-            <div class="question-title">3. 面對降雨不均與供水壓力，政府採取了多項水資源開發與供應策略。關於這些策略的功能與案例，下列哪些選項描述正確？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 全台興建水庫的唯一目的是為了防洪減災，並不具備調節旱象的功能。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 南投縣烏溪鳥嘴潭人工湖的功能，主要是攔引鄰近河川進儲，以穩定地區供水。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 澎湖縣等離島地區因觀光季節需求暴增且降雨量少，故興建海水淡化廠來應對缺水。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 海水淡化廠所提供的淡水極易受到氣候變遷與天然降雨量多寡的影響。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 興建人工湖與海水淡化廠，皆屬於為增加供應來源而在「開發端」所採取的具體策略。</label>
-            </div>
-            <div class="feedback" id="fb3">
-                <strong>解析：</strong><br>
-                A 錯誤：興建水庫的功能是「蓄積雨水，調節旱澇」，兼具防旱與防洪功能。<br>
-                D 錯誤：海水淡化廠的優勢在於能提供「不受氣候影響」的穩定淡水。<br>
-                正確答案為 B, C, E。
-            </div>
+        <div class="question-block">
+            <div class="question-title">3. 關於臺灣漁業技術的演進、面臨的困境以及轉型方向，下列敘述哪些正確？</div>
+            <label class="option">
+                <input type="checkbox" name="q3" value="A"> A. 早期近海漁業常使用石滬與牽罟等較簡單的工具與人力捕撈，這使得漁獲種類與產量受到較大限制。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q3" value="B"> B. 現代化漁業透過導入衛星電話、魚探機與冷藏設備，有效讓漁船能航行得更遠並大幅增加漁獲量。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q3" value="C"> C. 為了徹底解決過度捕撈的問題，臺灣目前已將所有的漁業捕捉活動，全數轉型為「固定箱網」養殖技術。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q3" value="D"> D. 臺灣漁業目前面臨勞動力斷層的危機，因傳統捕魚工作辛苦且危險，目前大量仰賴引進外籍移工補足人力。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q3" value="E"> E. 統計顯示，自民國70年至110年間，臺灣近海漁業產量因為現代化技術的普及而呈現大幅且持續的上升趨勢。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q3" value="F"> F. 發展「觀光漁市」、推廣傳統捕魚體驗與海洋生態之旅，是目前鼓勵青年返鄉並推動漁村產業轉型的重要契機。
+            </label>
         </div>
 
-        <div class="question-block" id="qb4">
-            <div class="question-title">4. 「回收再利用」是現代水資源管理的核心。關於雨撲滿與水資源回收中心的運作與應用，下列哪些敘述符合文本內容？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 「雨撲滿」收集到的雨水，只需經過簡單沉澱，即可直接作為飲用水供應給社區民眾。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 北投圖書館利用傾斜屋頂收集雨水，這類雨撲滿系統收集的水可用於供應馬桶沖水。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 政府設置的水資源回收中心，會運用物理與化學處理技術來分解家庭污水中的污染物質。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 水資源回收中心處理後的再生水，主要提供給民眾免費取用作為洗澡與烹飪用途。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 污水處理後轉化為再生水供工業使用，不僅能解決局部地區工業用水不足，還能減少污水排放對河川的污染。</label>
-            </div>
-            <div class="feedback" id="fb4">
-                <strong>解析：</strong><br>
-                A 錯誤：雨撲滿的水需經過濾、除雜質及消毒，且主要應用於澆灌植物與沖洗馬桶，而非作為飲用水。<br>
-                D 錯誤：回收水主要提供民眾免費取用於「澆花、街道灑水降溫」，以及工業用途，不能用於洗澡與烹飪。<br>
-                正確答案為 B, C, E。
-            </div>
+        <div class="question-block">
+            <div class="question-title">4. 為了達成「海洋國家」的永續發展，公民行動與綜合保育措施至關重要。下列哪些屬於正確的海洋永續行動與觀念？</div>
+            <label class="option">
+                <input type="checkbox" name="q4" value="A"> A. 消費者在日常選購海鮮時，為了減輕海洋生態負擔，應優先購買「野生捕撈」的水產品，減少對「養殖水產」的依賴。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q4" value="B"> B. 友善環境的食魚習慣包含：挑選「當季盛產」的海鮮，並且絕對不選購未長大的小魚或逐年稀少的物種。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q4" value="C"> C. 積極的保育行動包含了針對數量快速減少的物種或惡化的棲地進行「復育」，以尋求增加其數量或恢復生存環境。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q4" value="D"> D. 海洋環境的退化主要只會影響漁民的生計與漁產價格，對一般民眾食用海鮮的食品安全與健康並不會有直接影響。
+            </label>
+            <label class="option">
+                <input type="checkbox" name="q4" value="E"> E. 未來的保育承諾要求我們在日常生活中減少使用塑膠製品、參與淨灘，並拒絕購買任何使用瀕危海洋生物製成的物品。
+            </label>
         </div>
 
-        <div class="question-block" id="qb5">
-            <div class="question-title">5. 缺水危機對生活影響甚鉅，因此落實節水勢在必行。關於缺水成因、影響及家戶節水實踐，下列哪些選項正確？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 缺水的「人為因素」除了民眾浪費水資源外，也包含了自來水管線損壞漏水。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 將洗米水、洗菜水用於澆花，或是收集除濕機產生的水來沖洗馬桶，皆是「一水多用」的具體實踐。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 缺水危機不僅會導致身體產生異味影響個人衛生，還可能因無法清洗蔬果而造成農藥殘留，威脅飲食健康。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 為落實預防性收集，民眾洗澡前流出的冷水因為含有過多雜質，應直接排入水溝以免污染。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 確保水資源的永續利用僅是政府部門的責任，只要廣建海水淡化廠即可完全解決潛在的缺水危機。</label>
-            </div>
-            <div class="feedback" id="fb5">
-                <strong>解析：</strong><br>
-                D 錯誤：洗澡前流出的冷水是乾淨的自來水，應「先用桶子收集，回收再利用」，而非排入水溝。<br>
-                E 錯誤：結論指出僅靠開發新水源並不足夠，必須結合「雨水收集」、「廢水再生」以及「全民節水行為」方能有效應對。<br>
-                正確答案為 A, B, C。
-            </div>
-        </div>
-
-        <button type="button" onclick="checkAnswers()">提交測驗看結果</button>
-        <div id="finalScore" class="score-display"></div>
+        <button type="button" class="submit-btn" onclick="alert('測驗完成！這是一份自我挑戰測驗，你可以對照你在 HTML 檔案裡的隱藏註解來核對正確答案喔！')">提交測驗</button>
     </form>
 </div>
-
-<script>
-    function checkAnswers() {
-        // 定義正確答案的陣列
-        const correctAnswers = {
-            q1: ['A', 'B', 'E'],
-            q2: ['A', 'B', 'D'],
-            q3: ['B', 'C', 'E'],
-            q4: ['B', 'C', 'E'],
-            q5: ['A', 'B', 'C']
-        };
-
-        let score = 0;
-        let total = 5;
-
-        // 遍歷所有問題
-        for (let i = 1; i <= total; i++) {
-            let qName = 'q' + i;
-            let checkboxes = document.querySelectorAll(`input[name="${qName}"]:checked`);
-            let userAnswers = Array.from(checkboxes).map(cb => cb.value);
-            
-            let feedbackElement = document.getElementById('fb' + i);
-            
-            // 檢查使用者選擇是否與正確答案完全一致 (長度相同且元素皆包含)
-            let isCorrect = (userAnswers.length === correctAnswers[qName].length) && 
-                            userAnswers.every(val => correctAnswers[qName].includes(val));
-
-            if (isCorrect) {
-                feedbackElement.className = 'feedback correct';
-                feedbackElement.innerHTML = '<strong>恭喜答對！</strong> 觀念非常清楚。';
-                score++;
-            } else {
-                feedbackElement.className = 'feedback wrong';
-                // 顯示原本寫在 HTML 裡面的解析內容 (透過重置內容或維持原本內容加上提示)
-                let originalText = feedbackElement.getAttribute('data-original');
-                if(!originalText) {
-                    originalText = feedbackElement.innerHTML;
-                    feedbackElement.setAttribute('data-original', originalText);
-                }
-                feedbackElement.innerHTML = '<strong>答錯了喔！</strong> 漏選或選錯了。<br>' + originalText;
-            }
-        }
-
-        // 顯示總分
-        let scoreDisplay = document.getElementById('finalScore');
-        scoreDisplay.style.display = 'block';
-        if(score === total) {
-            scoreDisplay.innerHTML = `太棒了！你獲得了滿分 ${score}/${total}！你完全掌握了家鄉的水資源知識！`;
-            scoreDisplay.style.color = "#2e7d32";
-        } else {
-            scoreDisplay.innerHTML = `你的得分是 ${score}/${total}。再接再厲，仔細看看解析釐清觀念吧！`;
-            scoreDisplay.style.color = "#d84315";
-        }
-    }
-</script>
 
 </body>
 </html>
