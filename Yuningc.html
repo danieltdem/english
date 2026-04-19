@@ -3,221 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〈舞吧！小飛魚〉深度檢測卷</title>
+    <title>活出生命奇蹟 - 深度挑戰測驗</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e0f7fa; /* 海洋淺藍背景 */
-            color: #004d40; /* 深海綠文字 */
-            line-height: 1.6;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            color: #004d40;
+            line-height: 1.8;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: auto;
-            background: #ffffff;
-            padding: 30px;
+            background: white;
+            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            border-top: 8px solid #00acc1;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         h1 {
+            color: #00796b;
             text-align: center;
-            color: #00838f;
+            border-bottom: 3px dashed #4db6ac;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
         .intro {
             text-align: center;
-            font-size: 1.1em;
+            color: #d84315;
+            font-weight: bold;
+            background-color: #fbe9e7;
+            padding: 10px;
+            border-radius: 8px;
             margin-bottom: 30px;
-            color: #006064;
         }
         .question-block {
-            background: #e1f5fe;
-            padding: 20px;
+            background-color: #f1f8e9;
+            padding: 25px;
+            border-radius: 12px;
             margin-bottom: 25px;
-            border-radius: 10px;
-            border-left: 5px solid #0288d1;
+            border-left: 6px solid #8bc34a;
+            transition: all 0.3s ease;
         }
-        .question-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 15px;
+        .question-block:hover {
+            box-shadow: 0 4px 12px rgba(139, 195, 74, 0.2);
+        }
+        h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
         }
         .options label {
-            display: block;
-            margin-bottom: 10px;
+            display: flex;
+            align-items: baseline;
             cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #c5e1a5;
+            transition: background 0.2s, border 0.2s;
         }
-        .options input[type="checkbox"] {
-            margin-right: 10px;
+        .options label:hover {
+            background-color: #e8f5e9;
+            border-color: #8bc34a;
+        }
+        input[type="checkbox"] {
+            margin-right: 15px;
             transform: scale(1.2);
+            accent-color: #4caf50;
         }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            background: #00838f;
+        button {
+            background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 1.2em;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .submit-btn:hover {
-            background: #005662;
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 77, 64, 0.3);
         }
-        .feedback {
+        .explanation {
             display: none;
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.95em;
-        }
-        .feedback.correct {
-            background: #c8e6c9;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-        }
-        .feedback.incorrect {
-            background: #ffcdd2;
-            color: #c62828;
-            border: 1px solid #ef9a9a;
-        }
-        .explanation-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .image-placeholder {
-            text-align: center;
-            margin: 20px 0;
+            background-color: #fff3e0;
             padding: 20px;
-            background: #b2ebf2;
-            border: 2px dashed #00acc1;
-            border-radius: 10px;
-            color: #007c91;
-            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 6px solid #ff9800;
         }
+        .explanation h4 {
+            margin-top: 0;
+            color: #e65100;
+        }
+        .correct-feedback { color: #2e7d32; font-weight: bold; }
+        .wrong-feedback { color: #c62828; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🌊 〈舞吧！小飛魚〉深度檢測卷 🐟</h1>
-    <p class="intro">請仔細閱讀每道題目，本測驗為<b>多重選擇題</b>，每題皆有兩個以上的正確答案。請勾選所有你認為正確的選項後，點擊最下方的按鈕觀看成績與解析。</p>
+    <h1>🌊 活出生命奇蹟：力克·胡哲 深度分析測驗 🌊</h1>
+    <div class="intro">
+        ⚠️ 測驗說明：本測驗為「高難度複選題」。每一題皆有【兩個或以上】的正確選項。請仔細思考後勾選所有正確答案！
+    </div>
 
     <form id="quizForm">
         
         <div class="question-block" id="qb1">
-            <div class="question-title">1. 關於〈舞吧！小飛魚〉的文本背景與核心主旨，下列敘述哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q1" value="A"> A. 故事發生的地點位於臺東縣蘭嶼鄉椰油國小。</label>
-                <label><input type="checkbox" name="q1" value="B"> B. 本文是一篇論說文，旨在嚴肅論述達悟族文化面臨的存續危機。</label>
-                <label><input type="checkbox" name="q1" value="C"> C. 文本的核心主旨之一是記錄個人對於族群文化的蛻變歷程，並學習尊重多元文化。</label>
-                <label><input type="checkbox" name="q1" value="D"> D. 故事中的關鍵組織為「小飛魚文化展演隊」，由來自臺灣本島的顏老師所帶領。</label>
-                <label><input type="checkbox" name="q1" value="E"> E. 此文本主要記錄了達悟族耆老如何努力向年輕一代傳授傳統捕魚技術與造船工藝。</label>
+            <h3>1. 關於力克·胡哲先天面臨的生理限制與早期的奮鬥過程，下列敘述哪些是正確的？</h3>
+            <ul class="options">
+                <li><label><input type="checkbox" name="q1" value="A"> A. 他出生時便沒有四肢，全身上下僅有兩隻畸形的「小小腳」。</label></li>
+                <li><label><input type="checkbox" name="q1" value="B"> B. 童年時期，他為了能靠自己站起來，需要利用頭部頂住牆壁來費力挪動身體。</label></li>
+                <li><label><input type="checkbox" name="q1" value="C"> C. 因為身體摩擦經常導致破皮流血，為了避免感染，他多數時間聽從建議安靜地待在床上。</label></li>
+                <li><label><input type="checkbox" name="q1" value="D"> D. 儘管過程中常流汗流血且精疲力竭，他最終仍成功學會利用「小小腳」來支撐身體。</label></li>
+                <li><label><input type="checkbox" name="q1" value="E"> E. 他的生理缺陷使他完全喪失了行動能力，必須完全仰賴他人的物理搬運才能移動。</label></li>
+            </ul>
+            <div class="explanation" id="exp1">
+                <h4>👨‍🏫 老師解析：</h4>
+                <p><strong>正確選項：A, B, D</strong></p>
+                <p>C 是錯的，因為文本明確指出他「不願受困於床上」，並未選擇安靜待在床上；E 是錯的，他最後靠自己的力量站起來，並非完全喪失行動能力。</p>
             </div>
-            <div class="feedback" id="fb1"></div>
         </div>
 
         <div class="question-block" id="qb2">
-            <div class="question-title">2. 分析本課的敘事結構與核心衝突，下列哪些選項精確地描述了展演隊學生的心理變化與發展歷程？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q2" value="A"> A. 在創辦初期，男孩們非常期待且自豪能穿著傳統「丁字褲」進行表演。</label>
-                <label><input type="checkbox" name="q2" value="B"> B. 學生起初對傳統服飾的排斥，反映了年輕一代對傳統文化與現代生活之間的認知斷層。</label>
-                <label><input type="checkbox" name="q2" value="C"> C. 為了效率，顏老師運用了權威強制手段，要求學生在九年內必須克服心理障礙。</label>
-                <label><input type="checkbox" name="q2" value="D"> D. 展演隊最終成功站上波蘭國際藝術節舞台，國際觀眾的喝采是孩子們建立文化自信的重要轉折點。</label>
-                <label><input type="checkbox" name="q2" value="E"> E. 創隊初期的男童們認為「丁字褲」是族裡老人穿的，在眾人面前穿著這套服飾需要極大的勇氣。</label>
+            <h3>2. 力克·胡哲的成功關鍵在於他對自身缺陷的心理轉折與自我認同。在家人與求學階段中，下列哪些描述符合文本內容？</h3>
+            <ul class="options">
+                <li><label><input type="checkbox" name="q2" value="A"> A. 父母教導他要勇於反擊那些對他投以異樣眼光的人，以建立強悍的自我防衛機制。</label></li>
+                <li><label><input type="checkbox" name="q2" value="B"> B. 在父母的鼓勵下，他學會不在意別人的眼光，並轉以積極正面的態度接納自己。</label></li>
+                <li><label><input type="checkbox" name="q2" value="C"> C. 學生時期，他並沒有封閉自我，反而主動接近同學並分享自己的故事。</label></li>
+                <li><label><input type="checkbox" name="q2" value="D"> D. 他不僅成功融入校園，甚至展現出領導才能，被推舉為學生會會長。</label></li>
+                <li><label><input type="checkbox" name="q2" value="E"> E. 學校的老師因為同情他的遭遇，特例直接任命他為學生會會長以建立他的自信。</label></li>
+            </ul>
+            <div class="explanation" id="exp2">
+                <h4>👨‍🏫 老師解析：</h4>
+                <p><strong>正確選項：B, C, D</strong></p>
+                <p>A 是錯的，父母是教他「不要在意別人眼光、接納自己」，而非教他強悍反擊；E 是錯的，文本指出他是憑藉「人格魅力與影響力被推舉」，而非老師特例任命。</p>
             </div>
-            <div class="feedback" id="fb2"></div>
         </div>
 
         <div class="question-block" id="qb3">
-            <div class="question-title">3. 在語文練習與詞彙解析的部分，下列關於生字、詞語與句型的應用與解釋，哪些是完全符合文本定義的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q3" value="A"> A. 「甩髮」是達悟族男性與女性在祭典時共同參與的傳統舞蹈關鍵動作。</label>
-                <label><input type="checkbox" name="q3" value="B"> B. 「九牛二虎之力」在此用來形容顏老師投入了極大的心力進行宣導與長期的陪伴引導。</label>
-                <label><input type="checkbox" name="q3" value="C"> C. 句型「不再是……而是……」可以用來精準表達學生對丁字褲從「羞恥的來源」轉換為「引以為傲的民族標記」之狀態轉變。</label>
-                <label><input type="checkbox" name="q3" value="D"> D. 詞彙「甚至」作為連接詞，通常用來表達語氣上的轉折與退讓（如：即使不喜歡，甚至也要接受）。</label>
-                <label><input type="checkbox" name="q3" value="E"> E. 關於字形辨析，「勉勵」與「鼓勵」用法相近，而「屬於」與「歸屬」則與所屬關係的用法相關。</label>
+            <h3>3. 力克不僅克服困難，更挑戰了生命的極限並提出了獨特的生命哲學。關於他的成就與思想，下列選項哪些正確？</h3>
+            <ul class="options">
+                <li><label><input type="checkbox" name="q3" value="A"> A. 他認為「美好」有絕對的生理標準，而他透過後天的努力達到了這個標準。</label></li>
+                <li><label><input type="checkbox" name="q3" value="B"> B. 他創辦了非營利組織「沒有四肢的人生」，並透過巡迴世界各地的演講鼓勵了無數人。</label></li>
+                <li><label><input type="checkbox" name="q3" value="C"> C. 他在夏威夷挑戰衝浪時，雖然因為沒有四肢而頻頻落水，但其「屢敗屢戰」的精神令人嘆為觀止。</label></li>
+                <li><label><input type="checkbox" name="q3" value="D"> D. 他主張與其執著於自身的痛苦，不如走出自我，將注意力放在需要幫助的人身上。</label></li>
+                <li><label><input type="checkbox" name="q3" value="E"> E. 他的著名格言是：「如果你等不到奇蹟，那就讓自己成為一個奇蹟。」</label></li>
+            </ul>
+            <div class="explanation" id="exp3">
+                <h4>👨‍🏫 老師解析：</h4>
+                <p><strong>正確選項：B, D, E</strong></p>
+                <p>A 是錯的，他認為美好是一種「見地」，與眾不同是「生命中的另一種美好」；C 是錯的，文本強調他衝浪時「動作敏捷如海豚，在浪頭上翻轉、跳動」，並非強調頻頻落水。</p>
             </div>
-            <div class="feedback" id="fb3"></div>
         </div>
 
-        
-
         <div class="question-block" id="qb4">
-            <div class="question-title">4. 根據文本中的「達悟族傳統服飾圖解」，下列關於達悟族傳統服飾與配件的描述，哪些是正確的？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q4" value="A"> A. 傳統上衣無論男女皆有，且圖案通常以紅、黑色相間的織紋為主。</label>
-                <label><input type="checkbox" name="q4" value="B"> B. 丁字褲是達悟族男性的傳統標誌，其穿法具備了特定的文化技術。</label>
-                <label><input type="checkbox" name="q4" value="C"> C. 達悟族人在穿著傳統服飾進行展演時，為了保護腳部通常會穿著特製的編織草鞋。</label>
-                <label><input type="checkbox" name="q4" value="D"> D. 祭典時配戴的禮刀，在文化意涵上象徵著神聖與力量。</label>
-                <label><input type="checkbox" name="q4" value="E"> E. 傳統服飾上所搭配的飾品，多使用金屬、銀片或貝類等材質製成。</label>
+            <h3>4. 本文採取了嚴謹的「起、承、轉、合」敘事結構來加強感染力。下列關於段落結構對應的敘述，哪些是正確的？</h3>
+            <ul class="options">
+                <li><label><input type="checkbox" name="q4" value="A"> A. 【起】：以力克在演講台上「蹦跳」開頭，利用生理狀態與活力的反差引發讀者好奇。</label></li>
+                <li><label><input type="checkbox" name="q4" value="B"> B. 【轉】：主要回溯他小時候努力站起來的艱辛過程以及求學時期的心理掙扎。</label></li>
+                <li><label><input type="checkbox" name="q4" value="C"> C. 【轉】：描述他在夏威夷成功衝浪的壯舉，展現出生命的巔峰與不可思議的潛能。</label></li>
+                <li><label><input type="checkbox" name="q4" value="D"> D. 【合】：總結生命的意義，鼓勵讀者勇敢突破限制，活出屬於自己生命的可能。</label></li>
+                <li><label><input type="checkbox" name="q4" value="E"> E. 【承】：承接開頭，描述了他早期為了克服肢體障礙所付出的血汗，以及求學的挑戰。</label></li>
+            </ul>
+            <div class="explanation" id="exp4">
+                <h4>👨‍🏫 老師解析：</h4>
+                <p><strong>正確選項：A, C, D, E</strong></p>
+                <p>B 是錯的，回溯小時候的艱辛與求學挑戰屬於「承」的部分，而非「轉」。「轉」是夏威夷衝浪的壯舉。</p>
             </div>
-            <div class="feedback" id="fb4"></div>
         </div>
 
         <div class="question-block" id="qb5">
-            <div class="question-title">5. 總結〈舞吧！小飛魚〉的深層涵義與結論，這場「文化復育運動」成功達成了文化存續目標，其包含的關鍵要素有哪些？</div>
-            <div class="options">
-                <label><input type="checkbox" name="q5" value="A"> A. 外界的欣賞與引導：例如來自臺灣本島的顏老師對異文化抱持的熱愛與堅持。</label>
-                <label><input type="checkbox" name="q5" value="B"> B. 內在的覺醒與勇氣：學生們最終克服了自身的自卑感，重新接納祖先留下的文化遺產。</label>
-                <label><input type="checkbox" name="q5" value="C"> C. 國際舞台的競爭：透過在波蘭藝術節擊敗其他國家的隊伍，建立起自身文化的優越感與統治力。</label>
-                <label><input type="checkbox" name="q5" value="D"> D. 大眾的肯定與尊重：國際觀眾給予的掌聲與喝采，實質上強化了孩子們對族群文化的保存意識。</label>
-                <label><input type="checkbox" name="q5" value="E"> E. 完全揚棄現代生活：學生們體認到傳統的珍貴，決定在日常生活中只穿著丁字褲並拒絕現代化事物。</label>
+            <h3>5. 關於文本分析中所提及的重要詞彙釋義以及句型應用，下列選項哪些是完全正確的？</h3>
+            <ul class="options">
+                <li><label><input type="checkbox" name="q5" value="A"> A. 「激盪」在文中主要用來形容夏威夷海浪受到礁石阻擋而產生的劇烈水花。</label></li>
+                <li><label><input type="checkbox" name="q5" value="B"> B. 「嘆為觀止」意指事物極好令人讚嘆，文中專門用來形容力克令人驚豔的衝浪表現。</label></li>
+                <li><label><input type="checkbox" name="q5" value="C"> C. 「不僅……甚至……」為遞進句型，用以表達程度更進一層的意思。</label></li>
+                <li><label><input type="checkbox" name="q5" value="D"> D. 「即便……仍……」為包含假設與轉折語氣的句型，強調在某種條件下結果依然不變。</label></li>
+                <li><label><input type="checkbox" name="q5" value="E"> E. 文中所宣揚的核心精神，印證了人生寬度與深度取決於面對困難時的選擇，而非天生條件。</label></li>
+            </ul>
+            <div class="explanation" id="exp5">
+                <h4>👨‍🏫 老師解析：</h4>
+                <p><strong>正確選項：B, C, D, E</strong></p>
+                <p>A 是錯的，「激盪」在文本釋義中是指「因受衝擊而動盪，文中形容『情緒』受到強烈刺激」，並非物理上的海浪水花。</p>
             </div>
-            <div class="feedback" id="fb5"></div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="gradeQuiz()">送出考卷並查看解析</button>
+        <button type="button" onclick="checkAnswers()">送出答案 ＆ 查看解析</button>
     </form>
 </div>
 
 <script>
-    // 正確答案設定
-    const correctAnswers = {
-        q1: ['A', 'C', 'D'],
-        q2: ['B', 'D', 'E'],
-        q3: ['B', 'C', 'E'],
-        q4: ['B', 'D', 'E'],
-        q5: ['A', 'B', 'D']
-    };
+    function checkAnswers() {
+        // 定義每一題的正確答案
+        const correctAnswers = {
+            q1: ['A', 'B', 'D'],
+            q2: ['B', 'C', 'D'],
+            q3: ['B', 'D', 'E'],
+            q4: ['A', 'C', 'D', 'E'],
+            q5: ['B', 'C', 'D', 'E']
+        };
 
-    // 解析內容設定
-    const explanations = {
-        q1: "<b>【解析】</b><br>正確答案為 A、C、D。<br>B錯誤：文本性質為「記敘文」而非論說文。<br>E錯誤：文本核心在於「小飛魚文化展演隊」的舞蹈與服飾文化認同，並未提及傳授捕魚或造船技術。",
-        q2: "<b>【解析】</b><br>正確答案為 B、D、E。<br>A錯誤：創隊初期男孩們是「強烈抗拒」而非期待。<br>C錯誤：顏老師並非強迫，而是透過「長期的陪伴與引導」，讓孩子從排斥轉為願意嘗試。",
-        q3: "<b>【解析】</b><br>正確答案為 B、C、E。<br>A錯誤：「甩髮」是達悟族「女性」傳統舞蹈中的關鍵動作，非男性參與。<br>D錯誤：「甚至」是表達「更進一層」的連接詞，而非語氣上的轉折退讓。",
-        q4: "<b>【解析】</b><br>正確答案為 B、D、E。<br>A錯誤：傳統上衣是以「青、白色相間」的織紋為主，非紅黑色。<br>C錯誤：達悟族人穿著傳統服飾時的特徵是「男女皆不穿鞋」（赤腳）。",
-        q5: "<b>【解析】</b><br>正確答案為 A、B、D。<br>C錯誤：文本強調的是獲得「國際肯定與尊重」，而非擊敗他國或建立文化優越感。<br>E錯誤：文本主旨在於認同傳統文化，並無提及要完全揚棄現代生活或拒絕現代事物。"
-    };
+        let allPerfect = true;
 
-    function gradeQuiz() {
         for (let i = 1; i <= 5; i++) {
-            let qName = 'q' + i;
-            let checkboxes = document.querySelectorAll(`input[name="${qName}"]`);
-            let userAnswers = [];
-            checkboxes.forEach((cb) => {
-                if (cb.checked) {
-                    userAnswers.push(cb.value);
-                }
-            });
+            let questionName = 'q' + i;
+            let checkboxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+            let userAnswers = Array.from(checkboxes).map(cb => cb.value);
+            let targetAnswers = correctAnswers[questionName];
+            
+            // 判斷是否完全正確（選出的跟正確的一模一樣）
+            let isCorrect = (userAnswers.length === targetAnswers.length) && 
+                            userAnswers.every(val => targetAnswers.includes(val));
 
-            let correctAns = correctAnswers[qName];
-            let isCorrect = (userAnswers.length === correctAns.length) && userAnswers.every(val => correctAns.includes(val));
-
-            let fbDiv = document.getElementById('fb' + i);
-            fbDiv.style.display = 'block';
+            let expDiv = document.getElementById('exp' + i);
+            let qBlock = document.getElementById('qb' + i);
+            
+            expDiv.style.display = 'block';
 
             if (isCorrect) {
-                fbDiv.className = 'feedback correct';
-                fbDiv.innerHTML = `✅ <b>答對了！非常棒！</b><br><br>${explanations[qName]}`;
+                qBlock.style.borderLeftColor = '#2e7d32'; // 深綠色代表答對
+                expDiv.style.borderLeftColor = '#2e7d32';
+                expDiv.style.backgroundColor = '#e8f5e9';
+                expDiv.innerHTML = '<h4 class="correct-feedback">🎉 恭喜你，這題完全答對了！</h4>' + expDiv.innerHTML.replace('<h4>👨‍🏫 老師解析：</h4>', '');
             } else {
-                fbDiv.className = 'feedback incorrect';
-                fbDiv.innerHTML = `❌ <b>可惜答錯囉！請看下方解析：</b><br><br>${explanations[qName]}`;
+                allPerfect = false;
+                qBlock.style.borderLeftColor = '#c62828'; // 紅色代表有錯
+                expDiv.style.borderLeftColor = '#c62828';
+                expDiv.style.backgroundColor = '#ffebee';
+                expDiv.innerHTML = '<h4 class="wrong-feedback">💡 哎呀，有漏選或是多選喔！來看看解析：</h4>' + expDiv.innerHTML.replace('<h4>👨‍🏫 老師解析：</h4>', '');
             }
+            
+            // 停用選項，防止重複作答
+            let allCheckboxes = document.querySelectorAll(`input[name="${questionName}"]`);
+            allCheckboxes.forEach(cb => cb.disabled = true);
         }
+
+        let btn = document.querySelector('button');
+        if (allPerfect) {
+            btn.innerText = "🏆 太棒了！全部滿分過關！";
+            btn.style.background = "linear-gradient(135deg, #4caf50 0%, #2e7d32 100%)";
+        } else {
+            btn.innerText = "📚 測驗結束，請仔細閱讀上方的錯題解析喔！";
+            btn.style.background = "linear-gradient(135deg, #f57c00 0%, #ef6c00 100%)";
+        }
+        btn.disabled = true;
     }
 </script>
 
