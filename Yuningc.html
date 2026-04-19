@@ -3,202 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〈走過就知道〉深度閱讀理解測驗</title>
+    <title>〈走過就知道〉課文深度測驗</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* 象徵從黑夜恐懼到光明的轉變 */
+            background-color: #f0f8ff;
             color: #333;
             line-height: 1.6;
             padding: 20px;
-            margin: 0;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: #fff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         h1 {
+            color: #2c3e50;
             text-align: center;
-            color: #1a2a6c;
-            border-bottom: 3px solid #b21f1f;
+            border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
         }
-        p.intro {
-            text-align: center;
-            font-weight: bold;
-            color: #555;
-        }
-        .question-block {
-            background-color: #f9f9f9;
-            border-left: 5px solid #fdbb2d;
-            padding: 15px 20px;
+        .intro {
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-left: 5px solid #1abc9c;
+            border-radius: 4px;
             margin-bottom: 25px;
-            border-radius: 5px;
         }
-        .question-text {
-            font-size: 1.1em;
+        .question-card {
+            background-color: #fdfefe;
+            border: 1px solid #d5dbdb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+        }
+        .question-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .question-title {
             font-weight: bold;
+            font-size: 1.1em;
+            color: #2980b9;
             margin-bottom: 15px;
-            color: #222;
         }
-        .option {
+        label {
             display: block;
             margin-bottom: 10px;
             cursor: pointer;
-            padding: 5px;
+            padding: 8px;
             border-radius: 4px;
             transition: background-color 0.2s;
         }
-        .option:hover {
-            background-color: #e0e0e0;
+        label:hover {
+            background-color: #f2f4f4;
         }
         input[type="checkbox"] {
             margin-right: 10px;
             transform: scale(1.2);
         }
-        .submit-btn {
+        button {
             display: block;
             width: 100%;
-            padding: 15px;
-            background-color: #1a2a6c;
+            background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 8px;
+            padding: 15px;
             font-size: 1.2em;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .submit-btn:hover {
-            background-color: #b21f1f;
+        button:hover {
+            background-color: #2980b9;
         }
-        .explanation {
-            display: none;
+        .feedback {
             margin-top: 15px;
             padding: 15px;
-            background-color: #e8f4f8;
-            border-left: 4px solid #17a2b8;
-            font-size: 0.95em;
-            border-radius: 4px;
+            border-radius: 5px;
+            display: none;
+            font-weight: bold;
         }
-        .correct-text { color: #28a745; font-weight: bold; }
-        .wrong-text { color: #dc3545; font-weight: bold; }
+        .correct {
+            background-color: #d5f5e3;
+            color: #1d8348;
+            border: 1px solid #abebc6;
+        }
+        .incorrect {
+            background-color: #fadbd8;
+            color: #943126;
+            border: 1px solid #f5b7b1;
+        }
+        .explanation {
+            font-weight: normal;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>〈走過就知道〉深度閱讀理解測驗</h1>
-    <p class="intro">請注意：本測驗為「複選題」，每題皆有兩個或以上的正確選項。請勾選所有正確敘述。</p>
+    <h1>〈走過就知道〉極限挑戰測驗</h1>
+    <div class="intro">
+        <p><strong>測驗說明：</strong> 本測驗為高難度複選題。每道題目均有 <strong>兩個或以上</strong> 的正確選項，請勾選所有你認為正確的答案。送出後將為您批改並提供詳盡解析！</p>
+    </div>
 
     <form id="quizForm">
-        <div class="question-block" id="q1-block">
-            <div class="question-text">1. 關於作者在小學時遇到的旱災與前往水圳取水的背景設定，下列敘述哪些是正確的？</div>
-            <label class="option"><input type="checkbox" name="q1" value="A"> A. 旱象發生在作者小學四年級的三月，田地因缺水而龜裂得像「一塊塊豆腐乾」。</label>
-            <label class="option"><input type="checkbox" name="q1" value="B"> B. 為了解決旱災，全村村民必須在深夜同時出動，共同引水灌溉以搶救農作物。</label>
-            <label class="option"><input type="checkbox" name="q1" value="C"> C. 當父親在墳場基地發現忘記帶鋤頭時，因水流湍急需要人力看顧，迫使作者必須獨自回家拿取。</label>
-            <label class="option"><input type="checkbox" name="q1" value="D"> D. 配水時間被安排在深夜一點至兩點的時段，且必須經過墳場，這些客觀環境加深了主角的心理壓力。</label>
-            <label class="option"><input type="checkbox" name="q1" value="E"> E. 父親之所以忘記帶鋤頭，是因為水圳基地位於村莊中央，距離家中很近，認為不需要帶齊工具。</label>
-            
-            <div class="explanation" id="exp-q1">
-                <strong>【解析】</strong><br>
-                正確選項為：<span class="correct-text">A, C, D</span><br>
-                B 錯誤：村民是「依序輪流引水灌溉（輪灌）」，而非同時出動。<br>
-                E 錯誤：水圳基地是位於「墳場」，並非村莊中央，正是因為距離與地點陰森才構成本文的核心挑戰。
+        <div class="question-card" id="q1-card">
+            <div class="question-title">1. 關於〈走過就知道〉一文的故事背景與引發事件的細節，下列敘述哪些是正確的？</div>
+            <label><input type="checkbox" name="q1" value="A"> A. 故事發生在作者小學四年級的三月，當時村莊面臨嚴重的乾旱，田地龜裂如「豆腐乾」。</label>
+            <label><input type="checkbox" name="q1" value="B"> B. 村民為了應對旱象，必須採取同時段全面灌溉的方式來搶水。</label>
+            <label><input type="checkbox" name="q1" value="C"> C. 作者一家被分配到的配水時間是在深夜十一點至十二點。</label>
+            <label><input type="checkbox" name="q1" value="D"> D. 任務發生突發狀況，是因為父親在位於墳場基地的水圳忘記帶了最重要的工具「鋤頭」。</label>
+            <label><input type="checkbox" name="q1" value="E"> E. 父親與哥哥無法離開水圳，是因為當時水流湍急，必須留在現場處理灌溉，才由作者獨自回家拿工具。</label>
+            <div id="q1-feedback" class="feedback">
+                <span class="result-text"></span>
+                <div class="explanation">
+                    <strong>解析：</strong> 正確答案為 A、D、E。<br>
+                    (B) 錯，應對措施是村民必須依序輪流引水灌溉（輪灌），而非全面灌溉。<br>
+                    (C) 錯，配水時間是在深夜一點至兩點。
+                </div>
             </div>
         </div>
 
-        <div class="question-block" id="q2-block">
-            <div class="question-text">2. 文本中生動地刻劃了作者獨自穿越墳場時的恐懼反應。關於這些心理與生理的深度描寫，下列哪些選項完全符合課文分析？</div>
-            <label class="option"><input type="checkbox" name="q2" value="A"> A. 恐懼在語言與行為上表現為：連說四次「我……」的結巴，以及如同打開水龍頭般無法控制的淚水。</label>
-            <label class="option"><input type="checkbox" name="q2" value="B"> B. 在極度恐懼下，作者產生了感官與心理的扭曲，將原本平坦的牛車路，錯覺成上下劇烈搖晃的「危險吊橋」。</label>
-            <label class="option"><input type="checkbox" name="q2" value="C"> C. 聽覺上的恐懼被放大，牙齒因寒冷與害怕而「嗒嗒嗒」作響，心跳聲更被誇飾為「重擊的鼓聲」。</label>
-            <label class="option"><input type="checkbox" name="q2" value="D"> D. 因為極度害怕，作者在奔跑時感覺腎上腺素激發，原本需要十幾二十分鐘的路程，彷彿「短短三分鐘」就走完了。</label>
-            <label class="option"><input type="checkbox" name="q2" value="E"> E. 作者除了呼吸急促、雙腿發軟之外，還因為過度驚嚇而出現了視聽幻覺，看見了許多具體的鬼影。</label>
-
-            <div class="explanation" id="exp-q2">
-                <strong>【解析】</strong><br>
-                正確選項為：<span class="correct-text">A, B, C</span><br>
-                D 錯誤：時間感是被拉長的，原本僅需「短短三分鐘」的路程，在恐懼驅使下感覺像是走了「一、二十分鐘」。<br>
-                E 錯誤：文本中提到眼前一片模糊、聽見各種怪聲作響，但並未具體描寫「看見許多具體的鬼影」，這是作者自己內心的預期恐懼。
+        <div class="question-card" id="q2-card">
+            <div class="question-title">2. 文本中詳細刻畫了作者獨自折返時的極度恐懼。關於他當時的生理感官與心理扭曲，下列哪些描述符合文本內容？</div>
+            <label><input type="checkbox" name="q2" value="A"> A. 作者在回應父親時，連說了四次「我……」，充分表現出極度的緊張與猶豫。</label>
+            <label><input type="checkbox" name="q2" value="B"> B. 作者轉身回家時，淚水像「打開的水龍頭」無法關閉，且雙腿不停抖動、眼前一片模糊。</label>
+            <label><input type="checkbox" name="q2" value="C"> C. 視覺與觸覺的錯覺讓他覺得原本崎嶇的山路像是一座「危險的吊橋」，上下搖晃劇烈。</label>
+            <label><input type="checkbox" name="q2" value="D"> D. 作者在聽覺上感受到牙齒因寒冷與恐懼而「嗒嗒嗒」作響，並將心跳聲形容為「重擊的鼓聲」。</label>
+            <label><input type="checkbox" name="q2" value="E"> E. 原本只需一、二十分鐘的路程，在恐懼驅使下，作者感覺像是走了短短三分鐘那樣快速。</label>
+            <div id="q2-feedback" class="feedback">
+                <span class="result-text"></span>
+                <div class="explanation">
+                    <strong>解析：</strong> 正確答案為 A、B、D。<br>
+                    (C) 錯，本應是「平坦的牛車路」，在心中卻感覺像危險的吊橋。<br>
+                    (E) 錯，時間感被拉長，原本僅需「短短三分鐘」的路程，感覺像是走了「一、二十分鐘」那樣漫長。
+                </div>
             </div>
         </div>
 
-        <div class="question-block" id="q3-block">
-            <div class="question-text">3. 當作者順利拿回鋤頭後，其心態與感官發生了劇烈轉變。關於挑戰後的體悟與文章主旨，下列敘述哪些是正確的？</div>
-            <label class="option"><input type="checkbox" name="q3" value="A"> A. 拿回鋤頭後，作者的聽覺發生了轉變，原本令人害怕的怪異聲響，變成了分外悅耳的蟋蟀叫聲。</label>
-            <label class="option"><input type="checkbox" name="q3" value="B"> B. 課文的核心體悟在於傳達「實踐出真知」：只要勇敢接受挑戰、跨出第一步，就會發現事情不如想像中可怕。</label>
-            <label class="option"><input type="checkbox" name="q3" value="C"> C. 作者體會到，只要事前做好充分的準備並攜帶好工具（如鋤頭），就可以完全避開生活中所有的恐懼。</label>
-            <label class="option"><input type="checkbox" name="q3" value="D"> D. 感官的恢復象徵著心理障礙的克服，表現為「視覺變亮不再只有黑暗」以及「雙腿不再發軟、腳步輕快」。</label>
-            <label class="option"><input type="checkbox" name="q3" value="E"> E. 文章結論指出，預期恐懼是無法被戰勝的，人類只能透過轉移注意力來忽視黑暗與鬼怪的存在。</label>
-
-            <div class="explanation" id="exp-q3">
-                <strong>【解析】</strong><br>
-                正確選項為：<span class="correct-text">A, B, D</span><br>
-                C 錯誤：文章主旨在於強調「行動」與「勇敢面對」，而非僅僅依賴工具準備來避開恐懼。<br>
-                E 錯誤：文章的結論明確指出，透過行動與實踐，作者最終「戰勝了」對黑暗和恐懼的心理陰影，而非只是轉移注意力。
+        <div class="question-card" id="q3-card">
+            <div class="question-title">3. 當作者拿到鋤頭並返回水圳後，經歷了「克服挑戰」的階段。關於他的轉變與最終獲得的核心體悟，下列哪些是正確的？</div>
+            <label><input type="checkbox" name="q3" value="A"> A. 作者的視覺與聽覺恢復正常，感覺眼睛變亮了，且原本怪異的聲響變成了分外悅耳的「蟋蟀的叫聲」。</label>
+            <label><input type="checkbox" name="q3" value="B"> B. 作者的腳步變得輕快，雙腿不再發軟，心情跟著放鬆。</label>
+            <label><input type="checkbox" name="q3" value="C"> C. 這次經驗讓作者體悟到「實踐出真知」，許多事情並不如想像中的困難或可怕。</label>
+            <label><input type="checkbox" name="q3" value="D"> D. 作者了解到，只要在多次練習與大人的陪伴下接受挑戰，就能知道真相並克服恐懼。</label>
+            <label><input type="checkbox" name="q3" value="E"> E. 作者最終戰勝了對黑暗和恐懼的心理陰影，從此以後不再怕黑，也不再怕鬼。</label>
+            <div id="q3-feedback" class="feedback">
+                <span class="result-text"></span>
+                <div class="explanation">
+                    <strong>解析：</strong> 正確答案為 A、B、C、E。<br>
+                    (D) 錯，核心體悟是「只要在第一次的時候勇敢接受挑戰」，做過就會知道真相，而非需要多次練習與大人陪伴。
+                </div>
             </div>
         </div>
 
-        <div class="question-block" id="q4-block">
-            <div class="question-text">4. 根據教材內容中的語文學習要點，下列關於生字、詞語解釋、字音辨析與修辭句型的敘述，哪些是正確的？</div>
-            <label class="option"><input type="checkbox" name="q4" value="A"> A. 「裂」字的部首為「衣」，總筆畫 12 畫；「懼」字的部首為「心」，總筆畫 21 畫。</label>
-            <label class="option"><input type="checkbox" name="q4" value="B"> B. 「心跳像重擊的鼓聲」與「選手像狂奔的羚羊」皆運用了明喻（像...）的修辭手法。</label>
-            <label class="option"><input type="checkbox" name="q4" value="C"> C. 詞語「兩腿發軟」是指因過度勞累而兩腿無力；「應付」則是指對事或人採取合宜的應對措施。</label>
-            <label class="option"><input type="checkbox" name="q4" value="D"> D. 關於字音辨析，「扛」作為「肩負」之意時念作「ㄍㄤ」；作為「兩手舉重物」之意時念作「ㄎㄤˊ」。</label>
-            <label class="option"><input type="checkbox" name="q4" value="E"> E. 句子「雖然停電造成不便，可是當我抬頭看見滿天星辰，才發現生活中有許多美好的事物」是一個轉折句。</label>
-
-            <div class="explanation" id="exp-q4">
-                <strong>【解析】</strong><br>
-                正確選項為：<span class="correct-text">A, B, E</span><br>
-                C 錯誤：「兩腿發軟」在本文與解釋中是指「因驚恐、害怕而兩腿無力，站不起來」，並非因為勞累。<br>
-                D 錯誤：字音顛倒了。「扛」作為肩負時念作「ㄎㄤˊ」（如：扛起重擔）；作為兩手舉重物時念作「ㄍㄤ」（如：力能扛鼎）。
+        <div class="question-card" id="q4-card">
+            <div class="question-title">4. 根據本課的語文學習要點，關於重點生字、部首、總筆畫及詞語解釋，下列哪些選項是完全正確的？</div>
+            <label><input type="checkbox" name="q4" value="A"> A. 「裂」的部首是「衣」，總筆畫為12畫，帶有破、分開的意思。</label>
+            <label><input type="checkbox" name="q4" value="B"> B. 「坦」的部首是「土」，總筆畫為8畫，可指寬而平或心情平靜（如坦然）。</label>
+            <label><input type="checkbox" name="q4" value="C"> C. 「懼」的部首是「目」，總筆畫為21畫，意思是害怕、畏懼。</label>
+            <label><input type="checkbox" name="q4" value="D"> D. 「應付」的意思是指對事或人採取合宜的應對措施；「清晰」的意思則是清楚明白。</label>
+            <label><input type="checkbox" name="q4" value="E"> E. 「兩腿發軟」在課文中的情境，是指因為長途跋涉過度勞累，導致兩腿無力站不起來。</label>
+            <div id="q4-feedback" class="feedback">
+                <span class="result-text"></span>
+                <div class="explanation">
+                    <strong>解析：</strong> 正確答案為 A、B、D。<br>
+                    (C) 錯，「懼」的部首是「心」部，而非目部。<br>
+                    (E) 錯，「兩腿發軟」在此處是指因「驚恐、害怕」而兩腿無力，並非過度勞累。
+                </div>
             </div>
         </div>
 
-        <button type="button" class="submit-btn" onclick="checkAnswers()">交卷並觀看解析</button>
+        <div class="question-card" id="q5-card">
+            <div class="question-title">5. 關於本課的修辭句型、字音辨析以及整篇文章的結論，下列哪些敘述是正確的？</div>
+            <label><input type="checkbox" name="q5" value="A"> A. 「心跳像重擊的鼓聲」和「選手像狂奔的羚羊」都是使用了明喻（像...）的修辭手法。</label>
+            <label><input type="checkbox" name="q5" value="B"> B. 「雖然停電造成不便，可是當我抬頭看見滿天星辰，才發現生活中有許多美好的事物。」這是一個典型的轉折句。</label>
+            <label><input type="checkbox" name="q5" value="C"> C. 多音字「扛」作為肩負之意時念作「ㄍㄤ」，作為兩手舉重物之意時念作「ㄎㄤˊ」。</label>
+            <label><input type="checkbox" name="q5" value="D"> D. 文章結論指出，「預期恐懼」會扭曲人類的感官與現實感知，而「行動」是破解恐懼的唯一途徑。</label>
+            <label><input type="checkbox" name="q5" value="E"> E. 透過作者的視角轉移，讀者能明確感受到從「現實中的接納」到「想像中的威脅」的心理過渡。</label>
+            <div id="q5-feedback" class="feedback">
+                <span class="result-text"></span>
+                <div class="explanation">
+                    <strong>解析：</strong> 正確答案為 A、B、D。<br>
+                    (C) 錯，字音正好相反：「扛」作為肩負念作「ㄎㄤˊ」，兩手舉重物才念作「ㄍㄤ」。<br>
+                    (E) 錯，心理過渡的方向是從「想像中的威脅」轉移到「現實中的接納」。
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">送出答案看解析</button>
     </form>
 </div>
 
 <script>
     function checkAnswers() {
-        // 正確答案設定
         const answers = {
-            q1: ['A', 'C', 'D'],
-            q2: ['A', 'B', 'C'],
-            q3: ['A', 'B', 'D'],
-            q4: ['A', 'B', 'E']
+            q1: ['A', 'D', 'E'],
+            q2: ['A', 'B', 'D'],
+            q3: ['A', 'B', 'C', 'E'],
+            q4: ['A', 'B', 'D'],
+            q5: ['A', 'B', 'D']
         };
-
-        let allCorrect = true;
 
         for (let q in answers) {
             let selected = [];
             let checkboxes = document.querySelectorAll(`input[name="${q}"]:checked`);
-            checkboxes.forEach((cb) => selected.push(cb.value));
-
-            // 檢查是否完全答對 (選中的和正確答案陣列完全一致)
-            let isCorrect = selected.length === answers[q].length && selected.every(val => answers[q].includes(val));
+            checkboxes.forEach((cb) => { selected.push(cb.value); });
             
-            let block = document.getElementById(`${q}-block`);
+            let feedbackDiv = document.getElementById(`${q}-feedback`);
+            let resultText = feedbackDiv.querySelector('.result-text');
+            
+            // 判斷是否完全答對 (選中的選項數量與正確答案一致，且內容一致)
+            let isCorrect = selected.length === answers[q].length && 
+                            selected.every(val => answers[q].includes(val));
+
+            feedbackDiv.style.display = 'block';
             if (isCorrect) {
-                block.style.borderLeftColor = "#28a745"; // 綠色代表正確
+                feedbackDiv.className = 'feedback correct';
+                resultText.innerText = '✅ 恭喜你，完全答對了！';
+                // 若答對可選擇隱藏解析，但保留顯示以加深印象
             } else {
-                block.style.borderLeftColor = "#dc3545"; // 紅色代表有錯誤或未選全
-                allCorrect = false;
+                feedbackDiv.className = 'feedback incorrect';
+                resultText.innerText = `❌ 答錯囉！你的選擇是 [${selected.join(', ')}]，正確答案應該是 [${answers[q].join(', ')}]。`;
             }
-
-            // 顯示解析
-            document.getElementById(`exp-${q}`).style.display = "block";
-        }
-
-        if(allCorrect){
-            alert("太棒了！你完全答對了所有高難度複選題！你對課文的理解非常透徹！");
-        } else {
-            alert("有些題目沒有完全答對喔！請往下查看詳細解析，把不熟悉的觀念補齊吧！");
         }
     }
 </script>
