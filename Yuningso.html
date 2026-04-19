@@ -3,407 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家鄉故事導覽員 - 深度理解測驗</title>
+    <title>家鄉水資源管理與利用 - 挑戰級複選測驗</title>
     <style>
-        :root {
-            --primary-color: #5D4037; /* 深褐色，代表土地與歷史 */
-            --secondary-color: #8D6E63;
-            --accent-color: #FF7043; /* 活潑的橘色，代表導覽的熱情 */
-            --bg-color: #FBE9E7;
-            --card-bg: #ffffff;
-            --text-color: #3E2723;
-        }
-
         body {
-            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            color: #004d40;
             line-height: 1.6;
-            margin: 0;
             padding: 20px;
         }
-
         .container {
             max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: var(--primary-color);
-            color: white;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
-
         h1 {
-            margin: 0;
-            font-size: 2em;
+            text-align: center;
+            color: #00796b;
+            border-bottom: 2px dashed #4db6ac;
+            padding-bottom: 10px;
         }
-
-        p.intro {
-            opacity: 0.9;
-            margin-top: 10px;
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f1f8e9;
+            border-left: 5px solid #81c784;
+            border-radius: 8px;
         }
-
-        .question-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--secondary-color);
-        }
-
-        .question-title {
+        .question-text {
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-bottom: 15px;
-            color: var(--primary-color);
         }
-
-        .options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option-label {
-            display: flex;
-            align-items: flex-start;
+        .options label {
+            display: block;
+            margin-bottom: 8px;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 6px;
-            transition: background 0.2s;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
         }
-
-        .option-label:hover {
-            background-color: #f5f5f5;
+        .options label:hover {
+            background-color: #c8e6c9;
         }
-
-        input[type="checkbox"] {
-            margin-top: 5px;
-            margin-right: 12px;
-            transform: scale(1.2);
-            cursor: pointer;
-        }
-
-        .submit-btn {
+        .btn-submit {
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: var(--accent-color);
+            background-color: #0288d1;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1.2em;
-            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.1s, background 0.2s;
-            margin-top: 20px;
+            transition: background-color 0.3s;
         }
-
-        .submit-btn:hover {
-            background-color: #F4511E;
-            transform: translateY(-2px);
+        .btn-submit:hover {
+            background-color: #01579b;
         }
-
-        /* Analysis Box Styles */
-        .analysis {
+        .explanation {
+            display: none;
             margin-top: 15px;
             padding: 15px;
-            background-color: #EFEBE9;
-            border-radius: 8px;
-            border: 1px solid #D7CCC8;
-            display: none; /* Hidden by default */
+            background-color: #ffebee;
+            border-left: 5px solid #ef5350;
+            border-radius: 5px;
+            color: #b71c1c;
         }
-
-        .analysis h4 {
-            margin-top: 0;
-            color: var(--accent-color);
-            display: flex;
-            align-items: center;
-        }
-
-        .analysis-text {
-            font-size: 0.95em;
-        }
-
-        .correct-tag {
-            color: #2E7D32;
+        .success {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            border-radius: 5px;
+            color: #1b5e20;
             font-weight: bold;
-            margin-left: 10px;
         }
-
-        .incorrect-tag {
-            color: #C62828;
-            font-weight: bold;
-            margin-left: 10px;
+        .diagram-container {
+            text-align: center;
+            margin: 15px 0;
         }
-
-        .user-result {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>🗺️ 家鄉故事導覽員認證測驗</h1>
-        <p class="intro">請根據簡報內容，選出所有正確的選項。注意：每題均為複選題，少選或多選皆不給分。</p>
-    </header>
+    <h1>💧 水資源達人挑戰賽 💧</h1>
+    <p style="text-align: center;">請仔細閱讀題目，選出<strong>所有</strong>正確的選項（每題皆為複選）。</p>
 
     <form id="quizForm">
-        
-        <div class="question-card" id="q1">
-            <div class="question-title">1. 關於「家鄉故事導覽員」專案的核心目標與整體架構，下列敘述哪些是正確的？</div>
-            <div class="options-group">
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="A">
-                    A. 專案的最終產出目標僅止於製作一份「家鄉故事地圖」，不包含口語表達的訓練。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="B">
-                    B. 整個專案流程被劃分為五個環環相扣的階段，從資料蒐集開始，至成果發表結束。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="C">
-                    C. 此方法論強調一個完整的閉環，涵蓋規劃、執行、驗證與分享。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="D">
-                    D. 資料整理階段只需要考慮故事的趣味性，無需過度考究來源標註。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q1" value="E">
-                    E. 專案旨在訓練參與者掌握蒐集故事、製作地圖並向他人介紹的完整技能。
-                </label>
+        <div class="question-block" id="block-q1">
+            <div class="question-text">1. 關於早期與現代水資源利用的歷史演進與產業需求，下列敘述哪些是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q1" value="A"> A. 早期河道運輸中，舢舨因底部平坦且吃水淺，特別適合行駛於淺水河道，主要用於載運重型貨物。</label>
+                <label><input type="checkbox" name="q1" value="B"> B. 早期先民若居住地離天然水源較遠，會運用「開鑿」技術打通水道或挖井來取得生活用水。</label>
+                <label><input type="checkbox" name="q1" value="C"> C. 中式帆船的設計使其能在水深較深的河段航行，在陸路交通不發達的時期肩負著重要的貨運功能。</label>
+                <label><input type="checkbox" name="q1" value="D"> D. 現代農業在面臨枯水期時，已完全仰賴現代化自來水管線網路進行灌溉，不再抽取地下水。</label>
+                <label><input type="checkbox" name="q1" value="E"> E. 現代都市供水便利，支持了多元產業，例如飲料工廠與農產品加工廠需要大量合規水源進行製造與清洗。</label>
             </div>
-            <div class="analysis">
-                <span class="user-result"></span>
-                <h4>老師解析：</h4>
-                <div class="analysis-text">
-                    <strong>正確答案：B, C, E</strong><br>
-                    <ul>
-                        <li><strong>B & E 正確：</strong>根據摘要與核心目標，專案分為五個階段，目標包含蒐集、製作地圖以及「向他人進行介紹」（導覽）。</li>
-                        <li><strong>C 正確：</strong>執行摘要最後一段明確提到此方法論注重「規劃、執行、驗證與分享的完整閉環」。</li>
-                        <li><strong>A 錯誤：</strong>目標明確包含「以導覽員的身份向公眾介紹」，不僅止於地圖製作。</li>
-                        <li><strong>D 錯誤：</strong>資料整理階段明確強調了「來源標註的必要性」。</li>
-                    </ul>
-                </div>
+            <div class="success" id="success-q1">✅ 答對了！你對水資源的歷史與產業需求非常了解。</div>
+            <div class="explanation" id="exp-q1">
+                <strong>解析：</strong><br>
+                選項 A 錯誤：舢舨主要用於搭船渡河（載人），載運貨物的是中式帆船。<br>
+                選項 D 錯誤：現代農業在缺水時，仍會抽取地下水來補足灌溉需求。
             </div>
         </div>
 
-        <div class="question-card" id="q2">
-            <div class="question-title">2. 在「第一階段：資料蒐集策略」中，文件對於蒐集途徑與事前準備有詳細規定，請選出符合文本內容的選項：</div>
-            <div class="options-group">
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="A">
-                    A. 主要的蒐集途徑包含實地走訪、網路查詢、查閱書籍以及訪問長輩四種。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="B">
-                    B. 「工作準備表」中的 5W 要素包含：Who (對象)、What (問題)、When (時間)、Where (地點) 以及 Why (訪談動機)。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="C">
-                    C. 實地走訪是指親自前往具有歷史或文化意義的景點進行勘查。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="D">
-                    D. 「工作準備表」中的第五個 W 指的是 "What to bring"，即準備所需攜帶的物品（如筆記本、錄音設備）。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q2" value="E">
-                    E. 訪問長輩被視為最直接的資訊來源，主要用於向圖書館館員請教文獻資料。
-                </label>
+        <div class="question-block" id="block-q2">
+            <div class="question-text">2. 面對降雨不均與需求增加，政府採取了多項水資源開發基礎建設。下列針對這些設施的功能與案例描述，哪些是正確的？</div>
+            <div class="diagram-container">
+                
             </div>
-            <div class="analysis">
-                <span class="user-result"></span>
-                <h4>老師解析：</h4>
-                <div class="analysis-text">
-                    <strong>正確答案：A, C, D</strong><br>
-                    <ul>
-                        <li><strong>A & C 正確：</strong>符合「四大蒐集途徑」的描述。</li>
-                        <li><strong>D 正確：</strong>文本中明確定義第五個要素是「物 (What to bring)」，而非 Why。</li>
-                        <li><strong>B 錯誤：</strong>文本中的 5W 是指人(Who)、事(What-問題)、時(When)、地(Where)、物(What to bring)。並不包含 Why (動機)。</li>
-                        <li><strong>E 錯誤：</strong>訪問長輩是向「家族或鄰里長者」請教，而非圖書館館員（那是查閱書籍的途徑）。</li>
-                    </ul>
-                </div>
+            <div class="options">
+                <label><input type="checkbox" name="q2" value="A"> A. 澎湖等離島或沿海地區興建海水淡化廠，主要目的是為了應對觀光季節暴增的用水需求以及降雨量少的問題。</label>
+                <label><input type="checkbox" name="q2" value="B"> B. 南投縣烏溪鳥嘴潭人工湖的運作原理，主要是透過直接抽取深層地下水儲存，以減少當地居民缺水的不便。</label>
+                <label><input type="checkbox" name="q2" value="C"> C. 海水淡化廠的產水效能極易受到極端氣候（如長期乾旱）的影響，因此只能作為緊急備用水源。</label>
+                <label><input type="checkbox" name="q2" value="D"> D. 水庫的興建除了能蓄積雨水作為民生與產業用水外，同時也具備調節旱澇的功能。</label>
+                <label><input type="checkbox" name="q2" value="E"> E. 服務業如旅館（游泳池設施）與餐廳，其持續攀升的用水需求是促使政府採取多元供水策略的背景因素之一。</label>
+            </div>
+            <div class="success" id="success-q2">✅ 答對了！清楚掌握了人工湖、水庫與海水淡化廠的差異。</div>
+            <div class="explanation" id="exp-q2">
+                <strong>解析：</strong><br>
+                選項 B 錯誤：鳥嘴潭人工湖是透過「攔引鄰近河川進儲」來穩定供水，而非抽取深層地下水。<br>
+                選項 C 錯誤：海水淡化廠的最大優勢就是能提供「不受氣候影響」的穩定淡水。
             </div>
         </div>
 
-        <div class="question-card" id="q3">
-            <div class="question-title">3. 針對「第二階段：長輩訪談執行準則」，下列哪些步驟符合標準作業程序（SOP）的要求？</div>
-            <div class="options-group">
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="A">
-                    A. 【訪問前】必須提前將擬定好的題目提供給受訪者。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="B">
-                    B. 【訪問前】若要進行錄音或錄影，必須禮貌地取得受訪者授權。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="C">
-                    C. 【訪問時】若受訪者回答偏離主題，應立即打斷並修正方向，以確保效率。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="D">
-                    D. 【訪問後】整理後的紀錄必須交由受訪者確認（內容核實），以確保無誤。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q3" value="E">
-                    E. 【訪問後】主要工作是將訪談內容製作成逐字稿，無需進行摘要。
-                </label>
+        <div class="question-block" id="block-q3">
+            <div class="question-text">3. 「回收再利用」是現代水資源管理的核心。關於「雨撲滿」與「水資源回收中心」的運作與應用，哪些正確？</div>
+            <div class="diagram-container">
+                
+
+[Image of rainwater harvesting system diagram]
+
             </div>
-            <div class="analysis">
-                <span class="user-result"></span>
-                <h4>老師解析：</h4>
-                <div class="analysis-text">
-                    <strong>正確答案：A, B, D</strong><br>
-                    <ul>
-                        <li><strong>A & B 正確：</strong>屬於【訪問前】的預約溝通與取得授權步驟。</li>
-                        <li><strong>D 正確：</strong>屬於【訪問後】的內容核實步驟，這是尊重與準確性的關鍵。</li>
-                        <li><strong>C 錯誤：</strong>【訪問時】的準則強調「依照預定順序提問」和「專注傾聽」，並未提及要「立即打斷」，這違背了尊重的原則。</li>
-                        <li><strong>E 錯誤：</strong>【訪問後】的第一點是「資料摘要」，即整理成重點摘要，而非單純的逐字稿且不摘要。</li>
-                    </ul>
-                </div>
+            <div class="options">
+                <label><input type="checkbox" name="q3" value="A"> A. 「雨撲滿」收集到的雨水，必須經過高階的物理與化學分解處理後，才能提供給民眾免費取用來清洗街道。</label>
+                <label><input type="checkbox" name="q3" value="B"> B. 政府設立的水資源回收中心，主要負責將家庭產生的污水進行物理與化學處理，以分解其中的污染物質。</label>
+                <label><input type="checkbox" name="q3" value="C"> C. 北投圖書館利用其傾斜屋頂設計收集雨水，這些雨水經過處理後主要用於供應館內的飲用水。</label>
+                <label><input type="checkbox" name="q3" value="D"> D. 水資源回收中心處理後轉化的再生水可提供工業用途，有助於解決局部地區工業用水不足的壓力，並減少河川污染。</label>
+                <label><input type="checkbox" name="q3" value="E"> E. 雨撲滿的標準設置流程包括過濾、去除雜質以及消毒等步驟，其儲存的水可用於學校與社區的植物澆灌，兼具環境教育功能。</label>
+            </div>
+            <div class="success" id="success-q3">✅ 答對了！完美區分了雨水集蓄與污水回收的處理機制。</div>
+            <div class="explanation" id="exp-q3">
+                <strong>解析：</strong><br>
+                選項 A 錯誤：物理與化學分解處理是「水資源回收中心」處理污水的程序；雨撲滿僅作過濾與消毒。<br>
+                選項 C 錯誤：北投圖書館收集的雨水是供應「馬桶沖水」使用，並非飲用水。
             </div>
         </div>
 
-        <div class="question-card" id="q4">
-            <div class="question-title">4. 在「第三階段：資料整理與分析」與「第四階段：地圖製作」中，下列哪些操作原則是正確的？</div>
-            <div class="options-group">
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="A">
-                    A. 資料篩選的原則是依據「主題重要性」，例如保留具地方特色的土地公廟傳說。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="B">
-                    B. 為了吸引讀者，過於驚悚的鬼故事也應該被保留並標註為重點。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="C">
-                    C. 地圖製作的第一步是繪製主要幹道，接著才是決定範圍與方位。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="D">
-                    D. 篇幅較長的文字內容，可採用便條紙浮貼或在地圖外側撰寫說明並以編號對應。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q4" value="E">
-                    E. 地圖完成後的品質檢核清單中，包含了檢查是否能輕易找到「我的學校」以及是否有方位標示。
-                </label>
+        <div class="question-block" id="block-q4">
+            <div class="question-text">4. 關於缺水危機的成因、影響以及家戶節水實踐的具體做法，下列敘述哪些是正確的？</div>
+            <div class="options">
+                <label><input type="checkbox" name="q4" value="A"> A. 缺水危機的成因多元，包含了自來水管線損壞漏水（人為因素），以及土地持續開發建設導致用水量增加（產業因素）。</label>
+                <label><input type="checkbox" name="q4" value="B"> B. 為了落實生活廢水再利用，應將收集到的洗米水或洗菜水用來沖洗馬桶，而除濕機產生的水則最適合用來澆花。</label>
+                <label><input type="checkbox" name="q4" value="C"> C. 缺水會引發連鎖反應，例如無法徹底清洗蔬果可能造成農藥殘留，而馬桶無法沖水則會導致環境惡化甚至疾病傳播。</label>
+                <label><input type="checkbox" name="q4" value="D"> D. 民眾可以透過在水龍頭加裝省水器，以及優先購買具省水標章認證的家電（如洗衣機），來落實設備更新的節水策略。</label>
+                <label><input type="checkbox" name="q4" value="E"> E. 洗澡前流出的冷水因為尚未經過加熱，為避免滋生細菌，不建議將其收集作為回收再利用的水源。</label>
             </div>
-            <div class="analysis">
-                <span class="user-result"></span>
-                <h4>老師解析：</h4>
-                <div class="analysis-text">
-                    <strong>正確答案：A, D, E</strong><br>
-                    <ul>
-                        <li><strong>A 正確：</strong>符合資料篩選標準的應用範例。</li>
-                        <li><strong>D 正確：</strong>符合內容呈現方式與規範中的文字處理建議。</li>
-                        <li><strong>E 正確：</strong>符合品質檢核清單的具體項目。</li>
-                        <li><strong>B 錯誤：</strong>資料篩選範例中明確指出應「移除」過於驚悚或不適合公開傳播的鬼故事。</li>
-                        <li><strong>C 錯誤：</strong>製作流程的順序是：先「決定範圍與方位」，第二步才是「標示主要道路」。</li>
-                    </ul>
-                </div>
+            <div class="success" id="success-q4">✅ 答對了！你具備了非常優秀的生活節水常識與危機意識。</div>
+            <div class="explanation" id="exp-q4">
+                <strong>解析：</strong><br>
+                選項 B 錯誤：根據簡報，洗米水/洗菜水應用於「澆花」，而除濕機產生的水則用於「沖洗馬桶」。<br>
+                選項 E 錯誤：簡報特別強調，預防性收集「洗澡前流出的冷水」並回收再利用，是節水的具體好習慣。
             </div>
         </div>
 
-        <div class="question-card" id="q5">
-            <div class="question-title">5. 關於「第五階段：導覽成果發表」，文本提出了哪些具體的推廣方式？</div>
-            <div class="options-group">
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="A">
-                    A. 靜態公開展示：將故事地圖張貼於校園等公共場合供人閱覽。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="B">
-                    B. 商業出版發行：將地圖集結成冊，在書店進行販售。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="C">
-                    C. 數位化網路導覽：將導覽內容拍攝成影片並上傳至網路平台。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="D">
-                    D. 動態定點解說：安排成員輪流到其他班級或特定地點進行口頭解說。
-                </label>
-                <label class="option-label">
-                    <input type="checkbox" name="q5" value="E">
-                    E. 沉浸式實地導覽：親自帶領觀眾實際走訪景點進行深度解說。
-                </label>
-            </div>
-            <div class="analysis">
-                <span class="user-result"></span>
-                <h4>老師解析：</h4>
-                <div class="analysis-text">
-                    <strong>正確答案：A, C, D, E</strong><br>
-                    <ul>
-                        <li><strong>A, C, D, E 正確：</strong>這四項皆為文本中「第五階段：導覽成果發表」所列出的有效發表方式。</li>
-                        <li><strong>B 錯誤：</strong>文本中並未提及商業出版或書店販售，僅提到校園張貼、班級解說、網路影片與實地導覽。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" class="submit-btn" onclick="checkAnswers()">提交答案並查看解析</button>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">提交答案並查看解析</button>
     </form>
-</div>
 
-<script>
-    // Answer Key configuration
-    const correctAnswers = {
-        q1: ['B', 'C', 'E'],
-        q2: ['A', 'C', 'D'],
-        q3: ['A', 'B', 'D'],
-        q4: ['A', 'D', 'E'],
-        q5: ['A', 'C', 'D', 'E']
-    };
+    <script>
+        function gradeQuiz() {
+            // 正確答案設定
+            const correctAnswers = {
+                q1: ['B', 'C', 'E'],
+                q2: ['A', 'D', 'E'],
+                q3: ['B', 'D', 'E'],
+                q4: ['A', 'C', 'D']
+            };
 
-    function checkAnswers() {
-        let score = 0;
-        const totalQuestions = Object.keys(correctAnswers).length;
-
-        for (let qId in correctAnswers) {
-            const container = document.getElementById(qId);
-            const userInputs = container.querySelectorAll('input[type="checkbox"]:checked');
-            const userValues = Array.from(userInputs).map(input => input.value).sort();
-            const correctValues = correctAnswers[qId].sort();
-            const resultSpan = container.querySelector('.user-result');
-            const analysisBox = container.querySelector('.analysis');
-
-            // Show Analysis Box
-            analysisBox.style.display = 'block';
-
-            // Check correctness (exact match required for multiple choice)
-            const isCorrect = JSON.stringify(userValues) === JSON.stringify(correctValues);
-
-            if (isCorrect) {
-                score++;
-                resultSpan.innerHTML = `你的答案：${userValues.join(', ')} <span class="correct-tag">⭕ 完全正確</span>`;
-                container.style.borderLeft = "5px solid #2E7D32"; // Green border
-                container.style.backgroundColor = "#E8F5E9";
-            } else {
-                const userStr = userValues.length > 0 ? userValues.join(', ') : '未作答';
-                resultSpan.innerHTML = `你的答案：${userStr} <span class="incorrect-tag">❌ 答錯了</span>`;
-                container.style.borderLeft = "5px solid #C62828"; // Red border
-                container.style.backgroundColor = "#FFEBEE";
+            for (let i = 1; i <= 4; i++) {
+                let qName = 'q' + i;
+                let checkboxes = document.querySelectorAll(`input[name="${qName}"]:checked`);
+                let userAnswers = Array.from(checkboxes).map(cb => cb.value).sort();
+                let rightAnswers = correctAnswers[qName].slice().sort();
+                
+                let isCorrect = (JSON.stringify(userAnswers) === JSON.stringify(rightAnswers));
+                
+                let successDiv = document.getElementById(`success-q${i}`);
+                let expDiv = document.getElementById(`exp-q${i}`);
+                
+                if (isCorrect) {
+                    successDiv.style.display = 'block';
+                    expDiv.style.display = 'none';
+                } else {
+                    successDiv.style.display = 'none';
+                    expDiv.style.display = 'block';
+                }
             }
         }
-
-        // Scroll to top or show summary alert
-        alert(`測驗完成！\n你答對了 ${score} / ${totalQuestions} 題。\n請往下滑動查看每一題的詳細解析。`);
-    }
-</script>
+    </script>
+</div>
 
 </body>
 </html>
