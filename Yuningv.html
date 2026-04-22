@@ -218,7 +218,7 @@
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
+        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -234,7 +234,7 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
         <h1>單字拼寫測驗</h1>
         <p>請根據給出的中文意思，輸入正確的英文拼寫。共37題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
@@ -274,45 +274,45 @@
     </div>
 
     <script>
-        // 單字庫 (共37個單字，無重複)
+        // 單字庫 (共37個)
         const words = [
-            { en: 'Society', zh: '社會 (ㄕㄜˋ ㄏㄨㄟˋ)', mnemonic: '`soci` (social, 社交) + `ety`。社會就是人們建立社交 (social) 關係、聚集生活的地方。' },
-            { en: 'Member', zh: '成員 (ㄔㄥˊ ㄩㄢˊ)', mnemonic: '聽起來像 `remember` (記得)。請記得 (remember) 妳永遠是這個家庭的重要成員 (`member`)。' },
-            { en: 'Cooperate', zh: '合作 (ㄏㄜˊ ㄗㄨㄛˋ)', mnemonic: '`co` (一起) + `operate` (運作)。大家一起運作 (`operate`) 達成目標就是合作 (`cooperate`)。' },
-            { en: 'Sparkle', zh: '閃耀 (ㄕㄢˇ ㄧㄠˋ)', mnemonic: '`spark` (火花)。有火花 (`spark`) 的地方就會閃耀 (`sparkle`) 出光芒。' },
-            { en: 'Poor', zh: '貧窮的 (ㄆㄧㄣˊ ㄑㄩㄥˊ ㄉㄜ˙)', mnemonic: '聽起來像「破」。衣服破破爛爛的，代表家境可能很貧窮 (`poor`)。' },
-            { en: 'Waist', zh: '腰 (ㄧㄠ)', mnemonic: '發音和 `waste` (浪費) 一模一樣。不要把浪費 (`waste`) 的食物變成脂肪囤積在腰 (`waist`) 上！' },
-            { en: 'Peak', zh: '山峰 (ㄕㄢ ㄈㄥ)', mnemonic: '發音和 `peek` (偷看) 一樣。爬到最高的山峰 (`peak`) 上偷看 (`peek`) 美麗的風景。' },
-            { en: 'Thieves', zh: '小偷們 (ㄒㄧㄠˇ ㄊㄡ ㄇㄣˊ)', mnemonic: '這是 `thief` (小偷) 的複數。一群小偷 (`thieves`) 趁天黑時跑進來了。' },
-            { en: 'Knives', zh: '刀子們 (ㄉㄠ ㄗ˙ ㄇㄣˊ)', mnemonic: '這是 `knife` (刀子) 的複數。廚房裡放了許多鋒利的刀子 (`knives`)。' },
-            { en: 'Taste', zh: '品嚐 / 味道 (ㄨㄟˋ ㄉㄠˋ)', mnemonic: '聽起來很像 `test` (測試)。品嚐 (`taste`) 其實就是在測試 (`test`) 食物好不好吃。' },
-            { en: 'Cabbage', zh: '高麗菜 (ㄍㄠ ㄌㄧˋ ㄘㄞˋ)', mnemonic: '`cab` (計程車) + `bag` (包包) + `e`。想像計程車 (`cab`) 上有一個包包 (`bag`)，裡面裝滿了高麗菜 (`cabbage`)。' },
-            { en: 'Dangerous', zh: '危險的 (ㄨㄟˊ ㄒㄧㄢˇ ㄉㄜ˙)', mnemonic: '`danger` (危險) + `ous` (形容詞結尾)。充滿危險 (`danger`) 的事物。' },
-            { en: 'Hockey', zh: '曲棍球 (ㄑㄩ ㄍㄨㄣˋ ㄑㄧㄡˊ)', mnemonic: '聽起來和 `jockey` (騎師) 有點像。他不當騎師 (`jockey`)，改去冰上打曲棍球 (`hockey`) 了。' },
-            { en: 'Carpet', zh: '地毯 (ㄉㄧˋ ㄊㄢˇ)', mnemonic: '`car` (汽車) + `pet` (寵物)。你的寵物 (`pet`) 在汽車 (`car`) 裡的柔軟地毯 (`carpet`) 上睡著了。' },
-            { en: 'Circus', zh: '馬戲團 (ㄇㄚˇ ㄒㄧˋ ㄊㄨㄢˊ)', mnemonic: '聽起來像 `circle` (圓圈)。馬戲團 (`circus`) 的表演舞台通常是一個大圓圈 (`circle`)。' },
-            { en: 'Celebrate', zh: '慶祝 (ㄑㄧㄥˋ ㄓㄨˋ)', mnemonic: '前面是 `celeb` (名人/celebrity)。想像自己像個名人 (`celebrity`) 一樣開派對慶祝 (`celebrate`)！' },
-            { en: 'Promise', zh: '承諾 (ㄔㄥˊ ㄋㄨㄛˋ)', mnemonic: '`pro` (向前) + `miss` (錯過)。我向你承諾 (`promise`)，未來的日子我絕對不會再錯過 (`miss`)。' },
-            { en: 'Exciting', zh: '令人興奮的 (ㄌㄧㄥˋ ㄖㄣˊ ㄒㄧㄥ ㄈㄣˋ ㄉㄜ˙)', mnemonic: '`excit(e)` + `ing`。看電影看到從出口 (`exit`) 跳起來，真是令人興奮 (`exciting`)！' },
-            { en: 'Opportunity', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)', mnemonic: '`oppor` (open, 打開) + `tunity` (door, 門)。為你打開一扇門，就是給你一個機會 (`opportunity`)。' },
-            { en: 'Exercise', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)', mnemonic: '包含 `size` (尺寸/體型) 的發音。多做運動 (`exercise`) 可以幫助你維持完美的體型 (`size`)。' },
-            { en: 'Melon', zh: '甜瓜 (ㄊㄧㄢˊ ㄍㄨㄚ)', mnemonic: '是 `lemon` (檸檬) 字母重新排列。把酸酸的檸檬 (`lemon`) 變甜，就成了甜瓜 (`melon`)。' },
-            { en: 'Violin', zh: '小提琴 (ㄒㄧㄠˇ ㄊㄧˊ ㄑㄧㄣˊ)', mnemonic: '聽起來像 `violence` (暴力)。這把小提琴 (`violin`) 很貴，請輕輕拉，不要對它使用暴力 (`violence`)。' },
-            { en: 'Upper', zh: '上面的 (ㄕㄤˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: '`up` (上) + `per`。在比原本更高、更上面 (`up`) 的位置。' },
-            { en: 'Steak', zh: '牛排 (ㄋㄧㄡˊ ㄆㄞˊ)', mnemonic: '發音和 `steal` (偷) 有點像。這塊牛排 (`steak`) 看起來太好吃了，好想把它偷 (`steal`) 走！' },
-            { en: 'Voter', zh: '投票者 (ㄊㄡˊ ㄆㄧㄠˋ ㄓㄜˇ)', mnemonic: '`vote` (投票) + `er` (的人)。去參加投票 (`vote`) 的人就是投票者 (`voter`)。' },
-            { en: 'Marry', zh: '結婚 (ㄐㄧㄝˊ ㄏㄨㄣ)', mnemonic: '發音跟 `merry` (快樂的) 一模一樣。結婚 (`marry`) 對大家來說是一件很快樂的 (`merry`) 喜事。' },
-            { en: 'Novel', zh: '小說 (ㄒㄧㄠˇ ㄕㄨㄛ)', mnemonic: '`no` (沒有) + `vel` (聽起來像 bell, 鈴聲)。沒有 (`no`) 電話鈴聲 (`bell`) 打擾，終於可以安靜看小說 (`novel`) 了。' },
-            { en: 'Youth', zh: '青春 / 年輕人 (ㄑㄧㄥ ㄔㄨㄣ)', mnemonic: '聽起來像 `you` (你) + `th`。你 (`you`) 只有一次寶貴的青春 (`youth`)，好好把握吧！' },
-            { en: 'Photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: '前面聽起來像 `potato`。拍照的時候如果不想說 cheese，可以說 potato 來拍照片 (`photo`)。' },
-            { en: 'sheet', zh: '床單 / 紙張 (ㄔㄨㄤˊ ㄉㄢ)', mnemonic: '發音很像 `sheep` (羊)。躺在舒服的床單 (`sheet`) 上，閉著眼睛數羊 (`sheep`) 睡覺。' },
-            { en: 'luggage', zh: '行李 (ㄒㄧㄥˊ ㄌㄧˇ)', mnemonic: '`lug` (用力拖拉) + `gage`。出國時需要用力拖拉 (`lug`) 走來走去的重物，就是行李 (`luggage`)。' },
-            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '發音跟 `grown` (長大) 一模一樣。長大 (`grown`) 後生活有很多煩惱，常常讓人忍不住發出呻吟 (`groan`)。' },
-            { en: 'add', zh: '增加 (ㄗㄥ ㄐㄧㄚ)', mnemonic: '發音和拼寫都很像 `ad` (廣告)。網頁上一直增加 (`add`) 跳出來的廣告 (`ad`) 真的很煩人！' },
-            { en: 'share', zh: '分享 (ㄈㄣ ㄒㄧㄤˇ)', mnemonic: '包含 `she` (她) + `are` (是)。她們 (`she`) 是一群很樂意與別人分享 (`share`) 的好朋友。' },
-            { en: 'garbage', zh: '垃圾 (ㄌㄜˋ ㄙㄜˋ)', mnemonic: '`garb` (服裝) + `age` (時代)。這個時代 (`age`) 早就過時的舊衣服 (`garb`)，只能當作垃圾 (`garbage`) 丟掉了。' },
-            { en: 'cereal', zh: '麥片 (ㄇㄞˋ ㄆㄧㄢˋ)', mnemonic: '發音跟 `serial` (連續劇) 一模一樣。每天早上都吃一樣的麥片 (`cereal`)，就像在看每天播的連續劇 (`serial`) 一樣。' },
-            { en: 'nightmare', zh: '惡夢 (ㄜˋ ㄇㄥˋ)', mnemonic: '`night` (夜晚) + `mare` (母馬)。在夜晚 (`night`) 被一匹瘋狂的母馬 (`mare`) 追著跑，真是一場可怕的惡夢 (`nightmare`)。' }
+            { en: 'Society', zh: '社會 (ㄕㄜˋ ㄏㄨㄟˋ)', mnemonic: 'so + city (城市)。很多城市 (city) 和人們組成了一個社會 (society)。' },
+            { en: 'Member', zh: '成員 (ㄔㄥˊ ㄩㄢˊ)', mnemonic: '和 remember (記得) 長得很像。請記得 (remember) 我們團隊的每一個成員 (member)。' },
+            { en: 'Cooperate', zh: '合作 (ㄏㄜˊ ㄗㄨㄛˋ)', mnemonic: 'co (共同) + operate (操作/工作)。大家共同工作就是合作 (cooperate)。' },
+            { en: 'Sparkle', zh: '閃耀 (ㄕㄢˇ ㄧㄠˋ)', mnemonic: 'spark (火花) + le。黑暗中的小火花會閃耀 (sparkle)。' },
+            { en: 'Poor', zh: '貧窮的 (ㄆㄧㄣˊ ㄑㄩㄥˊ ㄉㄜ˙)', mnemonic: '發音有點像 pour (倒)。把錢都倒 (pour) 光了，就會變得貧窮 (poor)。' },
+            { en: 'Waist', zh: '腰部 (ㄧㄠ ㄅㄨˋ)', mnemonic: '發音和 waste (浪費) 一樣。吃太多垃圾食物會胖在腰部 (waist)，真是浪費 (waste) 健康。' },
+            { en: 'Peak', zh: '山峰 (ㄕㄢ ㄈㄥ)', mnemonic: '發音和 peek (偷看) 一樣。想像你站在山峰 (peak) 上往下偷看 (peek)。' },
+            { en: 'Thieves', zh: '小偷們 (ㄒㄧㄠˇ ㄊㄡ ㄇㄣ˙)', mnemonic: '這是 thief (小偷) 的複數形式。字尾 f 去掉改成 ves。' },
+            { en: 'Knives', zh: '刀子們 (ㄉㄠ ㄗ˙)', mnemonic: '這是 knife (刀子) 的複數形式。字尾 fe 去掉改成 ves。' },
+            { en: 'Taste', zh: '品嚐/味道 (ㄆㄧㄣˇ ㄔㄤˊ)', mnemonic: '發音跟 test (測試) 很像。你在品嚐 (taste) 食物之前要先測試 (test) 一下溫度。' },
+            { en: 'Cabbage', zh: '高麗菜 (ㄍㄠ ㄌㄧˋ ㄘㄞˋ)', mnemonic: 'cab (計程車) + bage (bag，袋子)。想像一輛計程車 (cab) 裡裝滿了一袋袋的高麗菜 (cabbage)。' },
+            { en: 'Dangerous', zh: '危險的 (ㄨㄟˊ ㄒㄧㄢˇ ㄉㄜ˙)', mnemonic: 'danger (危險) + ous (形容詞字尾)。充滿危險的狀態。' },
+            { en: 'Hockey', zh: '曲棍球 (ㄑㄩ ㄍㄨㄣˋ ㄑㄧㄡˊ)', mnemonic: '發音有點像 monkey (猴子)。想像一隻可愛的猴子 (monkey) 在冰上打曲棍球 (hockey)。' },
+            { en: 'Carpet', zh: '地毯 (ㄉㄧˋ ㄊㄢˇ)', mnemonic: 'car (車) + pet (寵物)。你的寵物 (pet) 喜歡睡在車 (car) 裡軟軟的地毯 (carpet) 上。' },
+            { en: 'Circus', zh: '馬戲團 (ㄇㄚˇ ㄒㄧˋ ㄊㄨㄢˊ)', mnemonic: 'circ (circle，圓圈) + us (我們)。馬戲團 (circus) 的表演通常是在我們 (us) 中間圍成一個大圓圈。' },
+            { en: 'Celebrate', zh: '慶祝 (ㄑㄧㄥˋ ㄓㄨˋ)', mnemonic: '來自 celebrity (名人)。我們像名人 (celebrity) 一樣大肆慶祝 (celebrate)！' },
+            { en: 'Promise', zh: '承諾 (ㄔㄥˊ ㄋㄨㄛˋ)', mnemonic: 'pro (專業的) + miss (錯過)。一個專業的人 (pro) 絕對不會錯過 (miss) 他許下的承諾 (promise)。' },
+            { en: 'Exciting', zh: '令人興奮的 (ㄌㄧㄥˋ ㄖㄣˊ ㄒㄧㄥ ㄈㄣˋ ㄉㄜ˙)', mnemonic: '令人興奮 (exciting) 到想馬上跳出 (exit) 座位！' },
+            { en: 'Opportunity', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)', mnemonic: 'op + port (港口) + unity。船隻進入港口 (port) 就有了卸貨的好機會 (opportunity)。' },
+            { en: 'Exercise', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)', mnemonic: '發音像 extra size (額外的尺寸)。做運動 (exercise) 可以幫你減掉身上額外的尺寸 (extra size)。' },
+            { en: 'Melon', zh: '瓜 (ㄍㄨㄚ)', mnemonic: '把 lemon (檸檬) 的字母重新排列，就會變成 melon (瓜)。' },
+            { en: 'Violin', zh: '小提琴 (ㄒㄧㄠˇ ㄊㄧˊ ㄑㄧㄣˊ)', mnemonic: 'vio 聽起來像 violence (暴力)。初學者拉得難聽的小提琴 (violin) 簡直是一種暴力 (violence)。' },
+            { en: 'Upper', zh: '上面的 (ㄕㄤˋ ㄇㄧㄢˋ ㄉㄜ˙)', mnemonic: 'up (上) + per。' },
+            { en: 'Steak', zh: '牛排 (ㄋㄧㄡˊ ㄆㄞˊ)', mnemonic: '發音和 stake (木樁) 一樣。這塊牛排 (steak) 烤得太老了，咬起來像木樁 (stake)。' },
+            { en: 'Voter', zh: '投票者 (ㄊㄡˊ ㄆㄧㄠˋ ㄓㄜˇ)', mnemonic: 'vote (投票) + er (的人)。' },
+            { en: 'Marry', zh: '結婚 (ㄐㄧㄝˊ ㄏㄨㄣ)', mnemonic: '發音和 merry (快樂的) 一樣。兩個人因為快樂 (merry) 所以決定結婚 (marry)。' },
+            { en: 'Novel', zh: '小說 (ㄒㄧㄠˇ ㄕㄨㄛ)', mnemonic: 'no (沒有) + vel (bell，鈴鐺)。小說 (novel) 裡沒有鈴聲 (no bell)，只能安靜地閱讀。' },
+            { en: 'Youth', zh: '青春/青年 (ㄑㄧㄥ ㄔㄨㄣ)', mnemonic: '包含 you (你)。你 (you) 正處於最美好的青春 (youth) 年華。' },
+            { en: 'Photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: 'photograph 的簡寫。' },
+            { en: 'sheet', zh: '床單/紙張 (ㄔㄨㄤˊ ㄉㄢ)', mnemonic: '發音跟 sheep (羊) 很像。躺在床單 (sheet) 上睡不著時可以數羊 (sheep)。' },
+            { en: 'luggage', zh: '行李 (ㄒㄧㄥˊ ㄌㄧˇ)', mnemonic: 'lug (用力拖拉) + gage (bag，袋子)。去旅行時你需要用力拖拉 (lug) 你的大件行李 (luggage)。' },
+            { en: 'groan', zh: '呻吟 (ㄕㄣ ㄧㄣˊ)', mnemonic: '發音和 grown (成年的) 一樣。一個成年人 (grown man) 因為太痛苦而呻吟 (groan)。' },
+            { en: 'add', zh: '增加 (ㄗㄥ ㄐㄧㄚ)', mnemonic: 'ad (廣告) + d。多放一個廣告 (ad)，就會增加 (add) 曝光率。' },
+            { en: 'share', zh: '分享 (ㄈㄣ ㄒㄧㄤˇ)', mnemonic: '和 care (關心) 押韻。因為在乎 (care)，所以樂於分享 (share)。' },
+            { en: 'garbage', zh: '垃圾 (ㄌㄜˋ ㄙㄜˋ)', mnemonic: 'garb (衣服) + age (年代)。上個年代 (age) 的舊衣服 (garb) 已經變成垃圾 (garbage) 了。' },
+            { en: 'cereal', zh: '麥片 (ㄇㄞˋ ㄆㄧㄢˋ)', mnemonic: '發音和 serial (連續劇) 一樣。一邊吃麥片 (cereal) 一邊看連續劇 (serial) 最享受了。' },
+            { en: 'nightmare', zh: '惡夢 (ㄜˋ ㄇㄥˋ)', mnemonic: 'night (夜晚) + mare (母馬)。古代傳說中，夜晚 (night) 出現的黑馬 (mare) 會帶來惡夢 (nightmare)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -349,6 +349,7 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
+            
             startGame(words);
         }
 
@@ -399,7 +400,6 @@
             });
         }
 
-        // 監聽整個練習列表的 Enter 鍵
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -414,7 +414,6 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
@@ -428,28 +427,25 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
+                        mnemonicDiv.style.display = 'none'; 
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block'; 
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
             }
         }
-
 
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
@@ -479,7 +475,12 @@
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
+            
+            // 加入錯誤處理避免圖片遺失時排版跑掉
+            const gameImg = document.getElementById('game-image');
+            gameImg.src = 'initial.png';
+            gameImg.style.display = 'inline-block'; 
+            
             document.getElementById('mnemonic').style.display = 'none';
             
             nextQuestion();
@@ -492,7 +493,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -521,12 +522,13 @@
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
+            const gameImg = document.getElementById('game-image');
 
             if (userAnswer === correctAnswer) {
                 score++;
                 document.getElementById('exam-result').textContent = '正確！';
                 document.getElementById('exam-result').style.color = 'green';
-                document.getElementById('game-image').src = 'correct.png';
+                gameImg.src = 'correct.png';
                 setTimeout(() => {
                     currentQuestion++;
                     nextQuestion();
@@ -534,7 +536,7 @@
             } else {
                 document.getElementById('exam-result').textContent = `錯誤。正確答案是：${q.en}`;
                 document.getElementById('exam-result').style.color = 'red';
-                document.getElementById('game-image').src = 'incorrect.png';
+                gameImg.src = 'incorrect.png';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
@@ -562,14 +564,15 @@
             document.getElementById('exam-submit').style.display = 'none';
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
             
+            const gameImg = document.getElementById('game-image');
             if (score === totalQuestions) {
-                document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對！';
+                gameImg.src = 'all_correct.png';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
             } else {
-                document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '妳答錯的單字：\n';
+                gameImg.src = 'not_all_correct.png';
+                let wrongText = '你答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
@@ -577,7 +580,6 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
-        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
