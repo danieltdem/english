@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共93題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,23 +274,101 @@
     </div>
 
     <script>
-        // 單字庫
+        // 93個單字庫
         const words = [
-            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`flower` 裡有 `flow` (流動)。花朵在微風中像水流一樣流動。' },
-            { en: 'petal', zh: '花瓣 (ㄏㄨㄚ ㄅㄢˋ)', mnemonic: '`petal` 和 `pedal` (踏板) 發音很像。一朵花的花瓣就像是蜜蜂停下來的腳踏板。' },
-            { en: 'sun', zh: '太陽 (ㄊㄞˋ ㄧㄤˊ)', mnemonic: '`sun` 和 `son` (兒子) 發音相同。太陽就像是天空的兒子，每天都會升起。' },
-            { en: 'bud', zh: '花蕾/芽 (ㄏㄨㄚ ㄌㄟˇ)', mnemonic: '`bud` 聽起來像 `bed` (床)。花蕾 (`bud`) 就像是花朵還沒長大前睡覺的床 (`bed`)。' },
-            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 和 `leave` (離開) 很像。到了秋天，葉子 (`leaf`) 就會離開 (`leave`) 樹木掉落下來。' },
-            { en: 'seed', zh: '種子 (ㄓㄨㄥˇ ㄗ˙)', mnemonic: '`seed` 裡面有 `see` (看見)。種下種子 (`seed`)，你就可以看見 (`see`) 它慢慢長大。' },
-            { en: 'belt', zh: '皮帶 (ㄆㄧˊ ㄉㄞˋ)', mnemonic: '`belt` (皮帶) 和 `melt` (融化) 押韻。塑膠皮帶 (`belt`) 遇到高溫就會融化 (`melt`)。' },
-            { en: 'adult', zh: '成年人 (ㄔㄥˊ ㄋㄧㄢˊ ㄖㄣˊ)', mnemonic: '`a` + `dult` (聽起來像 dull，無聊的)。有些成年人 (`adult`) 長大後就變得有點無聊 (`dull`) 了。' },
-            { en: 'lamp', zh: '燈 (ㄉㄥ)', mnemonic: '`lamp` (燈) 和 `camp` (露營) 押韻。去露營 (`camp`) 的時候，一定要帶一盞燈 (`lamp`)。' },
-            { en: 'camp', zh: '露營 (ㄌㄨˋ ㄧㄥˊ)', mnemonic: '`camp` (露營) 和 `lamp` (燈) 押韻。因為晚上在野外很暗，所以露營 (`camp`) 必須要有燈 (`lamp`)。' },
-            { en: 'nod', zh: '點頭 (ㄉㄧㄢˇ ㄊㄡˊ)', mnemonic: '`no` + `d`。當你不想說不 (`no`) 的時候，你就點頭 (`nod`) 表示同意。' },
-            { en: 'mat', zh: '墊子 (ㄉㄧㄢˋ ㄗ˙)', mnemonic: '`mat` (墊子) 和 `cat` (貓咪) 押韻。貓咪 (`cat`) 最喜歡躺在軟軟的墊子 (`mat`) 上。' },
-            { en: 'mud', zh: '泥巴 (ㄋㄧˊ ㄅㄚ)', mnemonic: '`mud` 聽起來像 `mad` (生氣的)。如果你不小心踩到泥巴 (`mud`) 弄髒鞋子，你一定會很生氣 (`mad`)。' },
-            { en: 'push', zh: '推 (ㄊㄨㄟ)', mnemonic: '`push` (推) 和 `bush` (灌木叢) 押韻。不要把人推 (`push`) 進灌木叢 (`bush`) 裡。' },
-            { en: 'connect', zh: '連接 (ㄌㄧㄢˊ ㄐㄧㄝ)', mnemonic: '`con` (一起) + `nect` (聽起來像 neck 脖子)。連接 (`connect`) 就像脖子把頭和身體連在一起一樣。' }
+            { en: 'eat', zh: '吃 (ㄔ)', mnemonic: '`eat` 聽起來像 `it`。吃掉它 (eat it)。' },
+            { en: 'nonliving', zh: '無生命的 (ㄨˊ ㄕㄥ ㄇㄧㄥˋ ㄉㄜ˙)', mnemonic: '`non` (無/非) + `living` (活著的)。沒有活著的就是無生命的。' },
+            { en: 'drink', zh: '喝 (ㄏㄜ)', mnemonic: '`drink` 裡有 `ink` (墨水)。請不要喝 (drink) 墨水 (ink)！' },
+            { en: 'breathe', zh: '呼吸 (ㄏㄨ ㄒㄧ)', mnemonic: '`b` + `rest` (休息) + `he`。當他 (he) 休息 (rest) 時，他會順暢地呼吸 (breathe)。' },
+            { en: 'move', zh: '移動 (ㄧˊ ㄉㄨㄥˋ)', mnemonic: '`movie` (電影) 裡的畫面會一直移動 (`move`)。' },
+            { en: 'this', zh: '這個 (ㄓㄜˋ ㄍㄜ˙)', mnemonic: '`th` + `is` (是)。這個是... (This is...)' },
+            { en: 'that', zh: '那個 (ㄋㄚˋ ㄍㄜ˙)', mnemonic: '`th` + `at` (在)。那個在... (That is at...)' },
+            { en: 'mother', zh: '母親 (ㄇㄨˇ ㄑㄧㄣ)', mnemonic: '`m` (媽) + `other` (其他人)。母親是世界上最不可取代的其他人 (other)。' },
+            { en: 'father', zh: '父親 (ㄈㄨˋ ㄑㄧㄣ)', mnemonic: '`fat` (胖) + `her` (她)。她 (her) 的父親有點胖 (fat)。' },
+            { en: 'zoo', zh: '動物園 (ㄉㄨㄥˋ ㄨˋ ㄩㄢˊ)', mnemonic: '`zoo` 看起來像 `200`。動物園裡有200隻動物。' },
+            { en: 'yes', zh: '是的 (ㄕˋ ㄉㄜ˙)', mnemonic: '`y` + `es`。對別人說 Yes 是有禮貌的表現。' },
+            { en: 'we', zh: '我們 (ㄨㄛˇ ㄇㄣ˙)', mnemonic: '`w` + `e`。我們 (We) 一起。' },
+            { en: 'up', zh: '向上 (ㄒㄧㄤˋ ㄕㄤˋ)', mnemonic: 'U 指向上面 (up)。' },
+            { en: 'the', zh: '這/那 (ㄓㄜˋ/ㄋㄚˋ)', mnemonic: '英文中最常見的定冠詞，特指某個東西。' },
+            { en: 'plant', zh: '植物/種植 (ㄓˊ ㄨˋ / ㄓㄨㄥˋ ㄓˊ)', mnemonic: '`plan` (計畫) + `t` (tree, 樹)。計畫 (plan) 種一棵樹 (tree)，就是種植 (plant)。' },
+            { en: 'pot', zh: '鍋子/盆 (ㄍㄨㄛ ㄗ˙ / ㄆㄣˊ)', mnemonic: '`pot` 反過來拼是 `top` (頂部)。鍋子 (pot) 的頂部 (top) 有蓋子。' },
+            { en: 'alive', zh: '活著的 (ㄏㄨㄛˊ ㄓㄜ˙ ㄉㄜ˙)', mnemonic: '`a` + `live` (生活)。一個 (a) 還在生活 (live) 的狀態，就是活著的 (alive)。' },
+            { en: 'energy', zh: '能量 (ㄋㄥˊ ㄌㄧㄤˋ)', mnemonic: '`inner` (內在) + `gy`。能量來自於我們內在 (inner)。' },
+            { en: 'exercise', zh: '運動 (ㄩㄣˋ ㄉㄨㄥˋ)', mnemonic: '運動 (exercise) 是控制你體型 (size) 的最佳方式。' },
+            { en: 'food', zh: '食物 (ㄕˊ ㄨˋ)', mnemonic: '`foo` (fool, 傻瓜) + `d`。不要當個拒絕美味食物 (food) 的傻瓜 (fool)。' },
+            { en: 'health', zh: '健康 (ㄐㄧㄢˋ ㄎㄤ)', mnemonic: '`heal` (治癒) + `th`。能夠自我治癒 (heal) 的身體代表有良好的健康 (health)。' },
+            { en: 'three', zh: '三 (ㄙㄢ)', mnemonic: '`t` + `tree` (樹)。想像森林裡有三棵樹 (three trees)。' },
+            { en: 'teeth', zh: '牙齒 (ㄧㄚˊ ㄔˇ)', mnemonic: '`tee` (tea, 茶) + `th`。喝茶 (tea) 時杯子會碰到牙齒 (teeth)。' },
+            { en: 'think', zh: '思考 (ㄙ ㄎㄠˇ)', mnemonic: '`think` 和 `ink` (墨水) 很像。作家用墨水 (ink) 寫下他們的思考 (think)。' },
+            { en: 'bath', zh: '洗澡 (ㄒㄧˇ ㄗㄠˇ)', mnemonic: '`bat` (蝙蝠) + `h`。蝙蝠 (bat) 也是需要洗澡 (bath) 的。' },
+            { en: 'rat', zh: '老鼠 (ㄌㄠˇ ㄕㄨˇ)', mnemonic: '`cat` (貓) 喜歡追 `rat` (大老鼠)。' },
+            { en: 'pan', zh: '平底鍋 (ㄆㄧㄥˊ ㄉㄧˇ ㄍㄨㄛ)', mnemonic: '`pan` (平底鍋) 裡面可以煎 `pancake` (鬆餅)。' },
+            { en: 'old', zh: '老的/舊的 (ㄌㄠˇ ㄉㄜ˙ / ㄐㄧㄡˋ ㄉㄜ˙)', mnemonic: '聽起來像 `gold` (黃金)。越老 (old) 的東西有時像黃金 (gold) 一樣珍貴。' },
+            { en: 'pin', zh: '大頭針/別針 (ㄉㄚˋ ㄊㄡˊ ㄓㄣ)', mnemonic: '`pin` 聽起來像 `pen` (筆)。大頭針 (pin) 像筆 (pen) 一樣有尖尖的頭。' },
+            { en: 'run', zh: '跑 (ㄆㄠˇ)', mnemonic: '在 `sun` (太陽) 下面快樂地跑步 (run)。' },
+            { en: 'song', zh: '歌曲 (ㄍㄜ ㄑㄩ)', mnemonic: '`sing` (唱歌) 的名詞形式就是 `song` (歌曲)。' },
+            { en: 'monitor', zh: '顯示器 (ㄒㄧㄢˇ ㄕˋ ㄑㄧˋ)', mnemonic: '`moni` (money, 錢) + `tor`。買一台好的顯示器 (monitor) 要花很多錢 (money)。' },
+            { en: 'growing', zh: '成長中 (ㄔㄥˊ ㄓㄤˇ ㄓㄨㄥ)', mnemonic: '`grow` (成長) 加上 `ing` 代表正在進行中。' },
+            { en: 'sky', zh: '天空 (ㄊㄧㄢ ㄎㄨㄥ)', mnemonic: '`s` + `key` (鑰匙)。天空 (sky) 是通往宇宙的鑰匙 (key)。' },
+            { en: 'duck', zh: '鴨子 (ㄧㄚ ㄗ˙)', mnemonic: '聽起來像 `luck` (幸運)。這是一隻幸運 (luck) 的鴨子 (duck)。' },
+            { en: 'rocket', zh: '火箭 (ㄏㄨㄛˇ ㄐㄧㄢˋ)', mnemonic: '`rock` (岩石) + `et`。像岩石 (rock) 一樣堅硬的火箭 (rocket) 飛向太空。' },
+            { en: 'queen', zh: '女王 (ㄋㄩˇ ㄨㄤˊ)', mnemonic: '和 `green` (綠色) 押韻。女王 (queen) 喜歡穿綠色 (green) 的衣服。' },
+            { en: 'quilt', zh: '棉被 (ㄇㄧㄢˊ ㄅㄟˋ)', mnemonic: '`quit` (放棄) + `l`。天氣太冷了，我放棄 (quit) 起床，繼續躲在棉被 (quilt) 裡。' },
+            { en: 'mad', zh: '生氣的 (ㄕㄥ ㄑㄧˋ ㄉㄜ˙)', mnemonic: '和 `bad` (壞的) 押韻。生氣 (mad) 是一種壞的 (bad) 情緒。' },
+            { en: 'yet', zh: '還沒 (ㄏㄞˊ ㄇㄟˊ)', mnemonic: '`yes` (是) 的相反有時就是還沒 (yet)。' },
+            { en: 'off', zh: '關閉/離開 (ㄍㄨㄢ ㄅㄧˋ)', mnemonic: '`of` 加上一個 `f`。把電源開關關掉 (off)。' },
+            { en: 'win', zh: '贏 (ㄧㄥˊ)', mnemonic: '和 `wind` (風) 很像。贏 (win) 的感覺就像順風 (wind) 一樣暢快。' },
+            { en: 'use', zh: '使用 (ㄕˇ ㄩㄥˋ)', mnemonic: '`us` (我們) + `e`。我們 (us) 每天都要使用 (use) 它。' },
+            { en: 'sunshine', zh: '陽光 (ㄧㄤˊ ㄍㄨㄤ)', mnemonic: '`sun` (太陽) + `shine` (照耀)。太陽照耀下來的光線就是陽光。' },
+            { en: 'tea', zh: '茶 (ㄔㄚˊ)', mnemonic: '`team` (團隊) 休息時大家一起喝茶 (tea)。' },
+            { en: 'see', zh: '看見 (ㄎㄢˋ ㄐㄧㄢˋ)', mnemonic: '`see` (看見) 和 `sea` (海洋) 發音一模一樣。我看見 (see) 了海洋 (sea)。' },
+            { en: 'row', zh: '划船/排 (ㄏㄨㄚˊ ㄔㄨㄢˊ / ㄆㄞˊ)', mnemonic: '和 `arrow` (箭) 很像。像箭一樣直線地划船 (row)。' },
+            { en: 'ox', zh: '公牛 (ㄍㄨㄥ ㄋㄧㄡˊ)', mnemonic: '和 `box` (箱子) 押韻。這隻公牛 (ox) 力氣大到能推動大箱子 (box)。' },
+            { en: 'tip', zh: '尖端/小費 (ㄐㄧㄢ ㄉㄨㄢ)', mnemonic: '和 `lip` (嘴唇) 押韻。嘴唇 (lip) 的最前端就是尖端 (tip)。' },
+            { en: 'step', zh: '腳步 (ㄐㄧㄠˇ ㄅㄨˋ)', mnemonic: '和 `stop` (停止) 很像。走了一步 (step) 之後就停止 (stop) 了。' },
+            { en: 'begin', zh: '開始 (ㄎㄞ ㄕˇ)', mnemonic: '`be` + `gin` (聽起來像 win)。要成為 (be) 贏家 (win)，第一步就是要開始 (begin)。' },
+            { en: 'straw', zh: '吸管/稻草 (ㄒㄧ ㄍㄨㄢˇ)', mnemonic: '裡面有 `draw` (畫/吸取)。用吸管 (straw) 吸取 (draw) 好喝的飲料。' },
+            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '聽起來像 `cry` (哭)。不要哭 (cry)，臉上的眼淚很快就會變乾 (dry) 了。' },
+            { en: 'collect', zh: '收集 (ㄕㄡ ㄐㄧˊ)', mnemonic: '`col` (共同) + `lect` (選擇)。共同選擇並聚集起來，就是收集 (collect)。' },
+            { en: 'king', zh: '國王 (ㄍㄨㄛˊ ㄨㄤˊ)', mnemonic: '和 `ring` (戒指) 押韻。國王 (king) 的手上戴著閃亮的戒指 (ring)。' },
+            { en: 'long', zh: '長的 (ㄔㄤˊ ㄉㄜ˙)', mnemonic: '和 `song` (歌曲) 押韻。這是一首非常長 (long) 的歌曲 (song)。' },
+            { en: 'bank', zh: '銀行 (ㄧㄣˊ ㄏㄤˊ)', mnemonic: '和 `tank` (坦克) 押韻。銀行 (bank) 像坦克 (tank) 一樣堅固，保護你的錢。' },
+            { en: 'pink', zh: '粉紅色 (ㄈㄣˇ ㄏㄨㄥˊ ㄙㄜˋ)', mnemonic: '裡面有 `ink` (墨水)。這是一瓶粉紅色 (pink) 的墨水 (ink)。' },
+            { en: 'war', zh: '戰爭 (ㄓㄢˋ ㄓㄥ)', mnemonic: '和 `warm` (溫暖) 很像。但戰爭 (war) 卻讓人感覺不到一絲溫暖 (warm)。' },
+            { en: 'test', zh: '考試 (ㄎㄠˇ ㄕˋ)', mnemonic: '和 `best` (最好的) 押韻。在考試 (test) 中表現出最好的 (best) 自己。' },
+            { en: 'try', zh: '嘗試 (ㄔㄤˊ ㄕˋ)', mnemonic: '聽起來像 `cry` (哭)。與其遇到困難就哭泣 (cry)，不如勇敢再嘗試 (try) 一次。' },
+            { en: 'map', zh: '地圖 (ㄉㄧˋ ㄊㄨˊ)', mnemonic: '和 `cap` (帽子) 押韻。戴上探險帽子 (cap)，拿著地圖 (map) 去冒險。' },
+            { en: 'way', zh: '方法/道路 (ㄈㄤ ㄈㄚˇ / ㄉㄠˋ ㄌㄨˋ)', mnemonic: '和 `say` (說) 押韻。請告訴我 (say) 應該走哪一條道路 (way)。' },
+            { en: 'size', zh: '尺寸 (ㄔˇ ㄘㄨㄣˋ)', mnemonic: '和 `prize` (獎品) 押韻。比賽第一名拿到的獎品 (prize) 尺寸 (size) 很大。' },
+            { en: 'color', zh: '顏色 (ㄧㄢˊ ㄙㄜˋ)', mnemonic: 'Colorful (色彩繽紛的) 的基礎單字，表示各式各樣的顏色。' },
+            { en: 'shape', zh: '形狀 (ㄒㄧㄥˊ ㄓㄨㄤˋ)', mnemonic: '裡面有 `ape` (猿猴)。那隻猿猴 (ape) 擺出來的形狀 (shape) 很特別。' },
+            { en: 'ribbon', zh: '緞帶 (ㄉㄨㄢˋ ㄉㄞˋ)', mnemonic: '`rib` (肋骨) + `bon` (bone, 骨頭)。萬聖節時把緞帶 (ribbon) 綁在骷髏骨頭上裝飾。' },
+            { en: 'shirt', zh: '襯衫 (ㄔㄣˋ ㄕㄢ)', mnemonic: '和 `skirt` (裙子) 很像。今天出門要穿上襯衫 (shirt) 和裙子 (skirt)。' },
+            { en: 'wind', zh: '風 (ㄈㄥ)', mnemonic: '`wind` 就是 `window` (窗戶) 的前面。風 (wind) 從窗戶吹進來。' },
+            { en: 'hand', zh: '手 (ㄕㄡˇ)', mnemonic: '和 `band` (樂團) 押韻。樂團 (band) 裡的鼓手用手 (hand) 賣力打鼓。' },
+            { en: 'tent', zh: '帳篷 (ㄓㄤˋ ㄆㄥˊ)', mnemonic: '`ten` (十) + `t`。這個大帳篷 (tent) 足足可以睡十 (ten) 個人。' },
+            { en: 'paint', zh: '畫畫/油漆 (ㄏㄨㄚˋ ㄏㄨㄚˋ)', mnemonic: '`pain` (痛苦) + `t`。有時候遇到瓶頸時，畫畫 (paint) 是一種痛苦 (pain) 的過程。' },
+            { en: 'sea', zh: '海洋 (ㄏㄞˇ ㄧㄤˊ)', mnemonic: '發音和 `see` (看見) 一模一樣。站在高處，我能看見 (see) 廣闊的海洋 (sea)。' },
+            { en: 'pay', zh: '支付 (ㄓ ㄈㄨˋ)', mnemonic: '和 `play` (玩) 押韻。去遊樂園玩 (play) 遊戲需要支付 (pay) 費用。' },
+            { en: 'pie', zh: '派 (ㄆㄞˋ)', mnemonic: '和 `die` (死) 押韻。這個蘋果派 (pie) 好吃到讓人死而無憾 (die)。' },
+            { en: 'shy', zh: '害羞的 (ㄏㄞˋ ㄒㄧㄡ ㄉㄜ˙)', mnemonic: '和 `she` (她) 很像。她 (she) 是一個很害羞 (shy) 的小女孩。' },
+            { en: 'sell', zh: '賣 (ㄇㄞˋ)', mnemonic: '和 `bell` (鈴鐺) 押韻。古代商人會搖鈴鐺 (bell) 來吸引客人賣 (sell) 東西。' },
+            { en: 'petal', zh: '花瓣 (ㄏㄨㄚ ㄅㄢˋ)', mnemonic: '`pet` (寵物) + `al`。調皮的寵物 (pet) 喜歡去咬掉落的花瓣 (petal)。' },
+            { en: 'bud', zh: '芽/花蕾 (ㄧㄚˊ / ㄏㄨㄚ ㄌㄟˇ)', mnemonic: '和 `bug` (蟲子) 很像。蟲子 (bug) 最喜歡吃植物新長出來的嫩芽 (bud) 了。' },
+            { en: 'camp', zh: '露營 (ㄌㄨˋ ㄧㄥˊ)', mnemonic: '和 `lamp` (燈) 押韻。晚上在野外露營 (camp) 時，絕對需要帶一盞燈 (lamp)。' },
+            { en: 'nod', zh: '點頭 (ㄉㄧㄢˇ ㄊㄡˊ)', mnemonic: '和 `not` (不) 很像。點頭 (nod) 代表同意，可不是 (not) 拒絕的意思喔。' },
+            { en: 'push', zh: '推 (ㄊㄨㄟ)', mnemonic: '`pull` (拉) 的相反動作。在門上常看到 PUSH (推) 的字樣。' },
+            { en: 'connect', zh: '連接 (ㄌㄧㄢˊ ㄐㄧㄝ)', mnemonic: '`con` (一起) + `net` (網路)。把大家一起在網路上連接 (connect) 起來。' },
+            { en: 'height', zh: '高度 (ㄍㄠ ㄉㄨˋ)', mnemonic: '`high` (高的) 加上 `t`。高的 (high) 名詞形式就是高度 (height)。' },
+            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '`long` (長的) 的名詞形式。測量這個物品的長度 (length)。' },
+            { en: 'light', zh: '光線/輕的 (ㄍㄨㄤ ㄒㄧㄢˋ)', mnemonic: '和 `night` (夜晚) 押韻。黑暗的夜晚 (night) 裡最需要的就是光線 (light)。' },
+            { en: 'project', zh: '計畫 (ㄐㄧˋ ㄏㄨㄚˋ)', mnemonic: '`pro` (向前) + `ject` (投擲)。把心中的想法向前投擲出來實行，就是一個計畫 (project)。' },
+            { en: 'ready', zh: '準備好的 (ㄓㄨㄣˇ ㄅㄟˋ ㄏㄠˇ ㄉㄜ˙)', mnemonic: '裡面有 `read` (閱讀)。我已經準備好 (ready) 要開始閱讀 (read) 這本書了。' },
+            { en: 'vest', zh: '背心 (ㄅㄟˋ ㄒㄧㄣ)', mnemonic: '和 `best` (最好的) 押韻。這是我衣櫃裡最好 (best) 的一件保暖背心 (vest)。' },
+            { en: 'ski', zh: '滑雪 (ㄏㄨㄚˊ ㄒㄩㄝˇ)', mnemonic: '和 `sky` (天空) 很像。在靠近天空 (sky) 的高山上享受滑雪 (ski) 的樂趣。' },
+            { en: 'toy', zh: '玩具 (ㄨㄢˊ ㄐㄩˋ)', mnemonic: '和 `boy` (男孩) 押韻。那個小男孩 (boy) 喜歡玩機器人玩具 (toy)。' },
+            { en: 'top', zh: '頂部 (ㄉㄧㄥˇ ㄅㄨˋ)', mnemonic: '和 `stop` (停止) 押韻。爬山到了頂部 (top) 就要停止 (stop) 攀爬了。' },
+            { en: 'six', zh: '六 (ㄌㄧㄡˋ)', mnemonic: '和 `fix` (修理) 押韻。花了六塊錢 (six) 請人來修理 (fix) 腳踏車。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -304,7 +382,7 @@
             }
         }
 
-        /* --- 安全洗牌演算法 --- */
+        /* --- 安全洗牌演算法 (避免舊版瀏覽器語法衝突) --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -328,6 +406,7 @@
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
             
+            // 確保每次點擊都重新初始化陣列
             startGame(words);
         }
 
@@ -430,6 +509,7 @@
             }
         }
 
+
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
@@ -439,6 +519,7 @@
         let isWaitingToContinue = false;
 
         function startGame(wordList) {
+            // 安全檢查：確保傳入的單字表是有效的陣列
             let listToUse = words;
             if (wordList && Array.isArray(wordList) && wordList.length > 0) {
                 listToUse = wordList;
@@ -471,7 +552,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; // 安全檢查防呆
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
