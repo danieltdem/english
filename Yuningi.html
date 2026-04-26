@@ -218,7 +218,7 @@
 <body>
 
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
+        <img src="initial.png" alt="Menu" class="game-image">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -234,9 +234,9 @@
     </div>
 
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共37題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -276,20 +276,43 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'unique', zh: '獨特的 (ㄉㄨˊ ㄊㄜˋ ㄉㄜ˙)', mnemonic: '`uni` (一個)。字首 `uni` 代表單一，所以是獨一無二、獨特的。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'script', zh: '腳本 (ㄐㄧㄠˇ ㄅㄣˇ)', mnemonic: '`script` 聽起來像 `describe` (描述) 的後半段。腳本就是用來描述場景和對白的文字。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'block', zh: '阻擋；街區 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (`block`)，它會阻擋 (`block`) 整個街區 (`block`) 的交通。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'croak', zh: '蛙鳴；沙啞地說 (ㄨㄚ ㄇㄧㄥˊ)', mnemonic: '`croak` 聽起來像 `crow` (烏鴉) + `oak` (橡樹)。停在橡樹上的烏鴉發出像青蛙一樣沙啞的叫聲。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'scramble', zh: '攀爬；爭奪 (ㄆㄢ ㄆㄚˊ)', mnemonic: '`s` + `crumble` (碎裂)。為了爭奪 (`scramble`) 東西，大家擠成一團把東西都弄碎 (`crumble`) 了。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'sketch', zh: '素描；草圖 (ㄙㄨˋ ㄇㄧㄠˊ)', mnemonic: '運用你的技巧 (`skill` -> `sk`etch) 來畫一張素描 (`sketch`)。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'check', zh: '檢查；支票 (ㄐㄧㄢˇ ㄔㄚˊ)', mnemonic: '去銀行兌換支票 (`check`) 之前，櫃檯人員會先仔細檢查 (`check`) 簽名。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每一) + `haps` (happen, 發生)。每一種情況都有可能發生，也就是「也許」會成真。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'price', zh: '價格 (ㄐㄧㄚˋ ㄍㄜˊ)', mnemonic: '`p` + `rice` (米)。在古代，米 (`rice`) 也是一種貨幣，用來衡量物品的價格 (`price`)。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`pos` (post, 郵寄) + `sible` (able, 能夠)。這封信是能夠 (`able`) 郵寄到的，代表這件事是可能的 (`possible`)。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'unusual', zh: '不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)', mnemonic: '`un` (不) + `usual` (尋常的)。字面上結合起來就是不尋常的。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`value` 聽起來像 `well` (好) + `you` (你)。對你 (`you`) 很好 (`well`) 的東西，通常都非常有價值。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '`a` + `mong` (monk, 和尚)。想像一個 (`a`) 偽裝者藏在和尚 (`monk`) 之中 (`among`)。(參考網址: https://mnemonicdictionary.com/)' },
-            { en: 'natural', zh: '自然的 (ㄗˋ ㄖㄢˊ ㄉㄜ˙)', mnemonic: '來自 `nature` (自然)。大自然孕育出來的，就是自然的。(參考網址: https://mnemonicdictionary.com/)' }
+            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '`cent` (百)。一個 century 是一百年。' },
+            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每) + `haps` (happen, 發生)。每一次發生的事情都是「也許」會改變的。' },
+            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`for` (為了) + `rest` (休息)。為了休息 (for rest)，我們去森林 (forest) 裡走走。' },
+            { en: 'somewhere', zh: '某處 (ㄇㄡˇ ㄔㄨˋ)', mnemonic: '`some` (某個) + `where` (地方)。組合起來就是某個地方、某處。' },
+            { en: 'effort', zh: '努力 (ㄋㄨˇ ㄌㄧˋ)', mnemonic: '`e` + `fort` (堡壘)。要攻下一個堡壘 (fort) 需要付出很大的努力 (effort)。' },
+            { en: 'against', zh: '反對；對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再次) + `st` (strike, 打擊)。再次打擊對方，表示你在「對抗/反對」。' },
+            { en: 'eastern', zh: '東方的 (ㄉㄨㄥ ㄈㄤ ㄉㄜ˙)', mnemonic: '來自 `east` (東方) + `ern` 結尾。' },
+            { en: 'source', zh: '來源 (ㄌㄞˊ ㄩㄢˊ)', mnemonic: '聽起來像 `sauce` (醬汁)。這家餐廳美味的來源 (source) 是他們特製的醬汁 (sauce)。' },
+            { en: 'growth', zh: '成長 (ㄔㄥˊ ㄓㄤˇ)', mnemonic: '`grow` (生長) + `th`。' },
+            { en: 'affect', zh: '影響 (ㄧㄥˇ ㄒㄧㄤˇ)', mnemonic: '`a` + `ffect` (effect, 效果)。產生效果就是去「影響」(affect) 它。' },
+            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述中「指出」(indicate) 重點。' },
+            { en: 'trouble', zh: '麻煩 (ㄇㄚˊ ㄈㄢˊ)', mnemonic: '聽起來像 `terrible` (可怕的)。遇到麻煩 (trouble) 是一件可怕的 (terrible) 事。' },
+            { en: 'truce', zh: '休戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '聽起來像 `true` (真的) + `peace` (和平)。真正的和平來自於「休戰」(truce)。' },
+            { en: 'former', zh: '以前的 (ㄧˇ ㄑㄧㄢˊ ㄉㄜ˙)', mnemonic: '`form` (形成) + `er`。在事物形成之前，也就是「以前的」。' },
+            { en: 'complete', zh: '完成的；完整的 (ㄨㄢˊ ㄔㄥˊ ㄉㄜ˙)', mnemonic: '`com` (一起) + `plete` (填滿)。全部一起填滿，就是「完成的」。' },
+            { en: 'fetch', zh: '拿來 (ㄋㄚˊ ㄌㄞˊ)', mnemonic: '聽起來像 `catch` (抓住)。把東西抓住 (catch) 然後「拿來」(fetch)。' },
+            { en: 'supply', zh: '供應 (ㄍㄨㄥ ㄧㄥˋ)', mnemonic: '`up` (向上) + `ply` (apply, 申請)。向上層申請，請他們「供應」(supply) 物資。' },
+            { en: 'spare', zh: '備用的；多餘的 (ㄅㄟˋ ㄩㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 `space` (空間)。有額外的空間 (space) 可以放「備用的」(spare) 輪胎。' },
+            { en: 'follow', zh: '跟隨 (ㄍㄣ ㄙㄨㄟˊ)', mnemonic: '聽起來像 `fall low`。當你跟隨 (follow) 偉人時，你的姿態會放得很低 (low)。' },
+            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '`trem` (聽起來像 train 火車) + `ble` (聽起來像 bell 鈴鐺)。火車經過時，鈴鐺會跟著「發抖」(tremble)。' },
+            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (重新) + `arrange` (排列)。(老師幫你把小錯字改對囉！)' },
+            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`form` (形式) + `al`。合乎標準形式的，就是「正式的」。' },
+            { en: 'block', zh: '阻擋 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (BLOCK)，它會「阻擋」(block) 交通。' },
+            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '由 `long` (長的) 演變而來的名詞。' },
+            { en: 'metal', zh: '金屬 (ㄐㄧㄣ ㄕㄨˇ)', mnemonic: '聽起來像 `petal` (花瓣)。想像用「金屬」(metal) 做成的花瓣。' },
+            { en: 'trap', zh: '陷阱 (ㄒㄧㄢˋ ㄐㄧㄥˇ)', mnemonic: '反過來拼是 `part` (部分)。陷阱 (trap) 只是整個計畫的一部分 (part)。' },
+            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` 聽起來像 `die` (死亡)。想像兩個人為了「劃分」(divide) 財產而決鬥至死 (die)。' },
+            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`b` + `road` (道路)。一條非常「寬廣的」(broad) 道路 (road)。' },
+            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '聽起來像 `craft` (工藝)。在完成工藝品前，要先畫「草稿」(draft)。' },
+            { en: 'dialogue', zh: '對話 (ㄉㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`dia` (兩者之間) + `logue` (說話)。兩個人之間的言語交流就是「對話」(dialogue)。' },
+            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄔㄚˊ)', mnemonic: '`ob` + `serve` (服務)。服務生在服務 (serve) 前，會先「觀察」(observe) 客人的需求。' },
+            { en: 'shoot', zh: '射擊 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '聽起來像 `shout` (大叫)。射擊 (shoot) 的時候會發出巨大的聲響，讓人想大叫 (shout)。' },
+            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '來自 `fact` (事實)。工廠 (factory) 是製造實際 (fact) 物品的地方。' },
+            { en: 'wren', zh: '鷦鷯 (ㄐㄧㄠ ㄌㄧㄠˊ)', mnemonic: '和 `when` (何時) 只差一個字母。你何時 (when) 才要去看那隻小鳥 (wren)？' },
+            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (向外) + `press` (擠壓)。把你內心的想法向外擠壓 (press) 出來，就是「表達」(express)。' },
+            { en: 'arrest', zh: '逮捕 (ㄉㄞˇ ㄅㄨˋ)', mnemonic: '`a` + `rest` (休息)。警察「逮捕」(arrest) 了小偷，讓他去牢房裡休息 (rest)。' },
+            { en: 'sank', zh: '下沉 (ㄒㄧㄚˋ ㄔㄣˊ)', mnemonic: '是 sink 的過去式。聽起來像 `tank` (坦克)。沉重得像坦克 (tank) 一樣「下沉」(sank)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -326,6 +349,7 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
+            
             startGame(words);
         }
 
@@ -398,6 +422,7 @@
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
+                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -427,6 +452,7 @@
             }
         }
 
+
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
         let score = 0;
@@ -455,12 +481,7 @@
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            
-            // 避免圖檔遺失造成破圖，加上 onerror
-            const gameImg = document.getElementById('game-image');
-            gameImg.src = 'initial.png';
-            gameImg.style.display = 'inline-block';
-            
+            document.getElementById('game-image').src = 'initial.png';
             document.getElementById('mnemonic').style.display = 'none';
             
             nextQuestion();
@@ -473,7 +494,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -482,6 +503,7 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
+            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
@@ -499,6 +521,7 @@
                 return;
             }
 
+            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -517,6 +540,7 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
+                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
