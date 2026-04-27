@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共37題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共13題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,45 +274,21 @@
     </div>
 
     <script>
-        // 單字庫
+        // 最新單字庫
         const words = [
-            { en: 'century', zh: '世紀 (ㄕˋ ㄐㄧˋ)', mnemonic: '`cent` (百)。一個 century 是一百年。' },
-            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每) + `haps` (happen, 發生)。每一次發生的事情都是「也許」會改變的。' },
-            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`for` (為了) + `rest` (休息)。為了休息 (for rest)，我們去森林 (forest) 裡走走。' },
-            { en: 'somewhere', zh: '某處 (ㄇㄡˇ ㄔㄨˋ)', mnemonic: '`some` (某個) + `where` (地方)。組合起來就是某個地方、某處。' },
-            { en: 'effort', zh: '努力 (ㄋㄨˇ ㄌㄧˋ)', mnemonic: '`e` + `fort` (堡壘)。要攻下一個堡壘 (fort) 需要付出很大的努力 (effort)。' },
-            { en: 'against', zh: '反對；對抗 (ㄈㄢˇ ㄉㄨㄟˋ)', mnemonic: '`again` (再次) + `st` (strike, 打擊)。再次打擊對方，表示你在「對抗/反對」。' },
-            { en: 'eastern', zh: '東方的 (ㄉㄨㄥ ㄈㄤ ㄉㄜ˙)', mnemonic: '來自 `east` (東方) + `ern` 結尾。' },
-            { en: 'source', zh: '來源 (ㄌㄞˊ ㄩㄢˊ)', mnemonic: '聽起來像 `sauce` (醬汁)。這家餐廳美味的來源 (source) 是他們特製的醬汁 (sauce)。' },
-            { en: 'growth', zh: '成長 (ㄔㄥˊ ㄓㄤˇ)', mnemonic: '`grow` (生長) + `th`。' },
-            { en: 'affect', zh: '影響 (ㄧㄥˇ ㄒㄧㄤˇ)', mnemonic: '`a` + `ffect` (effect, 效果)。產生效果就是去「影響」(affect) 它。' },
-            { en: 'indicate', zh: '指出 (ㄓˇ ㄔㄨ)', mnemonic: '`in` + `dictate` (口述)。在口述中「指出」(indicate) 重點。' },
-            { en: 'trouble', zh: '麻煩 (ㄇㄚˊ ㄈㄢˊ)', mnemonic: '聽起來像 `terrible` (可怕的)。遇到麻煩 (trouble) 是一件可怕的 (terrible) 事。' },
-            { en: 'truce', zh: '休戰 (ㄒㄧㄡ ㄓㄢˋ)', mnemonic: '聽起來像 `true` (真的) + `peace` (和平)。真正的和平來自於「休戰」(truce)。' },
-            { en: 'former', zh: '以前的 (ㄧˇ ㄑㄧㄢˊ ㄉㄜ˙)', mnemonic: '`form` (形成) + `er`。在事物形成之前，也就是「以前的」。' },
-            { en: 'complete', zh: '完成的；完整的 (ㄨㄢˊ ㄔㄥˊ ㄉㄜ˙)', mnemonic: '`com` (一起) + `plete` (填滿)。全部一起填滿，就是「完成的」。' },
-            { en: 'fetch', zh: '拿來 (ㄋㄚˊ ㄌㄞˊ)', mnemonic: '聽起來像 `catch` (抓住)。把東西抓住 (catch) 然後「拿來」(fetch)。' },
-            { en: 'supply', zh: '供應 (ㄍㄨㄥ ㄧㄥˋ)', mnemonic: '`up` (向上) + `ply` (apply, 申請)。向上層申請，請他們「供應」(supply) 物資。' },
-            { en: 'spare', zh: '備用的；多餘的 (ㄅㄟˋ ㄩㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 `space` (空間)。有額外的空間 (space) 可以放「備用的」(spare) 輪胎。' },
-            { en: 'follow', zh: '跟隨 (ㄍㄣ ㄙㄨㄟˊ)', mnemonic: '聽起來像 `fall low`。當你跟隨 (follow) 偉人時，你的姿態會放得很低 (low)。' },
-            { en: 'tremble', zh: '發抖 (ㄈㄚ ㄉㄡˇ)', mnemonic: '`trem` (聽起來像 train 火車) + `ble` (聽起來像 bell 鈴鐺)。火車經過時，鈴鐺會跟著「發抖」(tremble)。' },
-            { en: 'rearrange', zh: '重新排列 (ㄔㄨㄥˊ ㄒㄧㄣ ㄆㄞˊ ㄌㄧㄝˋ)', mnemonic: '`re` (重新) + `arrange` (排列)。(老師幫你把小錯字改對囉！)' },
-            { en: 'formal', zh: '正式的 (ㄓㄥˋ ㄕˋ ㄉㄜ˙)', mnemonic: '`form` (形式) + `al`。合乎標準形式的，就是「正式的」。' },
-            { en: 'block', zh: '阻擋 (ㄗㄨˇ ㄉㄤˇ)', mnemonic: '想像路上有一塊巨大的石頭 (BLOCK)，它會「阻擋」(block) 交通。' },
-            { en: 'length', zh: '長度 (ㄔㄤˊ ㄉㄨˋ)', mnemonic: '由 `long` (長的) 演變而來的名詞。' },
-            { en: 'metal', zh: '金屬 (ㄐㄧㄣ ㄕㄨˇ)', mnemonic: '聽起來像 `petal` (花瓣)。想像用「金屬」(metal) 做成的花瓣。' },
-            { en: 'trap', zh: '陷阱 (ㄒㄧㄢˋ ㄐㄧㄥˇ)', mnemonic: '反過來拼是 `part` (部分)。陷阱 (trap) 只是整個計畫的一部分 (part)。' },
-            { en: 'divide', zh: '劃分 (ㄏㄨㄚˋ ㄈㄣ)', mnemonic: '`di` 聽起來像 `die` (死亡)。想像兩個人為了「劃分」(divide) 財產而決鬥至死 (die)。' },
-            { en: 'broad', zh: '寬廣的 (ㄎㄨㄢ ㄍㄨㄤˇ ㄉㄜ˙)', mnemonic: '`b` + `road` (道路)。一條非常「寬廣的」(broad) 道路 (road)。' },
-            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: '聽起來像 `craft` (工藝)。在完成工藝品前，要先畫「草稿」(draft)。' },
-            { en: 'dialogue', zh: '對話 (ㄉㄨㄟˋ ㄏㄨㄚˋ)', mnemonic: '`dia` (兩者之間) + `logue` (說話)。兩個人之間的言語交流就是「對話」(dialogue)。' },
-            { en: 'observe', zh: '觀察 (ㄍㄨㄢ ㄔㄚˊ)', mnemonic: '`ob` + `serve` (服務)。服務生在服務 (serve) 前，會先「觀察」(observe) 客人的需求。' },
-            { en: 'shoot', zh: '射擊 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '聽起來像 `shout` (大叫)。射擊 (shoot) 的時候會發出巨大的聲響，讓人想大叫 (shout)。' },
-            { en: 'factory', zh: '工廠 (ㄍㄨㄥ ㄔㄤˇ)', mnemonic: '來自 `fact` (事實)。工廠 (factory) 是製造實際 (fact) 物品的地方。' },
-            { en: 'wren', zh: '鷦鷯 (ㄐㄧㄠ ㄌㄧㄠˊ)', mnemonic: '和 `when` (何時) 只差一個字母。你何時 (when) 才要去看那隻小鳥 (wren)？' },
-            { en: 'express', zh: '表達 (ㄅㄧㄠˇ ㄉㄚˊ)', mnemonic: '`ex` (向外) + `press` (擠壓)。把你內心的想法向外擠壓 (press) 出來，就是「表達」(express)。' },
-            { en: 'arrest', zh: '逮捕 (ㄉㄞˇ ㄅㄨˋ)', mnemonic: '`a` + `rest` (休息)。警察「逮捕」(arrest) 了小偷，讓他去牢房裡休息 (rest)。' },
-            { en: 'sank', zh: '下沉 (ㄒㄧㄚˋ ㄔㄣˊ)', mnemonic: '是 sink 的過去式。聽起來像 `tank` (坦克)。沉重得像坦克 (tank) 一樣「下沉」(sank)。' }
+            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭)。`screech` 就是指像哭喊一樣的尖叫聲。' },
+            { en: 'cotton', zh: '棉花 (ㄇㄧㄢˊ ㄏㄨㄚ)', mnemonic: '`cot` (嬰兒床) + `ton` (噸)。想像嬰兒床裡塞了一噸重的柔軟棉花 (`cotton`)。' },
+            { en: 'latest', zh: '最新的 (ㄗㄨㄟˋ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`late` (遲到) + `st`。雖然最晚 (`late`) 才出現，但帶來的是最新的 (`latest`) 消息。' },
+            { en: 'effort', zh: '努力 (ㄋㄨˇ ㄌㄧˋ)', mnemonic: '`e` + `fort` (堡壘)。要攻下一個堅固的堡壘需要付出極大的努力 (`effort`)。' },
+            { en: 'government', zh: '政府 (ㄓㄥˋ ㄈㄨˇ)', mnemonic: '`govern` (統治) + `ment`。負責統治並管理人民的機構就是政府 (`government`)。' },
+            { en: 'neither', zh: '兩者都不 (ㄌㄧㄤˇ ㄓㄜˇ ㄉㄡ ㄅㄨˋ)', mnemonic: '`n` (代表 no) + `either` (兩者之一)。兩者之一都不是，也就是兩者都不 (`neither`)。' },
+            { en: 'anyway', zh: '無論如何 (ㄨˊ ㄌㄨㄣˋ ㄖㄨˊ ㄏㄜˊ)', mnemonic: '`any` (任何) + `way` (方式)。用任何方式都可以，無論如何 (`anyway`) 都要把事情完成。' },
+            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '聽起來像 `boarder` (寄宿生)。這個寄宿生住在學校的最邊界 (`border`) 附近。' },
+            { en: 'search', zh: '搜尋 (ㄙㄡ ㄒㄩㄣˊ)', mnemonic: '聽起來像 `sea` (海洋) + `arch` (拱門)。想像你在海洋中的拱門下搜尋 (`search`) 隱藏的寶藏。' },
+            { en: 'notice', zh: '注意 (ㄓㄨˋ ㄧˋ)', mnemonic: '`no` (沒有) + `ice` (冰)。注意 (`notice`)！你的飲料裡面沒有加冰塊 (`no ice`)。' },
+            { en: 'further', zh: '進一步的 (ㄐㄧㄣˋ ㄧ ㄅㄨˋ ㄉㄜ˙)', mnemonic: '它是 `far` (遠) 的比較級變化。代表比遠還要更遠，也就是進一步的 (`further`)。' },
+            { en: 'scream', zh: '尖叫 (ㄐㄧㄢ ㄐㄧㄠˋ)', mnemonic: '`s` + `cream` (鮮奶油)。想像妳看到一隻大蟲子掉進妳的鮮奶油裡，妳會忍不住尖叫 (`scream`)。' },
+            { en: 'purpose', zh: '目的 (ㄇㄨˋ ㄉㄧˋ)', mnemonic: '`pur` (purr, 貓咪呼嚕聲) + `pose` (姿勢)。貓咪擺出呼嚕呼嚕的姿勢，是有目的 (`purpose`) 想要討食物的。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -400,7 +376,6 @@
             });
         }
 
-        // 監聽整個練習列表的 Enter 鍵
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -415,14 +390,12 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -430,22 +403,20 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
+                        mnemonicDiv.style.display = 'none'; 
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block'; 
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -503,7 +474,6 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
-            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
@@ -521,7 +491,6 @@
                 return;
             }
 
-            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -540,7 +509,6 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
@@ -565,16 +533,16 @@
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('exam-answer').style.display = 'none';
             document.getElementById('exam-submit').style.display = 'none';
-            document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            document.getElementById('exam-result').textContent = `妳的最終分數：${score} / ${totalQuestions}`;
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
+                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對！';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '你答錯的單字：\n';
+                let wrongText = '妳答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
