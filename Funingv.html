@@ -217,7 +217,6 @@
 </head>
 <body>
 
-    <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
         <img src="initial.png" alt="Menu" class="game-image">
         <h1>寧寧的英文單字挑戰</h1>
@@ -234,11 +233,10 @@
         </button>
     </div>
 
-    <!-- 2. 考試模式 -->
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共27題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -252,7 +250,6 @@
         <button class="menu-btn" style="background-color:#607d8b; width: 60%; margin-top: 20px;" onclick="goHome()">回首頁</button>
     </div>
 
-    <!-- 3. 練習模式 (固定頭部版) -->
     <div id="practice-screen" class="container">
         <div class="practice-fixed-top">
             <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
@@ -279,33 +276,20 @@
     <script>
         // 單字庫
         const words = [
-            { en: 'daisy', zh: '雛菊 (ㄔㄨˊ ㄐㄩˊ)', mnemonic: '`daisy` 聽起來像 `day` (白天) + `see` (看見)。白天 (day) 才看得見 (see) 雛菊開花。' },
-            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個微笑 (`smile`) 可以傳播好幾英里 (`mile`) 遠。' },
-            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)', mnemonic: '`to` + `get` (得到) + `her` (她)。為了追到 (`get`) 她 (`her`)，你必須和她待在一起 (`together`)。' },
-            { en: 'garden', zh: '花園 (ㄏㄨㄚ ㄩㄢˊ)', mnemonic: '`guard` (守衛) + `den` (獸穴)。守衛 (`guard`) 站在花園 (`garden`) 裡保護大家。' },
-            { en: 'sunflower', zh: '向日葵 (ㄒㄧㄤˋ ㄖˋ ㄎㄨㄟˊ)', mnemonic: '`sun` (太陽) + `flower` (花)。向著太陽 (`sun`) 生長的花 (`flower`) 就是向日葵。' },
-            { en: 'spray', zh: '噴灑 (ㄆㄣ ㄙㄚˇ)', mnemonic: '`s` + `pray` (祈禱)。農夫祈禱 (`pray`) 雨水能像噴霧一樣噴灑 (`spray`) 下來滋潤農作物。' },
-            { en: 'spring', zh: '春天/彈簧 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '在春天 (`spring`)，萬物像彈簧 (`spring`) 一樣向上跳躍生長。' },
-            { en: 'string', zh: '細繩 (ㄒㄧˋ ㄕㄥˊ)', mnemonic: '`s` + `ring` (戒指)。用一根細繩 (`string`) 把戒指 (`ring`) 綁起來。' },
-            { en: 'strong', zh: '強壯的 (ㄑㄧㄤˊ ㄓㄨㄤˋ ㄉㄜ˙)', mnemonic: '`strong` 聽起來像 `str` + `long` (長)。擁有長 (`long`) 肌肉的人通常很強壯 (`strong`)。' },
-            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`nose` 聽起來像 `no` + `see`。你不能 (`no`) 直接看到 (`see`) 自己的鼻子 (`nose`)。' },
-            { en: 'mass', zh: '質量/大量 (ㄓˊ ㄌㄧㄤˋ)', mnemonic: '`mass` (大量) 聽起來像 `mess` (混亂)。大量 (`mass`) 的東西堆在一起就會變得很混亂 (`mess`)。' },
-            { en: 'week', zh: '星期 (ㄒㄧㄥ ㄑㄧˊ)', mnemonic: '`week` 和 `weak` (虛弱的) 發音相同。工作了一個星期 (`week`)，覺得好虛弱 (`weak`)。' },
-            { en: 'zero', zh: '零 (ㄌㄧㄥˊ)', mnemonic: '`z` + `hero` (英雄)。就算是英雄 (`hero`)，從零 (`zero`) 開始也需要努力。' },
-            { en: 'shot', zh: '射擊/嘗試 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '`shoot` (射擊) 的過去式。發射 (`shoot`) 出去的那一擊 (`shot`)。' },
-            { en: 'stem', zh: '莖 (ㄐㄧㄥ)', mnemonic: '`s` + `tem` (聽起來像 ten, 十)。這株植物有十 (`ten`) 根莖 (`stem`)。' },
-            { en: 'under', zh: '在...下面 (ㄗㄞˋ...ㄒㄧㄚˋ ㄇㄧㄢˋ)', mnemonic: '`un` + `der` (聽起來像 deer, 鹿)。有一隻鹿 (`deer`) 在樹下面 (`under`)。' },
-            { en: 'rise', zh: '上升 (ㄕㄤˋ ㄕㄥ)', mnemonic: '太陽從東方升起 (`rise`)，給我們溫暖的光線 (`rays`，發音相近)。' },
-            { en: 'knock on', zh: '敲 (ㄑㄧㄠ)', mnemonic: '`knock` 聽起來像 `lock` (鎖)。在開鎖 (`lock`) 之前要先敲門 (`knock on`)。' },
-            { en: 'skunk', zh: '臭鼬 (ㄔㄡˋ ㄧㄡˋ)', mnemonic: '`s` + `junk` (垃圾)。臭鼬 (`skunk`) 的味道聞起來就像垃圾 (`junk`)。' },
-            { en: 'desk', zh: '書桌 (ㄕㄨ ㄓㄨㄛ)', mnemonic: '`desk` 聽起來像 `discuss` (討論) 的開頭。書桌 (`desk`) 是我們用來討論 (`discuss`) 功課的地方。' },
-            { en: 'scale', zh: '規模/磅秤 (ㄍㄨㄟ ㄇㄛˊ)', mnemonic: '`s` + `cale` (聽起來像 call, 呼叫)。發生了大規模 (`scale`) 的事件，需要呼叫 (`call`) 支援。' },
-            { en: 'school', zh: '學校 (ㄒㄩㄝˊ ㄒㄧㄠˋ)', mnemonic: '`school` 聽起來像 `s` + `cool` (酷)。學校 (`school`) 是一個很酷 (`cool`) 的地方。' },
-            { en: 'root', zh: '根 (ㄍㄣ)', mnemonic: '`root` 聽起來像 `room` (房間)。樹的根 (`root`) 需要很大的空間 (`room`) 來生長。' },
-            { en: 'play', zh: '玩 (ㄨㄢˊ)', mnemonic: '`play` 和 `pray` (祈禱) 很像。玩樂 (`play`) 之後，別忘了祈禱 (`pray`) 感恩。' },
-            { en: 'oil', zh: '油 (ㄧㄡˊ)', mnemonic: '`oil` 聽起來像 `boil` (煮沸) 的後半段。煮沸 (`boil`) 食物的時候有時需要加一點油 (`oil`)。' },
-            { en: 'new', zh: '新的 (ㄒㄧㄣ ㄉㄜ˙)', mnemonic: '`new` 聽起來像 `news` (新聞)。新聞 (`news`) 播報的都是最新的 (`new`) 消息。' },
-            { en: 'pool', zh: '水池 (ㄕㄨㄟˇ ㄔˊ)', mnemonic: '`pool` 聽起來像 `cool` (涼爽的)。跳進水池 (`pool`) 裡感覺很涼爽 (`cool`)。' }
+            { en: 'daisy', zh: '雛菊 (ㄔㄨˊ ㄐㄩˊ)', mnemonic: '`daisy` 聽起來像 `day\'s eye` (白天的眼睛)。因為雛菊在白天開花，就像白天的眼睛 (`day\'s eye`) 一樣。' },
+            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個真誠的微笑 (`smile`) 可以傳播好幾英里 (`mile`) 遠。' },
+            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)', mnemonic: '`to` + `get` + `her`。為了追到 (`get`) 她 (`her`)，你必須和她待在一起 (`together`)。' },
+            { en: 'garden', zh: '花園 (ㄏㄨㄚ ㄩㄢˊ)', mnemonic: '`guard` (保衛) + `den` (巢穴)。花園 (`garden`) 就像是用來保衛 (`guard`) 花草的美麗巢穴 (`den`)。' },
+            { en: 'sunflower', zh: '向日葵 (ㄒㄧㄤˋ ㄖˋ ㄎㄨㄟˊ)', mnemonic: '`sun` (太陽) + `flower` (花)。喜歡迎著太陽 (`sun`) 生長的花 (`flower`) 就是向日葵。' },
+            { en: 'spray', zh: '噴灑 (ㄆㄣ ㄙㄚˇ)', mnemonic: '`s` + `pray` (祈禱)。農夫在噴灑 (`spray`) 農藥或水時，會祈禱 (`pray`) 有個好收成。' },
+            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '在春天 (`spring`)，萬物就像彈簧 (`spring`) 一樣充滿活力地向上生長。' },
+            { en: 'string', zh: '細繩 (ㄒㄧˋ ㄕㄥˊ)', mnemonic: '`s` + `tring` (聽起來像 ring 戒指)。用一根細繩 (`string`) 把珍貴的戒指 (`ring`) 串起來戴在脖子上。' },
+            { en: 'strong', zh: '強壯的 (ㄑㄧㄤˊ ㄓㄨㄤˋ ㄉㄜ˙)', mnemonic: '`s` + `trong` (聽起來像 trunk 樹幹)。像大樹的樹幹 (`trunk`) 一樣堅固，就是強壯的 (`strong`)。' },
+            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`no` + `se` (聽起來像 see)。你的鼻子 (`nose`) 在臉上，但你不照鏡子的話就「無法看到」(`no see`) 它。' },
+            { en: 'mass', zh: '大量 (ㄉㄚˋ ㄌㄧㄤˋ)', mnemonic: '`mass` 聽起來像 `mess` (混亂)。大量 (`mass`) 的東西堆在一起，很容易變得混亂 (`mess`)。' },
+            { en: 'week', zh: '星期 (ㄒㄧㄥ ㄑㄧˊ)', mnemonic: '`week` (星期) 和 `weak` (虛弱的) 發音相同。辛苦工作了一個星期 (`week`) 後，感覺身體非常虛弱 (`weak`)。' },
+            { en: 'zero', zh: '零 (ㄌㄧㄥˊ)', mnemonic: '`zero` 聽起來像 `hero` (英雄)。一個從零 (`zero`) 開始奮鬥的人，最終成為了英雄 (`hero`)。' },
+            { en: 'shot', zh: '射擊/嘗試 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '聯想 `s` + `hot` (熱的)。槍擊 (`shot`) 之後，槍管會變得非常熱 (`hot`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -393,6 +377,7 @@
             });
         }
 
+        // 監聽整個練習列表的 Enter 鍵
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -407,12 +392,14 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
+                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
+                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -420,25 +407,28 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
+                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
             } else {
+                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
+                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
             }
         }
+
 
         /* --- 考試模式邏輯 --- */
         let currentQuestion = 0;
@@ -481,7 +471,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; 
+            if (!q) return;
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -490,6 +480,7 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
+            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
@@ -507,6 +498,7 @@
                 return;
             }
 
+            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -525,6 +517,7 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
+                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
@@ -566,6 +559,7 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
+        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
@@ -577,6 +571,7 @@
                 startGame(retestWords);
             }
         });
+
     </script>
 </body>
 </html>
