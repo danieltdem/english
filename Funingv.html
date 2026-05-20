@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共13題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,22 +274,21 @@
     </div>
 
     <script>
-        // 單字庫
+        // 單字庫 (更新為13個新單字與注音、聯想記憶法)
         const words = [
-            { en: 'daisy', zh: '雛菊 (ㄔㄨˊ ㄐㄩˊ)', mnemonic: '`daisy` 聽起來像 `day\'s eye` (白天的眼睛)。因為雛菊在白天開花，就像白天的眼睛 (`day\'s eye`) 一樣。' },
-            { en: 'smile', zh: '微笑 (ㄨㄟˊ ㄒㄧㄠˋ)', mnemonic: '`s` + `mile` (英里)。一個真誠的微笑 (`smile`) 可以傳播好幾英里 (`mile`) 遠。' },
-            { en: 'together', zh: '一起 (ㄧˋ ㄑㄧˇ)', mnemonic: '`to` + `get` + `her`。為了追到 (`get`) 她 (`her`)，你必須和她待在一起 (`together`)。' },
-            { en: 'garden', zh: '花園 (ㄏㄨㄚ ㄩㄢˊ)', mnemonic: '`guard` (保衛) + `den` (巢穴)。花園 (`garden`) 就像是用來保衛 (`guard`) 花草的美麗巢穴 (`den`)。' },
-            { en: 'sunflower', zh: '向日葵 (ㄒㄧㄤˋ ㄖˋ ㄎㄨㄟˊ)', mnemonic: '`sun` (太陽) + `flower` (花)。喜歡迎著太陽 (`sun`) 生長的花 (`flower`) 就是向日葵。' },
-            { en: 'spray', zh: '噴灑 (ㄆㄣ ㄙㄚˇ)', mnemonic: '`s` + `pray` (祈禱)。農夫在噴灑 (`spray`) 農藥或水時，會祈禱 (`pray`) 有個好收成。' },
-            { en: 'spring', zh: '春天 (ㄔㄨㄣ ㄊㄧㄢ)', mnemonic: '在春天 (`spring`)，萬物就像彈簧 (`spring`) 一樣充滿活力地向上生長。' },
-            { en: 'string', zh: '細繩 (ㄒㄧˋ ㄕㄥˊ)', mnemonic: '`s` + `tring` (聽起來像 ring 戒指)。用一根細繩 (`string`) 把珍貴的戒指 (`ring`) 串起來戴在脖子上。' },
-            { en: 'strong', zh: '強壯的 (ㄑㄧㄤˊ ㄓㄨㄤˋ ㄉㄜ˙)', mnemonic: '`s` + `trong` (聽起來像 trunk 樹幹)。像大樹的樹幹 (`trunk`) 一樣堅固，就是強壯的 (`strong`)。' },
-            { en: 'nose', zh: '鼻子 (ㄅㄧˊ ㄗ˙)', mnemonic: '`no` + `se` (聽起來像 see)。你的鼻子 (`nose`) 在臉上，但你不照鏡子的話就「無法看到」(`no see`) 它。' },
-            { en: 'mass', zh: '大量 (ㄉㄚˋ ㄌㄧㄤˋ)', mnemonic: '`mass` 聽起來像 `mess` (混亂)。大量 (`mass`) 的東西堆在一起，很容易變得混亂 (`mess`)。' },
-            { en: 'week', zh: '星期 (ㄒㄧㄥ ㄑㄧˊ)', mnemonic: '`week` (星期) 和 `weak` (虛弱的) 發音相同。辛苦工作了一個星期 (`week`) 後，感覺身體非常虛弱 (`weak`)。' },
-            { en: 'zero', zh: '零 (ㄌㄧㄥˊ)', mnemonic: '`zero` 聽起來像 `hero` (英雄)。一個從零 (`zero`) 開始奮鬥的人，最終成為了英雄 (`hero`)。' },
-            { en: 'shot', zh: '射擊/嘗試 (ㄕㄜˋ ㄐㄧˊ)', mnemonic: '聯想 `s` + `hot` (熱的)。槍擊 (`shot`) 之後，槍管會變得非常熱 (`hot`)。' }
+            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。秋天時，漂亮的樹葉 (`leaf`) 會離開 (`leave`) 樹枝掉落下來。' },
+            { en: 'water', zh: '水 (ㄕㄨㄟˇ)', mnemonic: '大家最熟悉的水！可以想像你正拿著水 (`water`)，去灌溉一顆甜美的西瓜 (watermelon)。' },
+            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`flower` 前面是 `flow` (流動)。想像一朵美麗的小花 (`flower`) 掉進小溪裡，隨著溪水緩緩流動 (`flow`)。' },
+            { en: 'soil', zh: '土壤 (ㄊㄨˇ ㄖㄤˇ)', mnemonic: '`soil` 看起來非常像 `oil` (油)。肥沃飽滿的土壤 (`soil`)，就像踩下去會出油 (`oil`) 一樣滋潤。' },
+            { en: 'splash', zh: '濺起 (ㄐㄧㄢˋ ㄑㄧˇ)', mnemonic: '`s` + `pl` (play, 玩) + `ash` (灰燼/水花)。在小水坑裡快樂玩耍 (`play`)，就會潑灑並濺起 (`splash`) 許多漂亮的水花。' },
+            { en: 'splint', zh: '夾板 (ㄐㄧㄚˊ ㄅㄢˇ)', mnemonic: '`splint` 聽起來像 `split` (裂開)。當骨頭不小心裂開 (`split`) 的時候，醫生阿姨會用夾板 (`splint`) 幫忙固定。' },
+            { en: 'squid', zh: '烏賊/魷魚 (ㄨ ㄗㄟˊ)', mnemonic: '`squid` 聽起來像 `squeeze` (擠壓) + `fluid` (液體)。烏賊 (`squid`) 遇到危險會緊緊擠壓 (`squeeze`) 身體，噴出黑色的墨汁液體 (`fluid`)。' },
+            { en: 'square', zh: '正方形 (ㄓㄥˋ ㄈㄤ ㄒㄧㄥˊ)', mnemonic: '`squ` 聽起來像 `squeeze` (擠壓) + `care` (關心)。把滿滿的關心 (`care`) 緊緊擠壓 (`squeeze`) 進一個端正的正方形 (`square`) 盒子裡。' },
+            { en: 'poor', zh: '貧窮的 (ㄆㄧㄣˊ ㄑㄩㄥˊ ㄉㄜ˙)', mnemonic: '`poor` 聽起來像 `pour` (傾倒)。把口袋裡所有的硬幣全部倒出來 (`pour`) 還是不夠買餅乾，代表口袋現在很貧窮 (`poor`)。' },
+            { en: 'quiz', zh: '小測驗 (ㄒㄧㄠˇ ㄘㄜˋ ㄧㄢˋ)', mnemonic: '`quiz` 聽起來像 `question` (問題) 的好朋友。小測驗 (`quiz`) 的目的就是回答幾個好玩的小問題。' },
+            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '亮晶晶的星星 (`star`)，只要在後面加一個 t 就會變成 `start` (開始)。滿天繁星代表浪漫夜晚的開始 (`start`)。' },
+            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`rose` 同時也是 `rise` (升起) 的過去式。一朵盛開的紅色玫瑰 (`rose`)，看起來就像初升 (`rise`) 的火紅太陽一樣耀眼。' },
+            { en: 'pork', zh: '豬肉 (ㄓㄨ ㄖㄡˋ)', mnemonic: '`pork` 和公園 `park` 只有一字之差。想像可愛的小豬在公園 (`park`) 裡奔跑，牠最喜歡吃能長出健康豬肉 (`pork`) 的香草。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -326,7 +325,6 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
-            
             startGame(words);
         }
 
@@ -377,7 +375,7 @@
             });
         }
 
-        // 監聽整個練習列表的 Enter 鍵
+        // 監聽整個練習列表的 Enter 鍵 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -392,14 +390,12 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -407,22 +403,20 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
+                        mnemonicDiv.style.display = 'none'; 
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block'; 
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -471,7 +465,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -480,7 +474,6 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
-            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
@@ -498,7 +491,6 @@
                 return;
             }
 
-            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -517,7 +509,6 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
