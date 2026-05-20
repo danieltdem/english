@@ -3,576 +3,510 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的單字拼寫遊戲 & 練習</title>
+    <title>GEPT 初級聽力 10題雙語音模擬測驗</title>
     <style>
-        /* 全局設定 */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Helvetica Neue", Arial, "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-            transition: background-color 0.5s;
+            padding: 20px;
         }
-
-        /* 通用容器樣式 */
         .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+        h1 {
             text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh; /* 限制最大高度 */
-            position: relative;
-            overflow-y: auto; 
+            color: #1a365d;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 15px;
         }
-
-        h1 { margin-top: 0; }
-        
-        /* 圖片樣式 */
-        .game-image {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 15px;
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 0.95em;
         }
-
-        /* 按鈕通用樣式 */
-        button {
-            padding: 12px 24px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 10px;
-            transition: transform 0.1s, background-color 0.3s;
+        .section-title {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 12px 18px;
+            border-left: 6px solid #3182ce;
+            font-weight: bold;
+            margin-top: 40px;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.1em;
         }
-        button:active { transform: scale(0.95); }
-
-        /* --- 發音按鈕樣式 --- */
-        .tts-btn {
-            background-color: #03a9f4;
+        .question-block {
+            margin-bottom: 30px;
+            padding: 22px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background-color: #f7fafc;
+        }
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .question-number {
+            font-weight: bold;
+            font-size: 1.15em;
+            color: #2d3748;
+        }
+        .audio-btn {
+            background-color: #3182ce;
             color: white;
+            border: none;
+            padding: 10px 20px;
             font-size: 14px;
-            padding: 6px 12px;
-            margin: 5px 0 0 10px;
-            border-radius: 50px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s;
         }
-        .tts-btn:hover { background-color: #0288d1; }
-
-        /* --- 首頁選單樣式 --- */
-        #menu-screen { display: block; }
-        .menu-btn {
-            display: block;
-            width: 80%;
-            margin: 15px auto;
-            background-color: #ff9800; /* 橘色系 */
-            color: white;
-            font-weight: bold;
+        .audio-btn:hover {
+            background-color: #2b6cb0;
+            transform: translateY(-1px);
         }
-        .menu-btn:hover { background-color: #e68900; }
-        .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; }
-
-        /* --- 考試模式樣式 --- */
-        #exam-screen { display: none; }
-        .exam-input {
-            padding: 10px;
-            font-size: 18px;
-            width: 70%;
-            margin-bottom: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+        .audio-btn.btn-dialogue {
+            background-color: #dd6b20;
         }
-        .exam-btn { background-color: #4CAF50; color: white; }
-        .exam-btn:hover { background-color: #45a049; }
-        
-        #mnemonic {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #3d5afe;
-            text-align: left;
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #f3f4ff;
-            line-height: 1.5;
+        .audio-btn.btn-dialogue:hover {
+            background-color: #c05621;
         }
-        #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px;}
-
-        /* --- 練習模式樣式 (固定頭部) --- */
-        #practice-screen { 
-            display: none; 
-            background-color: #2c2c2c; /* 深灰色背景 */
-            color: #f0f0f0;
-            border: 4px solid #8b4513; /* 深棕色邊框 */
-            flex-direction: column; 
-            padding: 0; 
-            overflow: hidden; 
-        }
-        
-        body.practice-mode { background-color: #1a1a1a; }
-
-        .practice-fixed-top {
-            background-color: #2c2c2c;
-            padding: 15px 20px 5px 20px;
-            border-bottom: 2px solid #555;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            flex-shrink: 0; 
-            z-index: 10;
-        }
-
-        .top-btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
-
-        #practice-list-container {
-            flex-grow: 1; 
-            overflow-y: auto; 
-            padding: 10px 20px 20px 20px;
-            scrollbar-width: thin;
-            scrollbar-color: #555 #2c2c2c;
-        }
-        
-        #practice-list-container::-webkit-scrollbar { width: 8px; }
-        #practice-list-container::-webkit-scrollbar-track { background: #2c2c2c; }
-        #practice-list-container::-webkit-scrollbar-thumb { background-color: #555; border-radius: 4px; }
-
-        .practice-row-container {
-            border-bottom: 1px solid #444;
-            padding: 15px 0;
-        }
-
-        .practice-row {
+        .options {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 5px;
+        }
+        .option-label {
+            display: flex;
             align-items: center;
-        }
-
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffcc00; }
-        .col-input { width: 35%; }
-        .col-ans { width: 30%; text-align: right; color: #4CAF50; font-weight: bold; font-size: 18px; display: flex; flex-direction: column; align-items: flex-end;}
-
-        .practice-input {
-            width: 90%;
-            padding: 8px;
-            font-size: 16px;
-            background-color: #444;
-            color: white;
-            border: 2px solid #666;
-            border-radius: 5px;
-        }
-        .practice-input.correct { border-color: #4CAF50; background-color: #2e4a2e; }
-        .practice-input.wrong { border-color: #f44336; background-color: #4a2e2e; }
-
-        .practice-mnemonic {
-            display: none;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #82b1ff;
-            text-align: left;
-            background-color: #333;
-            padding: 10px;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
             border-radius: 8px;
-            line-height: 1.5;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .global-toggle-btn {
-            background-color: #d32f2f;
-            color: white;
+        .option-label:hover {
+            background-color: #edf2f7;
+            border-color: #a0aec0;
+        }
+        .option-label input {
+            margin: 0;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .submit-btn {
+            display: block;
             width: 100%;
-            margin: 0;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 10px;
-        }
-        .global-toggle-btn:hover { background-color: #b71c1c; }
-
-        .header-back-btn {
-            background-color: #607d8b;
+            max-width: 250px;
+            margin: 50px auto 20px;
+            background-color: #38a169;
             color: white;
-            width: 30%;
-            margin: 0;
-            font-size: 14px;
-            padding: 10px;
+            border: none;
+            padding: 14px 28px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: background 0.2s;
         }
-
-        .answer-text { display: none; }
-        
-        .list-header {
-            display: flex; 
-            justify-content: space-between; 
-            color: #aaa; 
-            font-size: 14px; 
-            margin-top: 10px;
-            padding-bottom: 5px;
+        .submit-btn:hover {
+            background-color: #2f855a;
+        }
+        .explanation-box {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .correct-box {
+            background-color: #f0fff4;
+            border-left: 6px solid #38a169;
+            color: #22543d;
+        }
+        .incorrect-box {
+            background-color: #fff5f5;
+            border-left: 6px solid #e53e3e;
+            color: #742a2a;
+        }
+        .exp-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        .script-text {
+            background: rgba(0,0,0,0.03);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-style: italic;
+            margin: 6px 0 12px 0;
+            color: #2d3748;
+            white-space: pre-line;
+        }
+        .score-display {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            color: #1a365d;
+            display: none;
+            padding: 15px;
+            background: #ebf8ff;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-    <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
-        <h1>寧寧的英文單字挑戰</h1>
-        <p>請選擇模式：</p>
+<div class="container">
+    <h1>🎧 GEPT 初級聽力雙角色互動測驗 (10題完整版)</h1>
+    <div class="subtitle">單句理解由標準旁白朗讀；簡短對話將由男女英美音發音員實時模擬對話扮演，請點擊按鈕測驗。</div>
+    
+    <form id="quizForm">
+        <div class="section-title">第一部分：單句理解 (聽句子，選出意思最接近的選項)</div>
         
-        <button class="menu-btn" onclick="goToExam()">
-            <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
-            開始考試
-        </button>
-
-        <button class="menu-btn" onclick="goToPractice()">
-            <span class="ruby-text">ㄨㄛˇ ㄧㄠˋ ㄌㄧㄢˋ ㄒㄧˊ</span>
-            我要練習
-        </button>
-    </div>
-
-    <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
-        <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共21題，順序隨機。</p>
-        <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
-        <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
-        <br>
-        <button id="exam-submit" class="exam-btn">提交</button>
-        <div id="exam-result" style="font-size: 20px; margin-top: 20px;"></div>
-        <div id="mnemonic" style="display: none;"></div>
-        <div id="score" style="font-size: 18px; margin-top: 10px;">分數: 0 / 0</div>
-        <div id="wrong-words"></div>
-        <button id="exam-restart" class="exam-btn" style="display: none;">重新開始</button>
-        <button id="exam-retest" class="exam-btn" style="display: none;">重測錯題</button>
-        <button class="menu-btn" style="background-color:#607d8b; width: 60%; margin-top: 20px;" onclick="goHome()">回首頁</button>
-    </div>
-
-    <div id="practice-screen" class="container">
-        <div class="practice-fixed-top">
-            <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
-            <div class="top-btn-group">
-                <button class="header-back-btn" onclick="goHome()">
-                    回首頁<br><span style="font-size:0.8em">ㄏㄨㄟˊ ㄕㄡˇ ㄧㄝˋ</span>
-                </button>
-                <button id="toggle-all-btn" class="global-toggle-btn" style="width: 70%;" onclick="toggleAllAnswers()">
-                    顯示所有答案 / 批改
-                    <br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
-                </button>
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 1 題</span>
+                <button type="button" class="audio-btn" onclick="playSingle('The teacher underlined the word to show that it is important.')">🔊 點我聽題目 (Play)</button>
             </div>
-            <div class="list-header">
-                <span style="width:35%">中文意思</span>
-                <span style="width:35%">拼寫練習</span>
-                <span style="width:30%; text-align:right;">正確答案</span>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> (A) The teacher forgot to write the word.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> (B) The teacher drew a line under the word.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> (C) The teacher said the word was wrong.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> (D) The teacher deleted the word.</label>
             </div>
+            <div id="exp-q1" class="explanation-box"></div>
         </div>
-        <div id="practice-list-container">
-            <div id="practice-list"></div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 2 題</span>
+                <button type="button" class="audio-btn" onclick="playSingle('Everyone should follow the rules when playing a game, or it won\'t be fair.')">🔊 點我聽題目 (Play)</button>
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> (A) The game is only for leaders.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> (B) We don\'t need to be fair.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> (C) People must play the game according to the rules.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> (D) The game is very boring.</label>
+            </div>
+            <div id="exp-q2" class="explanation-box"></div>
         </div>
-    </div>
 
-    <script>
-        // 單字庫
-        const words = [
-            { en: 'affect', zh: '影響 (ㄧㄥˇ ㄒㄧㄤˇ)', mnemonic: '`affect` 和 `effect` (效果) 很像。產生效果的動作就是去「影響」(`affect`)。' },
-            { en: 'settle', zh: '解決；定居 (ㄐㄧㄝˇ ㄐㄩㄝˊ / ㄉㄧㄥˋ ㄐㄩ)', mnemonic: '`set` (安置)。讓事情或自己「安置」下來，就是解決或定居 (`settle`)。' },
-            { en: 'detail', zh: '細節 (ㄒㄧˋ ㄐㄧㄝˊ)', mnemonic: '`de` (down, 向下) + `tail` (尾巴)。連尾巴 (`tail`) 最末端的細節 (`detail`) 都要注意到。' },
-            { en: 'terrible', zh: '可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)', mnemonic: '`terror` (恐懼) + `ible`。令人感到恐懼的就是可怕的 (`terrible`)。' },
-            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每) + `haps` (happen, 發生)。每件事情都有可能發生，也就是「也許」(`perhaps`)。' },
-            { en: 'tourist', zh: '遊客 (ㄧㄡˊ ㄎㄜˋ)', mnemonic: '`tour` (旅行) + `ist` (人)。去旅行的人就是遊客 (`tourist`)。' },
-            { en: 'scribble', zh: '塗鴉 (ㄊㄨˊ ㄧㄚ)', mnemonic: '`scribble` 聽起來像 `scrabble` (拼字遊戲)。玩拼字遊戲時在紙上亂寫亂畫就是塗鴉 (`scribble`)。' },
-            { en: 'among', zh: '在...之中 (ㄗㄞˋ...ㄓ ㄓㄨㄥ)', mnemonic: '聽起來像 `a monkey` (一隻猴子)。想像有一隻猴子隱藏「在...之中」(`among`)。' },
-            { en: 'measure', zh: '測量 (ㄘㄜˋ ㄌㄧㄤˊ)', mnemonic: '`me` (我) + `sure` (確定)。我 (`me`) 要「測量」(`measure`) 一下才能「確定」(`sure`)。' },
-            { en: 'against', zh: '反對；倚靠 (ㄈㄢˇ ㄉㄨㄟˋ / ㄧ ㄎㄠˋ)', mnemonic: '`again` (再一次) + `st` (strike, 打擊)。再一次打擊它，表示你「反對」(`against`) 它。' },
-            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '`cert` (certificate, 證書) + `ain`。拿到證書就代表事情是「確定的」(`certain`)。' },
-            { en: 'German', zh: '德國人 (ㄉㄜˊ ㄍㄨㄛˊ ㄖㄣˊ)', mnemonic: '`germ` (細菌) + `man` (男人)。這個男人發現了細菌，他是個德國人 (`German`)。' },
-            { en: 'royal', zh: '皇室的 (ㄏㄨㄤˊ ㄕˋ ㄉㄜ˙)', mnemonic: '`royal` 聽起來像 `loyal` (忠誠的)。人們對皇室 (`royal`) 家族非常忠誠 (`loyal`)。' },
-            { en: 'general', zh: '一般的；將軍 (ㄧˋ ㄅㄢ ㄉㄜ˙ / ㄐㄧㄤ ㄐㄩㄣ)', mnemonic: '`gen` (產生) + `eral` (all, 全部)。產生給全部人用的，就是「一般的」(`general`)。' },
-            { en: 'waste', zh: '浪費 (ㄌㄤˋ ㄈㄟˋ)', mnemonic: '`waste` (浪費) 和 `waist` (腰) 發音相同。吃太多浪費 (`waste`) 食物，會讓你的腰 (`waist`) 變粗。' },
-            { en: 'multiple', zh: '多個的 (ㄉㄨㄛ ㄍㄜˋ ㄉㄜ˙)', mnemonic: '`multi` (多個) + `ple`。想像有很多 (`multi`) 蘋果 (apple -> `ple`)。' },
-            { en: 'propose', zh: '提議 (ㄊㄧˊ ㄧˋ)', mnemonic: '`propose` (提議) 裡面有 `purpose` (目的)。當你提議 (`propose`) 時，你心中一定有一個目的 (`purpose`)。' },
-            { en: 'harsh', zh: '嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`harsh` 聽起來像 `hard` (困難的)。面對嚴厲的 (`harsh`) 條件，生活會變得很困難 (`hard`)。' },
-            { en: 'screech', zh: '尖叫聲 (ㄐㄧㄢ ㄐㄧㄠˋ ㄕㄥ)', mnemonic: '`screech` 中間的 `creech` 聽起來像 `cry` (哭)。`screech` 就是指像哭喊一樣的尖叫聲。' },
-            { en: 'possible', zh: '可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)', mnemonic: '`pos` (post, 發布) + `sible` (able, 能夠)。能夠發布出來的消息，通常是「可能的」(`possible`)。' },
-            { en: 'comparison', zh: '比較 (ㄅㄧˇ ㄐㄧㄠˋ)', mnemonic: '`compare` (比較) + `son` (兒子)。父母總是喜歡把自己的兒子 (`son`) 拿來做比較 (`comparison`)。' }
-        ];
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 3 題</span>
+                <button type="button" class="audio-btn" onclick="playSingle('I don\'t know how this machine works, but I want to figure it out.')">🔊 點我聽題目 (Play)</button>
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> (A) I want to buy a new machine.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> (B) I already understand the machine.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> (C) I want to learn and understand how it works.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> (D) I want to break the machine.</label>
+            </div>
+            <div id="exp-q3" class="explanation-box"></div>
+        </div>
 
-        /* --- 語音朗讀 API --- */
-        function speakWord(word) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'en-US';
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("很抱歉，您的瀏覽器目前不支援語音朗讀功能喔！");
-            }
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 4 題</span>
+                <button type="button" class="audio-btn" onclick="playSingle('The printers work well because the company maintains them regularly.')">🔊 點我聽題目 (Play)</button>
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> (A) The printers are broken because they are old.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> (B) The company fixes and takes care of the printers often.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> (C) The company is planning to design new printers.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> (D) The supplies for the printers are very expensive.</label>
+            </div>
+            <div id="exp-q4" class="explanation-box"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 5 題</span>
+                <button type="button" class="audio-btn" onclick="playSingle('A recent study indicates that women are usually healthier than men.')">🔊 點我聽題目 (Play)</button>
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> (A) Men are usually healthier than women according to the report.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> (B) The study shows that women are typically in better health than men.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> (C) The report blames women for health problems.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> (D) Scientists are organizing a new study about men.</label>
+            </div>
+            <div id="exp-q5" class="explanation-box"></div>
+        </div>
+
+
+        <div class="section-title">第二部分：簡短對話理解 (聽對話與問題，選出最適合的答案)</div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 6 題</span>
+                <button type="button" class="audio-btn btn-dialogue" onclick="playDialogue('Did John arrive at the office on time today?', 'No, he was late for work this morning because of heavy traffic.', 'Why was John late for work?')">🔊 點我聽對話與問題 (Play)</button>
+            </div>
+            <p style="margin: 0 0 12px 5px; font-weight: bold; color: #4a5568;">Question: Why was John late for work?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> (A) Because he had a car accident.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> (B) Because there were too many cars on the road.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> (C) Because he woke up late.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> (D) Because it was raining hard.</label>
+            </div>
+            <div id="exp-q6" class="explanation-box"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 7 題</span>
+                <button type="button" class="audio-btn btn-dialogue" onclick="playDialogue('The sofa is on fire!', 'Oh no! We have to put it out before it spreads to the kitchen!', 'What are they going to do?')">🔊 點我聽對話與問題 (Play)</button>
+            </div>
+            <p style="margin: 0 0 12px 5px; font-weight: bold; color: #4a5568;">Question: What are they going to do?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> (A) They are going to buy a new sofa.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> (B) They are going to cook in the kitchen.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> (C) They are going to stop the fire.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> (D) They are going to give the sofa away.</label>
+            </div>
+            <div id="exp-q7" class="explanation-box"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 8 題</span>
+                <button type="button" class="audio-btn btn-dialogue" onclick="playDialogue('How much did they pay for their new house?', 'I am not sure, but it looks very expensive.', 'What do the speakers know about the house?')">🔊 點我聽對話與問題 (Play)</button>
+            </div>
+            <p style="margin: 0 0 12px 5px; font-weight: bold; color: #4a5568;">Question: What do the speakers know about the house?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> (A) It was very cheap.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> (B) It probably cost a lot of money.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> (C) It is a small apartment.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> (D) It belongs to the woman.</label>
+            </div>
+            <div id="exp-q8" class="explanation-box"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 9 題</span>
+                <button type="button" class="audio-btn btn-dialogue" onclick="playDialogue('Can you lend me this book? I will return it to you tomorrow.', 'Sure! But please keep it clean. My sister gave it to me.', 'What will the man do tomorrow?')">🔊 點我聽對話與問題 (Play)</button>
+            </div>
+            <p style="margin: 0 0 12px 5px; font-weight: bold; color: #4a5568;">Question: What will the man do tomorrow?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> (A) He will buy a new book for his sister.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> (B) He will give the book back to the woman.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> (C) He will clean his sister\'s room.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> (D) He will borrow another book.</label>
+            </div>
+            <div id="exp-q9" class="explanation-box"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-header">
+                <span class="question-number">第 10 題</span>
+                <button type="button" class="audio-btn btn-dialogue" onclick="playDialogue('Excuse me, I am looking for the science section of the textbook.', 'Oh, that part of the textbook is difficult. Our teacher even taught us twice!', 'What do we learn about the science section?')">🔊 點我聽對話與問題 (Play)</button>
+            </div>
+            <p style="margin: 0 0 12px 5px; font-weight: bold; color: #4a5568;">Question: What do we learn about the science section?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> (A) It is very easy to understand.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> (B) The teacher refused to teach it.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> (C) The students had to learn it two times.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> (D) It was removed from the textbook.</label>
+            </div>
+            <div id="exp-q10" class="explanation-box"></div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">送出答案看詳細解析</button>
+    </form>
+
+    <div id="scoreDisplay" class="score-display"></div>
+</div>
+
+<script>
+    let maleVoice = null;
+    let femaleVoice = null;
+
+    // 初始化尋找 Chrome 內建的英文男女聲音物件
+    function loadVoices() {
+        if ('speechSynthesis' in window) {
+            let voices = window.speechSynthesis.getVoices();
+            // 尋找美式英文發音員
+            maleVoice = voices.find(v => v.lang.includes('en') && (v.name.toLowerCase().includes('google US male') || v.name.toLowerCase().includes('david') || v.name.toLowerCase().includes('male')));
+            femaleVoice = voices.find(v => v.lang.includes('en') && (v.name.toLowerCase().includes('google US female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('female')));
+            
+            // 備用方案：若找不到專用男女聲，則直接使用預設英文
+            if(!maleVoice) maleVoice = voices.find(v => v.lang.startsWith('en'));
+            if(!femaleVoice) femaleVoice = voices.find(v => v.lang.startsWith('en'));
         }
+    }
 
-        /* --- 安全洗牌演算法 --- */
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+    }
+
+    // 播放單句理解（單一旁白發音，語速調慢至 0.85）
+    function playSingle(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            let u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.85;
+            window.speechSynthesis.speak(u);
+        } else {
+            alert("瀏覽器不支援語音系統，請使用 Google Chrome 瀏覽器。");
         }
+    }
 
-        /* --- 頁面切換邏輯 --- */
-        function goHome() {
-            document.getElementById('menu-screen').style.display = 'block';
-            document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'none'; 
-            document.body.classList.remove('practice-mode');
+    // 播放雙角色對話（男聲、女聲交替，最後由旁白唸出問題）
+    function playDialogue(manText, womanText, questionText) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+
+            // 1. 男生說話
+            let uMan = new SpeechSynthesisUtterance(manText);
+            uMan.lang = 'en-US';
+            if(maleVoice) uMan.voice = maleVoice;
+            uMan.rate = 0.88;
+
+            // 2. 女生接話（在男生說完後觸發）
+            let uWoman = new SpeechSynthesisUtterance(womanText);
+            uWoman.lang = 'en-US';
+            if(femaleVoice) uWoman.voice = femaleVoice;
+            uWoman.rate = 0.88;
+
+            // 3. 旁白唸問題（在女生說完後觸發）
+            let uQuest = new SpeechSynthesisUtterance(questionText);
+            uQuest.lang = 'en-US';
+            uQuest.rate = 0.85;
+
+            // 排程串聯播放
+            uMan.onend = function() { window.speechSynthesis.speak(uWoman); };
+            uWoman.onend = function() { window.speechSynthesis.speak(uQuest); };
+
+            // 開始播放第一句
+            window.speechSynthesis.speak(uMan);
+        } else {
+            alert("瀏覽器不支援語音系統。");
         }
+    }
 
-        function goToExam() {
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'block';
-            document.getElementById('practice-screen').style.display = 'none';
-            document.body.classList.remove('practice-mode');
-            startGame(words);
+    // 10題資料庫
+    const quizData = {
+        q1: {
+            correct: "B",
+            script: "The teacher underlined the word to show that it is important.",
+            translation: "老師在那個單字下面劃線，以表示它是重要的。",
+            explain: "<strong>解說：</strong>本題測試核心動詞 <strong>underline（在...下方劃線）</strong>。選項 (B) <em>The teacher drew a line under the word.</em>（老師在單字下方畫了一條線）完美替換了題目的意思。"
+        },
+        q2: {
+            correct: "C",
+            script: "Everyone should follow the rules when playing a game, or it won't be fair.",
+            translation: "玩遊戲時每個人都應該遵守規則，否則就不公平了。",
+            explain: "<strong>解說：</strong>測試片語 <strong>follow the rules（遵守規則）</strong> 與單字 <strong>fair（公平的）</strong>。選項 (C) 意為「人們必須依照規則進行遊戲」最符合句意。"
+        },
+        q3: {
+            correct: "C",
+            script: "I don't know how this machine works, but I want to figure it out.",
+            translation: "我不知道這台機器是怎麼運作的，但我想要把它弄懂。",
+            explain: "<strong>解說：</strong>考點為常用動詞片語 <strong>figure out（想辦法弄懂、解決）</strong>。選項 (C) <em>I want to learn and understand how it works.</em> 完全符合想弄懂的心態。"
+        },
+        q4: {
+            correct: "B",
+            script: "The printers work well because the company maintains them regularly.",
+            translation: "這些印表機運作得很好，因為公司定期對它們進行維護保養。",
+            explain: "<strong>解說：</strong>核心動詞為 <strong>maintain（維修、保養）</strong>。定期保養才能運作良好，對應選項 (B) <em>fixes and takes care of the printers often</em>（經常修理與照顧印表機）。"
+        },
+        q5: {
+            correct: "B",
+            script: "A recent study indicates that women are usually healthier than men.",
+            translation: "最近的一項研究指出，女性通常比男性更健康。",
+            explain: "<strong>解說：</strong>核心動詞 <strong>indicate（指出、顯示）</strong>。題目指出女性比男性健康，選項 (B) <em>women are typically in better health than men</em> 語意最接近。"
+        },
+        q6: {
+            correct: "B",
+            script: "Man: Did John arrive at the office on time today?\nWoman: No, he was late for work this morning because of heavy traffic.\nQuestion: Why was John late for work?",
+            translation: "男：John 今天有準時到辦公室嗎？\n女：沒有，他今天早上因為交通擁擠而上班遲到了。\n問題：為什麼 John 上班遲到？",
+            explain: "<strong>解說：</strong>女士回答的關鍵字是 <strong>heavy traffic（交通擁擠、大塞車）</strong>。選項 (B) <em>Because there were too many cars on the road.</em> 意即路上車太多（塞車），為正確答案。"
+        },
+        q7: {
+            correct: "C",
+            script: "Woman: The sofa is on fire!\nMan: Oh no! We have to put it out before it spreads to the kitchen!\nQuestion: What are they going to do?",
+            translation: "女：沙發著火了！\n男：噢不！我們必須在火勢蔓延到廚房前把它撲滅！\n問題：他們打算做什麼？",
+            explain: "<strong>解說：</strong>核心片語為 <strong>put it out（撲滅火勢、滅火）</strong>。選項 (C) <em>They are going to stop the fire.</em>（他們要去滅火）相符。"
+        },
+        q8: {
+            correct: "B",
+            script: "Man: How much did they pay for their new house?\nWoman: I am not sure, but it looks very expensive.\nQuestion: What do the speakers know about the house?",
+            translation: "男：他們買新房子付了多少錢？\n女：我不確定，但它看起來非常昂貴。\n問題：說話者對這棟房子了解什麼？",
+            explain: "<strong>解說：</strong>關鍵字是女士提到的 <strong>expensive（昂貴的）</strong>。選項 (B) <em>It probably cost a lot of money.</em>（它可能花了很多錢）是昂貴的同義代換。"
+        },
+        q9: {
+            correct: "B",
+            script: "Man: Can you lend me this book? I will return it to you tomorrow.\nWoman: Sure! But please keep it clean. My sister gave it to me.\nQuestion: What will the man do tomorrow?",
+            translation: "男：妳能借我這本書嗎？我明天會還給妳。\n女：沒問題！但請保持乾淨，這是我姊姊送我的。\n問題：男子明天打算做什麼？",
+            explain: "<strong>解說：</strong>對話開頭男子說 <strong>I will return it to you tomorrow（我明天會還給妳）</strong>。動詞 return 等於 give back，故選 (B) <em>give the book back to the woman</em>。"
+        },
+        q10: {
+            correct: "C",
+            script: "Man: Excuse me, I am looking for the science section of the textbook.\nWoman: Oh, that part of the textbook is difficult. Our teacher even taught us twice!\nQuestion: What do we learn about the science section?",
+            translation: "男：不好意思，我正在找教科書裡自然科學的這個章節。\n女：噢，教科書的那一部分很難。我們老師甚至教了我們兩次！\n問題：關於自然科學章節我們得知了什麼？",
+            explain: "<strong>解說：</strong>女士提到 <em>Our teacher even taught us twice!</em>（老師甚至教了兩次）。選項 (C) <em>The students had to learn it two times.</em>（學生們必須學習它兩次）語意完全吻合。"
         }
+    };
 
-        function goToPractice() {
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'flex'; 
-            document.body.classList.add('practice-mode');
-            renderPracticeList();
-            resetPracticeState();
-        }
-
-        /* --- 練習模式邏輯 --- */
-        let areAnswersVisible = false;
-
-        function resetPracticeState() {
-            areAnswersVisible = false;
-            const btn = document.getElementById('toggle-all-btn');
-            btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.style.backgroundColor = '#d32f2f';
-        }
-
-        function renderPracticeList() {
-            const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = '';
-
-            words.forEach((word, index) => {
-                const rowContainer = document.createElement('div');
-                rowContainer.className = 'practice-row-container';
-                rowContainer.innerHTML = `
-                    <div class="practice-row">
-                        <div class="col-zh">${word.zh}</div>
-                        <div class="col-input">
-                            <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
-                        </div>
-                        <div class="col-ans">
-                            <div id="ans-${index}" class="answer-text">
-                                ${word.en}
-                                <button class="tts-btn" onclick="speakWord('${word.en}')" title="唸出單字">🔊</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="p-mnemonic-${index}" class="practice-mnemonic">
-                        💡 <b>記憶提示：</b>${word.mnemonic}
-                    </div>
-                `;
-                listContainer.appendChild(rowContainer);
-            });
-        }
-
-        // 監聽整個練習列表的 Enter 鍵
-        document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
-                toggleAllAnswers();
-            }
-        });
-
-        function toggleAllAnswers() {
-            const btn = document.getElementById('toggle-all-btn');
-            const answers = document.querySelectorAll('.answer-text');
-            const inputs = document.querySelectorAll('.practice-input');
-
-            areAnswersVisible = !areAnswersVisible;
-
-            if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
-                btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#4CAF50';
-                
-                answers.forEach(el => el.style.display = 'block');
-
-                inputs.forEach((input, index) => {
-                    const userWord = input.value.trim().toLowerCase();
-                    const correctWord = words[index].en.toLowerCase();
-                    const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
-                    
-                    if (userWord === correctWord) {
-                        input.classList.add('correct');
-                        input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
-                    } else {
-                        input.classList.add('wrong');
-                        input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
-                    }
-                });
-
-            } else {
-                // 狀態：隱藏答案
-                btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.style.backgroundColor = '#d32f2f';
-                
-                answers.forEach(el => el.style.display = 'none');
-                
-                words.forEach((_, index) => {
-                    document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
-                });
-            }
-        }
-
-
-        /* --- 考試模式邏輯 --- */
-        let currentQuestion = 0;
+    // 檢查答案主程式
+    function checkAnswers() {
         let score = 0;
-        let totalQuestions = words.length;
-        let questions = [];
-        let wrongWords = [];
-        let isWaitingToContinue = false;
+        const totalQuestions = Object.keys(quizData).length;
+        const form = document.getElementById('quizForm');
 
-        function startGame(wordList) {
-            let listToUse = words;
-            if (wordList && Array.isArray(wordList) && wordList.length > 0) {
-                listToUse = wordList;
-            }
-            
-            questions = [...listToUse];
-            totalQuestions = questions.length;
-            shuffle(questions);
-            currentQuestion = 0;
-            score = 0;
-            wrongWords = [];
-            isWaitingToContinue = false;
-            
-            document.getElementById('exam-restart').style.display = 'none';
-            document.getElementById('exam-retest').style.display = 'none';
-            document.getElementById('wrong-words').textContent = '';
-            document.getElementById('exam-answer').style.display = 'inline-block';
-            document.getElementById('exam-submit').style.display = 'inline-block';
-            document.getElementById('exam-submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
-            document.getElementById('mnemonic').style.display = 'none';
-            
-            nextQuestion();
+        for (let q in quizData) {
+            const selected = form.elements[q].value;
+            const expBox = document.getElementById(`exp-${q}`);
+            const data = quizData[q];
+
+            expBox.style.display = 'block';
+
+            let isCorrect = (selected === data.correct);
+            if (isCorrect) score++;
+
+            expBox.className = `explanation-box ${isCorrect ? 'correct-box' : 'incorrect-box'}`;
+            expBox.innerHTML = `
+                <div class="exp-title">${isCorrect ? '⭕ 正確' : '❌ 錯誤或未答'}（正確答案為 ${data.correct}）</div>
+                <div><strong>【聽力原文】</strong></div>
+                <div class="script-text">${data.script}</div>
+                <div><strong>【中文翻譯】</strong></div>
+                <div class="script-text" style="color: #666;">${data.translation}</div>
+                <div>${data.explain}</div>
+            `;
         }
 
-        function nextQuestion() {
-            if (currentQuestion >= totalQuestions) {
-                endGame();
-                return;
-            }
-            
-            const q = questions[currentQuestion];
-            if (!q) return;
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        scoreDisplay.style.display = 'block';
+        scoreDisplay.innerHTML = `測驗結束！您的總得分：${score} / ${totalQuestions} 題（得分率：${(score/totalQuestions)*100}%）`;
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+</script>
 
-            const mnemonicEl = document.getElementById('mnemonic');
-            mnemonicEl.textContent = '';
-            mnemonicEl.style.display = 'none';
-
-            isWaitingToContinue = false;
-            document.getElementById('exam-submit').textContent = '提交';
-            
-            document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
-            document.getElementById('exam-answer').value = '';
-            document.getElementById('exam-result').textContent = '';
-            updateScore();
-            
-            setTimeout(() => {
-                document.getElementById('exam-answer').focus();
-            }, 50);
-        }
-
-        function checkExamAnswer() {
-            if (isWaitingToContinue) {
-                currentQuestion++;
-                nextQuestion();
-                return;
-            }
-
-            const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
-            const q = questions[currentQuestion];
-            const correctAnswer = q.en.toLowerCase();
-
-            if (userAnswer === correctAnswer) {
-                score++;
-                document.getElementById('exam-result').textContent = '正確！';
-                document.getElementById('exam-result').style.color = 'green';
-                document.getElementById('game-image').src = 'correct.png';
-                setTimeout(() => {
-                    currentQuestion++;
-                    nextQuestion();
-                }, 1500);
-            } else {
-                document.getElementById('exam-result').textContent = `錯誤。正確答案是：${q.en}`;
-                document.getElementById('exam-result').style.color = 'red';
-                document.getElementById('game-image').src = 'incorrect.png';
-                
-                const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `
-                    💡 <b>記憶提示：</b>${q.mnemonic}
-                    <br><br>
-                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
-                `;
-                mnemonicEl.style.display = 'block';
-                
-                document.getElementById('exam-submit').textContent = '繼續';
-                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
-                isWaitingToContinue = true;
-            }
-            updateScore();
-        }
-
-        function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions}`;
-        }
-
-        function endGame() {
-            document.getElementById('mnemonic').style.display = 'none';
-            document.getElementById('question').textContent = '測驗結束！';
-            document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-submit').style.display = 'none';
-            document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
-            
-            if (score === totalQuestions) {
-                document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
-            } else {
-                document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '你答錯的單字：\n';
-                wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
-                });
-                document.getElementById('wrong-words').textContent = wrongText;
-                document.getElementById('exam-retest').style.display = 'inline-block';
-            }
-            document.getElementById('exam-restart').style.display = 'inline-block';
-        }
-
-        // 綁定考試模式事件
-        document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
-        document.getElementById('exam-answer').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkExamAnswer();
-        });
-        document.getElementById('exam-restart').addEventListener('click', () => startGame(words));
-        document.getElementById('exam-retest').addEventListener('click', () => {
-            if (wrongWords.length > 0) {
-                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
-                startGame(retestWords);
-            }
-        });
-
-    </script>
 </body>
 </html>
