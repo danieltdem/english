@@ -92,6 +92,10 @@
         .controls {
             text-align: center;
             margin: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
         }
         button {
             background-color: var(--primary-color);
@@ -102,7 +106,6 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin: 0 10px;
         }
         button:hover {
             background-color: #357abd;
@@ -113,6 +116,13 @@
         }
         #copyBtn:hover {
             background-color: #e68a00;
+        }
+        #retakeBtn {
+            background-color: #9c27b0;
+            display: none;
+        }
+        #retakeBtn:hover {
+            background-color: #7b1fa2;
         }
         #resultSummary {
             text-align: center;
@@ -133,106 +143,103 @@
 
     <div class="controls">
         <button id="submitBtn" onclick="gradeQuiz()">交卷並查看解答</button>
+        <button id="retakeBtn" onclick="retakeWrongQuiz()">🔄 重測寫錯的題目</button>
         <button id="copyBtn" onclick="copyWrongConcepts()">📋 複製錯誤題目的觀念</button>
     </div>
 
     <script>
-        const quizData = [
+        const originalQuizData = [
             // ================= 意義辨析：名詞 =================
-            {
-                section: "意義辨析：名詞",
-                id: "n1",
-                q: "Become a ________ and enjoy special offers in our store.",
-                opts: ["friend", "member", "visitor", "officer"],
-                ans: 1,
-                exp: "member (會員)。(A)朋友 (C)訪客 (D)官員。句意：成為我們的「會員」並在店內享有特別優惠。"
-            },
-            { section: "意義辨析：名詞", id: "n2", q: "This is my ________ card. Contact me if you need to.", opts: ["birthday", "business", "credit", "memory"], ans: 1, exp: "business card (名片)。(A)生日卡 (C)信用卡 (D)記憶卡。句意：這是我的「名片」，有需要請聯絡我。" },
-            { section: "意義辨析：名詞", id: "n3", q: "Is your birthday in this ________ or the next?", opts: ["case", "moment", "month", "year"], ans: 2, exp: "month (月份)。搭配 this 或 the next (下一個月份)。句意：你的生日是在這個「月」還是下個月？" },
-            { section: "意義辨析：名詞", id: "n4", q: "Have you read the ________ in the morning paper?", opts: ["meaning", "novel", "article", "picture"], ans: 2, exp: "article (文章/報導)。paper 指報紙，上面刊登的是文章。(A)意義 (B)小說 (D)圖片。句意：你讀過晨報裡的那篇「文章」了嗎？" },
-            { section: "意義辨析：名詞", id: "n5", q: "Most teenagers are interested in popular ________, especially pop music.", opts: ["classic", "comic", "career", "culture"], ans: 3, exp: "culture (文化)。popular culture (流行文化)。(A)經典 (B)漫畫 (C)事業。句意：多數青少年對流行「文化」感興趣，特別是流行音樂。" },
-            { section: "意義辨析：名詞", id: "n6", q: "The ________ of paper is too heavy for me to lift.", opts: ["piece", "sheet", "pile", "number"], ans: 2, exp: "pile (一疊/一堆)。(A)一張 (B)一張。因為後面說 too heavy (太重)，所以是一「疊」紙。句意：這「疊」紙對我來說太重了搬不動。" },
-            { section: "意義辨析：名詞", id: "n7", q: "Everyone should follow the ________ when playing a game, or it won't be fair.", opts: ["rules", "leaders", "guides", "fashion"], ans: 0, exp: "rules (規則)。follow the rules (遵守規則)。(B)領導者 (C)嚮導 (D)流行。句意：玩遊戲時每個人都應遵守「規則」，否則就不公平了。" },
-            { section: "意義辨析：名詞", id: "n8", q: "Because of complaints about the problem, the team had to find a ________.", opts: ["solution", "standard", "skill", "secret"], ans: 0, exp: "solution (解決方案)。find a solution to the problem。(B)標準 (C)技巧 (D)秘密。句意：因為對這個問題的客訴，團隊必須找出「解決方案」。" },
-            { section: "意義辨析：名詞", id: "n9", q: "John was late for work this morning because of heavy ________.", opts: ["accident", "crowd", "traffic", "damage"], ans: 2, exp: "traffic (交通)。heavy traffic (交通擁塞)。(A)意外 (B)群眾 (D)損害。句意：約翰今天早上上班遲到，因為「交通」壅塞。" },
-            { section: "意義辨析：名詞", id: "n10", q: "________ must report truth when they write a news story.", opts: ["Artists", "Dentists", "Journalists", "Scientists"], ans: 2, exp: "Journalists (記者)。撰寫新聞故事(news story)的是記者。(A)藝術家 (B)牙醫 (D)科學家。句意：「記者」寫新聞報導時必須報導真相。" },
-            { section: "意義辨析：名詞", id: "n11", q: "This ________ of the textbook is difficult, so our teacher taught us twice.", opts: ["decision", "education", "operation", "section"], ans: 3, exp: "section (部分/章節)。(A)決定 (B)教育 (C)操作/手術。句意：教科書的這個「章節」很難，所以老師教了我們兩次。" },
-            { section: "意義辨析：名詞", id: "n12", q: "Many wild animals will be in ________ if we don't protect the environment.", opts: ["doubt", "trouble", "question", "relation"], ans: 1, exp: "trouble (麻煩/困境)。be in trouble (處於困境/有危險)。(A)懷疑 (C)問題 (D)關係。句意：如果不保護環境，許多野生動物將面臨「危機」。" },
-            { section: "意義辨析：名詞", id: "n13", q: "Doctors agree that good sleep can improve one's ________.", opts: ["health", "breath", "illness", "stress"], ans: 0, exp: "health (健康)。improve health (改善健康)。(B)呼吸 (C)疾病 (D)壓力。句意：醫生同意良好的睡眠能改善人的「健康」。" },
-            { section: "意義辨析：名詞", id: "n14", q: "I don't know how to solve this problem. I need to ask for some ________.", opts: ["advice", "concern", "space", "progress"], ans: 0, exp: "advice (建議)。ask for advice (尋求建議)。(B)擔憂 (C)空間 (D)進步。句意：我不知道如何解決這問題，我需要尋求一些「建議」。" },
-            { section: "意義辨析：名詞", id: "n15", q: "The ________ of the study is to find out the causes of the crisis.", opts: ["result", "problem", "influence", "purpose"], ans: 3, exp: "purpose (目的)。(A)結果 (B)問題 (C)影響。句意：這項研究的「目的」是找出危機的原因。" },
-            { section: "意義辨析：名詞", id: "n16", q: "Cold and flu are more common when the ________ change.", opts: ["seasons", "years", "days", "feelings"], ans: 0, exp: "seasons (季節)。when the seasons change (換季時)。(B)年 (C)天 (D)感覺。句意：在「季節」交替時，感冒和流感較為常見。" },
-            { section: "意義辨析：名詞", id: "n17", q: "The debate between them was a ________ of time. They were just arguing.", opts: ["matter", "waste", "lot", "length"], ans: 1, exp: "waste (浪費)。a waste of time (浪費時間)。(A)事情 (C)許多 (D)長度。句意：他們之間的辯論是「浪費」時間，他們只是在吵架。" },
-            { section: "意義辨析：名詞", id: "n18", q: "To save money, you need to compare ________ before buying.", opts: ["sales", "qualities", "functions", "prices"], ans: 3, exp: "prices (價格)。compare prices (比價)。(A)銷售 (B)品質 (C)功能。句意：為了省錢，你需要在購買前比較「價格」。" },
-            { section: "意義辨析：名詞", id: "n19", q: "I made a ________ of tasks to do, or I may forget later.", opts: ["list", "post", "number", "system"], ans: 0, exp: "list (清單)。make a list of... (列出...的清單)。(B)貼文 (C)數字 (D)系統。句意：我列了一份待辦事項「清單」，否則我晚點可能會忘記。" },
-            { section: "意義辨析：名詞", id: "n20", q: "This cake has fruits on top and chocolate at the ________.", opts: ["base", "end", "beginning", "time"], ans: 0, exp: "base (底部)。與 on top (在頂部) 相對應。(B)結束 (C)開始 (D)時間。句意：這個蛋糕頂部有水果，而「底部」有巧克力。" },
+            { section: "意義辨析：名詞", q: "Become a ________ and enjoy special offers in our store.", opts: ["friend", "member", "visitor", "officer"], ans: 1, exp: "member (會員)。(A)朋友 (C)訪客 (D)官員。句意：成為我們的「會員」並在店內享有特別優惠。" },
+            { section: "意義辨析：名詞", q: "This is my ________ card. Contact me if you need to.", opts: ["birthday", "business", "credit", "memory"], ans: 1, exp: "business card (名片)。(A)生日卡 (C)信用卡 (D)記憶卡。句意：這是我的「名片」，有需要請聯絡我。" },
+            { section: "意義辨析：名詞", q: "Is your birthday in this ________ or the next?", opts: ["case", "moment", "month", "year"], ans: 2, exp: "month (月份)。搭配 this 或 the next (下一個月份)。句意：你的生日是在這個「月」還是下個月？" },
+            { section: "意義辨析：名詞", q: "Have you read the ________ in the morning paper?", opts: ["meaning", "novel", "article", "picture"], ans: 2, exp: "article (文章/報導)。paper 指報紙，上面刊登的是文章。(A)意義 (B)小說 (D)圖片。句意：你讀過晨報裡的那篇「文章」了嗎？" },
+            { section: "意義辨析：名詞", q: "Most teenagers are interested in popular ________, especially pop music.", opts: ["classic", "comic", "career", "culture"], ans: 3, exp: "culture (文化)。popular culture (流行文化)。(A)經典 (B)漫畫 (C)事業。句意：多數青少年對流行「文化」感興趣，特別是流行音樂。" },
+            { section: "意義辨析：名詞", q: "The ________ of paper is too heavy for me to lift.", opts: ["piece", "sheet", "pile", "number"], ans: 2, exp: "pile (一疊/一堆)。(A)一張 (B)一張。因為後面說 too heavy (太重)，所以是一「疊」紙。句意：這「疊」紙對我來說太重了搬不動。" },
+            { section: "意義辨析：名詞", q: "Everyone should follow the ________ when playing a game, or it won't be fair.", opts: ["rules", "leaders", "guides", "fashion"], ans: 0, exp: "rules (規則)。follow the rules (遵守規則)。(B)領導者 (C)嚮導 (D)流行。句意：玩遊戲時每個人都應遵守「規則」，否則就不公平了。" },
+            { section: "意義辨析：名詞", q: "Because of complaints about the problem, the team had to find a ________.", opts: ["solution", "standard", "skill", "secret"], ans: 0, exp: "solution (解決方案)。find a solution to the problem。(B)標準 (C)技巧 (D)秘密。句意：因為對這個問題的客訴，團隊必須找出「解決方案」。" },
+            { section: "意義辨析：名詞", q: "John was late for work this morning because of heavy ________.", opts: ["accident", "crowd", "traffic", "damage"], ans: 2, exp: "traffic (交通)。heavy traffic (交通擁塞)。(A)意外 (B)群眾 (D)損害。句意：約翰今天早上上班遲到，因為「交通」壅塞。" },
+            { section: "意義辨析：名詞", q: "________ must report truth when they write a news story.", opts: ["Artists", "Dentists", "Journalists", "Scientists"], ans: 2, exp: "Journalists (記者)。撰寫新聞故事(news story)的是記者。(A)藝術家 (B)牙醫 (D)科學家。句意：「記者」寫新聞報導時必須報導真相。" },
+            { section: "意義辨析：名詞", q: "This ________ of the textbook is difficult, so our teacher taught us twice.", opts: ["decision", "education", "operation", "section"], ans: 3, exp: "section (部分/章節)。(A)決定 (B)教育 (C)操作/手術。句意：教科書的這個「章節」很難，所以老師教了我們兩次。" },
+            { section: "意義辨析：名詞", q: "Many wild animals will be in ________ if we don't protect the environment.", opts: ["doubt", "trouble", "question", "relation"], ans: 1, exp: "trouble (麻煩/困境)。be in trouble (處於困境/有危險)。(A)懷疑 (C)問題 (D)關係。句意：如果不保護環境，許多野生動物將面臨「危機」。" },
+            { section: "意義辨析：名詞", q: "Doctors agree that good sleep can improve one's ________.", opts: ["health", "breath", "illness", "stress"], ans: 0, exp: "health (健康)。improve health (改善健康)。(B)呼吸 (C)疾病 (D)壓力。句意：醫生同意良好的睡眠能改善人的「健康」。" },
+            { section: "意義辨析：名詞", q: "I don't know how to solve this problem. I need to ask for some ________.", opts: ["advice", "concern", "space", "progress"], ans: 0, exp: "advice (建議)。ask for advice (尋求建議)。(B)擔憂 (C)空間 (D)進步。句意：我不知道如何解決這問題，我需要尋求一些「建議」。" },
+            { section: "意義辨析：名詞", q: "The ________ of the study is to find out the causes of the crisis.", opts: ["result", "problem", "influence", "purpose"], ans: 3, exp: "purpose (目的)。(A)結果 (B)問題 (C)影響。句意：這項研究的「目的」是找出危機的原因。" },
+            { section: "意義辨析：名詞", q: "Cold and flu are more common when the ________ change.", opts: ["seasons", "years", "days", "feelings"], ans: 0, exp: "seasons (季節)。when the seasons change (換季時)。(B)年 (C)天 (D)感覺。句意：在「季節」交替時，感冒和流感較為常見。" },
+            { section: "意義辨析：名詞", q: "The debate between them was a ________ of time. They were just arguing.", opts: ["matter", "waste", "lot", "length"], ans: 1, exp: "waste (浪費)。a waste of time (浪費時間)。(A)事情 (C)許多 (D)長度。句意：他們之間的辯論是「浪費」時間，他們只是在吵架。" },
+            { section: "意義辨析：名詞", q: "To save money, you need to compare ________ before buying.", opts: ["sales", "qualities", "functions", "prices"], ans: 3, exp: "prices (價格)。compare prices (比價)。(A)銷售 (B)品質 (C)功能。句意：為了省錢，你需要在購買前比較「價格」。" },
+            { section: "意義辨析：名詞", q: "I made a ________ of tasks to do, or I may forget later.", opts: ["list", "post", "number", "system"], ans: 0, exp: "list (清單)。make a list of... (列出...的清單)。(B)貼文 (C)數字 (D)系統。句意：我列了一份待辦事項「清單」，否則我晚點可能會忘記。" },
+            { section: "意義辨析：名詞", q: "This cake has fruits on top and chocolate at the ________.", opts: ["base", "end", "beginning", "time"], ans: 0, exp: "base (底部)。與 on top (在頂部) 相對應。(B)結束 (C)開始 (D)時間。句意：這個蛋糕頂部有水果，而「底部」有巧克力。" },
 
             // ================= 意義辨析：形容詞 =================
-            { section: "意義辨析：形容詞", id: "adj1", q: "The teacher was ________ that half of the students were late for school.", opts: ["surprised", "surprising", "interested", "interesting"], ans: 0, exp: "surprised (感到驚訝的，修飾人)。surprising 是指事物令人驚訝。句意：老師對一半的學生遲到感到「驚訝」。" },
-            { section: "意義辨析：形容詞", id: "adj2", q: "It was ________ of him to leave the umbrella in the train.", opts: ["careful", "careless", "helpful", "helpless"], ans: 1, exp: "careless (粗心的)。(A)小心的 (C)有幫助的 (D)無助的。句意：他把雨傘落在火車上真是太「粗心」了。" },
-            { section: "意義辨析：形容詞", id: "adj3", q: "The cats look very ________. I can't tell their difference.", opts: ["same", "different", "alike", "unique"], ans: 2, exp: "alike (相似的)。same前通常要加the，且用法多為 look the same。(B)不同的 (D)獨特的。句意：這幾隻貓看起來很「像」，我分不出牠們的差別。" },
-            { section: "意義辨析：形容詞", id: "adj4", q: "Not ________ fast foods are bad. Some can be good for your health.", opts: ["some", "all", "few", "several"], ans: 1, exp: "all (全部)。Not all... (並非全部的...，部分否定)。句意：並非「所有」速食都是不好的，有些對健康有益。" },
-            { section: "意義辨析：形容詞", id: "adj5", q: "Peter feels lonely because he has ________ friends in the company.", opts: ["few", "a few", "some", "lots of"], ans: 0, exp: "few (很少，幾乎沒有，具否定意味)。a few 是「有一些」。覺得孤單是因為朋友「極少」。句意：彼得覺得孤單，因為他在公司幾乎「沒有」朋友。" },
-            { section: "意義辨析：形容詞", id: "adj6", q: "We have ________ time to waste. We have to leave right now.", opts: ["all", "some", "no", "a little"], ans: 2, exp: "no (沒有)。因為後面說必須立刻離開，所以是「沒有」時間。句意：我們「沒有」時間可浪費了，必須馬上離開。" },
-            { section: "意義辨析：形容詞", id: "adj7", q: "The sentence is not ________. It lacks a verb.", opts: ["true", "full", "complete", "necessary"], ans: 2, exp: "complete (完整的)。缺乏動詞代表句子不完整。(A)真實的 (B)滿的 (D)必須的。句意：這個句子不「完整」，它少了一個動詞。" },
-            { section: "意義辨析：形容詞", id: "adj8", q: "A greedy person is never ________ with what he has.", opts: ["concerned", "careful", "upset", "satisfied"], ans: 3, exp: "satisfied (滿足的)。be satisfied with (對...感到滿意)。 greedy (貪婪的)。(A)關心的 (B)小心的 (C)心煩的。句意：貪婪的人永遠不會對自己擁有的感到「滿足」。" },
-            { section: "意義辨析：形容詞", id: "adj9", q: "People wear ________ clothes now since the weather is warmer.", opts: ["lighter", "tighter", "brighter", "broader"], ans: 0, exp: "lighter (較輕薄的)。天氣變暖，所以穿輕薄衣服。(B)較緊的 (C)較亮的 (D)較寬的。句意：因為天氣變暖，人們現在穿「較輕薄」的衣服。" },
-            { section: "意義辨析：形容詞", id: "adj10", q: "Thank you for the delicious food, but I'm ________ now.", opts: ["full", "fine", "enough", "afraid"], ans: 0, exp: "full (飽的)。(B)好的 (C)足夠的 (D)害怕的。句意：謝謝這頓美味的食物，但我現在已經「飽」了。" },
-            { section: "意義辨析：形容詞", id: "adj11", q: "How could he be so ________ to kill the lovely dog?", opts: ["scared", "painful", "jealous", "cruel"], ans: 3, exp: "cruel (殘忍的)。(A)害怕的 (B)痛苦的 (C)嫉妒的。句意：他怎麼能這麼「殘忍」殺死那隻可愛的狗？" },
-            { section: "意義辨析：形容詞", id: "adj12", q: "Joseph is a ________ person. He doesn't share anything with his friends.", opts: ["confident", "diligent", "selfish", "ordinary"], ans: 2, exp: "selfish (自私的)。因為他不跟朋友分享。(A)有自信的 (B)勤勉的 (D)平凡的。句意：約瑟夫是個「自私的」人，他不跟朋友分享任何東西。" },
-            { section: "意義辨析：形容詞", id: "adj13", q: "I thought it was a ________ problem, but it turned out to be quite serious.", opts: ["major", "minor", "general", "generous"], ans: 1, exp: "minor (輕微的/次要的)。與後面的 serious (嚴重的) 形成對比。(A)重大的 (C)一般的 (D)慷慨的。句意：我原以為這是個「小」問題，結果卻相當嚴重。" },
-            { section: "意義辨析：形容詞", id: "adj14", q: "It was a ________ trip. We enjoyed it very much.", opts: ["used", "usual", "pleased", "pleasant"], ans: 3, exp: "pleasant (令人愉快的，修飾事物)。pleased (感到愉快的，修飾人)。句意：這是一趟「令人愉快的」旅行，我們非常享受。" },
-            { section: "意義辨析：形容詞", id: "adj15", q: "Most people use ________ media sites to stay in touch with their friends.", opts: ["official", "social", "special", "mass"], ans: 1, exp: "social (社交的)。social media (社群媒體)。(A)官方的 (C)特別的 (D)大眾的。句意：大多數人使用「社群」媒體網站與朋友保持聯繫。" },
-            { section: "意義辨析：形容詞", id: "adj16", q: "After one week's search, their child is still ________.", opts: ["missing", "missed", "alive", "absent"], ans: 0, exp: "missing (失蹤的)。(B)被想念的 (C)活著的 (D)缺席的。句意：經過一週的搜尋，他們的孩子仍然「失蹤中」。" },
-            { section: "意義辨析：形容詞", id: "adj17", q: "As a beginner, you have to learn ________ grammar first.", opts: ["basic", "classic", "difficult", "serious"], ans: 0, exp: "basic (基礎的)。(B)經典的 (C)困難的 (D)嚴肅的。句意：身為初學者，你必須先學習「基礎」文法。" },
-            { section: "意義辨析：形容詞", id: "adj18", q: "I am ________ to hear that your father passed away.", opts: ["glad", "able", "sorry", "interested"], ans: 2, exp: "sorry (遺憾的/難過的)。聽到親人過世會感到遺憾。(A)高興的 (B)能夠的 (D)感興趣的。句意：聽到你父親過世的消息，我感到很「遺憾」。" },
-            { section: "意義辨析：形容詞", id: "adj19", q: "Susan is really ________. She can't stay quiet for a moment.", opts: ["active", "positive", "effective", "talkative"], ans: 3, exp: "talkative (愛說話的)。因為她一刻也靜不下來。(A)活躍的 (B)正面的 (C)有效的。句意：蘇珊真的很「多話」，她一刻也無法安靜。" },
-            { section: "意義辨析：形容詞", id: "adj20", q: "Mr. Smith is not ________ right now. Would you like to leave a message?", opts: ["possible", "available", "responsible", "comfortable"], ans: 1, exp: "available (有空的/可聯繫的)。(A)可能的 (C)負責任的 (D)舒服的。句意：史密斯先生現在「沒空」，你想留言嗎？" },
+            { section: "意義辨析：形容詞", q: "The teacher was ________ that half of the students were late for school.", opts: ["surprised", "surprising", "interested", "interesting"], ans: 0, exp: "surprised (感到驚訝的，修飾人)。surprising 是指事物令人驚訝。句意：老師對一半的學生遲到感到「驚訝」。" },
+            { section: "意義辨析：形容詞", q: "It was ________ of him to leave the umbrella in the train.", opts: ["careful", "careless", "helpful", "helpless"], ans: 1, exp: "careless (粗心的)。(A)小心的 (C)有幫助的 (D)無助的。句意：他把雨傘落在火車上真是太「粗心」了。" },
+            { section: "意義辨析：形容詞", q: "The cats look very ________. I can't tell their difference.", opts: ["same", "different", "alike", "unique"], ans: 2, exp: "alike (相似的)。same前通常要加the，且用法多為 look the same。(B)不同的 (D)獨特的。句意：這幾隻貓看起來很「像」，我分不出牠們的差別。" },
+            { section: "意義辨析：形容詞", q: "Not ________ fast foods are bad. Some can be good for your health.", opts: ["some", "all", "few", "several"], ans: 1, exp: "all (全部)。Not all... (並非全部的...，部分否定)。句意：並非「所有」速食都是不好的，有些對健康有益。" },
+            { section: "意義辨析：形容詞", q: "Peter feels lonely because he has ________ friends in the company.", opts: ["few", "a few", "some", "lots of"], ans: 0, exp: "few (很少，幾乎沒有，具否定意味)。a few 是「有一些」。覺得孤單是因為朋友「極少」。句意：彼得覺得孤單，因為他在公司幾乎「沒有」朋友。" },
+            { section: "意義辨析：形容詞", q: "We have ________ time to waste. We have to leave right now.", opts: ["all", "some", "no", "a little"], ans: 2, exp: "no (沒有)。因為後面說必須立刻離開，所以是「沒有」時間。句意：我們「沒有」時間可浪費了，必須馬上離開。" },
+            { section: "意義辨析：形容詞", q: "The sentence is not ________. It lacks a verb.", opts: ["true", "full", "complete", "necessary"], ans: 2, exp: "complete (完整的)。缺乏動詞代表句子不完整。(A)真實的 (B)滿的 (D)必須的。句意：這個句子不「完整」，它少了一個動詞。" },
+            { section: "意義辨析：形容詞", q: "A greedy person is never ________ with what he has.", opts: ["concerned", "careful", "upset", "satisfied"], ans: 3, exp: "satisfied (滿足的)。be satisfied with (對...感到滿意)。 greedy (貪婪的)。(A)關心的 (B)小心的 (C)心煩的。句意：貪婪的人永遠不會對自己擁有的感到「滿足」。" },
+            { section: "意義辨析：形容詞", q: "People wear ________ clothes now since the weather is warmer.", opts: ["lighter", "tighter", "brighter", "broader"], ans: 0, exp: "lighter (較輕薄的)。天氣變暖，所以穿輕薄衣服。(B)較緊的 (C)較亮的 (D)較寬的。句意：因為天氣變暖，人們現在穿「較輕薄」的衣服。" },
+            { section: "意義辨析：形容詞", q: "Thank you for the delicious food, but I'm ________ now.", opts: ["full", "fine", "enough", "afraid"], ans: 0, exp: "full (飽的)。(B)好的 (C)足夠的 (D)害怕的。句意：謝謝這頓美味的食物，但我現在已經「飽」了。" },
+            { section: "意義辨析：形容詞", q: "How could he be so ________ to kill the lovely dog?", opts: ["scared", "painful", "jealous", "cruel"], ans: 3, exp: "cruel (殘忍的)。(A)害怕的 (B)痛苦的 (C)嫉妒的。句意：他怎麼能這麼「殘忍」殺死那隻可愛的狗？" },
+            { section: "意義辨析：形容詞", q: "Joseph is a ________ person. He doesn't share anything with his friends.", opts: ["confident", "diligent", "selfish", "ordinary"], ans: 2, exp: "selfish (自私的)。因為他不跟朋友分享。(A)有自信的 (B)勤勉的 (D)平凡的。句意：約瑟夫是個「自私的」人，他不跟朋友分享任何東西。" },
+            { section: "意義辨析：形容詞", q: "I thought it was a ________ problem, but it turned out to be quite serious.", opts: ["major", "minor", "general", "generous"], ans: 1, exp: "minor (輕微的/次要的)。與後面的 serious (嚴重的) 形成對比。(A)重大的 (C)一般的 (D)慷慨的。句意：我原以為這是個「小」問題，結果卻相當嚴重。" },
+            { section: "意義辨析：形容詞", q: "It was a ________ trip. We enjoyed it very much.", opts: ["used", "usual", "pleased", "pleasant"], ans: 3, exp: "pleasant (令人愉快的，修飾事物)。pleased (感到愉快的，修飾人)。句意：這是一趟「令人愉快的」旅行，我們非常享受。" },
+            { section: "意義辨析：形容詞", q: "Most people use ________ media sites to stay in touch with their friends.", opts: ["official", "social", "special", "mass"], ans: 1, exp: "social (社交的)。social media (社群媒體)。(A)官方的 (C)特別的 (D)大眾的。句意：大多數人使用「社群」媒體網站與朋友保持聯繫。" },
+            { section: "意義辨析：形容詞", q: "After one week's search, their child is still ________.", opts: ["missing", "missed", "alive", "absent"], ans: 0, exp: "missing (失蹤的)。(B)被想念的 (C)活著的 (D)缺席的。句意：經過一週的搜尋，他們的孩子仍然「失蹤中」。" },
+            { section: "意義辨析：形容詞", q: "As a beginner, you have to learn ________ grammar first.", opts: ["basic", "classic", "difficult", "serious"], ans: 0, exp: "basic (基礎的)。(B)經典的 (C)困難的 (D)嚴肅的。句意：身為初學者，你必須先學習「基礎」文法。" },
+            { section: "意義辨析：形容詞", q: "I am ________ to hear that your father passed away.", opts: ["glad", "able", "sorry", "interested"], ans: 2, exp: "sorry (遺憾的/難過的)。聽到親人過世會感到遺憾。(A)高興的 (B)能夠的 (D)感興趣的。句意：聽到你父親過世的消息，我感到很「遺憾」。" },
+            { section: "意義辨析：形容詞", q: "Susan is really ________. She can't stay quiet for a moment.", opts: ["active", "positive", "effective", "talkative"], ans: 3, exp: "talkative (愛說話的)。因為她一刻也靜不下來。(A)活躍的 (B)正面的 (C)有效的。句意：蘇珊真的很「多話」，她一刻也無法安靜。" },
+            { section: "意義辨析：形容詞", q: "Mr. Smith is not ________ right now. Would you like to leave a message?", opts: ["possible", "available", "responsible", "comfortable"], ans: 1, exp: "available (有空的/可聯繫的)。(A)可能的 (C)負責任的 (D)舒服的。句意：史密斯先生現在「沒空」，你想留言嗎？" },
 
             // ================= 意義辨析：副詞 =================
-            { section: "意義辨析：副詞", id: "adv1", q: "You came ________. He has already left.", opts: ["early", "late", "beforehand", "afterward"], ans: 1, exp: "late (遲/晚)。因為他已經離開了，代表你來「晚」了。(A)早 (C)事先 (D)之後。句意：你來「晚」了，他已經離開了。" },
-            { section: "意義辨析：副詞", id: "adv2", q: "She keeps singing that song ________. She's really crazy about it.", opts: ["every now and then", "over and over again", "once in a while", "from time to time"], ans: 1, exp: "over and over again (一再地)。其他三個選項都是「偶爾/有時」的意思。句意：她「一再地」唱著那首歌，她真的很迷它。" },
-            { section: "意義辨析：副詞", id: "adv3", q: "Mary isn't ________ early for school. Sometimes she comes late.", opts: ["never", "seldom", "sometimes", "always"], ans: 3, exp: "always (總是)。not always (並非總是)。因為有時會遲到，所以不是「總是」早到。句意：瑪麗並非「總是」早到學校，有時她會遲到。" },
-            { section: "意義辨析：副詞", id: "adv4", q: "Just wait for a moment. He will be here ________.", opts: ["fast", "soon", "once", "nearly"], ans: 1, exp: "soon (很快/不久)。(A)快地(指速度) (C)曾經 (D)幾乎。句意：稍等片刻，他「很快」就會到了。" },
-            { section: "意義辨析：副詞", id: "adv5", q: "The cakes are ________ the same. There isn't any difference.", opts: ["nearly", "exactly", "likely", "hardly"], ans: 1, exp: "exactly (完全地/確切地)。exactly the same (完全一樣)。(A)幾乎 (C)可能 (D)幾乎不。句意：這些蛋糕「完全」一樣，沒有任何差別。" },
-            { section: "意義辨析：副詞", id: "adv6", q: "He didn't have enough money. ________, he gave up buying that book.", opts: ["Therefore", "However", "Even so", "In other words"], ans: 0, exp: "Therefore (因此)。表示因果關係。(B)然而 (C)即使如此 (D)換句話說。句意：他沒有足夠的錢。「因此」，他放棄買那本書。" },
-            { section: "意義辨析：副詞", id: "adv7", q: "There was a car accident this morning. ________, no one was hurt.", opts: ["Painfully", "Luckily", "Recently", "Suddenly"], ans: 1, exp: "Luckily (幸運地)。出車禍但沒人受傷是幸運的事。(A)痛苦地 (C)最近 (D)突然地。句意：今早發生了車禍。「幸運地」，沒有人受傷。" },
-            { section: "意義辨析：副詞", id: "adv8", q: "I found that famous shop ________ when I was taking a walk.", opts: ["by accident", "on foot", "at times", "at once"], ans: 0, exp: "by accident (偶然地/意外地)。(B)步行 (C)有時候 (D)立刻。句意：我在散步時「偶然」發現了那家名店。" },
-            { section: "意義辨析：副詞", id: "adv9", q: "By practicing every day, his English is improving ________.", opts: ["one by one", "side by side", "little by little", "back to back"], ans: 2, exp: "little by little (逐漸地/一點一滴地)。(A)一個接一個 (B)並肩 (D)背對背。句意：藉由每天練習，他的英文正「一點一滴地」進步。" },
-            { section: "意義辨析：副詞", id: "adv10", q: "We have to leave ________, or we will be late for the party.", opts: ["for good", "on purpose", "at times", "right away"], ans: 3, exp: "right away (立刻/馬上)。(A)永遠 (B)故意 (C)有時。句意：我們必須「馬上」離開，否則派對會遲到。" },
-            { section: "意義辨析：副詞", id: "adv11", q: "My leg ached so much that I could ________ stand.", opts: ["badly", "hardly", "even", "ever"], ans: 1, exp: "hardly (幾乎不)。表示痛到幾乎無法站立。(A)嚴重地 (C)甚至 (D)曾經。句意：我的腿太痛了，以至於我「幾乎無法」站立。" },
-            { section: "意義辨析：副詞", id: "adv12", q: "I don't know why he didn't call me after we first met. ________ he doesn't like me.", opts: ["Therefore", "Finally", "Sometimes", "Perhaps"], ans: 3, exp: "Perhaps (或許/可能)。表示推測。(A)因此 (B)最後 (C)有時。句意：我不知道為何他初次見面後沒打給我。「或許」他不喜歡我。" },
-            { section: "意義辨析：副詞", id: "adv13", q: "I can't see the words ________. I need my glasses.", opts: ["patiently", "fairly", "clearly", "quickly"], ans: 2, exp: "clearly (清楚地)。需要眼鏡是因為看不清楚。(A)耐心地 (B)相當地 (D)快速地。句意：我無法「清楚地」看到字，我需要我的眼鏡。" },
-            { section: "意義辨析：副詞", id: "adv14", q: "Helen feels very happy because her husband loves her ________.", opts: ["dearly", "fairly", "silently", "calmly"], ans: 0, exp: "dearly (深愛地/非常)。love someone dearly (深愛某人)。(B)公平地 (C)安靜地 (D)冷靜地。句意：海倫感到很幸福，因為她的丈夫「深深」愛著她。" },
-            { section: "意義辨析：副詞", id: "adv15", q: "As a team, we should work ________ and help each other.", opts: ["around", "alone", "alike", "together"], ans: 3, exp: "together (一起)。團隊應該一起工作。(A)周圍 (B)單獨 (C)相似地。句意：作為一個團隊，我們應該「一起」工作並互相幫助。" },
-            { section: "意義辨析：副詞", id: "adv16", q: "Among the seasons, Sylvia likes winter the ________ because she usually catches a cold.", opts: ["best", "least", "last", "most"], ans: 1, exp: "least (最少/最不)。因為常感冒，所以是最不喜歡。(A)最好 (C)最後 (D)最多。句意：在所有季節中，Sylvia 「最不」喜歡冬天，因為她常感冒。" },
+            { section: "意義辨析：副詞", q: "You came ________. He has already left.", opts: ["early", "late", "beforehand", "afterward"], ans: 1, exp: "late (遲/晚)。因為他已經離開了，代表你來「晚」了。(A)早 (C)事先 (D)之後。句意：你來「晚」了，他已經離開了。" },
+            { section: "意義辨析：副詞", q: "She keeps singing that song ________. She's really crazy about it.", opts: ["every now and then", "over and over again", "once in a while", "from time to time"], ans: 1, exp: "over and over again (一再地)。其他三個選項都是「偶爾/有時」的意思。句意：她「一再地」唱著那首歌，她真的很迷它。" },
+            { section: "意義辨析：副詞", q: "Mary isn't ________ early for school. Sometimes she comes late.", opts: ["never", "seldom", "sometimes", "always"], ans: 3, exp: "always (總是)。not always (並非總是)。因為有時會遲到，所以不是「總是」早到。句意：瑪麗並非「總是」早到學校，有時她會遲到。" },
+            { section: "意義辨析：副詞", q: "Just wait for a moment. He will be here ________.", opts: ["fast", "soon", "once", "nearly"], ans: 1, exp: "soon (很快/不久)。(A)快地(指速度) (C)曾經 (D)幾乎。句意：稍等片刻，他「很快」就會到了。" },
+            { section: "意義辨析：副詞", q: "The cakes are ________ the same. There isn't any difference.", opts: ["nearly", "exactly", "likely", "hardly"], ans: 1, exp: "exactly (完全地/確切地)。exactly the same (完全一樣)。(A)幾乎 (C)可能 (D)幾乎不。句意：這些蛋糕「完全」一樣，沒有任何差別。" },
+            { section: "意義辨析：副詞", q: "He didn't have enough money. ________, he gave up buying that book.", opts: ["Therefore", "However", "Even so", "In other words"], ans: 0, exp: "Therefore (因此)。表示因果關係。(B)然而 (C)即使如此 (D)換句話說。句意：他沒有足夠的錢。「因此」，他放棄買那本書。" },
+            { section: "意義辨析：副詞", q: "There was a car accident this morning. ________, no one was hurt.", opts: ["Painfully", "Luckily", "Recently", "Suddenly"], ans: 1, exp: "Luckily (幸運地)。出車禍但沒人受傷是幸運的事。(A)痛苦地 (C)最近 (D)突然地。句意：今早發生了車禍。「幸運地」，沒有人受傷。" },
+            { section: "意義辨析：副詞", q: "I found that famous shop ________ when I was taking a walk.", opts: ["by accident", "on foot", "at times", "at once"], ans: 0, exp: "by accident (偶然地/意外地)。(B)步行 (C)有時候 (D)立刻。句意：我在散步時「偶然」發現了那家名店。" },
+            { section: "意義辨析：副詞", q: "By practicing every day, his English is improving ________.", opts: ["one by one", "side by side", "little by little", "back to back"], ans: 2, exp: "little by little (逐漸地/一點一滴地)。(A)一個接一個 (B)並肩 (D)背對背。句意：藉由每天練習，他的英文正「一點一滴地」進步。" },
+            { section: "意義辨析：副詞", q: "We have to leave ________, or we will be late for the party.", opts: ["for good", "on purpose", "at times", "right away"], ans: 3, exp: "right away (立刻/馬上)。(A)永遠 (B)故意 (C)有時。句意：我們必須「馬上」離開，否則派對會遲到。" },
+            { section: "意義辨析：副詞", q: "My leg ached so much that I could ________ stand.", opts: ["badly", "hardly", "even", "ever"], ans: 1, exp: "hardly (幾乎不)。表示痛到幾乎無法站立。(A)嚴重地 (C)甚至 (D)曾經。句意：我的腿太痛了，以至於我「幾乎無法」站立。" },
+            { section: "意義辨析：副詞", q: "I don't know why he didn't call me after we first met. ________ he doesn't like me.", opts: ["Therefore", "Finally", "Sometimes", "Perhaps"], ans: 3, exp: "Perhaps (或許/可能)。表示推測。(A)因此 (B)最後 (C)有時。句意：我不知道為何他初次見面後沒打給我。「或許」他不喜歡我。" },
+            { section: "意義辨析：副詞", q: "I can't see the words ________. I need my glasses.", opts: ["patiently", "fairly", "clearly", "quickly"], ans: 2, exp: "clearly (清楚地)。需要眼鏡是因為看不清楚。(A)耐心地 (B)相當地 (D)快速地。句意：我無法「清楚地」看到字，我需要我的眼鏡。" },
+            { section: "意義辨析：副詞", q: "Helen feels very happy because her husband loves her ________.", opts: ["dearly", "fairly", "silently", "calmly"], ans: 0, exp: "dearly (深愛地/非常)。love someone dearly (深愛某人)。(B)公平地 (C)安靜地 (D)冷靜地。句意：海倫感到很幸福，因為她的丈夫「深深」愛著她。" },
+            { section: "意義辨析：副詞", q: "As a team, we should work ________ and help each other.", opts: ["around", "alone", "alike", "together"], ans: 3, exp: "together (一起)。團隊應該一起工作。(A)周圍 (B)單獨 (C)相似地。句意：作為一個團隊，我們應該「一起」工作並互相幫助。" },
+            { section: "意義辨析：副詞", q: "Among the seasons, Sylvia likes winter the ________ because she usually catches a cold.", opts: ["best", "least", "last", "most"], ans: 1, exp: "least (最少/最不)。因為常感冒，所以是最不喜歡。(A)最好 (C)最後 (D)最多。句意：在所有季節中，Sylvia 「最不」喜歡冬天，因為她常感冒。" },
 
             // ================= 意義辨析：連接詞 =================
-            { section: "意義辨析：連接詞", id: "conj2", q: "She likes cooking, ________ she hates to do the dishes.", opts: ["and", "or", "but", "so"], ans: 2, exp: "but (但是)。喜歡煮飯「但」討厭洗碗，語氣轉折。句意：她喜歡做菜，「但」她討厭洗碗。" },
-            { section: "意義辨析：連接詞", id: "conj3", q: "Study hard, ________ you will fail the exam.", opts: ["and", "or", "but", "so"], ans: 1, exp: "or (否則)。祈使句 + or + 結果 (做...否則就會...)。句意：認真讀書，「否則」你考試會不及格。" },
-            { section: "意義辨析：連接詞", id: "conj4", q: "It may rain today, ________ don't forget to bring an umbrella.", opts: ["and", "or", "but", "so"], ans: 3, exp: "so (所以)。表示結果。句意：今天可能會下雨，「所以」別忘了帶傘。" },
-            { section: "意義辨析：連接詞", id: "conj5", q: "________ the package arrives, I'll let you know right away.", opts: ["Once", "Before", "Except", "Until"], ans: 0, exp: "Once (一旦)。(B)在...之前 (C)除了 (D)直到。句意：「一旦」包裹抵達，我會立刻讓你知道。" },
-            { section: "意義辨析：連接詞", id: "conj6", q: "The gangsters ran away ________ they saw the police officer.", opts: ["although", "where", "when", "unless"], ans: 2, exp: "when (當...時)。看到警察「的時候」逃跑。(A)雖然 (B)在哪裡 (D)除非。句意：幫派份子在看到警察「時」就逃跑了。" },
-            { section: "意義辨析：連接詞", id: "conj7", q: "I wonder ________ he will show up. He didn't really promise to come.", opts: ["if", "how", "what", "while"], ans: 0, exp: "if (是否)。引導名詞子句「是否他會出現」。(B)如何 (C)什麼 (D)當。句意：我想知道他「是否」會出現。他並沒有真的答應要來。" },
-            { section: "意義辨析：連接詞", id: "conj8", q: "We will leave early, ________ we can get there before sunset.", opts: ["till", "before", "except", "so that"], ans: 3, exp: "so that (以便/為了)。表目的。(A)直到 (B)在...之前 (C)除了。句意：我們會提早離開，「以便」能在日落前抵達。" },
-            { section: "意義辨析：連接詞", id: "conj9", q: "He was absent ________ he didn't feel well.", opts: ["although", "whether", "because", "unless"], ans: 2, exp: "because (因為)。表原因。句意：他缺席了，「因為」他覺得不舒服。" },
-            { section: "意義辨析：連接詞", id: "conj10", q: "What places have you visited ________ you arrived in New York?", opts: ["until", "till", "if", "since"], ans: 3, exp: "since (自從)。現在完成式(have visited)常搭配 since + 過去簡單式(arrived)。句意：「自從」你抵達紐約後，你去過哪些地方？" },
-            { section: "意義辨析：連接詞", id: "conj11", q: "I won't give her a rose on the first date because I don't know ________ she likes it.", opts: ["that", "whether", "why", "where"], ans: 1, exp: "whether (是否)。不知道她「是否」喜歡。(A)無意義連接詞 (C)為何 (D)在哪。句意：我不會在初次約會送她玫瑰，因為我不知道她「是否」喜歡。" },
-            { section: "意義辨析：連接詞", id: "conj12", q: "________ my grandfather is 73 years old, he is strong and healthy.", opts: ["If", "That", "Unless", "Although"], ans: 3, exp: "Although (雖然)。雖然年紀大，但很健康，表讓步。(A)如果 (C)除非。句意：「雖然」我爺爺已經73歲了，但他依然強壯健康。" },
-            { section: "意義辨析：連接詞", id: "conj13", q: "People do not know the value of health ________ they lose it.", opts: ["because", "if", "till", "although"], ans: 2, exp: "till (直到)。not... till... (直到...才...)。句意：人們「直到」失去健康，才知道健康的價值。" },
-            { section: "意義辨析：連接詞", id: "conj14", q: "________ we came into the house, it began to rain.", opts: ["Now that", "Even if", "As soon as", "As long as"], ans: 2, exp: "As soon as (一...就...)。(A)既然 (B)即使 (D)只要。句意：我們「一」進屋，天「就」開始下雨了。" },
-            { section: "意義辨析：連接詞", id: "conj15", q: "________ you give up smoking, I will not marry you.", opts: ["While", "Whether", "Unless", "That"], ans: 2, exp: "Unless (除非)。(A)當/雖然 (B)是否。句意：「除非」你戒菸，否則我不會嫁給你。" },
-            { section: "意義辨析：連接詞", id: "conj16", q: "I won't stop searching ________ I find my lost wallet.", opts: ["as", "when", "since", "until"], ans: 3, exp: "until (直到)。not... until... (直到...才停止)。句意：我不會停止尋找，「直到」我找到遺失的錢包。" },
-            { section: "意義辨析：連接詞", id: "conj17", q: "________ we have finished our homework, we can play video games.", opts: ["Now that", "Even though", "In case", "No matter how"], ans: 0, exp: "Now that (既然)。(B)即使 (C)以防萬一 (D)無論如何。句意：「既然」我們已經完成作業，我們可以玩電動了。" }
+            { section: "意義辨析：連接詞", q: "She likes cooking, ________ she hates to do the dishes.", opts: ["and", "or", "but", "so"], ans: 2, exp: "but (但是)。喜歡煮飯「但」討厭洗碗，語氣轉折。句意：她喜歡做菜，「但」她討厭洗碗。" },
+            { section: "意義辨析：連接詞", q: "Study hard, ________ you will fail the exam.", opts: ["and", "or", "but", "so"], ans: 1, exp: "or (否則)。祈使句 + or + 結果 (做...否則就會...)。句意：認真讀書，「否則」你考試會不及格。" },
+            { section: "意義辨析：連接詞", q: "It may rain today, ________ don't forget to bring an umbrella.", opts: ["and", "or", "but", "so"], ans: 3, exp: "so (所以)。表示結果。句意：今天可能會下雨，「所以」別忘了帶傘。" },
+            { section: "意義辨析：連接詞", q: "________ the package arrives, I'll let you know right away.", opts: ["Once", "Before", "Except", "Until"], ans: 0, exp: "Once (一旦)。(B)在...之前 (C)除了 (D)直到。句意：「一旦」包裹抵達，我會立刻讓你知道。" },
+            { section: "意義辨析：連接詞", q: "The gangsters ran away ________ they saw the police officer.", opts: ["although", "where", "when", "unless"], ans: 2, exp: "when (當...時)。看到警察「的時候」逃跑。(A)雖然 (B)在哪裡 (D)除非。句意：幫派份子在看到警察「時」就逃跑了。" },
+            { section: "意義辨析：連接詞", q: "I wonder ________ he will show up. He didn't really promise to come.", opts: ["if", "how", "what", "while"], ans: 0, exp: "if (是否)。引導名詞子句「是否他會出現」。(B)如何 (C)什麼 (D)當。句意：我想知道他「是否」會出現。他並沒有真的答應要來。" },
+            { section: "意義辨析：連接詞", q: "We will leave early, ________ we can get there before sunset.", opts: ["till", "before", "except", "so that"], ans: 3, exp: "so that (以便/為了)。表目的。(A)直到 (B)在...之前 (C)除了。句意：我們會提早離開，「以便」能在日落前抵達。" },
+            { section: "意義辨析：連接詞", q: "He was absent ________ he didn't feel well.", opts: ["although", "whether", "because", "unless"], ans: 2, exp: "because (因為)。表原因。句意：他缺席了，「因為」他覺得不舒服。" },
+            { section: "意義辨析：連接詞", q: "What places have you visited ________ you arrived in New York?", opts: ["until", "till", "if", "since"], ans: 3, exp: "since (自從)。現在完成式(have visited)常搭配 since + 過去簡單式(arrived)。句意：「自從」你抵達紐約後，你去過哪些地方？" },
+            { section: "意義辨析：連接詞", q: "I won't give her a rose on the first date because I don't know ________ she likes it.", opts: ["that", "whether", "why", "where"], ans: 1, exp: "whether (是否)。不知道她「是否」喜歡。(A)無意義連接詞 (C)為何 (D)在哪。句意：我不會在初次約會送她玫瑰，因為我不知道她「是否」喜歡。" },
+            { section: "意義辨析：連接詞", q: "________ my grandfather is 73 years old, he is strong and healthy.", opts: ["If", "That", "Unless", "Although"], ans: 3, exp: "Although (雖然)。雖然年紀大，但很健康，表讓步。(A)如果 (C)除非。句意：「雖然」我爺爺已經73歲了，但他依然強壯健康。" },
+            { section: "意義辨析：連接詞", q: "People do not know the value of health ________ they lose it.", opts: ["because", "if", "till", "although"], ans: 2, exp: "till (直到)。not... till... (直到...才...)。句意：人們「直到」失去健康，才知道健康的價值。" },
+            { section: "意義辨析：連接詞", q: "________ we came into the house, it began to rain.", opts: ["Now that", "Even if", "As soon as", "As long as"], ans: 2, exp: "As soon as (一...就...)。(A)既然 (B)即使 (D)只要。句意：我們「一」進屋，天「就」開始下雨了。" },
+            { section: "意義辨析：連接詞", q: "________ you give up smoking, I will not marry you.", opts: ["While", "Whether", "Unless", "That"], ans: 2, exp: "Unless (除非)。(A)當/雖然 (B)是否。句意：「除非」你戒菸，否則我不會嫁給你。" },
+            { section: "意義辨析：連接詞", q: "I won't stop searching ________ I find my lost wallet.", opts: ["as", "when", "since", "until"], ans: 3, exp: "until (直到)。not... until... (直到...才停止)。句意：我不會停止尋找，「直到」我找到遺失的錢包。" },
+            { section: "意義辨析：連接詞", q: "________ we have finished our homework, we can play video games.", opts: ["Now that", "Even though", "In case", "No matter how"], ans: 0, exp: "Now that (既然)。(B)即使 (C)以防萬一 (D)無論如何。句意：「既然」我們已經完成作業，我們可以玩電動了。" }
         ];
 
+        let currentQuizData = [...originalQuizData];
         let wrongQuestionsForCopy = [];
+        let wrongItemsData = [];
 
         function renderQuiz() {
             const container = document.getElementById('quizContainer');
+            container.innerHTML = ''; 
             let currentSection = "";
 
-            quizData.forEach((item, index) => {
+            currentQuizData.forEach((item, index) => {
                 if (item.section !== currentSection) {
                     const secTitle = document.createElement('h2');
                     secTitle.className = 'section-title';
@@ -262,7 +269,6 @@
                     radio.name = `q-${index}`;
                     radio.value = optIndex;
 
-                    // Option letters (A), (B), etc.
                     const letters = ['(A)', '(B)', '(C)', '(D)'];
                     label.appendChild(radio);
                     label.appendChild(document.createTextNode(` ${letters[optIndex]} ${optText}`));
@@ -280,61 +286,79 @@
 
                 container.appendChild(card);
             });
+
+            // 隱藏結果區與按鈕
+            document.getElementById('resultSummary').style.display = 'none';
+            document.getElementById('copyBtn').style.display = 'none';
+            document.getElementById('retakeBtn').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'inline-block';
         }
 
         function gradeQuiz() {
             let score = 0;
             wrongQuestionsForCopy = [];
+            wrongItemsData = [];
 
-            quizData.forEach((item, index) => {
+            currentQuizData.forEach((item, index) => {
                 const card = document.getElementById(`card-${index}`);
                 const expDiv = document.getElementById(`exp-${index}`);
                 const selected = document.querySelector(`input[name="q-${index}"]:checked`);
                 
-                // 移除之前的樣式
                 card.classList.remove('correct', 'wrong');
                 expDiv.style.display = 'block';
 
                 const letters = ['(A)', '(B)', '(C)', '(D)'];
+                let isCorrect = false;
+                let userAnsText = "未作答";
 
                 if (selected) {
                     const selectedVal = parseInt(selected.value);
+                    userAnsText = letters[selectedVal] + ' ' + item.opts[selectedVal];
                     if (selectedVal === item.ans) {
                         card.classList.add('correct');
                         score++;
+                        isCorrect = true;
                     } else {
                         card.classList.add('wrong');
-                        wrongQuestionsForCopy.push({
-                            question: item.q,
-                            userAnsText: letters[selectedVal] + ' ' + item.opts[selectedVal],
-                            correctAnsText: letters[item.ans] + ' ' + item.opts[item.ans],
-                            explanation: item.exp
-                        });
                     }
                 } else {
                     card.classList.add('wrong');
+                }
+
+                if (!isCorrect) {
+                    wrongItemsData.push(item);
                     wrongQuestionsForCopy.push({
                         question: item.q,
-                        userAnsText: "未作答",
+                        userAnsText: userAnsText,
                         correctAnsText: letters[item.ans] + ' ' + item.opts[item.ans],
                         explanation: item.exp
                     });
                 }
             });
 
-            const total = quizData.length;
+            const total = currentQuizData.length;
             const scorePercent = Math.round((score / total) * 100);
             const summary = document.getElementById('resultSummary');
             summary.innerHTML = `測驗完成！你的分數：${score} / ${total} (${scorePercent}分)`;
             summary.style.display = 'block';
-            summary.style.color = scorePercent >= 80 ? '#4caf50' : '#f44336';
+            summary.style.color = scorePercent === 100 ? '#4caf50' : '#f44336';
 
-            if (wrongQuestionsForCopy.length > 0) {
+            if (wrongItemsData.length > 0) {
                 document.getElementById('copyBtn').style.display = 'inline-block';
+                document.getElementById('retakeBtn').style.display = 'inline-block';
+                document.getElementById('submitBtn').style.display = 'none'; 
             } else {
                 document.getElementById('copyBtn').style.display = 'none';
+                document.getElementById('retakeBtn').style.display = 'none';
             }
 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function retakeWrongQuiz() {
+            if (wrongItemsData.length === 0) return;
+            currentQuizData = [...wrongItemsData];
+            renderQuiz();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
