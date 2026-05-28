@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共26題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共25題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,39 +274,40 @@
     </div>
 
     <script>
-        // 全新單字庫（包含中文意思、注音、與記憶法說明）
+        // 單字庫
         const words = [
-            { en: 'pride', zh: '驕傲 (ㄐㄧㄠ ㄠˋ)', mnemonic: '`pride` 和 `bride` (新娘) 很像。新娘通常是新郎最大的驕傲 (`pride`)。' },
-            { en: 'proud of', zh: '為...驕傲 (ㄨㄟˋ...ㄐㄧㄠ ㄠˋ)', mnemonic: '`proud` (驕傲的) + `of`。當妳對某個人的表現感到滿意，就是為他感到驕傲 (`proud of`)。' },
-            { en: 'at least', zh: '至少 (ㄓˋ ㄕㄠˇ)', mnemonic: '`at` + `least` (最少)。在最少的底線狀態下，也就是「至少」(`at least`)。' },
-            { en: 'chance', zh: '機會 (ㄐㄧ ㄏㄨㄟˋ)', mnemonic: '`chance` 和 `dance` (跳舞) 押韻。只要有機會 (`chance`)，就要把握時間一起跳舞 (`dance`)。' },
-            { en: 'project', zh: '計畫；專案 (ㄐㄧˋ ㄏㄨㄚˋ)', mnemonic: '`pro` (向前) + `ject` (投擲)。把一個想法向前投擲出去，並付諸實行，就是一個專案計畫 (`project`)。' },
-            { en: 'lonely', zh: '孤獨的 (ㄍㄨ ㄉㄨˊ ㄉㄜ˙)', mnemonic: '`lone` (單獨的) + `ly`。身邊只有自己一個人 (`lone`) 的狀態，當然會覺得孤獨的 (`lonely`)。' },
-            { en: 'wisely', zh: '明智地 (ㄇㄧㄥˊ ㄓˋ ㄉㄜ˙)', mnemonic: '`wise` (有智慧的) + `ly`。運用妳的智慧 (`wise`) 去做決定，就是明智地 (`wisely`)。' },
-            { en: 'barely', zh: '幾乎不；僅僅 (ㄐㄧ ㄏㄨ ㄅㄨˋ)', mnemonic: '`bare` (裸露的/光禿禿的) + `ly`。桌子上光禿禿的幾乎什麼都沒剩，代表「幾乎沒有」(`barely`)。' },
-            { en: 'rapidly', zh: '迅速地 (ㄒㄩㄣˋ ㄙㄨˋ ㄉㄜ˙)', mnemonic: '`rapid` (快速的) + `ly`。像湍急的激流 (`rapid`) 一樣向前奔跑，就是迅速地 (`rapidly`)。' },
-            { en: 'finally', zh: '終於 (ㄓㄨㄥ ㄩˊ)', mnemonic: '`final` (最後的) + `ly`。走到了最後 (`final`) 的關鍵時刻，代表事情「終於」(`finally`) 完成了。' },
-            { en: 'truly', zh: '真實地 (ㄓㄣ ㄕˊ ㄉㄜ˙)', mnemonic: '`true` (真實的) + `ly`。注意拼寫時要把 `true` 的 `e` 去掉再加 `ly`，代表真實地 (`truly`)。' },
-            { en: 'secretly', zh: '秘密地 (ㄇㄧˋ ㄇㄧˋ ㄉㄜ˙)', mnemonic: '`secret` (秘密) + `ly`。把一件事情當作秘密 (`secret`) 悄悄地做，就是秘密地 (`secretly`)。' },
-            { en: 'closely', zh: '緊密地；密切地 (ㄐㄧㄣˇ ㄇㄧˋ ㄉㄜ˙)', mnemonic: '`close` (接近的/親密的) + `ly`。兩個人靠得非常近 (`close`)，代表他們關係緊密地 (`closely`) 聯結。' },
-            { en: 'eagerly', zh: '渴望地 (ㄎㄜˇ ㄨㄤˋ ㄉㄜ˙)', mnemonic: '`eager` 聽起來很像 `eagle` (老鷹)。想像一隻飢餓的老鷹 (`eagle`) 正「渴望地」(`eagerly`) 在天空中尋找獵物。' },
-            { en: 'safely', zh: '安全地 (ㄢ ㄑㄩㄢˊ ㄉㄜ˙)', mnemonic: '`safe` (安全的) + `ly`。在安全 (`safe`) 的保護措施之下做事情，就是安全地 (`safely`)。' },
-            { en: 'totally', zh: '完全地 (ㄨㄢˊ ㄑㄩㄢˊ ㄉㄜ˙)', mnemonic: '`total` (總計的/全部的) + `ly`。把全部 (`total`) 的份量都算進去了，就是完全地 (`totally`)。' },
-            { en: 'freely', zh: '自由地 (ㄗˋ ㄧㄡˊ ㄉㄜ˙)', mnemonic: '`free` (自由的/免費的) + `ly`。像小鳥在空中一樣無拘無束、享受自由 (`free`)，就是自由地 (`freely`)。' },
-            { en: 'perfectly', zh: '完美地 (ㄨㄢˊ ㄇㄟˇ ㄉㄜ˙)', mnemonic: '`perfect` (完美的) + `ly`。做事情拿到一百分、毫無缺點 (`perfect`)，就是完美地 (`perfectly`)。' },
-            { en: 'certainly', zh: '無疑地；確實地 (ㄨˊ ㄧˊ ㄉㄜ˙)', mnemonic: '`certain` (確定的) + `ly`。對這件事情百分之百有把握且確定 (`certain`)，就是無疑地 (`certainly`)。' },
-            { en: 'personally', zh: '親自地 (ㄑㄧㄣ ㄗˋ ㄉㄜ˙)', mnemonic: '`person` (人) + `al` + `ly`。由這個人 (`person`) 自己親自出場、不假他人之手，就是親自地 (`personally`)。' },
-            { en: 'onion', zh: '洋蔥 (ㄧㄤˊ ㄘㄨㄥ)', mnemonic: '`onion` 的形狀長得很像一堆圓圓的圈圈，開頭是 `o`，中間是 `ni`，結尾又是 `on`。切它會讓人流淚。' },
-            { en: 'owner', zh: '物主；所有人 (ㄨˋ ㄓㄨˇ)', mnemonic: '`own` (擁有) + `er` (的人)。擁有某個東西的所有權 (`own`) 的那個人，就是物主 (`owner`)。' },
-            { en: 'trail', zh: '鄉間小道；痕跡 (ㄒㄧㄤ ㄐㄧㄢ ㄒㄧㄠˇ ㄠˋ)', mnemonic: '`trail` 聽起來很像 `train` (火車)。火車 (`train`) 走過路面時，會留下一條長長的痕跡與軌跡 (`trail`)。' },
-            { en: 'type', zh: '類型；打字 (ㄌㄟˋ ㄒㄧㄥˊ)', mnemonic: '`type` 聽起來很像「台普」(台灣普快車)。那是一種非常有復古風味的火車類型 (`type`)。' },
-            { en: 'quite', zh: '相當；非常 (ㄒㄧㄤ ㄉㄤ)', mnemonic: '和 `quiet` (安靜的) 長得很像。只要把 `quiet` 的 `e` 移動到 `t` 前面，意思就會變成「相當」(`quite`)。' },
-            { en: 'title', zh: '標題；頭銜 (ㄅㄧㄠ ㄊㄧˊ)', mnemonic: '`title` 聽起來像 `tight` (緊的)。一本書的封面往往要把標題 (`title`) 字體縮得很緊 (`tight`) 才放得下。' }
+            { en: 'mural', zh: '壁畫 (ㄅㄧˋ ㄏㄨㄚˋ)', mnemonic: '`mural` 聽起來像 `wall`（牆壁）的母音組合。在牆壁上畫的巨大畫作，就是壁畫。' },
+            { en: 'cement', zh: '水泥 (ㄕㄨㄟˇ ㄋㄧˊ)', mnemonic: '拆成 `see` (看見) + `men` (人們)。看見許多工人們 (`men`) 正在辛苦地鋪設水泥 (`cement`)。' },
+            { en: 'get together', zh: '團聚 (ㄊㄨㄢˊ ㄐㄩˋ)', mnemonic: '`get` (得到) + `together` (在一起)。大家聚在一起，就是團聚、聚會。' },
+            { en: 'culture', zh: '文化 (ㄨㄣˊ ㄏㄨㄚˋ)', mnemonic: '`culture` 裡面藏著 `cult` (教派/崇拜)。每一個古老教派都有其獨特的歷史與文化 (`culture`)。' },
+            { en: 'heritage', zh: '遺產 (ㄧˊ ㄔㄢˇ)', mnemonic: '`her` (她) + `it` (它) + `age` (時代/年齡)。她從過去的時代繼承了它的傳統，這就是文化遺產。' },
+            { en: 'cheerful', zh: '開朗的 (ㄎㄞ ㄌㄤˇ ㄉㄜ˙)', mnemonic: '`cheer` (歡呼) + `ful` (充滿)。心中充滿了歡呼與喜悅，代表這個人非常開朗。' },
+            { en: 'colorful', zh: '五彩繽紛的 (ㄨˇ ㄘㄞˇ ㄅㄧㄣ ㄈㄣ ㄉㄜ˙)', mnemonic: '`color` (顏色) + `ful` (充滿)。畫布上充滿了各種顏色，看起來非常五彩繽紛。' },
+            { en: 'spotless', zh: '一塵不染的 (ㄧˋ ㄔㄣˊ ㄅㄨˋ ㄖㄢˇ ㄉㄜ˙)', mnemonic: '`spot` (污點/斑點) + `less` (沒有)。身上沒有任何一個髒污或污點，形容一塵不染。' },
+            { en: 'thankful', zh: '感激的 (ㄍㄢˇ ㄐㄧ ㄉㄜ˙)', mnemonic: '`thank` (感謝) + `ful` (充滿)。心裡裝滿了滿滿的感謝，就是抱持著感激的。' },
+            { en: 'graceful', zh: '優雅的 (ㄧㄡ ㄧㄚˇ ㄉㄜ˙)', mnemonic: '`grace` (優雅/恩典) + `ful` (充滿)。一舉一動都充滿了優雅的氣質。' },
+            { en: 'harmless', zh: '無害的 (ㄨˊ ㄏㄞˋ ㄉㄜ˙)', mnemonic: '`harm` (傷害) + `less` (沒有)。完全不會帶來任何傷害或危險，是安全且無害的。' },
+            { en: 'hopeful', zh: '抱有希望的 (ㄅㄠˋ ㄧㄡˇ ㄒㄧ ㄨㄤˋ ㄉㄜ˙)', mnemonic: '`hope` (希望) + `ful` (充滿)。對未來的生活充滿了前進的希望。' },
+            { en: 'restless', zh: '焦躁不安的 (ㄐㄧㄠ ㄗㄠˋ ㄅㄨˋ ㄢ ㄉㄜ˙)', mnemonic: '`rest` (休息) + `less` (沒有)。連一刻都沒辦法好好休息，形容心情非常焦躁不安、坐立難安。' },
+            { en: 'wonderful', zh: '奇妙的 (ㄑㄧˊ ㄇㄧㄠˋ ㄉㄜ˙)', mnemonic: '`wonder` (驚奇) + `ful` (充滿)。這趟旅行充滿了讓人驚奇的事物，真是太奇妙、太棒了。' },
+            { en: 'frightful', zh: '可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)', mnemonic: '`fright` (驚嚇) + `ful` (充滿)。這部電影讓人全身上下充滿了驚嚇，非常可怕。' },
+            { en: 'breathless', zh: '喘不過氣的 (ㄔㄨㄢˇ ㄅㄨˊ ㄍㄨㄛˋ ㄑㄧˋ ㄉㄜ˙)', mnemonic: '`breath` (呼吸) + `less` (沒有)。跑完馬拉松後累到快要沒有呼吸了，形容喘不過氣。' },
+            { en: 'thoughtful', zh: '體貼的 (ㄊㄧˇ ㄊㄧㄝ ㄉㄜ˙)', mnemonic: '`thought` (想法/心思) + `ful` (充滿)。心思細密、處處都幫別人著想，是一個非常體貼的人。' },
+            { en: 'faithful', zh: '忠實的 (ㄓㄨㄥ ㄕˊ ㄉㄜ˙)', mnemonic: '`faith` (信任/信仰) + `ful` (充滿)。對朋友或承諾充滿了堅定的信任，十分忠實。' },
+            { en: 'motionless', zh: '靜止不動的 (ㄐㄧㄥˋ ㄓˇ ㄅㄨˊ ㄉㄨㄥˋ ㄉㄜ˙)', mnemonic: '`motion` (移動/動作) + `less` (沒有)。像雕像一樣完全沒有任何動作，靜止不動。' },
+            { en: 'beautiful', zh: '美麗的 (ㄇㄟˇ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '`beauty` (美麗) + `ful` (充滿)。外表或內心都充滿了極高的美感，非常美麗。' },
+            { en: 'elbow', zh: '手肘 (ㄕㄡˇ ㄓㄡˇ)', mnemonic: '`el` (形狀像英文大寫 L) + `bow` (彎曲/弓)。我們手臂上彎曲像 L 一樣的關節，就是手肘。' },
+            { en: 'world', zh: '世界 (ㄕˋ ㄐㄧㄝˋ)', mnemonic: '在 `word` (單字) 的正中間插了一根 `l` (地軸)。有了地軸旋轉，單字就變成了世界。' },
+            { en: 'young', zh: '年輕的 (ㄋㄧㄢˊ ㄑㄧㄥ ㄉㄜ˙)', mnemonic: '`you` (你) + `ng` (energy 能量的發音開頭)。現在的你渾身充滿了能量，代表你很年輕。' },
+            { en: 'plane', zh: '飛機 (ㄈㄟ ㄐㄧ)', mnemonic: '飛機的翅膀是平的 (`plain` -> `plane`)，而且它是在平坦的高空中翱翔。' },
+            { en: 'noise', zh: '噪音 (ㄗㄠˋ ㄧㄣ)', mnemonic: '聽起來像「鬧事」。有人在街上鬧事、吵架，就會產生很大的噪音。' }
         ];
 
         /* --- 語音朗讀 API --- */
         function speakWord(word) {
             if ('speechSynthesis' in window) {
+                // 先停止正在唸的語音
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
                 window.speechSynthesis.speak(utterance);
@@ -338,6 +339,7 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
+            
             startGame(words);
         }
 
@@ -388,7 +390,7 @@
             });
         }
 
-        // 監聽整個練習列表的 Enter 鍵
+        // 監聽整個練習列表的 Enter 鍵 (事件委派)
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -403,14 +405,13 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
-                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 大小寫不拘判斷：去空白並轉換成全小寫進行比對
+                    // 不分大小寫的比對方式
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -418,22 +419,20 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; // 答對時隱藏記憶提示
+                        mnemonicDiv.style.display = 'none'; // 答對時不干擾，隱藏記憶法
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或沒填時顯示記憶提示
+                        mnemonicDiv.style.display = 'block'; // 答錯或沒寫時，顯示記憶法
                     }
                 });
 
             } else {
-                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
-                // 將所有練習提示也同步隱藏
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -508,7 +507,7 @@
                 return;
             }
 
-            // 大小寫不拘判斷：去空白並轉換成全小寫進行比對
+            // 不分大小寫的比對方式
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -527,7 +526,7 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯時顯示記憶提示與語音朗讀功能
+                // 答錯時提供正確拼法、中文解說與發音按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
@@ -556,12 +555,12 @@
             
             if (score === totalQuestions) {
                 document.getElementById('game-image').src = 'all_correct.png';
-                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對！';
+                document.getElementById('wrong-words').textContent = '太棒了！你全部答對！';
             } else {
                 document.getElementById('game-image').src = 'not_all_correct.png';
-                let wrongText = '妳答錯的單字：\n';
+                let wrongText = '你答錯的單字：\n';
                 wrongWords.forEach(w => {
-                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，妳輸入 "${w.user}"\n`;
+                    wrongText += `- ${w.zh}: 正確答案是 "${w.en}"，你輸入 "${w.user}"\n`;
                 });
                 document.getElementById('wrong-words').textContent = wrongText;
                 document.getElementById('exam-retest').style.display = 'inline-block';
@@ -569,7 +568,7 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
-        // 綁定考試模式事件
+        // 監聽考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
