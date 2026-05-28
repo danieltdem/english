@@ -1,174 +1,67 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文副詞填空小測驗</title>
+    <title>英語填空與單字測驗</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .story-container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            font-size: 1em;
-            width: 120px;
-            text-align: center;
-            border: 2px solid #bdc3c7;
-            border-radius: 6px;
-            margin: 0 5px;
-            padding: 4px;
-            transition: all 0.3s;
-        }
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-        }
-        .correct {
-            background-color: #d4edda;
-            border-color: #28a745 !important;
-            color: #155724;
-        }
-        .incorrect {
-            background-color: #f8d7da;
-            border-color: #dc3545 !important;
-            color: #721c24;
-        }
-        button {
-            display: block;
-            margin: 0 auto;
-            padding: 12px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        #explanations {
-            display: none;
-            margin-top: 30px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        #explanations h2 {
-            color: #27ae60;
-            border-bottom: 2px solid #27ae60;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .exp-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #ecf0f1;
-        }
-        .exp-item:last-child {
-            border-bottom: none;
-        }
-        .exp-word {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 1.1em;
-        }
-        .result-msg {
-            text-align: center;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-top: 15px;
-            color: #e67e22;
-        }
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
+        .answer-key { background: #f0f8ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bde0fe; }
+        .question { margin-bottom: 15px; }
+        input { border: 1px solid #ccc; padding: 5px; border-radius: 4px; width: 120px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        #result { margin-top: 20px; white-space: pre-wrap; }
+        .explanation { color: #555; font-size: 0.9em; margin-top: 5px; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <h1>🦋 蝴蝶與網子：副詞填空測驗</h1>
-
-    <div class="story-container">
-        ... flower. I <input type="text" id="q1" data-answer="personally"> don't know anything about butterflies, but my dad does. 
-        He <input type="text" id="q2" data-answer="eagerly"> crept towards it with a net, and I <input type="text" id="q3" data-answer="wisely"> remained <input type="text" id="q4" data-answer="totally"> silent. 
-        <input type="text" id="q5" data-answer="Secretly">, I hoped that my dad wouldn't catch the butterfly. 
-        I thought it belonged in the garden, moving <input type="text" id="q6" data-answer="freely"> from flower to flower. 
-        If my dad kept it inside a terrarium, it would <input type="text" id="q7" data-answer="certainly"> be very <input type="text" id="q8" data-answer="lonely"> all by itself. 
-        <input type="text" id="q9" data-answer="Finally">, my dad had his net just above the butterfly when our dog <input type="text" id="q10" data-answer="suddenly"> ran over to him and began barking <input type="text" id="q11" data-answer="loudly">. 
-        Just in time, the butterfly flew <input type="text" id="q12" data-answer="safely"> away from the net.
+    <h2>英語填空測驗 (包含 image_adee2b.png 內容)</h2>
+    
+    <div class="answer-key">
+        <strong>參考答案：</strong><br>
+        thankful, wonderful, cabin, frightful, spotless, colorful, cheerful, peaceful, meadow, beautiful
     </div>
 
-    <button onclick="checkAnswers()">送出答案並看詳解</button>
-    <div id="scoreMsg" class="result-msg"></div>
-
-    <div id="explanations">
-        <h2>📚 答案與詳解</h2>
-        <div class="exp-item"><span class="exp-word">1. personally</span>：副詞。修飾動詞 know，強調「就我個人而言、親自地」。</div>
-        <div class="exp-item"><span class="exp-word">2. eagerly</span>：副詞。修飾動詞 crept，表示「急切地、渴望地」靠近。</div>
-        <div class="exp-item"><span class="exp-word">3. wisely</span>：副詞。修飾動詞 remained，表示「明智地」選擇保持安靜。</div>
-        <div class="exp-item"><span class="exp-word">4. totally</span>：副詞。修飾後面的形容詞 silent，表示「完全」安靜。</div>
-        <div class="exp-item"><span class="exp-word">5. Secretly</span>：副詞。放在句首修飾後面的整句話，表示「在心底、暗自地」希望。</div>
-        <div class="exp-item"><span class="exp-word">6. freely</span>：副詞。修飾動詞 moving，表示「自由自在地」移動飛舞。</div>
-        <div class="exp-item"><span class="exp-word">7. certainly</span>：副詞。修飾後面的動詞狀態，表示「肯定會、確實會」。</div>
-        <div class="exp-item"><span class="exp-word">8. lonely</span>：<b>形容詞（陷阱題！）</b>。這裡作為 be 動詞後面的主詞補語，表示「感到寂寞的」。不是所有 -ly 結尾都是副詞喔！</div>
-        <div class="exp-item"><span class="exp-word">9. Finally</span>：副詞。放在句首，表示時間順序的「最後」。</div>
-        <div class="exp-item"><span class="exp-word">10. suddenly</span>：副詞。修飾動詞 ran，表示狗狗「突然地」跑過來。</div>
-        <div class="exp-item"><span class="exp-word">11. loudly</span>：副詞。修飾動詞 barking，表示「大聲地」吠叫。</div>
-        <div class="exp-item"><span class="exp-word">12. safely</span>：副詞。修飾動詞 flew，表示「安全地」飛走。</div>
+    <div id="quiz-container">
+        <p>Dear Ms. Johnson,</p>
+        <div class="question">I'm very <input type="text" id="q1"> to you for the <input type="text" id="q2"> time I had at your <input type="text" id="q3">.</div>
+        <div class="question">I didn't see any <input type="text" id="q4"> spiders; the cabin was so clean that it was truly <input type="text" id="q5">.</div>
+        <div class="question">The <input type="text" id="q6"> blend of blues and yellows inside the cabin always made me feel <input type="text" id="q7">.</div>
+        <div class="question">Also, the view of the <input type="text" id="q8"> <input type="text" id="q9"> was <input type="text" id="q10">.</div>
+        <button onclick="checkAnswers()">檢查答案</button>
     </div>
+
+    <div id="result"></div>
 
     <script>
+        const correctAnswers = ["thankful", "wonderful", "cabin", "frightful", "spotless", "colorful", "cheerful", "peaceful", "meadow", "beautiful"];
+        const explanations = [
+            "Thankful：感激的 (thank + ful)。",
+            "Wonderful：極好的 (wonder + ful)。",
+            "Cabin：小木屋 (故事中的地點)。",
+            "Frightful：可怕的 (fright + ful)。",
+            "Spotless：無污點的 (spot + less)。",
+            "Colorful：色彩繽紛的 (color + ful)。",
+            "Cheerful：愉快的 (cheer + ful)。",
+            "Peaceful：平靜的 (peace + ful)。",
+            "Meadow：草地 (這裡指 view of the meadow)。",
+            "Beautiful：美麗的 (beauty + ful)。"
+        ];
+
         function checkAnswers() {
-            let correctCount = 0;
-            const totalQuestions = 12;
-
-            for (let i = 1; i <= totalQuestions; i++) {
-                const inputElement = document.getElementById('q' + i);
-                const userAnswer = inputElement.value.trim().toLowerCase();
-                const correctAnswer = inputElement.getAttribute('data-answer').toLowerCase();
-
-                // 移除之前的樣式
-                inputElement.classList.remove('correct', 'incorrect');
-
-                if (userAnswer === correctAnswer) {
-                    inputElement.classList.add('correct');
-                    correctCount++;
+            let score = 0;
+            let output = "<h3>測驗結果：</h3>";
+            for (let i = 0; i < correctAnswers.length; i++) {
+                let userVal = document.getElementById('q' + (i + 1)).value.toLowerCase().trim();
+                if (userVal === correctAnswers[i]) {
+                    score++;
+                    output += `<p>第 ${i+1} 題：✅ 正確 (${correctAnswers[i]})</p>`;
                 } else {
-                    inputElement.classList.add('incorrect');
-                    // 可選：如果你希望答錯時自動顯示正確答案，可以取消下面這行的註解
-                    // inputElement.value = inputElement.getAttribute('data-answer'); 
+                    output += `<p>第 ${i+1} 題：❌ 錯誤 (正確答案是：${correctAnswers[i]})<br><span class="explanation">解析：${explanations[i]}</span></p>`;
                 }
             }
-
-            // 顯示分數
-            const scoreMsg = document.getElementById('scoreMsg');
-            scoreMsg.textContent = `你答對了 ${correctCount} / ${totalQuestions} 題！`;
-
-            // 顯示詳解區塊
-            const expDiv = document.getElementById('explanations');
-            expDiv.style.display = 'block';
-            
-            // 畫面平滑捲動到詳解區
-            expDiv.scrollIntoView({ behavior: 'smooth' });
+            output += `<h4>總得分：${score} / 10</h4>`;
+            document.getElementById('result').innerHTML = output;
         }
     </script>
 </body>
