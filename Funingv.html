@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共13題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共10題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,21 +274,18 @@
     </div>
 
     <script>
-        // 單字庫 (更新為13個新單字與注音、聯想記憶法)
+        // 全新單字庫
         const words = [
-            { en: 'leaf', zh: '葉子 (ㄧㄝˋ ㄗ˙)', mnemonic: '`leaf` 聽起來像 `leave` (離開)。秋天時，漂亮的樹葉 (`leaf`) 會離開 (`leave`) 樹枝掉落下來。' },
-            { en: 'water', zh: '水 (ㄕㄨㄟˇ)', mnemonic: '大家最熟悉的水！可以想像你正拿著水 (`water`)，去灌溉一顆甜美的西瓜 (watermelon)。' },
-            { en: 'flower', zh: '花 (ㄏㄨㄚ)', mnemonic: '`flower` 前面是 `flow` (流動)。想像一朵美麗的小花 (`flower`) 掉進小溪裡，隨著溪水緩緩流動 (`flow`)。' },
-            { en: 'soil', zh: '土壤 (ㄊㄨˇ ㄖㄤˇ)', mnemonic: '`soil` 看起來非常像 `oil` (油)。肥沃飽滿的土壤 (`soil`)，就像踩下去會出油 (`oil`) 一樣滋潤。' },
-            { en: 'splash', zh: '濺起 (ㄐㄧㄢˋ ㄑㄧˇ)', mnemonic: '`s` + `pl` (play, 玩) + `ash` (灰燼/水花)。在小水坑裡快樂玩耍 (`play`)，就會潑灑並濺起 (`splash`) 許多漂亮的水花。' },
-            { en: 'splint', zh: '夾板 (ㄐㄧㄚˊ ㄅㄢˇ)', mnemonic: '`splint` 聽起來像 `split` (裂開)。當骨頭不小心裂開 (`split`) 的時候，醫生阿姨會用夾板 (`splint`) 幫忙固定。' },
-            { en: 'squid', zh: '烏賊/魷魚 (ㄨ ㄗㄟˊ)', mnemonic: '`squid` 聽起來像 `squeeze` (擠壓) + `fluid` (液體)。烏賊 (`squid`) 遇到危險會緊緊擠壓 (`squeeze`) 身體，噴出黑色的墨汁液體 (`fluid`)。' },
-            { en: 'square', zh: '正方形 (ㄓㄥˋ ㄈㄤ ㄒㄧㄥˊ)', mnemonic: '`squ` 聽起來像 `squeeze` (擠壓) + `care` (關心)。把滿滿的關心 (`care`) 緊緊擠壓 (`squeeze`) 進一個端正的正方形 (`square`) 盒子裡。' },
-            { en: 'poor', zh: '貧窮的 (ㄆㄧㄣˊ ㄑㄩㄥˊ ㄉㄜ˙)', mnemonic: '`poor` 聽起來像 `pour` (傾倒)。把口袋裡所有的硬幣全部倒出來 (`pour`) 還是不夠買餅乾，代表口袋現在很貧窮 (`poor`)。' },
-            { en: 'quiz', zh: '小測驗 (ㄒㄧㄠˇ ㄘㄜˋ ㄧㄢˋ)', mnemonic: '`quiz` 聽起來像 `question` (問題) 的好朋友。小測驗 (`quiz`) 的目的就是回答幾個好玩的小問題。' },
-            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '亮晶晶的星星 (`star`)，只要在後面加一個 t 就會變成 `start` (開始)。滿天繁星代表浪漫夜晚的開始 (`start`)。' },
-            { en: 'rose', zh: '玫瑰 (ㄇㄟˊ ㄍㄨㄟ)', mnemonic: '`rose` 同時也是 `rise` (升起) 的過去式。一朵盛開的紅色玫瑰 (`rose`)，看起來就像初升 (`rise`) 的火紅太陽一樣耀眼。' },
-            { en: 'pork', zh: '豬肉 (ㄓㄨ ㄖㄡˋ)', mnemonic: '`pork` 和公園 `park` 只有一字之差。想像可愛的小豬在公園 (`park`) 裡奔跑，牠最喜歡吃能長出健康豬肉 (`pork`) 的香草。' }
+            { en: 'giant', zh: '巨人 (ㄐㄩˋ ㄖㄣˊ)', mnemonic: '`g` (great, 巨大的) + `ant` (螞蟻)。一隻巨大的螞蟻，看起來就像巨人 (`giant`)。' },
+            { en: 'redwood', zh: '紅木 (ㄏㄨㄥˊ ㄇㄨˋ)', mnemonic: '`red` (紅色) + `wood` (木頭)。紅色的木頭，就是北美著名的紅木 (`redwood`)。' },
+            { en: 'notebook', zh: '筆記本 (ㄅㄧˇ ㄐㄧˋ ㄅㄣˇ)', mnemonic: '`note` (筆記) + `book` (書)。用來寫筆記的書，就是筆記本 (`notebook`)。' },
+            { en: 'photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: '`pho` (phone, 手機) + `to`。用手機 (`phone`) 去 (`to`) 拍出的東西就是照片 (`photo`)。' },
+            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` (海岸) 和 `boat` (船) 發音很像。船 (`boat`) 要停靠在海岸 (`coast`) 邊。' },
+            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` (池塘) 和 `fond` (喜愛的) 押韻。小鴨們都非常喜愛 (`fond`) 這個小池塘 (`pond`)。' },
+            { en: 'rush', zh: '衝 (ㄔㄨㄥ)', mnemonic: '`rush` (衝) 和 `brush` (刷牙) 押韻。快遲到時，只能匆匆忙忙刷牙 (`brush`) 然後衝 (`rush`) 出門。' },
+            { en: 'salt', zh: '鹽 (ㄧㄢˊ)', mnemonic: '`sa-lt` 聽起來像「灑它」。菜煮好之後，要把鹽 (`salt`) 灑在上面。' },
+            { en: 'rope', zh: '繩子 (ㄕㄥˊ ㄗ˙)', mnemonic: '`rope` (繩子) 和 `hope` (希望) 押韻。在攀岩快掉下去時，一條繩子 (`rope`) 就是你的希望 (`hope`)。' },
+            { en: 'over', zh: '超過；結束 (ㄔㄠ ㄍㄨㄛˋ / ㄐㄧㄝˊ ㄕㄨˋ)', mnemonic: '玩遊戲輸掉時，螢幕上會出現 "Game Over"，代表遊戲結束 (`over`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -465,7 +462,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; 
+            if (!q) return;
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
