@@ -236,7 +236,7 @@
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共10題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共14題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -274,18 +274,22 @@
     </div>
 
     <script>
-        // 全新單字庫
+        // 單字庫更新
         const words = [
-            { en: 'giant', zh: '巨人 (ㄐㄩˋ ㄖㄣˊ)', mnemonic: '`g` (great, 巨大的) + `ant` (螞蟻)。一隻巨大的螞蟻，看起來就像巨人 (`giant`)。' },
-            { en: 'redwood', zh: '紅木 (ㄏㄨㄥˊ ㄇㄨˋ)', mnemonic: '`red` (紅色) + `wood` (木頭)。紅色的木頭，就是北美著名的紅木 (`redwood`)。' },
-            { en: 'notebook', zh: '筆記本 (ㄅㄧˇ ㄐㄧˋ ㄅㄣˇ)', mnemonic: '`note` (筆記) + `book` (書)。用來寫筆記的書，就是筆記本 (`notebook`)。' },
-            { en: 'photo', zh: '照片 (ㄓㄠˋ ㄆㄧㄢˋ)', mnemonic: '`pho` (phone, 手機) + `to`。用手機 (`phone`) 去 (`to`) 拍出的東西就是照片 (`photo`)。' },
-            { en: 'coast', zh: '海岸 (ㄏㄞˇ ㄢˋ)', mnemonic: '`coast` (海岸) 和 `boat` (船) 發音很像。船 (`boat`) 要停靠在海岸 (`coast`) 邊。' },
-            { en: 'pond', zh: '池塘 (ㄔˊ ㄊㄤˊ)', mnemonic: '`pond` (池塘) 和 `fond` (喜愛的) 押韻。小鴨們都非常喜愛 (`fond`) 這個小池塘 (`pond`)。' },
-            { en: 'rush', zh: '衝 (ㄔㄨㄥ)', mnemonic: '`rush` (衝) 和 `brush` (刷牙) 押韻。快遲到時，只能匆匆忙忙刷牙 (`brush`) 然後衝 (`rush`) 出門。' },
-            { en: 'salt', zh: '鹽 (ㄧㄢˊ)', mnemonic: '`sa-lt` 聽起來像「灑它」。菜煮好之後，要把鹽 (`salt`) 灑在上面。' },
-            { en: 'rope', zh: '繩子 (ㄕㄥˊ ㄗ˙)', mnemonic: '`rope` (繩子) 和 `hope` (希望) 押韻。在攀岩快掉下去時，一條繩子 (`rope`) 就是你的希望 (`hope`)。' },
-            { en: 'over', zh: '超過；結束 (ㄔㄠ ㄍㄨㄛˋ / ㄐㄧㄝˊ ㄕㄨˋ)', mnemonic: '玩遊戲輸掉時，螢幕上會出現 "Game Over"，代表遊戲結束 (`over`)。' }
+            { en: 'fog', zh: '霧 (ㄨˋ)', mnemonic: '聽起來像 `frog` (青蛙)。大霧 (`fog`) 的時候，青蛙 (`frog`) 都看不清路了。' },
+            { en: 'dry', zh: '乾燥的 (ㄍㄢ ㄗㄠˋ ㄉㄜ˙)', mnemonic: '聽起來像 `cry` (哭)。不要哭 (`cry`)，眼淚很快就會乾 (`dry`) 了。' },
+            { en: 'wet', zh: '潮濕的 (ㄔㄠˊ ㄕ ㄉㄜ˙)', mnemonic: '和 `net` (網子) 很像。用網子 (`net`) 去撈魚，網子變濕了 (`wet`)。' },
+            { en: 'forest', zh: '森林 (ㄙㄣ ㄌㄧㄣˊ)', mnemonic: '`for` (為了) + `est` (建立)。為了 (`for`) 建立 (`est`) 一個美麗的家園，我們種了一片森林 (`forest`)。' },
+            { en: 'next to', zh: '在...旁邊 (ㄗㄞˋ...ㄆㄤˊ ㄅㄧㄢ)', mnemonic: '`next` (下一個) + `to`。下一個 (`next`) 排隊的人就站在你的「旁邊」(`next to`)。' },
+            { en: 'rice', zh: '米飯 (ㄇㄧˇ ㄈㄢˋ)', mnemonic: '聽起來像 `mice` (老鼠)。老鼠 (`mice`) 最喜歡偷吃米飯 (`rice`) 了。' },
+            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '聽起來像 `sit` (坐) + `y`。在繁忙的城市 (`city`) 裡，大家都要找地方坐下 (`sit`) 休息。' },
+            { en: 'ice cream', zh: '冰淇淋 (ㄅㄧㄥ ㄑㄧˊ ㄌㄧㄣˊ)', mnemonic: '`ice` (冰) + `cream` (奶油)。冰冰的奶油就是冰淇淋 (`ice cream`)。' },
+            { en: 'cell phone', zh: '手機 (ㄕㄡˇ ㄐㄧ)', mnemonic: '`cell` (細胞/小格子) + `phone` (電話)。像細胞一樣小、可以隨身攜帶的電話就是手機 (`cell phone`)。' },
+            { en: 'safe', zh: '安全的 (ㄢ ㄑㄩㄢˊ ㄉㄜ˙)', mnemonic: '聽起來像 `save` (拯救)。被英雄拯救 (`save`) 之後，你就安全了 (`safe`)。' },
+            { en: 'ugly', zh: '醜陋的 (ㄔㄡˇ ㄌㄡˋ ㄉㄜ˙)', mnemonic: '聽起來像 `hug` (擁抱) + `ly`。雖然這隻怪獸長得很醜陋 (`ugly`)，但牠還是需要一個溫暖的擁抱 (`hug`)。' },
+            { en: 'yard', zh: '庭院 (ㄊㄧㄥˊ ㄩㄢˋ)', mnemonic: '聽起來像 `card` (卡片)。我們在庭院 (`yard`) 裡開心地玩卡牌遊戲 (`card`)。' },
+            { en: 'seat', zh: '座位 (ㄗㄨㄛˋ ㄨㄟˋ)', mnemonic: '聽起來像 `sit` (坐)。請找一個地方坐下 (`sit`)，這就是你的座位 (`seat`)。' },
+            { en: 'sail', zh: '航行 (ㄏㄤˊ ㄒㄧㄥˊ)', mnemonic: '聽起來像 `sale` (特價)。這艘要去航行 (`sail`) 的帆船正在特價 (`sale`) 出售。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -462,7 +466,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return;
+            if (!q) return; 
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
