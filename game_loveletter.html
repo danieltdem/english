@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>情書 - 注音版</title>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background-color: #fce7f3; overscroll-behavior: none; }
+        ruby { font-size: 1.2rem; font-weight: bold; }
+        rt { font-size: 0.6rem; color: #6b7280; font-weight: normal; }
+        .card { transition: transform 0.2s; }
+        .card:active { transform: scale(0.95); }
+    </style>
+</head>
+<body class="h-screen flex flex-col text-gray-800">
+
+    <div id="setup-screen" class="p-6 flex flex-col items-center justify-center h-full">
+        <h1 class="text-4xl font-bold text-pink-600 mb-8"><ruby>情<rt>ㄑㄧㄥˊ</rt></ruby><ruby>書<rt>ㄕㄨ</rt></ruby></h1>
+        <input id="player-name" type="text" placeholder="輸入你的名字" class="w-full max-w-xs p-3 text-lg border-2 border-pink-300 rounded-xl mb-4 text-center shadow-sm">
+        
+        <div class="w-full max-w-xs bg-white p-6 rounded-2xl shadow-md flex flex-col gap-4">
+            <button onclick="hostGame()" class="bg-pink-500 text-white p-3 rounded-xl text-xl font-bold shadow hover:bg-pink-600">開創新房間 (當主機)</button>
+            <div class="relative flex items-center py-2">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="flex-shrink-0 mx-4 text-gray-400">或</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+            <input id="join-id" type="text" placeholder="輸入房主代碼" class="p-3 border rounded-xl text-center uppercase">
+            <button onclick="joinGame()" class="bg-blue-500 text-white p-3 rounded-xl text-xl font-bold shadow hover:bg-blue-600">加入房間</button>
+        </div>
+        <p id="setup-msg" class="mt-4 text-red-500 font-bold"></p>
+    </div>
+
+    <div id="lobby-screen" class="hidden p-6 flex flex-col items-center justify-center h-full">
+        <h2 class="text-2xl font-bold mb-4">你的房間代碼：</h2>
+        <div id="room-id-display" class="text-4xl font-mono bg-white p-4 rounded-xl shadow border-2 border-pink-400 mb-8 select-all"></div>
+        <p class="mb-4">已加入的玩家：</p>
+        <ul id="player-list" class="mb-8 w-full max-w-xs space-y-2 text-center text-lg font-bold"></ul>
+        <button id="start-btn" onclick="startGame()" class="hidden bg-green-500 text-white w-full max-w-xs p-4 rounded-xl text-2xl font-bold shadow-lg">開始遊戲</button>
+    </div>
+
+    <div id="game-screen" class="hidden flex-col h-full">
+        <div class="bg-white p-3 shadow-sm flex justify-between items-center text-sm">
+            <span id="my-role-name" class="font-bold text-pink-600"></span>
+            <span class="text-gray-500">牌堆剩餘: <span id="deck-count" class="font-bold text-black"></span> 張</span>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col items-center">
+            <h3 class="text-gray-400 mb-2 font-bold">- 棄牌堆 (大家打出的牌) -</h3>
+            <div id="discard-pile" class="flex flex-wrap justify-center gap-2"></div>
+        </div>
+
+        <div class="bg-pink-100 p-4 pb-8 rounded-t-3xl shadow-[0_-5px_15px_rgba(0,0,0,0.1)]">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-lg">我的手牌</h3>
+                <div class="space-x-2">
+                    <button onclick="drawCard()" class="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-lg font-bold shadow">抽一張牌</button>
+                    <button onclick="die()" class="bg-red-500 text-white px-4 py-2 rounded-lg font-bold shadow text-xs">我出局了</button>
+                </div>
+            </div>
+            <div id="my-hand" class="flex justify-center gap-3"></div>
+        </div>
+    </div>
+
+    <script>
+        // === 卡牌資料庫 (包含注音) ===
+        const cardDb = [
+            { id: 1, val: 1, name: '<ruby>衛<rt>ㄨㄟˋ</rt></ruby><ruby>兵<rt>ㄅㄧㄥ</rt></ruby>', desc: '猜別人的牌' },
+            { id: 2, val: 2, name: '<ruby>神<rt>ㄕㄣˊ</rt></ruby><ruby>父<rt>ㄈㄨˋ</rt></ruby>', desc: '看別人的牌' },
+            { id: 3, val: 3, name: '<ruby>男<rt>ㄋㄢˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby>', desc: '和別人比大小' },
+            { id: 4, val: 4, name: '<ruby>侍<rt>ㄕˋ</rt></ruby><ruby>女<rt>ㄋㄩˇ</rt></ruby>', desc: '這回合保護自己' },
+            { id: 5, val: 5, name: '<ruby>王<rt>ㄨㄤˊ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby>', desc: '叫別人重新抽牌' },
+            { id: 6, val: 6, name: '<ruby>國<rt>ㄍㄨㄛˊ</rt></ruby><ruby>王<rt>ㄨㄤˊ</rt></ruby>', desc: '和別人交換手牌' },
+            { id: 7, val: 7, name: '<ruby>伯<rt>ㄅㄛˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby><ruby>夫<rt>ㄈㄨ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>', desc: '拿到王子或國王必須打出' },
+            { id: 8, val: 8, name: '<ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby>', desc: '打出這張就出局' }
+        ];
+
+        // 產生標準 16 張牌庫
+        function generateDeck() {
+            let deck = [];
+            const counts = {1:5, 2:2, 3:2, 4:2, 5:2, 6:1, 7:1, 8:1};
+            for (let val in counts) {
+                for (let i = 0; i < counts[val]; i++) {
+                    deck.push(cardDb.find(c => c.val == val));
+                }
+            }
+            return deck.sort(() => Math.random() - 0.5); // 洗牌
+        }
+
+        // === 網路與狀態變數 ===
+        let peer, conn;
+        let isHost = false;
+        let myName = "";
+        let myHand = [];
+        let clients = {}; // 房主用：紀錄所有連線 { peerId: connection }
+        
+        // 遊戲狀態 (由房主維護並廣播)
+        let gameState = {
+            players: {}, // { peerId: { name, isOut } }
+            deck: [],
+            discard: []
+        };
+
+        // === 畫面切換 ===
+        function showScreen(id) {
+            ['setup-screen', 'lobby-screen', 'game-screen'].forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        // === 房主邏輯 ===
+        function hostGame() {
+            myName = document.getElementById('player-name').value.trim();
+            if (!myName) return alert("請輸入名字！");
+
+            isHost = true;
+            document.getElementById('setup-msg').innerText = "正在建立房間...";
+            
+            // 產生隨機短 ID (方便小朋友輸入)
+            const shortId = Math.random().toString(36).substring(2, 6).toUpperCase();
+            peer = new Peer('LOVE-' + shortId); 
+
+            peer.on('open', id => {
+                showScreen('lobby-screen');
+                document.getElementById('room-id-display').innerText = id.replace('LOVE-', '');
+                
+                // 房主自己加入遊戲
+                gameState.players[peer.id] = { name: myName, isOut: false };
+                updateLobby();
+            });
+
+            peer.on('connection', c => {
+                clients[c.peer] = c;
+                c.on('data', data => handleClientAction(c.peer, data));
+            });
+        }
+
+        // === 玩家邏輯 ===
+        function joinGame() {
+            myName = document.getElementById('player-name').value.trim();
+            let hostId = document.getElementById('join-id').value.trim().toUpperCase();
+            if (!myName || !hostId) return alert("請填寫名字與房間代碼！");
+
+            document.getElementById('setup-msg').innerText = "連線中...";
+            peer = new Peer();
+            
+            peer.on('open', () => {
+                conn = peer.connect('LOVE-' + hostId);
+                conn.on('open', () => {
+                    document.getElementById('setup-msg').innerText = "已連線，等待房主開始...";
+                    conn.send({ type: 'JOIN', name: myName });
+                });
+                conn.on('data', data => handleServerState(data));
+            });
+        }
+
+        // === 房主處理玩家動作 ===
+        function handleClientAction(peerId, action) {
+            if (action.type === 'JOIN') {
+                gameState.players[peerId] = { name: action.name, isOut: false };
+                updateLobby();
+                if(Object.keys(gameState.players).length > 1) document.getElementById('start-btn').classList.remove('hidden');
+            } 
+            else if (action.type === 'DRAW') {
+                if (gameState.deck.length > 0) {
+                    let card = gameState.deck.pop();
+                    clients[peerId].send({ type: 'RECEIVE_CARD', card: card });
+                    broadcastState();
+                }
+            }
+            else if (action.type === 'PLAY') {
+                gameState.discard.push({ playerName: gameState.players[peerId].name, card: action.card });
+                broadcastState();
+            }
+            else if (action.type === 'DIE') {
+                gameState.players[peerId].isOut = true;
+                broadcastState();
+            }
+        }
+
+        function broadcastState() {
+            let stateToSend = {
+                deckCount: gameState.deck.length,
+                discard: gameState.discard,
+                players: gameState.players
+            };
+            // 發給所有連線玩家
+            for (let id in clients) {
+                clients[id].send({ type: 'SYNC_STATE', state: stateToSend });
+            }
+            // 房主自己更新畫面
+            handleServerState({ type: 'SYNC_STATE', state: stateToSend });
+        }
+
+        function startGame() {
+            gameState.deck = generateDeck();
+            gameState.discard = [];
+            gameState.deck.pop(); // 移除一張暗牌 (遊戲規則)
+
+            // 發給每人一張牌
+            for (let id in gameState.players) {
+                gameState.players[id].isOut = false;
+                let card = gameState.deck.pop();
+                if (id === peer.id) {
+                    myHand = [card]; // 房主自己的牌
+                } else {
+                    clients[id].send({ type: 'RECEIVE_CARD', card: card });
+                }
+            }
+            
+            // 廣播大家切換到遊戲畫面
+            for (let id in clients) {
+                clients[id].send({ type: 'START_GAME' });
+            }
+            showScreen('game-screen');
+            document.getElementById('my-role-name').innerText = "👤 " + myName;
+            broadcastState();
+            renderHand();
+        }
+
+        function updateLobby() {
+            const list = document.getElementById('player-list');
+            list.innerHTML = "";
+            for (let id in gameState.players) {
+                let li = document.createElement('li');
+                li.innerText = gameState.players[id].name;
+                li.className = "bg-pink-50 rounded p-2 text-pink-700";
+                list.appendChild(li);
+            }
+            if(Object.keys(gameState.players).length > 1 && isHost) document.getElementById('start-btn').classList.remove('hidden');
+        }
+
+        // === 客戶端接收伺服器狀態 ===
+        function handleServerState(data) {
+            if (data.type === 'START_GAME') {
+                showScreen('game-screen');
+                document.getElementById('my-role-name').innerText = "👤 " + myName;
+            } 
+            else if (data.type === 'RECEIVE_CARD') {
+                myHand.push(data.card);
+                renderHand();
+            }
+            else if (data.type === 'SYNC_STATE') {
+                document.getElementById('deck-count').innerText = data.state.deckCount;
+                renderDiscard(data.state.discard);
+            }
+        }
+
+        // === 玩家操作 ===
+        function drawCard() {
+            if (myHand.length >= 2) return alert("手上最多只能有兩張牌喔！先打出一張。");
+            if (isHost) {
+                if (gameState.deck.length > 0) {
+                    myHand.push(gameState.deck.pop());
+                    renderHand();
+                    broadcastState();
+                }
+            } else {
+                conn.send({ type: 'DRAW' });
+            }
+        }
+
+        function playCard(index) {
+            let cardToPlay = myHand[index];
+            myHand.splice(index, 1);
+            renderHand();
+
+            if (isHost) {
+                gameState.discard.push({ playerName: myName, card: cardToPlay });
+                broadcastState();
+            } else {
+                conn.send({ type: 'PLAY', card: cardToPlay });
+            }
+        }
+
+        function die() {
+            if(!confirm("確定你已經被淘汰了嗎？")) return;
+            myHand = [];
+            renderHand();
+            if(isHost) {
+                gameState.players[peer.id].isOut = true;
+                broadcastState();
+            } else {
+                conn.send({ type: 'DIE' });
+            }
+        }
+
+        // === UI 渲染 ===
+        function renderHand() {
+            const handDiv = document.getElementById('my-hand');
+            handDiv.innerHTML = "";
+            myHand.forEach((card, index) => {
+                handDiv.innerHTML += `
+                    <div onclick="playCard(${index})" class="card cursor-pointer bg-white border-2 border-pink-300 rounded-xl shadow-lg p-3 w-28 h-40 flex flex-col justify-between items-center relative">
+                        <div class="absolute top-1 left-2 text-xl font-bold text-pink-600">${card.val}</div>
+                        <div class="mt-4 text-center text-xl">${card.name}</div>
+                        <div class="text-[0.65rem] text-gray-500 text-center leading-tight bg-gray-50 p-1 rounded w-full">${card.desc}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderDiscard(discardPile) {
+            const discardDiv = document.getElementById('discard-pile');
+            discardDiv.innerHTML = "";
+            // 反轉陣列，讓最新打出的牌顯示在最前面
+            [...discardPile].reverse().forEach(item => {
+                discardDiv.innerHTML += `
+                    <div class="bg-gray-100 border border-gray-300 rounded-lg p-2 w-20 flex flex-col items-center">
+                        <div class="text-[0.6rem] text-blue-600 font-bold mb-1 truncate w-full text-center">${item.playerName}</div>
+                        <div class="font-bold text-gray-800 text-sm">${item.card.name}</div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
