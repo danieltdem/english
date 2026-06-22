@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>情書 - 注音版</title>
+    <title>情書 - 全注音詳細規則版</title>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background-color: #fce7f3; overscroll-behavior: none; }
-        ruby { font-size: 1.2rem; font-weight: bold; }
+        ruby { font-size: 1.1rem; font-weight: bold; }
+        /* 說明區塊的小字注音需要調整大小 */
+        .desc-text ruby { font-size: 0.9rem; }
         rt { font-size: 0.6rem; color: #6b7280; font-weight: normal; }
         .card { transition: transform 0.2s; }
         .card:active { transform: scale(0.95); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 4px; }
     </style>
 </head>
 <body class="h-screen flex flex-col text-gray-800">
 
+    <!-- 登入與設定畫面 -->
     <div id="setup-screen" class="p-6 flex flex-col items-center justify-center h-full">
         <h1 class="text-4xl font-bold text-pink-600 mb-8"><ruby>情<rt>ㄑㄧㄥˊ</rt></ruby><ruby>書<rt>ㄕㄨ</rt></ruby></h1>
         <input id="player-name" type="text" placeholder="輸入你的名字" class="w-full max-w-xs p-3 text-lg border-2 border-pink-300 rounded-xl mb-4 text-center shadow-sm">
@@ -33,6 +38,7 @@
         <p id="setup-msg" class="mt-4 text-red-500 font-bold"></p>
     </div>
 
+    <!-- 遊戲大廳 -->
     <div id="lobby-screen" class="hidden p-6 flex flex-col items-center justify-center h-full">
         <h2 class="text-2xl font-bold mb-4">你的房間代碼：</h2>
         <div id="room-id-display" class="text-4xl font-mono bg-white p-4 rounded-xl shadow border-2 border-pink-400 mb-8 select-all"></div>
@@ -41,13 +47,14 @@
         <button id="start-btn" onclick="startGame()" class="hidden bg-green-500 text-white w-full max-w-xs p-4 rounded-xl text-2xl font-bold shadow-lg">開始遊戲</button>
     </div>
 
+    <!-- 遊戲主畫面 -->
     <div id="game-screen" class="hidden flex-col h-full">
         <div class="bg-white p-3 shadow-sm flex justify-between items-center text-sm">
             <span id="my-role-name" class="font-bold text-pink-600"></span>
             <span class="text-gray-500">牌堆剩餘: <span id="deck-count" class="font-bold text-black"></span> 張</span>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-4 flex flex-col items-center">
+        <div class="flex-1 overflow-y-auto p-4 flex flex-col items-center custom-scrollbar">
             <h3 class="text-gray-400 mb-2 font-bold">- 棄牌堆 (大家打出的牌) -</h3>
             <div id="discard-pile" class="flex flex-wrap justify-center gap-2"></div>
         </div>
@@ -65,19 +72,50 @@
     </div>
 
     <script>
-        // === 卡牌資料庫 (包含注音) ===
+        // === 卡牌資料庫 (全注音版) ===
         const cardDb = [
-            { id: 1, val: 1, name: '<ruby>衛<rt>ㄨㄟˋ</rt></ruby><ruby>兵<rt>ㄅㄧㄥ</rt></ruby>', desc: '猜別人的牌' },
-            { id: 2, val: 2, name: '<ruby>神<rt>ㄕㄣˊ</rt></ruby><ruby>父<rt>ㄈㄨˋ</rt></ruby>', desc: '看別人的牌' },
-            { id: 3, val: 3, name: '<ruby>男<rt>ㄋㄢˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby>', desc: '和別人比大小' },
-            { id: 4, val: 4, name: '<ruby>侍<rt>ㄕˋ</rt></ruby><ruby>女<rt>ㄋㄩˇ</rt></ruby>', desc: '這回合保護自己' },
-            { id: 5, val: 5, name: '<ruby>王<rt>ㄨㄤˊ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby>', desc: '叫別人重新抽牌' },
-            { id: 6, val: 6, name: '<ruby>國<rt>ㄍㄨㄛˊ</rt></ruby><ruby>王<rt>ㄨㄤˊ</rt></ruby>', desc: '和別人交換手牌' },
-            { id: 7, val: 7, name: '<ruby>伯<rt>ㄅㄛˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby><ruby>夫<rt>ㄈㄨ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>', desc: '拿到王子或國王必須打出' },
-            { id: 8, val: 8, name: '<ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby>', desc: '打出這張就出局' }
+            { 
+                id: 1, val: 1, 
+                name: '<ruby>衛<rt>ㄨㄟˋ</rt></ruby><ruby>兵<rt>ㄅㄧㄥ</rt></ruby>', 
+                desc: '<ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>猜<rt>ㄘㄞ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby><ruby>角<rt>ㄐㄩㄝˊ</rt></ruby><ruby>色<rt>ㄙㄜˋ</rt></ruby>(<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>猜<rt>ㄘㄞ</rt></ruby><ruby>衛<rt>ㄨㄟˋ</rt></ruby><ruby>兵<rt>ㄅㄧㄥ</rt></ruby>)。<ruby>如<rt>ㄖㄨˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>猜<rt>ㄘㄞ</rt></ruby><ruby>中<rt>ㄓㄨㄥˋ</rt></ruby>，<ruby>該<rt>ㄍㄞ</rt></ruby><ruby>玩<rt>ㄨㄢˊ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>立<rt>ㄌㄧˋ</rt></ruby><ruby>刻<rt>ㄎㄜˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>局<rt>ㄐㄩˊ</rt></ruby>。' 
+            },
+            { 
+                id: 2, val: 2, 
+                name: '<ruby>神<rt>ㄕㄣˊ</rt></ruby><ruby>父<rt>ㄈㄨˋ</rt></ruby>', 
+                desc: '<ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>私<rt>ㄙ</rt></ruby><ruby>底<rt>ㄉㄧˇ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>查<rt>ㄔㄚˊ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby>(<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>給<rt>ㄍㄟˇ</rt></ruby><ruby>其<rt>ㄑㄧˊ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby>)。' 
+            },
+            { 
+                id: 3, val: 3, 
+                name: '<ruby>男<rt>ㄋㄢˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby>', 
+                desc: '<ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>私<rt>ㄙ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>互<rt>ㄏㄨˋ</rt></ruby><ruby>相<rt>ㄒㄧㄤ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby>，<ruby>點<rt>ㄉㄧㄢˇ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>較<rt>ㄐㄧㄠˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>立<rt>ㄌㄧˋ</rt></ruby><ruby>刻<rt>ㄎㄜˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>局<rt>ㄐㄩˊ</rt></ruby>。<ruby>平<rt>ㄆㄧㄥˊ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>則<rt>ㄗㄜˊ</rt></ruby><ruby>沒<rt>ㄇㄟˊ</rt></ruby><ruby>事<rt>ㄕˋ</rt></ruby>。' 
+            },
+            { 
+                id: 4, val: 4, 
+                name: '<ruby>侍<rt>ㄕˋ</rt></ruby><ruby>女<rt>ㄋㄩˇ</rt></ruby>', 
+                desc: '<ruby>獲<rt>ㄏㄨㄛˋ</rt></ruby><ruby>得<rt>ㄉㄜˊ</rt></ruby><ruby>無<rt>ㄨˊ</rt></ruby><ruby>敵<rt>ㄉㄧˊ</rt></ruby><ruby>狀<rt>ㄓㄨㄤˋ</rt></ruby><ruby>態<rt>ㄊㄞˋ</rt></ruby>！<ruby>直<rt>ㄓˊ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>合<rt>ㄏㄜˊ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby>，<ruby>別<rt>ㄅㄧㄝˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>卡<rt>ㄎㄚˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby><ruby>效<rt>ㄒㄧㄠˋ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>都<rt>ㄉㄡ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>能<rt>ㄋㄥˊ</rt></ruby><ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby>。' 
+            },
+            { 
+                id: 5, val: 5, 
+                name: '<ruby>王<rt>ㄨㄤˊ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby>', 
+                desc: '<ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>(<ruby>可<rt>ㄎㄜˇ</rt></ruby><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>己<rt>ㄐㄧˇ</rt></ruby>)，<ruby>強<rt>ㄑㄧㄤˇ</rt></ruby><ruby>迫<rt>ㄆㄛˋ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby><ruby>丟<rt>ㄉㄧㄡ</rt></ruby><ruby>掉<rt>ㄉㄧㄠˋ</rt></ruby>(<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>效<rt>ㄒㄧㄠˋ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby>)，<ruby>並<rt>ㄅㄧㄥˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>新<rt>ㄒㄧㄣ</rt></ruby><ruby>抽<rt>ㄔㄡ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>張<rt>ㄓㄤ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby>。' 
+            },
+            { 
+                id: 6, val: 6, 
+                name: '<ruby>國<rt>ㄍㄨㄛˊ</rt></ruby><ruby>王<rt>ㄨㄤˊ</rt></ruby>', 
+                desc: '<ruby>指<rt>ㄓˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>與<rt>ㄩˇ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>直<rt>ㄓˊ</rt></ruby><ruby>接<rt>ㄐㄧㄝ</rt></ruby><ruby>交<rt>ㄐㄧㄠ</rt></ruby><ruby>換<rt>ㄏㄨㄢˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby>。' 
+            },
+            { 
+                id: 7, val: 7, 
+                name: '<ruby>伯<rt>ㄅㄛˊ</rt></ruby><ruby>爵<rt>ㄐㄩㄝˊ</rt></ruby><ruby>夫<rt>ㄈㄨ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>', 
+                desc: '<ruby>此<rt>ㄘˇ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby><ruby>無<rt>ㄨˊ</rt></ruby><ruby>效<rt>ㄒㄧㄠˋ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby>。<ruby>但<rt>ㄉㄢˋ</rt></ruby><ruby>如<rt>ㄖㄨˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>同<rt>ㄊㄨㄥˊ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby>「<ruby>王<rt>ㄨㄤˊ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby>」<ruby>或<rt>ㄏㄨㄛˋ</rt></ruby>「<ruby>國<rt>ㄍㄨㄛˊ</rt></ruby><ruby>王<rt>ㄨㄤˊ</rt></ruby>」，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>必<rt>ㄅㄧˋ</rt></ruby><ruby>須<rt>ㄒㄩ</rt></ruby><ruby>強<rt>ㄑㄧㄤˇ</rt></ruby><ruby>制<rt>ㄓˋ</rt></ruby><ruby>打<rt>ㄉㄚˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>張<rt>ㄓㄤ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby>。' 
+            },
+            { 
+                id: 8, val: 8, 
+                name: '<ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>主<rt>ㄓㄨˇ</rt></ruby>', 
+                desc: '<ruby>絕<rt>ㄐㄩㄝˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>弱<rt>ㄖㄨㄛˋ</rt></ruby><ruby>點<rt>ㄉㄧㄢˇ</rt></ruby>！<ruby>只<rt>ㄓˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>張<rt>ㄓㄤ</rt></ruby><ruby>牌<rt>ㄆㄞˊ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>打<rt>ㄉㄚˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby>，<ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>被<rt>ㄅㄟˋ</rt></ruby><ruby>逼<rt>ㄅㄧ</rt></ruby><ruby>著<rt>ㄓㄜ˙</rt></ruby><ruby>丟<rt>ㄉㄧㄡ</rt></ruby><ruby>棄<rt>ㄑㄧˋ</rt></ruby>，<ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>立<rt>ㄌㄧˋ</rt></ruby><ruby>刻<rt>ㄎㄜˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>局<rt>ㄐㄩˊ</rt></ruby>。' 
+            }
         ];
 
-        // 產生標準 16 張牌庫
         function generateDeck() {
             let deck = [];
             const counts = {1:5, 2:2, 3:2, 4:2, 5:2, 6:1, 7:1, 8:1};
@@ -86,30 +124,17 @@
                     deck.push(cardDb.find(c => c.val == val));
                 }
             }
-            return deck.sort(() => Math.random() - 0.5); // 洗牌
+            return deck.sort(() => Math.random() - 0.5); 
         }
 
-        // === 網路與狀態變數 ===
-        let peer, conn;
-        let isHost = false;
-        let myName = "";
-        let myHand = [];
-        let clients = {}; // 房主用：紀錄所有連線 { peerId: connection }
-        
-        // 遊戲狀態 (由房主維護並廣播)
-        let gameState = {
-            players: {}, // { peerId: { name, isOut } }
-            deck: [],
-            discard: []
-        };
+        let peer, conn, isHost = false, myName = "", myHand = [], clients = {}; 
+        let gameState = { players: {}, deck: [], discard: [] };
 
-        // === 畫面切換 ===
         function showScreen(id) {
             ['setup-screen', 'lobby-screen', 'game-screen'].forEach(s => document.getElementById(s).classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
         }
 
-        // === 房主邏輯 ===
         function hostGame() {
             myName = document.getElementById('player-name').value.trim();
             if (!myName) return alert("請輸入名字！");
@@ -117,15 +142,12 @@
             isHost = true;
             document.getElementById('setup-msg').innerText = "正在建立房間...";
             
-            // 產生隨機短 ID (方便小朋友輸入)
             const shortId = Math.random().toString(36).substring(2, 6).toUpperCase();
             peer = new Peer('LOVE-' + shortId); 
 
             peer.on('open', id => {
                 showScreen('lobby-screen');
                 document.getElementById('room-id-display').innerText = id.replace('LOVE-', '');
-                
-                // 房主自己加入遊戲
                 gameState.players[peer.id] = { name: myName, isOut: false };
                 updateLobby();
             });
@@ -136,7 +158,6 @@
             });
         }
 
-        // === 玩家邏輯 ===
         function joinGame() {
             myName = document.getElementById('player-name').value.trim();
             let hostId = document.getElementById('join-id').value.trim().toUpperCase();
@@ -155,64 +176,44 @@
             });
         }
 
-        // === 房主處理玩家動作 ===
         function handleClientAction(peerId, action) {
             if (action.type === 'JOIN') {
                 gameState.players[peerId] = { name: action.name, isOut: false };
                 updateLobby();
-                if(Object.keys(gameState.players).length > 1) document.getElementById('start-btn').classList.remove('hidden');
-            } 
-            else if (action.type === 'DRAW') {
+            } else if (action.type === 'DRAW') {
                 if (gameState.deck.length > 0) {
                     let card = gameState.deck.pop();
                     clients[peerId].send({ type: 'RECEIVE_CARD', card: card });
                     broadcastState();
                 }
-            }
-            else if (action.type === 'PLAY') {
+            } else if (action.type === 'PLAY') {
                 gameState.discard.push({ playerName: gameState.players[peerId].name, card: action.card });
                 broadcastState();
-            }
-            else if (action.type === 'DIE') {
+            } else if (action.type === 'DIE') {
                 gameState.players[peerId].isOut = true;
                 broadcastState();
             }
         }
 
         function broadcastState() {
-            let stateToSend = {
-                deckCount: gameState.deck.length,
-                discard: gameState.discard,
-                players: gameState.players
-            };
-            // 發給所有連線玩家
-            for (let id in clients) {
-                clients[id].send({ type: 'SYNC_STATE', state: stateToSend });
-            }
-            // 房主自己更新畫面
+            let stateToSend = { deckCount: gameState.deck.length, discard: gameState.discard, players: gameState.players };
+            for (let id in clients) clients[id].send({ type: 'SYNC_STATE', state: stateToSend });
             handleServerState({ type: 'SYNC_STATE', state: stateToSend });
         }
 
         function startGame() {
             gameState.deck = generateDeck();
             gameState.discard = [];
-            gameState.deck.pop(); // 移除一張暗牌 (遊戲規則)
+            gameState.deck.pop(); 
 
-            // 發給每人一張牌
             for (let id in gameState.players) {
                 gameState.players[id].isOut = false;
                 let card = gameState.deck.pop();
-                if (id === peer.id) {
-                    myHand = [card]; // 房主自己的牌
-                } else {
-                    clients[id].send({ type: 'RECEIVE_CARD', card: card });
-                }
+                if (id === peer.id) myHand = [card]; 
+                else clients[id].send({ type: 'RECEIVE_CARD', card: card });
             }
             
-            // 廣播大家切換到遊戲畫面
-            for (let id in clients) {
-                clients[id].send({ type: 'START_GAME' });
-            }
+            for (let id in clients) clients[id].send({ type: 'START_GAME' });
             showScreen('game-screen');
             document.getElementById('my-role-name').innerText = "👤 " + myName;
             broadcastState();
@@ -231,23 +232,19 @@
             if(Object.keys(gameState.players).length > 1 && isHost) document.getElementById('start-btn').classList.remove('hidden');
         }
 
-        // === 客戶端接收伺服器狀態 ===
         function handleServerState(data) {
             if (data.type === 'START_GAME') {
                 showScreen('game-screen');
                 document.getElementById('my-role-name').innerText = "👤 " + myName;
-            } 
-            else if (data.type === 'RECEIVE_CARD') {
+            } else if (data.type === 'RECEIVE_CARD') {
                 myHand.push(data.card);
                 renderHand();
-            }
-            else if (data.type === 'SYNC_STATE') {
+            } else if (data.type === 'SYNC_STATE') {
                 document.getElementById('deck-count').innerText = data.state.deckCount;
                 renderDiscard(data.state.discard);
             }
         }
 
-        // === 玩家操作 ===
         function drawCard() {
             if (myHand.length >= 2) return alert("手上最多只能有兩張牌喔！先打出一張。");
             if (isHost) {
@@ -256,22 +253,17 @@
                     renderHand();
                     broadcastState();
                 }
-            } else {
-                conn.send({ type: 'DRAW' });
-            }
+            } else conn.send({ type: 'DRAW' });
         }
 
         function playCard(index) {
             let cardToPlay = myHand[index];
             myHand.splice(index, 1);
             renderHand();
-
             if (isHost) {
                 gameState.discard.push({ playerName: myName, card: cardToPlay });
                 broadcastState();
-            } else {
-                conn.send({ type: 'PLAY', card: cardToPlay });
-            }
+            } else conn.send({ type: 'PLAY', card: cardToPlay });
         }
 
         function die() {
@@ -281,21 +273,21 @@
             if(isHost) {
                 gameState.players[peer.id].isOut = true;
                 broadcastState();
-            } else {
-                conn.send({ type: 'DIE' });
-            }
+            } else conn.send({ type: 'DIE' });
         }
 
-        // === UI 渲染 ===
+        // === 更新 UI：加入 leading-loose (寬行距) 讓注音更清晰 ===
         function renderHand() {
             const handDiv = document.getElementById('my-hand');
             handDiv.innerHTML = "";
             myHand.forEach((card, index) => {
                 handDiv.innerHTML += `
-                    <div onclick="playCard(${index})" class="card cursor-pointer bg-white border-2 border-pink-300 rounded-xl shadow-lg p-3 w-28 h-40 flex flex-col justify-between items-center relative">
+                    <div onclick="playCard(${index})" class="card cursor-pointer bg-white border-2 border-pink-300 rounded-xl shadow-lg p-3 w-40 h-64 flex flex-col justify-start items-center relative overflow-hidden">
                         <div class="absolute top-1 left-2 text-xl font-bold text-pink-600">${card.val}</div>
-                        <div class="mt-4 text-center text-xl">${card.name}</div>
-                        <div class="text-[0.65rem] text-gray-500 text-center leading-tight bg-gray-50 p-1 rounded w-full">${card.desc}</div>
+                        <div class="mt-4 mb-2 text-center text-xl">${card.name}</div>
+                        <div class="desc-text text-gray-700 text-left leading-loose bg-gray-50 p-2 rounded w-full flex-grow overflow-y-auto custom-scrollbar">
+                            ${card.desc}
+                        </div>
                     </div>
                 `;
             });
@@ -304,7 +296,6 @@
         function renderDiscard(discardPile) {
             const discardDiv = document.getElementById('discard-pile');
             discardDiv.innerHTML = "";
-            // 反轉陣列，讓最新打出的牌顯示在最前面
             [...discardPile].reverse().forEach(item => {
                 discardDiv.innerHTML += `
                     <div class="bg-gray-100 border border-gray-300 rounded-lg p-2 w-20 flex flex-col items-center">
