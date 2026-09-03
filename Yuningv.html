@@ -217,9 +217,10 @@
 </head>
 <body>
 
+    <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
         <img src="initial.png" alt="Menu" class="game-image">
-        <h1>英文單字挑戰</h1>
+        <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
         <button class="menu-btn" onclick="goToExam()">
@@ -233,10 +234,11 @@
         </button>
     </div>
 
+    <!-- 2. 考試模式 -->
     <div id="exam-screen" class="container">
         <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
         <h1>單字拼寫測驗</h1>
-        <p>請根據給出的中文意思，輸入正確的英文拼寫。共27題，順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共34題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -250,6 +252,7 @@
         <button class="menu-btn" style="background-color:#607d8b; width: 60%; margin-top: 20px;" onclick="goHome()">回首頁</button>
     </div>
 
+    <!-- 3. 練習模式 (固定頭部版) -->
     <div id="practice-screen" class="container">
         <div class="practice-fixed-top">
             <h2 style="color: #ff9800; margin: 0 0 10px 0;">單字練習室</h2>
@@ -274,35 +277,42 @@
     </div>
 
     <script>
-        // 全新單字庫 (共 27 個單字)
+        // 全新單字庫 (34字)
         const words = [
-            { en: 'main', zh: '主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`main` 聽起來像 `man` (男人)。男人通常是家庭中「主要」的經濟支柱。' },
-            { en: 'character', zh: '角色；性格 (ㄐㄧㄠˇ ㄙㄜˋ)', mnemonic: '`char` (燒焦) + `act` (行動) + `er` (人)。一個在行動中把衣服燒焦的「角色」，真有個性。' },
-            { en: 'setting', zh: '背景設定 (ㄅㄟˋ ㄐㄧㄥˇ ㄕㄜˋ ㄉㄧㄥˋ)', mnemonic: '`set` (設置) + `ting` (thing, 東西)。把所有的東西都設置好，就成了故事的背景設定。' },
-            { en: 'choose', zh: '選擇 (ㄒㄩㄢˇ ㄗㄜˊ)', mnemonic: '中間的兩個 `oo` 就像兩隻雪亮的大眼睛，讓你在做出「選擇」時能看清楚。' },
-            { en: 'gather', zh: '聚集 (ㄐㄩˋ ㄐㄧˊ)', mnemonic: '`get` (獲得) + `together` (在一起)。獲得聚在一起的機會，就是聚集。' },
-            { en: 'thirty', zh: '三十 (ㄙㄢ ㄕˊ)', mnemonic: '`three` (三) 的字根變形，加上代表十位數的 `ty`，合起來就是三十。' },
-            { en: 'sixteen', zh: '十六 (ㄕˊ ㄌㄧㄡˋ)', mnemonic: '`six` (六) 加上代表十幾歲青少年的 `teen` (十幾)，就是十六。' },
-            { en: 'eleven', zh: '十一 (ㄕˊ ㄧ)', mnemonic: '聽起來像 `elephant` (大象) 加上 `seven` (七) 的尾巴。想像十一隻大象在排隊。' },
-            { en: 'billion', zh: '十億 (ㄕˊ ㄧˋ)', mnemonic: '字首 `bi` 代表雙重或更高級別，比 `million` (百萬) 還要大上無數倍，是巨大的十億。' },
-            { en: 'forty', zh: '四十 (ㄙˋ ㄕˊ)', mnemonic: '特別注意！沒有 `u` 喔！是 `for` + `ty`。為了（for）四十個目標前進。' },
-            { en: 'thirteen', zh: '十三 (ㄕˊ ㄙㄢ)', mnemonic: '`third` (第三) 的變形，加上代表十幾的 `teen`，就是十三。' },
-            { en: 'fifteen', zh: '十五 (ㄕˊ ㄨˇ)', mnemonic: '`fifth` (第五) 的變形，加上代表十幾的 `teen`，就是十五。' },
-            { en: 'eighteen', zh: '十八 (ㄕˊ ㄅㄚ)', mnemonic: '`eight` (八) 加上 `teen` (十幾)。因為八本身有 t，所以合併時只有一個 `t` 喔！' },
-            { en: 'fifty', zh: '五十 (ㄨˇ ㄕˊ)', mnemonic: '`fifth` (第五) 的變形，加上代表十位數的 `ty`，就是五十。' },
-            { en: 'fourteen', zh: '十四 (ㄕˊ ㄙˋ)', mnemonic: '與四十不同，十四保留了 `u`！是完整的 `four` (四) 加上 `teen` (十幾)。' },
-            { en: 'million', zh: '百萬 (ㄅㄞˇ ㄨㄢˋ)', mnemonic: '`mill` (磨坊) + `ion`。古代一個大磨坊一整年努力運作可以賺進百萬。' },
-            { en: 'nineteen', zh: '十九 (ㄕˊ ㄐㄧㄡˇ)', mnemonic: '完整的 `nine` (九) 加上代表十幾的 `teen`，就是十九。' },
-            { en: 'twenty', zh: '二十 (ㄦˋ ㄕˊ)', mnemonic: '`twin` (雙胞胎/兩組) 的感覺加上 `ty` (十)。兩組十合起來就是二十。' },
-            { en: 'seventeen', zh: '十七 (ㄕˊ ㄑㄧ)', mnemonic: '完整的 `seven` (七) 加上代表十幾的 `teen`，就是十七。' },
-            { en: 'twelve', zh: '十二 (ㄕˊ ㄦˋ)', mnemonic: '`tw` (two, 二) 的開頭，加上後半部。排在十一 (eleven) 之後的就是十二。' },
-            { en: 'rubber', zh: '橡膠 (ㄒㄧㄤˋ ㄐㄧㄠ)', mnemonic: '`rub` (摩擦) + `er` (東西)。用來摩擦擦拭東西的橡皮擦，就是橡膠做的。' },
-            { en: 'parrot', zh: '鸚鵡 (ㄧㄥ ㄨˇ)', mnemonic: '`pear` (梨子) + `rot` (腐爛)。小鸚鵡太愛吃梨子了，把梨子吃到都腐爛了。' },
-            { en: 'peach', zh: '桃子 (ㄊㄠˊ ㄗ˙)', mnemonic: '把 `beach` (海灘) 的第一個字母換成 `p`。想像坐在海灘上悠閒地吃著鮮甜的桃子。' },
-            { en: 'value', zh: '價值 (ㄐㄧㄚˋ ㄓˊ)', mnemonic: '`va` (vast, 巨大的) + `lue` (look, 看)。巨大且值得讓人駐足一看的東西，代表很有價值。' },
-            { en: 'trash', zh: '垃圾 (ㄌㄜˋ ㄙㄜˋ)', mnemonic: '`t` + `rash` (發疹子)。垃圾太髒了，如果不小心碰到手就會發疹子。' },
-            { en: 'widen', zh: '變寬 (ㄅㄧㄢˋ ㄎㄨㄢ)', mnemonic: '`wide` (寬的) + `en` (動詞字尾，使成為...)。把道路使它變寬，就是變寬。' },
-            { en: 'valley', zh: '山谷 (ㄕㄢ ㄍㄨˇ)', mnemonic: '聽起來像 `wall-ey` (高牆)。山谷就是兩面高聳如巨大牆壁之中的平坦通道。' }
+            { en: 'form', zh: '形成/表格 (ㄒㄧㄥˊ ㄔㄥˊ)', mnemonic: '聽起來像 `for` + `m` (men)。為 (`for`) 這些男人 (`men`) 形成 (`form`) 一個團隊。' },
+            { en: 'solid', zh: '固體的 (ㄍㄨˋ ㄊㄧˇ ㄉㄜ˙)', mnemonic: '`so` (如此) + `lid` (蓋子)。這個蓋子如此堅硬，是固體的。' },
+            { en: 'melt', zh: '融化 (ㄖㄨㄥˊ ㄏㄨㄚˋ)', mnemonic: '發音聽起來像中文的「沒了」。冰塊融化之後就沒了 (`melt`)。' },
+            { en: 'temperature', zh: '溫度 (ㄨㄣ ㄉㄨˋ)', mnemonic: '`temper` (脾氣) + `ature`。溫度太高會讓人脾氣 (`temper`) 暴躁。' },
+            { en: 'liquid', zh: '液體 (ㄧㄝˋ ㄊㄧˇ)', mnemonic: '聯想 `liquor` (烈酒)，酒就是一種液體 (`liquid`)。' },
+            { en: 'freeze', zh: '結冰/凍結 (ㄐㄧㄝˊ ㄅㄧㄥ)', mnemonic: '`free` (自由) + `ze` (zero, 零)。在零度 (`zero`) 以下，水就失去流動的自由 (`free`)，結冰 (`freeze`) 了。' },
+            { en: 'thermometer', zh: '溫度計 (ㄨㄣ ㄉㄨˋ ㄐㄧˋ)', mnemonic: '`thermo` (熱) + `meter` (測量儀)。測量熱度的儀器就是溫度計 (`thermometer`)。' },
+            { en: 'perhaps', zh: '也許 (ㄧㄝˇ ㄒㄩˇ)', mnemonic: '`per` (每一) + `haps` (happen, 發生)。每一件事都有也許 (`perhaps`) 會發生的可能。' },
+            { en: 'necklace', zh: '項鍊 (ㄒㄧㄤˋ ㄌㄧㄢˋ)', mnemonic: '`neck` (脖子) + `lace` (蕾絲/帶子)。戴在脖子 (`neck`) 上的美麗帶子，就是項鍊 (`necklace`)。' },
+            { en: 'sweater', zh: '毛衣 (ㄇㄠˊ ㄧ)', mnemonic: '`sweat` (流汗) + `er` (的物品)。穿上去會讓你覺得很熱甚至流汗 (`sweat`) 的衣服就是毛衣 (`sweater`)。' },
+            { en: 'inch', zh: '英寸 (ㄧㄥ ㄘㄨㄣˋ)', mnemonic: '聽起來像中文的「印」。印一個小指紋，長度大約就是一英寸 (`inch`)。' },
+            { en: 'happen', zh: '發生 (ㄈㄚ ㄕㄥ)', mnemonic: '`happy` (快樂) + `en` (使)。發生 (`happen`) 了一件好事，使大家很快樂。' },
+            { en: 'empty', zh: '空的 (ㄎㄨㄥ ㄉㄜ˙)', mnemonic: '發音聽起來像字母 `M T`。這個杯子裡什麼都沒有，是空的 (`empty`)。' },
+            { en: 'invent', zh: '發明 (ㄈㄚ ㄇㄧㄥˊ)', mnemonic: '`in` (進入) + `vent` (通風口)。發明 (`invent`) 家躲進通風口裡秘密進行研究。' },
+            { en: 'athlete', zh: '運動員 (ㄩㄣˋ ㄉㄨㄥˋ ㄩㄢˊ)', mnemonic: '發音似 `athletic` (運動的)。' },
+            { en: 'elephant', zh: '大象 (ㄉㄚˋ ㄒㄧㄤˋ)', mnemonic: '`ele` (聽起來像 eleven, 11) + `phant` (大)。有 11 頭很大的大象。' },
+            { en: 'until', zh: '直到 (ㄓˊ ㄉㄠˋ)', mnemonic: '`un` (不) + `til` (till, 直到)。' },
+            { en: 'accident', zh: '意外 (ㄧˋ ㄨㄞˋ)', mnemonic: '`ac` + `cident` (聯想 incident, 事件)。突然發生的不良事件就是意外 (`accident`)。' },
+            { en: 'spell', zh: '拼寫/魔法 (ㄆㄧㄣ ㄒㄧㄝˇ)', mnemonic: '發音似「撕票」。女巫念了拼寫 (`spell`) 著魔法的咒語。' },
+            { en: 'city', zh: '城市 (ㄔㄥˊ ㄕˋ)', mnemonic: '發音似「西堤」。這座大城市 (`city`) 裡有一家很好吃的西堤牛排。' },
+            { en: 'adventure', zh: '冒險 (ㄇㄠˋ ㄒㄧㄢˇ)', mnemonic: '`ad` (向前) + `venture` (風險)。勇敢向前迎向風險，這就是一場冒險 (`adventure`)。' },
+            { en: 'important', zh: '重要的 (ㄓㄨㄥˋ ㄧㄠˋ ㄉㄜ˙)', mnemonic: '`import` (進口) + `ant` (螞蟻)。這隻進口的螞蟻是非常重要的 (`important`) 研究對象。' },
+            { en: 'airline', zh: '航空公司 (ㄏㄤˊ ㄎㄨㄥ ㄍㄨㄥ ㄙ)', mnemonic: '`air` (空中) + `line` (航線)。在空中飛行的航線就是航空公司 (`airline`) 經營的。' },
+            { en: 'dinosaur', zh: '恐龍 (ㄎㄨㄥˇ ㄌㄨㄥˊ)', mnemonic: '聽起來像「呆腦獸」。腦袋呆呆的遠古巨獸，就是恐龍 (`dinosaur`)。' },
+            { en: 'business', zh: '商業/生意 (ㄕㄤ ㄧㄝˋ)', mnemonic: '`bus` (公車) + `in` (裡面) + `ness`。在公車裡面談生意 (`business`)。' },
+            { en: 'album', zh: '專輯/相簿 (ㄓㄨㄢ ㄐㄧˊ)', mnemonic: '聽起來像「阿本」。阿本出了一張新的音樂專輯 (`album`)。' },
+            { en: 'broadcast', zh: '廣播 (ㄍㄨㄤˇ ㄅㄛ)', mnemonic: '`broad` (寬廣的) + `cast` (投射)。把訊號寬廣地投射出去，就是廣播 (`broadcast`)。' },
+            { en: 'election', zh: '選舉 (ㄒㄩㄢˇ ㄐㄩˇ)', mnemonic: '`elect` (選舉) + `ion` (名詞結尾)。' },
+            { en: 'certain', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像「蛇吞」。我非常確定 (`certain`) 看到了一條蛇吞了青蛙。' },
+            { en: 'retell', zh: '重述 (ㄔㄨㄥˊ ㄕㄨˋ)', mnemonic: '`re` (再次) + `tell` (告訴)。再次告訴別人，就是重述 (`retell`)。' },
+            { en: 'chairman', zh: '主席 (ㄓㄨˇ ㄒㄧˊ)', mnemonic: '`chair` (椅子) + `man` (男人)。坐在會議室最中間那張大椅子上的男人，就是主席 (`chairman`)。' },
+            { en: 'diligent', zh: '勤奮的 (ㄑㄧㄣˊ ㄈㄣˋ ㄉㄜ˙)', mnemonic: '`dili` (音似：地裡) + `gent` (gentleman, 紳士)。在田地裡辛苦工作的紳士，非常勤奮 (`diligent`)。' },
+            { en: 'embarrasses', zh: '使...尷尬 (ㄕˇ ... ㄍㄢ ㄍㄚˋ)', mnemonic: '`em` + `bar` (酒吧) + `rass` (音似：拉斯) + `es`。在酒吧裡發生丟臉的事，讓他感到很尷尬 (`embarrasses`)。' },
+            { en: 'language', zh: '語言 (ㄩˇ ㄧㄢˊ)', mnemonic: '發音似「懶鬼記」。懶鬼記不住這麼多種不同的語言 (`language`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -316,7 +326,7 @@
             }
         }
 
-        /* --- 安全洗牌演算法 --- */
+        /* --- 安全洗牌演算法 (避免舊版瀏覽器語法衝突) --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -339,6 +349,8 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
+            
+            // 確保每次點擊都重新初始化陣列
             startGame(words);
         }
 
@@ -389,7 +401,7 @@
             });
         }
 
-        // 監聽整個練習列表的 Enter 鍵 (事件委派)
+        // 監聽整個練習列表的 Enter 鍵
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -404,13 +416,14 @@
             areAnswersVisible = !areAnswersVisible;
 
             if (areAnswersVisible) {
+                // 狀態：顯示答案 & 批改
                 btn.innerHTML = '隱藏所有答案<br><span style="font-size:0.8em">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#4CAF50';
                 
                 answers.forEach(el => el.style.display = 'block');
 
                 inputs.forEach((input, index) => {
-                    // 不分大小寫比對
+                    // 大小寫不拘的判斷：都轉換成小寫來比對
                     const userWord = input.value.trim().toLowerCase();
                     const correctWord = words[index].en.toLowerCase();
                     const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
@@ -418,20 +431,22 @@
                     if (userWord === correctWord) {
                         input.classList.add('correct');
                         input.classList.remove('wrong');
-                        mnemonicDiv.style.display = 'none'; 
+                        mnemonicDiv.style.display = 'none'; // 答對不顯示提示
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; 
+                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
                     }
                 });
 
             } else {
+                // 狀態：隱藏答案
                 btn.innerHTML = '顯示所有答案 / 批改<br><span style="font-size:0.8em">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
                 btn.style.backgroundColor = '#d32f2f';
                 
                 answers.forEach(el => el.style.display = 'none');
                 
+                // 將提示隱藏起來
                 words.forEach((_, index) => {
                     document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
                 });
@@ -448,6 +463,7 @@
         let isWaitingToContinue = false;
 
         function startGame(wordList) {
+            // 安全檢查：確保傳入的單字表是有效的陣列
             let listToUse = words;
             if (wordList && Array.isArray(wordList) && wordList.length > 0) {
                 listToUse = wordList;
@@ -480,7 +496,7 @@
             }
             
             const q = questions[currentQuestion];
-            if (!q) return; 
+            if (!q) return; // 安全檢查防呆
 
             const mnemonicEl = document.getElementById('mnemonic');
             mnemonicEl.textContent = '';
@@ -489,11 +505,13 @@
             isWaitingToContinue = false;
             document.getElementById('exam-submit').textContent = '提交';
             
+            // 更新題目文字
             document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文拼寫：`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
             updateScore();
             
+            // 延遲一點點聚焦，避免有些瀏覽器切換畫面時聚焦失效
             setTimeout(() => {
                 document.getElementById('exam-answer').focus();
             }, 50);
@@ -506,7 +524,7 @@
                 return;
             }
 
-            // 不分大小寫比對
+            // 大小寫不拘的判斷：都轉換成小寫來比對
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
@@ -525,6 +543,7 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
+                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
