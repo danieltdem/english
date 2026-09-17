@@ -108,7 +108,7 @@
         }
         #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px;}
 
-        /* --- 練習模式樣式 (固定頂部) --- */
+        /* --- 練習模式樣式 --- */
         #practice-screen { 
             display: none; 
             background-color: #2c2c2c;
@@ -219,7 +219,7 @@
 
     <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
-        <img src="initial.png" alt="Menu" class="game-image">
+        <img src="initial.png" alt="Menu" class="game-image" onerror="this.style.display='none'">
         <h1>寧寧的英文單字挑戰</h1>
         <p>請選擇模式：</p>
         
@@ -236,9 +236,9 @@
 
     <!-- 2. 考試模式 -->
     <div id="exam-screen" class="container">
-        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image">
+        <img id="game-image" src="initial.png" alt="Game Scene" class="game-image" onerror="this.style.display='none'">
         <h1>單字拼寫測驗</h1>
-        <p id="exam-desc">請根據給出的中文意思，輸入正確的英文拼寫。順序隨機。</p>
+        <p>請根據給出的中文意思，輸入正確的英文拼寫。共15題，順序隨機。</p>
         <div id="question" style="font-size: 24px; margin: 20px 0;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)">
         <br>
@@ -277,29 +277,28 @@
     </div>
 
     <script>
-        // 15 個最新單字資料庫
+        // 全新單字庫
         const words = [
-            { en: 'beak', zh: '鳥喙／鳥嘴 (ㄋㄧㄠˇ ㄏㄨㄟˋ)', mnemonic: '發音聽起來像 `peek` (偷看)。小鳥正從樹洞裡探出牠的鳥嘴 (`beak`) 偷看你。' },
-            { en: 'feather', zh: '羽毛 (ㄩˇ ㄇㄠˊ)', mnemonic: '想像 `weather` (天氣)。天氣很冷的時候，鳥兒需要一層厚厚的羽毛 (`feather`) 保暖。' },
-            { en: 'mouth', zh: '嘴巴 (ㄗㄨㄟˇ ㄅㄚ˙)', mnemonic: '發音聽起來像 `mouse` (老鼠)。這隻貪吃的小老鼠把食物全都塞進了嘴巴 (`mouth`) 裡。' },
-            { en: 'tail', zh: '尾巴 (ㄨㄟˇ ㄅㄚ˙)', mnemonic: '發音與 `tale` (故事) 完全相同。每隻動物搖動牠的尾巴 (`tail`)，都像是在講述一個快樂的故事。' },
-            { en: 'scales', zh: '鱗片 (ㄌㄧㄣˊ ㄆㄧㄢˋ)', mnemonic: '`scale` 也有「磅秤」的意思。想像魚身上的每一片鱗片 (`scales`)，都像一個個微小的薄片在排列秤重。' },
-            { en: 'paw', zh: '爪子／肉掌 (ㄓㄨㄚˇ ㄗ˙)', mnemonic: '發音聽起來像貓狗輕輕伸出肉球時發出的「趴」(paw) 一聲，毛茸茸的爪子肉球就是 paw。' },
-            { en: 'car', zh: '汽車 (ㄑㄧˋ ㄔㄜ)', mnemonic: '`carry` (載送) 的前三個字母就是 car。汽車 (`car`) 的發明就是用來載送 (`carry`) 人與行李的。' },
-            { en: 'farm', zh: '農場 (ㄋㄨㄥˊ ㄔㄤˇ)', mnemonic: '想像農夫必須動用雙臂的力量 (`arm`) 在廣大的土地上辛苦耕作，這就是農場 (`farm`)。' },
-            { en: 'park', zh: '公園／停車 (ㄍㄨㄥ ㄩㄢˊ)', mnemonic: '想像開著 `car` (車子) 去找一個可以停放的地方，停好車後走進綠意盎然的公園 (`park`) 散步。' },
-            { en: 'star', zh: '星星 (ㄒㄧㄥ ㄒㄧㄥ)', mnemonic: '發音聽起來像 `start` (開始)。每當夜幕開始 (`start`) 降臨，天空中就會閃爍出美麗的星星 (`star`)。' },
-            { en: 'able', zh: '有能力的 (ㄧㄡˇ ㄋㄥˊ ㄌㄧˋ ㄉㄜ˙)', mnemonic: '想像有能力的人坐在圓桌 (`table`) 旁開會，拿掉首字母 t 就是 `able` (有能力的)。' },
-            { en: 'actor', zh: '男演員 (ㄧㄢˇ ㄩㄢˊ)', mnemonic: '由 `act` (行動、演出) + `or` (人) 組成。在舞台上充滿行動力展現演技的人就是演員 (`actor`)。' },
-            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '聽起來像 `buddy` (好夥伴)。你的身體 (`body`) 是陪伴你一生最親密的夥伴 (`buddy`)，一定要好好愛護它。' },
-            { en: 'bomb', zh: '炸彈 (ㄓㄚˋ ㄉㄢˋ)', mnemonic: '最後的字母 b 不發音。想像炸彈爆炸時發出巨響「砰 (bomb)」的一聲，震撼全場。' },
-            { en: 'daily', zh: '每日的 (ㄇㄟˇ ㄖˋ ㄉㄜ˙)', mnemonic: '來自 `day` (每一天)，把 y 改成 i 加上 ly，就變成了每天、每日的 (`daily`) 生活習慣。' }
+            { en: 'fur', zh: '毛皮 (ㄇㄠˊ ㄆㄧˊ)', mnemonic: '聽起來像 `fir` (冷杉)。冷杉在冬天可以禦寒，就像動物保暖的毛皮 (`fur`) 一樣。' },
+            { en: 'alike', zh: '相似的 (ㄒㄧㄤ ㄙˋ ㄉㄜ˙)', mnemonic: '`a` + `like` (像)。兩個事物彼此很「像」，也就是相似的 (`alike`)。' },
+            { en: 'body', zh: '身體 (ㄕㄣ ㄊㄧˇ)', mnemonic: '想像 `boy` (男孩) 中間抱著一隻 `d` (dog, 狗)。男孩和狗都有強壯的身體 (`body`)。' },
+            { en: 'different', zh: '不同的 (ㄅㄨˋ ㄊㄨㄥˊ ㄉㄜ˙)', mnemonic: '`differ` (不同) + `ent` (形容詞字尾)。本身就帶有差異、不同 (`different`) 的意思。' },
+            { en: 'feature', zh: '特徵 (ㄊㄜˋ ㄓㄥ)', mnemonic: '聽起來像 `future` (未來)。未來的科技產品都會有很多酷炫的新特徵 (`feature`)。' },
+            { en: 'look', zh: '看 (ㄎㄢˋ)', mnemonic: '中間的兩個 `o` 就像兩顆圓滾滾的大眼睛，正盯著你看 (`look`)。' },
+            { en: 'bird', zh: '鳥 (ㄋㄧㄠˇ)', mnemonic: '`b` (發音像「飛」的氣音) + `ird`。能在天空自由飛翔的動物就是鳥 (`bird`)。' },
+            { en: 'nurse', zh: '護士 (ㄏㄨˋ ㄕˋ)', mnemonic: '`nur` (發音像 nurture，照顧) + `se`。在醫院裡專門照顧病人的人就是護士 (`nurse`)。' },
+            { en: 'girl', zh: '女孩 (ㄋㄩˇ ㄏㄞˊ)', mnemonic: '`g` (great, 棒) + `irl` (in real life, 現實生活)。現實生活中很棒的女孩 (`girl`)。' },
+            { en: 'purple', zh: '紫色 (ㄗˇ ㄙㄜˋ)', mnemonic: '`purr` (貓咪打呼嚕聲) + `ple` (apple 蘋果)。想像一隻貓咪抱著一顆紫色的 (`purple`) 蘋果開心打呼嚕。' },
+            { en: 'gain', zh: '獲得 (ㄏㄨㄛˋ ㄉㄜˊ)', mnemonic: '聽起來像中文的「給恩」。別人給了你恩惠，你就會獲得 (`gain`) 幫助與感謝。' },
+            { en: 'inside', zh: '在...裡面 (ㄗㄞˋ ... ㄌㄧˇ ㄇㄧㄢˋ)', mnemonic: '`in` (在內) + `side` (邊/側)。在內側的位置，也就是在...裡面 (`inside`)。' },
+            { en: 'jazz', zh: '爵士樂 (ㄐㄩㄝˊ ㄕˋ ㄩㄝˋ)', mnemonic: '發音直接音譯過來就是「爵士」(`jazz`) 樂，充滿節奏感的音樂。' },
+            { en: 'jeans', zh: '牛仔褲 (ㄋㄧㄡˊ ㄗㄞˇ ㄎㄨˋ)', mnemonic: '聽起來像 `genes` (基因)。擁有好基因的人，穿上牛仔褲 (`jeans`) 身材都顯得特別好看。' },
+            { en: 'hero', zh: '英雄 (ㄧㄥ ㄒㄩㄥˊ)', mnemonic: '`he` (他) + `row` (划船)。他划船穿越暴風雨來拯救大家，真是個了不起的英雄 (`hero`)。' }
         ];
 
         /* --- 語音朗讀 API --- */
         function speakWord(word) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // 停止先前的發音
                 const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
                 window.speechSynthesis.speak(utterance);
@@ -331,6 +330,7 @@
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
             document.body.classList.remove('practice-mode');
+            
             startGame(words);
         }
 
@@ -381,7 +381,7 @@
             });
         }
 
-        // 監聽 Enter 批改練習
+        // 監聽整個練習列表的 Enter 鍵
         document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 toggleAllAnswers();
@@ -413,7 +413,7 @@
                     } else {
                         input.classList.add('wrong');
                         input.classList.remove('correct');
-                        mnemonicDiv.style.display = 'block'; // 答錯或空白顯示提示
+                        mnemonicDiv.style.display = 'block';
                     }
                 });
 
@@ -451,15 +451,17 @@
             wrongWords = [];
             isWaitingToContinue = false;
             
-            document.getElementById('exam-desc').textContent = `請根據給出的中文意思，輸入正確的英文拼寫。共 ${totalQuestions} 題，順序隨機。`;
             document.getElementById('exam-restart').style.display = 'none';
             document.getElementById('exam-retest').style.display = 'none';
             document.getElementById('wrong-words').textContent = '';
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
             document.getElementById('exam-submit').textContent = '提交';
-            document.getElementById('game-image').src = 'initial.png';
             document.getElementById('mnemonic').style.display = 'none';
+            
+            const img = document.getElementById('game-image');
+            img.src = 'initial.png';
+            img.style.display = 'inline-block';
             
             nextQuestion();
         }
@@ -515,7 +517,6 @@
                 document.getElementById('exam-result').style.color = 'red';
                 document.getElementById('game-image').src = 'incorrect.png';
                 
-                // 答錯顯示提示與朗讀按鈕
                 const mnemonicEl = document.getElementById('mnemonic');
                 mnemonicEl.innerHTML = `
                     💡 <b>記憶提示：</b>${q.mnemonic}
@@ -557,7 +558,7 @@
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
-        // 事件監聽綁定
+        // 綁定考試模式事件
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
@@ -569,6 +570,7 @@
                 startGame(retestWords);
             }
         });
+
     </script>
 </body>
 </html>
