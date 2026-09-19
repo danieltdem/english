@@ -1,955 +1,1098 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit 2 Articles 冠詞全攻略 互動評量測驗</title>
+  <title>寧寧專屬英語教室・Unit 2 Articles 冠詞全攻略 30 題實戰闖關測驗</title>
   <style>
     :root {
-      --primary: #2b6cb0;
-      --primary-dark: #2c5282;
-      --accent: #dd6b20;
-      --bg: #f7fafc;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --bg: #f8fafc;
       --card-bg: #ffffff;
-      --text: #2d3748;
-      --text-muted: #718096;
+      --text: #1e293b;
+      --text-muted: #64748b;
       --border: #e2e8f0;
-      --success-bg: #f0fff4;
-      --success-border: #38a169;
-      --success-text: #22543d;
-      --error-bg: #fff5f5;
-      --error-border: #e53e3e;
-      --error-text: #742a2a;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
     }
-
-    header {
-      background: linear-gradient(135deg, #2b6cb0 0%, #319795 100%);
+    .header {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
       color: white;
-      padding: 30px 20px;
+      padding: 40px 20px;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(79, 70, 229, 0.25);
     }
-
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-    }
-
-    .sub-title {
-      font-size: 0.95rem;
-      opacity: 0.9;
-      margin-bottom: 15px;
-    }
-
-    .progress-box {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      padding: 6px 15px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-
-    .progress-bar-container {
-      width: 140px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background-color: #ffd700;
-      transition: width 0.3s ease;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .score-card {
-      display: none;
-      background: white;
-      border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-      text-align: center;
-      border-top: 6px solid var(--accent);
-    }
-
-    .score-card.active {
-      display: block;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .score-badge {
-      display: inline-block;
-      padding: 6px 18px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-    }
-
-    .score-number {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .score-stats {
+    .header h1 { font-size: 1.85rem; margin-bottom: 8px; font-weight: 800; }
+    .header p { font-size: 1rem; opacity: 0.92; max-width: 780px; margin: 0 auto; }
+    .header .meta-tags {
+      margin-top: 16px;
       display: flex;
       justify-content: center;
-      gap: 30px;
-      margin-top: 15px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
+      gap: 10px;
+      flex-wrap: wrap;
     }
+    .meta-tag {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 900px;
+      margin: -24px auto 0;
+      padding: 0 16px;
+    }
+    .tracker-card {
+      background: var(--card-bg);
+      padding: 18px 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+    }
+    .progress-info { font-weight: 700; font-size: 1rem; color: var(--primary); }
+    .progress-bar-container {
+      flex: 1;
+      max-width: 320px;
+      height: 10px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 0 16px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4f46e5, #10b981);
+      transition: width 0.3s ease;
+    }
+    .nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+      padding: 14px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .nav-dot {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-dot.answered { background: var(--primary-light); color: var(--primary); }
+    .nav-dot.correct { background: var(--success); color: white; }
+    .nav-dot.incorrect { background: var(--danger); color: white; }
+    .nav-dot:hover { transform: translateY(-2px); }
 
     .question-card {
       background: var(--card-bg);
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
     }
-
-    .question-card:hover {
-      border-color: #cbd5e0;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
-    }
-
-    .q-meta {
+    .q-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-
-    .q-number {
-      font-weight: 700;
+    .q-badge {
+      background: var(--primary-light);
       color: var(--primary);
-      font-size: 0.95rem;
-    }
-
-    .q-category {
-      background: #edf2f7;
-      color: #4a5568;
-      font-size: 0.75rem;
-      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
       border-radius: 12px;
-      font-weight: 600;
     }
-
-    .q-stem {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      color: #1a202c;
-    }
-
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
+    .q-num { font-weight: 800; color: var(--text-muted); font-size: 0.95rem; }
+    .q-stem { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .options-list { display: flex; flex-direction: column; gap: 10px; }
     .option-label {
       display: flex;
       align-items: center;
       padding: 12px 16px;
+      border-radius: 8px;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
       cursor: pointer;
-      font-size: 0.98rem;
-      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.18s ease;
       position: relative;
     }
-
     .option-label:hover {
-      background-color: #ebf8ff;
-      border-color: #bee3f8;
+      background: #f8fafc;
+      border-color: #cbd5e1;
     }
-
     .option-label input[type="radio"] {
       margin-right: 12px;
-      accent-color: var(--primary);
       width: 17px;
       height: 17px;
+      accent-color: var(--primary);
       cursor: pointer;
     }
-
     .option-label.selected {
       border-color: var(--primary);
-      background-color: #f7fafc;
-      font-weight: 500;
-    }
-
-    /* 作答評分狀態樣式 */
-    .option-label.is-correct {
-      background-color: var(--success-bg) !important;
-      border-color: var(--success-border) !important;
-      color: var(--success-text) !important;
+      background: var(--primary-light);
+      color: var(--primary);
       font-weight: 600;
     }
-
+    .option-label.is-correct {
+      border-color: var(--success) !important;
+      background: var(--success-light) !important;
+      color: #065f46 !important;
+      font-weight: 700;
+    }
     .option-label.is-wrong {
-      background-color: var(--error-bg) !important;
-      border-color: var(--error-border) !important;
-      color: var(--error-text) !important;
+      border-color: var(--danger) !important;
+      background: var(--danger-light) !important;
+      color: #991b1b !important;
     }
 
     .explanation-box {
       display: none;
-      margin-top: 16px;
+      margin-top: 18px;
       padding: 16px;
-      border-radius: 10px;
-      background-color: #f7fafc;
+      border-radius: 8px;
+      background: #f8fafc;
       border-left: 4px solid var(--primary);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
-
-    .explanation-box.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .exp-title {
-      font-weight: bold;
-      color: var(--primary-dark);
-      margin-bottom: 6px;
-    }
-
-    .exp-body p {
-      margin-bottom: 4px;
-    }
-
+    .explanation-box.visible { display: block; }
+    .exp-title { font-weight: 800; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .exp-item { margin-bottom: 5px; }
     .exp-tip {
-      margin-top: 6px;
-      font-weight: 600;
-      color: var(--accent);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      color: #047857;
+      font-weight: 700;
     }
 
     .actions-bar {
+      margin-top: 30px;
       display: flex;
-      justify-content: center;
       gap: 16px;
-      margin-top: 40px;
+      justify-content: center;
     }
-
     .btn {
       padding: 14px 32px;
+      border-radius: 99px;
       font-size: 1rem;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
+      font-weight: 700;
       border: none;
+      cursor: pointer;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-
-    .btn-submit {
-      background-color: var(--primary);
+    .btn-primary {
+      background: var(--primary);
       color: white;
-      box-shadow: 0 4px 6px rgba(43, 108, 176, 0.3);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
     }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .btn-secondary:hover { background: #cbd5e1; }
 
-    .btn-submit:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-1px);
+    .result-card {
+      display: none;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 28px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 2px solid var(--primary);
     }
-
-    .btn-reset {
-      background-color: #e2e8f0;
-      color: #4a5568;
+    .score-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
     }
-
-    .btn-reset:hover {
-      background-color: #cbd5e0;
+    .score-num { font-size: 2.5rem; font-weight: 900; line-height: 1; }
+    .score-max { font-size: 0.85rem; opacity: 0.85; }
+    .result-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+    .result-feedback { font-size: 1rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 20px; line-height: 1.6; }
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+    .stat-badge {
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
     }
+    .badge-correct { background: var(--success-light); color: #065f46; }
+    .badge-wrong { background: var(--danger-light); color: #991b1b; }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-content">
-      <h1>Unit 2 Articles 冠詞大冒險・互動通關測驗</h1>
-      <div class="sub-title">依據「楊馥寧文法_Unit2_冠詞Articles全攻略_注音教學版」設計・共 30 題</div>
-      <div class="progress-box">
-        <span>已作答：<span id="answered-count">0</span> / 30</span>
-        <div class="progress-bar-container">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-      </div>
+  <header class="header">
+    <h1>🐿️ 寧寧專屬英語教室・Unit 2 冠詞 Articles 全攻略</h1>
+    <p>30 題實戰闖關測驗：請仔細觀察發音、特指與專有名詞，選出「語法完全正確」的句子！</p>
+    <div class="meta-tags">
+      <span class="meta-tag">📚 題目總數：30 題</span>
+      <span class="meta-tag">🎯 題型：選出正確句子</span>
+      <span class="meta-tag">💡 含逐題詳細解析與通關口訣</span>
     </div>
   </header>
 
-  <main class="container">
-    <!-- 成績評分卡 -->
-    <section class="score-card" id="score-card">
-      <div class="score-badge" id="score-badge"></div>
-      <div class="score-number" id="score-number">0 分</div>
-      <p id="score-comment"></p>
-      <div class="score-stats">
-        <div>答對：<strong id="correct-count" style="color: var(--success-border);">0</strong> 題</div>
-        <div>答錯：<strong id="wrong-count" style="color: var(--error-border);">0</strong> 題</div>
-        <div>正確率：<strong id="accuracy-rate">0%</strong></div>
+  <div class="container">
+    <div class="tracker-card">
+      <div class="progress-info" id="progressText">已作答: 0 / 30 題</div>
+      <div class="progress-bar-container">
+        <div class="progress-fill" id="progressFill"></div>
       </div>
-    </section>
-
-    <!-- 測驗題目容器 -->
-    <div id="quiz-container"></div>
-
-    <!-- 控制按鈕 -->
-    <div class="actions-bar">
-      <button class="btn btn-submit" id="submit-btn" onclick="gradeQuiz()">交卷評分 (Submit)</button>
-      <button class="btn btn-reset" id="reset-btn" onclick="resetQuiz()">重新測驗 (Reset)</button>
+      <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="resetQuiz()">重置全部</button>
     </div>
-  </main>
+
+    <div class="nav-grid" id="navGrid"></div>
+
+    <div class="result-card" id="resultCard">
+      <div class="score-circle">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-max">/ 100 分</div>
+      </div>
+      <div class="result-title" id="resultTitle">評分完成</div>
+      <div class="stats-row">
+        <div class="stat-badge badge-correct" id="statCorrect">答對：0 題</div>
+        <div class="stat-badge badge-wrong" id="statWrong">答錯：0 題</div>
+      </div>
+      <p class="result-feedback" id="resultFeedback"></p>
+      <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">向上檢視逐題詳解 🔍</button>
+    </div>
+
+    <form id="quizForm">
+      <div id="questionsContainer"></div>
+
+      <div class="actions-bar">
+        <button type="button" class="btn btn-primary" id="submitBtn" onclick="gradeQuiz()">完成作答，送出評分 ✨</button>
+        <button type="button" class="btn btn-secondary" onclick="resetQuiz()">清空重測 🔄</button>
+      </div>
+    </form>
+  </div>
 
   <script>
-    // 30 題完整題庫資料庫
-    const quizData = [
+    const questionsData = [
       {
         id: 1,
-        category: "核心概念・發音機制",
-        stem: "1. 為什麼英文名詞前面有時候要用 an 而不是 a？",
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. 為了讓句子長度看起來更平均",
-          "B. 避免兩個母音碰在一起發音打結卡住，唸起來更順暢",
-          "C. 只有在句子最開頭的第一個單字才能用 an",
-          "D. 只要名詞字母超過五個字就必須用 an"
+          "Look at that a onion on the cutting board.",
+          "My mom puts an onion into the vegetable soup.",
+          "I want to buy a onion and a egg for breakfast.",
+          "This is an potato from our grandfather's farm."
         ],
         answer: 1,
-        explain: "【課本 P.4 原文核心】如果唸 a apple 兩個母音碰在一起會卡住；加上 n 變成 an apple，發音更圓潤順暢！",
-        wrongExplain: "an 的存在完全是出於『語音流暢度』的考量，與字母長短或句子位置無關。",
-        tip: "口訣：母音開頭戴 an，唸起來順口不打結！"
+        rule: "課本 P.7 Part A 蔬菜湯：onion 首音是母音 /ʌ/，必須搭配 an；potato 首音是子音 /p/ 搭配 a。",
+        analysis: [
+          "A 錯誤：onion 首音是母音，不能寫 a onion。",
+          "B 正確：onion 是母音開頭，使用 an onion 完全正確！",
+          "C 錯誤：a onion 與 a egg 皆錯，兩者首音均為母音，應為 an onion 與 an egg。",
+          "D 錯誤：potato 首音是子音 /p/，應搭配 a，寫 an potato 錯誤。"
+        ],
+        tip: "母音發音開頭（A, E, I, O, U 聲音）戴 an 帽子！"
       },
       {
         id: 2,
-        category: "判定秘技・黃金鐵則",
-        stem: "2. 決定單數可數名詞前面要戴 a 還是 an 帽子的「黃金鐵則」是什麼？",
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. 只看該名詞的第一個英文字母是不是 a, e, i, o, u",
-          "B. 聽緊貼在帽子後面的『第一個發音』是母音還是子音",
-          "C. 看該名詞是男生還是女生",
-          "D. 看該名詞是人類還是動物"
+          "The cute squirrel says, \"I am an animal.\"",
+          "The cute squirrel says, \"I am a animal.\"",
+          "The little boy says, \"I see an squirrel in the walnut tree.\"",
+          "He says, \"This is an dog from America.\""
         ],
-        answer: 1,
-        explain: "【課本 P.5 黃金鐵則】看『發音』，不是只看字母！一定要看緊貼著帽子後面的第一個音。",
-        wrongExplain: "若只看字母容易掉入陷阱（如加上形容詞後的變化）。性別與生物分類更與冠詞規則無關。",
-        tip: "口訣：聽聲音選帽子，誰緊貼在後面就由誰的發音決定！"
+        answer: 0,
+        rule: "課本 P.6 漫畫第 1 格：I'm a squirrel. I am an animal.",
+        analysis: [
+          "A 正確：animal 首音是母音 /æ/，搭配 an animal 完全正確！",
+          "B 錯誤：animal 首音是母音，不能用 a animal。",
+          "C 錯誤：squirrel 首音是子音 /s/，應戴 a 帽子，an squirrel 錯誤。",
+          "D 錯誤：dog 首音是子音 /d/，應戴 a 帽子，an dog 錯誤。"
+        ],
+        tip: "唸唸看：若唸 a animal 會卡住，戴上 an 唸成 an animal 才順暢！"
       },
       {
         id: 3,
-        category: "課本實戰・蔬菜湯 Part A",
-        stem: "3. 課本 P.7 蔬菜湯題目：_____ onion（洋蔥），前面該填入什麼冠詞？",
-        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
-        answer: 1,
-        explain: "【課本 P.7 Part A 第 1 題】onion 的首音為母音 /ʌ/，以母音開頭的單數可數名詞戴 an 帽子，故為 an onion。",
-        wrongExplain: "onion 為母音開頭，不能填 a；初次介紹物品蔬菜名稱，不填 the。",
-        tip: "常考母音：apple, onion, egg, animal, orange 都是 an！"
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
+        options: [
+          "She eats a egg and toast every morning.",
+          "Please give me an lemon for the salad juice.",
+          "There is an egg on the kitchen table.",
+          "He picks an carrot from the garden."
+        ],
+        answer: 2,
+        rule: "課本 P.7 Part A：egg（/e/ 母音）用 an；lemon（/l/ 子音）與 carrot（/k/ 子音）用 a。",
+        analysis: [
+          "A 錯誤：egg 首音是母音 /e/，應戴 an 帽子，a egg 錯誤。",
+          "B 錯誤：lemon 首音是子音 /l/，應戴 a 帽子，an lemon 錯誤。",
+          "C 正確：egg 首音為母音，搭配 an egg 完全正確！",
+          "D 錯誤：carrot 首音是子音 /k/，應戴 a 帽子，an carrot 錯誤。"
+        ],
+        tip: "母音發音選 an，子音發音選 a！"
       },
       {
         id: 4,
-        category: "課本實戰・蔬菜湯 Part A",
-        stem: "4. 課本 P.7 蔬菜湯題目：_____ potato（馬鈴薯），前面該填入什麼冠詞？",
-        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
-        answer: 0,
-        explain: "【課本 P.7 Part A 第 2 題】potato 的首音為子音 /p/，子音發音開頭配 a 帽子，故為 a potato。",
-        wrongExplain: "/p/ 是子音發音，不能戴 an 帽子。",
-        tip: "子音開頭：a potato, a carrot, a tomato, a lemon。"
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
+        options: [
+          "The hunter has this is a arrow.",
+          "The brave little boy found an arrow in the tall grass.",
+          "He made a arrow with wood and sharp stone.",
+          "Is that a arrow painted on the target?"
+        ],
+        answer: 1,
+        rule: "課本 P.8 Part E 改錯題第 4 題：arrow 首音是母音 /æ/，必須使用 an arrow。",
+        analysis: [
+          "A 錯誤：a arrow 發音錯誤，且句型結構重疊混亂。",
+          "B 正確：arrow 是母音 /æ/ 開頭，前面搭配 an arrow 完全正確！",
+          "C 錯誤：a arrow 錯誤，必須改為 an arrow。",
+          "D 錯誤：a arrow 錯誤，必須改為 an arrow。"
+        ],
+        tip: "箭矢 arrow 是 A 開頭的母音字，一定要戴 an！"
       },
       {
         id: 5,
-        category: "課本實戰・蔬菜湯 Part A",
-        stem: "5. 課本 P.7 蔬菜湯題目：_____ egg（雞蛋），前面該填入什麼冠詞？",
-        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
-        answer: 1,
-        explain: "【課本 P.7 Part A 第 6 題】egg 的首音為母音 /e/，母音開頭配 an 帽子，故為 an egg。",
-        wrongExplain: "egg 是母音開頭，若填 a 就會變成 a egg，發音會撞在一起卡住。",
-        tip: "egg 與 animal, arrow, apple 一樣，都要戴 an 帽子！"
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
+        options: [
+          "The big tree in our forest is a walnut tree.",
+          "The big tree in our forest is an walnut tree.",
+          "That small bird is an walnut eater.",
+          "Look! There is a owl resting in an walnut tree."
+        ],
+        answer: 0,
+        rule: "課本 P.6 漫畫第 3 格：The big tree is a walnut tree. walnut 首音為子音 /w/。",
+        analysis: [
+          "A 正確：walnut 首音是子音 /w/，搭配 a walnut 完全正確！",
+          "B 錯誤：walnut 是子音開頭，不能寫 an walnut。",
+          "C 錯誤：walnut 開頭為子音，不能寫 an walnut。",
+          "D 錯誤：owl（/aʊ/ 母音）應搭配 an owl；walnut 應搭配 a walnut tree。"
+        ],
+        tip: "walnut 雖然有 w，但發音是子音 /w/，所以配 a！"
       },
       {
         id: 6,
-        category: "易錯陷阱・形容詞修飾",
-        stem: "6. 原本是 an apple，如果在前面加上形容詞 green，應該變成下列何者？",
+        cat: "a vs. an 發音法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. an green apple",
-          "B. a green apple",
-          "C. the green apples",
-          "D. green a apple"
+          "She peeled a orange after dinner.",
+          "Can I have an orange from the basket, please?",
+          "That pretty girl is an dancer in our school club.",
+          "My elder brother is an student at this middle school."
         ],
         answer: 1,
-        explain: "【課本 P.5 實戰對比 1】當名詞前面加上形容詞時，帽子 a/an 是看『緊貼著的形容詞』發音！green 是子音 /ɡ/ 開頭，所以必須改成 a green apple。",
-        wrongExplain: "寫 an green apple 是考試超大陷阱！帽子絕不能放在形容詞後面，也不能任意改為複數。",
-        tip: "口訣：誰緊貼在帽子後面，就由誰的發音來決定戴 a 還是 an！"
+        rule: "課本 P.7 & P.8：orange 首音是母音 /ɔː/；dancer（/d/）與 student（/s/）皆為子音。",
+        analysis: [
+          "A 錯誤：orange 首音是母音 /ɔː/，應戴 an 帽子，寫 a orange 錯誤。",
+          "B 正確：orange 為母音發音開頭，搭配 an orange 完全正確！",
+          "C 錯誤：dancer 首音是子音 /d/，應為 a dancer，an dancer 錯誤。",
+          "D 錯誤：student 首音是子音 /s/，應為 a student，an student 錯誤。"
+        ],
+        tip: "柳橙、橘色 orange 首音是母音，一定要戴 an！"
       },
       {
         id: 7,
-        category: "易錯陷阱・形容詞修飾",
-        stem: "7. 原本是 a boat，如果在前面加上形容詞 orange，應該變成下列何者？",
+        cat: "形容詞修飾法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. a orange boat",
-          "B. an orange boat",
-          "C. the boats orange",
-          "D. one orange boat"
+          "My little sister gave me an green apple yesterday.",
+          "There is a green apple and a red apple on the table.",
+          "Look at that an red apple in the picnic basket.",
+          "I prefer an fresh apple over a pear."
         ],
         answer: 1,
-        explain: "【課本 P.5 & P.8 實戰對比 2】orange 是母音 /ɔː/ 開頭，緊貼在帽子後面的字變成母音開頭，因此帽子必須換成 an，寫成 an orange boat。",
-        wrongExplain: "a orange boat 發音會卡住；the boats orange 語序錯誤。",
-        tip: "注意：Look! That is an orange boat.（課本 P.8 經典句）"
+        rule: "課本 P.6 LOOK 框框：A green apple and a red apple. 緊貼著冠詞的 green 是子音 /ɡ/，必須用 a！",
+        analysis: [
+          "A 錯誤：緊貼冠詞的是 green（子音 /ɡ/），必須用 a green apple，不能看後面的 apple 而選 an！",
+          "B 正確：green 是子音用 a green apple，red 是子音用 a red apple，完全正確！",
+          "C 錯誤：red 是子音開頭，必須用 a red apple，寫 an red apple 錯誤。",
+          "D 錯誤：fresh 是子音 /f/ 開頭，必須用 a fresh apple，寫 an fresh apple 錯誤。"
+        ],
+        tip: "黃金口訣：「誰緊貼在帽子後面，就由誰的發音來決定戴 a 還是 an！」"
       },
       {
         id: 8,
-        category: "課本除錯・Part E",
-        stem: "8. 課本 P.8 改錯題：\"This is a arrow.\" 這句話該如何修正？",
+        cat: "形容詞修飾法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. This is an arrow.",
-          "B. That is a arrow.",
-          "C. This is the arrows.",
-          "D. This are a arrow."
+          "Look! That is a orange boat floating on the sea.",
+          "Look! That is an orange boat floating on the sea.",
+          "The old fisherman has a old boat near the dock.",
+          "My father bought an blue boat for our family trip."
         ],
-        answer: 0,
-        explain: "【課本 P.8 & P.16 Exercise E】arrow（箭）的第一個音是母音 /æ/，前面不能用 a，必須改為 an arrow！",
-        wrongExplain: "更換為 That 無法解決 a arrow 的文法錯誤；arrows 複數不能加 a；This 不能搭配 are。",
-        tip: "抓蟲筆記：arrow 是母音發音開頭，一律戴 an！"
+        answer: 1,
+        rule: "課本 P.8 Part D 場景 3：That is an orange boat. orange 首音為母音 /ɔː/，必須搭配 an！",
+        analysis: [
+          "A 錯誤：緊貼著冠詞的是 orange（母音開頭），必須寫 an orange boat，寫 a 錯誤。",
+          "B 正確：緊貼冠詞的 orange 是母音發音，搭配 an orange boat 完全正確！",
+          "C 錯誤：old 首音是母音 /oʊ/，應為 an old boat，寫 a old boat 錯誤。",
+          "D 錯誤：blue 首音是子音 /b/，應為 a blue boat，寫 an blue boat 錯誤。"
+        ],
+        tip: "原本是 a boat，但加上 orange 之後，緊貼帽子的是母音，立刻換成 an orange boat！"
       },
       {
         id: 9,
-        category: "核心概念・定冠詞 the",
-        stem: "9. 什麼是「定冠詞 the」的核心意涵？",
+        cat: "形容詞修飾法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. 代表『任何一個』，聽話的人不知道是指哪一個",
-          "B. 代表『特定的』，說話雙方心裡都清楚明白是指『那一個』或『那些』",
-          "C. 只能用在複數名詞前面，單數名詞絕對不能用",
-          "D. 只能放在疑問句的句首"
+          "He isn't an good tennis player in our club.",
+          "He isn't a good tennis player in our club.",
+          "He isn't a tennis player good in our club.",
+          "He isn't good a tennis player in our club."
         ],
         answer: 1,
-        explain: "【課本 P.6 核心概念 3】the 稱為定冠詞，代表『特定的』對象，雙方都明白指的是哪一個或哪些！",
-        wrongExplain: "『泛指任何一個』是不定冠詞 a/an 的功能；the 具備單複數通用的超能力，並非只能用在複數或疑問句首。",
-        tip: "定冠詞 the = 大家都知道的那一個！"
+        rule: "課本 P.7 Part C 重組小火車第 2 題：He isn't a good tennis player. good 為子音 /ɡ/ 配 a。",
+        analysis: [
+          "A 錯誤：good 首音是子音 /ɡ/，應搭配 a，寫 an good 錯誤。",
+          "B 正確：否定句結構完整，good 是子音開頭搭配 a good tennis player 完全正確！",
+          "C 錯誤：形容詞 good 應置於名詞 tennis player 之前，語序顛倒。",
+          "D 錯誤：冠詞 a 應置於整個名詞片語的最前方，語序混亂。"
+        ],
+        tip: "小火車排排坐：主詞 (He) + 否定動詞 (isn't) + 名詞片語 (a good tennis player)！"
       },
       {
         id: 10,
-        category: "初次 vs 再次・課本 Part B",
-        stem: "10. 課本 P.7 Part B：\"This is _____ fish. _____ red fish is small.\" 兩空格應依序填入？",
+        cat: "形容詞修飾法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. a ; The",
-          "B. the ; A",
-          "C. an ; The",
-          "D. - ; The"
+          "You are an famous singer in our town.",
+          "You are a famous singer in our town.",
+          "You are a singer famous in our town.",
+          "Are you an famous singer in our town?"
         ],
-        answer: 0,
-        explain: "【課本 P.7 Part B 第 1 題】前半句初次介紹這是一條魚用 a fish；後半句再次提到並指明那條紅色的魚，改用 The red fish！",
-        wrongExplain: "fish 是子音開頭不能用 an；第一句初次登場不能直接用 the。",
-        tip: "口訣：初次見面戴 a 帽，再次指明換 The 上場！"
+        answer: 1,
+        rule: "課本 P.7 Part C 重組小火車第 4 題：You are a famous singer. famous 為子音 /f/ 開頭配 a。",
+        analysis: [
+          "A 錯誤：famous 首音是子音 /f/，應戴 a 帽子，寫 an famous 錯誤。",
+          "B 正確：主詞 You + are + a famous singer，文法語序與冠詞完全正確！",
+          "C 錯誤：形容詞 famous 應置於名詞 singer 前面。",
+          "D 錯誤：famous 是子音開頭，依然不能用 an famous。"
+        ],
+        tip: "famous 是 /f/ 子音，帽子請選 a！"
       },
       {
         id: 11,
-        category: "初次 vs 再次・課本 Part B",
-        stem: "11. 課本 P.7 Part B：\"She is _____ dancer. _____ tall dancer is beautiful.\" 兩空格應依序填入？",
+        cat: "形容詞修飾法則",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. the ; A",
-          "B. a ; The",
-          "C. an ; The",
-          "D. - ; A"
+          "This is an yellow house with a lovely garden.",
+          "This is a yellow house with a lovely garden.",
+          "That is an new church built on the hill.",
+          "Here is a elegant guitar placed on the sofa."
         ],
         answer: 1,
-        explain: "【課本 P.7 Part B 第 2 題】第一句介紹職業身分用 a dancer；第二句特指那位身材高挑的舞者，改用 The tall dancer！",
-        wrongExplain: "dancer 是子音開頭不能配 an；初次介紹身分職業習慣使用 a/an。",
-        tip: "加了 tall 特徵再次指明特定人物，立刻請 The 出場！"
+        rule: "課本 P.8 Part D 場景 4：This is a yellow house. yellow 首音為半母音/子音 /j/，前面配 a！",
+        analysis: [
+          "A 錯誤：yellow 的音標是 /ˈjel.oʊ/，首音是子音 /j/，前面要戴 a，寫 an 是經典陷阱！",
+          "B 正確：yellow 是子音 /j/ 開頭，搭配 a yellow house 完全正確！",
+          "C 錯誤：new 首音是子音 /n/，應為 a new church，寫 an new 錯誤。",
+          "D 錯誤：elegant 首音是母音 /e/，應為 an elegant guitar，寫 a elegant 錯誤。"
+        ],
+        tip: "大陷阱：yellow 的 Y 發音是 /j/（子音），前面絕對是戴 a 帽子！"
       },
       {
         id: 12,
-        category: "初次 vs 再次・課本 Part B",
-        stem: "12. 課本 P.7 Part B：\"This is _____ bow. _____ long bow is old.\" 兩空格應依序填入？",
+        cat: "初次提到 vs. 再次提到",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. a ; The",
-          "B. the ; The",
-          "C. an ; A",
-          "D. a ; An"
+          "This is a fish. A red fish is small.",
+          "This is the fish. The red fish is small.",
+          "This is a fish. The red fish is small.",
+          "This is an fish. A red fish is small."
         ],
-        answer: 0,
-        explain: "【課本 P.7 Part B 第 3 題】第一句初次介紹這是一把弓用 a bow；第二句特指那把長長的弓，改用 The long bow！",
-        wrongExplain: "bow 是子音發音不能配 an；long 是子音發音也不能配 an。",
-        tip: "解題心法：前句初次介紹戴 a 帽，後句加上特徵形容詞換 The！"
+        answer: 2,
+        rule: "課本 P.7 Part B 習題第 1 題：初次見面戴 a，加上特徵再次指明換 The！",
+        analysis: [
+          "A 錯誤：後半句再次提到該條魚並特指「那條紅色的魚」，必須換成 The red fish。",
+          "B 錯誤：前半句第一次向大家介紹出場，應使用不定冠詞 a fish，不能直接用 the。",
+          "C 正確：前半句初次介紹用 a fish，後半句特指那條紅色的魚用 The red fish，完全正確！",
+          "D 錯誤：fish 是子音開頭不能用 an，後半句特指亦不能用 A。"
+        ],
+        tip: "初次見面 a / an，再次提到大家都知道了，立刻請 The 上場！"
       },
       {
         id: 13,
-        category: "初次 vs 再次・課本 Part B",
-        stem: "13. 課本 P.7 Part B：\"This is _____ squirrel. _____ fat squirrel is sad.\" 兩空格應依序填入？",
+        cat: "初次提到 vs. 再次提到",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. an ; The",
-          "B. a ; The",
-          "C. the ; A",
-          "D. a ; A"
+          "She is a dancer. The tall dancer is beautiful.",
+          "She is the dancer. A tall dancer is beautiful.",
+          "She is an dancer. The tall dancer is beautiful.",
+          "She is a dancer. A tall dancer is beautiful."
         ],
-        answer: 1,
-        explain: "【課本 P.7 Part B 第 4 題】第一句初次看見松鼠用 a squirrel；第二句特指那隻圓滾滾的胖松鼠，改用 The fat squirrel！",
-        wrongExplain: "squirrel 是子音 /sk/ 開頭，不能用 an；第二句有了 fat 指明特定對象，不能繼續用 a。",
-        tip: "小松鼠情境：This is a squirrel. The fat squirrel is sad."
+        answer: 0,
+        rule: "課本 P.7 Part B 習題第 2 題：She is a dancer. The tall dancer is beautiful.",
+        analysis: [
+          "A 正確：初次介紹職業身分用 a dancer，再次指明那位高挑舞者用 The tall dancer，完全正確！",
+          "B 錯誤：第一句初次介紹身分應為 a dancer；第二句特指應為 The tall dancer。",
+          "C 錯誤：dancer 首音是子音 /d/，不能寫 an dancer。",
+          "D 錯誤：第二句已有了具體特徵指明是誰，必須改用定冠詞 The。"
+        ],
+        tip: "身份登場戴 a 帽，指名道姓請出 The！"
       },
       {
         id: 14,
-        category: "初次 vs 再次・課本 Part B",
-        stem: "14. 課本 P.7 Part B：\"He is _____ student. _____ short student is clever.\" 兩空格應依序填入？",
+        cat: "初次提到 vs. 再次提到",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. a ; The",
-          "B. the ; The",
-          "C. an ; The",
-          "D. a ; A"
+          "This is the bow. A long bow is old.",
+          "This is a bow. A long bow is old.",
+          "This is a bow. The long bow is old.",
+          "This is an bow. The long bow is old."
         ],
-        answer: 0,
-        explain: "【課本 P.7 Part B 第 5 題】第一句初次介紹身分用 a student；第二句指定那位矮個子學生，改用 The short student！",
-        wrongExplain: "student 為子音開頭不能用 an；第二句已經具備特定指向，必須用 The。",
-        tip: "初次見面 a student，再次指定 The short student！"
+        answer: 2,
+        rule: "課本 P.7 Part B 習題第 3 題：This is a bow. The long bow is old.",
+        analysis: [
+          "A 錯誤：初次介紹物品應使用 a bow，後句特指該長弓應使用 The long bow。",
+          "B 錯誤：第二句特指那把長弓，應改用定冠詞 The。",
+          "C 正確：初次提到用 a bow，再次指明用 The long bow，完全正確！",
+          "D 錯誤：bow 首音是子音 /b/，不能用 an bow。"
+        ],
+        tip: "看到第一句剛介紹完，第二句前面就要準備換成 The 囉！"
       },
       {
         id: 15,
-        category: "冠詞超能力・單複數比較",
-        stem: "15. 關於 the 與 a/an 在搭配名詞「單複數」上的比較，下列敘述何者正確？",
+        cat: "初次提到 vs. 再次提到",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. a/an 與 the 都只能搭配單數名詞",
-          "B. a/an 可以搭配複數名詞（例如 a boys, an apples）",
-          "C. the 是萬能小天王，單數名詞與複數名詞都可以搭配使用",
-          "D. the 只能搭配複數名詞，單數名詞不能用"
+          "This is a squirrel. The fat squirrel is sad.",
+          "This is the squirrel. A fat squirrel is sad.",
+          "This is a squirrel. A fat squirrel is sad.",
+          "This is an squirrel. The fat squirrel is sad."
         ],
-        answer: 2,
-        explain: "【課本 P.6 the 的超強超能力】a/an 只能配單數（a boys 絕對不行！）；而 the 萬能，the boy 與 the boys、the walnut 與 the walnuts 都可以！",
-        wrongExplain: "a/an 源自 one，絕對不能修飾複數；the 單複數皆可搭配。",
-        tip: "筆記：看到名詞尾巴有 -s，如果要表達特定，用 the 就對了！"
+        answer: 0,
+        rule: "課本 P.7 Part B 習題第 4 題：This is a squirrel. The fat squirrel is sad.",
+        analysis: [
+          "A 正確：初次指認用 a squirrel，再次特指那隻胖松鼠用 The fat squirrel，完全正確！",
+          "B 錯誤：第一句初次指認應為 a squirrel；第二句特指應為 The fat squirrel。",
+          "C 錯誤：第二句已明確描述是剛才那隻胖松鼠，必須用定冠詞 The。",
+          "D 錯誤：squirrel 是子音 /s/ 開頭，應搭配 a squirrel，不能用 an。"
+        ],
+        tip: "小松鼠第一次出現是 a squirrel，再次指明圓滾滾的牠就是 The fat squirrel！"
       },
       {
         id: 16,
-        category: "漫畫情境・複數名詞搭配",
-        stem: "16. 課本 P.6 漫畫第四格：\"_____ walnuts are big and brown.\" 這裡填入 The 是因為？",
+        cat: "初次提到 vs. 再次提到",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. walnuts 是母音開頭的單字",
-          "B. 指前述那棵樹上『特定的那些胡桃』，且 the 可以搭配複數名詞",
-          "C. walnuts 是世界上獨一無二的自然景觀",
-          "D. 所有水果和堅果前面都要強制加 The"
+          "He is the student. A short student is clever.",
+          "He is a student. The short student is clever.",
+          "He is an student. The short student is clever.",
+          "He is a student. A short student is clever."
         ],
         answer: 1,
-        explain: "【課本 P.3 & P.6 漫畫情境】這裡指松鼠眼前那棵大樹上特定的那些胡桃，the 具備搭配複數名詞的超能力！",
-        wrongExplain: "walnuts 是子音開頭；胡桃並非宇宙獨一無二自然景觀；英文並無水果一律加 the 的規則。",
-        tip: "The walnuts ＝ 指特定樹上的那些胡桃！"
+        rule: "課本 P.7 Part B 習題第 5 題：He is a student. The short student is clever.",
+        analysis: [
+          "A 錯誤：第一句泛指學生身分應為 a student，第二句特指應為 The short student。",
+          "B 正確：初次介紹身分用 a student，後句特指那位矮個子學生用 The short student，完全正確！",
+          "C 錯誤：student 首音是子音 /s/，不能寫 an student。",
+          "D 錯誤：第二句已有了特徵限定，應改用定冠詞 The。"
+        ],
+        tip: "泛指身分戴 a 帽，特指對象換 The 帽！"
       },
       {
         id: 17,
-        category: "the 專屬特權・自然景觀",
-        stem: "17. 課本 P.6 & P.7 特別標註：世上獨一無二的大自然景觀固定要加 the，下列何者正確？",
+        cat: "the 專屬特權：自然與時間",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. A sun is beautiful.",
-          "B. The sun is beautiful.",
-          "C. An sun is beautiful.",
-          "D. Sun is beautiful."
+          "A sun is beautiful in a morning.",
+          "The sun is beautiful in an morning.",
+          "The sun is beautiful in the morning.",
+          "Sun is beautiful in the morning."
         ],
-        answer: 1,
-        explain: "【課本 P.7 特權一】世界上只有這一個、大家抬頭看得到的太陽，固定要說 The sun！",
-        wrongExplain: "A sun 或 An sun 是考試大地雷！專屬自然景觀不能擅自改用 a/an 或省略。",
-        tip: "大自然四大天王：the sun, the moon, the sky, the sea！"
+        answer: 2,
+        rule: "課本 P.6 漫畫第 2 格 & P.8 Part E 改錯：The sun 是世上獨一無二的大自然；in the morning 是固定時間片語！",
+        analysis: [
+          "A 錯誤：太陽獨一無二必須加 The；在早晨固定為 in the morning，不可用 a。",
+          "B 錯誤：in the morning 是固定片語，不可擅自把 the 換成 an！",
+          "C 正確：The sun（獨一無二自然）+ in the morning（固定時間片語），完全正確！",
+          "D 錯誤：獨一無二的太陽前面不可省略定冠詞 The。"
+        ],
+        tip: "獨一無二太陽 The sun，早晨時光固定 in the morning！"
       },
       {
         id: 18,
-        category: "課本除錯・Part E",
-        stem: "18. 課本 P.8 改錯題：\"A moon is yellow. A sea is blue.\" 應如何修正？",
+        cat: "the 專屬特權：自然與時間",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. Moon is yellow. Sea is blue.",
-          "B. The moon is yellow. The sea is blue.",
-          "C. An moon is yellow. An sea is blue.",
-          "D. The moons are yellow. The seas are blue."
+          "A moon is yellow and a sea is blue.",
+          "The moon is yellow and the sea is blue.",
+          "Moon is yellow and sea is blue.",
+          "The moon is yellow and a sea is blue."
         ],
         answer: 1,
-        explain: "【課本 P.8 & P.16 Exercise E 第 3 題】月亮（moon）和大自然的大海（sea）是世上獨一無二的景觀，前面必須戴 The 帽子！",
-        wrongExplain: "不能直接去掉冠詞；moon/sea 不是母音開頭不能用 An；此處無需改成複數 moons/seas。",
-        tip: "抓蟲筆記：絕不能說 A moon ❌ 或 A sea ❌，一定要說 The！"
+        rule: "課本 P.8 Part E 改錯題第 3 題：A moon ❌、A sea ❌ ➔ 必須改為 The moon 與 The sea！",
+        analysis: [
+          "A 錯誤：課本改錯題大叉叉！月亮與大海是世上獨一無二的大自然景觀，絕不能用 A moon 或 A sea。",
+          "B 正確：The moon 與 The sea 皆遵守獨一無二大自然加 The 的法則，完全正確！",
+          "C 錯誤：不可省略定冠詞 the。",
+          "D 錯誤：a sea 依然錯誤，必須改為 the sea。"
+        ],
+        tip: "抬頭看月亮 The moon，放眼看大海 The sea，通通都要加 The！"
       },
       {
         id: 19,
-        category: "the 專屬特權・時間片語",
-        stem: "19. 英文中描述早中晚的三大固定時間片語，下列哪一組是完全正確的？",
+        cat: "the 專屬特權：自然與時間",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. in an morning, in an afternoon, in an evening",
-          "B. in a morning, in a afternoon, in a evening",
-          "C. in the morning, in the afternoon, in the evening",
-          "D. in morning, in afternoon, in evening"
+          "A sky is pink and orange in the morning.",
+          "The sky is pink and orange in an morning.",
+          "The sky is pink and orange in the morning.",
+          "Sky is pink and orange in morning."
         ],
         answer: 2,
-        explain: "【課本 P.7 特權二】描述早中晚的固定時間副詞片語一律固定搭配 the，不可換成 a 或 an！",
-        wrongExplain: "換成 a, an 或省略 the 都是常見文法錯誤。",
-        tip: "整組牢記：in the morning, in the afternoon, in the evening！"
+        rule: "課本 P.8 Part D 場景 2：The sky is pink and orange in the morning.",
+        analysis: [
+          "A 錯誤：天空是世上獨一無二的景象，必須使用 The sky，不能寫 A sky。",
+          "B 錯誤：在早晨固定為 in the morning，不能換成 an morning。",
+          "C 正確：The sky（獨特天空）與 in the morning（固定片語）皆完全正確！",
+          "D 錯誤：缺少了必要的定冠詞 the。"
+        ],
+        tip: "天空也是世上獨一無二的，一定要戴 The 帽子！"
       },
       {
         id: 20,
-        category: "課本除錯・Part E",
-        stem: "20. 課本 P.8 改錯題：\"It is cold in an evening.\" 錯在哪個字？",
+        cat: "the 專屬特權：自然與時間",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. It 應該改成 He",
-          "B. cold 應該改成 colder",
-          "C. an 應該改成 the",
-          "D. evening 應該改成 night"
+          "We like to play football in an afternoon.",
+          "We like to play football in a afternoon.",
+          "We like to play football in the afternoon.",
+          "We like to play football in afternoon."
         ],
         answer: 2,
-        explain: "【課本 P.8 & P.16 Exercise E 第 2 題】「在傍晚/晚上」是固定時間片語 in the evening，固定加 the，不能因為 evening 是母音就換成 an！",
-        wrongExplain: "天氣主詞用 It 完全正確；cold 是形容詞無誤；主要考點在於時間片語冠詞用法。",
-        tip: "固定片語威力大：in the evening 不能被 an 拆散！"
+        rule: "課本 P.7 核心概念 4 & 隨堂測驗第 2 題：一天的三大固定時間片語之一「in the afternoon」。",
+        analysis: [
+          "A 錯誤：在下午是固定片語 in the afternoon，不能換成 an afternoon。",
+          "B 錯誤：固定片語必須使用 the，且 afternoon 是母音開頭，寫 a afternoon 是雙重錯誤。",
+          "C 正確：固定時間片語使用 in the afternoon 完全正確！",
+          "D 錯誤：固定片語不可漏掉 the。"
+        ],
+        tip: "早中晚三兄弟：in the morning, in the afternoon, in the evening，全部都要 the！"
       },
       {
         id: 21,
-        category: "大魔王禁區・專有名詞",
-        stem: "21. 遇到「人的名字」（如 Kate, Pepita, You-Ning）時，前面應該加什麼冠詞？",
+        cat: "the 專屬特權：自然與時間",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. 固定加 the",
-          "B. 看發音加 a 或 an",
-          "C. 絕不加冠詞，填「-」",
-          "D. 句子開頭加 the，句尾加 a"
+          "It is often very cold in an evening.",
+          "It is often very cold in a evening.",
+          "It is often very cold in the evening.",
+          "It is often very cold in evening."
         ],
         answer: 2,
-        explain: "【課本 P.8 禁區一】人名是專有名詞，本身就代表獨特的名字，前面『不能戴帽子』，要填「-」！",
-        wrongExplain: "寫 the Kate 是課本畫大紅叉叉 ❌ 的典型錯誤；人名也絕不能加 a 或 an。",
-        tip: "口訣：人名國名專有名，前面絕不戴帽子（不加 the）！"
+        rule: "課本 P.8 Part E 改錯題第 2 題：\"It is cold in an evening.\" ❌ ➔ \"It is cold in the evening.\" ✔️",
+        analysis: [
+          "A 錯誤：課本重點改錯題！傍晚是固定片語 in the evening，不能寫 in an evening。",
+          "B 錯誤：固定片語必須使用 the，不能寫 a evening。",
+          "C 正確：固定時間片語使用 in the evening 完全正確！",
+          "D 錯誤：固定片語不可省略 the。"
+        ],
+        tip: "課本經典考題：看到 in an evening 請立刻抓蟲，改成 in the evening！"
       },
       {
         id: 22,
-        category: "課本除錯・Part E",
-        stem: "22. 課本 P.8 改錯題：\"Are they from the Australia?\" 正確的修正方式是？",
+        cat: "專有名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. Are they from Australia?",
-          "B. Are they from an Australia?",
-          "C. Are they from a Australia?",
-          "D. Is they from Australia?"
+          "The cute squirrel says that she is from the America.",
+          "The cute squirrel says that she is from America.",
+          "The cute squirrel says that she is from an America.",
+          "The cute squirrel says that she is from a America."
         ],
-        answer: 0,
-        explain: "【課本 P.8 & P.16 Exercise E 第 1 題】Australia 是國家專有名詞，前面絕對不能加 the，把 the 刪掉即可！",
-        wrongExplain: "國家名稱同樣不能加 a 或 an；主詞是 they，be 動詞必須用 are 不能改為 is。",
-        tip: "抓蟲筆記：Italy ✔️, America ✔️, Australia ✔️，統統不加 the！"
+        answer: 1,
+        rule: "課本 P.6 漫畫第 1 格 & P.8 禁區一：America 是國家專有名詞，前面絕不加冠詞（零冠詞 - ）！",
+        analysis: [
+          "A 錯誤：國家名稱是專有名詞，前面絕不能加 the，the America 錯誤。",
+          "B 正確：國家名稱 America 前面不加任何冠詞，完全正確！",
+          "C 錯誤：國家名稱不能加 an，an America 錯誤。",
+          "D 錯誤：國家名稱不能加 a，a America 錯誤。"
+        ],
+        tip: "國家名字是專有名詞，天生自帶光環，不用戴任何帽子！"
       },
       {
         id: 23,
-        category: "墨西哥之旅・Part D",
-        stem: "23. 課本 P.8 Part D：\"Hi! I'm [ 1 ] Pepita. I am from [ 2 ] Mexico.\" 兩空格應填？",
+        cat: "專有名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. [ - ] ; [ - ]",
-          "B. [ the ] ; [ the ]",
-          "C. [ a ] ; [ - ]",
-          "D. [ an ] ; [ the ]"
+          "Are your new classmates from the Australia?",
+          "Are your new classmates from Australia?",
+          "Are your new classmates from an Australia?",
+          "Are your new classmates from a Australia?"
         ],
-        answer: 0,
-        explain: "【課本 P.8 & P.14 Part D 場景 1】Pepita 是人名，Mexico 是國家名，都是專有名詞，前面絕對不加冠詞，通通填 [ - ]！",
-        wrongExplain: "人名與國名前面若加 the 或 a/an 均屬嚴重語法錯誤。",
-        tip: "佩皮塔自我介紹：I'm Pepita. I am from Mexico. 通通不戴帽子！"
+        answer: 1,
+        rule: "課本 P.8 Part E 改錯題第 1 題：\"Are they from the Australia?\" ❌ ➔ Australia 前不可加 the！",
+        analysis: [
+          "A 錯誤：課本必考改錯！Australia 是國名，前面絕不能加 the，把 the 刪掉。",
+          "B 正確：來自澳洲直接說 from Australia，零冠詞完全正確！",
+          "C 錯誤：國名前不可加 an。",
+          "D 錯誤：國名前不可加 a。"
+        ],
+        tip: "口訣：「人名國名專有名，前面甩開 the！」"
       },
       {
         id: 24,
-        category: "大魔王禁區・複數名詞",
-        stem: "24. 課本 P.8 改錯題：\"They are a strong lions.\" 這句話哪裡錯了？",
+        cat: "專有名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. strong 拼錯了",
-          "B. lions 是複數（很多隻），而 a 代表『一個』，複數前面絕不能放 a！",
-          "C. They 後面應該接 is 而不是 are",
-          "D. strong 前面應該換成 an"
+          "Hi! I'm the Pepita, and I am from the Mexico.",
+          "Hi! I'm a Pepita, and I am from Mexico.",
+          "Hi! I'm Pepita, and I am from Mexico.",
+          "Hi! I'm Pepita, and I am from an Mexico."
         ],
-        answer: 1,
-        explain: "【課本 P.8 禁區二】a/an 的字源本義就是 one（一個）。當名詞是複數（字尾有 -s）時，前面絕不能放 a！正確改法為：They are strong lions.",
-        wrongExplain: "strong 拼寫完全正確；They 是複數代名詞必須配 are；複數名詞前本來就不該有不定冠詞。",
-        tip: "口訣：名詞尾巴有 s，前面甩開 a！"
+        answer: 2,
+        rule: "課本 P.8 Part D 場景 1：I'm [-] Pepita. I am from [-] Mexico. 人名與國名皆填 [-]。",
+        analysis: [
+          "A 錯誤：人名 Pepita 與國名 Mexico 都是專有名詞，兩者前面都不能加 the。",
+          "B 錯誤：人名前面不能加 a，不能說 a Pepita。",
+          "C 正確：人名與國名皆不加任何冠詞，完全正確！",
+          "D 錯誤：國名前面不能加 an，an Mexico 錯誤。"
+        ],
+        tip: "不管是 Pepita、寧寧還是 Mexico，人名國名都不戴帽子！"
       },
       {
         id: 25,
-        category: "小火車重組・課本 Part C",
-        stem: "25. 課本 P.7 Part C 重組題：lazy / the / boy / is，正確重組的句子是？",
+        cat: "專有名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. Lazy the boy is.",
-          "B. The boy is lazy.",
-          "C. The boy lazy is.",
-          "D. Is the boy lazy."
+          "My favorite uncle lives and works in the Japan.",
+          "My favorite uncle lives and works in a Japan.",
+          "My favorite uncle lives and works in Japan.",
+          "My favorite uncle lives and works in an Japan."
         ],
-        answer: 1,
-        explain: "【課本 P.7 & P.12 Part C 第 1 題】英文肯定句標準結構：主詞 (The boy) + be 動詞 (is) + 形容詞 (lazy)，句尾加句號。",
-        wrongExplain: "其他選項皆違反英文一般肯定句之主詞與動詞配置順序。",
-        tip: "組句金律：主詞 (The boy) ＋ be動詞 (is) ＋ 形容詞 (lazy)。"
+        answer: 2,
+        rule: "課本 P.17 隨堂測驗第 3 題：Japan 是國家專有名詞，選 (D) -（不加冠詞）。",
+        analysis: [
+          "A 錯誤：Japan 是國家專有名詞，前面不能說 in the Japan。",
+          "B 錯誤：國名不能加 a。",
+          "C 正確：住在日本直接說 in Japan，零冠詞完全正確！",
+          "D 錯誤：國名不能加 an。"
+        ],
+        tip: "國家專有名詞前填「-」（零冠詞），考試看到 the 直接刪掉！"
       },
       {
         id: 26,
-        category: "小火車重組・課本 Part C",
-        stem: "26. 課本 P.7 Part C 重組題：isn't / tennis / player / he / a good，正確句子是？",
+        cat: "複數名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. He isn't a good tennis player.",
-          "B. A good tennis player isn't he.",
-          "C. He a good tennis player isn't.",
-          "D. He isn't good a tennis player."
+          "Look at those animals! They are a strong lions.",
+          "Look at those animals! They are strong lions.",
+          "Look at those animals! They are an strong lions.",
+          "Look at those animals! They are a strong lion."
         ],
-        answer: 0,
-        explain: "【課本 P.7 & P.12 Part C 第 2 題】結構為：主詞 (He) + 否定動詞 (isn't) + 名詞片語 (a good tennis player)。good 是子音 /ɡ/ 開頭配 a 帽子！",
-        wrongExplain: "否定詞 not 要緊黏在 be 動詞後面；冠詞 a 必須放在形容詞 good 前面，不能寫成 good a。",
-        tip: "冠詞位置：冠詞 (a) ＋ 形容詞 (good) ＋ 名詞 (tennis player)！"
+        answer: 1,
+        rule: "課本 P.8 Part E 改錯題第 5 題：\"They are a strong lions.\" ❌ ➔ lions 是複數，前面絕不能放 a！",
+        analysis: [
+          "A 錯誤：課本經典改錯題！lions 是複數（很多隻），a 代表「一個」，複數前面絕不能加 a！",
+          "B 正確：複數名詞 lions 前面不加 a，直接說 strong lions 完全正確！",
+          "C 錯誤：複數名詞不能加 an，且 strong 首音是子音，雙重錯誤。",
+          "D 錯誤：主詞 They are 是複數，後面補語卻是單數 a strong lion，單複數前後矛盾。"
+        ],
+        tip: "黃金口訣：「名詞尾巴有 s，前面甩開 a！」"
       },
       {
         id: 27,
-        category: "小火車重組・課本 Part C",
-        stem: "27. 課本 P.7 Part C 重組題：bottles / big / are / the，正確重組的句子是？",
+        cat: "複數名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. The big are bottles.",
-          "B. Bottles the are big.",
-          "C. The bottles are big.",
-          "D. Big are the bottles."
+          "The walnuts on that big tree are big and brown.",
+          "A walnuts on that big tree are big and brown.",
+          "An walnuts on that big tree are big and brown.",
+          "The walnut on that big tree are big and brown."
         ],
-        answer: 2,
-        explain: "【課本 P.7 & P.12 Part C 第 3 題】複數主詞 (The bottles) + 複數 be 動詞 (are) + 形容詞 (big)。",
-        wrongExplain: "bottles 前面要有定冠詞 The；be 動詞 are 必須接在主詞後方。",
-        tip: "注意：bottles 是複數，所以 be 動詞搭配 are！"
+        answer: 0,
+        rule: "課本 P.6 漫畫第 4 格：The walnuts are big and brown. the 超強超能力：可以搭配複數名詞！",
+        analysis: [
+          "A 正確：the 可以搭配複數名詞 The walnuts，動詞搭配 are 完全正確！",
+          "B 錯誤：walnuts 是複數名詞，前面絕不能加代表單數的 a。",
+          "C 錯誤：複數名詞絕不能加 an。",
+          "D 錯誤：主詞 The walnut 是單數，動詞卻用複數 are，主動詞不一致。"
+        ],
+        tip: "the 是萬能小天王，單數（the walnut）和複數（the walnuts）都能配！但 a/an 絕不能配複數！"
       },
       {
         id: 28,
-        category: "小火車重組・疑問句技巧",
-        stem: "28. 課本 P.7 Part C 疑問句重組：fox / clever / is / the / ?，正確排列是？",
+        cat: "複數名詞零冠詞",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. The fox is clever?",
-          "B. Clever is the fox?",
-          "C. Is the fox clever?",
-          "D. Is clever the fox?"
+          "The bottles on the kitchen table are very big.",
+          "A bottles on the kitchen table are very big.",
+          "An bottles on the kitchen table are very big.",
+          "The bottles on the kitchen table is very big."
         ],
-        answer: 2,
-        explain: "【課本 P.7 & P.13 Part C 第 5 題】看到問號「?」時，be 動詞 Is 要大寫搬到最前面！公式：Is (be動詞) + the fox (主詞) + clever (形容詞)?",
-        wrongExplain: "The fox is clever? 是一般口語升調，正式書面疑問句必須將 be 動詞倒裝移至句首；clever 是形容詞不能放在動詞與主詞之間。",
-        tip: "疑問句口訣：看到問號別慌張，be 動詞跳到最前面！"
+        answer: 0,
+        rule: "課本 P.7 Part C 重組題第 3 題：The bottles are big. bottles 為複數名詞搭配 are。",
+        analysis: [
+          "A 正確：The bottles 是特指這批瓶子，動詞搭配複數 are 完全正確！",
+          "B 錯誤：bottles 是複數，前面絕不能加 a。",
+          "C 錯誤：bottles 是複數，前面絕不能加 an。",
+          "D 錯誤：主詞 The bottles 是複數，動詞必須用 are，不能用單數 is。"
+        ],
+        tip: "看見名詞字尾有 -s，前面如果是特定就用 The，絕不放 a 或 an！"
       },
       {
         id: 29,
-        category: "墨西哥之旅・Part D",
-        stem: "29. 課本 P.8 Part D：\"This is a yellow house. [ 1 ] door and [ 2 ] windows are blue.\" 兩空格應填？",
+        cat: "句子結構與疑問句",
+        stem: "請選出英文語法完全正確的句子：",
         options: [
-          "A. [ A ] ; [ the ]",
-          "B. [ The ] ; [ the ]",
-          "C. [ A ] ; [ a ]",
-          "D. [ - ] ; [ - ]"
+          "Fox is clever?",
+          "The fox clever is?",
+          "Is the fox clever?",
+          "Is clever the fox?"
         ],
-        answer: 1,
-        explain: "【課本 P.8 & P.15 Part D 場景 4】前句介紹黃色房子後，後句是指「這棟房子特定的門與窗戶」！特定單數用 The door，特定複數用 the windows。",
-        wrongExplain: "windows 是複數絕不能用 a；門與窗戶已有特定所指，不能用不定冠詞 a 或省略。",
-        tip: "the 的超能力：特定單數 (The door) 與特定複數 (the windows) 都能搭！"
+        answer: 2,
+        rule: "課本 P.7 Part C 重組題第 5 題：fox / clever / is / the / ? ➔ Is the fox clever?",
+        analysis: [
+          "A 錯誤：缺少冠詞 the，且 be 動詞沒有調到句首形成疑問句。",
+          "B 錯誤：疑問句中 be 動詞必須跳到主詞前方，不能放在句尾。",
+          "C 正確：疑問句將 be 動詞 Is 搬到最前面大寫，加上主詞 the fox 與形容詞 clever，完全正確！",
+          "D 錯誤：形容詞 clever 跑到主詞前面了，語序混亂。"
+        ],
+        tip: "疑問句口訣：看到句尾問號「?」，be 動詞大搖大擺跳到最前面！"
       },
       {
         id: 30,
-        category: "觀念大考驗・隨堂測驗",
-        stem: "30. 課本 P.8 隨堂測驗第 1 題：\"Look! There is _____ owl in the tree.\" 應填入何者？",
-        options: ["A. a", "B. an", "C. the", "D. -"],
-        answer: 1,
-        explain: "【課本 P.8 & P.18 隨堂測驗第 1 題】owl（貓頭鷹）的第一個發音是母音 /aʊl/！初次介紹單數名詞必須搭配 an，故填 an owl。",
-        wrongExplain: "owl 是母音發音開頭，填 a 會撞音；初次看見並非特定已知對象，不用 the；單數可數名詞不能省略冠詞填 -。",
-        tip: "易混淆母音發音：owl, apple, egg, onion, orange 都是 an！"
+        cat: "篇章綜合應用",
+        stem: "請選出英文語法完全正確的句子：",
+        options: [
+          "Look! There is an owl in the tree. The owl is sleeping.",
+          "Look! There is a owl in the tree. The owl is sleeping.",
+          "Look! There is an owl in the tree. An owl is sleeping.",
+          "Look! There is the owl in the tree. A owl is sleeping."
+        ],
+        answer: 0,
+        rule: "課本 P.17 隨堂測驗第 1 題與初次/再次綜合觀念：owl（/aʊ/ 母音）初次用 an owl，再次提到換 The owl！",
+        analysis: [
+          "A 正確：初次介紹單數 owl 用 an owl，第二句再次指明那隻貓頭鷹換 The owl，完全正確！",
+          "B 錯誤：owl 首音是母音 /aʊ/，初次介紹應為 an owl，寫 a owl 錯誤。",
+          "C 錯誤：第二句再次提到時大家已經知道是哪隻貓頭鷹，必須換成 The owl，不可重複用 An owl。",
+          "D 錯誤：第一句初次介紹應為 an owl；第二句再次提到應為 The owl，且 a owl 發音錯誤。"
+        ],
+        tip: "綜合大滿貫：初次見面母音戴 an，再次提到大家都知道立刻換 The！"
       }
     ];
 
     let userAnswers = {};
     let isSubmitted = false;
 
-    // 初始化測驗題目
-    function initQuiz() {
-      const container = document.getElementById("quiz-container");
+    function renderQuiz() {
+      const container = document.getElementById("questionsContainer");
+      const navGrid = document.getElementById("navGrid");
       container.innerHTML = "";
+      navGrid.innerHTML = "";
 
-      quizData.forEach((q, index) => {
+      questionsData.forEach((q, idx) => {
+        // Nav dot
+        const dot = document.createElement("a");
+        dot.className = "nav-dot";
+        dot.id = `nav-dot-${q.id}`;
+        dot.innerText = q.id;
+        dot.href = `#q-${q.id}`;
+        navGrid.appendChild(dot);
+
+        // Question card
         const card = document.createElement("div");
         card.className = "question-card";
-        card.id = `q-card-${q.id}`;
+        card.id = `q-${q.id}`;
 
         let optionsHtml = "";
-        q.options.forEach((opt, optIndex) => {
+        const letters = ["A", "B", "C", "D"];
+        q.options.forEach((opt, optIdx) => {
           optionsHtml += `
-            <label class="option-label" id="opt-label-${q.id}-${optIndex}">
-              <input type="radio" name="q-${q.id}" value="${optIndex}" onchange="selectOption(${q.id}, ${optIndex})">
-              <span>${opt}</span>
+            <label class="option-label" id="opt-label-${q.id}-${optIdx}">
+              <input type="radio" name="q_${q.id}" value="${optIdx}" onchange="selectOption(${q.id}, ${optIdx})" ${isSubmitted ? "disabled" : ""}>
+              <span><strong>(${letters[optIdx]})</strong> ${opt.replace(/^[A-D]\.\s*/, '')}</span>
             </label>
           `;
         });
 
         card.innerHTML = `
-          <div class="q-meta">
-            <span class="q-number">第 ${q.id} 題 / 共 30 題</span>
-            <span class="q-category">${q.category}</span>
+          <div class="q-header">
+            <span class="q-num">第 ${q.id} 題 / 共 30 題</span>
+            <span class="q-badge">${q.cat}</span>
           </div>
           <div class="q-stem">${q.stem}</div>
-          <div class="options" id="options-${q.id}">${optionsHtml}</div>
+          <div class="options-list">${optionsHtml}</div>
           <div class="explanation-box" id="exp-${q.id}">
-            <div class="exp-title">💡 逐題詳細解析</div>
-            <div class="exp-body">
-              <p><strong>【正確答案理由】</strong>${q.explain}</p>
-              <p><strong>【錯誤選項破析】</strong>${q.wrongExplain}</p>
-              <div class="exp-tip">${q.tip}</div>
+            <div class="exp-title">💡 破案詳解與文法放大鏡</div>
+            <div class="exp-item" style="color:#047857; font-weight:700;">📖 核心法則：${q.rule}</div>
+            <div style="margin: 6px 0;">
+              ${q.analysis.map(a => `<div class="exp-item">• ${a}</div>`).join('')}
             </div>
+            <div class="exp-tip">🐾 通關金句：${q.tip}</div>
           </div>
         `;
-
         container.appendChild(card);
       });
-
       updateProgress();
     }
 
-    // 選擇答案
-    function selectOption(qid, optIndex) {
-      if (isSubmitted) return;
-
-      userAnswers[qid] = optIndex;
-
-      // 更新選項外觀
-      const totalOpts = quizData.find(q => q.id === qid).options.length;
-      for (let i = 0; i < totalOpts; i++) {
-        const label = document.getElementById(`opt-label-${qid}-${i}`);
-        if (i === optIndex) {
+    function selectOption(qId, optIdx) {
+      userAnswers[qId] = optIdx;
+      // Style labels
+      const q = questionsData.find(item => item.id === qId);
+      q.options.forEach((_, i) => {
+        const label = document.getElementById(`opt-label-${qId}-${i}`);
+        if (i === optIdx) {
           label.classList.add("selected");
         } else {
           label.classList.remove("selected");
         }
-      }
-
+      });
+      // Update nav dot
+      const dot = document.getElementById(`nav-dot-${qId}`);
+      if (dot) dot.classList.add("answered");
       updateProgress();
     }
 
-    // 更新進度條
     function updateProgress() {
-      const count = Object.keys(userAnswers).length;
-      document.getElementById("answered-count").innerText = count;
-      const pct = (count / quizData.length) * 100;
-      document.getElementById("progress-bar").style.width = pct + "%";
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById("progressText").innerText = `已作答: ${answeredCount} / 30 題`;
+      const pct = (answeredCount / 30) * 100;
+      document.getElementById("progressFill").style.width = `${pct}%`;
     }
 
-    // 評分與交卷
     function gradeQuiz() {
-      if (isSubmitted) return;
-
       const answeredCount = Object.keys(userAnswers).length;
-      if (answeredCount < quizData.length) {
-        const remaining = quizData.length - answeredCount;
-        const confirmSubmit = confirm(`您還有 ${remaining} 題尚未作答完畢，確定要現在交卷評分嗎？`);
-        if (!confirmSubmit) return;
+      if (answeredCount < 30) {
+        const proceed = confirm(`寧寧，你目前還有 ${30 - answeredCount} 題尚未作答喔！確定要現在送出評分嗎？`);
+        if (!proceed) return;
       }
 
       isSubmitted = true;
       let correctCount = 0;
 
-      quizData.forEach(q => {
+      questionsData.forEach(q => {
         const userChoice = userAnswers[q.id];
-        const correctChoice = q.answer;
-        const expBox = document.getElementById(`exp-${q.id}`);
-        expBox.classList.add("active");
+        const isCorrect = userChoice === q.answer;
+        if (isCorrect) correctCount++;
 
-        // 鎖定單選按鈕
-        const radios = document.getElementsByName(`q-${q.id}`);
-        radios.forEach(r => r.disabled = true);
+        // Nav dot styling
+        const dot = document.getElementById(`nav-dot-${q.id}`);
+        if (dot) {
+          dot.className = `nav-dot ${isCorrect ? 'correct' : 'incorrect'}`;
+        }
 
-        // 標註正確與錯誤選項
+        // Highlight options
         q.options.forEach((_, optIdx) => {
           const label = document.getElementById(`opt-label-${q.id}-${optIdx}`);
-          if (optIdx === correctChoice) {
+          const input = label.querySelector("input");
+          input.disabled = true;
+
+          if (optIdx === q.answer) {
             label.classList.add("is-correct");
-          } else if (optIdx === userChoice && userChoice !== correctChoice) {
+          } else if (optIdx === userChoice && !isCorrect) {
             label.classList.add("is-wrong");
           }
         });
 
-        if (userChoice === correctChoice) {
-          correctCount++;
-        }
+        // Show explanation
+        const exp = document.getElementById(`exp-${q.id}`);
+        if (exp) exp.classList.add("visible");
       });
 
-      // 計算成績
-      const wrongCount = quizData.length - correctCount;
-      const score = Math.round((correctCount / quizData.length) * 100);
-      const accuracy = ((correctCount / quizData.length) * 100).toFixed(1);
+      // Calculate score
+      const finalScore = Math.round((correctCount / 30) * 100);
+      document.getElementById("scoreNum").innerText = finalScore;
+      document.getElementById("statCorrect").innerText = `答對：${correctCount} 題`;
+      document.getElementById("statWrong").innerText = `答錯：${30 - correctCount} 題`;
 
-      // 呈現成績卡
-      const scoreCard = document.getElementById("score-card");
-      scoreCard.classList.add("active");
+      // Teacher feedback tailored for 寧寧
+      const titleEl = document.getElementById("resultTitle");
+      const feedbackEl = document.getElementById("resultFeedback");
 
-      document.getElementById("score-number").innerText = score + " 分";
-      document.getElementById("correct-count").innerText = correctCount;
-      document.getElementById("wrong-count").innerText = wrongCount;
-      document.getElementById("accuracy-rate").innerText = accuracy + "%";
-
-      const badge = document.getElementById("score-badge");
-      const comment = document.getElementById("score-comment");
-
-      if (score === 100) {
-        badge.style.backgroundColor = "#c6f6d5";
-        badge.style.color = "#22543d";
-        badge.innerText = "🏆 冠詞大金牌・滿分大滿貫！";
-        comment.innerText = "太厲害了！你完全掌握了 a, an, the 與零冠詞的所有規則與陷阱，是名副其實的文法小達人！";
-      } else if (score >= 80) {
-        badge.style.backgroundColor = "#bee3f8";
-        badge.style.color = "#2c5282";
-        badge.innerText = "🌟 優秀探險家・實力堅強！";
-        comment.innerText = "表現非常出色！大部分的核心文法都完全理解了，仔細查看下方標紅的題目解析，就能更上一層樓！";
-      } else if (score >= 60) {
-        badge.style.backgroundColor = "#feebc8";
-        badge.style.color = "#7b341e";
-        badge.innerText = "👍 穩健進步中・及格過關！";
-        comment.innerText = "基礎概念已經具備，請特別留意『形容詞修飾緊貼發音』以及『專有名詞不加 the』的陷阱喔！";
+      if (finalScore === 100) {
+        titleEl.innerHTML = "🎉 滿分金牌大達人！太不可思議了！";
+        feedbackEl.innerHTML = "<strong>親愛的寧寧：</strong>你太優秀了！整份測驗 30 題全部答對！從 a/an 發音、形容詞緊貼法則、世上獨一無二自然景觀、固定時間片語到專有名詞與複數零冠詞，每一個文法地雷你都輕鬆避開，Unit 2 冠詞金牌小達人非你莫屬！🏆✨";
+      } else if (finalScore >= 85) {
+        titleEl.innerHTML = "🌟 優秀冠詞探險家！表現非常亮眼！";
+        feedbackEl.innerHTML = "<strong>親愛的寧寧：</strong>表現非常棒喔！已經掌握了絕大部分的冠詞核心觀念。趕快往下看看紅色標記的題目與詳細解析，把最後幾顆小螺絲鎖緊，下一次一定能拿下 100 分滿分！💪";
+      } else if (finalScore >= 70) {
+        titleEl.innerHTML = "🐿️ 努力小松鼠！基礎觀念很扎實！";
+        feedbackEl.innerHTML = "<strong>親愛的寧寧：</strong>你做得很不錯！大部分的題目都順利過關囉。特別注意緊貼形容詞時要聽第一個發音（例如 a green apple, an orange boat），以及固定時間片語一定要加 the，複習完詳解會更厲害喔！";
       } else {
-        badge.style.backgroundColor = "#fed7d7";
-        badge.style.color = "#742a2a";
-        badge.innerText = "📖 溫故知新・繼續加油！";
-        comment.innerText = "別灰心！仔細對照每題綠色的正確答案和下方老師整理的通關口訣，重新複習一遍一定會進步！";
+        titleEl.innerHTML = "🐾 溫習充電站！再接再厲不氣餒！";
+        feedbackEl.innerHTML = "<strong>親愛的寧寧：</strong>沒關係，學習文法就是從除錯中慢慢進步的！請跟著每一題下方的「破案詳解」與通關金句好好看過一遍，看完後點擊下方按鈕重新挑戰一次，老師相信你一定會大躍進！🌱";
       }
 
-      // 平滑捲動至頂部成績卡
-      scoreCard.scrollIntoView({ behavior: "smooth" });
+      const resCard = document.getElementById("resultCard");
+      resCard.style.display = "block";
+      resCard.scrollIntoView({ behavior: "smooth" });
 
-      document.getElementById("submit-btn").style.display = "none";
+      document.getElementById("submitBtn").style.display = "none";
     }
 
-    // 重新測驗
     function resetQuiz() {
-      if (confirm("確定要重設所有作答進度，重新開始測驗嗎？")) {
+      if (confirm("確定要重置所有答案並重新測驗嗎？")) {
         userAnswers = {};
         isSubmitted = false;
-        document.getElementById("score-card").classList.remove("active");
-        document.getElementById("submit-btn").style.display = "inline-block";
-        initQuiz();
+        document.getElementById("resultCard").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline-flex";
+        renderQuiz();
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
 
-    // 頁面載入執行初始化
-    window.onload = initQuiz;
+    // Initialize on page load
+    window.onload = renderQuiz;
   </script>
 </body>
 </html>
