@@ -1,213 +1,955 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 9: Where...? & Proper Nouns</title>
-<style>
-  body { 
-    font-family: "Microsoft JhengHei", Arial, sans-serif; 
-    background-color: #f0f8ff; 
-    text-align: center; 
-    padding: 20px; 
-  }
-  #quiz-container { 
-    background: white; 
-    border-radius: 15px; 
-    padding: 30px; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-    max-width: 600px; 
-    margin: auto; 
-  }
-  h1 { color: #ff6347; }
-  .question { 
-    font-size: 24px; 
-    margin-bottom: 20px; 
-    color: #333; 
-    line-height: 2;
-  }
-  .options { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 15px; 
-  }
-  button { 
-    padding: 15px; 
-    font-size: 20px; 
-    border: none; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    background-color: #87cefa; 
-    transition: 0.3s; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  button:hover { 
-    background-color: #4682b4; 
-    color: white; 
-  }
-  #feedback { 
-    font-size: 24px; 
-    font-weight: bold; 
-    margin-top: 20px; 
-    height: 30px; 
-  }
-  .correct { color: #32cd32; }
-  .incorrect { color: #dc143c; }
-  #next-btn { 
-    margin-top: 20px; 
-    background-color: #ffb6c1; 
-    display: none; 
-  }
-  #next-btn:hover { background-color: #ff69b4; }
-  ruby { font-size: 1.2em; }
-  rt { font-size: 0.5em; color: #555; }
-  .eng-text { font-family: "Comic Sans MS", cursive, sans-serif; color: #000080; }
-  .progress { font-size: 18px; color: #666; margin-bottom: 15px; font-weight: bold; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 2 Articles 冠詞全攻略 互動評量測驗</title>
+  <style>
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #2c5282;
+      --accent: #dd6b20;
+      --bg: #f7fafc;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --text-muted: #718096;
+      --border: #e2e8f0;
+      --success-bg: #f0fff4;
+      --success-border: #38a169;
+      --success-text: #22543d;
+      --error-bg: #fff5f5;
+      --error-border: #e53e3e;
+      --error-text: #742a2a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2b6cb0 0%, #319795 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .sub-title {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .progress-box {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 6px 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .progress-bar-container {
+      width: 140px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #ffd700;
+      transition: width 0.3s ease;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .score-card {
+      display: none;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      text-align: center;
+      border-top: 6px solid var(--accent);
+    }
+
+    .score-card.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .score-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .score-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .score-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .question-card:hover {
+      border-color: #cbd5e0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .q-number {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .q-category {
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .q-stem {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: #1a202c;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.98rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-label:hover {
+      background-color: #ebf8ff;
+      border-color: #bee3f8;
+    }
+
+    .option-label input[type="radio"] {
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    .option-label.selected {
+      border-color: var(--primary);
+      background-color: #f7fafc;
+      font-weight: 500;
+    }
+
+    /* 作答評分狀態樣式 */
+    .option-label.is-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success-border) !important;
+      color: var(--success-text) !important;
+      font-weight: 600;
+    }
+
+    .option-label.is-wrong {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      background-color: #f7fafc;
+      border-left: 4px solid var(--primary);
+      font-size: 0.92rem;
+    }
+
+    .explanation-box.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .exp-title {
+      font-weight: bold;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .exp-body p {
+      margin-bottom: 4px;
+    }
+
+    .exp-tip {
+      margin-top: 6px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .actions-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px rgba(43, 108, 176, 0.3);
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-reset {
+      background-color: #e2e8f0;
+      color: #4a5568;
+    }
+
+    .btn-reset:hover {
+      background-color: #cbd5e0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-<div id="quiz-container">
-  <h1><ruby>英<rt>ㄧㄥ</rt></ruby><ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby> - Unit 9 <ruby>進<rt>ㄐㄧㄣˋ</rt></ruby><ruby>階<rt>ㄐㄧㄝ</rt></ruby><ruby>版<rt>ㄅㄢˇ</rt></ruby></h1>
-  <div id="quiz-content">
-    <div id="progress" class="progress"></div>
-    <div id="question-text" class="question"></div>
-    <div id="options-container" class="options"></div>
-    <div id="feedback"></div>
-    <button id="next-btn" onclick="nextQuestion()"><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></button>
-  </div>
-  <div id="result-screen" style="display: none;">
-    <h2><ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>束<rt>ㄕㄨˋ</rt></ruby>！</h2>
-    <p class="question"><ruby>你<rt>ㄋㄧˇ</rt></ruby><ruby>得<rt>ㄉㄜˊ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby> <span id="score" style="color: #ff6347; font-size: 30px; font-weight: bold;"></span> <ruby>分<rt>ㄈㄣ</rt></ruby></p>
-    <button onclick="restartQuiz()"><ruby>重<rt>ㄔㄨㄥˊ</rt></ruby><ruby>新<rt>ㄒㄧㄣ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby></button>
-  </div>
-</div>
+  <header>
+    <div class="header-content">
+      <h1>Unit 2 Articles 冠詞大冒險・互動通關測驗</h1>
+      <div class="sub-title">依據「楊馥寧文法_Unit2_冠詞Articles全攻略_注音教學版」設計・共 30 題</div>
+      <div class="progress-box">
+        <span>已作答：<span id="answered-count">0</span> / 30</span>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<script>
-const questions = [
-  {
-    q: "<ruby>友<rt>ㄧㄡˇ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>樹<rt>ㄕㄨˋ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby>。<br><span class='eng-text'>Where is Youning? He is ____ the tree.</span>",
-    options: ["in", "on", "under"],
-    answer: 2
-  },
-  {
-    q: "<ruby>馥<rt>ㄈㄨˋ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>房<rt>ㄈㄤˊ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby>。<br><span class='eng-text'>Where is Funing? She is ____ the house.</span>",
-    options: ["in", "on", "under"],
-    answer: 0
-  },
-  {
-    q: "<ruby>蘋<rt>ㄆㄧㄥˊ</rt></ruby><ruby>果<rt>ㄍㄨㄛˇ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>桌<rt>ㄓㄨㄛ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby>。<br><span class='eng-text'>Where is the apple? It is ____ the table.</span>",
-    options: ["in", "on", "under"],
-    answer: 1
-  },
-  {
-    q: "<ruby>靴<rt>ㄒㄩㄝ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby>？<br><span class='eng-text'>____ are the boots?</span>",
-    options: ["Where's", "Where are", "What are"],
-    answer: 1
-  },
-  {
-    q: "<ruby>帽<rt>ㄇㄠˋ</rt></ruby><ruby>子<rt>ㄗ˙</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby>？<br><span class='eng-text'>____ the hat?</span>",
-    options: ["Where's", "Where are", "Who's"],
-    answer: 0
-  },
-  {
-    q: "<ruby>友<rt>ㄧㄡˇ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>客<rt>ㄎㄜˋ</rt></ruby><ruby>廳<rt>ㄊㄧㄥ</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby>。<br><span class='eng-text'>____ Youning is in the living room.</span>",
-    options: ["The", "A", "X (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>填<rt>ㄊㄧㄢˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>)"],
-    answer: 2
-  },
-  {
-    q: "<ruby>馥<rt>ㄈㄨˋ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>台<rt>ㄊㄞˊ</rt></ruby><ruby>北<rt>ㄅㄟˇ</rt></ruby>。<br><span class='eng-text'>Funing is in ____ Taipei.</span>",
-    options: ["the", "a", "X (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>填<rt>ㄊㄧㄢˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>)"],
-    answer: 2
-  },
-  {
-    q: "<ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>本<rt>ㄅㄣˇ</rt></ruby><ruby>書<rt>ㄕㄨ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>哪<rt>ㄋㄚˇ</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby>？<br><span class='eng-text'>Where is ____ book?</span>",
-    options: ["the", "X (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>填<rt>ㄊㄧㄢˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>)", "are"],
-    answer: 0
-  },
-  {
-    q: "<ruby>史<rt>ㄕˇ</rt></ruby><ruby>密<rt>ㄇㄧˋ</rt></ruby><ruby>斯<rt>ㄙ</rt></ruby><ruby>先<rt>ㄒㄧㄢ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>花<rt>ㄏㄨㄚ</rt></ruby><ruby>園<rt>ㄩㄢˊ</rt></ruby><ruby>裡<rt>ㄌㄧˇ</rt></ruby><ruby>嗎<rt>ㄇㄚ˙</rt></ruby>？<br><span class='eng-text'>Is ____ Mr. Smith in the garden?</span>",
-    options: ["the", "a", "X (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>填<rt>ㄊㄧㄢˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>)"],
-    answer: 2
-  },
-  {
-    q: "<ruby>台<rt>ㄊㄞˊ</rt></ruby><ruby>灣<rt>ㄨㄢ</rt></ruby><ruby>很<rt>ㄏㄣˇ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>麗<rt>ㄌㄧˋ</rt></ruby>。<br><span class='eng-text'>____ Taiwan is beautiful.</span>",
-    options: ["The", "A", "X (<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>填<rt>ㄊㄧㄢˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby>)"],
-    answer: 2
-  }
-];
+  <main class="container">
+    <!-- 成績評分卡 -->
+    <section class="score-card" id="score-card">
+      <div class="score-badge" id="score-badge"></div>
+      <div class="score-number" id="score-number">0 分</div>
+      <p id="score-comment"></p>
+      <div class="score-stats">
+        <div>答對：<strong id="correct-count" style="color: var(--success-border);">0</strong> 題</div>
+        <div>答錯：<strong id="wrong-count" style="color: var(--error-border);">0</strong> 題</div>
+        <div>正確率：<strong id="accuracy-rate">0%</strong></div>
+      </div>
+    </section>
 
-let currentQuestionIndex = 0;
-let score = 0;
+    <!-- 測驗題目容器 -->
+    <div id="quiz-container"></div>
 
-function loadQuestion() {
-  const q = questions[currentQuestionIndex];
-  
-  // 更新進度條文字
-  document.getElementById("progress").innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentQuestionIndex + 1} <ruby>題<rt>ㄊㄧˊ</rt></ruby> / <ruby>共<rt>ㄍㄨㄥˋ</rt></ruby> ${questions.length} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-  
-  document.getElementById("question-text").innerHTML = q.q;
-  const optionsContainer = document.getElementById("options-container");
-  optionsContainer.innerHTML = "";
-  
-  q.options.forEach((opt, index) => {
-    const btn = document.createElement("button");
-    btn.innerHTML = opt; // 讓選項裡面的注音也能正常顯示
-    btn.className = "eng-text";
-    btn.onclick = () => checkAnswer(index, btn);
-    optionsContainer.appendChild(btn);
-  });
-  
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("next-btn").style.display = "none";
-}
+    <!-- 控制按鈕 -->
+    <div class="actions-bar">
+      <button class="btn btn-submit" id="submit-btn" onclick="gradeQuiz()">交卷評分 (Submit)</button>
+      <button class="btn btn-reset" id="reset-btn" onclick="resetQuiz()">重新測驗 (Reset)</button>
+    </div>
+  </main>
 
-function checkAnswer(selectedIndex, btn) {
-  const q = questions[currentQuestionIndex];
-  const feedback = document.getElementById("feedback");
-  const buttons = document.querySelectorAll("#options-container button");
-  
-  buttons.forEach(b => b.disabled = true);
-  
-  if (selectedIndex === q.answer) {
-    btn.style.backgroundColor = "#32cd32";
-    feedback.innerHTML = "<span class='correct'><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！ Excellent!</span>";
-    score += 10;
-  } else {
-    btn.style.backgroundColor = "#dc143c";
-    btn.style.color = "white";
-    buttons[q.answer].style.backgroundColor = "#32cd32";
-    feedback.innerHTML = "<span class='incorrect'><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！ Keep trying!</span>";
-  }
-  
-  document.getElementById("next-btn").style.display = "inline-block";
-}
+  <script>
+    // 30 題完整題庫資料庫
+    const quizData = [
+      {
+        id: 1,
+        category: "核心概念・發音機制",
+        stem: "1. 為什麼英文名詞前面有時候要用 an 而不是 a？",
+        options: [
+          "A. 為了讓句子長度看起來更平均",
+          "B. 避免兩個母音碰在一起發音打結卡住，唸起來更順暢",
+          "C. 只有在句子最開頭的第一個單字才能用 an",
+          "D. 只要名詞字母超過五個字就必須用 an"
+        ],
+        answer: 1,
+        explain: "【課本 P.4 原文核心】如果唸 a apple 兩個母音碰在一起會卡住；加上 n 變成 an apple，發音更圓潤順暢！",
+        wrongExplain: "an 的存在完全是出於『語音流暢度』的考量，與字母長短或句子位置無關。",
+        tip: "口訣：母音開頭戴 an，唸起來順口不打結！"
+      },
+      {
+        id: 2,
+        category: "判定秘技・黃金鐵則",
+        stem: "2. 決定單數可數名詞前面要戴 a 還是 an 帽子的「黃金鐵則」是什麼？",
+        options: [
+          "A. 只看該名詞的第一個英文字母是不是 a, e, i, o, u",
+          "B. 聽緊貼在帽子後面的『第一個發音』是母音還是子音",
+          "C. 看該名詞是男生還是女生",
+          "D. 看該名詞是人類還是動物"
+        ],
+        answer: 1,
+        explain: "【課本 P.5 黃金鐵則】看『發音』，不是只看字母！一定要看緊貼著帽子後面的第一個音。",
+        wrongExplain: "若只看字母容易掉入陷阱（如加上形容詞後的變化）。性別與生物分類更與冠詞規則無關。",
+        tip: "口訣：聽聲音選帽子，誰緊貼在後面就由誰的發音決定！"
+      },
+      {
+        id: 3,
+        category: "課本實戰・蔬菜湯 Part A",
+        stem: "3. 課本 P.7 蔬菜湯題目：_____ onion（洋蔥），前面該填入什麼冠詞？",
+        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
+        answer: 1,
+        explain: "【課本 P.7 Part A 第 1 題】onion 的首音為母音 /ʌ/，以母音開頭的單數可數名詞戴 an 帽子，故為 an onion。",
+        wrongExplain: "onion 為母音開頭，不能填 a；初次介紹物品蔬菜名稱，不填 the。",
+        tip: "常考母音：apple, onion, egg, animal, orange 都是 an！"
+      },
+      {
+        id: 4,
+        category: "課本實戰・蔬菜湯 Part A",
+        stem: "4. 課本 P.7 蔬菜湯題目：_____ potato（馬鈴薯），前面該填入什麼冠詞？",
+        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
+        answer: 0,
+        explain: "【課本 P.7 Part A 第 2 題】potato 的首音為子音 /p/，子音發音開頭配 a 帽子，故為 a potato。",
+        wrongExplain: "/p/ 是子音發音，不能戴 an 帽子。",
+        tip: "子音開頭：a potato, a carrot, a tomato, a lemon。"
+      },
+      {
+        id: 5,
+        category: "課本實戰・蔬菜湯 Part A",
+        stem: "5. 課本 P.7 蔬菜湯題目：_____ egg（雞蛋），前面該填入什麼冠詞？",
+        options: ["A. a", "B. an", "C. the", "D. -（不加）"],
+        answer: 1,
+        explain: "【課本 P.7 Part A 第 6 題】egg 的首音為母音 /e/，母音開頭配 an 帽子，故為 an egg。",
+        wrongExplain: "egg 是母音開頭，若填 a 就會變成 a egg，發音會撞在一起卡住。",
+        tip: "egg 與 animal, arrow, apple 一樣，都要戴 an 帽子！"
+      },
+      {
+        id: 6,
+        category: "易錯陷阱・形容詞修飾",
+        stem: "6. 原本是 an apple，如果在前面加上形容詞 green，應該變成下列何者？",
+        options: [
+          "A. an green apple",
+          "B. a green apple",
+          "C. the green apples",
+          "D. green a apple"
+        ],
+        answer: 1,
+        explain: "【課本 P.5 實戰對比 1】當名詞前面加上形容詞時，帽子 a/an 是看『緊貼著的形容詞』發音！green 是子音 /ɡ/ 開頭，所以必須改成 a green apple。",
+        wrongExplain: "寫 an green apple 是考試超大陷阱！帽子絕不能放在形容詞後面，也不能任意改為複數。",
+        tip: "口訣：誰緊貼在帽子後面，就由誰的發音來決定戴 a 還是 an！"
+      },
+      {
+        id: 7,
+        category: "易錯陷阱・形容詞修飾",
+        stem: "7. 原本是 a boat，如果在前面加上形容詞 orange，應該變成下列何者？",
+        options: [
+          "A. a orange boat",
+          "B. an orange boat",
+          "C. the boats orange",
+          "D. one orange boat"
+        ],
+        answer: 1,
+        explain: "【課本 P.5 & P.8 實戰對比 2】orange 是母音 /ɔː/ 開頭，緊貼在帽子後面的字變成母音開頭，因此帽子必須換成 an，寫成 an orange boat。",
+        wrongExplain: "a orange boat 發音會卡住；the boats orange 語序錯誤。",
+        tip: "注意：Look! That is an orange boat.（課本 P.8 經典句）"
+      },
+      {
+        id: 8,
+        category: "課本除錯・Part E",
+        stem: "8. 課本 P.8 改錯題：\"This is a arrow.\" 這句話該如何修正？",
+        options: [
+          "A. This is an arrow.",
+          "B. That is a arrow.",
+          "C. This is the arrows.",
+          "D. This are a arrow."
+        ],
+        answer: 0,
+        explain: "【課本 P.8 & P.16 Exercise E】arrow（箭）的第一個音是母音 /æ/，前面不能用 a，必須改為 an arrow！",
+        wrongExplain: "更換為 That 無法解決 a arrow 的文法錯誤；arrows 複數不能加 a；This 不能搭配 are。",
+        tip: "抓蟲筆記：arrow 是母音發音開頭，一律戴 an！"
+      },
+      {
+        id: 9,
+        category: "核心概念・定冠詞 the",
+        stem: "9. 什麼是「定冠詞 the」的核心意涵？",
+        options: [
+          "A. 代表『任何一個』，聽話的人不知道是指哪一個",
+          "B. 代表『特定的』，說話雙方心裡都清楚明白是指『那一個』或『那些』",
+          "C. 只能用在複數名詞前面，單數名詞絕對不能用",
+          "D. 只能放在疑問句的句首"
+        ],
+        answer: 1,
+        explain: "【課本 P.6 核心概念 3】the 稱為定冠詞，代表『特定的』對象，雙方都明白指的是哪一個或哪些！",
+        wrongExplain: "『泛指任何一個』是不定冠詞 a/an 的功能；the 具備單複數通用的超能力，並非只能用在複數或疑問句首。",
+        tip: "定冠詞 the = 大家都知道的那一個！"
+      },
+      {
+        id: 10,
+        category: "初次 vs 再次・課本 Part B",
+        stem: "10. 課本 P.7 Part B：\"This is _____ fish. _____ red fish is small.\" 兩空格應依序填入？",
+        options: [
+          "A. a ; The",
+          "B. the ; A",
+          "C. an ; The",
+          "D. - ; The"
+        ],
+        answer: 0,
+        explain: "【課本 P.7 Part B 第 1 題】前半句初次介紹這是一條魚用 a fish；後半句再次提到並指明那條紅色的魚，改用 The red fish！",
+        wrongExplain: "fish 是子音開頭不能用 an；第一句初次登場不能直接用 the。",
+        tip: "口訣：初次見面戴 a 帽，再次指明換 The 上場！"
+      },
+      {
+        id: 11,
+        category: "初次 vs 再次・課本 Part B",
+        stem: "11. 課本 P.7 Part B：\"She is _____ dancer. _____ tall dancer is beautiful.\" 兩空格應依序填入？",
+        options: [
+          "A. the ; A",
+          "B. a ; The",
+          "C. an ; The",
+          "D. - ; A"
+        ],
+        answer: 1,
+        explain: "【課本 P.7 Part B 第 2 題】第一句介紹職業身分用 a dancer；第二句特指那位身材高挑的舞者，改用 The tall dancer！",
+        wrongExplain: "dancer 是子音開頭不能配 an；初次介紹身分職業習慣使用 a/an。",
+        tip: "加了 tall 特徵再次指明特定人物，立刻請 The 出場！"
+      },
+      {
+        id: 12,
+        category: "初次 vs 再次・課本 Part B",
+        stem: "12. 課本 P.7 Part B：\"This is _____ bow. _____ long bow is old.\" 兩空格應依序填入？",
+        options: [
+          "A. a ; The",
+          "B. the ; The",
+          "C. an ; A",
+          "D. a ; An"
+        ],
+        answer: 0,
+        explain: "【課本 P.7 Part B 第 3 題】第一句初次介紹這是一把弓用 a bow；第二句特指那把長長的弓，改用 The long bow！",
+        wrongExplain: "bow 是子音發音不能配 an；long 是子音發音也不能配 an。",
+        tip: "解題心法：前句初次介紹戴 a 帽，後句加上特徵形容詞換 The！"
+      },
+      {
+        id: 13,
+        category: "初次 vs 再次・課本 Part B",
+        stem: "13. 課本 P.7 Part B：\"This is _____ squirrel. _____ fat squirrel is sad.\" 兩空格應依序填入？",
+        options: [
+          "A. an ; The",
+          "B. a ; The",
+          "C. the ; A",
+          "D. a ; A"
+        ],
+        answer: 1,
+        explain: "【課本 P.7 Part B 第 4 題】第一句初次看見松鼠用 a squirrel；第二句特指那隻圓滾滾的胖松鼠，改用 The fat squirrel！",
+        wrongExplain: "squirrel 是子音 /sk/ 開頭，不能用 an；第二句有了 fat 指明特定對象，不能繼續用 a。",
+        tip: "小松鼠情境：This is a squirrel. The fat squirrel is sad."
+      },
+      {
+        id: 14,
+        category: "初次 vs 再次・課本 Part B",
+        stem: "14. 課本 P.7 Part B：\"He is _____ student. _____ short student is clever.\" 兩空格應依序填入？",
+        options: [
+          "A. a ; The",
+          "B. the ; The",
+          "C. an ; The",
+          "D. a ; A"
+        ],
+        answer: 0,
+        explain: "【課本 P.7 Part B 第 5 題】第一句初次介紹身分用 a student；第二句指定那位矮個子學生，改用 The short student！",
+        wrongExplain: "student 為子音開頭不能用 an；第二句已經具備特定指向，必須用 The。",
+        tip: "初次見面 a student，再次指定 The short student！"
+      },
+      {
+        id: 15,
+        category: "冠詞超能力・單複數比較",
+        stem: "15. 關於 the 與 a/an 在搭配名詞「單複數」上的比較，下列敘述何者正確？",
+        options: [
+          "A. a/an 與 the 都只能搭配單數名詞",
+          "B. a/an 可以搭配複數名詞（例如 a boys, an apples）",
+          "C. the 是萬能小天王，單數名詞與複數名詞都可以搭配使用",
+          "D. the 只能搭配複數名詞，單數名詞不能用"
+        ],
+        answer: 2,
+        explain: "【課本 P.6 the 的超強超能力】a/an 只能配單數（a boys 絕對不行！）；而 the 萬能，the boy 與 the boys、the walnut 與 the walnuts 都可以！",
+        wrongExplain: "a/an 源自 one，絕對不能修飾複數；the 單複數皆可搭配。",
+        tip: "筆記：看到名詞尾巴有 -s，如果要表達特定，用 the 就對了！"
+      },
+      {
+        id: 16,
+        category: "漫畫情境・複數名詞搭配",
+        stem: "16. 課本 P.6 漫畫第四格：\"_____ walnuts are big and brown.\" 這裡填入 The 是因為？",
+        options: [
+          "A. walnuts 是母音開頭的單字",
+          "B. 指前述那棵樹上『特定的那些胡桃』，且 the 可以搭配複數名詞",
+          "C. walnuts 是世界上獨一無二的自然景觀",
+          "D. 所有水果和堅果前面都要強制加 The"
+        ],
+        answer: 1,
+        explain: "【課本 P.3 & P.6 漫畫情境】這裡指松鼠眼前那棵大樹上特定的那些胡桃，the 具備搭配複數名詞的超能力！",
+        wrongExplain: "walnuts 是子音開頭；胡桃並非宇宙獨一無二自然景觀；英文並無水果一律加 the 的規則。",
+        tip: "The walnuts ＝ 指特定樹上的那些胡桃！"
+      },
+      {
+        id: 17,
+        category: "the 專屬特權・自然景觀",
+        stem: "17. 課本 P.6 & P.7 特別標註：世上獨一無二的大自然景觀固定要加 the，下列何者正確？",
+        options: [
+          "A. A sun is beautiful.",
+          "B. The sun is beautiful.",
+          "C. An sun is beautiful.",
+          "D. Sun is beautiful."
+        ],
+        answer: 1,
+        explain: "【課本 P.7 特權一】世界上只有這一個、大家抬頭看得到的太陽，固定要說 The sun！",
+        wrongExplain: "A sun 或 An sun 是考試大地雷！專屬自然景觀不能擅自改用 a/an 或省略。",
+        tip: "大自然四大天王：the sun, the moon, the sky, the sea！"
+      },
+      {
+        id: 18,
+        category: "課本除錯・Part E",
+        stem: "18. 課本 P.8 改錯題：\"A moon is yellow. A sea is blue.\" 應如何修正？",
+        options: [
+          "A. Moon is yellow. Sea is blue.",
+          "B. The moon is yellow. The sea is blue.",
+          "C. An moon is yellow. An sea is blue.",
+          "D. The moons are yellow. The seas are blue."
+        ],
+        answer: 1,
+        explain: "【課本 P.8 & P.16 Exercise E 第 3 題】月亮（moon）和大自然的大海（sea）是世上獨一無二的景觀，前面必須戴 The 帽子！",
+        wrongExplain: "不能直接去掉冠詞；moon/sea 不是母音開頭不能用 An；此處無需改成複數 moons/seas。",
+        tip: "抓蟲筆記：絕不能說 A moon ❌ 或 A sea ❌，一定要說 The！"
+      },
+      {
+        id: 19,
+        category: "the 專屬特權・時間片語",
+        stem: "19. 英文中描述早中晚的三大固定時間片語，下列哪一組是完全正確的？",
+        options: [
+          "A. in an morning, in an afternoon, in an evening",
+          "B. in a morning, in a afternoon, in a evening",
+          "C. in the morning, in the afternoon, in the evening",
+          "D. in morning, in afternoon, in evening"
+        ],
+        answer: 2,
+        explain: "【課本 P.7 特權二】描述早中晚的固定時間副詞片語一律固定搭配 the，不可換成 a 或 an！",
+        wrongExplain: "換成 a, an 或省略 the 都是常見文法錯誤。",
+        tip: "整組牢記：in the morning, in the afternoon, in the evening！"
+      },
+      {
+        id: 20,
+        category: "課本除錯・Part E",
+        stem: "20. 課本 P.8 改錯題：\"It is cold in an evening.\" 錯在哪個字？",
+        options: [
+          "A. It 應該改成 He",
+          "B. cold 應該改成 colder",
+          "C. an 應該改成 the",
+          "D. evening 應該改成 night"
+        ],
+        answer: 2,
+        explain: "【課本 P.8 & P.16 Exercise E 第 2 題】「在傍晚/晚上」是固定時間片語 in the evening，固定加 the，不能因為 evening 是母音就換成 an！",
+        wrongExplain: "天氣主詞用 It 完全正確；cold 是形容詞無誤；主要考點在於時間片語冠詞用法。",
+        tip: "固定片語威力大：in the evening 不能被 an 拆散！"
+      },
+      {
+        id: 21,
+        category: "大魔王禁區・專有名詞",
+        stem: "21. 遇到「人的名字」（如 Kate, Pepita, You-Ning）時，前面應該加什麼冠詞？",
+        options: [
+          "A. 固定加 the",
+          "B. 看發音加 a 或 an",
+          "C. 絕不加冠詞，填「-」",
+          "D. 句子開頭加 the，句尾加 a"
+        ],
+        answer: 2,
+        explain: "【課本 P.8 禁區一】人名是專有名詞，本身就代表獨特的名字，前面『不能戴帽子』，要填「-」！",
+        wrongExplain: "寫 the Kate 是課本畫大紅叉叉 ❌ 的典型錯誤；人名也絕不能加 a 或 an。",
+        tip: "口訣：人名國名專有名，前面絕不戴帽子（不加 the）！"
+      },
+      {
+        id: 22,
+        category: "課本除錯・Part E",
+        stem: "22. 課本 P.8 改錯題：\"Are they from the Australia?\" 正確的修正方式是？",
+        options: [
+          "A. Are they from Australia?",
+          "B. Are they from an Australia?",
+          "C. Are they from a Australia?",
+          "D. Is they from Australia?"
+        ],
+        answer: 0,
+        explain: "【課本 P.8 & P.16 Exercise E 第 1 題】Australia 是國家專有名詞，前面絕對不能加 the，把 the 刪掉即可！",
+        wrongExplain: "國家名稱同樣不能加 a 或 an；主詞是 they，be 動詞必須用 are 不能改為 is。",
+        tip: "抓蟲筆記：Italy ✔️, America ✔️, Australia ✔️，統統不加 the！"
+      },
+      {
+        id: 23,
+        category: "墨西哥之旅・Part D",
+        stem: "23. 課本 P.8 Part D：\"Hi! I'm [ 1 ] Pepita. I am from [ 2 ] Mexico.\" 兩空格應填？",
+        options: [
+          "A. [ - ] ; [ - ]",
+          "B. [ the ] ; [ the ]",
+          "C. [ a ] ; [ - ]",
+          "D. [ an ] ; [ the ]"
+        ],
+        answer: 0,
+        explain: "【課本 P.8 & P.14 Part D 場景 1】Pepita 是人名，Mexico 是國家名，都是專有名詞，前面絕對不加冠詞，通通填 [ - ]！",
+        wrongExplain: "人名與國名前面若加 the 或 a/an 均屬嚴重語法錯誤。",
+        tip: "佩皮塔自我介紹：I'm Pepita. I am from Mexico. 通通不戴帽子！"
+      },
+      {
+        id: 24,
+        category: "大魔王禁區・複數名詞",
+        stem: "24. 課本 P.8 改錯題：\"They are a strong lions.\" 這句話哪裡錯了？",
+        options: [
+          "A. strong 拼錯了",
+          "B. lions 是複數（很多隻），而 a 代表『一個』，複數前面絕不能放 a！",
+          "C. They 後面應該接 is 而不是 are",
+          "D. strong 前面應該換成 an"
+        ],
+        answer: 1,
+        explain: "【課本 P.8 禁區二】a/an 的字源本義就是 one（一個）。當名詞是複數（字尾有 -s）時，前面絕不能放 a！正確改法為：They are strong lions.",
+        wrongExplain: "strong 拼寫完全正確；They 是複數代名詞必須配 are；複數名詞前本來就不該有不定冠詞。",
+        tip: "口訣：名詞尾巴有 s，前面甩開 a！"
+      },
+      {
+        id: 25,
+        category: "小火車重組・課本 Part C",
+        stem: "25. 課本 P.7 Part C 重組題：lazy / the / boy / is，正確重組的句子是？",
+        options: [
+          "A. Lazy the boy is.",
+          "B. The boy is lazy.",
+          "C. The boy lazy is.",
+          "D. Is the boy lazy."
+        ],
+        answer: 1,
+        explain: "【課本 P.7 & P.12 Part C 第 1 題】英文肯定句標準結構：主詞 (The boy) + be 動詞 (is) + 形容詞 (lazy)，句尾加句號。",
+        wrongExplain: "其他選項皆違反英文一般肯定句之主詞與動詞配置順序。",
+        tip: "組句金律：主詞 (The boy) ＋ be動詞 (is) ＋ 形容詞 (lazy)。"
+      },
+      {
+        id: 26,
+        category: "小火車重組・課本 Part C",
+        stem: "26. 課本 P.7 Part C 重組題：isn't / tennis / player / he / a good，正確句子是？",
+        options: [
+          "A. He isn't a good tennis player.",
+          "B. A good tennis player isn't he.",
+          "C. He a good tennis player isn't.",
+          "D. He isn't good a tennis player."
+        ],
+        answer: 0,
+        explain: "【課本 P.7 & P.12 Part C 第 2 題】結構為：主詞 (He) + 否定動詞 (isn't) + 名詞片語 (a good tennis player)。good 是子音 /ɡ/ 開頭配 a 帽子！",
+        wrongExplain: "否定詞 not 要緊黏在 be 動詞後面；冠詞 a 必須放在形容詞 good 前面，不能寫成 good a。",
+        tip: "冠詞位置：冠詞 (a) ＋ 形容詞 (good) ＋ 名詞 (tennis player)！"
+      },
+      {
+        id: 27,
+        category: "小火車重組・課本 Part C",
+        stem: "27. 課本 P.7 Part C 重組題：bottles / big / are / the，正確重組的句子是？",
+        options: [
+          "A. The big are bottles.",
+          "B. Bottles the are big.",
+          "C. The bottles are big.",
+          "D. Big are the bottles."
+        ],
+        answer: 2,
+        explain: "【課本 P.7 & P.12 Part C 第 3 題】複數主詞 (The bottles) + 複數 be 動詞 (are) + 形容詞 (big)。",
+        wrongExplain: "bottles 前面要有定冠詞 The；be 動詞 are 必須接在主詞後方。",
+        tip: "注意：bottles 是複數，所以 be 動詞搭配 are！"
+      },
+      {
+        id: 28,
+        category: "小火車重組・疑問句技巧",
+        stem: "28. 課本 P.7 Part C 疑問句重組：fox / clever / is / the / ?，正確排列是？",
+        options: [
+          "A. The fox is clever?",
+          "B. Clever is the fox?",
+          "C. Is the fox clever?",
+          "D. Is clever the fox?"
+        ],
+        answer: 2,
+        explain: "【課本 P.7 & P.13 Part C 第 5 題】看到問號「?」時，be 動詞 Is 要大寫搬到最前面！公式：Is (be動詞) + the fox (主詞) + clever (形容詞)?",
+        wrongExplain: "The fox is clever? 是一般口語升調，正式書面疑問句必須將 be 動詞倒裝移至句首；clever 是形容詞不能放在動詞與主詞之間。",
+        tip: "疑問句口訣：看到問號別慌張，be 動詞跳到最前面！"
+      },
+      {
+        id: 29,
+        category: "墨西哥之旅・Part D",
+        stem: "29. 課本 P.8 Part D：\"This is a yellow house. [ 1 ] door and [ 2 ] windows are blue.\" 兩空格應填？",
+        options: [
+          "A. [ A ] ; [ the ]",
+          "B. [ The ] ; [ the ]",
+          "C. [ A ] ; [ a ]",
+          "D. [ - ] ; [ - ]"
+        ],
+        answer: 1,
+        explain: "【課本 P.8 & P.15 Part D 場景 4】前句介紹黃色房子後，後句是指「這棟房子特定的門與窗戶」！特定單數用 The door，特定複數用 the windows。",
+        wrongExplain: "windows 是複數絕不能用 a；門與窗戶已有特定所指，不能用不定冠詞 a 或省略。",
+        tip: "the 的超能力：特定單數 (The door) 與特定複數 (the windows) 都能搭！"
+      },
+      {
+        id: 30,
+        category: "觀念大考驗・隨堂測驗",
+        stem: "30. 課本 P.8 隨堂測驗第 1 題：\"Look! There is _____ owl in the tree.\" 應填入何者？",
+        options: ["A. a", "B. an", "C. the", "D. -"],
+        answer: 1,
+        explain: "【課本 P.8 & P.18 隨堂測驗第 1 題】owl（貓頭鷹）的第一個發音是母音 /aʊl/！初次介紹單數名詞必須搭配 an，故填 an owl。",
+        wrongExplain: "owl 是母音發音開頭，填 a 會撞音；初次看見並非特定已知對象，不用 the；單數可數名詞不能省略冠詞填 -。",
+        tip: "易混淆母音發音：owl, apple, egg, onion, orange 都是 an！"
+      }
+    ];
 
-function nextQuestion() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    loadQuestion();
-  } else {
-    showResult();
-  }
-}
+    let userAnswers = {};
+    let isSubmitted = false;
 
-function showResult() {
-  document.getElementById("quiz-content").style.display = "none";
-  document.getElementById("result-screen").style.display = "block";
-  document.getElementById("score").textContent = score;
-}
+    // 初始化測驗題目
+    function initQuiz() {
+      const container = document.getElementById("quiz-container");
+      container.innerHTML = "";
 
-function restartQuiz() {
-  currentQuestionIndex = 0;
-  score = 0;
-  document.getElementById("quiz-content").style.display = "block";
-  document.getElementById("result-screen").style.display = "none";
-  loadQuestion();
-}
+      quizData.forEach((q, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `q-card-${q.id}`;
 
-loadQuestion();
-</script>
+        let optionsHtml = "";
+        q.options.forEach((opt, optIndex) => {
+          optionsHtml += `
+            <label class="option-label" id="opt-label-${q.id}-${optIndex}">
+              <input type="radio" name="q-${q.id}" value="${optIndex}" onchange="selectOption(${q.id}, ${optIndex})">
+              <span>${opt}</span>
+            </label>
+          `;
+        });
 
+        card.innerHTML = `
+          <div class="q-meta">
+            <span class="q-number">第 ${q.id} 題 / 共 30 題</span>
+            <span class="q-category">${q.category}</span>
+          </div>
+          <div class="q-stem">${q.stem}</div>
+          <div class="options" id="options-${q.id}">${optionsHtml}</div>
+          <div class="explanation-box" id="exp-${q.id}">
+            <div class="exp-title">💡 逐題詳細解析</div>
+            <div class="exp-body">
+              <p><strong>【正確答案理由】</strong>${q.explain}</p>
+              <p><strong>【錯誤選項破析】</strong>${q.wrongExplain}</p>
+              <div class="exp-tip">${q.tip}</div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    // 選擇答案
+    function selectOption(qid, optIndex) {
+      if (isSubmitted) return;
+
+      userAnswers[qid] = optIndex;
+
+      // 更新選項外觀
+      const totalOpts = quizData.find(q => q.id === qid).options.length;
+      for (let i = 0; i < totalOpts; i++) {
+        const label = document.getElementById(`opt-label-${qid}-${i}`);
+        if (i === optIndex) {
+          label.classList.add("selected");
+        } else {
+          label.classList.remove("selected");
+        }
+      }
+
+      updateProgress();
+    }
+
+    // 更新進度條
+    function updateProgress() {
+      const count = Object.keys(userAnswers).length;
+      document.getElementById("answered-count").innerText = count;
+      const pct = (count / quizData.length) * 100;
+      document.getElementById("progress-bar").style.width = pct + "%";
+    }
+
+    // 評分與交卷
+    function gradeQuiz() {
+      if (isSubmitted) return;
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizData.length) {
+        const remaining = quizData.length - answeredCount;
+        const confirmSubmit = confirm(`您還有 ${remaining} 題尚未作答完畢，確定要現在交卷評分嗎？`);
+        if (!confirmSubmit) return;
+      }
+
+      isSubmitted = true;
+      let correctCount = 0;
+
+      quizData.forEach(q => {
+        const userChoice = userAnswers[q.id];
+        const correctChoice = q.answer;
+        const expBox = document.getElementById(`exp-${q.id}`);
+        expBox.classList.add("active");
+
+        // 鎖定單選按鈕
+        const radios = document.getElementsByName(`q-${q.id}`);
+        radios.forEach(r => r.disabled = true);
+
+        // 標註正確與錯誤選項
+        q.options.forEach((_, optIdx) => {
+          const label = document.getElementById(`opt-label-${q.id}-${optIdx}`);
+          if (optIdx === correctChoice) {
+            label.classList.add("is-correct");
+          } else if (optIdx === userChoice && userChoice !== correctChoice) {
+            label.classList.add("is-wrong");
+          }
+        });
+
+        if (userChoice === correctChoice) {
+          correctCount++;
+        }
+      });
+
+      // 計算成績
+      const wrongCount = quizData.length - correctCount;
+      const score = Math.round((correctCount / quizData.length) * 100);
+      const accuracy = ((correctCount / quizData.length) * 100).toFixed(1);
+
+      // 呈現成績卡
+      const scoreCard = document.getElementById("score-card");
+      scoreCard.classList.add("active");
+
+      document.getElementById("score-number").innerText = score + " 分";
+      document.getElementById("correct-count").innerText = correctCount;
+      document.getElementById("wrong-count").innerText = wrongCount;
+      document.getElementById("accuracy-rate").innerText = accuracy + "%";
+
+      const badge = document.getElementById("score-badge");
+      const comment = document.getElementById("score-comment");
+
+      if (score === 100) {
+        badge.style.backgroundColor = "#c6f6d5";
+        badge.style.color = "#22543d";
+        badge.innerText = "🏆 冠詞大金牌・滿分大滿貫！";
+        comment.innerText = "太厲害了！你完全掌握了 a, an, the 與零冠詞的所有規則與陷阱，是名副其實的文法小達人！";
+      } else if (score >= 80) {
+        badge.style.backgroundColor = "#bee3f8";
+        badge.style.color = "#2c5282";
+        badge.innerText = "🌟 優秀探險家・實力堅強！";
+        comment.innerText = "表現非常出色！大部分的核心文法都完全理解了，仔細查看下方標紅的題目解析，就能更上一層樓！";
+      } else if (score >= 60) {
+        badge.style.backgroundColor = "#feebc8";
+        badge.style.color = "#7b341e";
+        badge.innerText = "👍 穩健進步中・及格過關！";
+        comment.innerText = "基礎概念已經具備，請特別留意『形容詞修飾緊貼發音』以及『專有名詞不加 the』的陷阱喔！";
+      } else {
+        badge.style.backgroundColor = "#fed7d7";
+        badge.style.color = "#742a2a";
+        badge.innerText = "📖 溫故知新・繼續加油！";
+        comment.innerText = "別灰心！仔細對照每題綠色的正確答案和下方老師整理的通關口訣，重新複習一遍一定會進步！";
+      }
+
+      // 平滑捲動至頂部成績卡
+      scoreCard.scrollIntoView({ behavior: "smooth" });
+
+      document.getElementById("submit-btn").style.display = "none";
+    }
+
+    // 重新測驗
+    function resetQuiz() {
+      if (confirm("確定要重設所有作答進度，重新開始測驗嗎？")) {
+        userAnswers = {};
+        isSubmitted = false;
+        document.getElementById("score-card").classList.remove("active");
+        document.getElementById("submit-btn").style.display = "inline-block";
+        initQuiz();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    // 頁面載入執行初始化
+    window.onload = initQuiz;
+  </script>
 </body>
 </html>
