@@ -5,292 +5,303 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寧寧的頂級單字挑戰</title>
     <style>
-        /* 電影級視覺標準 & 現代配色 */
+        /* 電影級色調映射與現代背景 */
         :root {
-            --bg-color: #050505;
-            --glass-bg: rgba(25, 25, 30, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --primary-glow: rgba(0, 212, 255, 0.6);
-            --correct-color: #00e676;
-            --wrong-color: #ff3d00;
-            --text-main: #f0f0f0;
-            --text-muted: #aaaaaa;
+            --primary-color: #6c63ff;
+            --bg-color: #0f172a;
+            --surface-color: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, var(--bg-color) 100%);
+            background: radial-gradient(circle at top left, #1e1b4b, var(--bg-color), #020617);
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow: hidden;
+            /* 色調映射感 */
+            filter: contrast(1.05) saturate(1.1); 
         }
 
-        /* 擬真 PBR 玻璃面板容器 */
+        /* PBR 玻璃材質與柔和陰影 (Glassmorphism) */
         .container {
             text-align: center;
-            background: var(--glass-bg);
+            background: var(--surface-color);
             padding: 40px;
             border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 90%;
-            max-width: 650px;
+            max-width: 700px;
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
-            animation: fadeIn 0.8s ease-out;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) transparent;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .container::-webkit-scrollbar { width: 6px; }
+        .container::-webkit-scrollbar-thumb { background-color: var(--primary-color); border-radius: 10px; }
+
+        h1 { margin-top: 0; font-weight: 300; letter-spacing: 2px; }
+        
+        /* 圖片視覺 */
+        .game-image {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
         }
 
-        /* 滾動條美化 */
-        .container::-webkit-scrollbar { width: 8px; }
-        .container::-webkit-scrollbar-track { background: transparent; }
-        .container::-webkit-scrollbar-thumb { background-color: #444; border-radius: 4px; }
-
-        h1 {
-            font-size: 2.2rem;
-            margin-top: 0;
-            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-        }
-
-        /* 按鈕視覺特效 */
+        /* 現代感按鈕 */
         button {
             padding: 14px 28px;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             margin: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: white;
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--primary-glow);
-            filter: brightness(1.1);
-        }
-        button:active { transform: translateY(1px) scale(0.97); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 102, 241, 0.6); filter: brightness(1.1); }
+        button:active { transform: translateY(1px); }
 
         .tts-btn {
-            background: linear-gradient(135deg, #11998e, #38ef7d);
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
             font-size: 14px;
             padding: 8px 16px;
             border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
             display: inline-flex;
             align-items: center;
         }
 
-        .menu-btn { width: 80%; background: linear-gradient(135deg, #f12711, #f5af19); }
-        .exam-btn { background: linear-gradient(135deg, #00b09b, #96c93d); }
-        
+        .ruby-text { font-size: 0.75em; display: block; margin-bottom: 4px; opacity: 0.8; }
+
+        /* 考試模式 */
         .exam-input {
             padding: 15px;
             font-size: 20px;
-            width: 75%;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.4);
-            border: 2px solid #444;
+            width: 80%;
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
             border-radius: 10px;
             text-align: center;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .exam-input:focus {
             outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
+            transition: border-color 0.3s;
         }
-
+        .exam-input:focus { border-color: var(--primary-color); box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
+        
         #mnemonic {
             font-size: 16px;
             margin-top: 15px;
-            color: #e0f7fa;
+            color: #e0e7ff;
             text-align: left;
             padding: 20px;
-            border-left: 4px solid #00d2ff;
-            border-radius: 0 8px 8px 0;
-            background: rgba(0, 210, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(79, 70, 229, 0.15);
+            border: 1px solid rgba(79, 70, 229, 0.3);
             line-height: 1.6;
         }
 
-        /* 練習模式專屬 */
-        #practice-screen { display: none; padding: 0; }
+        #wrong-words { text-align: left; white-space: pre-wrap; margin-top: 20px; color: #fca5a5;}
+
+        /* 練習模式 */
         .practice-fixed-top {
-            background: rgba(20, 20, 25, 0.95);
+            background: rgba(15, 23, 42, 0.85);
             padding: 20px;
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
+
         .practice-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffca28; }
+
+        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #fbbf24; }
         .col-input { width: 35%; }
-        .col-ans { width: 30%; text-align: right; color: var(--correct-color); font-weight: bold; font-size: 18px;}
-        
+        .col-ans { width: 30%; text-align: right; color: var(--success); font-weight: bold; display: flex; flex-direction: column; align-items: flex-end;}
+
         .practice-input {
-            width: 90%; padding: 10px; font-size: 16px;
-            background: rgba(0,0,0,0.5); color: white;
-            border: 1px solid #555; border-radius: 6px;
-            transition: all 0.3s;
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            outline: none;
         }
-        .practice-input.correct { border-color: var(--correct-color); background: rgba(0, 230, 118, 0.1); box-shadow: 0 0 10px rgba(0,230,118,0.3); }
-        .practice-input.wrong { border-color: var(--wrong-color); background: rgba(255, 61, 0, 0.1); box-shadow: 0 0 10px rgba(255,61,0,0.3); }
+        .practice-input.correct { border-color: var(--success); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+        .practice-input.wrong { border-color: var(--error); box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
 
         .practice-mnemonic {
-            display: none; font-size: 14px; color: #b3e5fc;
-            text-align: left; background: rgba(255,255,255,0.05);
-            padding: 15px; margin: 0 20px 15px 20px; border-radius: 8px;
+            display: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #bae6fd;
+            text-align: left;
+            background: rgba(14, 165, 233, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
         }
+
+        .global-toggle-btn { background: linear-gradient(135deg, #ef4444, #dc2626); width: 100%; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+        .global-toggle-btn.active { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         
-        /* 圖示區 */
-        .icon-display { font-size: 80px; margin-bottom: 10px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); }
+        .answer-text { display: none; margin-bottom: 5px; font-size: 18px; }
+        
+        /* 隱藏區塊 */
+        #exam-screen, #practice-screen { display: none; }
     </style>
 </head>
 <body>
 
     <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
-        <div class="icon-display">✨</div>
-        <h1>寧寧的頂級單字挑戰</h1>
-        <p style="color: var(--text-muted); margin-bottom: 30px;">準備好迎接全新的學習體驗了嗎？</p>
-        <button class="menu-btn" onclick="goToExam()">開始考試</button>
-        <button class="menu-btn" onclick="goToPractice()" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">我要練習</button>
+        <h1>✨ 寧寧的頂級單字挑戰</h1>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">請選擇妳的學習模式：</p>
+        
+        <button style="width: 80%; padding: 20px;" onclick="goToExam()">
+            <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
+            開始考試
+        </button>
+
+        <button style="width: 80%; padding: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);" onclick="goToPractice()">
+            <span class="ruby-text">ㄨㄛˇ ㄧㄠˋ ㄌㄧㄢˋ ㄒㄧˊ</span>
+            我要練習
+        </button>
     </div>
 
     <!-- 2. 考試模式 -->
-    <div id="exam-screen" class="container" style="display: none;">
-        <div id="game-icon" class="icon-display">📝</div>
+    <div id="exam-screen" class="container">
         <h1>單字拼寫測驗</h1>
-        <div id="question" style="font-size: 24px; margin: 25px 0; color: #fff;"></div>
+        <div id="question" style="font-size: 26px; margin: 30px 0; color: #fbbf24;">載入題目中...</div>
         <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)" autocomplete="off">
         <br>
-        <button id="exam-submit" class="exam-btn">提交答案</button>
-        <div id="exam-result" style="font-size: 22px; margin-top: 20px; font-weight: bold;"></div>
-        <div id="mnemonic" style="display: none;"></div>
+        <button id="exam-submit">提交答案</button>
+        <div id="exam-result" style="font-size: 22px; margin-top: 20px; height: 30px;"></div>
+        <div id="mnemonic"></div>
         <div id="score" style="font-size: 18px; margin-top: 15px; color: var(--text-muted);">分數: 0 / 0</div>
-        <div id="wrong-words" style="text-align: left; white-space: pre-wrap; margin-top: 20px; color: #ff8a65;"></div>
+        <div id="wrong-words"></div>
         
-        <button id="exam-restart" class="exam-btn" style="display: none;">重新開始</button>
-        <button id="exam-retest" class="exam-btn" style="display: none; background: #ff9800;">重測錯題</button>
-        <button onclick="goHome()" style="background: #555; margin-top: 25px;">回首頁</button>
+        <div style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <button id="exam-restart" style="display: none;">重新開始</button>
+            <button id="exam-retest" style="display: none; background: linear-gradient(135deg, #f59e0b, #d97706);">重測錯題</button>
+            <button style="background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); box-shadow: none;" onclick="goHome()">回首頁</button>
+        </div>
     </div>
 
     <!-- 3. 練習模式 -->
-    <div id="practice-screen" class="container">
+    <div id="practice-screen" class="container" style="max-width: 800px; padding: 20px;">
         <div class="practice-fixed-top">
-            <h2 style="color: #00d2ff; margin: 0 0 15px 0;">單字練習室</h2>
+            <h2 style="margin: 0 0 15px 0;">單字練習室</h2>
             <div style="display: flex; gap: 10px;">
-                <button onclick="goHome()" style="background: #555; width: 30%;">回首頁</button>
-                <button id="toggle-all-btn" onclick="toggleAllAnswers()" style="width: 70%; background: linear-gradient(135deg, #e52d27, #b31217);">顯示所有答案 / 批改</button>
+                <button style="flex: 1; background: transparent; border: 1px solid var(--text-muted); box-shadow:none;" onclick="goHome()">
+                    回首頁<br><span style="font-size:0.8em; opacity:0.6;">ㄏㄨㄟˊ ㄕㄡˇ ㄧㄝˋ</span>
+                </button>
+                <button id="toggle-all-btn" class="global-toggle-btn" style="flex: 3;" onclick="toggleAllAnswers()">
+                    顯示答案與批改<br><span style="font-size:0.8em; opacity:0.8;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
+                </button>
             </div>
         </div>
-        <div id="practice-list-container" style="padding-bottom: 20px;">
-            <div id="practice-list"></div>
-        </div>
+        <div id="practice-list" style="text-align: left;"></div>
     </div>
 
     <script>
-        // Web Audio API 音效引擎 (高質感聽覺回饋)
+        // --- Web Audio API 高質感音效引擎 ---
         const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) audioCtx = new AudioContext();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        }
+        const audioCtx = new AudioContext();
 
         function playSound(type) {
-            initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
             
-            const now = audioCtx.currentTime;
-            if (type === 'click') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, now);
-                osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-                osc.start(now); osc.stop(now + 0.1);
-            } else if (type === 'correct') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.setValueAtTime(880, now + 0.1);
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-                osc.start(now); osc.stop(now + 0.4);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            if (type === 'correct') {
+                // 清脆的叮聲
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+                oscillator.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.5);
             } else if (type === 'wrong') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(200, now);
-                osc.frequency.linearRampToValueAtTime(100, now + 0.3);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-                osc.start(now); osc.stop(now + 0.3);
+                // 低沉的嗡聲
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
             }
         }
 
-        // 為所有按鈕綁定點擊音效
-        document.addEventListener('click', (e) => {
-            if(e.target.tagName === 'BUTTON') playSound('click');
-        });
-
-        // 全新的 15 個單字庫 (已配上高質量記憶法)
+        // --- 全新的單字庫 (結合 Mnemonic Dictionary 記憶法) ---
         const words = [
-            { en: 'fantasy', zh: '幻想', mnemonic: '諧音「芬達(Fanta) + sy」。想像你喝著甜甜的芬達汽水，沉浸在美好的「幻想」中。' },
-            { en: 'worry', zh: '擔心', mnemonic: '發音類似「war (戰爭)」。發生戰爭時，每個人都會非常「擔心」安全。' },
-            { en: 'wonder', zh: '想知道 / 驚奇', mnemonic: '字首「won」像 win (贏) 的過去式。贏了比賽後，大家都「想知道」秘訣是什麼，覺得很「驚奇」。' },
-            { en: 'extra', zh: '額外的', mnemonic: '諧音「X + tra (train 火車)」。想像這是一班「額外」加開的神秘X號火車。' },
-            { en: 'go wading', zh: '涉水而行', mnemonic: '「wade」發音像「wait (等待)」。在淹水的地方「涉水」前進時，走得很慢就像在等待一樣。' },
-            { en: 'late', zh: '遲到的', mnemonic: '諧音「累的」。因為昨天太累睡過頭，所以今天「遲到」了。' },
-            { en: 'teacher', zh: '老師', mnemonic: '「teach (教導)」+「er (的人)」。專門教導別人的人就是「老師」。' },
-            { en: 'tractor', zh: '拖拉機', mnemonic: '「tract (拉/拖)」+「or (機器)」。在農田裡用來拖拉重物的機器就是「拖拉機」。' },
-            { en: 'doctor', zh: '醫生', mnemonic: '字根 doc 有「教導」之意。在醫院裡指導病人恢復健康的人就是「醫生」。' },
-            { en: 'sister', zh: '姊妹', mnemonic: '諧音「西施 + 特」。像古代美女西施一樣特別漂亮的女孩，是我的好「姊妹」。' },
-            { en: 'knife', zh: '刀子', mnemonic: '字首 k 不發音，音近「奈夫」。想像一個名叫奈夫的刺客，手裡總是拿著一把銳利的「刀子」。' },
-            { en: 'later', zh: '稍後', mnemonic: '「late (遲)」+「r (比較級)」。比原本預定的時間還要晚，就是「稍後」。' },
-            { en: 'adopt', zh: '收養 / 採納', mnemonic: '「opt」有「選擇」的意思。你「選擇 (opt)」把一個可愛的流浪動物帶回家「收養」。' },
-            { en: 'blood', zh: '血液', mnemonic: '發音和「flood (洪水)」押韻。受傷時，「血液」像小洪水一樣流出來。' },
-            { en: 'cash', zh: '現金', mnemonic: '發音像「catch (抓)」。看到天上掉下來的「現金」，大家都會想伸手去抓 (catch)！' }
+            { en: 'fantasy', zh: '幻想 / 奇幻 (ㄏㄨㄢˋ ㄒㄧㄤˇ)', mnemonic: 'fan (粉絲) + tasy (tasty, 美味的)。粉絲覺得偶像的一切都很美好美味，這是一種幻想 (fantasy)。' },
+            { en: 'worry', zh: '擔心 / 憂慮 (ㄉㄢ ㄒㄧㄣ)', mnemonic: 'wor (war, 戰爭) + ry。戰爭會帶來許多擔心與憂慮 (worry)。' },
+            { en: 'wonder', zh: '想知道 / 驚奇 (ㄒㄧㄤˇ ㄓ ㄉㄠˋ)', mnemonic: 'won (贏) + der。贏得比賽的人會讓人想知道 (wonder) 他是怎麼辦到的。' },
+            { en: 'extra', zh: '額外的 (ㄜˊ ㄨㄞˋ ㄉㄜ˙)', mnemonic: 'ex (出去) + tra (track, 軌道)。跑出原本軌道之外的，就是額外的 (extra)。' },
+            { en: 'go wading', zh: '去涉水 / 玩水 (ㄑㄩˋ ㄕㄜˋ ㄕㄨㄟˇ)', mnemonic: 'wade 聽起來像 wait (等待)。在水裡涉水而行 (go wading) 要慢慢走，像是在等待。' },
+            { en: 'late', zh: '遲到的 (ㄔˊ ㄉㄠˋ ㄉㄜ˙)', mnemonic: 'late 聽起來像中文的「累的」。因為太累了爬不起來，所以就遲到了 (late)。' },
+            { en: 'teacher', zh: '老師 (ㄌㄠˇ ㄕ)', mnemonic: 'teach (教導) + er (的人)。專門教導別人的人就是老師 (teacher)。' },
+            { en: 'tractor', zh: '拖拉機 (ㄊㄨㄛ ㄌㄚ ㄐㄧ)', mnemonic: 'tract (拉) + or (機器)。用來拉東西的農用機器就是拖拉機 (tractor)。' },
+            { en: 'doctor', zh: '醫生 (ㄧ ㄕㄥ)', mnemonic: 'doc (document, 文件/病歷) + tor。常常看病歷文件的人是醫生 (doctor)。' },
+            { en: 'sister', zh: '姐妹 (ㄐㄧㄝˇ ㄇㄟˋ)', mnemonic: 'sis (sit, 坐) + ter。跟你從小坐在一起長大的女孩是姐妹 (sister)。' },
+            { en: 'knife', zh: '刀子 (ㄉㄠ ㄗ˙)', mnemonic: 'k (不發音) + nife (聽起來像 life, 生命)。拿刀子 (knife) 不小心會威脅到生命 (life)。' },
+            { en: 'later', zh: '稍後 / 後來 (ㄕㄠ ㄏㄡˋ)', mnemonic: 'late (遲) + r (比較級)。比遲到還要更晚一點，就是稍後 (later)。' },
+            { en: 'adopt', zh: '收養 / 採用 (ㄕㄡ ㄧㄤˇ)', mnemonic: 'ad (add, 增加) + opt (選擇)。選擇 (opt) 把別人增加 (add) 到自己家裡，就是收養 (adopt)。' },
+            { en: 'blood', zh: '血液 (ㄒㄧㄝˇ ㄧㄝˋ)', mnemonic: 'b + flood (洪水)。受傷時血液 (blood) 像洪水一樣流出來。' },
+            { en: 'cash', zh: '現金 (ㄒㄧㄢˋ ㄐㄧㄣ)', mnemonic: '聽起來像 catch (抓住)。用現金 (cash) 買東西可以立刻抓住物品。' }
         ];
 
-        // 語音朗讀 API
-        function speakWord(word, e) {
-            if(e) e.stopPropagation();
+        /* --- 語音朗讀 API --- */
+        function speakWord(word) {
             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // 中斷前一個語音
                 const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
+                utterance.rate = 0.9; // 稍微放慢，聽得更清楚
                 window.speechSynthesis.speak(utterance);
+            } else {
+                alert("很抱歉，您的瀏覽器目前不支援語音朗讀功能喔！");
             }
         }
 
-        // 安全洗牌演算法
+        /* --- 洗牌演算法 --- */
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -298,107 +309,124 @@
             }
         }
 
-        /* --- 頁面切換 --- */
+        /* --- 頁面切換邏輯 --- */
         function goHome() {
             document.getElementById('menu-screen').style.display = 'block';
             document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'none';
+            document.getElementById('practice-screen').style.display = 'none'; 
         }
 
         function goToExam() {
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'block';
+            if(audioCtx.state === 'suspended') audioCtx.resume();
             startGame(words);
         }
 
         function goToPractice() {
             document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'block';
+            document.getElementById('practice-screen').style.display = 'block'; 
+            if(audioCtx.state === 'suspended') audioCtx.resume();
             renderPracticeList();
             resetPracticeState();
         }
 
-        /* --- 練習模式 --- */
+        /* --- 練習模式邏輯 --- */
         let areAnswersVisible = false;
 
         function resetPracticeState() {
             areAnswersVisible = false;
             const btn = document.getElementById('toggle-all-btn');
-            btn.textContent = '顯示所有答案 / 批改';
-            btn.style.background = 'linear-gradient(135deg, #e52d27, #b31217)';
+            btn.innerHTML = '顯示答案與批改<br><span style="font-size:0.8em; opacity:0.8;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
+            btn.classList.remove('active');
         }
 
         function renderPracticeList() {
             const listContainer = document.getElementById('practice-list');
             listContainer.innerHTML = '';
+
             words.forEach((word, index) => {
-                listContainer.innerHTML += `
+                const rowHTML = `
                     <div class="practice-row">
                         <div class="col-zh">${word.zh}</div>
                         <div class="col-input">
                             <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
                         </div>
                         <div class="col-ans">
-                            <div id="ans-${index}" style="display:none; display:flex; flex-direction:column; align-items:flex-end;">
-                                <span>${word.en}</span>
-                                <button class="tts-btn" onclick="speakWord('${word.en}', event)" style="margin-top:5px; padding:4px 10px;">🔊 唸出</button>
+                            <div id="ans-${index}" class="answer-text">
+                                ${word.en}
+                                <button class="tts-btn" onclick="speakWord('${word.en}')" title="唸出單字" style="padding: 4px 10px; margin: 5px 0 0 0;">🔊</button>
                             </div>
                         </div>
                     </div>
-                    <div id="p-mnemonic-${index}" class="practice-mnemonic">💡 <b>記憶提示：</b>${word.mnemonic}</div>
+                    <div id="p-mnemonic-${index}" class="practice-mnemonic">
+                        💡 <b>記憶提示：</b>${word.mnemonic}
+                    </div>
                 `;
+                listContainer.innerHTML += rowHTML;
             });
         }
 
-        document.getElementById('practice-list-container').addEventListener('keyup', (e) => {
+        document.getElementById('practice-screen').addEventListener('keyup', (e) => {
             if (e.key === 'Enter') toggleAllAnswers();
         });
 
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
+            const answers = document.querySelectorAll('.answer-text');
+            const inputs = document.querySelectorAll('.practice-input');
+            let allCorrect = true;
+
             areAnswersVisible = !areAnswersVisible;
 
-            words.forEach((word, index) => {
-                const ansDiv = document.getElementById(`ans-${index}`);
-                const input = document.getElementById(`p-input-${index}`);
-                const mnemonic = document.getElementById(`p-mnemonic-${index}`);
-                
-                if (areAnswersVisible) {
-                    ansDiv.style.display = 'flex';
-                    const userWord = input.value.trim().toLowerCase();
-                    if (userWord === word.en.toLowerCase()) {
-                        input.className = 'practice-input correct';
-                        mnemonic.style.display = 'none';
-                    } else {
-                        input.className = 'practice-input wrong';
-                        mnemonic.style.display = 'block';
-                    }
-                } else {
-                    ansDiv.style.display = 'none';
-                    input.className = 'practice-input';
-                    mnemonic.style.display = 'none';
-                }
-            });
-
             if (areAnswersVisible) {
-                btn.textContent = '隱藏所有答案';
-                btn.style.background = 'linear-gradient(135deg, #11998e, #38ef7d)';
-                playSound('correct'); // 批改完成音效
+                btn.innerHTML = '隱藏答案繼續練習<br><span style="font-size:0.8em; opacity:0.8;">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
+                btn.classList.add('active');
+                answers.forEach(el => el.style.display = 'block');
+
+                inputs.forEach((input, index) => {
+                    const userWord = input.value.trim().toLowerCase();
+                    const correctWord = words[index].en.toLowerCase();
+                    const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
+                    
+                    if (userWord === correctWord) {
+                        input.classList.add('correct');
+                        input.classList.remove('wrong');
+                        mnemonicDiv.style.display = 'none';
+                    } else {
+                        input.classList.add('wrong');
+                        input.classList.remove('correct');
+                        mnemonicDiv.style.display = 'block';
+                        allCorrect = false;
+                    }
+                });
+
+                if(allCorrect) playSound('correct'); else playSound('wrong');
+
             } else {
-                btn.textContent = '顯示所有答案 / 批改';
-                btn.style.background = 'linear-gradient(135deg, #e52d27, #b31217)';
+                btn.innerHTML = '顯示答案與批改<br><span style="font-size:0.8em; opacity:0.8;">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
+                btn.classList.remove('active');
+                answers.forEach(el => el.style.display = 'none');
+                words.forEach((_, index) => {
+                    document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
+                });
             }
         }
 
-        /* --- 考試模式 --- */
-        let currentQuestion = 0, score = 0, totalQuestions = 0;
-        let questions = [], wrongWords = [], isWaitingToContinue = false;
+        /* --- 考試模式邏輯 --- */
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = 0;
+        let questions = [];
+        let wrongWords = [];
+        let isWaitingToContinue = false;
 
         function startGame(wordList) {
-            questions = [...wordList];
+            questions = [...(wordList || words)];
             totalQuestions = questions.length;
             shuffle(questions);
-            currentQuestion = score = 0;
+            currentQuestion = 0;
+            score = 0;
             wrongWords = [];
             isWaitingToContinue = false;
             
@@ -407,59 +435,70 @@
             document.getElementById('wrong-words').textContent = '';
             document.getElementById('exam-answer').style.display = 'inline-block';
             document.getElementById('exam-submit').style.display = 'inline-block';
-            document.getElementById('game-icon').textContent = '📝';
             document.getElementById('mnemonic').style.display = 'none';
+            
             nextQuestion();
         }
 
         function nextQuestion() {
-            if (currentQuestion >= totalQuestions) return endGame();
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
             const q = questions[currentQuestion];
-            document.getElementById('mnemonic').style.display = 'none';
             isWaitingToContinue = false;
+            document.getElementById('mnemonic').style.display = 'none';
             document.getElementById('exam-submit').textContent = '提交答案';
-            document.getElementById('question').innerHTML = `請輸入 <b>"${q.zh}"</b> 的英文：`;
+            document.getElementById('question').innerHTML = `請輸入 <b>"${q.zh}"</b> 的英文拼寫`;
             document.getElementById('exam-answer').value = '';
             document.getElementById('exam-result').textContent = '';
-            document.getElementById('game-icon').textContent = '🤔';
             updateScore();
+            
             setTimeout(() => document.getElementById('exam-answer').focus(), 50);
         }
 
         function checkExamAnswer() {
-            if (isWaitingToContinue) return nextQuestion();
+            if (isWaitingToContinue) {
+                currentQuestion++;
+                nextQuestion();
+                return;
+            }
 
             const userAnswer = document.getElementById('exam-answer').value.trim().toLowerCase();
             const q = questions[currentQuestion];
+            const correctAnswer = q.en.toLowerCase();
 
-            if (userAnswer === q.en.toLowerCase()) {
-                score++;
+            if (userAnswer === correctAnswer) {
                 playSound('correct');
-                document.getElementById('exam-result').textContent = '🎉 正確！';
-                document.getElementById('exam-result').style.color = 'var(--correct-color)';
-                document.getElementById('game-icon').textContent = '✅';
-                setTimeout(() => { currentQuestion++; nextQuestion(); }, 1200);
+                score++;
+                document.getElementById('exam-result').textContent = '✨ 正確！';
+                document.getElementById('exam-result').style.color = 'var(--success)';
+                setTimeout(() => {
+                    currentQuestion++;
+                    nextQuestion();
+                }, 1000);
             } else {
                 playSound('wrong');
-                document.getElementById('exam-result').innerHTML = `❌ 錯誤。<br>正確答案是：<b>${q.en}</b>`;
-                document.getElementById('exam-result').style.color = 'var(--wrong-color)';
-                document.getElementById('game-icon').textContent = '💥';
+                document.getElementById('exam-result').textContent = `❌ 錯誤。答案是：${q.en}`;
+                document.getElementById('exam-result').style.color = 'var(--error)';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `💡 <b>記憶提示：</b>${q.mnemonic}<br><br>
-                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出單字</button>`;
+                mnemonicEl.innerHTML = `
+                    💡 <b>記憶提示：</b>${q.mnemonic}
+                    <br><br>
+                    <button class="tts-btn" onclick="speakWord('${q.en}')" style="margin-left: 0;">🔊 唸出正確單字</button>
+                `;
                 mnemonicEl.style.display = 'block';
                 
-                document.getElementById('exam-submit').textContent = '繼續下一題';
-                wrongWords.push({ ...q, user: userAnswer });
+                document.getElementById('exam-submit').textContent = '下一題';
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer, mnemonic: q.mnemonic });
                 isWaitingToContinue = true;
-                currentQuestion++;
             }
             updateScore();
         }
 
         function updateScore() {
-            document.getElementById('score').textContent = `進度: ${currentQuestion + (isWaitingToContinue?0:1)} / ${totalQuestions} | 分數: ${score}`;
+            document.getElementById('score').textContent = `進度: ${currentQuestion + (isWaitingToContinue?1:0)} / ${totalQuestions} | 得分: ${score}`;
         }
 
         function endGame() {
@@ -467,29 +506,34 @@
             document.getElementById('question').textContent = '測驗結束！';
             document.getElementById('exam-answer').style.display = 'none';
             document.getElementById('exam-submit').style.display = 'none';
-            document.getElementById('exam-result').textContent = `最終分數：${score} / ${totalQuestions}`;
-            document.getElementById('exam-result').style.color = '#fff';
+            document.getElementById('exam-result').textContent = `總得分：${score} / ${totalQuestions}`;
+            document.getElementById('exam-result').style.color = 'white';
             
             if (score === totalQuestions) {
-                document.getElementById('game-icon').textContent = '🏆';
-                document.getElementById('wrong-words').textContent = '太棒了！妳全部答對了！';
-                document.getElementById('wrong-words').style.color = 'var(--correct-color)';
+                playSound('correct');
+                document.getElementById('wrong-words').innerHTML = '<span style="color:var(--success); font-size:24px;">🎉 太棒了！妳全部答對！</span>';
             } else {
-                document.getElementById('game-icon').textContent = '💪';
-                let wrongText = '需要再複習的單字：\n\n';
-                wrongWords.forEach(w => { wrongText += `• ${w.zh} ➔ 正確: ${w.en} (妳輸入: ${w.user || '空白'})\n`; });
+                let wrongText = '妳需要多練習的單字：\n\n';
+                wrongWords.forEach(w => {
+                    wrongText += `• ${w.zh}\n  正確: "${w.en}" (妳輸入: "${w.user}")\n`;
+                });
                 document.getElementById('wrong-words').textContent = wrongText;
-                document.getElementById('wrong-words').style.color = '#ffb74d';
                 document.getElementById('exam-retest').style.display = 'inline-block';
             }
             document.getElementById('exam-restart').style.display = 'inline-block';
         }
 
         document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
-        document.getElementById('exam-answer').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkExamAnswer(); });
+        document.getElementById('exam-answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkExamAnswer();
+        });
         document.getElementById('exam-restart').addEventListener('click', () => startGame(words));
-        document.getElementById('exam-retest').addEventListener('click', () => { if (wrongWords.length > 0) startGame(wrongWords); });
-
+        document.getElementById('exam-retest').addEventListener('click', () => {
+            if (wrongWords.length > 0) {
+                const retestWords = wrongWords.map(w => ({ en: w.en, zh: w.zh, mnemonic: w.mnemonic }));
+                startGame(retestWords);
+            }
+        });
     </script>
 </body>
 </html>
