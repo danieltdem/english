@@ -3,1053 +3,1006 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>寧寧的暗夜單字冒險樂園 🚀</title>
+  <title>Vocabulary Quiz & Practice</title>
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: #161f30;
-      --card-border: #22324d;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(22, 31, 48, 0.78);
+      --card-border: rgba(56, 189, 248, 0.22);
+      --card-hover: rgba(30, 41, 59, 0.9);
       --accent-cyan: #38bdf8;
       --accent-pink: #f43f5e;
       --accent-green: #10b981;
-      --accent-yellow: #fbbf24;
-      --accent-purple: #a855f7;
-      --input-bg: #0f172a;
-      --radius: 16px;
+      --accent-yellow: #f59e0b;
+      --accent-purple: #8b5cf6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-rt: #38bdf8;
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
     }
 
     body {
-      background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, var(--bg) 60%, #030712 100%);
+      background: radial-gradient(circle at 20% 20%, #1e1b4b 0%, #0b0f19 50%, #030712 100%);
       color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: var(--font-family);
       min-height: 100vh;
-      padding: 24px 16px;
+      padding: 24px 16px 80px;
+      line-height: 1.5;
     }
 
-    .container {
-      width: 100%;
-      max-width: 760px;
-      position: relative;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 24px;
-      padding: 20px 16px;
-      background: rgba(22, 31, 48, 0.7);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    header h1 {
-      font-size: 1.85rem;
-      color: var(--accent-cyan);
-      margin-bottom: 8px;
-      text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
-    }
-
-    header p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
+    /* Zhuyin Ruby Styling */
     ruby {
       ruby-align: center;
+      display: inline-flex;
+      flex-direction: column-reverse;
+      vertical-align: bottom;
+      line-height: 1.1;
+      margin: 0 1px;
     }
 
     rt {
-      font-size: 0.56em;
-      color: #7dd3fc;
-      font-weight: 600;
+      font-size: 0.62em;
+      line-height: 1;
+      color: var(--text-rt);
       user-select: none;
+      font-weight: 600;
       letter-spacing: -0.5px;
+      margin-bottom: 2px;
     }
 
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 24px 16px;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .site-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .site-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Navigation Mode Tabs */
     .nav-tabs {
       display: flex;
+      justify-content: center;
       gap: 12px;
       margin-bottom: 24px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 14px 12px;
-      border: 2px solid var(--card-border);
-      background: #111827;
+      max-width: 240px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      background: rgba(30, 41, 59, 0.7);
       color: var(--text-muted);
       font-size: 1.05rem;
       font-weight: 700;
-      border-radius: 14px;
       cursor: pointer;
       transition: all 0.25s ease;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(51, 65, 85, 0.8);
+      color: #fff;
+      transform: translateY(-2px);
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: #ffffff;
-      border-color: #818cf8;
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(139, 92, 246, 0.25));
+      border-color: var(--accent-cyan);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
     }
 
-    .tab-btn.active rt {
-      color: #e0e7ff;
+    /* Global Practice Sticky Toolbar */
+    .practice-toolbar {
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(14px);
+      padding: 14px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .view-section {
-      display: none;
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .view-section.active {
-      display: block;
+    .word-count-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
-    button.btn {
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
       padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      border: none;
+      transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      white-space: nowrap;
     }
 
-    button.btn:active {
+    .btn:active {
       transform: scale(0.96);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
-      color: white;
+    .btn-global-reveal {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
     }
-    .btn-primary rt { color: #dbeafe; }
 
-    .btn-secondary {
-      background: #1e293b;
-      color: #cbd5e1;
-      border: 1px solid #334155;
+    .btn-global-reveal:hover {
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
     }
-    .btn-secondary:hover { background: #334155; }
-    .btn-secondary rt { color: #94a3b8; }
 
-    .btn-success {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
+    .btn-reset {
+      background: rgba(51, 65, 85, 0.8);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .btn-success rt { color: #d1fae5; }
 
-    .btn-warning {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: white;
+    .btn-reset:hover {
+      background: rgba(71, 85, 105, 1);
+      transform: translateY(-2px);
     }
-    .btn-warning rt { color: #fef3c7; }
 
-    .btn-glow {
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: white;
-      box-shadow: 0 0 15px rgba(236, 72, 153, 0.35);
+    /* Practice Word Card */
+    .word-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
     }
-    .btn-glow rt { color: #fce7f3; }
 
-    .tts-btn {
-      background: #1e293b;
-      color: #38bdf8;
-      border: 1px solid #0284c7;
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: inline-flex;
+    .word-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: var(--card-hover);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .word-card-header {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .card-idx-badge {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    .pos-badge {
+      font-size: 0.8rem;
       font-weight: 700;
-      transition: all 0.2s;
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 3px 10px;
+      border-radius: 8px;
     }
 
-    .tts-btn:hover {
-      background: #0284c7;
-      color: white;
+    .chinese-prompt {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 4px;
     }
-    .tts-btn rt { color: inherit; }
 
-    input[type="text"] {
-      background: var(--input-bg);
-      border: 2px solid var(--card-border);
-      color: #f8fafc;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 1.05rem;
+    .typing-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .word-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: all 0.2s ease;
     }
 
-    input[type="text"]:focus {
+    .word-input:focus {
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    }
+
+    .word-input.correct {
+      border-color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .word-input.incorrect {
+      border-color: var(--accent-pink);
+      background: rgba(244, 63, 94, 0.1);
+    }
+
+    .btn-pronounce {
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #fff;
+    }
+
+    .btn-pronounce:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-reveal {
+      background: linear-gradient(135deg, #8b5cf6, #d946ef);
+      color: #fff;
+    }
+
+    .btn-reveal:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    /* Answer and Mnemonic Box */
+    .answer-box {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border-left: 4px solid var(--accent-yellow);
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .answer-word {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
     .mnemonic-box {
-      margin-top: 10px;
-      background: rgba(15, 23, 42, 0.7);
-      border-left: 4px solid var(--accent-yellow);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.92rem;
+      font-size: 0.98rem;
       color: #e2e8f0;
-      line-height: 1.8;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 10px 14px;
+      border-radius: 10px;
+      line-height: 1.6;
     }
 
-    .mnemonic-box strong {
+    .mnemonic-label {
+      font-weight: 700;
       color: var(--accent-yellow);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* 模式一：開始考試 */
-    .quiz-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    /* Exam Mode View */
+    .exam-view {
+      display: none;
     }
 
-    .progress-bar-container {
+    .exam-progress-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .exam-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .progress-bar-bg {
       width: 100%;
       height: 10px;
-      background: #1e293b;
-      border-radius: 999px;
-      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
       overflow: hidden;
     }
 
     .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #38bdf8, #a855f7);
       width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #10b981);
       transition: width 0.3s ease;
     }
 
-    .quiz-meta {
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-      font-weight: 600;
+    .exam-card {
+      background: var(--card-bg);
+      border: 2px solid var(--accent-purple);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
     }
 
-    .exam-word-prompt {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      text-align: center;
-      margin: 18px 0 24px 0;
-      line-height: 2;
+    .exam-question-prompt {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
     }
 
     .exam-input-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
+      max-width: 450px;
+      margin: 0 auto 20px;
     }
 
-    .exam-input-group input {
-      flex: 1;
-    }
-
-    .feedback-box {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 1rem;
-      line-height: 1.7;
-      display: none;
-    }
-
-    .feedback-box.correct {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--accent-green);
-      color: #a7f3d0;
-      display: block;
-    }
-
-    .feedback-box.incorrect {
-      background: rgba(244, 63, 94, 0.15);
-      border: 1px solid var(--accent-pink);
-      color: #fecdd3;
-      display: block;
-    }
-
-    .feedback-title {
+    .exam-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 1.3rem;
       font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .result-card {
       text-align: center;
-      padding: 32px 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      outline: none;
+      transition: all 0.25s ease;
     }
 
-    .result-score {
-      font-size: 3.6rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 12px 0;
+    .exam-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
     }
 
-    .wrong-list {
-      text-align: left;
+    .exam-feedback {
+      display: none;
+      padding: 20px;
+      border-radius: 16px;
       margin-top: 20px;
-      max-height: 280px;
-      overflow-y: auto;
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px;
-      background: #0f172a;
+      text-align: left;
+      animation: fadeIn 0.3s ease forwards;
     }
 
-    .wrong-item {
-      padding: 10px 8px;
-      border-bottom: 1px dashed #334155;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .wrong-item:last-child { border-bottom: none; }
-
-    /* 模式二：我要練習 */
-    .practice-sticky-bar {
-      position: sticky;
-      top: 12px;
-      z-index: 20;
-      background: rgba(22, 31, 48, 0.95);
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    .exam-feedback.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
     }
 
-    .practice-stat {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--accent-cyan);
+    .exam-feedback.incorrect {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(244, 63, 94, 0.4);
     }
 
-    .practice-list {
+    .btn-submit {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-size: 1.15rem;
+      padding: 14px 36px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-submit:hover {
+      box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: #fff;
+      font-size: 1.15rem;
+      padding: 14px 36px;
+      border-radius: 16px;
+    }
+
+    /* Exam Result Summary Card */
+    .result-card {
+      display: none;
+      background: var(--card-bg);
+      border: 2px solid var(--accent-yellow);
+      border-radius: 24px;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(245, 158, 11, 0.25);
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 4px solid var(--accent-yellow);
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    .practice-item-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      position: relative;
-    }
-
-    .practice-item-card:hover {
-      border-color: #3b82f6;
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
-    }
-
-    .practice-card-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.35);
     }
 
-    .practice-badge {
-      background: #1e1b4b;
-      color: #c084fc;
-      border: 1px solid #4338ca;
-      padding: 3px 12px;
-      border-radius: 999px;
+    .score-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent-yellow);
+      line-height: 1;
+    }
+
+    .score-label {
       font-size: 0.85rem;
-      font-weight: 700;
+      color: #cbd5e1;
     }
 
-    .practice-prompt-zh {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #f8fafc;
-      margin-bottom: 14px;
-      line-height: 1.9;
-    }
-
-    .practice-action-row {
+    .result-stats {
       display: flex;
-      gap: 10px;
-      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 24px;
     }
 
-    .practice-action-row input {
-      flex: 1;
-      min-width: 150px;
-      padding: 11px 13px;
-      font-size: 1.05rem;
+    .stat-item {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .practice-result-box {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 10px;
+    .stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .stat-val.green { color: var(--accent-green); }
+    .stat-val.red { color: var(--accent-pink); }
+
+    .result-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--accent-cyan);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
       font-size: 0.95rem;
-      line-height: 1.6;
-      display: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
 <body>
-
   <div class="container">
+    <!-- Header -->
     <header>
-      <h1>✨ <ruby>寧<rt>ㄋㄧㄥˊ</rt>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>暗<rt>ㄢˋ</rt>夜<rt>ㄧㄝˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt>字<rt>ㄗˋ</rt></ruby><ruby>冒<rt>ㄇㄠˋ</rt>險<rt>ㄒㄧㄢˇ</rt></ruby><ruby>樂<rt>ㄌㄜˋ</rt>園<rt>ㄩㄢˊ</rt></ruby> 🚀</h1>
-      <p>🎮 33 <ruby>個<rt>˙ㄍㄜ</rt></ruby><ruby>核<rt>ㄏㄜˊ</rt>心<rt>ㄒㄧㄣ</rt></ruby><ruby>單<rt>ㄉㄢ</rt>字<rt>ㄗˋ</rt></ruby> ‧ <ruby>注<rt>ㄓㄨˋ</rt>音<rt>ㄧㄣ</rt></ruby><ruby>陪<rt>ㄆㄟˊ</rt>讀<rt>ㄉㄨˊ</rt></ruby> ‧ <ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>中<rt>ㄓㄨㄥ</rt>文<rt>ㄨㄣˊ</rt></ruby><ruby>拼<rt>ㄆㄧㄣ</rt>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>挑<rt>ㄊㄧㄠˇ</rt>戰<rt>ㄓㄢˋ</rt></ruby></p>
+      <h1 class="site-title">🎒 <ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>專<rt>ㄓㄨㄢ</rt></ruby><ruby>屬<rt>ㄕㄨˇ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>探<rt>ㄊㄢˋ</rt></ruby><ruby>險<rt>ㄒㄧㄢˇ</rt></ruby><ruby>島<rt>ㄉㄠˇ</rt></ruby></h1>
+      <p class="site-desc">✨ <ruby>收<rt>ㄕㄡ</rt></ruby><ruby>錄<rt>ㄌㄨˋ</rt></ruby><ruby>精<rt>ㄐㄧㄥ</rt></ruby><ruby>選<rt>ㄒㄩㄢˇ</rt></ruby><ruby>三<rt>ㄙㄢ</rt></ruby><ruby>十<rt>ㄕˊ</rt></ruby><ruby>三<rt>ㄙㄢ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby><ruby>核<rt>ㄏㄜˊ</rt></ruby><ruby>心<rt>ㄒㄧㄣ</rt></ruby><ruby>英<rt>ㄧㄥ</rt></ruby><ruby>語<rt>ㄩˇ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby>，<ruby>提<rt>ㄊㄧˊ</rt></ruby><ruby>供<rt>ㄍㄨㄥ</rt></ruby><ruby>注<rt>ㄓㄨˋ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>標<rt>ㄅㄧㄠ</rt></ruby><ruby>註<rt>ㄓㄨˋ</rt></ruby>、<ruby>聯<rt>ㄌㄧㄢˊ</rt></ruby><ruby>想<rt>ㄒㄧㄤˇ</rt></ruby><ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>憶<rt>ㄧˋ</rt></ruby><ruby>口<rt>ㄎㄡˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>語<rt>ㄩˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>朗<rt>ㄌㄤˇ</rt></ruby><ruby>讀<rt>ㄉㄨˊ</rt></ruby> ✨</p>
     </header>
 
+    <!-- Mode Selector Tabs -->
     <div class="nav-tabs">
-      <button class="tab-btn active" id="tabExam" onclick="switchMode('exam')">
-        🎯 <ruby>開<rt>ㄎㄞ</rt>始<rt>ㄕˇ</rt></ruby><ruby>考<rt>ㄎㄠˇ</rt>試<rt>ㄕˋ</rt></ruby> (33<ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>逐<rt>ㄓㄨˊ</rt>題<rt>ㄊㄧˊ</rt></ruby><ruby>闖<rt>ㄔㄨㄤˇ</rt>關<rt>ㄍㄨㄢ</rt></ruby>)
+      <button class="tab-btn active" id="tab-practice" onclick="switchMode('practice')">
+        📖 <ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby><ruby>習<rt>ㄒㄧˊ</rt></ruby>
       </button>
-      <button class="tab-btn" id="tabPractice" onclick="switchMode('practice')">
-        📖 <ruby>我<rt>ㄨㄛˇ</rt>要<rt>ㄧㄠˋ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt>習<rt>ㄒㄧˊ</rt></ruby> (33<ruby>字<rt>ㄗˋ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt>覽<rt>ㄌㄢˇ</rt></ruby><ruby>速<rt>ㄙㄨˋ</rt>練<rt>ㄌㄧㄢˋ</rt></ruby>)
+      <button class="tab-btn" id="tab-exam" onclick="switchMode('exam')">
+        📝 <ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby><ruby>考<rt>ㄎㄠˇ</rt></ruby><ruby>試<rt>ㄕˋ</rt></ruby>
       </button>
     </div>
 
-    <!-- 模式一：開始考試 (Exam Mode) -->
-    <div id="examSection" class="view-section active">
-      <div id="quizContainer">
-        <div class="progress-bar-container">
-          <div id="examProgressBar" class="progress-bar-fill"></div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- PRACTICE MODE VIEW -->
+    <div id="practice-view" class="practice-view">
+      <!-- Sticky Action Bar -->
+      <div class="practice-toolbar">
+        <div class="toolbar-left">
+          <span class="word-count-badge">📚 <ruby>共<rt>ㄍㄨㄥˋ</rt></ruby><ruby>三<rt>ㄙㄢ</rt></ruby><ruby>十<rt>ㄕˊ</rt></ruby><ruby>三<rt>ㄙㄢ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby></span>
+          <span style="font-size:0.85rem; color:#94a3b8;"><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>列<rt>ㄌㄧㄝˋ</rt></ruby><ruby>表<rt>ㄅㄧㄠˇ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby><ruby>習<rt>ㄒㄧˊ</rt></ruby></span>
         </div>
-
-        <div class="quiz-meta">
-          <span id="examCounter"><ruby>第<rt>ㄉㄧˋ</rt></ruby> 1 / 33 <ruby>題<rt>ㄊㄧˊ</rt></ruby></span>
-          <span id="examScoreTracker"><ruby>目<rt>ㄇㄨˋ</rt>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt>對<rt>ㄉㄨㄟˋ</rt></ruby>: 0 <ruby>題<rt>ㄊㄧˊ</rt></ruby></span>
-        </div>
-
-        <div class="quiz-card">
-          <div class="exam-word-prompt" id="examPromptZh"><ruby>載<rt>ㄗㄞˋ</rt>入<rt>ㄖㄨˋ</rt>中<rt>ㄓㄨㄥ</rt></ruby>...</div>
-
-          <div class="exam-input-group">
-            <input type="text" id="examInput" placeholder="請拼寫出對應的英文單字..." autocomplete="off" spellcheck="false" />
-            <button class="btn btn-primary" id="examSubmitBtn" onclick="submitExamAnswer()">
-              🚀 <ruby>送<rt>ㄙㄨㄥˋ</rt>出<rt>ㄔㄨ</rt></ruby>
-            </button>
-          </div>
-
-          <div id="examFeedback" class="feedback-box">
-            <div class="feedback-title">
-              <span id="examFeedbackStatus"></span>
-              <button type="button" class="tts-btn" id="examTtsBtn" onclick="speakCurrentExamWord()">
-                🔊 <ruby>聽<rt>ㄊㄧㄥ</rt>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt></ruby>
-              </button>
-            </div>
-            <div id="examFeedbackDetail"></div>
-            <div class="mnemonic-box" id="examMnemonicBox"></div>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button class="btn btn-success" id="examNextBtn" style="width: 100%; display: none;" onclick="nextExamQuestion()">
-            <ruby>下<rt>ㄒㄧㄚˋ</rt>一<rt>ㄧ</rt>題<rt>ㄊㄧˊ</rt></ruby> ➔
+        <div class="toolbar-actions">
+          <button class="btn btn-global-reveal" onclick="globalRevealAll()">
+            🚀 <ruby>一<rt>ㄧ</rt></ruby><ruby>鍵<rt>ㄐㄧㄢˋ</rt></ruby><ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby>
+          </button>
+          <button class="btn btn-reset" onclick="resetPracticeAll()">
+            🧹 <ruby>清<rt>ㄑㄧㄥ</rt></ruby><ruby>空<rt>ㄎㄨㄥ</rt></ruby><ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby>
           </button>
         </div>
       </div>
 
-      <!-- 考試結束結算畫面 -->
-      <div id="resultContainer" class="result-card" style="display: none;">
-        <h2>🏆 <ruby>測<rt>ㄘㄜˋ</rt>驗<rt>ㄧㄢˋ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt>成<rt>ㄔㄥˊ</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt>棒<rt>ㄅㄤˋ</rt>了<rt>˙ㄌㄜ</rt></ruby>！</h2>
-        <div class="result-score" id="finalScore">100</div>
-        <div class="result-summary" id="resultSummary" style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 20px;"></div>
-
-        <div id="wrongWordsContainer" style="display: none;">
-          <h3 style="text-align: left; font-size: 1.05rem; color: var(--accent-pink); margin-bottom: 10px;">
-            📝 <ruby>需<rt>ㄒㄩ</rt>要<rt>ㄧㄠˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt>強<rt>ㄑㄧㄤˊ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt>習<rt>ㄒㄧˊ</rt></ruby><ruby>的<rt>˙ㄉㄜ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt>題<rt>ㄊㄧˊ</rt></ruby>：
-          </h3>
-          <div class="wrong-list" id="wrongList"></div>
-        </div>
-
-        <div style="display: flex; gap: 12px; margin-top: 24px;">
-          <button class="btn btn-primary" style="flex: 1;" onclick="startExam(false)">
-            🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt>新<rt>ㄒㄧㄣ</rt></ruby><ruby>挑<rt>ㄊㄧㄠˇ</rt>戰<rt>ㄓㄢˋ</rt></ruby>
-          </button>
-          <button class="btn btn-warning" id="retryWrongBtn" style="flex: 1; display: none;" onclick="startExam(true)">
-            ⚡ <ruby>專<rt>ㄓㄨㄢ</rt>攻<rt>ㄍㄨㄥ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt>題<rt>ㄊㄧˊ</rt></ruby>
-          </button>
-        </div>
+      <!-- Word Cards List -->
+      <div id="practice-list">
+        <!-- Rendered by JS -->
       </div>
     </div>
 
-    <!-- 模式二：我要練習 (Practice Mode - 單一三合一按鈕 + 頂部全公布按鈕) -->
-    <div id="practiceSection" class="view-section">
-      <!-- 練習控制頂部快捷列 -->
-      <div class="practice-sticky-bar">
-        <div class="practice-stat" id="practiceSummaryScore">
-          ⭐ <ruby>已<rt>ㄧˇ</rt></ruby><ruby>核<rt>ㄏㄜˊ</rt>對<rt>ㄉㄨㄟˋ</rt></ruby>：<span id="practiceDoneCount">0</span> / 33 <ruby>題<rt>ㄊㄧˊ</rt></ruby>
+    <!-- EXAM MODE VIEW -->
+    <div id="exam-view" class="exam-view">
+      <!-- Progress Bar Card -->
+      <div class="exam-progress-card">
+        <div class="exam-status-row">
+          <span><ruby>目<rt>ㄇㄨˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>進<rt>ㄐㄧㄣˋ</rt></ruby><ruby>度<rt>ㄉㄨˋ</rt></ruby>：<span id="exam-progress-text" style="color:var(--accent-cyan);">1 / 33</span></span>
+          <span><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>：<span id="exam-score-text" style="color:var(--accent-green);">0</span></span>
         </div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button class="btn btn-glow" style="padding: 6px 14px; font-size: 0.88rem;" onclick="revealAllPractice()">
-            🚀 <ruby>一<rt>ㄧ</rt>鍵<rt>ㄐㄧㄢˋ</rt></ruby><ruby>公<rt>ㄍㄨㄥ</rt>布<rt>ㄅㄨˋ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt>案<rt>ㄢˋ</rt></ruby>、<ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt></ruby>
-          </button>
-          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.88rem;" onclick="resetAllPractice()">
-            🧹 <ruby>清<rt>ㄑㄧㄥ</rt>空<rt>ㄎㄨㄥ</rt></ruby><ruby>重<rt>ㄔㄨㄥˊ</rt>練<rt>ㄌㄧㄢˋ</rt></ruby>
-          </button>
+        <div class="progress-bar-bg">
+          <div id="exam-progress-bar" class="progress-bar-fill"></div>
         </div>
       </div>
 
-      <!-- 33 個單字完整清單容器 -->
-      <div class="practice-list" id="practiceFullList"></div>
+      <!-- Question Card -->
+      <div id="exam-question-card" class="exam-card">
+        <div style="margin-bottom:12px;">
+          <span id="exam-pos-badge" class="pos-badge"></span>
+        </div>
+        <div id="exam-prompt" class="exam-question-prompt"></div>
+
+        <div class="exam-input-group">
+          <input type="text" id="exam-input" class="exam-input" placeholder="Enter English word..." autocomplete="off" autofocus>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <button id="exam-submit-btn" class="btn btn-submit" onclick="submitExamAnswer()">
+            ✨ <ruby>送<rt>ㄙㄨㄥˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>
+          </button>
+          <button id="exam-next-btn" class="btn btn-next" style="display:none;" onclick="nextExamQuestion()">
+            ➡️ <ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby>
+          </button>
+        </div>
+
+        <!-- Feedback Box -->
+        <div id="exam-feedback" class="exam-feedback">
+          <div id="exam-feedback-title" style="font-size:1.2rem; font-weight:800; margin-bottom:8px;"></div>
+          <div id="exam-feedback-word" style="font-size:1.3rem; font-weight:800; color:var(--accent-cyan); margin-bottom:6px; display:flex; align-items:center; gap:8px;"></div>
+          <div id="exam-feedback-mnemonic" class="mnemonic-box"></div>
+        </div>
+      </div>
+
+      <!-- Exam Result Summary Card -->
+      <div id="exam-result-card" class="result-card">
+        <h2 style="font-size:1.8rem; margin-bottom:16px;">🎉 <ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>驗<rt>ㄧㄢˋ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby>！</h2>
+        <div class="score-circle">
+          <span id="result-score-num" class="score-num">100</span>
+          <span class="score-label"><ruby>得<rt>ㄉㄜˊ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby></span>
+        </div>
+        <div class="result-stats">
+          <div class="stat-item">
+            <div class="stat-val green" id="result-correct-count">0</div>
+            <div style="font-size:0.85rem; color:#94a3b8;"><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val red" id="result-wrong-count">0</div>
+            <div style="font-size:0.85rem; color:#94a3b8;"><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="result-accuracy" style="color:var(--accent-yellow);">100%</div>
+            <div style="font-size:0.85rem; color:#94a3b8;"><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>率<rt>ㄌㄩˋ</rt></ruby></div>
+          </div>
+        </div>
+        <div id="result-praise" style="font-size:1.15rem; font-weight:700; color:#38bdf8; margin-bottom:24px;"></div>
+        <div class="result-actions">
+          <button class="btn btn-global-reveal" onclick="restartExam(false)">
+            🔄 <ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby>
+          </button>
+          <button id="btn-retest-wrong" class="btn btn-reset" style="display:none; border-color:var(--accent-pink); color:var(--accent-pink);" onclick="restartExam(true)">
+            🔥 <ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    // 33 個核心單字完整資料庫 (字義、口訣皆標註標準繁體中文注音)
-    const VOCAB_DATA = [
-      {
-        word: "awesome",
-        zh: "<ruby>極<rt>ㄐㄧˊ</rt>好<rt>ㄏㄠˇ</rt>的<rt>˙ㄉㄜ</rt></ruby>、<ruby>令<rt>ㄌㄧㄥˋ</rt>人<rt>ㄖㄣˊ</rt>敬<rt>ㄐㄧㄥˋ</rt>畏<rt>ㄨㄟˋ</rt>的<rt>˙ㄉㄜ</rt></ruby>、<ruby>棒<rt>ㄅㄤˋ</rt>極<rt>ㄐㄧˊ</rt>了<rt>˙ㄌㄜ</rt></ruby>",
-        mnemonic: "awe (<ruby>敬<rt>ㄐㄧㄥˋ</rt>畏<rt>ㄨㄟˋ</rt></ruby>) + some (<ruby>充<rt>ㄔㄨㄥ</rt>滿<rt>ㄇㄢˇ</rt></ruby>) ➔ <ruby>讓<rt>ㄖㄤˋ</rt>人<rt>ㄖㄣˊ</rt>發<rt>ㄈㄚ</rt>出<rt>ㄔㄨ</rt>驚<rt>ㄐㄧㄥ</rt>嘆<rt>ㄊㄢˋ</rt>「哇<rt>ㄨㄚ</rt>～」，真<rt>ㄓㄣ</rt>是<rt>ㄕˋ</rt>太<rt>ㄊㄞˋ</rt>棒<rt>ㄅㄤˋ</rt>了<rt>˙ㄌㄜ</rt>！</ruby>"
-      },
-      {
-        word: "mammoth",
-        zh: "<ruby>猛<rt>ㄇㄥˇ</rt>獁<rt>ㄇㄚˇ</rt>象<rt>ㄒㄧㄤˋ</rt></ruby>、<ruby>長<rt>ㄔㄤˊ</rt>毛<rt>ㄇㄠˊ</rt>象<rt>ㄒㄧㄤˋ</rt></ruby>、<ruby>巨<rt>ㄐㄩˋ</rt>大<rt>ㄉㄚˋ</rt>的<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "<ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt>像<rt>ㄒㄧㄤˋ</rt>「猛<rt>ㄇㄥˇ</rt>獁<rt>ㄇㄚˇ</rt>」，遠<rt>ㄩㄢˇ</rt>古<rt>ㄍㄨˇ</rt>體<rt>ㄊㄧˇ</rt>型<rt>ㄒㄧㄥˊ</rt>無<rt>ㄨˊ</rt>比<rt>ㄅㄧˇ</rt>巨<rt>ㄐㄩˋ</rt>大<rt>ㄉㄚˋ</rt>的<rt>˙ㄉㄜ</rt>史<rt>ㄕˇ</rt>前<rt>ㄑㄧㄢˊ</rt>長<rt>ㄔㄤˊ</rt>毛<rt>ㄇㄠˊ</rt>象<rt>ㄒㄧㄤˋ</rt>。</ruby>"
-      },
-      {
-        word: "perfectly",
-        zh: "<ruby>完<rt>ㄨㄢˊ</rt>美<rt>ㄇㄟˇ</rt>地<rt>˙ㄉㄜ</rt></ruby>、<ruby>毫<rt>ㄏㄠˊ</rt>無<rt>ㄨˊ</rt>缺<rt>ㄑㄩㄝ</rt>點<rt>ㄉㄧㄢˇ</rt>地<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "perfect (<ruby>完<rt>ㄨㄢˊ</rt>美<rt>ㄇㄟˇ</rt></ruby>) + ly ➔ <ruby>一<rt>ㄧ</rt>百<rt>ㄅㄞˇ</rt>分<rt>ㄈㄣ</rt>無<rt>ㄨˊ</rt>懈<rt>ㄒㄧㄝˋ</rt>可<rt>ㄎㄜˇ</rt>擊<rt>ㄐㄧˊ</rt>地<rt>˙ㄉㄜ</rt>完<rt>ㄨㄢˊ</rt>成<rt>ㄔㄥˊ</rt>！</ruby>"
-      },
-      {
-        word: "preserve",
-        zh: "<ruby>保<rt>ㄅㄠˇ</rt>存<rt>ㄘㄨㄣˊ</rt></ruby>、<ruby>保<rt>ㄅㄠˇ</rt>護<rt>ㄏㄨˋ</rt></ruby>、<ruby>維<rt>ㄨㄟˊ</rt>持<rt>ㄔˊ</rt></ruby>",
-        mnemonic: "pre (<ruby>預<rt>ㄩˋ</rt>先<rt>ㄒㄧㄢ</rt></ruby>) + serve (<ruby>留<rt>ㄌㄧㄡˊ</rt>存<rt>ㄘㄨㄣˊ</rt></ruby>) ➔ <ruby>提<rt>ㄊㄧˊ</rt>前<rt>ㄑㄧㄢˊ</rt>妥<rt>ㄊㄨㄛˇ</rt>善<rt>ㄕㄢˋ</rt>收<rt>ㄕㄡ</rt>藏<rt>ㄘㄤˊ</rt>，像<rt>ㄒㄧㄤˋ</rt>做<rt>ㄗㄨㄛˋ</rt>水<rt>ㄕㄨㄟˇ</rt>果<rt>ㄍㄨㄛˇ</rt>罐<rt>ㄍㄨㄢˋ</rt>頭<rt>˙ㄊㄡ</rt>一<rt>ㄧ</rt>樣<rt>ㄧㄤˋ</rt>長<rt>ㄔㄤˊ</rt>久<rt>ㄐㄧㄡˇ</rt>保<rt>ㄅㄠˇ</rt>存<rt>ㄘㄨㄣˊ</rt>。</ruby>"
-      },
-      {
-        word: "condition",
-        zh: "<ruby>狀<rt>ㄓㄨㄤˋ</rt>況<rt>ㄎㄨㄤˋ</rt></ruby>、<ruby>狀<rt>ㄓㄨㄤˋ</rt>態<rt>ㄊㄞˋ</rt></ruby>、<ruby>條<rt>ㄊㄧㄠˊ</rt>件<rt>ㄐㄧㄢˋ</rt></ruby>",
-        mnemonic: "con (<ruby>共<rt>ㄍㄨㄥˋ</rt>同<rt>ㄊㄨㄥˊ</rt></ruby>) + dit (<ruby>說<rt>ㄕㄨㄛ</rt>定<rt>ㄉㄧㄥˋ</rt></ruby>) ➔ <ruby>大<rt>ㄉㄚˋ</rt>家<rt>ㄐㄧㄚ</rt>共<rt>ㄍㄨㄥˋ</rt>同<rt>ㄊㄨㄥˊ</rt>約<rt>ㄩㄝ</rt>好<rt>ㄏㄠˇ</rt>的<rt>˙ㄉㄜ</rt>條<rt>ㄊㄧㄠˊ</rt>件<rt>ㄐㄧㄢˋ</rt>，或<rt>ㄏㄨㄛˋ</rt>身<rt>ㄕㄣ</rt>體<rt>ㄊㄧˇ</rt>健<rt>ㄐㄧㄢˋ</rt>康<rt>ㄎㄤ</rt>狀<rt>ㄓㄨㄤˋ</rt>況<rt>ㄎㄨㄤˋ</rt>。</ruby>"
-      },
-      {
-        word: "measure",
-        zh: "<ruby>測<rt>ㄘㄜˋ</rt>量<rt>ㄌㄧㄤˊ</rt></ruby>、<ruby>計<rt>ㄐㄧˋ</rt>量<rt>ㄌㄧㄤˊ</rt></ruby>、<ruby>措<rt>ㄘㄨㄛˋ</rt>施<rt>ㄕ</rt></ruby>",
-        mnemonic: "<ruby>諧<rt>ㄒㄧㄝˊ</rt>音<rt>ㄧㄣ</rt>「摸<rt>ㄇㄛ</rt>著<rt>˙ㄓㄜ</rt>量<rt>ㄌㄧㄤˊ</rt>」➔ 用<rt>ㄩㄥˋ</rt>手<rt>ㄕㄡˇ</rt>摸<rt>ㄇㄛ</rt>著<rt>˙ㄓㄜ</rt>捲<rt>ㄐㄩㄢˇ</rt>尺<rt>ㄔˇ</rt>仔<rt>ㄗㄞˇ</rt>細<rt>ㄒㄧˋ</rt>測<rt>ㄘㄜˋ</rt>量<rt>ㄌㄧㄤˊ</rt>；採<rt>ㄘㄞˇ</rt>取<rt>ㄑㄩˇ</rt>防<rt>ㄈㄤˊ</rt>範<rt>ㄈㄢˋ</rt>措<rt>ㄘㄨㄛˋ</rt>施<rt>ㄕ</rt>。</ruby>"
-      },
-      {
-        word: "bogus",
-        zh: "<ruby>假<rt>ㄐㄧㄚˇ</rt>的<rt>˙ㄉㄜ</rt></ruby>、<ruby>偽<rt>ㄨㄟˋ</rt>造<rt>ㄗㄠˋ</rt>的<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "<ruby>諧<rt>ㄒㄧㄝˊ</rt>音<rt>ㄧㄣ</rt>「抱<rt>ㄅㄠˋ</rt>個<rt>˙ㄍㄜ</rt>死<rt>ㄙˇ</rt>」➔ 買<rt>ㄇㄞˇ</rt>到<rt>ㄉㄠˋ</rt>山<rt>ㄕㄢ</rt>寨<rt>ㄓㄞˋ</rt>假<rt>ㄐㄧㄚˇ</rt>貨<rt>ㄏㄨㄛˋ</rt>氣<rt>ㄑㄧˋ</rt>得<rt>˙ㄉㄜ</rt>大<rt>ㄉㄚˋ</rt>呼<rt>ㄏㄨ</rt>上<rt>ㄕㄤˋ</rt>當<rt>ㄉㄤˋ</rt>了<rt>˙ㄌㄜ</rt>！</ruby>"
-      },
-      {
-        word: "uniform",
-        zh: "<ruby>制<rt>ㄓˋ</rt>服<rt>ㄈㄨˊ</rt></ruby>、<ruby>統<rt>ㄊㄨㄥˇ</rt>一<rt>ㄧ</rt>的<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "uni (<ruby>單<rt>ㄉㄢ</rt>一<rt>ㄧ</rt></ruby>) + form (<ruby>形<rt>ㄒㄧㄥˊ</rt>式<rt>ㄕˋ</rt></ruby>) ➔ <ruby>全<rt>ㄑㄩㄢˊ</rt>校<rt>ㄒㄧㄠˋ</rt>統<rt>ㄊㄨㄥˇ</rt>一<rt>ㄧ</rt>款<rt>ㄎㄨㄢˇ</rt>式<rt>ㄕˋ</rt>的<rt>˙ㄉㄜ</rt>學<rt>ㄒㄩㄝˊ</rt>生<rt>ㄕㄥ</rt>制<rt>ㄓˋ</rt>服<rt>ㄈㄨˊ</rt>。</ruby>"
-      },
-      {
-        word: "coach",
-        zh: "<ruby>教<rt>ㄐㄧㄠˋ</rt>練<rt>ㄌㄧㄢˋ</rt></ruby>、<ruby>指<rt>ㄓˇ</rt>導<rt>ㄉㄠˇ</rt></ruby>、<ruby>長<rt>ㄔㄤˊ</rt>途<rt>ㄊㄨˊ</rt>客<rt>ㄎㄜˋ</rt>車<rt>ㄔㄜ</rt></ruby>",
-        mnemonic: "<ruby>引<rt>ㄧㄣˇ</rt>導<rt>ㄉㄠˇ</rt>方<rt>ㄈㄤ</rt>向<rt>ㄒㄧㄤˋ</rt>的<rt>˙ㄉㄜ</rt>馬<rt>ㄇㄚˇ</rt>車<rt>ㄔㄜ</rt>➔ 引<rt>ㄧㄣˇ</rt>領<rt>ㄌㄧㄥˇ</rt>隊<rt>ㄉㄨㄟˋ</rt>員<rt>ㄩㄢˊ</rt>爭<rt>ㄓㄥ</rt>取<rt>ㄑㄩˇ</rt>冠<rt>ㄍㄨㄢ</rt>軍<rt>ㄐㄩㄣ</rt>的<rt>˙ㄉㄜ</rt>指<rt>ㄓˇ</rt>導<rt>ㄉㄠˇ</rt>教<rt>ㄐㄧㄠˋ</rt>練<rt>ㄌㄧㄢˋ</rt>。</ruby>"
-      },
-      {
-        word: "truth",
-        zh: "<ruby>真<rt>ㄓㄣ</rt>相<rt>ㄒㄧㄤˋ</rt></ruby>、<ruby>事<rt>ㄕˋ</rt>實<rt>ㄕˊ</rt></ruby>、<ruby>真<rt>ㄓㄣ</rt>理<rt>ㄌㄧˇ</rt></ruby>",
-        mnemonic: "true (<ruby>真<rt>ㄓㄣ</rt>實<rt>ㄕˊ</rt></ruby>) + th ➔ <ruby>名<rt>ㄇㄧㄥˊ</rt>偵<rt>ㄓㄣ</rt>探<rt>ㄊㄢˋ</rt>的<rt>˙ㄉㄜ</rt>名<rt>ㄇㄧㄥˊ</rt>言<rt>ㄧㄢˊ</rt>：事<rt>ㄕˋ</rt>實<rt>ㄕˊ</rt>的<rt>˙ㄉㄜ</rt>「真<rt>ㄓㄣ</rt>相<rt>ㄒㄧㄤˋ</rt>」永<rt>ㄩㄥˇ</rt>遠<rt>ㄩㄢˇ</rt>只<rt>ㄓˇ</rt>有<rt>ㄧㄡˇ</rt>一<rt>ㄧ</rt>個<rt>˙ㄍㄜ</rt>！</ruby>"
-      },
-      {
-        word: "bowl",
-        zh: "<ruby>碗<rt>ㄨㄢˇ</rt></ruby>、<ruby>保<rt>ㄅㄠˇ</rt>齡<rt>ㄌㄧㄥˊ</rt>球<rt>ㄑㄧㄡˊ</rt></ruby>",
-        mnemonic: "<ruby>圓<rt>ㄩㄢˊ</rt>弧<rt>ㄏㄨˊ</rt>形<rt>ㄒㄧㄥˊ</rt>裝<rt>ㄓㄨㄤ</rt>熱<rt>ㄖㄜˋ</rt>騰<rt>ㄊㄥˊ</rt>騰<rt>ㄊㄥˊ</rt>白<rt>ㄅㄞˊ</rt>飯<rt>ㄈㄢˋ</rt>的<rt>˙ㄉㄜ</rt>瓷<rt>ㄘˊ</rt>碗<rt>ㄨㄢˇ</rt>；保<rt>ㄅㄠˇ</rt>齡<rt>ㄌㄧㄥˊ</rt>球<rt>ㄑㄧㄡˊ</rt>叫<rt>ㄐㄧㄠˋ</rt> bowling。</ruby>"
-      },
-      {
-        word: "true",
-        zh: "<ruby>真<rt>ㄓㄣ</rt>實<rt>ㄕˊ</rt>的<rt>˙ㄉㄜ</rt></ruby>、<ruby>正<rt>ㄓㄥˋ</rt>確<rt>ㄑㄩㄝˋ</rt>的<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "<ruby>諧<rt>ㄒㄧㄝˊ</rt>音<rt>ㄧㄣ</rt>「初<rt>ㄔㄨ</rt>」➔ 考<rt>ㄎㄠˇ</rt>卷<rt>ㄐㄩㄢˋ</rt>是<rt>ㄕˋ</rt>非<rt>ㄈㄟ</rt>題<rt>ㄊㄧˊ</rt>打<rt>ㄉㄚˇ</rt>勾<rt>ㄍㄡ</rt>選<rt>ㄒㄩㄢˇ</rt>「正<rt>ㄓㄥˋ</rt>確<rt>ㄑㄩㄝˋ</rt>」的<rt>˙ㄉㄜ</rt> True。</ruby>"
-      },
-      {
-        word: "antelope",
-        zh: "<ruby>羚<rt>ㄌㄧㄥˊ</rt>羊<rt>ㄧㄤˊ</rt></ruby>",
-        mnemonic: "ante (<ruby>前<rt>ㄑㄧㄢˊ</rt></ruby>) + lope (<ruby>躍<rt>ㄩㄝˋ</rt>跑<rt>ㄆㄠˇ</rt></ruby>) ➔ <ruby>非<rt>ㄈㄟ</rt>洲<rt>ㄓㄡ</rt>大<rt>ㄉㄚˋ</rt>草<rt>ㄘㄠˇ</rt>原<rt>ㄩㄢˊ</rt>上<rt>ㄕㄤˋ</rt>飛<rt>ㄈㄟ</rt>速<rt>ㄙㄨˋ</rt>奔<rt>ㄅㄣ</rt>跑<rt>ㄆㄠˇ</rt>的<rt>˙ㄉㄜ</rt>羚<rt>ㄌㄧㄥˊ</rt>羊<rt>ㄧㄤˊ</rt>。</ruby>"
-      },
-      {
-        word: "crew",
-        zh: "<ruby>全<rt>ㄑㄩㄢˊ</rt>體<rt>ㄊㄧˇ</rt>組<rt>ㄗㄨˇ</rt>員<rt>ㄩㄢˊ</rt></ruby>、<ruby>工<rt>ㄍㄨㄥ</rt>作<rt>ㄗㄨㄛˋ</rt>團<rt>ㄊㄨㄢˊ</rt>隊<rt>ㄉㄨㄟˋ</rt></ruby>",
-        mnemonic: "<ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt>像<rt>ㄒㄧㄤˋ</rt>「酷<rt>ㄎㄨˋ</rt>」➔ 穿<rt>ㄔㄨㄢ</rt>著<rt>˙ㄓㄜ</rt>酷<rt>ㄎㄨˋ</rt>炫<rt>ㄒㄩㄢˋ</rt>制<rt>ㄓˋ</rt>服<rt>ㄈㄨˊ</rt>開<rt>ㄎㄞ</rt>飛<rt>ㄈㄟ</rt>機<rt>ㄐㄧ</rt>的<rt>˙ㄉㄜ</rt>航<rt>ㄏㄤˊ</rt>空<rt>ㄎㄨㄥ</rt>機<rt>ㄐㄧ</rt>組<rt>ㄗㄨˇ</rt>團<rt>ㄊㄨㄢˊ</rt>隊<rt>ㄉㄨㄟˋ</rt>。</ruby>"
-      },
-      {
-        word: "school",
-        zh: "<ruby>學<rt>ㄒㄩㄝˊ</rt>校<rt>ㄒㄧㄠˋ</rt></ruby>、<ruby>魚<rt>ㄩˊ</rt>群<rt>ㄑㄩㄣˊ</rt></ruby>",
-        mnemonic: "<ruby>我<rt>ㄨㄛˇ</rt>們<rt>˙ㄇㄣ</rt>上<rt>ㄕㄤˋ</rt>學<rt>ㄒㄩㄝˊ</rt>去<rt>ㄑㄩˋ</rt>學<rt>ㄒㄩㄝˊ</rt>校<rt>ㄒㄧㄠˋ</rt>；上<rt>ㄕㄤˋ</rt>百<rt>ㄅㄞˇ</rt>條<rt>ㄊㄧㄠˊ</rt>魚<rt>ㄩˊ</rt>群<rt>ㄑㄩㄣˊ</rt>聚<rt>ㄐㄩˋ</rt>游<rt>ㄧㄡˊ</rt>也<rt>ㄧㄝˇ</rt>叫<rt>ㄐㄧㄠˋ</rt> a school of fish！</ruby>"
-      },
-      {
-        word: "group",
-        zh: "<ruby>群<rt>ㄑㄩㄣˊ</rt>組<rt>ㄗㄨˇ</rt></ruby>、<ruby>團<rt>ㄊㄨㄢˊ</rt>體<rt>ㄊㄧˇ</rt></ruby>",
-        mnemonic: "<ruby>諧<rt>ㄒㄧㄝˊ</rt>音<rt>ㄧㄣ</rt>「聚<rt>ㄐㄩˋ</rt>」➔ 好<rt>ㄏㄠˇ</rt>朋<rt>ㄆㄥˊ</rt>友<rt>ㄧㄡˇ</rt>聚<rt>ㄐㄩˋ</rt>在<rt>ㄗㄞˋ</rt>一<rt>ㄧ</rt>起<rt>ㄑㄧˇ</rt>成<rt>ㄔㄥˊ</rt>立<rt>ㄌㄧˋ</rt>的<rt>˙ㄉㄜ</rt>小<rt>ㄒㄧㄠˇ</rt>組<rt>ㄗㄨˇ</rt>或<rt>ㄏㄨㄛˋ</rt>群<rt>ㄑㄩㄣˊ</rt>組<rt>ㄗㄨˇ</rt>。</ruby>"
-      },
-      {
-        word: "parachute",
-        zh: "<ruby>降<rt>ㄐㄧㄤˋ</rt>落<rt>ㄌㄨㄛˋ</rt>傘<rt>ㄙㄢˇ</rt></ruby>",
-        mnemonic: "para (<ruby>抵<rt>ㄉㄧˇ</rt>擋<rt>ㄉㄤˇ</rt></ruby>) + chute (<ruby>下<rt>ㄒㄧㄚˋ</rt>墜<rt>ㄓㄨㄟˋ</rt></ruby>) ➔ <ruby>阻<rt>ㄗㄨˇ</rt>擋<rt>ㄉㄤˇ</rt>重<rt>ㄓㄨㄥˋ</rt>力<rt>ㄌㄧˋ</rt>、安<rt>ㄢ</rt>全<rt>ㄑㄩㄢˊ</rt>飄<rt>ㄆㄧㄠ</rt>浮<rt>ㄈㄨˊ</rt>降<rt>ㄐㄧㄤˋ</rt>落<rt>ㄌㄨㄛˋ</rt>的<rt>˙ㄉㄜ</rt>大<rt>ㄉㄚˋ</rt>傘<rt>ㄙㄢˇ</rt>。</ruby>"
-      },
-      {
-        word: "bruise",
-        zh: "<ruby>瘀<rt>ㄩ</rt>青<rt>ㄑㄧㄥ</rt></ruby>、<ruby>碰<rt>ㄆㄥˋ</rt>傷<rt>ㄕㄤ</rt></ruby>",
-        mnemonic: "<ruby>撞<rt>ㄓㄨㄤˋ</rt>到<rt>ㄉㄠˋ</rt>時<rt>ㄕˊ</rt>痛<rt>ㄊㄨㄥˋ</rt>死<rt>ㄙˇ</rt>了<rt>˙ㄌㄜ</rt>，皮<rt>ㄆㄧˊ</rt>膚<rt>ㄈㄨ</rt>浮<rt>ㄈㄨˊ</rt>現<rt>ㄒㄧㄢˋ</rt>青<rt>ㄑㄧㄥ</rt>紫<rt>ㄗˇ</rt>色<rt>ㄙㄜˋ</rt> (blue) 的<rt>˙ㄉㄜ</rt>瘀<rt>ㄩ</rt>青<rt>ㄑㄧㄥ</rt>。</ruby>"
-      },
-      {
-        word: "future",
-        zh: "<ruby>未<rt>ㄨㄟˋ</rt>來<rt>ㄌㄞˊ</rt></ruby>、<ruby>將<rt>ㄐㄧㄤ</rt>來<rt>ㄌㄞˊ</rt></ruby>",
-        mnemonic: "<ruby>諧<rt>ㄒㄧㄝˊ</rt>音<rt>ㄧㄣ</rt>「飛<rt>ㄈㄟ</rt>去<rt>ㄑㄩˋ</rt>」➔ 充<rt>ㄔㄨㄥ</rt>滿<rt>ㄇㄢˇ</rt>夢<rt>ㄇㄥˋ</rt>想<rt>ㄒㄧㄤˇ</rt>，長<rt>ㄓㄤˇ</rt>大<rt>ㄉㄚˋ</rt>飛<rt>ㄈㄟ</rt>向<rt>ㄒㄧㄤˋ</rt>光<rt>ㄍㄨㄤ</rt>明<rt>ㄇㄧㄥˊ</rt>的<rt>˙ㄉㄜ</rt>未<rt>ㄨㄟˋ</rt>來<rt>ㄌㄞˊ</rt>。</ruby>"
-      },
-      {
-        word: "ooze",
-        zh: "<ruby>滲<rt>ㄕㄣˋ</rt>出<rt>ㄔㄨ</rt></ruby>、<ruby>緩<rt>ㄏㄨㄢˇ</rt>慢<rt>ㄇㄢˋ</rt>流<rt>ㄌㄧㄡˊ</rt>出<rt>ㄔㄨ</rt></ruby>",
-        mnemonic: "<ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt>「嗚<rt>ㄨ</rt>～滋<rt>ㄗ</rt>」➔ 濃<rt>ㄋㄨㄥˊ</rt>稠<rt>ㄔㄡˊ</rt>的<rt>˙ㄉㄜ</rt>岩<rt>ㄧㄢˊ</rt>漿<rt>ㄐㄧㄤ</rt>或<rt>ㄏㄨㄛˋ</rt>果<rt>ㄍㄨㄛˇ</rt>醬<rt>ㄐㄧㄤˋ</rt>從<rt>ㄘㄨㄥˊ</rt>縫<rt>ㄈㄥˋ</rt>隙<rt>ㄒㄧˋ</rt>緩<rt>ㄏㄨㄢˇ</rt>緩<rt>ㄏㄨㄢˇ</rt>滲<rt>ㄕㄣˋ</rt>出<rt>ㄔㄨ</rt>。</ruby>"
-      },
-      {
-        word: "reduce",
-        zh: "<ruby>減<rt>ㄐㄧㄢˇ</rt>少<rt>ㄕㄠˇ</rt></ruby>、<ruby>降<rt>ㄐㄧㄤˋ</rt>低<rt>ㄉㄧ</rt></ruby>",
-        mnemonic: "re (<ruby>向<rt>ㄒㄧㄤˋ</rt>後<rt>ㄏㄡˋ</rt></ruby>) + duce (<ruby>引<rt>ㄧㄣˇ</rt>導<rt>ㄉㄠˇ</rt></ruby>) ➔ <ruby>節<rt>ㄐㄧㄝˊ</rt>省<rt>ㄕㄥˇ</rt>資<rt>ㄗ</rt>源<rt>ㄩㄢˊ</rt>，把<rt>ㄅㄚˇ</rt>垃<rt>ㄌㄜˋ</rt>圾<rt>ㄙㄜˋ</rt>和<rt>ㄏㄢˋ</rt>用<rt>ㄩㄥˋ</rt>電<rt>ㄉㄧㄢˋ</rt>量<rt>ㄌㄧㄤˋ</rt>減<rt>ㄐㄧㄢˇ</rt>少<rt>ㄕㄠˇ</rt>降<rt>ㄐㄧㄤˋ</rt>低<rt>ㄉㄧ</rt>。</ruby>"
-      },
-      {
-        word: "answer",
-        zh: "<ruby>回<rt>ㄏㄨㄟˊ</rt>答<rt>ㄉㄚˊ</rt></ruby>、<ruby>答<rt>ㄉㄚˊ</rt>案<rt>ㄢˋ</rt></ruby>",
-        mnemonic: "<ruby>老<rt>ㄌㄠˇ</rt>師<rt>ㄕ</rt>問<rt>ㄨㄣˋ</rt>題<rt>ㄊㄧˊ</rt>目<rt>ㄇㄨˋ</rt>時<rt>ㄕˊ</rt>，舉<rt>ㄐㄩˇ</rt>手<rt>ㄕㄡˇ</rt>大<rt>ㄉㄚˋ</rt>聲<rt>ㄕㄥ</rt>搶<rt>ㄑㄧㄤˇ</rt>著<rt>˙ㄓㄜ</rt>回<rt>ㄏㄨㄟˊ</rt>答<rt>ㄉㄚˊ</rt>正<rt>ㄓㄥˋ</rt>確<rt>ㄑㄩㄝˋ</rt>答<rt>ㄉㄚˊ</rt>案<rt>ㄢˋ</rt>。</ruby>"
-      },
-      {
-        word: "disappear",
-        zh: "<ruby>消<rt>ㄒㄧㄠ</rt>失<rt>ㄕ</rt></ruby>、<ruby>不<rt>ㄅㄨˋ</rt>見<rt>ㄐㄧㄢˋ</rt></ruby>",
-        mnemonic: "dis (<ruby>不<rt>ㄅㄨˋ</rt></ruby>) + appear (<ruby>現<rt>ㄒㄧㄢˋ</rt>身<rt>ㄕㄣ</rt></ruby>) ➔ <ruby>魔<rt>ㄇㄛˊ</rt>術<rt>ㄕㄨˋ</rt>師<rt>ㄕ</rt>手<rt>ㄕㄡˇ</rt>一<rt>ㄧ</rt>揮<rt>ㄏㄨㄟ</rt>，白<rt>ㄅㄞˊ</rt>鴿<rt>ㄍㄜ</rt>立<rt>ㄌㄧˋ</rt>刻<rt>ㄎㄜˋ</rt>消<rt>ㄒㄧㄠ</rt>失<rt>ㄕ</rt>不<rt>ㄅㄨˋ</rt>見<rt>ㄐㄧㄢˋ</rt>。</ruby>"
-      },
-      {
-        word: "enemy",
-        zh: "<ruby>敵<rt>ㄉㄧˊ</rt>人<rt>ㄖㄣˊ</rt></ruby>、<ruby>對<rt>ㄉㄨㄟˋ</rt>手<rt>ㄕㄡˇ</rt></ruby>",
-        mnemonic: "<ruby>電<rt>ㄉㄧㄢˋ</rt>玩<rt>ㄨㄢˊ</rt>破<rt>ㄆㄛˋ</rt>關<rt>ㄍㄨㄢ</rt>冒<rt>ㄇㄠˋ</rt>險<rt>ㄒㄧㄢˇ</rt>時<rt>ㄕˊ</rt>，在<rt>ㄗㄞˋ</rt>終<rt>ㄓㄨㄥ</rt>點<rt>ㄉㄧㄢˇ</rt>擋<rt>ㄉㄤˇ</rt>路<rt>ㄌㄨˋ</rt>的<rt>˙ㄉㄜ</rt>強<rt>ㄑㄧㄤˊ</rt>大<rt>ㄉㄚˋ</rt>敵<rt>ㄉㄧˊ</rt>人<rt>ㄖㄣˊ</rt>。</ruby>"
-      },
-      {
-        word: "another",
-        zh: "<ruby>另<rt>ㄌㄧㄥˋ</rt>一<rt>ㄧ</rt>個<rt>˙ㄍㄜ</rt></ruby>、<ruby>再<rt>ㄗㄞˋ</rt>一<rt>ㄧ</rt>個<rt>˙ㄍㄜ</rt></ruby>",
-        mnemonic: "an (<ruby>一<rt>ㄧ</rt>個<rt>˙ㄍㄜ</rt></ruby>) + other (<ruby>別<rt>ㄅㄧㄝˊ</rt>的<rt>˙ㄉㄜ</rt></ruby>) ➔ <ruby>吃<rt>ㄔ</rt>完<rt>ㄨㄢˊ</rt>一<rt>ㄧ</rt>顆<rt>ㄎㄜ</rt>糖<rt>ㄊㄤˊ</rt>果<rt>ㄍㄨㄛˇ</rt>，還<rt>ㄏㄞˊ</rt>想<rt>ㄒㄧㄤˇ</rt>要<rt>ㄧㄠˋ</rt>另<rt>ㄌㄧㄥˋ</rt>外<rt>ㄨㄞˋ</rt>一<rt>ㄧ</rt>個<rt>˙ㄍㄜ</rt>。</ruby>"
-      },
-      {
-        word: "burst",
-        zh: "<ruby>爆<rt>ㄅㄠˋ</rt>裂<rt>ㄌㄧㄝˋ</rt></ruby>、<ruby>突<rt>ㄊㄨˊ</rt>然<rt>ㄖㄢˊ</rt>破<rt>ㄆㄛˋ</rt>開<rt>ㄎㄞ</rt></ruby>",
-        mnemonic: "<ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt>像<rt>ㄒㄧㄤˋ</rt>「磅<rt>ㄅㄤˋ</rt>斯特」➔ 水<rt>ㄕㄨㄟˇ</rt>球<rt>ㄑㄧㄡˊ</rt>突<rt>ㄊㄨˊ</rt>然<rt>ㄖㄢˊ</rt>「磅<rt>ㄅㄤˋ</rt>」一<rt>ㄧ</rt>聲<rt>ㄕㄥ</rt>爆<rt>ㄅㄠˋ</rt>裂<rt>ㄌㄧㄝˋ</rt>噴<rt>ㄆㄣ</rt>出<rt>ㄔㄨ</rt>水<rt>ㄕㄨㄟˇ</rt>花<rt>ㄏㄨㄚ</rt>。</ruby>"
-      },
-      {
-        word: "Europe",
-        zh: "<ruby>歐<rt>ㄡ</rt>洲<rt>ㄓㄡ</rt></ruby>",
-        mnemonic: "<ruby>神<rt>ㄕㄣˊ</rt>話<rt>ㄏㄨㄚˋ</rt>裡<rt>ㄌㄧˇ</rt>騎<rt>ㄑㄧˊ</rt>著<rt>˙ㄓㄜ</rt>白<rt>ㄅㄞˊ</rt>牛<rt>ㄋㄧㄡˊ</rt>的<rt>˙ㄉㄜ</rt>歐<rt>ㄡ</rt>羅<rt>ㄌㄨㄛˊ</rt>巴<rt>ㄅㄚ</rt>公<rt>ㄍㄨㄥ</rt>主<rt>ㄓㄨˇ</rt>➔ 風<rt>ㄈㄥ</rt>景<rt>ㄐㄧㄥˇ</rt>如<rt>ㄖㄨˊ</rt>畫<rt>ㄏㄨㄚˋ</rt>的<rt>˙ㄉㄜ</rt>歐<rt>ㄡ</rt>洲<rt>ㄓㄡ</rt>。</ruby>"
-      },
-      {
-        word: "charge",
-        zh: "<ruby>充<rt>ㄔㄨㄥ</rt>電<rt>ㄉㄧㄢˋ</rt></ruby>、<ruby>收<rt>ㄕㄡ</rt>費<rt>ㄈㄟˋ</rt></ruby>、<ruby>衝<rt>ㄔㄨㄥ</rt>鋒<rt>ㄈㄥ</rt></ruby>",
-        mnemonic: "<ruby>手<rt>ㄕㄡˇ</rt>機<rt>ㄐㄧ</rt>沒<rt>ㄇㄟˊ</rt>電<rt>ㄉㄧㄢˋ</rt>要<rt>ㄧㄠˋ</rt>充<rt>ㄔㄨㄥ</rt>電<rt>ㄉㄧㄢˋ</rt>，勇<rt>ㄩㄥˇ</rt>敢<rt>ㄍㄢˇ</rt>的<rt>˙ㄉㄜ</rt>騎<rt>ㄑㄧˊ</rt>士<rt>ㄕˋ</rt>英<rt>ㄧㄥ</rt>勇<rt>ㄩㄥˇ</rt>向<rt>ㄒㄧㄤˋ</rt>前<rt>ㄑㄧㄢˊ</rt>衝<rt>ㄔㄨㄥ</rt>鋒<rt>ㄈㄥ</rt>！</ruby>"
-      },
-      {
-        word: "stretch",
-        zh: "<ruby>伸<rt>ㄕㄣ</rt>展<rt>ㄓㄢˇ</rt></ruby>、<ruby>拉<rt>ㄌㄚ</rt>長<rt>ㄔㄤˊ</rt></ruby>",
-        mnemonic: "<ruby>早<rt>ㄗㄠˇ</rt>上<rt>ㄕㄤˋ</rt>起<rt>ㄑㄧˇ</rt>床<rt>ㄔㄨㄤˊ</rt>伸<rt>ㄕㄣ</rt>懶<rt>ㄌㄢˇ</rt>腰<rt>ㄧㄠ</rt>，把<rt>ㄅㄚˇ</rt>身<rt>ㄕㄣ</rt>體<rt>ㄊㄧˇ</rt>四<rt>ㄙˋ</rt>肢<rt>ㄓ</rt>好<rt>ㄏㄠˇ</rt>好<rt>ㄏㄠˇ</rt>拉<rt>ㄌㄚ</rt>開<rt>ㄎㄞ</rt>伸<rt>ㄕㄣ</rt>展<rt>ㄓㄢˇ</rt>。</ruby>"
-      },
-      {
-        word: "character",
-        zh: "<ruby>角<rt>ㄐㄧㄠˇ</rt>色<rt>ㄙㄜˋ</rt></ruby>、<ruby>性<rt>ㄒㄧㄥˋ</rt>格<rt>ㄍㄜˊ</rt></ruby>、<ruby>文<rt>ㄨㄣˊ</rt>字<rt>ㄗˋ</rt></ruby>",
-        mnemonic: "<ruby>動<rt>ㄉㄨㄥˋ</rt>畫<rt>ㄏㄨㄚˋ</rt>故<rt>ㄍㄨˋ</rt>事<rt>ㄕˋ</rt>裡<rt>ㄌㄧˇ</rt>可<rt>ㄎㄜˇ</rt>愛<rt>ㄞˋ</rt>的<rt>˙ㄉㄜ</rt>人<rt>ㄖㄣˊ</rt>物<rt>ㄨˋ</rt>角<rt>ㄐㄧㄠˇ</rt>色<rt>ㄙㄜˋ</rt>，或<rt>ㄏㄨㄛˋ</rt>中<rt>ㄓㄨㄥ</rt>文<rt>ㄨㄣˊ</rt>字<rt>ㄗˋ</rt>。</ruby>"
-      },
-      {
-        word: "dishonest",
-        zh: "<ruby>不<rt>ㄅㄨˋ</rt>誠<rt>ㄔㄥˊ</rt>實<rt>ㄕˊ</rt>的<rt>˙ㄉㄜ</rt></ruby>",
-        mnemonic: "dis (<ruby>否<rt>ㄈㄡˇ</rt>定<rt>ㄉㄧㄥˋ</rt></ruby>) + honest (<ruby>誠<rt>ㄔㄥˊ</rt>實<rt>ㄕˊ</rt></ruby>) ➔ <ruby>常<rt>ㄔㄤˊ</rt>說<rt>ㄕㄨㄛ</rt>謊<rt>ㄏㄨㄤˇ</rt>欺<rt>ㄑㄧ</rt>騙<rt>ㄆㄧㄢˋ</rt>別<rt>ㄅㄧㄝˊ</rt>人<rt>ㄖㄣˊ</rt>就<rt>ㄐㄧㄡˋ</rt>是<rt>ㄕˋ</rt>不<rt>ㄅㄨˋ</rt>誠<rt>ㄔㄥˊ</rt>實<rt>ㄕˊ</rt>。</ruby>"
-      },
-      {
-        word: "button",
-        zh: "<ruby>鈕<rt>ㄋㄧㄡˇ</rt>扣<rt>ㄎㄡˋ</rt></ruby>、<ruby>按<rt>ㄢˋ</rt>鈕<rt>ㄋㄧㄡˇ</rt></ruby>",
-        mnemonic: "<ruby>衣<rt>ㄧ</rt>服<rt>ㄈㄨˊ</rt>胸<rt>ㄒㄩㄥ</rt>前<rt>ㄑㄧㄢˊ</rt>的<rt>˙ㄉㄜ</rt>小<rt>ㄒㄧㄠˇ</rt>鈕<rt>ㄋㄧㄡˇ</rt>扣<rt>ㄎㄡˋ</rt>，電<rt>ㄉㄧㄢˋ</rt>梯<rt>ㄊㄧ</rt>裡<rt>ㄌㄧˇ</rt>按<rt>ㄢˋ</rt>樓<rt>ㄌㄡˊ</rt>層<rt>ㄘㄥˊ</rt>的<rt>˙ㄉㄜ</rt>按<rt>ㄢˋ</rt>鈕<rt>ㄋㄧㄡˇ</rt>。</ruby>"
-      },
-      {
-        word: "closet",
-        zh: "<ruby>衣<rt>ㄧ</rt>櫥<rt>ㄔㄨˊ</rt></ruby>、<ruby>壁<rt>ㄅㄧˋ</rt>櫥<rt>ㄔㄨˊ</rt></ruby>",
-        mnemonic: "close (<ruby>關<rt>ㄍㄨㄢ</rt></ruby>) + et ➔ <ruby>把<rt>ㄅㄚˇ</rt>門<rt>ㄇㄣˊ</rt>關<rt>ㄍㄨㄢ</rt>上<rt>ㄕㄤˋ</rt>、整<rt>ㄓㄥˇ</rt>齊<rt>ㄑㄧˊ</rt>收<rt>ㄕㄡ</rt>納<rt>ㄋㄚˋ</rt>外<rt>ㄨㄞˋ</rt>套<rt>ㄊㄠˋ</rt>的<rt>˙ㄉㄜ</rt>大<rt>ㄉㄚˋ</rt>衣<rt>ㄧ</rt>櫥<rt>ㄔㄨˊ</rt>。</ruby>"
-      }
-    ];
+    const VOCAB_DATA = [{"word": "awesome", "pos": "adj.", "pos_zh_ruby": "<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>極<rt>ㄐㄧˊ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>、<ruby>令<rt>ㄌㄧㄥˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>敬<rt>ㄐㄧㄥˋ</rt></ruby><ruby>畏<rt>ㄨㄟˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>喔<rt>ㄛ</rt></ruby>～<ruby>神<rt>ㄕㄣˊ</rt></ruby>」：<ruby>喔<rt>ㄛ</rt></ruby>！<ruby>簡<rt>ㄐㄧㄢˇ</rt></ruby><ruby>直<rt>ㄓˊ</rt></ruby><ruby>像<rt>ㄒㄧㄤˋ</rt></ruby><ruby>神<rt>ㄕㄣˊ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>樣<rt>ㄧㄤˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby><ruby>害<rt>ㄏㄞˋ</rt></ruby>，<ruby>令<rt>ㄌㄧㄥˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>讚<rt>ㄗㄢˋ</rt></ruby><ruby>嘆<rt>ㄊㄢˋ</rt></ruby>、<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！"}, {"word": "mammoth", "pos": "n./adj.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>猛<rt>ㄇㄥˇ</rt></ruby><ruby>獁<rt>ㄇㄚˇ</rt></ruby><ruby>象<rt>ㄒㄧㄤˋ</rt></ruby>、<ruby>巨<rt>ㄐㄩˋ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "<ruby>遠<rt>ㄩㄢˇ</rt></ruby><ruby>古<rt>ㄍㄨˇ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>猛<rt>ㄇㄥˇ</rt></ruby><ruby>獁<rt>ㄇㄚˇ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>毛<rt>ㄇㄠˊ</rt></ruby><ruby>象<rt>ㄒㄧㄤˋ</rt></ruby><ruby>體<rt>ㄊㄧˇ</rt></ruby><ruby>型<rt>ㄒㄧㄥˊ</rt></ruby><ruby>非<rt>ㄈㄟ</rt></ruby><ruby>常<rt>ㄔㄤˊ</rt></ruby><ruby>龐<rt>ㄆㄤˊ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby>，<ruby>引<rt>ㄧㄣˇ</rt></ruby><ruby>申<rt>ㄕㄣ</rt></ruby><ruby>為<rt>ㄨㄟˊ</rt></ruby><ruby>巨<rt>ㄐㄩˋ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>！"}, {"word": "perfectly", "pos": "adv.", "pos_zh_ruby": "<ruby>副<rt>ㄈㄨˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>地<rt>ㄉㄧˋ</rt></ruby>、<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>地<rt>ㄉㄧˋ</rt></ruby>", "mnemonic_ruby": "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>根<rt>ㄍㄣ</rt></ruby> perfect（<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby> ly（<ruby>副<rt>ㄈㄨˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby>），<ruby>表<rt>ㄅㄧㄠˇ</rt></ruby><ruby>示<rt>ㄕˋ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>美<rt>ㄇㄟˇ</rt></ruby><ruby>無<rt>ㄨˊ</rt></ruby><ruby>瑕<rt>ㄒㄧㄚˊ</rt></ruby><ruby>地<rt>ㄉㄧˋ</rt></ruby><ruby>做<rt>ㄗㄨㄛˋ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>每<rt>ㄇㄟˇ</rt></ruby><ruby>件<rt>ㄐㄧㄢˋ</rt></ruby><ruby>事<rt>ㄕˋ</rt></ruby>。"}, {"word": "preserve", "pos": "v.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>存<rt>ㄘㄨㄣˊ</rt></ruby>、<ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>護<rt>ㄏㄨˋ</rt></ruby>、<ruby>維<rt>ㄨㄟˊ</rt></ruby><ruby>護<rt>ㄏㄨˋ</rt></ruby>", "mnemonic_ruby": "<ruby>字<rt>ㄗˋ</rt></ruby><ruby>首<rt>ㄕㄡˇ</rt></ruby> pre（<ruby>提<rt>ㄊㄧˊ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> serve（<ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>留<rt>ㄌㄧㄡˊ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby><ruby>務<rt>ㄨˋ</rt></ruby>），<ruby>提<rt>ㄊㄧˊ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>留<rt>ㄌㄧㄡˊ</rt></ruby><ruby>存<rt>ㄘㄨㄣˊ</rt></ruby><ruby>起<rt>ㄑㄧˇ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby><ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>存<rt>ㄘㄨㄣˊ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>護<rt>ㄏㄨˋ</rt></ruby>。"}, {"word": "condition", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>狀<rt>ㄓㄨㄤˋ</rt></ruby><ruby>況<rt>ㄎㄨㄤˋ</rt></ruby>、<ruby>狀<rt>ㄓㄨㄤˋ</rt></ruby><ruby>態<rt>ㄊㄞˋ</rt></ruby>、<ruby>條<rt>ㄊㄧㄠˊ</rt></ruby><ruby>件<rt>ㄐㄧㄢˋ</rt></ruby>", "mnemonic_ruby": "con（<ruby>共<rt>ㄍㄨㄥˋ</rt></ruby><ruby>同<rt>ㄊㄨㄥˊ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> dit（<ruby>言<rt>ㄧㄢˊ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>約<rt>ㄩㄝ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby>），<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>共<rt>ㄍㄨㄥˋ</rt></ruby><ruby>同<rt>ㄊㄨㄥˊ</rt></ruby><ruby>講<rt>ㄐㄧㄤˇ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>條<rt>ㄊㄧㄠˊ</rt></ruby><ruby>件<rt>ㄐㄧㄢˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>當<rt>ㄉㄤ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>身<rt>ㄕㄣ</rt></ruby><ruby>體<rt>ㄊㄧˇ</rt></ruby><ruby>狀<rt>ㄓㄨㄤˋ</rt></ruby><ruby>況<rt>ㄎㄨㄤˋ</rt></ruby>。"}, {"word": "measure", "pos": "v./n.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>量<rt>ㄌㄧㄤˊ</rt></ruby>、<ruby>措<rt>ㄘㄨㄛˋ</rt></ruby><ruby>施<rt>ㄕ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>妹<rt>ㄇㄟˋ</rt></ruby><ruby>惹<rt>ㄖㄜˇ</rt></ruby>」：<ruby>妹<rt>ㄇㄟˋ</rt></ruby><ruby>妹<rt>ㄇㄟˋ</rt></ruby><ruby>量<rt>ㄌㄧㄤˊ</rt></ruby><ruby>身<rt>ㄕㄣ</rt></ruby><ruby>高<rt>ㄍㄠ</rt></ruby><ruby>惹<rt>ㄖㄜˇ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>喜<rt>ㄒㄧˇ</rt></ruby><ruby>愛<rt>ㄞˋ</rt></ruby>，<ruby>測<rt>ㄘㄜˋ</rt></ruby><ruby>量<rt>ㄌㄧㄤˊ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>度<rt>ㄉㄨˋ</rt></ruby><ruby>並<rt>ㄅㄧㄥˋ</rt></ruby><ruby>採<rt>ㄘㄞˇ</rt></ruby><ruby>取<rt>ㄑㄩˇ</rt></ruby><ruby>必<rt>ㄅㄧˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>措<rt>ㄘㄨㄛˋ</rt></ruby><ruby>施<rt>ㄕ</rt></ruby>。"}, {"word": "bogus", "pos": "adj.", "pos_zh_ruby": "<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>假<rt>ㄐㄧㄚˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>、<ruby>偽<rt>ㄨㄟˇ</rt></ruby><ruby>造<rt>ㄗㄠˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>波<rt>ㄅㄛ</rt></ruby><ruby>格<rt>ㄍㄜˊ</rt></ruby><ruby>斯<rt>ㄙ</rt></ruby>」：<ruby>騙<rt>ㄆㄧㄢˋ</rt></ruby><ruby>子<rt>ㄗˇ</rt></ruby><ruby>拿<rt>ㄋㄚ</rt></ruby><ruby>著<rt>ㄓㄜ˙</rt></ruby><ruby>偽<rt>ㄨㄟˇ</rt></ruby><ruby>造<rt>ㄗㄠˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>假<rt>ㄐㄧㄚˇ</rt></ruby><ruby>鈔<rt>ㄔㄠ</rt></ruby><ruby>想<rt>ㄒㄧㄤˇ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>蒙<rt>ㄇㄥˊ</rt></ruby><ruby>混<rt>ㄏㄨㄣˋ</rt></ruby><ruby>過<rt>ㄍㄨㄛˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby>，<ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>假<rt>ㄐㄧㄚˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>。"}, {"word": "uniform", "pos": "n./adj.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>制<rt>ㄓˋ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby>、<ruby>一<rt>ㄧ</rt></ruby><ruby>致<rt>ㄓˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "uni（<ruby>單<rt>ㄉㄢ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> form（<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>狀<rt>ㄓㄨㄤˋ</rt></ruby><ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>貌<rt>ㄇㄠˋ</rt></ruby>），<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>穿<rt>ㄔㄨㄢ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>樣<rt>ㄧㄤˋ</rt></ruby><ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>貌<rt>ㄇㄠˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>衣<rt>ㄧ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby><ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>制<rt>ㄓˋ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby>、<ruby>整<rt>ㄓㄥˇ</rt></ruby><ruby>齊<rt>ㄑㄧˊ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>致<rt>ㄓˋ</rt></ruby>。"}, {"word": "coach", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>教<rt>ㄐㄧㄠˋ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby>、<ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>途<rt>ㄊㄨˊ</rt></ruby><ruby>巴<rt>ㄅㄚ</rt></ruby><ruby>士<rt>ㄕˋ</rt></ruby>、<ruby>指<rt>ㄓˇ</rt></ruby><ruby>導<rt>ㄉㄠˇ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>扣<rt>ㄎㄡˋ</rt></ruby><ruby>取<rt>ㄑㄩˇ</rt></ruby>」：<ruby>教<rt>ㄐㄧㄠˋ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby><ruby>帶<rt>ㄉㄞˋ</rt></ruby><ruby>領<rt>ㄌㄧㄥˇ</rt></ruby><ruby>隊<rt>ㄉㄨㄟˋ</rt></ruby><ruby>員<rt>ㄩㄢˊ</rt></ruby><ruby>搭<rt>ㄉㄚ</rt></ruby><ruby>乘<rt>ㄔㄥˊ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>途<rt>ㄊㄨˊ</rt></ruby><ruby>客<rt>ㄎㄜˋ</rt></ruby><ruby>運<rt>ㄩㄣˋ</rt></ruby><ruby>去<rt>ㄑㄩˋ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby><ruby>場<rt>ㄔㄤˇ</rt></ruby><ruby>扣<rt>ㄎㄡˋ</rt></ruby><ruby>取<rt>ㄑㄩˇ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby>。"}, {"word": "truth", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>相<rt>ㄒㄧㄤ</rt></ruby>、<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby>、<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>理<rt>ㄌㄧˇ</rt></ruby>", "mnemonic_ruby": "true（<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>尾<rt>ㄨㄟˇ</rt></ruby> th，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>事<rt>ㄕˋ</rt></ruby><ruby>情<rt>ㄑㄧㄥˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>真<rt>ㄓㄣ</rt></ruby><ruby>相<rt>ㄒㄧㄤ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>真<rt>ㄓㄣ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>情<rt>ㄑㄧㄥˊ</rt></ruby><ruby>況<rt>ㄎㄨㄤˋ</rt></ruby>。"}, {"word": "bowl", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>碗<rt>ㄨㄢˇ</rt></ruby>、<ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>齡<rt>ㄌㄧㄥˊ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby><ruby>戲<rt>ㄒㄧˋ</rt></ruby>、<ruby>滾<rt>ㄍㄨㄣˇ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby>", "mnemonic_ruby": "<ruby>裝<rt>ㄓㄨㄤ</rt></ruby><ruby>湯<rt>ㄊㄤ</rt></ruby><ruby>圓<rt>ㄩㄢˊ</rt></ruby><ruby>圓<rt>ㄩㄢˊ</rt></ruby><ruby>凹<rt>ㄠ</rt></ruby><ruby>陷<rt>ㄒㄧㄢˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>深<rt>ㄕㄣ</rt></ruby><ruby>碗<rt>ㄨㄢˇ</rt></ruby>，<ruby>打<rt>ㄉㄚˇ</rt></ruby><ruby>保<rt>ㄅㄠˇ</rt></ruby><ruby>齡<rt>ㄌㄧㄥˊ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby>（bowling）<ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>讓<rt>ㄖㄤˋ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby><ruby>滾<rt>ㄍㄨㄣˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>打<rt>ㄉㄚˇ</rt></ruby><ruby>倒<rt>ㄉㄠˇ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby><ruby>瓶<rt>ㄆㄧㄥˊ</rt></ruby>。"}, {"word": "true", "pos": "adj.", "pos_zh_ruby": "<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>、<ruby>真<rt>ㄓㄣ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>、<ruby>忠<rt>ㄓㄨㄥ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "<ruby>誠<rt>ㄔㄥˊ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>守<rt>ㄕㄡˇ</rt></ruby><ruby>信<rt>ㄒㄧㄣˋ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>話<rt>ㄏㄨㄚˋ</rt></ruby>，<ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>句<rt>ㄐㄩˋ</rt></ruby><ruby>都<rt>ㄉㄡ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>真<rt>ㄓㄣ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>虛<rt>ㄒㄩ</rt></ruby><ruby>假<rt>ㄐㄧㄚˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>。"}, {"word": "antelope", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>羚<rt>ㄌㄧㄥˊ</rt></ruby><ruby>羊<rt>ㄧㄤˊ</rt></ruby>", "mnemonic_ruby": "ante（<ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> lope（<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>步<rt>ㄅㄨˋ</rt></ruby><ruby>跳<rt>ㄊㄧㄠˋ</rt></ruby><ruby>躍<rt>ㄩㄝˋ</rt></ruby><ruby>奔<rt>ㄅㄣ</rt></ruby><ruby>跑<rt>ㄆㄠˇ</rt></ruby>），<ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>廣<rt>ㄍㄨㄤˇ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>草<rt>ㄘㄠˇ</rt></ruby><ruby>原<rt>ㄩㄢˊ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>敏<rt>ㄇㄧㄣˇ</rt></ruby><ruby>捷<rt>ㄐㄧㄝˊ</rt></ruby><ruby>飛<rt>ㄈㄟ</rt></ruby><ruby>奔<rt>ㄅㄣ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>羚<rt>ㄌㄧㄥˊ</rt></ruby><ruby>羊<rt>ㄧㄤˊ</rt></ruby>。"}, {"word": "crew", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>體<rt>ㄊㄧˇ</rt></ruby><ruby>船<rt>ㄔㄨㄢˊ</rt></ruby><ruby>員<rt>ㄩㄢˊ</rt></ruby>、<ruby>機<rt>ㄐㄧ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>員<rt>ㄩㄢˊ</rt></ruby>、<ruby>工<rt>ㄍㄨㄥ</rt></ruby><ruby>作<rt>ㄗㄨㄛˋ</rt></ruby><ruby>團<rt>ㄊㄨㄢˊ</rt></ruby><ruby>隊<rt>ㄉㄨㄟˋ</rt></ruby>", "mnemonic_ruby": "<ruby>音<rt>ㄧㄣ</rt></ruby><ruby>近<rt>ㄐㄧㄣˋ</rt></ruby> crow（<ruby>烏<rt>ㄨ</rt></ruby><ruby>鴉<rt>ㄧㄚ</rt></ruby>）：<ruby>船<rt>ㄔㄨㄢˊ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>帶<rt>ㄉㄞˋ</rt></ruby><ruby>著<rt>ㄓㄜ˙</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>體<rt>ㄊㄧˇ</rt></ruby><ruby>船<rt>ㄔㄨㄢˊ</rt></ruby><ruby>員<rt>ㄩㄢˊ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>夥<rt>ㄏㄨㄛˇ</rt></ruby><ruby>伴<rt>ㄅㄢˋ</rt></ruby><ruby>團<rt>ㄊㄨㄢˊ</rt></ruby><ruby>隊<rt>ㄉㄨㄟˋ</rt></ruby>，<ruby>一<rt>ㄧ</rt></ruby><ruby>起<rt>ㄑㄧˇ</rt></ruby><ruby>揚<rt>ㄧㄤˊ</rt></ruby><ruby>帆<rt>ㄈㄢˊ</rt></ruby><ruby>啟<rt>ㄑㄧˇ</rt></ruby><ruby>航<rt>ㄏㄤˊ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>海<rt>ㄏㄞˇ</rt></ruby>。"}, {"word": "school", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>校<rt>ㄒㄧㄠˋ</rt></ruby>、<ruby>魚<rt>ㄩˊ</rt></ruby><ruby>群<rt>ㄑㄩㄣˊ</rt></ruby>", "mnemonic_ruby": "<ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>生<rt>ㄕㄥ</rt></ruby><ruby>天<rt>ㄊㄧㄢ</rt></ruby><ruby>天<rt>ㄊㄧㄢ</rt></ruby><ruby>去<rt>ㄑㄩˋ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>學<rt>ㄒㄩㄝˊ</rt></ruby><ruby>校<rt>ㄒㄧㄠˋ</rt></ruby>；<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>海<rt>ㄏㄞˇ</rt></ruby><ruby>中<rt>ㄓㄨㄥ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>群<rt>ㄑㄩㄣˊ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>隊<rt>ㄉㄨㄟˋ</rt></ruby><ruby>游<rt>ㄧㄡˊ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>魚<rt>ㄩˊ</rt></ruby><ruby>群<rt>ㄑㄩㄣˊ</rt></ruby><ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> a school of fish！"}, {"word": "group", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>團<rt>ㄊㄨㄢˊ</rt></ruby><ruby>體<rt>ㄊㄧˇ</rt></ruby>、<ruby>群<rt>ㄑㄩㄣˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>、<ruby>聚<rt>ㄐㄩˋ</rt></ruby><ruby>集<rt>ㄐㄧˊ</rt></ruby>", "mnemonic_ruby": "<ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>像<rt>ㄒㄧㄤˋ</rt></ruby><ruby>樹<rt>ㄕㄨˋ</rt></ruby><ruby>木<rt>ㄇㄨˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>樣<rt>ㄧㄤˋ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby><ruby>聚<rt>ㄐㄩˋ</rt></ruby><ruby>集<rt>ㄐㄧˊ</rt></ruby>（grow up），<ruby>凝<rt>ㄋㄧㄥˊ</rt></ruby><ruby>聚<rt>ㄐㄩˋ</rt></ruby><ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>起<rt>ㄑㄧˇ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>為<rt>ㄨㄟˊ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby><ruby>團<rt>ㄊㄨㄢˊ</rt></ruby><ruby>隊<rt>ㄉㄨㄟˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>群<rt>ㄑㄩㄣˊ</rt></ruby><ruby>組<rt>ㄗㄨˇ</rt></ruby>。"}, {"word": "parachute", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>降<rt>ㄐㄧㄤˋ</rt></ruby><ruby>落<rt>ㄌㄨㄛˋ</rt></ruby><ruby>傘<rt>ㄙㄢˇ</rt></ruby>、<ruby>跳<rt>ㄊㄧㄠˋ</rt></ruby><ruby>傘<rt>ㄙㄢˇ</rt></ruby>", "mnemonic_ruby": "para（<ruby>抵<rt>ㄉㄧˇ</rt></ruby><ruby>擋<rt>ㄉㄤˇ</rt></ruby><ruby>防<rt>ㄈㄤˊ</rt></ruby><ruby>禦<rt>ㄩˋ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> chute（<ruby>落<rt>ㄌㄨㄛˋ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>跌<rt>ㄉㄧㄝˊ</rt></ruby><ruby>落<rt>ㄌㄨㄛˋ</rt></ruby>），<ruby>抵<rt>ㄉㄧˇ</rt></ruby><ruby>抗<rt>ㄎㄤˋ</rt></ruby><ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>力<rt>ㄌㄧˋ</rt></ruby><ruby>從<rt>ㄘㄨㄥˊ</rt></ruby><ruby>高<rt>ㄍㄠ</rt></ruby><ruby>空<rt>ㄎㄨㄥ</rt></ruby><ruby>平<rt>ㄆㄧㄥˊ</rt></ruby><ruby>安<rt>ㄢ</rt></ruby><ruby>緩<rt>ㄏㄨㄢˇ</rt></ruby><ruby>緩<rt>ㄏㄨㄢˇ</rt></ruby><ruby>飄<rt>ㄆㄧㄠ</rt></ruby><ruby>落<rt>ㄌㄨㄛˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>降<rt>ㄐㄧㄤˋ</rt></ruby><ruby>落<rt>ㄌㄨㄛˋ</rt></ruby><ruby>傘<rt>ㄙㄢˇ</rt></ruby>。"}, {"word": "bruise", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>瘀<rt>ㄩ</rt></ruby><ruby>青<rt>ㄑㄧㄥ</rt></ruby>、<ruby>擦<rt>ㄘㄚ</rt></ruby><ruby>傷<rt>ㄕㄤ</rt></ruby>、<ruby>青<rt>ㄑㄧㄥ</rt></ruby><ruby>腫<rt>ㄓㄨㄥˇ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>入<rt>ㄖㄨˋ</rt></ruby><ruby>死<rt>ㄙˇ</rt></ruby>」：<ruby>走<rt>ㄗㄡˇ</rt></ruby><ruby>路<rt>ㄌㄨˋ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>心<rt>ㄒㄧㄣ</rt></ruby><ruby>跌<rt>ㄉㄧㄝˊ</rt></ruby><ruby>倒<rt>ㄉㄠˇ</rt></ruby><ruby>摔<rt>ㄕㄨㄞ</rt></ruby><ruby>跤<rt>ㄐㄧㄠ</rt></ruby>，<ruby>雖<rt>ㄙㄨㄟ</rt></ruby><ruby>然<rt>ㄖㄢˊ</rt></ruby><ruby>沒<rt>ㄇㄟˊ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>礙<rt>ㄞˋ</rt></ruby>，<ruby>但<rt>ㄉㄢˋ</rt></ruby><ruby>皮<rt>ㄆㄧˊ</rt></ruby><ruby>膚<rt>ㄈㄨ</rt></ruby><ruby>撞<rt>ㄓㄨㄤˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>塊<rt>ㄎㄨㄞˋ</rt></ruby><ruby>青<rt>ㄑㄧㄥ</rt></ruby><ruby>紫<rt>ㄗˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>瘀<rt>ㄩ</rt></ruby><ruby>青<rt>ㄑㄧㄥ</rt></ruby>。"}, {"word": "future", "pos": "n./adj.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>未<rt>ㄨㄟˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby>、<ruby>將<rt>ㄐㄧㄤ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby>、<ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>途<rt>ㄊㄨˊ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>飛<rt>ㄈㄟ</rt></ruby><ruby>去<rt>ㄑㄩˋ</rt></ruby>」：<ruby>時<rt>ㄕˊ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</rt></ruby><ruby>飛<rt>ㄈㄟ</rt></ruby><ruby>逝<rt>ㄕˋ</rt></ruby><ruby>而<rt>ㄦˊ</rt></ruby><ruby>去<rt>ㄑㄩˋ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>勇<rt>ㄩㄥˇ</rt></ruby><ruby>敢<rt>ㄍㄢˇ</rt></ruby><ruby>飛<rt>ㄈㄟ</rt></ruby><ruby>向<rt>ㄒㄧㄤˋ</rt></ruby><ruby>充<rt>ㄔㄨㄥ</rt></ruby><ruby>滿<rt>ㄇㄢˇ</rt></ruby><ruby>希<rt>ㄒㄧ</rt></ruby><ruby>望<rt>ㄨㄤˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>未<rt>ㄨㄟˋ</rt></ruby><ruby>來<rt>ㄌㄞˊ</rt></ruby>。"}, {"word": "ooze", "pos": "v./n.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>滲<rt>ㄕㄣˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby>、<ruby>慢<rt>ㄇㄢˋ</rt></ruby><ruby>慢<rt>ㄇㄢˋ</rt></ruby><ruby>流<rt>ㄌㄧㄡˊ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby>、<ruby>軟<rt>ㄖㄨㄢˇ</rt></ruby><ruby>泥<rt>ㄋㄧˊ</rt></ruby>", "mnemonic_ruby": "<ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>像<rt>ㄒㄧㄤˋ</rt></ruby>「<ruby>烏<rt>ㄨ</rt></ruby><ruby>滋<rt>ㄗ</rt></ruby>」：<ruby>濃<rt>ㄋㄨㄥˊ</rt></ruby><ruby>稠<rt>ㄔㄡˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>泥<rt>ㄋㄧˊ</rt></ruby><ruby>漿<rt>ㄐㄧㄤ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>藥<rt>ㄧㄠˋ</rt></ruby><ruby>膏<rt>ㄍㄠ</rt></ruby><ruby>慢<rt>ㄇㄢˋ</rt></ruby><ruby>慢<rt>ㄇㄢˋ</rt></ruby><ruby>滲<rt>ㄕㄣˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby>、<ruby>滋<rt>ㄗ</rt></ruby><ruby>滋<rt>ㄗ</rt></ruby><ruby>滴<rt>ㄉㄧ</rt></ruby><ruby>落<rt>ㄌㄨㄛˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>聲<rt>ㄕㄥ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>。"}, {"word": "reduce", "pos": "v.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>減<rt>ㄐㄧㄢˇ</rt></ruby><ruby>少<rt>ㄕㄠˇ</rt></ruby>、<ruby>縮<rt>ㄙㄨㄛ</rt></ruby><ruby>減<rt>ㄐㄧㄢˇ</rt></ruby>、<ruby>降<rt>ㄐㄧㄤˋ</rt></ruby><ruby>低<rt>ㄉㄧ</rt></ruby>", "mnemonic_ruby": "re（<ruby>向<rt>ㄒㄧㄤˋ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>退<rt>ㄊㄨㄟˋ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> duce（<ruby>引<rt>ㄧㄣˇ</rt></ruby><ruby>導<rt>ㄉㄠˇ</rt></ruby>），<ruby>將<rt>ㄐㄧㄤ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>往<rt>ㄨㄤˇ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>拉<rt>ㄌㄚ</rt></ruby><ruby>退<rt>ㄊㄨㄟˋ</rt></ruby>，<ruby>表<rt>ㄅㄧㄠˇ</rt></ruby><ruby>示<rt>ㄕˋ</rt></ruby><ruby>減<rt>ㄐㄧㄢˇ</rt></ruby><ruby>少<rt>ㄕㄠˇ</rt></ruby>、<ruby>降<rt>ㄐㄧㄤˋ</rt></ruby><ruby>低<rt>ㄉㄧ</rt></ruby><ruby>數<rt>ㄕㄨˋ</rt></ruby><ruby>量<rt>ㄌㄧㄤˊ</rt></ruby>。"}, {"word": "answer", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby>、<ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>、<ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>應<rt>ㄧㄥˋ</rt></ruby>", "mnemonic_ruby": "<ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>師<rt>ㄕ</rt></ruby><ruby>或<rt>ㄏㄨㄛˋ</rt></ruby><ruby>考<rt>ㄎㄠˇ</rt></ruby><ruby>試<rt>ㄕˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>提<rt>ㄊㄧˊ</rt></ruby><ruby>問<rt>ㄨㄣˋ</rt></ruby>，<ruby>冷<rt>ㄌㄥˇ</rt></ruby><ruby>靜<rt>ㄐㄧㄥˋ</rt></ruby><ruby>思<rt>ㄙ</rt></ruby><ruby>考<rt>ㄎㄠˇ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>給<rt>ㄍㄟˇ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>清<rt>ㄑㄧㄥ</rt></ruby><ruby>晰<rt>ㄒㄧ</rt></ruby><ruby>明<rt>ㄇㄧㄥˊ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>回<rt>ㄏㄨㄟˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby>。"}, {"word": "disappear", "pos": "v.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>消<rt>ㄒㄧㄠ</rt></ruby><ruby>失<rt>ㄕ</rt></ruby>、<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>見<rt>ㄐㄧㄢˋ</rt></ruby>、<ruby>失<rt>ㄕ</rt></ruby><ruby>蹤<rt>ㄗㄨㄥ</rt></ruby>", "mnemonic_ruby": "dis（<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>相<rt>ㄒㄧㄤ</rt></ruby><ruby>反<rt>ㄈㄢˇ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> appear（<ruby>出<rt>ㄔㄨ</rt></ruby><ruby>現<rt>ㄒㄧㄢˋ</rt></ruby>），<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>出<rt>ㄔㄨ</rt></ruby><ruby>現<rt>ㄒㄧㄢˋ</rt></ruby>、<ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>見<rt>ㄐㄧㄢˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>，<ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>消<rt>ㄒㄧㄠ</rt></ruby><ruby>失<rt>ㄕ</rt></ruby>。"}, {"word": "enemy", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>敵<rt>ㄉㄧˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>、<ruby>仇<rt>ㄔㄡˊ</rt></ruby><ruby>敵<rt>ㄉㄧˊ</rt></ruby>、<ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby>", "mnemonic_ruby": "en（<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>非<rt>ㄈㄟ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> emy（<ruby>源<rt>ㄩㄢˊ</rt></ruby><ruby>自<rt>ㄗˋ</rt></ruby><ruby>朋<rt>ㄆㄥˊ</rt></ruby><ruby>友<rt>ㄧㄡˇ</rt></ruby>），<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>朋<rt>ㄆㄥˊ</rt></ruby><ruby>友<rt>ㄧㄡˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>，<ruby>在<rt>ㄗㄞˋ</rt></ruby><ruby>戰<rt>ㄓㄢˋ</rt></ruby><ruby>場<rt>ㄔㄤˇ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>敵<rt>ㄉㄧˊ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>。"}, {"word": "another", "pos": "adj./pron.", "pos_zh_ruby": "<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>代<rt>ㄉㄞˋ</rt></ruby><ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>另<rt>ㄌㄧㄥˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby>、<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby>、<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>同<rt>ㄊㄨㄥˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "an（<ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> other（<ruby>其<rt>ㄑㄧˊ</rt></ruby><ruby>他<rt>ㄊㄚ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>），<ruby>除<rt>ㄔㄨˊ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby><ruby>這<rt>ㄓㄜˋ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby><ruby>以<rt>ㄧˇ</rt></ruby><ruby>外<rt>ㄨㄞˋ</rt></ruby>，<ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>拿<rt>ㄋㄚ</rt></ruby><ruby>另<rt>ㄌㄧㄥˋ</rt></ruby><ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>個<rt>ㄍㄜ˙</rt></ruby>。"}, {"word": "burst", "pos": "v./n.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>爆<rt>ㄅㄠˋ</rt></ruby><ruby>裂<rt>ㄌㄧㄝˋ</rt></ruby>、<ruby>爆<rt>ㄅㄠˋ</rt></ruby><ruby>發<rt>ㄈㄚ</rt></ruby>、<ruby>炸<rt>ㄓㄚˋ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>爆<rt>ㄅㄠˋ</rt></ruby><ruby>撕<rt>ㄙ</rt></ruby><ruby>裂<rt>ㄌㄧㄝˋ</rt></ruby>」：<ruby>氣<rt>ㄑㄧˋ</rt></ruby><ruby>球<rt>ㄑㄧㄡˊ</rt></ruby><ruby>灌<rt>ㄍㄨㄢˋ</rt></ruby><ruby>滿<rt>ㄇㄢˇ</rt></ruby><ruby>氣<rt>ㄑㄧˋ</rt></ruby><ruby>膨<rt>ㄆㄥˊ</rt></ruby><ruby>脹<rt>ㄓㄤˋ</rt></ruby><ruby>到<rt>ㄉㄠˋ</rt></ruby><ruby>極<rt>ㄐㄧˊ</rt></ruby><ruby>限<rt>ㄒㄧㄢˋ</rt></ruby>，<ruby>瞬<rt>ㄕㄨㄣˋ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</rt></ruby><ruby>碰<rt>ㄆㄥˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>聲<rt>ㄕㄥ</rt></ruby><ruby>破<rt>ㄆㄛˋ</rt></ruby><ruby>裂<rt>ㄌㄧㄝˋ</rt></ruby><ruby>炸<rt>ㄓㄚˋ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby>。"}, {"word": "Europe", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>歐<rt>ㄡ</rt></ruby><ruby>洲<rt>ㄓㄡ</rt></ruby>", "mnemonic_ruby": "Euro（<ruby>歐<rt>ㄡ</rt></ruby><ruby>元<rt>ㄩㄢˊ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> pe，<ruby>擁<rt>ㄩㄥˇ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>悠<rt>ㄧㄡ</rt></ruby><ruby>久<rt>ㄐㄧㄡˇ</rt></ruby><ruby>歷<rt>ㄌㄧˋ</rt></ruby><ruby>史<rt>ㄕˇ</rt></ruby><ruby>古<rt>ㄍㄨˇ</rt></ruby><ruby>堡<rt>ㄅㄠˇ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>優<rt>ㄧㄡ</rt></ruby><ruby>雅<rt>ㄧㄚˇ</rt></ruby><ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>化<rt>ㄏㄨㄚˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>歐<rt>ㄡ</rt></ruby><ruby>洲<rt>ㄓㄡ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>陸<rt>ㄌㄨˋ</rt></ruby>。"}, {"word": "charge", "pos": "v./n.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>收<rt>ㄕㄡ</rt></ruby><ruby>費<rt>ㄈㄟˋ</rt></ruby>、<ruby>充<rt>ㄔㄨㄥ</rt></ruby><ruby>電<rt>ㄉㄧㄢˋ</rt></ruby>、<ruby>衝<rt>ㄔㄨㄥ</rt></ruby><ruby>鋒<rt>ㄈㄥ</rt></ruby>、<ruby>指<rt>ㄓˇ</rt></ruby><ruby>控<rt>ㄎㄨㄥˋ</rt></ruby>", "mnemonic_ruby": "<ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>機<rt>ㄐㄧ</rt></ruby><ruby>快<rt>ㄎㄨㄞˋ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>沒<rt>ㄇㄟˊ</rt></ruby><ruby>電<rt>ㄉㄧㄢˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby><ruby>需<rt>ㄒㄩ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>趕<rt>ㄍㄢˇ</rt></ruby><ruby>緊<rt>ㄐㄧㄣˇ</rt></ruby><ruby>充<rt>ㄔㄨㄥ</rt></ruby><ruby>電<rt>ㄉㄧㄢˋ</rt></ruby>，<ruby>去<rt>ㄑㄩˋ</rt></ruby><ruby>商<rt>ㄕㄤ</rt></ruby><ruby>店<rt>ㄉㄧㄢˋ</rt></ruby><ruby>買<rt>ㄇㄞˇ</rt></ruby><ruby>東<rt>ㄉㄨㄥ</rt></ruby><ruby>西<rt>ㄒㄧ</rt></ruby><ruby>結<rt>ㄐㄧㄝˊ</rt></ruby><ruby>帳<rt>ㄓㄤˋ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>店<rt>ㄉㄧㄢˋ</rt></ruby><ruby>家<rt>ㄐㄧㄚ</rt></ruby><ruby>要<rt>ㄧㄠˋ</rt></ruby><ruby>收<rt>ㄕㄡ</rt></ruby><ruby>費<rt>ㄈㄟˋ</rt></ruby>。"}, {"word": "stretch", "pos": "v./n.", "pos_zh_ruby": "<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>伸<rt>ㄕㄣ</rt></ruby><ruby>展<rt>ㄓㄢˇ</rt></ruby>、<ruby>拉<rt>ㄌㄚ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby>、<ruby>舒<rt>ㄕㄨ</rt></ruby><ruby>展<rt>ㄓㄢˇ</rt></ruby>", "mnemonic_ruby": "<ruby>諧<rt>ㄒㄧㄝˊ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>「<ruby>死<rt>ㄙˇ</rt></ruby><ruby>扯<rt>ㄔㄜˇ</rt></ruby><ruby>拽<rt>ㄓㄨㄞˋ</rt></ruby>」：<ruby>雙<rt>ㄕㄨㄤ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>抓<rt>ㄓㄨㄚ</rt></ruby><ruby>住<rt>ㄓㄨˋ</rt></ruby><ruby>橡<rt>ㄒㄧㄤˋ</rt></ruby><ruby>皮<rt>ㄆㄧˊ</rt></ruby><ruby>筋<rt>ㄐㄧㄣ</rt></ruby><ruby>兩<rt>ㄌㄧㄤˇ</rt></ruby><ruby>端<rt>ㄉㄨㄢ</rt></ruby><ruby>使<rt>ㄕˇ</rt></ruby><ruby>勁<rt>ㄐㄧㄣˋ</rt></ruby><ruby>往<rt>ㄨㄤˇ</rt></ruby><ruby>外<rt>ㄨㄞˋ</rt></ruby><ruby>拉<rt>ㄌㄚ</rt></ruby><ruby>長<rt>ㄔㄤˊ</rt></ruby>、<ruby>運<rt>ㄩㄣˋ</rt></ruby><ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>後<rt>ㄏㄡˋ</rt></ruby><ruby>做<rt>ㄗㄨㄛˋ</rt></ruby><ruby>伸<rt>ㄕㄣ</rt></ruby><ruby>展<rt>ㄓㄢˇ</rt></ruby><ruby>操<rt>ㄘㄠ</rt></ruby>。"}, {"word": "character", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>性<rt>ㄒㄧㄥˋ</rt></ruby><ruby>格<rt>ㄍㄜˊ</rt></ruby>、<ruby>角<rt>ㄐㄧㄠˇ</rt></ruby><ruby>色<rt>ㄙㄜˋ</rt></ruby>、<ruby>文<rt>ㄨㄣˊ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby>", "mnemonic_ruby": "<ruby>故<rt>ㄍㄨˋ</rt></ruby><ruby>事<rt>ㄕˋ</rt></ruby><ruby>中<rt>ㄓㄨㄥ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby><ruby>物<rt>ㄨˋ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>鮮<rt>ㄒㄧㄢ</rt></ruby><ruby>明<rt>ㄇㄧㄥˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>性<rt>ㄒㄧㄥˋ</rt></ruby><ruby>格<rt>ㄍㄜˊ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>角<rt>ㄐㄧㄠˇ</rt></ruby><ruby>色<rt>ㄙㄜˋ</rt></ruby>，<ruby>我<rt>ㄨㄛˇ</rt></ruby><ruby>們<rt>˙ㄇㄣ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby><ruby>習<rt>ㄒㄧˊ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>漢<rt>ㄏㄢˋ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>也<rt>ㄧㄝˇ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby> Chinese character！"}, {"word": "dishonest", "pos": "adj.", "pos_zh_ruby": "<ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>誠<rt>ㄔㄥˊ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>、<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>老<rt>ㄌㄠˇ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>", "mnemonic_ruby": "dis（<ruby>否<rt>ㄈㄡˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby><ruby>反<rt>ㄈㄢˇ</rt></ruby><ruby>向<rt>ㄒㄧㄤˋ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> honest（<ruby>誠<rt>ㄔㄥˊ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby>），<ruby>說<rt>ㄕㄨㄛ</rt></ruby><ruby>謊<rt>ㄏㄨㄤˇ</rt></ruby><ruby>騙<rt>ㄆㄧㄢˋ</rt></ruby><ruby>人<rt>ㄖㄣˊ</rt></ruby>、<ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>誠<rt>ㄔㄥˊ</rt></ruby><ruby>實<rt>ㄕˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>行<rt>ㄒㄧㄥˊ</rt></ruby><ruby>為<rt>ㄨㄟˊ</rt></ruby>。"}, {"word": "button", "pos": "n./v.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>/<ruby>動<rt>ㄉㄨㄥˋ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>鈕<rt>ㄋㄧㄡˇ</rt></ruby><ruby>扣<rt>ㄎㄡˋ</rt></ruby>、<ruby>按<rt>ㄢˋ</rt></ruby><ruby>鈕<rt>ㄋㄧㄡˇ</rt></ruby>、<ruby>扣<rt>ㄎㄡˋ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby>", "mnemonic_ruby": "<ruby>衣<rt>ㄧ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>面<rt>ㄇㄧㄢˋ</rt></ruby><ruby>排<rt>ㄆㄞˊ</rt></ruby><ruby>排<rt>ㄆㄞˊ</rt></ruby><ruby>站<rt>ㄓㄢˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>鈕<rt>ㄋㄧㄡˇ</rt></ruby><ruby>扣<rt>ㄎㄡˋ</rt></ruby>，<ruby>搭<rt>ㄉㄚ</rt></ruby><ruby>乘<rt>ㄔㄥˊ</rt></ruby><ruby>電<rt>ㄉㄧㄢˋ</rt></ruby><ruby>梯<rt>ㄊㄧ</rt></ruby><ruby>時<rt>ㄕˊ</rt></ruby><ruby>用<rt>ㄩㄥˋ</rt></ruby><ruby>手<rt>ㄕㄡˇ</rt></ruby><ruby>指<rt>ㄓˇ</rt></ruby><ruby>按<rt>ㄢˋ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>圓<rt>ㄩㄢˊ</rt></ruby><ruby>形<rt>ㄒㄧㄥˊ</rt></ruby><ruby>按<rt>ㄢˋ</rt></ruby><ruby>鈕<rt>ㄋㄧㄡˇ</rt></ruby>。"}, {"word": "closet", "pos": "n.", "pos_zh_ruby": "<ruby>名<rt>ㄇㄧㄥˊ</rt></ruby><ruby>詞<rt>ㄘˊ</rt></ruby>", "meaning_ruby": "<ruby>衣<rt>ㄧ</rt></ruby><ruby>櫥<rt>ㄔㄨˊ</rt></ruby>、<ruby>壁<rt>ㄅㄧˋ</rt></ruby><ruby>櫥<rt>ㄔㄨˊ</rt></ruby>、<ruby>儲<rt>ㄔㄨˊ</rt></ruby><ruby>藏<rt>ㄘㄤˊ</rt></ruby><ruby>室<rt>ㄕˋ</rt></ruby>", "mnemonic_ruby": "close（<ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>閉<rt>ㄅㄧˋ</rt></ruby>）<ruby>加<rt>ㄐㄧㄚ</rt></ruby> et（<ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>空<rt>ㄎㄨㄥ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</rt></ruby>），<ruby>拉<rt>ㄌㄚ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby><ruby>門<rt>ㄇㄣˊ</rt></ruby><ruby>把<rt>ㄅㄚˇ</rt></ruby><ruby>衣<rt>ㄧ</rt></ruby><ruby>服<rt>ㄈㄨˊ</rt></ruby><ruby>掛<rt>ㄍㄨㄚˋ</rt></ruby><ruby>好<rt>ㄏㄠˇ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>上<rt>ㄕㄤˋ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>衣<rt>ㄧ</rt></ruby><ruby>櫥<rt>ㄔㄨˊ</rt></ruby>、<ruby>儲<rt>ㄔㄨˊ</rt></ruby><ruby>藏<rt>ㄘㄤˊ</rt></ruby><ruby>間<rt>ㄐㄧㄢ</rt></ruby>。"}];
 
-    // Fisher-Yates 洗牌演算法
-    function shuffleArray(arr) {
-      const copy = arr.slice();
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = copy[i];
-        copy[i] = copy[j];
-        copy[j] = temp;
-      }
-      return copy;
-    }
+    const TOAST_MESSAGES = {
+      noTTS: "⚠️ <ruby>您<rt>ㄋㄧㄣˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>瀏<rt>ㄌㄧㄡˊ</rt></ruby><ruby>覽<rt>ㄌㄢˇ</rt></ruby><ruby>器<rt>ㄑㄧˋ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>支<rt>ㄓ</rt></ruby><ruby>援<rt>ㄩㄢˊ</rt></ruby><ruby>語<rt>ㄩˇ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby><ruby>播<rt>ㄅㄛ</rt></ruby><ruby>放<rt>ㄈㄤˋ</rt></ruby>",
+      correct: "🎉 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>棒<rt>ㄅㄤˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>，<ruby>拼<rt>ㄆㄧㄣ</rt></ruby><ruby>寫<rt>ㄒㄧㄝˇ</rt></ruby><ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby>！",
+      wrong: "💡 <ruby>沒<rt>ㄇㄟˊ</rt></ruby><ruby>關<rt>ㄍㄨㄢ</rt></ruby><ruby>係<rt>ㄒㄧˋ</rt></ruby>，<ruby>看<rt>ㄎㄢˋ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>眼<rt>ㄧㄢˇ</rt></ruby><ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>憶<rt>ㄧˋ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>竅<rt>ㄑㄧㄠˋ</rt></ruby><ruby>再<rt>ㄗㄞˋ</rt></ruby><ruby>試<rt>ㄕˋ</rt></ruby><ruby>試<rt>ㄕˋ</rt></ruby>！",
+      allRevealed: "🚀 <ruby>已<rt>ㄧˇ</rt></ruby><ruby>一<rt>ㄧ</rt></ruby><ruby>鍵<rt>ㄐㄧㄢˋ</rt></ruby><ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>憶<rt>ㄧˋ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>竅<rt>ㄑㄧㄠˋ</rt></ruby>！",
+      allCleared: "🧹 <ruby>已<rt>ㄧˇ</rt></ruby><ruby>清<rt>ㄑㄧㄥ</rt></ruby><ruby>空<rt>ㄎㄨㄥ</rt></ruby><ruby>所<rt>ㄙㄨㄛˇ</rt></ruby><ruby>有<rt>ㄧㄡˇ</rt></ruby><ruby>輸<rt>ㄕㄨ</rt></ruby><ruby>入<rt>ㄖㄨˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>內<rt>ㄋㄟˋ</rt></ruby><ruby>容<rt>ㄖㄨㄥˊ</rt></ruby>，<ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>新<rt>ㄒㄧㄣ</rt></ruby><ruby>開<rt>ㄎㄞ</rt></ruby><ruby>始<rt>ㄕˇ</rt></ruby><ruby>練<rt>ㄌㄧㄢˋ</rt></ruby><ruby>習<rt>ㄒㄧˊ</rt></ruby>！"
+    };
 
-    // Web Speech API 發音函式
-    function speakWord(text) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
-      } else {
-        alert("瀏覽器不支援 Web Speech API 語音朗讀功能。");
-      }
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, function(s) {
-        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[s];
-      });
-    }
-
-    // ========================================================
-    // 模式一：開始考試 (Exam Mode)
-    // ========================================================
-    let examList = [];
-    let currentExamIndex = 0;
-    let examScore = 0;
-    let wrongWords = [];
-    let isExamSubmitted = false;
-
-    function startExam(onlyWrong = false) {
-      if (onlyWrong && wrongWords.length > 0) {
-        examList = shuffleArray(wrongWords);
-      } else {
-        examList = shuffleArray(VOCAB_DATA);
-      }
-
-      currentExamIndex = 0;
-      examScore = 0;
-      wrongWords = [];
-      isExamSubmitted = false;
-
-      document.getElementById('quizContainer').style.display = 'block';
-      document.getElementById('resultContainer').style.display = 'none';
-
-      showCurrentExamQuestion();
-    }
-
-    function showCurrentExamQuestion() {
-      isExamSubmitted = false;
-      const currentItem = examList[currentExamIndex];
-      const total = examList.length;
-
-      const percent = Math.round((currentExamIndex / total) * 100);
-      document.getElementById('examProgressBar').style.width = percent + '%';
-      document.getElementById('examCounter').innerHTML = `<ruby>第<rt>ㄉㄧˋ</rt></ruby> ${currentExamIndex + 1} / ${total} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-      document.getElementById('examScoreTracker').innerHTML = `<ruby>目<rt>ㄇㄨˋ</rt>前<rt>ㄑㄧㄢˊ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt>對<rt>ㄉㄨㄟˋ</rt></ruby>: ${examScore} <ruby>題<rt>ㄊㄧˊ</rt></ruby>`;
-
-      document.getElementById('examPromptZh').innerHTML = currentItem.zh;
-
-      const input = document.getElementById('examInput');
-      input.value = '';
-      input.disabled = false;
-
-      const feedback = document.getElementById('examFeedback');
-      feedback.className = 'feedback-box';
-      feedback.style.display = 'none';
-
-      document.getElementById('examSubmitBtn').style.display = 'inline-flex';
-      document.getElementById('examNextBtn').style.display = 'none';
-
-      setTimeout(() => { input.focus(); }, 120);
-    }
-
-    function submitExamAnswer() {
-      if (isExamSubmitted) return;
-
-      const input = document.getElementById('examInput');
-      const userInput = input.value.trim().toLowerCase();
-      const currentItem = examList[currentExamIndex];
-      const correctWord = currentItem.word.toLowerCase();
-
-      if (!userInput) {
-        alert("請先輸入英文單字唷！");
-        input.focus();
+    // Text-to-speech helper
+    function speakWord(word) {
+      if (!('speechSynthesis' in window)) {
+        showToast(TOAST_MESSAGES.noTTS);
         return;
       }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
 
-      isExamSubmitted = true;
-      input.disabled = true;
-      document.getElementById('examSubmitBtn').style.display = 'none';
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
 
-      const feedback = document.getElementById('examFeedback');
-      const feedbackStatus = document.getElementById('examFeedbackStatus');
-      const feedbackDetail = document.getElementById('examFeedbackDetail');
-      const mnemonicBox = document.getElementById('examMnemonicBox');
+    // Mode Switching
+    function switchMode(mode) {
+      const tabPractice = document.getElementById('tab-practice');
+      const tabExam = document.getElementById('tab-exam');
+      const practiceView = document.getElementById('practice-view');
+      const examView = document.getElementById('exam-view');
 
-      mnemonicBox.innerHTML = `💡 <strong><ruby>記<rt>ㄐㄧˋ</rt>憶<rt>ㄧˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</strong> ${currentItem.mnemonic}`;
-
-      if (userInput === correctWord) {
-        examScore++;
-        feedback.className = 'feedback-box correct';
-        feedbackStatus.innerHTML = `🎉 太棒了，完全答對！ (<strong>${currentItem.word}</strong>)`;
-        feedbackDetail.innerHTML = `拼字正確無誤，繼續勇往直前！`;
+      if (mode === 'practice') {
+        tabPractice.classList.add('active');
+        tabExam.classList.remove('active');
+        practiceView.style.display = 'block';
+        examView.style.display = 'none';
       } else {
-        wrongWords.push(currentItem);
-        feedback.className = 'feedback-box incorrect';
-        feedbackStatus.innerHTML = `❌ 哎呀，不小心拼錯囉！`;
-        feedbackDetail.innerHTML = `你的輸入：<span style="text-decoration: line-through; color: #f87171;">${escapeHtml(input.value.trim())}</span><br>
-                                    正確拼寫：<strong style="font-size: 1.25rem; color: #38bdf8; letter-spacing: 0.5px;">${currentItem.word}</strong>`;
-      }
-
-      feedback.style.display = 'block';
-      document.getElementById('examNextBtn').style.display = 'inline-flex';
-
-      speakWord(currentItem.word);
-    }
-
-    function speakCurrentExamWord() {
-      if (examList[currentExamIndex]) {
-        speakWord(examList[currentExamIndex].word);
+        tabExam.classList.add('active');
+        tabPractice.classList.remove('active');
+        practiceView.style.display = 'none';
+        examView.style.display = 'block';
+        startExam();
       }
     }
 
-    function nextExamQuestion() {
-      currentExamIndex++;
-      if (currentExamIndex < examList.length) {
-        showCurrentExamQuestion();
-      } else {
-        finishExam();
-      }
-    }
-
-    function finishExam() {
-      document.getElementById('quizContainer').style.display = 'none';
-      document.getElementById('resultContainer').style.display = 'block';
-
-      const total = examList.length;
-      const scoreCalc = Math.round((examScore / total) * 100);
-      document.getElementById('finalScore').innerText = `${scoreCalc} 分`;
-      document.getElementById('resultSummary').innerHTML = `總共 ${total} 題，答對 ${examScore} 題，答錯 ${wrongWords.length} 題。`;
-
-      const wrongContainer = document.getElementById('wrongWordsContainer');
-      const wrongListEl = document.getElementById('wrongList');
-      const retryWrongBtn = document.getElementById('retryWrongBtn');
-
-      if (wrongWords.length > 0) {
-        wrongContainer.style.display = 'block';
-        retryWrongBtn.style.display = 'inline-flex';
-        wrongListEl.innerHTML = '';
-
-        for (let i = 0; i < wrongWords.length; i++) {
-          const item = wrongWords[i];
-          const div = document.createElement('div');
-          div.className = 'wrong-item';
-          div.innerHTML = `
-            <div>
-              <strong style="color: #38bdf8; font-size: 1.1rem;">${item.word}</strong>
-              <span style="color: #94a3b8; font-size: 0.95rem; margin-left: 10px;">${item.zh}</span>
-            </div>
-            <button class="tts-btn" onclick="speakWord('${item.word}')">🔊 發音</button>
-          `;
-          wrongListEl.appendChild(div);
-        }
-      } else {
-        wrongContainer.style.display = 'none';
-        retryWrongBtn.style.display = 'none';
-      }
-    }
-
-    // ========================================================
-    // 模式二：我要練習 (Practice Mode - 單一三合一按鈕規範)
-    // ========================================================
-    function buildPracticeList() {
-      const listContainer = document.getElementById('practiceFullList');
-      listContainer.innerHTML = '';
+    // Render Practice Mode Cards
+    function renderPracticeCards() {
+      const container = document.getElementById('practice-list');
+      container.innerHTML = '';
 
       for (let i = 0; i < VOCAB_DATA.length; i++) {
         const item = VOCAB_DATA[i];
         const card = document.createElement('div');
-        card.className = 'practice-item-card';
+        card.className = 'word-card';
         card.id = `practice-card-${i}`;
 
+        const numStr = (i + 1 < 10 ? '0' : '') + (i + 1);
+
         card.innerHTML = `
-          <div class="practice-card-header">
-            <span class="practice-badge">#${i + 1}</span>
+          <div class="word-card-header">
+            <span class="card-idx-badge">#${numStr}</span>
+            <span class="pos-badge">${item.pos_zh_ruby} (${item.pos})</span>
           </div>
-          <div class="practice-prompt-zh">${item.zh}</div>
-          <div class="practice-action-row">
-            <input type="text" id="practice-input-${i}" placeholder="輸入英文拼法..." autocomplete="off" spellcheck="false" onkeydown="handlePracticeKey(event, ${i})" />
-            <button class="btn btn-primary" onclick="checkOrRevealPractice(${i})">
-              🔍 <ruby>解<rt>ㄐㄧㄝˇ</rt>答<rt>ㄉㄚˊ</rt></ruby>・<ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby>・<ruby>發<rt>ㄈㄚ</rt>音<rt>ㄧㄣ</rt></ruby>
+          <div class="chinese-prompt">
+            ${item.meaning_ruby}
+          </div>
+          <div class="typing-row">
+            <input type="text" class="word-input" id="input-${i}" placeholder="Enter English word..." autocomplete="off" onkeydown="handlePracticeKey(event, ${i})">
+            <button class="btn btn-pronounce" onclick="speakWord('${item.word}')">
+              🔊 <ruby>發<rt>ㄈㄚ</rt></ruby><ruby>音<rt>ㄧㄣ</rt></ruby>
+            </button>
+            <button class="btn btn-reveal" onclick="toggleRevealPracticeCard(${i})">
+              💡 <ruby>公<rt>ㄍㄨㄥ</rt></ruby><ruby>布<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>案<rt>ㄢˋ</rt></ruby><ruby>與<rt>ㄩˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>竅<rt>ㄑㄧㄠˋ</rt></ruby>
             </button>
           </div>
-          <div class="practice-result-box" id="practice-result-${i}"></div>
+          <div class="answer-box" id="answer-box-${i}">
+            <div class="answer-word">
+              <span>${item.word}</span>
+              <button class="btn btn-pronounce" style="padding:4px 10px; font-size:0.85rem;" onclick="speakWord('${item.word}')">🔊</button>
+            </div>
+            <div class="mnemonic-box">
+              <div class="mnemonic-label">💡 <ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>憶<rt>ㄧˋ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</div>
+              <div>${item.mnemonic_ruby}</div>
+            </div>
+          </div>
         `;
-
-        listContainer.appendChild(card);
+        container.appendChild(card);
       }
-      updatePracticeSummary();
     }
 
-    function handlePracticeKey(e, index) {
+    function handlePracticeKey(e, idx) {
       if (e.key === 'Enter') {
-        checkOrRevealPractice(index);
+        checkPracticeInput(idx);
       }
     }
 
-    // 單一核心功能：核對/揭曉解答 + 顯示記憶訣竅 + 同步發音
-    function checkOrRevealPractice(i, shouldSpeak = true) {
-      const input = document.getElementById(`practice-input-${i}`);
-      const val = input.value.trim().toLowerCase();
-      const item = VOCAB_DATA[i];
-      const correct = item.word.toLowerCase();
-      const resultBox = document.getElementById(`practice-result-${i}`);
+    function checkPracticeInput(idx) {
+      const input = document.getElementById(`input-${idx}`);
+      const userVal = input.value.trim().toLowerCase();
+      const target = VOCAB_DATA[idx].word.toLowerCase();
+      const box = document.getElementById(`answer-box-${idx}`);
 
-      resultBox.style.display = 'block';
-
-      // 情況 A：若留白，自動填入正確拼寫並展示小訣竅
-      if (!val) {
-        input.value = item.word;
-        input.dataset.correct = "true";
-        resultBox.style.background = 'rgba(56, 189, 248, 0.15)';
-        resultBox.style.border = '1px solid #38bdf8';
-        resultBox.style.color = '#bae6fd';
-        resultBox.innerHTML = `
-          👀 <strong><ruby>正<rt>ㄓㄥˋ</rt>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt>字<rt>ㄗˋ</rt></ruby>：</strong> <strong style="color: #38bdf8; font-size: 1.25rem;">${item.word}</strong>
-          <div class="mnemonic-box">💡 <strong><ruby>記<rt>ㄐㄧˋ</rt>憶<rt>ㄧˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</strong> ${item.mnemonic}</div>
-        `;
-      } 
-      // 情況 B：拼寫正確
-      else if (val === correct) {
-        input.dataset.correct = "true";
-        resultBox.style.background = 'rgba(16, 185, 129, 0.15)';
-        resultBox.style.border = '1px solid #10b981';
-        resultBox.style.color = '#6ee7b7';
-        resultBox.innerHTML = `
-          🌟 <strong>太棒了，完全答對！</strong> 拼寫為 <strong>${item.word}</strong>
-          <div class="mnemonic-box">💡 <strong><ruby>記<rt>ㄐㄧˋ</rt>憶<rt>ㄧˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</strong> ${item.mnemonic}</div>
-        `;
-      } 
-      // 情況 C：拼寫錯誤
-      else {
-        input.dataset.correct = "false";
-        resultBox.style.background = 'rgba(244, 63, 94, 0.15)';
-        resultBox.style.border = '1px solid #f43f5e';
-        resultBox.style.color = '#fca5a5';
-        resultBox.innerHTML = `
-          💪 <strong>差一點點！</strong> 你的輸入：<span style="text-decoration:line-through;">${escapeHtml(input.value.trim())}</span><br>
-          正確答案是：<strong style="color: #38bdf8; font-size: 1.25rem;">${item.word}</strong>
-          <div class="mnemonic-box">💡 <strong><ruby>記<rt>ㄐㄧˋ</rt>憶<rt>ㄧˋ</rt></ruby><ruby>小<rt>ㄒㄧㄠˇ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</strong> ${item.mnemonic}</div>
-        `;
-      }
-
-      if (shouldSpeak) {
-        speakWord(item.word);
-      }
-      updatePracticeSummary();
-    }
-
-    // 頂部全域功能：一鍵公布全部答案、訣竅與發音
-    function revealAllPractice() {
-      for (let i = 0; i < VOCAB_DATA.length; i++) {
-        checkOrRevealPractice(i, false);
-      }
-      speakWord("All answers revealed");
-    }
-
-    function resetAllPractice() {
-      if (confirm("確定要清空所有練習輸入與結果嗎？")) {
-        for (let i = 0; i < VOCAB_DATA.length; i++) {
-          const input = document.getElementById(`practice-input-${i}`);
-          input.value = '';
-          input.dataset.correct = "false";
-          const res = document.getElementById(`practice-result-${i}`);
-          res.style.display = 'none';
-        }
-        updatePracticeSummary();
-      }
-    }
-
-    function updatePracticeSummary() {
-      let doneCount = 0;
-      for (let i = 0; i < VOCAB_DATA.length; i++) {
-        const input = document.getElementById(`practice-input-${i}`);
-        if (input && input.dataset.correct === "true") {
-          doneCount++;
-        }
-      }
-      document.getElementById('practiceDoneCount').innerText = doneCount;
-    }
-
-    // ========================================================
-    // 分頁切換與全域快捷鍵
-    // ========================================================
-    function switchMode(mode) {
-      const tabExam = document.getElementById('tabExam');
-      const tabPractice = document.getElementById('tabPractice');
-      const examSection = document.getElementById('examSection');
-      const practiceSection = document.getElementById('practiceSection');
-
-      if (mode === 'exam') {
-        tabExam.classList.add('active');
-        tabPractice.classList.remove('active');
-        examSection.classList.add('active');
-        practiceSection.classList.remove('active');
-        setTimeout(() => { document.getElementById('examInput').focus(); }, 120);
+      if (userVal === target) {
+        input.classList.remove('incorrect');
+        input.classList.add('correct');
+        box.style.display = 'block';
+        speakWord(VOCAB_DATA[idx].word);
+        showToast(TOAST_MESSAGES.correct);
       } else {
-        tabExam.classList.remove('active');
-        tabPractice.classList.add('active');
-        examSection.classList.remove('active');
-        practiceSection.classList.add('active');
+        input.classList.remove('correct');
+        input.classList.add('incorrect');
+        box.style.display = 'block';
+        showToast(TOAST_MESSAGES.wrong);
       }
     }
 
-    document.getElementById('examInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        if (!isExamSubmitted) {
-          submitExamAnswer();
-        } else {
-          nextExamQuestion();
+    function toggleRevealPracticeCard(idx) {
+      const box = document.getElementById(`answer-box-${idx}`);
+      if (box.style.display === 'block') {
+        box.style.display = 'none';
+      } else {
+        box.style.display = 'block';
+      }
+    }
+
+    function globalRevealAll() {
+      for (let i = 0; i < VOCAB_DATA.length; i++) {
+        const box = document.getElementById(`answer-box-${i}`);
+        if (box) box.style.display = 'block';
+      }
+      showToast(TOAST_MESSAGES.allRevealed);
+    }
+
+    function resetPracticeAll() {
+      for (let i = 0; i < VOCAB_DATA.length; i++) {
+        const input = document.getElementById(`input-${i}`);
+        const box = document.getElementById(`answer-box-${i}`);
+        if (input) {
+          input.value = '';
+          input.classList.remove('correct', 'incorrect');
         }
+        if (box) {
+          box.style.display = 'none';
+        }
+      }
+      showToast(TOAST_MESSAGES.allCleared);
+    }
+
+    // EXAM MODE LOGIC
+    let examWordList = [];
+    let currentExamIdx = 0;
+    let examScore = 0;
+    let wrongWords = [];
+
+    function startExam(onlyWrong = false) {
+      if (onlyWrong && wrongWords.length > 0) {
+        examWordList = [...wrongWords];
+      } else {
+        examWordList = [...VOCAB_DATA];
+      }
+
+      // Standard Fisher-Yates array shuffling with standard for loop
+      for (let i = examWordList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = examWordList[i];
+        examWordList[i] = examWordList[j];
+        examWordList[j] = temp;
+      }
+
+      currentExamIdx = 0;
+      examScore = 0;
+      wrongWords = [];
+
+      document.getElementById('exam-question-card').style.display = 'block';
+      document.getElementById('exam-result-card').style.display = 'none';
+
+      showExamQuestion();
+    }
+
+    function showExamQuestion() {
+      if (currentExamIdx >= examWordList.length) {
+        showExamResult();
+        return;
+      }
+
+      const item = examWordList[currentExamIdx];
+      document.getElementById('exam-progress-text').innerText = `${currentExamIdx + 1} / ${examWordList.length}`;
+      document.getElementById('exam-score-text').innerText = examScore;
+      const progressPercent = ((currentExamIdx) / examWordList.length) * 100;
+      document.getElementById('exam-progress-bar').style.width = `${progressPercent}%`;
+
+      document.getElementById('exam-pos-badge').innerHTML = `${item.pos_zh_ruby} (${item.pos})`;
+      document.getElementById('exam-prompt').innerHTML = item.meaning_ruby;
+
+      const input = document.getElementById('exam-input');
+      input.value = '';
+      input.disabled = false;
+      input.classList.remove('correct', 'incorrect');
+
+      document.getElementById('exam-feedback').style.display = 'none';
+      document.getElementById('exam-submit-btn').style.display = 'inline-flex';
+      document.getElementById('exam-next-btn').style.display = 'none';
+
+      setTimeout(() => {
+        input.focus();
+      }, 100);
+    }
+
+    function submitExamAnswer() {
+      const input = document.getElementById('exam-input');
+      const userVal = input.value.trim().toLowerCase();
+      const currentItem = examWordList[currentExamIdx];
+      const correctVal = currentItem.word.toLowerCase();
+
+      input.disabled = true;
+      document.getElementById('exam-submit-btn').style.display = 'none';
+      document.getElementById('exam-next-btn').style.display = 'inline-flex';
+
+      const feedback = document.getElementById('exam-feedback');
+      const title = document.getElementById('exam-feedback-title');
+      const wordBox = document.getElementById('exam-feedback-word');
+      const mnemonicBox = document.getElementById('exam-feedback-mnemonic');
+
+      if (userVal === correctVal) {
+        examScore++;
+        document.getElementById('exam-score-text').innerText = examScore;
+        input.classList.add('correct');
+        feedback.className = 'exam-feedback correct';
+        title.innerHTML = `🎉 <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！<ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>厲<rt>ㄌㄧˋ</rt></ruby><ruby>害<rt>ㄏㄞˋ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！`;
+        speakWord(currentItem.word);
+      } else {
+        wrongWords.push(currentItem);
+        input.classList.add('incorrect');
+        feedback.className = 'exam-feedback incorrect';
+        title.innerHTML = `❌ <ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>囉<rt>ㄌㄨㄛ˙</rt></ruby>！<ruby>繼<rt>ㄐㄧˋ</rt></ruby><ruby>續<rt>ㄒㄩˋ</rt></ruby><ruby>加<rt>ㄐㄧㄚ</rt></ruby><ruby>油<rt>ㄧㄡˊ</rt></ruby>！`;
+      }
+
+      wordBox.innerHTML = `<span><ruby>正<rt>ㄓㄥˋ</rt></ruby><ruby>確<rt>ㄑㄩㄝˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby>：${currentItem.word}</span> <button class="btn btn-pronounce" style="padding:2px 8px; font-size:0.8rem;" onclick="speakWord('${currentItem.word}')">🔊</button>`;
+      mnemonicBox.innerHTML = `<strong>💡 <ruby>記<rt>ㄐㄧˋ</rt></ruby><ruby>憶<rt>ㄧˋ</rt></ruby><ruby>訣<rt>ㄐㄩㄝˊ</rt></ruby><ruby>竅<rt>ㄑㄧㄠˋ</rt></ruby>：</strong>${currentItem.mnemonic_ruby}`;
+      feedback.style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('exam-next-btn').focus();
+      }, 150);
+    }
+
+    function nextExamQuestion() {
+      currentExamIdx++;
+      showExamQuestion();
+    }
+
+    function showExamResult() {
+      document.getElementById('exam-progress-bar').style.width = '100%';
+      document.getElementById('exam-question-card').style.display = 'none';
+      const resultCard = document.getElementById('exam-result-card');
+      resultCard.style.display = 'block';
+
+      const total = examWordList.length;
+      const wrong = wrongWords.length;
+      const correct = examScore;
+      const scorePct = Math.round((correct / total) * 100);
+
+      document.getElementById('result-score-num').innerText = scorePct;
+      document.getElementById('result-correct-count').innerText = correct;
+      document.getElementById('result-wrong-count').innerText = wrong;
+      document.getElementById('result-accuracy').innerText = `${scorePct}%`;
+
+      const praise = document.getElementById('result-praise');
+      if (scorePct === 100) {
+        praise.innerHTML = `🌟 <ruby>太<rt>ㄊㄞˋ</rt></ruby><ruby>神<rt>ㄕㄣˊ</rt></ruby><ruby>了<rt>ㄌㄜ˙</rt></ruby>！<ruby>全<rt>ㄑㄩㄢˊ</rt></ruby><ruby>部<rt>ㄅㄨˋ</rt></ruby><ruby>答<rt>ㄉㄚˊ</rt></ruby><ruby>對<rt>ㄉㄨㄟˋ</rt></ruby>，<ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>寧<rt>ㄋㄧㄥˊ</rt></ruby><ruby>是<rt>ㄕˋ</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>大<rt>ㄉㄚˋ</rt></ruby><ruby>師<rt>ㄕ</rt></ruby>！🌟`;
+      } else if (scorePct >= 80) {
+        praise.innerHTML = `👏 <ruby>表<rt>ㄅㄧㄠˇ</rt></ruby><ruby>現<rt>ㄒㄧㄢˋ</rt></ruby><ruby>極<rt>ㄐㄧˊ</rt></ruby><ruby>佳<rt>ㄐㄧㄚ</rt></ruby>！<ruby>實<rt>ㄕˊ</rt></ruby><ruby>力<rt>ㄌㄧˋ</rt></ruby><ruby>超<rt>ㄔㄠ</rt></ruby><ruby>群<rt>ㄑㄩㄣˊ</rt></ruby>，<ruby>多<rt>ㄉㄨㄛ</rt></ruby><ruby>複<rt>ㄈㄨˋ</rt></ruby><ruby>習<rt>ㄒㄧˊ</rt></ruby><ruby>幾<rt>ㄐㄧˇ</rt></ruby><ruby>次<rt>ㄘˋ</rt></ruby><ruby>就<rt>ㄐㄧㄡˋ</rt></ruby><ruby>滿<rt>ㄇㄢˇ</rt></ruby><ruby>分<rt>ㄈㄣ</rt></ruby><ruby>囉<rt>ㄌㄨㄛ˙</rt></ruby>！`;
+      } else {
+        praise.innerHTML = `💪 <ruby>完<rt>ㄨㄢˊ</rt></ruby><ruby>成<rt>ㄔㄥˊ</rt></ruby><ruby>挑<rt>ㄊㄧㄠˇ</rt></ruby><ruby>戰<rt>ㄓㄢˋ</rt></ruby>！<ruby>點<rt>ㄉㄧㄢˇ</rt></ruby><ruby>擊<rt>ㄐㄧˊ</rt></ruby><ruby>下<rt>ㄒㄧㄚˋ</rt></ruby><ruby>方<rt>ㄈㄤ</rt></ruby><ruby>錯<rt>ㄘㄨㄛˋ</rt></ruby><ruby>題<rt>ㄊㄧˊ</rt></ruby><ruby>重<rt>ㄓㄨㄥˋ</rt></ruby><ruby>測<rt>ㄘㄜˋ</rt></ruby>，<ruby>把<rt>ㄅㄚˇ</rt></ruby><ruby>不<rt>ㄅㄨˋ</rt></ruby><ruby>熟<rt>ㄕㄡˊ</rt></ruby><ruby>的<rt>ㄉㄜ˙</rt></ruby><ruby>單<rt>ㄉㄢ</rt></ruby><ruby>字<rt>ㄗˋ</rt></ruby><ruby>搞<rt>ㄍㄠˇ</rt></ruby><ruby>定<rt>ㄉㄧㄥˋ</rt></ruby>！`;
+      }
+
+      const btnRetest = document.getElementById('btn-retest-wrong');
+      if (wrong > 0) {
+        btnRetest.style.display = 'inline-flex';
+      } else {
+        btnRetest.style.display = 'none';
+      }
+    }
+
+    function restartExam(onlyWrong) {
+      startExam(onlyWrong);
+    }
+
+    // Bind Enter key on exam input
+    document.getElementById('exam-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        submitExamAnswer();
       }
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      startExam(false);
-      buildPracticeList();
-    });
+    // Initialize on page load
+    window.onload = function() {
+      renderPracticeCards();
+    };
   </script>
 </body>
 </html>
