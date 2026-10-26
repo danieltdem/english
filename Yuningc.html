@@ -1,27 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>劉軒《幸福筆記本》深度解析 — 高難度複選評量</title>
+  <title>《做人做事做長久》高階多選深度挑戰測驗</title>
   <style>
     :root {
-      --bg-gradient-start: #fbf7ee;
-      --bg-gradient-end: #f3eae0;
-      --paper-bg: #fffdf9;
-      --wood-primary: #5c4331;
-      --wood-light: #8d6b4f;
-      --magic-amber: #e67e22;
-      --magic-gold: #f39c12;
-      --magic-glow: rgba(243, 156, 18, 0.15);
-      --accent-coral: #d35400;
-      --text-dark: #2c2523;
-      --text-muted: #6e655f;
-      --border-warm: #ebdccb;
-      --correct-bg: #eaf5ea;
-      --correct-border: #2e7d32;
-      --wrong-bg: #fdeeee;
-      --wrong-border: #c62828;
+      --primary: #1e3d59;
+      --secondary: #17b978;
+      --accent: #ff6e40;
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --border: #e2e8f0;
+      --correct: #2e7d32;
+      --correct-bg: #e8f5e9;
+      --incorrect: #c62828;
+      --incorrect-bg: #ffebee;
     }
 
     * {
@@ -31,564 +26,469 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-      color: var(--text-dark);
-      line-height: 1.65;
-      padding: 24px 16px 60px 16px;
-      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
     }
 
     .container {
-      max-width: 880px;
+      max-width: 860px;
       margin: 0 auto;
     }
 
-    /* 頂部橫幅 */
     header {
-      background: var(--paper-bg);
-      border-radius: 20px;
-      padding: 32px 28px;
-      box-shadow: 0 10px 25px rgba(92, 67, 49, 0.08);
-      border: 1px solid var(--border-warm);
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 28px;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: linear-gradient(90deg, #f39c12, #e67e22, #c0392b);
-    }
-
-    .header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--magic-glow);
-      color: var(--magic-amber);
-      font-weight: 700;
-      font-size: 13px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(230, 126, 34, 0.3);
+      background: linear-gradient(135deg, var(--primary), #2c5d88);
+      color: white;
+      padding: 32px 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 20px rgba(30, 61, 89, 0.15);
+      text-align: center;
     }
 
     header h1 {
-      font-size: 26px;
-      color: var(--wood-primary);
-      margin-bottom: 10px;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
       letter-spacing: 0.5px;
     }
 
     header p {
-      color: var(--text-muted);
-      font-size: 15px;
+      font-size: 0.95rem;
+      opacity: 0.9;
     }
 
-    .notice-card {
-      margin-top: 18px;
-      background: #fff8eb;
-      border-left: 4px solid var(--magic-gold);
-      padding: 14px 18px;
+    .instructions-card {
+      background-color: var(--card-bg);
+      border-left: 5px solid var(--accent);
+      padding: 16px 20px;
       border-radius: 8px;
-      font-size: 14px;
-      color: #784c17;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 0.95rem;
     }
 
-    /* 成績結算區 */
-    .score-banner {
-      display: none;
-      background: #ffffff;
-      border-radius: 16px;
+    .q-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
       padding: 24px;
       margin-bottom: 24px;
-      border: 2px solid var(--magic-amber);
-      box-shadow: 0 8px 24px rgba(230, 126, 34, 0.15);
-      animation: fadeIn 0.4s ease;
-      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .q-card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
 
-    .score-banner h2 {
-      font-size: 24px;
-      color: var(--wood-primary);
-      margin-bottom: 6px;
-    }
-
-    .score-grade {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--accent-coral);
-      margin: 10px 0;
-    }
-
-    .score-comment {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto 16px auto;
-    }
-
-    /* 題目卡片 */
-    .question-card {
-      background: var(--paper-bg);
-      border-radius: 16px;
-      padding: 26px;
-      margin-bottom: 24px;
-      border: 1px solid var(--border-warm);
-      box-shadow: 0 4px 14px rgba(92, 67, 49, 0.04);
-      transition: border-color 0.2s ease;
-      position: relative;
-    }
-
-    .question-badge {
-      display: inline-block;
-      font-size: 12px;
+    .q-title {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: var(--wood-light);
-      background: #f4ede4;
-      padding: 3px 10px;
-      border-radius: 6px;
-      margin-bottom: 8px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
     }
 
-    .question-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--wood-primary);
-      margin-bottom: 18px;
+    .q-tag {
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .option-label:hover {
+      background-color: #f7fafc;
+      border-color: #cbd5e0;
+    }
+
+    .option-label input[type="checkbox"] {
+      margin-top: 4px;
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--secondary);
+      cursor: pointer;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
       line-height: 1.6;
     }
 
-    .options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .option-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 13px 16px;
-      background: #faf6f0;
-      border: 1.5px solid #e7dbce;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: all 0.2s ease;
-    }
-
-    .option-item:hover {
-      background: #f5ebe0;
-      border-color: var(--wood-light);
-    }
-
-    .option-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent-coral);
-      cursor: pointer;
-      margin-top: 3px;
-      flex-shrink: 0;
-    }
-
-    .option-item.user-selected {
-      background: #fdf3e7;
-      border-color: var(--magic-amber);
-    }
-
-    /* 答案回饋解析區 */
-    .feedback-box {
-      display: none;
-      margin-top: 20px;
-      padding: 18px 20px;
-      border-radius: 12px;
-      font-size: 14.5px;
-      line-height: 1.65;
-    }
-
-    .feedback-box.correct {
-      background-color: var(--correct-bg);
-      border: 1.5px solid var(--correct-border);
-      color: #1b5e20;
-    }
-
-    .feedback-box.wrong {
-      background-color: var(--wrong-bg);
-      border: 1.5px solid var(--wrong-border);
-      color: #b71c1c;
-    }
-
-    .feedback-header {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .feedback-correct-answers {
-      margin-bottom: 12px;
-      font-weight: 600;
-      padding: 6px 10px;
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 6px;
-      display: inline-block;
-    }
-
-    .feedback-list {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .feedback-list li {
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .feedback-list li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-    }
-
-    /* 底部操作區 */
-    .controls {
+    .btn-container {
       display: flex;
       justify-content: center;
       gap: 16px;
-      margin-top: 36px;
+      margin: 36px 0;
     }
 
     .btn {
-      font-size: 16px;
-      font-weight: 600;
-      padding: 14px 36px;
+      padding: 14px 32px;
       border-radius: 30px;
       border: none;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .btn-submit {
-      background: linear-gradient(135deg, var(--magic-amber), var(--accent-coral));
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(211, 84, 0, 0.3);
+      background-color: var(--secondary);
+      color: white;
     }
 
     .btn-submit:hover {
-      background: linear-gradient(135deg, #d35400, #b93e00);
+      background-color: #139c63;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
     }
 
     .btn-reset {
-      background: #fff;
-      color: var(--wood-primary);
-      border: 1.5px solid var(--border-warm);
+      background-color: #e2e8f0;
+      color: #4a5568;
     }
 
     .btn-reset:hover {
-      background: #f7efe6;
-      border-color: var(--wood-light);
+      background-color: #cbd5e0;
+    }
+
+    #result-board {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      border: 2px solid var(--secondary);
+    }
+
+    #score-display {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .opt-correct {
+      background-color: var(--correct-bg) !important;
+      border-color: var(--correct) !important;
+      color: var(--correct);
+      font-weight: 600;
+    }
+
+    .opt-wrong {
+      background-color: var(--incorrect-bg) !important;
+      border-color: var(--incorrect) !important;
+      color: var(--incorrect);
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <div class="header-badge">✨ 幸福心靈工作坊 · 深度思維考核</div>
-      <h1>第一課《幸福筆記本》深度解析 — 高難度複選評量</h1>
-      <p>歡迎來到專屬測驗課室！請調動大腦的「聚光燈」，對劉軒《幸福筆記本》的全部核心概念、生活實例、修辭技巧及重要語彙進行深度辨析。</p>
-      <div class="notice-card">
-        <span>📌</span>
-        <div>
-          <strong>評量規則注意：</strong>全卷<strong>皆為多選題（複選題）</strong>。每題設有 5~6 個選項，至少包含 <strong>2 個或以上</strong>正確答案。必須<strong>選全所有正確項目且不誤選</strong>方視為答對！
-        </div>
-      </div>
-    </header>
+<div class="container">
+  <header>
+    <h1>《做人做事做長久》全文本深度挑戰測驗</h1>
+    <p>嚴選高難度複選題庫 • 覆蓋率 100% • 檢測細節與思維推論深度</p>
+  </header>
 
-    <!-- 分數統計與導師講評 -->
-    <div id="scoreBanner" class="score-banner">
-      <h2>測驗評量總結</h2>
-      <div id="scoreGrade" class="score-grade">-- / --</div>
-      <p id="scoreComment" class="score-comment"></p>
-      <button type="button" class="btn btn-reset" onclick="resetQuiz()">重新挑戰測驗</button>
-    </div>
-
-    <form id="quizForm">
-
-      <!-- 第 1 題：感恩的魔法與心理機制 -->
-      <div class="question-card" id="card_q1">
-        <span class="question-badge">第一向度 · 心理機制</span>
-        <div class="question-title">1. 關於文本中所闡述「感恩的魔法與其內在心理機制」，下列敘述何者完全符合文意？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q1" value="A"> A. 文本將「感恩」定義為一種引發生命正向循環的「魔法」</label>
-          <label class="option-item"><input type="checkbox" name="q1" value="B"> B. 感恩有如腦中的「聚光燈」，能引導個體主動照亮平時容易被忽略的日常「亮點」</label>
-          <label class="option-item"><input type="checkbox" name="q1" value="C"> C. 感恩是一把能扭轉思維的開關，無論面對順境或逆境皆能讓人從中預見幸福</label>
-          <label class="option-item"><input type="checkbox" name="q1" value="D"> D. 心理建設層面建立了「越常留意美好，越能發現美好」的主動發現機制</label>
-          <label class="option-item"><input type="checkbox" name="q1" value="E"> E. 感恩能夠直接消除客觀外在的物質匱乏與生活意外，使人生不再遇到挫折</label>
-        </div>
-        <div class="feedback-box" id="feedback_q1"></div>
-      </div>
-
-      <!-- 第 2 題：「幸福筆記本」實踐操作法則 -->
-      <div class="question-card" id="card_q2">
-        <span class="question-badge">第二向度 · 實踐方法</span>
-        <div class="question-title">2. 根據文中對「幸福筆記本」之執行工具定位與實踐細節的說明，下列選項哪些完全正確？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q2" value="A"> A. 幸福筆記本並非單純的事實備忘錄，更是一種具有心理調適功能的生活儀式</label>
-          <label class="option-item"><input type="checkbox" name="q2" value="B"> B. 文本明確規範其執行的時機點為「每晚睡前」進行安靜回顧</label>
-          <label class="option-item"><input type="checkbox" name="q2" value="C"> C. 每天紀錄的數量需精選挑選當天發生的「三件」值得感恩或美好的事情</label>
-          <label class="option-item"><input type="checkbox" name="q2" value="D"> D. 實踐目標在於透過文字梳理，使心情像施了魔法般開朗，體認到自己其實是個幸福的人</label>
-          <label class="option-item"><input type="checkbox" name="q2" value="E"> E. 文本要求只能記錄功成名就的重大喜事，避免書寫微不足道的生活瑣事</label>
-        </div>
-        <div class="feedback-box" id="feedback_q2"></div>
-      </div>
-
-      <!-- 第 3 題：三大生活實例與轉化 -->
-      <div class="question-card" id="card_q3">
-        <span class="question-badge">第三向度 · 事例與情感轉化</span>
-        <div class="question-title">3. 文中透過三個具體生活事件闡述如何在不同情境中提煉幸福，下列對這些事件的細節與體悟分析何者正確？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q3" value="A"> A. 「長輩健康」事例：作者目睹年過七旬的父親在散步時「健步如飛」，油然感念上天讓老父依然康健</label>
-          <label class="option-item"><input type="checkbox" name="q3" value="B"> B. 「家庭情感」事例：在結束繁重工作、身心俱疲返家時，孩子們熱情的擁抱化為暖流灌注心底，消除了疲憊</label>
-          <label class="option-item"><input type="checkbox" name="q3" value="C"> C. 「負面轉化」事例：停車不慎擦撞他人車輛，原本焦慮等待，對方車主卻大度未責難反而大方分享技術</label>
-          <label class="option-item"><input type="checkbox" name="q3" value="D"> D. 擦撞事件體現了陌生人的寬容、友善與寶貴經驗，展現了如何藉由視角轉換將日常「禍」轉為「福」</label>
-          <label class="option-item"><input type="checkbox" name="q3" value="E"> E. 三個事件共同證明：唯有在萬事順遂、毫無過失與阻礙的情境中，幸福才能被真正體會</label>
-        </div>
-        <div class="feedback-box" id="feedback_q3"></div>
-      </div>
-
-      <!-- 第 4 題：修辭與語言特色分析 -->
-      <div class="question-card" id="card_q4">
-        <span class="question-badge">第四向度 · 修辭手法與語言特色</span>
-        <div class="question-title">4. 為了深化情感表達，《幸福筆記本》運用了多種修辭手法。下列相關分析哪些符合文本內容？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q4" value="A"> A. 譬喻法：將抽象的「感恩」心態比喻為帶來幸福的「魔法」</label>
-          <label class="option-item"><input type="checkbox" name="q4" value="B"> B. 譬喻法：將個體大腦的注意與思維機制比擬為能夠照射亮點的「聚光燈」</label>
-          <label class="option-item"><input type="checkbox" name="q4" value="C"> C. 排比法：藉由「有我...的喜悅，有我...的成就」等句式加強語氣，列舉筆記本中多樣化的幸福心緒</label>
-          <label class="option-item"><input type="checkbox" name="q4" value="D"> D. 頂真法：透過前後語句銜接「美好時刻」一詞，既增加朗讀節奏感，也強調留心生活點滴的必要</label>
-          <label class="option-item"><input type="checkbox" name="q4" value="E"> E. 轉化法：將筆記本具體擬人化為會說話並與作者深夜對話的睿智知己</label>
-        </div>
-        <div class="feedback-box" id="feedback_q4"></div>
-      </div>
-
-      <!-- 第 5 題：關鍵詞彙與語境掌握 -->
-      <div class="question-card" id="card_q5">
-        <span class="question-badge">第五向度 · 重要詞彙理解</span>
-        <div class="question-title">5. 針對文本列出的重要核心詞彙，下列字義解釋與在文中文境下的對應何者完全正確？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q5" value="A"> A. 「年邁」：指年老、年紀大；文中用以形容作者年逾七旬的父親</label>
-          <label class="option-item"><input type="checkbox" name="q5" value="B"> B. 「健步如飛」：形容步伐輕快迅捷如同飛行；文中生動摹寫長輩矍鑠硬朗的身體姿態</label>
-          <label class="option-item"><input type="checkbox" name="q5" value="C"> C. 「疲憊」：意為極度勞累困倦；文中指作者下班歸家時身心積累的疲態</label>
-          <label class="option-item"><input type="checkbox" name="q5" value="D"> D. 「灌注」：意指注入、流入；文中用以形容孩子熱烈擁抱帶來的親情暖流直透心底</label>
-          <label class="option-item"><input type="checkbox" name="q5" value="E"> E. 「寬容」：指心胸寬闊、能體諒容納他人；具體展現於被擦撞車主未怒罵反而溫厚分享要領的胸襟</label>
-        </div>
-        <div class="feedback-box" id="feedback_q5"></div>
-      </div>
-
-      <!-- 第 6 題：精選語句與哲學結論深意 -->
-      <div class="question-card" id="card_q6">
-        <span class="question-badge">第六向度 · 核心結論與哲學昇華</span>
-        <div class="question-title">6. 根據《幸福筆記本》文末結論與精選語句，下列對於文本所傳達之人生哲學與調適機制的理解哪些正確？（複選）</div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q6" value="A"> A. 幸福並非取決於個人遭遇的好壞優劣，而是在於看待與解讀生活的視角角度</label>
-          <label class="option-item"><input type="checkbox" name="q6" value="B"> B. 「每晚紀錄三件事」是一套可具體操作的心理認知訓練，能培養大腦捕捉生活美好瞬間的敏感度</label>
-          <label class="option-item"><input type="checkbox" name="q6" value="C"> C. 在感恩的思維實踐中，個體能夠修復孤立感，建立起與他人以及整個世界的正面深層連結</label>
-          <label class="option-item"><input type="checkbox" name="q6" value="D"> D. 《幸福筆記本》的價值不僅止於文藝情懷的抒發，更是一套具科學心理學底蘊的日常調適機制</label>
-          <label class="option-item"><input type="checkbox" name="q6" value="E"> E. 作者認為逆境是無可奈何的宿命，唯有逃避生活現實、專注於筆記本的幻想世界方能自保</label>
-        </div>
-        <div class="feedback-box" id="feedback_q6"></div>
-      </div>
-
-      <div class="controls">
-        <button type="button" class="btn btn-submit" onclick="gradeQuiz()">送出測驗並查閱深度解析</button>
-      </div>
-
-    </form>
+  <div class="instructions-card">
+    <strong>親愛的同學您好！我是您的專屬測驗老師：</strong><br>
+    本測驗題目全數為<strong>「複選題」</strong>（每題正確答案皆在 <strong>2 個或 2 個以上</strong>，必須全選對才算完全掌握）。請仔細研析文意脈絡、修辭特點、人物對比與字音字形細節，完成後點選頁面底部的「送出測驗並查看詳解」！
   </div>
 
-  <script>
-    // 測驗題庫與選項深度解析
-    const quizData = {
-      q1: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: "【正確】文本原文明確定義：「『感恩』是為生活帶來幸福的魔法。」",
-          B: "【正確】符合聚光燈效應機制：「它就像把腦袋中的聚光燈，照在比較美好的地方，使我看到生活中的亮點。」",
-          C: "【正確】精選語句與核心論點指出：「無論順境、逆境，只要扭轉思維（感恩這把開關），就能遇見幸福。」",
-          D: "【正確】符合文本心理建設機制：「強調『越常留意美好，越能發現美好』。」",
-          E: "【錯誤】感恩並無法改變外在客觀環境的偶然事故（如車輛擦撞仍會發生），其力量在於改變「個體如何看待與詮釋」該事件的思維。"
-        }
-      },
-      q2: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: "【正確】文本指出「筆記本不只是紀錄工具，更是一種生活儀式」。",
-          B: "【正確】執行時機明確規範在「每晚睡前」。",
-          C: "【正確】操作方法明確要求「挑選當天發生的『三件』值得感恩或美好的事情」。",
-          D: "【正確】實踐目標在於「透過紀錄，使心情像施了魔法般變得開朗，體認到自己是一個幸福的人」。",
-          E: "【錯誤】文本鼓勵將生活微小瑣事（如長輩散步、孩子擁抱）乃至負面波折提煉為美好，並未限制只能寫宏大人生成就。"
-        }
-      },
-      q3: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: "【正確】目睹「年過七旬」的父親散步依然「健步如飛」，引發對老父健康的感念。",
-          B: "【正確】結束工作、身心疲憊返家，孩子熱情擁抱化為「暖流」消除疲憊，感受到家人的愛與支持。",
-          C: "【正確】停車擦撞車輛，車主「不僅未責難，還大方分享技術」，展現寬容。",
-          D: "【正確】作者感受陌生人的寬容友善與技術，成功實踐「轉禍為福」的思維轉換。",
-          E: "【錯誤】逆境與意外（如擦撞）中同樣能透過感恩扭轉視角發現幸福，絕非「唯有在毫無阻礙的情境」中才能體會。"
-        }
-      },
-      q4: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: "【正確】將「感恩」比喻為帶來幸福的「魔法」（暗喻/譬喻）。",
-          B: "【正確】將大腦思維認知比喻為照亮亮點的「聚光燈」。",
-          C: "【正確】以「有我...的喜悅，有我...的成就」相似句式構成排比，增強語勢並列舉幸福。",
-          D: "【正確】藉由「美好時刻」一詞前後承接，運用頂真增加節奏感並強調留意點滴的重要。",
-          E: "【錯誤】文本並未運用擬人化將筆記本描寫為「會說話的知己」，此為干擾選項。"
-        }
-      },
-      q5: {
-        correct: ["A", "B", "C", "D", "E"],
-        explanations: {
-          A: "【正確】「年邁」意為年老，指涉作者年逾七旬的父親。",
-          B: "【正確】「健步如飛」形容步伐迅捷，刻劃長輩硬朗體魄。",
-          C: "【正確】「疲憊」意為勞累困倦，精確描繪工作返家時的狀態。",
-          D: "【正確】「灌注」指注入、流入，形容孩子擁抱帶來的親情暖流湧入心頭。",
-          E: "【正確】「寬容」指度量大能容人，生動詮釋被撞車主的大度與和善。"
-        }
-      },
-      q6: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: "【正確】結論強調：「幸福並非取決於遭遇的好壞，而是在於看待生活的角度。」",
-          B: "【正確】透過具體行動「訓練自己捕捉美好瞬間的能力」，建立正向循環認知。",
-          C: "【正確】結論指出在感恩中「建立與他人、與世界的正面連結」。",
-          D: "【正確】結論總結指出這「不僅是一篇文學敘事，更是一套可操作的心理調適機制」。",
-          E: "【錯誤】文章倡導的是「扭轉思維、主動發現美好」的積極生活哲學，而非消極逃避或幻想。"
-        }
-      }
-    };
+  <div id="result-board">
+    <h2>測驗結算成績</h2>
+    <div id="score-display">0 / 10</div>
+    <p id="score-feedback"></p>
+  </div>
 
-    // 監聽選項點擊樣式
-    document.querySelectorAll('.option-item input[type="checkbox"]').forEach(input => {
-      input.addEventListener('change', function() {
-        const parentLabel = this.closest('.option-item');
-        if (this.checked) {
-          parentLabel.classList.add('user-selected');
-        } else {
-          parentLabel.classList.remove('user-selected');
+  <form id="quizForm">
+
+    <!-- Q1: 核心事件與細節推論 -->
+    <div class="q-card" data-qid="q1" data-correct="B,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 01</span>
+        <span>根據文本對「冷氣小師傅」進行安裝作業與行為特徵的描述，下列哪些敘述完全合乎文意與細節？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q1" value="A"> A. 小師傅年約二十出頭，與一名資深水電師傅搭檔到府安裝極為沉重的冷氣機</label>
+        <label class="option-label"><input type="checkbox" name="q1" value="B"> B. 前置作業中，小師傅將螺絲起子、壁虎釘、延長線等工具依照使用順序在窗口下排妥</label>
+        <label class="option-label"><input type="checkbox" name="q1" value="C"> C. 登上鐵梯後的安裝過程動作熟練、精確無誤，在半小時內即順利完成安裝</label>
+        <label class="option-label"><input type="checkbox" name="q1" value="D"> D. 安裝完畢後，小師傅主動借用作者家中的掃把與吸塵器進行全屋大掃除</label>
+        <label class="option-label"><input type="checkbox" name="q1" value="E"> E. 善後時拿出自備的小掃把清掃地面，並拿抹布清潔牆壁，充分體現敬業態度</label>
+      </div>
+      <div class="explanation-box" id="exp-q1"></div>
+    </div>
+
+    <!-- Q2: 人物特質與信念解析 -->
+    <div class="q-card" data-qid="q2" data-correct="B,D">
+      <div class="q-title">
+        <span class="q-tag">複選題 02</span>
+        <span>文本中針對小師傅在面對作者讚美時的「對答與內在信念」，下列哪些分析符合課文所傳達的意旨？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q2" value="A"> A. 小師傅自詡擁有業界最豐富的安裝實務經驗與無可匹敵的高超技藝</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="B"> B. 他謙遜地直言自己的安裝經驗雖非最豐富，但一貫堅持「頭尾都顧到」</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="C"> C. 他認為只要冷氣運轉正常，其餘周邊清理與維護均屬顧客自己的分內責任</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="D"> D. 堅信「生意不是做一次」，良好的服務與顧客口碑才是保障店內業績的最大基石</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="E"> E. 認為在高度競爭的商業市場中，低價促銷遠比顧客的口耳相傳更具長久效益</label>
+      </div>
+      <div class="explanation-box" id="exp-q2"></div>
+    </div>
+
+    <!-- Q3: 映襯修辭與師傅對比 -->
+    <div class="q-card" data-qid="q3" data-correct="A,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 03</span>
+        <span>作者在課文中將「資深水電/泥水師傅」與「年輕冷氣小師傅」進行對比。下列關於這組「映襯」的分析，何者完全正確？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q3" value="A"> A. 資深師傅反映出「技高人散漫、馬虎隨便」的工作心態，小師傅則展現「認真盡責、專注負責」</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="B"> B. 資深師傅在收工時總是能維持環境一塵不染，但技術精確度不如年輕小師傅</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="C"> C. 資深師傅抱持「做事只做一次、做人只見一面」與「不關我事」的應付作風</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="D"> D. 作者對資深師傅散漫作風感到十分新鮮，對小師傅的專業則倍感無奈</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="E"> E. 作者過去對散漫師傅屢見不鮮而深感無奈，面對小師傅的表現則感到耳目一新、驚喜讚賞</label>
+      </div>
+      <div class="explanation-box" id="exp-q3"></div>
+    </div>
+
+    <!-- Q4: 現代社會高效率反思 -->
+    <div class="q-card" data-qid="q4" data-correct="B,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 04</span>
+        <span>關於作者對現代社會盲目追求「高效率」的反思與檢討，下列哪些選項契合文本的哲理闡述？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q4" value="A"> A. 作者徹底否定在短時間內獲得成果的價值，主張工作時間越長越具匠人精神</label>
+        <label class="option-label"><input type="checkbox" name="q4" value="B"> B. 現代人往往誤解高效率的真諦，盲目求「快」而犧牲品質，甚至做事不求周全完善</label>
+        <label class="option-label"><input type="checkbox" name="q4" value="C"> C. 作者點出現代社會常見「交往不付真誠、不顧後路」的短視病態</label>
+        <label class="option-label"><input type="checkbox" name="q4" value="D"> D. 「高效率」的定義僅限於精準度，完全不需要考量所付出的時間與心力比率</label>
+        <label class="option-label"><input type="checkbox" name="q4" value="E"> E. 真正的高效率必須兼顧「快」與「品質」，且做事精確完善方能預見未來的長遠成功</label>
+      </div>
+      <div class="explanation-box" id="exp-q4"></div>
+    </div>
+
+    <!-- Q5: 文本心智圖脈絡整合 -->
+    <div class="q-card" data-qid="q5" data-correct="A,D">
+      <div class="q-title">
+        <span class="q-tag">複選題 05</span>
+        <span>參照文本的「心智圖構架（Mind Map Breakdown）」，下列對於各結構階段的整合敘述，哪些是正確的？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q5" value="A"> A. 背景核心矛盾在於小師傅必須獨力克服「冷氣機重量極重」的客觀環境難題</label>
+        <label class="option-label"><input type="checkbox" name="q5" value="B"> B. 安裝流程的心智圖節點依序為：拭抹牆壁 → 排列工具 → 熟練安裝 → 清理地板</label>
+        <label class="option-label"><input type="checkbox" name="q5" value="C"> C. 服務精神比較節點中，作者將資深師傅歸類為「精確完善」，小師傅歸類為「累積經驗」</label>
+        <label class="option-label"><input type="checkbox" name="q5" value="D"> D. 反思與期許階段指出：憑藉精確完善的態度、敬業服務精神並持續積累經驗，可預見小師傅未來事業的成功</label>
+        <label class="option-label"><input type="checkbox" name="q5" value="E"> E. 結論強調現代社會成功唯一的途徑是利用話術擴大客源，不必費心提升施作技術</label>
+      </div>
+      <div class="explanation-box" id="exp-q5"></div>
+    </div>
+
+    <!-- Q6: 修辭技巧深入辨析 -->
+    <div class="q-card" data-qid="q6" data-correct="B,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 06</span>
+        <span>關於文本中運用的修辭手法與例句配對，下列敘述哪些完全正確？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q6" value="A"> A. 「做事只做一次，做人只見一面」屬於隱喻中的略喻修辭法</label>
+        <label class="option-label"><input type="checkbox" name="q6" value="B"> B. 將資深師傅散漫的態度與小師傅精確的作風並置對照，運用的是「映襯」修辭</label>
+        <label class="option-label"><input type="checkbox" name="q6" value="C"> C. 「費力費工夫」以及「工作這麼多，顧客這麼多，怕什麼？」均運用了「類疊」修辭</label>
+        <label class="option-label"><input type="checkbox" name="q6" value="D"> D. 「工作這麼多，顧客這麼多，怕什麼？」是懸問，作者內心完全不知答案為何</label>
+        <label class="option-label"><input type="checkbox" name="q6" value="E"> E. 「工作這麼多，顧客這麼多，怕什麼？」屬於設問中的「激問」，答案已隱含在問題中（意即不擔心沒有客源）</label>
+      </div>
+      <div class="explanation-box" id="exp-q6"></div>
+    </div>
+
+    <!-- Q7: 關鍵語詞定義與應用 -->
+    <div class="q-card" data-qid="q7" data-correct="A,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 07</span>
+        <span>根據「重點語詞與字義辨析」，下列語詞的釋義與造句應用配對，哪些完全無誤？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q7" value="A"> A. 「井然有序」意為條理分明而有秩序，例句應用於圖書館依編碼整齊上架的書籍</label>
+        <label class="option-label"><input type="checkbox" name="q7" value="B"> B. 「口碑」本指刻在石頭墓碑上的生平事蹟，例句用在表彰逝世名人的傳記作品</label>
+        <label class="option-label"><input type="checkbox" name="q7" value="C"> C. 「效率」泛指所付出的心力與所獲得成果的比率，例句用於分工合作完成進場裝飾</label>
+        <label class="option-label"><input type="checkbox" name="q7" value="D"> D. 「保障」專指國家法律的刑罰規定，例句用在法庭審理犯罪案件的程序</label>
+        <label class="option-label"><input type="checkbox" name="q7" value="E"> E. 「預見」意指事先可以預料得到，例句應用於勤奮練習舞蹈因而得名是可預期的</label>
+      </div>
+      <div class="explanation-box" id="exp-q7"></div>
+    </div>
+
+    <!-- Q8: 多音字辨析 -->
+    <div class="q-card" data-qid="q8" data-correct="B,D">
+      <div class="q-title">
+        <span class="q-tag">複選題 08</span>
+        <span>針對課文重點多音字的音義辨析，下列哪些選項的說明完全正確？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q8" value="A"> A. 「釘」字在「壁虎釘」與「釘在牆上」中的讀音與詞性皆相同，皆唸作ㄉㄧㄥˋ（動詞）</label>
+        <label class="option-label"><input type="checkbox" name="q8" value="B"> B. 「釘」字作名詞時讀作「ㄉㄧㄥ」（如：鐵釘、釘子），作動詞時讀作「ㄉㄧㄥˋ」（如：釘書機、釘釘子）</label>
+        <label class="option-label"><input type="checkbox" name="q8" value="C"> C. 「掃」字在「掃地」中讀作ㄙㄠˋ（名詞），在「小掃把」中讀作ㄙㄠˇ（動詞）</label>
+        <label class="option-label"><input type="checkbox" name="q8" value="D"> D. 「率」字作比例、比率時讀作「ㄌㄩˋ」（如：效率、百分率），作帶領意時讀作「ㄕㄨㄞˋ」（如：率領）</label>
+        <label class="option-label"><input type="checkbox" name="q8" value="E"> E. 「掃把」與「掃地」的「掃」讀音完全相同，皆為三聲ㄙㄠˇ</label>
+      </div>
+      <div class="explanation-box" id="exp-q8"></div>
+    </div>
+
+    <!-- Q9: 形近字辨析與字義 -->
+    <div class="q-card" data-qid="q9" data-correct="A,C,E">
+      <div class="q-title">
+        <span class="q-tag">複選題 09</span>
+        <span>檢視課文延伸的「形近字」辨析組別，下列哪些字義與詞語配對完全正確？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q9" value="A"> A. 「穩」具有安定固定之意（如：穩定、平穩）；「隱」則有藏匿包庇之意（如：隱瞞、隱蔽）</label>
+        <label class="option-label"><input type="checkbox" name="q9" value="B"> B. 「熟」與「熱」兩字偏旁均從火，字義完全相通，皆指物質溫度極高之意</label>
+        <label class="option-label"><input type="checkbox" name="q9" value="C"> C. 「熟」在課文中可指技術精巧、熟練（如：純熟）；「熱」則指溫度高（如：炎熱）</label>
+        <label class="option-label"><input type="checkbox" name="q9" value="D"> D. 「績、積、蹟」三字同音同義，「業績」亦可直接書寫為「業蹟」或「業積」</label>
+        <label class="option-label"><input type="checkbox" name="q9" value="E"> E. 「績」指功業成果（如：成績、業績）；「積」指聚集成堆（如：累積）；「蹟」指前人留下的印記或事物（如：古蹟）</label>
+      </div>
+      <div class="explanation-box" id="exp-q9"></div>
+    </div>
+
+    <!-- Q10: 作者文學成就與背景常識 -->
+    <div class="q-card" data-qid="q10" data-correct="A,B,D">
+      <div class="q-title">
+        <span class="q-tag">複選題 10</span>
+        <span>關於《做人做事做長久》作者「李潼」的生平與文學成就，下列敘述哪些真實無誤？</span>
+      </div>
+      <div class="options-group">
+        <label class="option-label"><input type="checkbox" name="q10" value="A"> A. 本名為賴西安（1953年－2004年），晚年定居並病逝於宜蘭</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="B"> B. 創作涉獵文類廣泛，涵蓋小說與散文，尤其在少年小說領域成就非凡</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="C"> C. 作品主要風格以冷酷無情的諷刺批判見長，鮮少涉及社會關懷或人性溫情</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="D"> D. 無論在作品的「質」與「量」上皆表現卓越，被文壇譽為「臺灣少年小說第一人」</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="E"> E. 其文學成就僅限於詩歌創作，從未涉足散文或青少年小說的書寫</label>
+      </div>
+      <div class="explanation-box" id="exp-q10"></div>
+    </div>
+
+  </form>
+
+  <div class="btn-container">
+    <button type="button" class="btn btn-submit" onclick="submitQuiz()">送出測驗並查看詳解</button>
+    <button type="button" class="btn btn-reset" onclick="resetQuiz()">重新作答</button>
+  </div>
+</div>
+
+<script>
+  const explanations = {
+    q1: "【正確答案】：B、C、E<br>【解析】：<br>• A 選項錯誤：小師傅年僅「十八、九歲」，且是「獨立一人」前來安裝，並非二十出頭或有資深師傅搭檔。<br>• B 選項正確：前置作業確實是將螺絲起子、壁虎釘、延長線依使用順序排好。<br>• C 選項正確：動作熟練精確，半小時內即安裝完畢。<br>• D 選項錯誤：小師傅是拿出「自備」的小掃把清掃地板，並非借用作者家的工具大掃除。<br>• E 選項正確：自備工具收尾、擦拭牆壁與地板，展現出高度敬業精神。",
+    
+    q2: "【正確答案】：B、D<br>【解析】：<br>• A 選項錯誤：小師傅非常謙虛，直言自己安裝經驗不是最豐富的。<br>• B 選項正確：其核心信念是做好分內事，「頭尾都顧到」。<br>• C 選項錯誤：小師傅善後徹底，認為清潔收尾都是自己的分內責任。<br>• D 選項正確：小師傅深信「生意不是做一次，顧客的口碑是本店家業績最大的保障」。<br>• E 選項錯誤：文本強調的是「顧客口碑」與「真誠服務」，並未提及低價促銷。",
+
+    q3: "【正確答案】：A、C、E<br>【解析】：<br>• A 選項正確：資深師傅「技高人散漫、馬虎隨便」對比小師傅「認真盡責、專注負責」。<br>• B 選項錯誤：資深師傅往往是「不關我事」的散漫收工現場，不會維持環境一塵不染。<br>• C 選項正確：資深師傅抱持「做事只做一次、做人只見一面」的心態。<br>• D 選項錯誤：作者對資深師傅是感到「無奈」，對小師傅則是感到「耳目一新、驚喜與讚賞」。<br>• E 選項正確：對比了作者面對兩者時的內心感受差異。",
+
+    q4: "【正確答案】：B、C、E<br>【解析】：<br>• A 選項錯誤：作者並未否定短時間完成工作的價值，而是強調「快」不能犧牲「品質」。<br>• B 選項正確：現代人常誤以為「快」即是一切，做事不求周全完善。<br>• C 選項正確：作者批判現代人「做事只做一次，做人只見一面」，交往不付真誠、不留後路。<br>• D 選項錯誤：效率是指「付出的心力與所獲得成果的比率」，快與好兼備才是真正的高效率。<br>• E 選項正確：做事精確完善、服務精神到位，才能預見長遠的成功。",
+
+    q5: "【正確答案】：A、D<br>【解析】：<br>• A 選項正確：背景即是小師傅獨力安裝，克服冷氣極重的客觀難題。<br>• B 選項錯誤：正確順序應為「排列工具（前置） → 熟練安裝（過程） → 收掃環境、拭抹牆壁（完成善後）」。<br>• C 選項錯誤：資深師傅被歸類為「技高人散漫、不關我事」，小師傅才是「精確完善、口碑至上」。<br>• D 選項正確：作者預見小師傅憑藉完善態度、敬業精神與經驗累積，未來必定大有可為。<br>• E 選項錯誤：作者批判不誠實的話術，提倡真誠做人與精確做事。",
+
+    q6: "【正確答案】：B、C、E<br>【解析】：<br>• A 選項錯誤：「做事只做一次，做人只見一面」結構對稱、詞性相對，屬於「對偶」修辭。<br>• B 選項正確：兩類師傅的鮮明對比屬於「映襯」修辭。<br>• C 選項正確：「費力費工夫」（費字重複）、「工作這麼多，顧客這麼多」（結構與詞語重複）均為「類疊」修辭。<br>• D、E 選項說明：該設問為「激問」（反問），答案已包含在問題中（隱含「不怕沒有工作和顧客」之意），因此 D 錯、E 對。",
+
+    q7: "【正確答案】：A、C、E<br>【解析】：<br>• A 選項正確：井然有序意為條理分明，造句合適。<br>• B 選項錯誤：「口碑」指眾人的口頭傳頌，有如文字刻於碑石，比喻眾人口頭的稱譽好評，非指墓碑。<br>• C 選項正確：效率指付出心力與所獲成果的比率，造句合適。<br>• D 選項錯誤：「保障」意指保護、屏障，並非專指刑罰。<br>• E 選項正確：預見指事先可以預料得到，得名是可以預期的，造句合適。",
+
+    q8: "【正確答案】：B、D<br>【解析】：<br>• A 選項錯誤：「壁虎釘」中的「釘」為名詞，讀音為「ㄉㄧㄥ」；「釘在牆上」中的「釘」為動詞，讀音為「ㄉㄧㄥˋ」。<br>• B 選項正確：名詞讀「ㄉㄧㄥ」（釘子），動詞讀「ㄉㄧㄥˋ」（釘書機、釘釘子）。<br>• C、E 選項錯誤：「掃」動詞讀「ㄙㄠˇ」（如：掃地）；名詞讀「ㄙㄠˋ」（如：掃把），兩者讀音與詞性不同。<br>• D 選項正確：比率讀「ㄌㄩˋ」（效率）；率領讀「ㄕㄨㄞˋ」。",
+
+    q9: "【正確答案】：A、C、E<br>【解析】：<br>• A 選項正確：穩為安定，隱為藏匿。<br>• B 選項錯誤：「熟」可指技術純熟或食物煮熟；「熱」指溫度高，兩者字義不同不可混用。<br>• C 選項正確：熟指技術純熟；熱指溫度高。<br>• D 選項錯誤：績、積、蹟三字字義有別，不可任意替換。<br>• E 選項正確：業績之「績」指功業成果；累積之「積」為聚積；古蹟之「蹟」為遺跡印記。",
+
+    q10: "【正確答案】：A、B、D<br>【解析】：<br>• A 選項正確：李潼本名賴西安（1953－2004），病逝於宜蘭。<br>• B 選項正確：涉獵廣泛，以少年小說最為突出。<br>• C 選項錯誤：李潼作品對人性刻畫深刻，字裡行間流露濃厚的關懷與溫情，非冷酷批判。<br>• D 選項正確：質與量均獲極高評價，被譽為「臺灣少年小說第一人」。<br>• E 選項錯誤：李潼在小說、散文均有極大成就，尤以少年小說最著名。"
+  };
+
+  function submitQuiz() {
+    const cards = document.querySelectorAll('.q-card');
+    let totalScore = 0;
+
+    cards.forEach(card => {
+      const qid = card.getAttribute('data-qid');
+      const correctArr = card.getAttribute('data-correct').split(',').sort();
+      const checkedBoxes = card.querySelectorAll('input[type="checkbox"]:checked');
+      const userArr = Array.from(checkedBoxes).map(cb => cb.value).sort();
+      const expBox = document.getElementById('exp-' + qid);
+
+      // 判定顏色
+      const labels = card.querySelectorAll('.option-label');
+      labels.forEach(label => {
+        const val = label.querySelector('input').value;
+        label.classList.remove('opt-correct', 'opt-wrong');
+        if (correctArr.includes(val)) {
+          label.classList.add('opt-correct');
+        } else if (label.querySelector('input').checked) {
+          label.classList.add('opt-wrong');
         }
       });
+
+      // 檢查是否完全正確
+      const isCorrect = correctArr.length === userArr.length && correctArr.every((v, i) => v === userArr[i]);
+      if (isCorrect) {
+        totalScore += 1;
+        expBox.style.backgroundColor = 'var(--correct-bg)';
+        expBox.style.border = '1px solid var(--correct)';
+      } else {
+        expBox.style.backgroundColor = 'var(--incorrect-bg)';
+        expBox.style.border = '1px solid var(--incorrect)';
+      }
+
+      expBox.innerHTML = explanations[qid];
+      expBox.style.display = 'block';
     });
 
-    // 批改評分邏輯
-    function gradeQuiz() {
-      let totalQuestions = Object.keys(quizData).length;
-      let correctCount = 0;
+    // 顯示結算
+    const board = document.getElementById('result-board');
+    const scoreDisplay = document.getElementById('score-display');
+    const feedback = document.getElementById('score-feedback');
+    board.style.display = 'block';
+    scoreDisplay.innerText = `${totalScore} / ${cards.length}`;
 
-      for (let key in quizData) {
-        const item = quizData[key];
-        const correctAnswers = item.correct.slice().sort();
-        const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
-        const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
-
-        const feedbackBox = document.getElementById(`feedback_${key}`);
-        const cardBox = document.getElementById(`card_${key}`);
-
-        // 判定複選題全對條件：長度一致且每個選項完全匹配
-        const isCorrect = userAnswers.length === correctAnswers.length &&
-                          userAnswers.every((val, index) => val === correctAnswers[index]);
-
-        if (isCorrect) {
-          correctCount++;
-        }
-
-        // 呈現詳解與選項剖析
-        feedbackBox.style.display = "block";
-        feedbackBox.className = "feedback-box " + (isCorrect ? "correct" : "wrong");
-
-        let statusTitle = isCorrect ? "✅ 答對了！精準掌握本題所有細節。" : "❌ 答案有誤或未完全選出！";
-        
-        let explanationItems = "";
-        for (let opt in item.explanations) {
-          const isKeyCorrect = item.correct.includes(opt);
-          const badgeText = isKeyCorrect ? "【正確答案】" : "【干擾選項】";
-          explanationItems += `<li><strong>選項 ${opt} ${badgeText}</strong>：${item.explanations[opt]}</li>`;
-        }
-
-        feedbackBox.innerHTML = `
-          <div class="feedback-header">
-            <span>${statusTitle}</span>
-          </div>
-          <div class="feedback-correct-answers">
-            標準完整答案：${correctAnswers.join("、")}
-          </div>
-          <div><strong>題目選項逐一深度解析：</strong></div>
-          <ul class="feedback-list">
-            ${explanationItems}
-          </ul>
-        `;
-      }
-
-      // 總成績展示與導師鼓勵評語
-      const scoreBanner = document.getElementById("scoreBanner");
-      const scoreGrade = document.getElementById("scoreGrade");
-      const scoreComment = document.getElementById("scoreComment");
-
-      scoreBanner.style.display = "block";
-      scoreGrade.innerHTML = `${correctCount} / ${totalQuestions} <span style="font-size: 18px; color: var(--wood-primary);">題</span>`;
-
-      if (correctCount === totalQuestions) {
-        scoreComment.innerHTML = "🌟 <strong>完美滿分！</strong>你已將大腦的「聚光燈」完全開啟！對於劉軒《幸福筆記本》中的心理機制、生活事例、詞彙乃至修辭技巧皆有極為敏銳且透徹的掌握，表現無可挑剔！";
-      } else if (correctCount >= 4) {
-        scoreComment.innerHTML = "👏 <strong>表現優異！</strong>你掌握了文本中絕大多數的核心哲學與細節，僅在部分嚴苛的細節陷阱中略有疏漏。細閱下方詳解，你將能把這把「感恩的鑰匙」掌握得更加熟練！";
-      } else {
-        scoreComment.innerHTML = "🌱 <strong>持續加油！</strong>高難度的多選題需要極高的專注度與對文章細部論點的精準記憶。別灰心，請仔細閱讀每題的「逐項解析」，重新梳理文章的脈絡後再試一次！";
-      }
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (totalScore === cards.length) {
+      feedback.innerText = "太優秀了！所有文本細節與深度觀念皆完全掌握，完美全對！";
+    } else if (totalScore >= 7) {
+      feedback.innerText = "表現出色！對課文已有相當深刻的理解，細心研讀錯題解析即可臻於完美！";
+    } else {
+      feedback.innerText = "加油！這是一份高難度複選題庫，請仔細比對下方每題的完整解析與原文對照喔！";
     }
 
-    // 重新測驗重置
-    function resetQuiz() {
-      document.getElementById("quizForm").reset();
-      document.querySelectorAll('.option-item').forEach(el => el.classList.remove('user-selected'));
-      document.querySelectorAll('.feedback-box').forEach(el => {
-        el.style.display = "none";
-        el.innerHTML = "";
-      });
-      document.getElementById("scoreBanner").style.display = "none";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  </script>
+    board.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetQuiz() {
+    document.getElementById('quizForm').reset();
+    document.querySelectorAll('.explanation-box').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.option-label').forEach(el => el.classList.remove('opt-correct', 'opt-wrong'));
+    document.getElementById('result-board').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
 </body>
 </html>
