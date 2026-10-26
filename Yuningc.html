@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>國語課文高階深度思辨測驗：琦君《孔雀錯了》</title>
+  <title>劉軒《幸福筆記本》深度解析 — 高難度複選評量</title>
   <style>
     :root {
-      --primary-peacock: #0f4c5c;
-      --secondary-teal: #008080;
-      --accent-gold: #e5a93c;
-      --accent-coral: #e36414;
-      --bg-cream: #fbfbfa;
-      --card-bg: #ffffff;
-      --text-dark: #1f2937;
-      --text-muted: #4b5563;
-      --correct-bg: #e6f7ef;
-      --correct-border: #10b981;
-      --wrong-bg: #feefef;
-      --wrong-border: #ef4444;
-      --border-color: #e5e7eb;
+      --bg-gradient-start: #fbf7ee;
+      --bg-gradient-end: #f3eae0;
+      --paper-bg: #fffdf9;
+      --wood-primary: #5c4331;
+      --wood-light: #8d6b4f;
+      --magic-amber: #e67e22;
+      --magic-gold: #f39c12;
+      --magic-glow: rgba(243, 156, 18, 0.15);
+      --accent-coral: #d35400;
+      --text-dark: #2c2523;
+      --text-muted: #6e655f;
+      --border-warm: #ebdccb;
+      --correct-bg: #eaf5ea;
+      --correct-border: #2e7d32;
+      --wrong-bg: #fdeeee;
+      --wrong-border: #c62828;
     }
 
     * {
@@ -28,865 +31,564 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", Roboto, "Noto Sans TC", sans-serif;
-      background: linear-gradient(145deg, #eef7f6 0%, #f7f9fa 50%, #fefaf0 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
       color: var(--text-dark);
-      line-height: 1.7;
-      padding: 24px 16px;
+      line-height: 1.65;
+      padding: 24px 16px 60px 16px;
       min-height: 100vh;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
-    /* Teacher Greeting Card */
-    .teacher-welcome {
-      background: linear-gradient(135deg, var(--primary-peacock) 0%, #173f4b 60%, var(--secondary-teal) 100%);
-      color: #ffffff;
-      padding: 32px 28px;
+    /* 頂部橫幅 */
+    header {
+      background: var(--paper-bg);
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(15, 76, 92, 0.2);
-      margin-bottom: 30px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 25px rgba(92, 67, 49, 0.08);
+      border: 1px solid var(--border-warm);
       position: relative;
       overflow: hidden;
+      margin-bottom: 28px;
     }
 
-    .teacher-welcome::after {
-      content: "🦚";
+    header::before {
+      content: "";
       position: absolute;
-      right: 20px;
-      bottom: -15px;
-      font-size: 8rem;
-      opacity: 0.12;
-      pointer-events: none;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #f39c12, #e67e22, #c0392b);
     }
 
-    .teacher-header {
-      display: flex;
+    .header-badge {
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .teacher-avatar {
-      font-size: 2.6rem;
-      background: rgba(255, 255, 255, 0.18);
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      border: 2px solid var(--accent-gold);
-    }
-
-    .teacher-welcome h1 {
-      font-size: 1.65rem;
+      gap: 6px;
+      background: var(--magic-glow);
+      color: var(--magic-amber);
       font-weight: 700;
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(230, 126, 34, 0.3);
+    }
+
+    header h1 {
+      font-size: 26px;
+      color: var(--wood-primary);
+      margin-bottom: 10px;
       letter-spacing: 0.5px;
     }
 
-    .teacher-welcome p {
-      color: #e0f2f1;
-      font-size: 1rem;
+    header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .notice-card {
+      margin-top: 18px;
+      background: #fff8eb;
+      border-left: 4px solid var(--magic-gold);
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #784c17;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    /* 成績結算區 */
+    .score-banner {
+      display: none;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 2px solid var(--magic-amber);
+      box-shadow: 0 8px 24px rgba(230, 126, 34, 0.15);
+      animation: fadeIn 0.4s ease;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-banner h2 {
+      font-size: 24px;
+      color: var(--wood-primary);
+      margin-bottom: 6px;
+    }
+
+    .score-grade {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-coral);
+      margin: 10px 0;
+    }
+
+    .score-comment {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 16px auto;
+    }
+
+    /* 題目卡片 */
+    .question-card {
+      background: var(--paper-bg);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border-warm);
+      box-shadow: 0 4px 14px rgba(92, 67, 49, 0.04);
+      transition: border-color 0.2s ease;
+      position: relative;
+    }
+
+    .question-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--wood-light);
+      background: #f4ede4;
+      padding: 3px 10px;
+      border-radius: 6px;
       margin-bottom: 8px;
     }
 
-    .quiz-rules-badge {
-      display: inline-block;
-      background: rgba(229, 169, 60, 0.25);
-      border: 1px solid var(--accent-gold);
-      color: #ffeedb;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-top: 10px;
-    }
-
-    /* Question Card */
-    .question-card {
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 28px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border-color);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .question-card:hover {
-      box-shadow: 0 8px 24px rgba(15, 76, 92, 0.09);
-    }
-
-    .q-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .q-number {
-      font-size: 0.92rem;
+    .question-title {
+      font-size: 17px;
       font-weight: 700;
-      color: var(--primary-peacock);
-      background: #e8f3f5;
-      padding: 4px 12px;
-      border-radius: 8px;
-    }
-
-    .q-tag {
-      font-size: 0.8rem;
-      color: var(--accent-coral);
-      background: #fff4ed;
-      border: 1px solid #ffdecb;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-
-    .q-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 20px;
+      color: var(--wood-primary);
+      margin-bottom: 18px;
       line-height: 1.6;
     }
 
-    .options-group {
+    .options-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 11px;
     }
 
     .option-item {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 14px 16px;
-      border: 1.5px solid var(--border-color);
-      border-radius: 12px;
+      padding: 13px 16px;
+      background: #faf6f0;
+      border: 1.5px solid #e7dbce;
+      border-radius: 10px;
       cursor: pointer;
-      background: #fff;
+      font-size: 15px;
       transition: all 0.2s ease;
-      position: relative;
     }
 
     .option-item:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
+      background: #f5ebe0;
+      border-color: var(--wood-light);
     }
 
     .option-item input[type="checkbox"] {
-      margin-top: 4px;
-      width: 19px;
-      height: 19px;
-      accent-color: var(--primary-peacock);
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-coral);
       cursor: pointer;
+      margin-top: 3px;
       flex-shrink: 0;
     }
 
-    .option-label {
-      font-size: 0.98rem;
-      color: var(--text-dark);
-      cursor: pointer;
-      width: 100%;
-      word-break: break-word;
+    .option-item.user-selected {
+      background: #fdf3e7;
+      border-color: var(--magic-amber);
     }
 
-    /* Result & Analysis States */
-    .option-item.state-correct {
-      background-color: var(--correct-bg) !important;
-      border-color: var(--correct-border) !important;
-    }
-
-    .option-item.state-wrong-chosen {
-      background-color: var(--wrong-bg) !important;
-      border-color: var(--wrong-border) !important;
-    }
-
-    .option-item.state-missed {
-      background-color: #fff9db !important;
-      border-color: #fab005 !important;
-    }
-
-    .badge-status {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 6px;
-      margin-left: 8px;
-      vertical-align: middle;
-    }
-    .badge-correct { background: #10b981; color: white; }
-    .badge-wrong { background: #ef4444; color: white; }
-    .badge-missed { background: #d97706; color: white; }
-
-    /* Explanation Section */
-    .explanation-panel {
+    /* 答案回饋解析區 */
+    .feedback-box {
       display: none;
-      margin-top: 22px;
+      margin-top: 20px;
       padding: 18px 20px;
-      background: #f8fafc;
-      border-left: 5px solid var(--primary-peacock);
-      border-radius: 0 12px 12px 0;
-      font-size: 0.94rem;
+      border-radius: 12px;
+      font-size: 14.5px;
+      line-height: 1.65;
     }
 
-    .explanation-panel.visible {
-      display: block;
-      animation: fadeIn 0.3s ease-in-out;
+    .feedback-box.correct {
+      background-color: var(--correct-bg);
+      border: 1.5px solid var(--correct-border);
+      color: #1b5e20;
     }
 
-    .explanation-panel h4 {
-      font-size: 1rem;
-      color: var(--primary-peacock);
-      margin-bottom: 10px;
+    .feedback-box.wrong {
+      background-color: var(--wrong-bg);
+      border: 1.5px solid var(--wrong-border);
+      color: #b71c1c;
+    }
+
+    .feedback-header {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .explanation-panel ul {
-      padding-left: 20px;
-      color: var(--text-muted);
+    .feedback-correct-answers {
+      margin-bottom: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 6px;
+      display: inline-block;
     }
 
-    .explanation-panel li {
-      margin-bottom: 8px;
-      line-height: 1.6;
+    .feedback-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    .explanation-panel strong {
-      color: var(--text-dark);
+    .feedback-list li {
+      padding-left: 14px;
+      position: relative;
     }
 
-    /* Action Buttons */
-    .action-bar {
-      text-align: center;
-      margin: 36px 0;
+    .feedback-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    /* 底部操作區 */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
     }
 
     .btn {
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 14px 42px;
-      border-radius: 999px;
-      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 14px 36px;
+      border-radius: 30px;
       border: none;
+      cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-submit {
-      background: linear-gradient(135deg, var(--primary-peacock) 0%, var(--secondary-teal) 100%);
+      background: linear-gradient(135deg, var(--magic-amber), var(--accent-coral));
       color: #ffffff;
+      box-shadow: 0 4px 14px rgba(211, 84, 0, 0.3);
     }
 
     .btn-submit:hover {
+      background: linear-gradient(135deg, #d35400, #b93e00);
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(15, 76, 92, 0.28);
+      box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
     }
 
     .btn-reset {
-      background: #e2e8f0;
-      color: var(--text-dark);
-      margin-left: 14px;
-      display: none;
+      background: #fff;
+      color: var(--wood-primary);
+      border: 1.5px solid var(--border-warm);
     }
 
     .btn-reset:hover {
-      background: #cbd5e1;
-    }
-
-    /* Score Modal / Floating Box */
-    .score-board {
-      display: none;
-      background: #ffffff;
-      border: 2px solid var(--accent-gold);
-      border-radius: 18px;
-      padding: 24px;
-      text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      animation: fadeIn 0.4s ease;
-    }
-
-    .score-board h2 {
-      font-size: 1.5rem;
-      color: var(--primary-peacock);
-      margin-bottom: 8px;
-    }
-
-    .score-points {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--accent-coral);
-      margin: 10px 0;
-    }
-
-    .teacher-feedback {
-      font-size: 1.05rem;
-      color: var(--text-dark);
-      max-width: 650px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .teacher-closing-card {
-      background: #ffffff;
-      border: 1px dashed var(--secondary-teal);
-      border-radius: 16px;
-      padding: 22px;
-      margin-top: 40px;
-      text-align: center;
-      color: var(--text-muted);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 600px) {
-      body { padding: 14px 10px; }
-      .teacher-welcome { padding: 22px 18px; }
-      .question-card { padding: 20px 16px; }
-      .q-title { font-size: 1.05rem; }
-      .btn { width: 100%; margin: 6px 0; }
+      background: #f7efe6;
+      border-color: var(--wood-light);
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
-    <!-- 老師親切開場導言 -->
-    <header class="teacher-welcome">
-      <div class="teacher-header">
-        <div class="teacher-avatar">🦚</div>
+    <header>
+      <div class="header-badge">✨ 幸福心靈工作坊 · 深度思維考核</div>
+      <h1>第一課《幸福筆記本》深度解析 — 高難度複選評量</h1>
+      <p>歡迎來到專屬測驗課室！請調動大腦的「聚光燈」，對劉軒《幸福筆記本》的全部核心概念、生活實例、修辭技巧及重要語彙進行深度辨析。</p>
+      <div class="notice-card">
+        <span>📌</span>
         <div>
-          <h1>哈囉！我是你的專屬測驗小幫手老師</h1>
-          <p>很高興為你解析琦君的名作<strong>《孔雀錯了》</strong>！老師已經將簡報中的所有核心論點、字詞修辭、句型以及深層哲理，百分之百轉化為具備高思辨難度的複選題。</p>
+          <strong>評量規則注意：</strong>全卷<strong>皆為多選題（複選題）</strong>。每題設有 5~6 個選項，至少包含 <strong>2 個或以上</strong>正確答案。必須<strong>選全所有正確項目且不誤選</strong>方視為答對！
         </div>
-      </div>
-      <p>每一道題目都包含了細緻的文本線索與容易混淆的誘答選項。做題時請務必精準推敲、仔細審題喔！</p>
-      <div class="quiz-rules-badge">
-        ✦ 測驗規則：全卷皆為「高難度多選題（複選題）」，每題至少有 2 個以上正確選項，必須全對才能獲得該題滿分！
       </div>
     </header>
 
-    <!-- 評分與診斷反饋看板 -->
-    <section id="scoreBoard" class="score-board">
-      <h2>測驗成果診斷報告</h2>
-      <div class="score-points" id="scoreDisplay">0 分</div>
-      <p class="teacher-feedback" id="feedbackDisplay"></p>
-    </section>
+    <!-- 分數統計與導師講評 -->
+    <div id="scoreBanner" class="score-banner">
+      <h2>測驗評量總結</h2>
+      <div id="scoreGrade" class="score-grade">-- / --</div>
+      <p id="scoreComment" class="score-comment"></p>
+      <button type="button" class="btn btn-reset" onclick="resetQuiz()">重新挑戰測驗</button>
+    </div>
 
-    <!-- 測驗表單主體 -->
     <form id="quizForm">
 
-      <!-- 第 1 題 -->
-      <article class="question-card" id="card-q1">
-        <div class="q-meta">
-          <span class="q-number">第 1 題 / 共 8 題</span>
-          <span class="q-tag">作者背景與文體主旨</span>
+      <!-- 第 1 題：感恩的魔法與心理機制 -->
+      <div class="question-card" id="card_q1">
+        <span class="question-badge">第一向度 · 心理機制</span>
+        <div class="question-title">1. 關於文本中所闡述「感恩的魔法與其內在心理機制」，下列敘述何者完全符合文意？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q1" value="A"> A. 文本將「感恩」定義為一種引發生命正向循環的「魔法」</label>
+          <label class="option-item"><input type="checkbox" name="q1" value="B"> B. 感恩有如腦中的「聚光燈」，能引導個體主動照亮平時容易被忽略的日常「亮點」</label>
+          <label class="option-item"><input type="checkbox" name="q1" value="C"> C. 感恩是一把能扭轉思維的開關，無論面對順境或逆境皆能讓人從中預見幸福</label>
+          <label class="option-item"><input type="checkbox" name="q1" value="D"> D. 心理建設層面建立了「越常留意美好，越能發現美好」的主動發現機制</label>
+          <label class="option-item"><input type="checkbox" name="q1" value="E"> E. 感恩能夠直接消除客觀外在的物質匱乏與生活意外，使人生不再遇到挫折</label>
         </div>
-        <h3 class="q-title">
-          1. 關於課文《孔雀錯了》的創作背景、作者琦君及其文學成就，下列哪些敘述完全符合文本內容？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q1-A">
-            <input type="checkbox" name="q1" value="A">
-            <span class="option-label"><strong>(A)</strong> 本文是一篇記敘文本，以作者初中時期的親身經歷為背景，探討青少年同儕競爭問題。</span>
-          </label>
-          <label class="option-item" id="opt-q1-B">
-            <input type="checkbox" name="q1" value="B">
-            <span class="option-label"><strong>(B)</strong> 作者琦君本名為「潘希真」，其文字風格呈現平實溫潤的特質。</span>
-          </label>
-          <label class="option-item" id="opt-q1-C">
-            <input type="checkbox" name="q1" value="C">
-            <span class="option-label"><strong>(C)</strong> 琦君的文學成就以散文為主，同時也涵蓋小說、評論以及兒童文學等多種領域。</span>
-          </label>
-          <label class="option-item" id="opt-q1-D">
-            <input type="checkbox" name="q1" value="D">
-            <span class="option-label"><strong>(D)</strong> 琦君的作品深受海內外喜愛，文本中明確提及曾被翻譯為英文、日文以及韓文等多國語言。</span>
-          </label>
-          <label class="option-item" id="opt-q1-E">
-            <input type="checkbox" name="q1" value="E">
-            <span class="option-label"><strong>(E)</strong> 本文旨在藉由兩位高中女生聯考升學的惡性競爭，嚴厲批判當代學校科舉主義升學體制的沉苛。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q1">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>文本開篇執行摘要即指出本文為記敘文本，取材自作者初中時期的親身經歷。</li>
-            <li><strong>(B) 正確：</strong>作者簡介明確標註琦君本名潘希真，文字平實溫潤。</li>
-            <li><strong>(C) 正確：</strong>琦君創作以散文為主，兼及小說、評論與兒童文學。</li>
-            <li><strong>(D) 正確：</strong>作者簡介明確指出曾被翻譯成「英文、日文、韓文等多國語言」。</li>
-            <li><strong>(E) 錯誤：</strong>本文時間點是「初中時期」而非高中，主題聚焦於青少年同儕因求勝心切產生的「妒忌心」與惡性競爭，並非批判聯考升學制度。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q1"></div>
+      </div>
 
-      <!-- 第 2 題 -->
-      <article class="question-card" id="card-q2">
-        <div class="q-meta">
-          <span class="q-number">第 2 題 / 共 8 題</span>
-          <span class="q-tag">人物形象與競爭心理</span>
+      <!-- 第 2 題：「幸福筆記本」實踐操作法則 -->
+      <div class="question-card" id="card_q2">
+        <span class="question-badge">第二向度 · 實踐方法</span>
+        <div class="question-title">2. 根據文中對「幸福筆記本」之執行工具定位與實踐細節的說明，下列選項哪些完全正確？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q2" value="A"> A. 幸福筆記本並非單純的事實備忘錄，更是一種具有心理調適功能的生活儀式</label>
+          <label class="option-item"><input type="checkbox" name="q2" value="B"> B. 文本明確規範其執行的時機點為「每晚睡前」進行安靜回顧</label>
+          <label class="option-item"><input type="checkbox" name="q2" value="C"> C. 每天紀錄的數量需精選挑選當天發生的「三件」值得感恩或美好的事情</label>
+          <label class="option-item"><input type="checkbox" name="q2" value="D"> D. 實踐目標在於透過文字梳理，使心情像施了魔法般開朗，體認到自己其實是個幸福的人</label>
+          <label class="option-item"><input type="checkbox" name="q2" value="E"> E. 文本要求只能記錄功成名就的重大喜事，避免書寫微不足道的生活瑣事</label>
         </div>
-        <h3 class="q-title">
-          2. 依據課文分析，關於作者與同學曹瑩玲在學業上的競逐互動與心理衝突，下列哪些描述是真實且正確的？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q2-A">
-            <input type="checkbox" name="q2" value="A">
-            <span class="option-label"><strong>(A)</strong> 作者與曹瑩玲是同桌同學，在學業表現上互有優勢：作者擅長作文，曹瑩玲則擅長英文。</span>
-          </label>
-          <label class="option-item" id="opt-q2-B">
-            <input type="checkbox" name="q2" value="B">
-            <span class="option-label"><strong>(B)</strong> 作者每次發回作文簿，看到滿篇紅圈（佳句）與大大的「甲」字評語，會刻意將簿子攤開向對方炫耀示威。</span>
-          </label>
-          <label class="option-item" id="opt-q2-C">
-            <input type="checkbox" name="q2" value="C">
-            <span class="option-label"><strong>(C)</strong> 曹瑩玲考卷字體端正清楚，常獲「Very good」評語，她也會將考卷放在作者眼前以示領先。</span>
-          </label>
-          <label class="option-item" id="opt-q2-D">
-            <input type="checkbox" name="q2" value="D">
-            <span class="option-label"><strong>(D)</strong> 兩人在內心深處都暗自希望對方表現失常或較差，以便自身能夠順利超越對方。</span>
-          </label>
-          <label class="option-item" id="opt-q2-E">
-            <input type="checkbox" name="q2" value="E">
-            <span class="option-label"><strong>(E)</strong> 曹瑩玲因不滿作者作文屢獲佳績，曾暗中將紅墨水潑灑在作者的作文簿上造成兩人決裂。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q2">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>兩人為同桌同學，作者長於作文，曹瑩玲長於英文。</li>
-            <li><strong>(B) 正確：</strong>作者發回作文簿見滿篇紅圈與「甲」字評語，索性攤開示威。</li>
-            <li><strong>(C) 正確：</strong>曹瑩玲考卷字體端正清秀、屢獲「Very good」，也會放在作者眼前以示領先。</li>
-            <li><strong>(D) 正確：</strong>心理衝突段落載明「在內心深處，雙方都暗自希望對方表現較差，以便超越對方」。</li>
-            <li><strong>(E) 錯誤：</strong>文本中雙方僅止於暗中較勁、展示考卷示威與內心嫉妒，從未發生潑墨水或肢體惡意破壞行為。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q2"></div>
+      </div>
 
-      <!-- 第 3 題 -->
-      <article class="question-card" id="card-q3">
-        <div class="q-meta">
-          <span class="q-number">第 3 題 / 共 8 題</span>
-          <span class="q-tag">寓言情節與象徵意義</span>
+      <!-- 第 3 題：三大生活實例與轉化 -->
+      <div class="question-card" id="card_q3">
+        <span class="question-badge">第三向度 · 事例與情感轉化</span>
+        <div class="question-title">3. 文中透過三個具體生活事件闡述如何在不同情境中提煉幸福，下列對這些事件的細節與體悟分析何者正確？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q3" value="A"> A. 「長輩健康」事例：作者目睹年過七旬的父親在散步時「健步如飛」，油然感念上天讓老父依然康健</label>
+          <label class="option-item"><input type="checkbox" name="q3" value="B"> B. 「家庭情感」事例：在結束繁重工作、身心俱疲返家時，孩子們熱情的擁抱化為暖流灌注心底，消除了疲憊</label>
+          <label class="option-item"><input type="checkbox" name="q3" value="C"> C. 「負面轉化」事例：停車不慎擦撞他人車輛，原本焦慮等待，對方車主卻大度未責難反而大方分享技術</label>
+          <label class="option-item"><input type="checkbox" name="q3" value="D"> D. 擦撞事件體現了陌生人的寬容、友善與寶貴經驗，展現了如何藉由視角轉換將日常「禍」轉為「福」</label>
+          <label class="option-item"><input type="checkbox" name="q3" value="E"> E. 三個事件共同證明：唯有在萬事順遂、毫無過失與阻礙的情境中，幸福才能被真正體會</label>
         </div>
-        <h3 class="q-title">
-          3. 老師察覺兩人心結後講述了「孔雀寓言」。關於此寓言的情節發展及其寓意，下列哪些選項是正確的？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q3-A">
-            <input type="checkbox" name="q3" value="A">
-            <span class="option-label"><strong>(A)</strong> 兩隻孔雀本應在陽光下展現優美姿態（開屏），卻因彼此妒忌而產生病態的競爭心。</span>
-          </label>
-          <label class="option-item" id="opt-q3-B">
-            <input type="checkbox" name="q3" value="B">
-            <span class="option-label"><strong>(B)</strong> 孔雀互相攻擊的心理動機是：「如果同伴的羽毛沒有自己的美麗，自己不就是第一美了嗎？」。</span>
-          </label>
-          <label class="option-item" id="opt-q3-C">
-            <input type="checkbox" name="q3" value="C">
-            <span class="option-label"><strong>(C)</strong> 兩隻孔雀互相啄對方的尾巴，最終造成雙方羽毛七零八落，失去美麗而兩敗俱傷。</span>
-          </label>
-          <label class="option-item" id="opt-q3-D">
-            <input type="checkbox" name="q3" value="D">
-            <span class="option-label"><strong>(D)</strong> 老師直言孔雀「太傻了」，指出應當愛惜自己的羽毛，努力把尾巴張得漂亮去「比賽」，而非透過「傷害」求勝。</span>
-          </label>
-          <label class="option-item" id="opt-q3-E">
-            <input type="checkbox" name="q3" value="E">
-            <span class="option-label"><strong>(E)</strong> 寓言最後揭示孔雀領悟了「適者生存」的殘酷法則，唯有啄落對手羽毛才能保住孔雀王的尊位。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q3">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>兩隻孔雀本有美麗羽毛應展現優雅開屏，卻因妒忌而互鬥。</li>
-            <li><strong>(B) 正確：</strong>原文精確描述孔雀的想法：「如果同伴的羽毛沒有自己的美麗，自己不就是第一美了嗎？」。</li>
-            <li><strong>(C) 正確：</strong>孔雀互啄尾巴，羽毛變得七零八落，兩敗俱傷。</li>
-            <li><strong>(D) 正確：</strong>老師評孔雀「太傻了」，應愛惜羽毛、努力張漂亮尾巴比賽，而非傷害對方。</li>
-            <li><strong>(E) 錯誤：</strong>寓言批判的是惡性傷害，倡導「良性競爭」，而非叢林法則。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q3"></div>
+      </div>
 
-      <!-- 第 4 題 -->
-      <article class="question-card" id="card-q4">
-        <div class="q-meta">
-          <span class="q-number">第 4 題 / 共 8 題</span>
-          <span class="q-tag">轉折、和解與深層寓意</span>
+      <!-- 第 4 題：修辭與語言特色分析 -->
+      <div class="question-card" id="card_q4">
+        <span class="question-badge">第四向度 · 修辭手法與語言特色</span>
+        <div class="question-title">4. 為了深化情感表達，《幸福筆記本》運用了多種修辭手法。下列相關分析哪些符合文本內容？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q4" value="A"> A. 譬喻法：將抽象的「感恩」心態比喻為帶來幸福的「魔法」</label>
+          <label class="option-item"><input type="checkbox" name="q4" value="B"> B. 譬喻法：將個體大腦的注意與思維機制比擬為能夠照射亮點的「聚光燈」</label>
+          <label class="option-item"><input type="checkbox" name="q4" value="C"> C. 排比法：藉由「有我...的喜悅，有我...的成就」等句式加強語氣，列舉筆記本中多樣化的幸福心緒</label>
+          <label class="option-item"><input type="checkbox" name="q4" value="D"> D. 頂真法：透過前後語句銜接「美好時刻」一詞，既增加朗讀節奏感，也強調留心生活點滴的必要</label>
+          <label class="option-item"><input type="checkbox" name="q4" value="E"> E. 轉化法：將筆記本具體擬人化為會說話並與作者深夜對話的睿智知己</label>
         </div>
-        <h3 class="q-title">
-          4. 關於作者與曹瑩玲聽完故事後的轉折、和解行動與文章最終意象，下列敘述哪些切合文本？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q4-A">
-            <input type="checkbox" name="q4" value="A">
-            <span class="option-label"><strong>(A)</strong> 聽完孔雀故事後，作者內心感到慚愧而低下頭，而曹瑩玲亦深有同感。</span>
-          </label>
-          <label class="option-item" id="opt-q4-B">
-            <input type="checkbox" name="q4" value="B">
-            <span class="option-label"><strong>(B)</strong> 兩人的和解體現在下課後的具體行動：一同到草地上拍球、踢毽子。</span>
-          </label>
-          <label class="option-item" id="opt-q4-C">
-            <input type="checkbox" name="q4" value="C">
-            <span class="option-label"><strong>(C)</strong> 當兩人在草地上對視時，不再存有敵意，而是彼此露出了不好意思且理解的微笑。</span>
-          </label>
-          <label class="option-item" id="opt-q4-D">
-            <input type="checkbox" name="q4" value="D">
-            <span class="option-label"><strong>(D)</strong> 課文結尾將兩人比喻為一對友愛的孔雀，在陽光下努力開屏，象徵追求自我成長的良性競爭。</span>
-          </label>
-          <label class="option-item" id="opt-q4-E">
-            <input type="checkbox" name="q4" value="E">
-            <span class="option-label"><strong>(E)</strong> 和解後兩人決定不再參加任何校內英文與作文測驗，以消極避戰確保友誼長存。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q4">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>作者聽完深感慚愧低下頭，曹瑩玲亦有同感。</li>
-            <li><strong>(B) 正確：</strong>文本明確交代和解行動為下課後「一同到草地上拍球、踢毽子」。</li>
-            <li><strong>(C) 正確：</strong>對視時不再有敵意，露出不好意思且理解的微笑。</li>
-            <li><strong>(D) 正確：</strong>結尾比喻為「一對友愛的孔雀，在亮麗的陽光下努力開屏」，追求良性競爭。</li>
-            <li><strong>(E) 錯誤：</strong>良性競爭是要正當展現優點、一起成長（努力開屏），並非消極逃避競爭。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q4"></div>
+      </div>
 
-      <!-- 第 5 題 -->
-      <article class="question-card" id="card-q5">
-        <div class="q-meta">
-          <span class="q-number">第 5 題 / 共 8 題</span>
-          <span class="q-tag">重要詞彙與課文語境</span>
+      <!-- 第 5 題：關鍵詞彙與語境掌握 -->
+      <div class="question-card" id="card_q5">
+        <span class="question-badge">第五向度 · 重要詞彙理解</span>
+        <div class="question-title">5. 針對文本列出的重要核心詞彙，下列字義解釋與在文中文境下的對應何者完全正確？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q5" value="A"> A. 「年邁」：指年老、年紀大；文中用以形容作者年逾七旬的父親</label>
+          <label class="option-item"><input type="checkbox" name="q5" value="B"> B. 「健步如飛」：形容步伐輕快迅捷如同飛行；文中生動摹寫長輩矍鑠硬朗的身體姿態</label>
+          <label class="option-item"><input type="checkbox" name="q5" value="C"> C. 「疲憊」：意為極度勞累困倦；文中指作者下班歸家時身心積累的疲態</label>
+          <label class="option-item"><input type="checkbox" name="q5" value="D"> D. 「灌注」：意指注入、流入；文中用以形容孩子熱烈擁抱帶來的親情暖流直透心底</label>
+          <label class="option-item"><input type="checkbox" name="q5" value="E"> E. 「寬容」：指心胸寬闊、能體諒容納他人；具體展現於被擦撞車主未怒罵反而溫厚分享要領的胸襟</label>
         </div>
-        <h3 class="q-title">
-          5. 在《孔雀錯了》的課文語境中，下列詞彙的「字面釋義」與「課文情境應用」之配對，哪些是完全正確的？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q5-A">
-            <input type="checkbox" name="q5" value="A">
-            <span class="option-label"><strong>(A)</strong> <strong>評語：</strong>用來評定好壞的語言文字；在課文中指老師批閱作文與考卷後給予的評價反饋。</span>
-          </label>
-          <label class="option-item" id="opt-q5-B">
-            <input type="checkbox" name="q5" value="B">
-            <span class="option-label"><strong>(B)</strong> <strong>索性：</strong>乾脆、直接了當；在課文中描寫作者毫不猶豫將作文簿攤開向曹瑩玲示威的舉動。</span>
-          </label>
-          <label class="option-item" id="opt-q5-C">
-            <input type="checkbox" name="q5" value="C">
-            <span class="option-label"><strong>(C)</strong> <strong>張燈結綵：</strong>本指掛滿燈籠、彩帶的熱鬧景象；本課轉化借用以形容考卷塗改痕跡多、顯得不整潔。</span>
-          </label>
-          <label class="option-item" id="opt-q5-D">
-            <input type="checkbox" name="q5" value="D">
-            <span class="option-label"><strong>(D)</strong> <strong>眉清目秀：</strong>本指容貌俊美秀麗；本課轉化借用以形容考卷字體端正、卷面整潔清爽。</span>
-          </label>
-          <label class="option-item" id="opt-q5-E">
-            <input type="checkbox" name="q5" value="E">
-            <span class="option-label"><strong>(E)</strong> <strong>七零八落：</strong>散亂不完整的樣子；本課專指作者與曹瑩玲因爭執而在地上拉扯散落的課本。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q5">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>「評語」指評定好壞的語言文字，如作文後的「甲」字。</li>
-            <li><strong>(B) 正確：</strong>「索性」意為乾脆、直接了當，對應「索性把作文簿攤開示威」。</li>
-            <li><strong>(C) 正確：</strong>「張燈結綵」本指熱鬧掛彩，本課借喻考卷塗改痕跡多、不整潔。</li>
-            <li><strong>(D) 正確：</strong>「眉清目秀」本指容貌俊美，本課借喻考卷字體端正、卷面整潔。</li>
-            <li><strong>(E) 錯誤：</strong>本課中的「七零八落」是用來形容「孔雀互鬥後羽毛慘不忍睹的樣子」，並非地上散落的課本。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q5"></div>
+      </div>
 
-      <!-- 第 6 題 -->
-      <article class="question-card" id="card-q6">
-        <div class="q-meta">
-          <span class="q-number">第 6 題 / 共 8 題</span>
-          <span class="q-tag">修辭技巧深度辨析</span>
+      <!-- 第 6 題：精選語句與哲學結論深意 -->
+      <div class="question-card" id="card_q6">
+        <span class="question-badge">第六向度 · 核心結論與哲學昇華</span>
+        <div class="question-title">6. 根據《幸福筆記本》文末結論與精選語句，下列對於文本所傳達之人生哲學與調適機制的理解哪些正確？（複選）</div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q6" value="A"> A. 幸福並非取決於個人遭遇的好壞優劣，而是在於看待與解讀生活的視角角度</label>
+          <label class="option-item"><input type="checkbox" name="q6" value="B"> B. 「每晚紀錄三件事」是一套可具體操作的心理認知訓練，能培養大腦捕捉生活美好瞬間的敏感度</label>
+          <label class="option-item"><input type="checkbox" name="q6" value="C"> C. 在感恩的思維實踐中，個體能夠修復孤立感，建立起與他人以及整個世界的正面深層連結</label>
+          <label class="option-item"><input type="checkbox" name="q6" value="D"> D. 《幸福筆記本》的價值不僅止於文藝情懷的抒發，更是一套具科學心理學底蘊的日常調適機制</label>
+          <label class="option-item"><input type="checkbox" name="q6" value="E"> E. 作者認為逆境是無可奈何的宿命，唯有逃避生活現實、專注於筆記本的幻想世界方能自保</label>
         </div>
-        <h3 class="q-title">
-          6. 課文善用多種修辭以增強文字感染力。請辨析下列文句與修辭手法的對應，哪些是正確的？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q6-A">
-            <input type="checkbox" name="q6" value="A">
-            <span class="option-label"><strong>(A)</strong> 「尤其是那個大大的『甲』字，好像張著四四方的嘴在對我笑。」——運用了【擬人】修辭。</span>
-          </label>
-          <label class="option-item" id="opt-q6-B">
-            <input type="checkbox" name="q6" value="B">
-            <span class="option-label"><strong>(B)</strong> 「（我的卷子）看上去總沒她的卷子眉清目秀。」——賦予考卷人的神貌，運用了【擬人】修辭。</span>
-          </label>
-          <label class="option-item" id="opt-q6-C">
-            <input type="checkbox" name="q6" value="C">
-            <span class="option-label"><strong>(C)</strong> 「我們一定是一對友愛的孔雀，在亮麗的陽光下努力開屏。」——將人直接喻為孔雀，運用了【譬喻（暗喻）】修辭。</span>
-          </label>
-          <label class="option-item" id="opt-q6-D">
-            <input type="checkbox" name="q6" value="D">
-            <span class="option-label"><strong>(D)</strong> 「我呢？老是張燈結綵的……」——自問並引導讀者思考，文本明確歸類為【設問】修辭。</span>
-          </label>
-          <label class="option-item" id="opt-q6-E">
-            <input type="checkbox" name="q6" value="E">
-            <span class="option-label"><strong>(E)</strong> 「尤其是那個大大的『甲』字……」句中因為出現「好像」一詞，因此本質上只能算作【明喻】，絕非擬人。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q6">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>賦予「甲」字張著嘴對人笑的動作神情，為標準的「擬人修辭」。</li>
-            <li><strong>(B) 正確：</strong>以「眉清目秀」形容考卷卷面，賦予人的容貌特性，屬於「擬人修辭」。</li>
-            <li><strong>(C) 正確：</strong>「我們一定是一對友愛的孔雀……」以聯繫詞「是」將本體（我們）比作喻體（孔雀），是典型的「暗喻」。</li>
-            <li><strong>(D) 正確：</strong>「我呢？老是張燈結綵的……」文本修辭補充站明確將其列為「設問修辭」。</li>
-            <li><strong>(E) 錯誤：</strong>句中「好像張著四四方的嘴在對我笑」重點在於賦予非生物以人類的表情動作（笑、張嘴），並非物與物的明喻比較，修辭重點為擬人。</li>
-          </ul>
-        </div>
-      </article>
+        <div class="feedback-box" id="feedback_q6"></div>
+      </div>
 
-      <!-- 第 7 題 -->
-      <article class="question-card" id="card-q7">
-        <div class="q-meta">
-          <span class="q-number">第 7 題 / 共 8 題</span>
-          <span class="q-tag">重要句型與語法結構</span>
-        </div>
-        <h3 class="q-title">
-          7. 關於簡報中提到的「重要句型」分析及其在課文思維中的展現，下列哪些敘述是完全正確的？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q7-A">
-            <input type="checkbox" name="q7" value="A">
-            <span class="option-label"><strong>(A)</strong> 「如果大家分工合作，那麼這項工作就可以輕鬆的完成。」屬於「如果……那麼……」的假設複句結構。</span>
-          </label>
-          <label class="option-item" id="opt-q7-B">
-            <input type="checkbox" name="q7" value="B">
-            <span class="option-label"><strong>(B)</strong> 「如果小芝今年真的獲得文學獎首獎，他不就是目前最年輕的得主嗎？」屬於「如果……不就是……」的反詰／設問句型。</span>
-          </label>
-          <label class="option-item" id="opt-q7-C">
-            <input type="checkbox" name="q7" value="C">
-            <span class="option-label"><strong>(C)</strong> 作者心中的負面念頭「如果她的英文沒那麼好，我不就是全班第一個『文學家』了嗎？」，即運用了「如果……不就是……」的反詰句式。</span>
-          </label>
-          <label class="option-item" id="opt-q7-D">
-            <input type="checkbox" name="q7" value="D">
-            <span class="option-label"><strong>(D)</strong> 孔雀寓言中心理想法「如果同伴的羽毛沒有自己的美麗，自己不就是第一美了嗎？」，同樣體現了假設反詰的思維模式。</span>
-          </label>
-          <label class="option-item" id="opt-q7-E">
-            <input type="checkbox" name="q7" value="E">
-            <span class="option-label"><strong>(E)</strong> 「如果……不就是……」句型本質上是「因果複句」，後面的問句僅僅表示說話者毫無把握、充滿不確定性。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q7">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>例句「如果大家分工合作，那麼……」是典型的假設複句（如果……那麼……）。</li>
-            <li><strong>(B) 正確：</strong>例句「如果……不就是……」結合假設前件與反詰（反問）語氣，文本歸類為反詰／設問句。</li>
-            <li><strong>(C) 正確：</strong>作者當時狹隘的內心獨白正是使用此句型，凸顯其心中將對手的失敗視為自己成功的扭曲期待。</li>
-            <li><strong>(D) 正確：</strong>孔雀在寓言中的自私盤算亦是相同句型結構（如果……不就是……）。</li>
-            <li><strong>(E) 錯誤：</strong>該句型並非單純因果句，反詰（反問）的特點是「答案就在問題反面」，表達說話者強烈的肯定傾向，並非毫無把握。</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- 第 8 題 -->
-      <article class="question-card" id="card-q8">
-        <div class="q-meta">
-          <span class="q-number">第 8 題 / 共 8 題</span>
-          <span class="q-tag">良性競爭與義理省思</span>
-        </div>
-        <h3 class="q-title">
-          8. 統整全文義理，琦君透過《孔雀錯了》這篇課文傳達了諸多核心教育哲理。下列哪些選項完全符合文中所闡發的道理？（複選）
-        </h3>
-        <div class="options-group">
-          <label class="option-item" id="opt-q8-A">
-            <input type="checkbox" name="q8" value="A">
-            <span class="option-label"><strong>(A)</strong> 青少年同儕間常因「求勝心切」而陷入妒忌心，暗自希望對方落後，這往往是惡性競爭的開端。</span>
-          </label>
-          <label class="option-item" id="opt-q8-B">
-            <input type="checkbox" name="q8" value="B">
-            <span class="option-label"><strong>(B)</strong> 企圖透過「傷害」對手來凸顯自身的優越，非但不能展現真正的美麗，反而會招致「兩敗俱傷」的荒謬下場。</span>
-          </label>
-          <label class="option-item" id="opt-q8-C">
-            <input type="checkbox" name="q8" value="C">
-            <span class="option-label"><strong>(C)</strong> 所謂「良性競爭」，是指每個人應當愛惜自己的羽毛，以正當的方式充分展現自身優點，並在此過程中攜手成長。</span>
-          </label>
-          <label class="option-item" id="opt-q8-D">
-            <input type="checkbox" name="q8" value="D">
-            <span class="option-label"><strong>(D)</strong> 面對同儕間的才能差異，真正成熟的態度應當是「以彼此欣賞代替互相傷害」。</span>
-          </label>
-          <label class="option-item" id="opt-q8-E">
-            <input type="checkbox" name="q8" value="E">
-            <span class="option-label"><strong>(E)</strong> 課文主張最完美的同儕情誼是「抹平一切差異」，彼此不要再發揮所長，方能達到真正的平等與和睦。</span>
-          </label>
-        </div>
-        <div class="explanation-panel" id="exp-q8">
-          <h4>💡 老師的題目深度解析：</h4>
-          <ul>
-            <li><strong>(A) 正確：</strong>執行摘要與心理衝突中明確剖析青少年因求勝心切而彼此妒忌的負面循環。</li>
-            <li><strong>(B) 正確：</strong>孔雀互啄尾巴落得七零八落，正揭示了以傷害求勝只會兩敗俱傷。</li>
-            <li><strong>(C) 正確：</strong>詞彙解釋中清楚定義「良性競爭：以正當方式展現優點，一起成長」。</li>
-            <li><strong>(D) 正確：</strong>文末與執行摘要結論一致指出應「以彼此欣賞代替互相傷害」。</li>
-            <li><strong>(E) 錯誤：</strong>文本結尾倡導「在亮麗的陽光下努力開屏」，即各自發揮優點、良性競爭，而非抹平差異或放棄自我發展。</li>
-          </ul>
-        </div>
-      </article>
-
-      <div class="action-bar">
-        <button type="button" class="btn btn-submit" id="submitBtn">送出測驗並批改</button>
-        <button type="button" class="btn btn-reset" id="resetBtn">重新作答挑戰</button>
+      <div class="controls">
+        <button type="button" class="btn btn-submit" onclick="gradeQuiz()">送出測驗並查閱深度解析</button>
       </div>
 
     </form>
-
-    <!-- 老師結語與延伸邀請卡 -->
-    <footer class="teacher-closing-card">
-      <p style="font-size: 1.05rem; font-weight: 600; color: var(--primary-peacock); margin-bottom: 6px;">
-        ✨ 親愛的同學，完成這份測驗代表你已經徹底掌握了《孔雀錯了》的所有文本精髓！
-      </p>
-      <p>如果你還有其他課文、閱讀材料或學術文本想要挑戰，請隨時貼上來，小幫手老師會繼續耐心為你打造專屬的高品質題庫！</p>
-    </footer>
-
   </div>
 
   <script>
-    // 正確答案配置（全題皆為複選題）
-    const correctAnswers = {
-      q1: ["A", "B", "C", "D"],
-      q2: ["A", "B", "C", "D"],
-      q3: ["A", "B", "C", "D"],
-      q4: ["A", "B", "C", "D"],
-      q5: ["A", "B", "C", "D"],
-      q6: ["A", "B", "C", "D"],
-      q7: ["A", "B", "C", "D"],
-      q8: ["A", "B", "C", "D"]
+    // 測驗題庫與選項深度解析
+    const quizData = {
+      q1: {
+        correct: ["A", "B", "C", "D"],
+        explanations: {
+          A: "【正確】文本原文明確定義：「『感恩』是為生活帶來幸福的魔法。」",
+          B: "【正確】符合聚光燈效應機制：「它就像把腦袋中的聚光燈，照在比較美好的地方，使我看到生活中的亮點。」",
+          C: "【正確】精選語句與核心論點指出：「無論順境、逆境，只要扭轉思維（感恩這把開關），就能遇見幸福。」",
+          D: "【正確】符合文本心理建設機制：「強調『越常留意美好，越能發現美好』。」",
+          E: "【錯誤】感恩並無法改變外在客觀環境的偶然事故（如車輛擦撞仍會發生），其力量在於改變「個體如何看待與詮釋」該事件的思維。"
+        }
+      },
+      q2: {
+        correct: ["A", "B", "C", "D"],
+        explanations: {
+          A: "【正確】文本指出「筆記本不只是紀錄工具，更是一種生活儀式」。",
+          B: "【正確】執行時機明確規範在「每晚睡前」。",
+          C: "【正確】操作方法明確要求「挑選當天發生的『三件』值得感恩或美好的事情」。",
+          D: "【正確】實踐目標在於「透過紀錄，使心情像施了魔法般變得開朗，體認到自己是一個幸福的人」。",
+          E: "【錯誤】文本鼓勵將生活微小瑣事（如長輩散步、孩子擁抱）乃至負面波折提煉為美好，並未限制只能寫宏大人生成就。"
+        }
+      },
+      q3: {
+        correct: ["A", "B", "C", "D"],
+        explanations: {
+          A: "【正確】目睹「年過七旬」的父親散步依然「健步如飛」，引發對老父健康的感念。",
+          B: "【正確】結束工作、身心疲憊返家，孩子熱情擁抱化為「暖流」消除疲憊，感受到家人的愛與支持。",
+          C: "【正確】停車擦撞車輛，車主「不僅未責難，還大方分享技術」，展現寬容。",
+          D: "【正確】作者感受陌生人的寬容友善與技術，成功實踐「轉禍為福」的思維轉換。",
+          E: "【錯誤】逆境與意外（如擦撞）中同樣能透過感恩扭轉視角發現幸福，絕非「唯有在毫無阻礙的情境」中才能體會。"
+        }
+      },
+      q4: {
+        correct: ["A", "B", "C", "D"],
+        explanations: {
+          A: "【正確】將「感恩」比喻為帶來幸福的「魔法」（暗喻/譬喻）。",
+          B: "【正確】將大腦思維認知比喻為照亮亮點的「聚光燈」。",
+          C: "【正確】以「有我...的喜悅，有我...的成就」相似句式構成排比，增強語勢並列舉幸福。",
+          D: "【正確】藉由「美好時刻」一詞前後承接，運用頂真增加節奏感並強調留意點滴的重要。",
+          E: "【錯誤】文本並未運用擬人化將筆記本描寫為「會說話的知己」，此為干擾選項。"
+        }
+      },
+      q5: {
+        correct: ["A", "B", "C", "D", "E"],
+        explanations: {
+          A: "【正確】「年邁」意為年老，指涉作者年逾七旬的父親。",
+          B: "【正確】「健步如飛」形容步伐迅捷，刻劃長輩硬朗體魄。",
+          C: "【正確】「疲憊」意為勞累困倦，精確描繪工作返家時的狀態。",
+          D: "【正確】「灌注」指注入、流入，形容孩子擁抱帶來的親情暖流湧入心頭。",
+          E: "【正確】「寬容」指度量大能容人，生動詮釋被撞車主的大度與和善。"
+        }
+      },
+      q6: {
+        correct: ["A", "B", "C", "D"],
+        explanations: {
+          A: "【正確】結論強調：「幸福並非取決於遭遇的好壞，而是在於看待生活的角度。」",
+          B: "【正確】透過具體行動「訓練自己捕捉美好瞬間的能力」，建立正向循環認知。",
+          C: "【正確】結論指出在感恩中「建立與他人、與世界的正面連結」。",
+          D: "【正確】結論總結指出這「不僅是一篇文學敘事，更是一套可操作的心理調適機制」。",
+          E: "【錯誤】文章倡導的是「扭轉思維、主動發現美好」的積極生活哲學，而非消極逃避或幻想。"
+        }
+      }
     };
 
-    const submitBtn = document.getElementById("submitBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const scoreBoard = document.getElementById("scoreBoard");
-    const scoreDisplay = document.getElementById("scoreDisplay");
-    const feedbackDisplay = document.getElementById("feedbackDisplay");
+    // 監聽選項點擊樣式
+    document.querySelectorAll('.option-item input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', function() {
+        const parentLabel = this.closest('.option-item');
+        if (this.checked) {
+          parentLabel.classList.add('user-selected');
+        } else {
+          parentLabel.classList.remove('user-selected');
+        }
+      });
+    });
 
-    submitBtn.addEventListener("click", function() {
-      let totalQuestions = 8;
+    // 批改評分邏輯
+    function gradeQuiz() {
+      let totalQuestions = Object.keys(quizData).length;
       let correctCount = 0;
 
-      for (let i = 1; i <= totalQuestions; i++) {
-        const qKey = "q" + i;
-        const validAnswers = correctAnswers[qKey];
-        const checkboxes = document.querySelectorAll(`input[name="${qKey}"]`);
-        
-        let userSelected = [];
-        checkboxes.forEach(cb => {
-          if (cb.checked) {
-            userSelected.push(cb.value);
-          }
-          // 鎖定選項避免批改後隨意更動
-          cb.disabled = true;
-        });
+      for (let key in quizData) {
+        const item = quizData[key];
+        const correctAnswers = item.correct.slice().sort();
+        const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
+        const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
 
-        // 判斷是否全對（多選題標準：選中所有正確，且無誤選）
-        const isAllCorrect = 
-          userSelected.length === validAnswers.length &&
-          userSelected.every(val => validAnswers.includes(val));
+        const feedbackBox = document.getElementById(`feedback_${key}`);
+        const cardBox = document.getElementById(`card_${key}`);
 
-        if (isAllCorrect) {
+        // 判定複選題全對條件：長度一致且每個選項完全匹配
+        const isCorrect = userAnswers.length === correctAnswers.length &&
+                          userAnswers.every((val, index) => val === correctAnswers[index]);
+
+        if (isCorrect) {
           correctCount++;
         }
 
-        // 標記個別選項狀態
-        checkboxes.forEach(cb => {
-          const optItem = document.getElementById(`opt-${qKey}-${cb.value}`);
-          const isTargetCorrect = validAnswers.includes(cb.value);
-          const wasChecked = cb.checked;
+        // 呈現詳解與選項剖析
+        feedbackBox.style.display = "block";
+        feedbackBox.className = "feedback-box " + (isCorrect ? "correct" : "wrong");
 
-          // 清除先前的標記狀態
-          optItem.classList.remove("state-correct", "state-wrong-chosen", "state-missed");
-          const oldBadge = optItem.querySelector(".badge-status");
-          if (oldBadge) oldBadge.remove();
-
-          const badge = document.createElement("span");
-          badge.className = "badge-status";
-
-          if (wasChecked && isTargetCorrect) {
-            optItem.classList.add("state-correct");
-            badge.classList.add("badge-correct");
-            badge.innerText = "✓ 正確命中";
-            optItem.querySelector(".option-label").appendChild(badge);
-          } else if (wasChecked && !isTargetCorrect) {
-            optItem.classList.add("state-wrong-chosen");
-            badge.classList.add("badge-wrong");
-            badge.innerText = "✕ 錯誤選取";
-            optItem.querySelector(".option-label").appendChild(badge);
-          } else if (!wasChecked && isTargetCorrect) {
-            optItem.classList.add("state-missed");
-            badge.classList.add("badge-missed");
-            badge.innerText = "⚠ 漏選此項";
-            optItem.querySelector(".option-label").appendChild(badge);
-          }
-        });
-
-        // 展現詳細解析
-        const expPanel = document.getElementById(`exp-${qKey}`);
-        if (expPanel) {
-          expPanel.classList.add("visible");
+        let statusTitle = isCorrect ? "✅ 答對了！精準掌握本題所有細節。" : "❌ 答案有誤或未完全選出！";
+        
+        let explanationItems = "";
+        for (let opt in item.explanations) {
+          const isKeyCorrect = item.correct.includes(opt);
+          const badgeText = isKeyCorrect ? "【正確答案】" : "【干擾選項】";
+          explanationItems += `<li><strong>選項 ${opt} ${badgeText}</strong>：${item.explanations[opt]}</li>`;
         }
+
+        feedbackBox.innerHTML = `
+          <div class="feedback-header">
+            <span>${statusTitle}</span>
+          </div>
+          <div class="feedback-correct-answers">
+            標準完整答案：${correctAnswers.join("、")}
+          </div>
+          <div><strong>題目選項逐一深度解析：</strong></div>
+          <ul class="feedback-list">
+            ${explanationItems}
+          </ul>
+        `;
       }
 
-      // 計算分數 (每題 12.5 分，滿分 100 分)
-      const score = Math.round((correctCount / totalQuestions) * 100);
-      scoreDisplay.innerText = `${score} 分`;
+      // 總成績展示與導師鼓勵評語
+      const scoreBanner = document.getElementById("scoreBanner");
+      const scoreGrade = document.getElementById("scoreGrade");
+      const scoreComment = document.getElementById("scoreComment");
 
-      // 老師的親切評語
-      let feedback = "";
-      if (score === 100) {
-        feedback = "🎉 太令人驚嘆了！你以無可挑剔的敏銳度完全破解了所有高難度複選題！你對課文細節、修辭句型以及「以彼此欣賞代替互相傷害」的哲理理解得極其深刻透徹，簡直就像那隻在陽光下完美開屏的孔雀！";
-      } else if (score >= 75) {
-        feedback = "👏 表現得非常優秀！複選題難度極高，你已經掌握了絕大部分的精髓！只要再仔細閱讀下方標註「漏選」或「誤選」的解析，相信你一定能融會貫通！";
-      } else if (score >= 50) {
-        feedback = "🌱 相當不錯的嘗試！複選題最考驗細心度與概念的純熟度。老師已經在下方為每題的每個選項附上了詳盡解析，請跟著老師一起複習，把心結與盲點逐一解開吧！";
+      scoreBanner.style.display = "block";
+      scoreGrade.innerHTML = `${correctCount} / ${totalQuestions} <span style="font-size: 18px; color: var(--wood-primary);">題</span>`;
+
+      if (correctCount === totalQuestions) {
+        scoreComment.innerHTML = "🌟 <strong>完美滿分！</strong>你已將大腦的「聚光燈」完全開啟！對於劉軒《幸福筆記本》中的心理機制、生活事例、詞彙乃至修辭技巧皆有極為敏銳且透徹的掌握，表現無可挑剔！";
+      } else if (correctCount >= 4) {
+        scoreComment.innerHTML = "👏 <strong>表現優異！</strong>你掌握了文本中絕大多數的核心哲學與細節，僅在部分嚴苛的細節陷阱中略有疏漏。細閱下方詳解，你將能把這把「感恩的鑰匙」掌握得更加熟練！";
       } else {
-        feedback = "💪 不要灰心喔！這份測驗的設計深度本來就超越了一般記憶性測驗。先深呼吸放鬆一下，細讀題目下方的每條解析，你一定能從中獲得全新的思維視野！";
+        scoreComment.innerHTML = "🌱 <strong>持續加油！</strong>高難度的多選題需要極高的專注度與對文章細部論點的精準記憶。別灰心，請仔細閱讀每題的「逐項解析」，重新梳理文章的脈絡後再試一次！";
       }
-      feedbackDisplay.innerText = feedback;
-
-      scoreBoard.style.display = "block";
-      scoreBoard.scrollIntoView({ behavior: "smooth" });
-
-      submitBtn.style.display = "none";
-      resetBtn.style.display = "inline-block";
-    });
-
-    // 重新作答邏輯
-    resetBtn.addEventListener("click", function() {
-      const checkboxes = document.querySelectorAll(`input[type="checkbox"]`);
-      checkboxes.forEach(cb => {
-        cb.checked = false;
-        cb.disabled = false;
-      });
-
-      const optionItems = document.querySelectorAll(".option-item");
-      optionItems.forEach(item => {
-        item.classList.remove("state-correct", "state-wrong-chosen", "state-missed");
-        const badge = item.querySelector(".badge-status");
-        if (badge) badge.remove();
-      });
-
-      const explanations = document.querySelectorAll(".explanation-panel");
-      explanations.forEach(exp => {
-        exp.classList.remove("visible");
-      });
-
-      scoreBoard.style.display = "none";
-      submitBtn.style.display = "inline-block";
-      resetBtn.style.display = "none";
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    }
+
+    // 重新測驗重置
+    function resetQuiz() {
+      document.getElementById("quizForm").reset();
+      document.querySelectorAll('.option-item').forEach(el => el.classList.remove('user-selected'));
+      document.querySelectorAll('.feedback-box').forEach(el => {
+        el.style.display = "none";
+        el.innerHTML = "";
+      });
+      document.getElementById("scoreBanner").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   </script>
 </body>
 </html>
