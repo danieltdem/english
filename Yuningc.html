@@ -3,23 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>國語課文高階評量：琦君《孔雀錯了》深度多選題測驗</title>
+  <title>台灣海域奇觀深度測驗：牛奶海與方格海</title>
   <style>
     :root {
-      --primary-teal: #0f4c5c;
-      --accent-coral: #fb8b24;
-      --deep-plum: #5f0f40;
-      --bg-gradient: linear-gradient(135deg, #f0f7f7 0%, #e8f1f5 100%);
+      --ocean-deep: #0a2540;
+      --ocean-mid: #0077b6;
+      --ocean-light: #90e0ef;
+      --milk-sea: #e0f2fe;
+      --accent-coral: #ff6b6b;
+      --accent-green: #2ec4b6;
       --card-bg: #ffffff;
-      --text-main: #2d3748;
-      --text-muted: #64748b;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
       --border-color: #cbd5e1;
-      --correct-bg: #e6f7ec;
-      --correct-border: #22c55e;
-      --correct-text: #15803d;
-      --wrong-bg: #fee2e2;
-      --wrong-border: #ef4444;
-      --wrong-text: #b91c1c;
     }
 
     * {
@@ -29,606 +25,427 @@
     }
 
     body {
-      font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
-      background: var(--bg-gradient);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background: linear-gradient(180deg, #e0f7fa 0%, #b2ebf2 40%, #80deea 100%);
       color: var(--text-main);
-      line-height: 1.7;
-      padding: 24px 16px;
+      padding: 30px 15px;
+      min-height: 100vh;
     }
 
     .container {
       max-width: 900px;
       margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(10, 37, 64, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     header {
-      background: linear-gradient(120deg, var(--primary-teal), var(--deep-plum));
-      color: #ffffff;
-      padding: 36px 28px;
-      border-radius: 18px;
-      box-shadow: 0 10px 25px rgba(15, 76, 92, 0.2);
-      margin-bottom: 28px;
+      text-align: center;
+      margin-bottom: 35px;
+      border-bottom: 2px dashed var(--ocean-light);
+      padding-bottom: 25px;
     }
 
-    header h1 {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
+    h1 {
+      font-size: 2.2rem;
+      color: var(--ocean-deep);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
     }
 
-    header p {
-      font-size: 15px;
-      opacity: 0.95;
+    .intro-banner {
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+      padding: 16px 20px;
+      border-radius: 12px;
+      border-left: 5px solid var(--ocean-mid);
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      color: var(--ocean-deep);
+      line-height: 1.6;
     }
 
-    .notice-badge {
-      display: inline-block;
-      background: var(--accent-coral);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-top: 12px;
-    }
-
-    .quiz-form {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .question-card {
-      background: var(--card-bg);
+    .question-block {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
       border-radius: 14px;
       padding: 24px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--border-color);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 30px;
+      transition: all 0.2s ease;
     }
 
-    .question-card:hover {
-      box-shadow: 0 8px 24px rgba(15, 76, 92, 0.08);
-    }
-
-    .question-header {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .q-number {
-      background: var(--primary-teal);
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 3px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
+    .question-block:hover {
+      border-color: var(--ocean-mid);
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.08);
     }
 
     .q-title {
-      font-size: 17px;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--ocean-deep);
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
 
-    .q-tag {
-      font-size: 12px;
-      color: var(--deep-plum);
-      background: #f3e8ff;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 600;
+    .q-badge {
+      display: inline-block;
+      background: var(--ocean-mid);
+      color: white;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
     }
 
-    .options-group {
+    .options-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .option-label {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 12px 14px;
-      border: 1.5px solid #e2e8f0;
+      padding: 12px 16px;
+      background: white;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
       cursor: pointer;
-      background: #fafafa;
-      transition: all 0.15s ease-in-out;
-      font-size: 15px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      transition: background 0.15s, border-color 0.15s;
     }
 
     .option-label:hover {
-      background: #f1f5f9;
-      border-color: #94a3b8;
+      background: #f0fdf4;
+      border-color: #86efac;
     }
 
     .option-label input[type="checkbox"] {
-      margin-top: 5px;
+      margin-top: 4px;
+      margin-right: 12px;
       width: 18px;
       height: 18px;
-      accent-color: var(--primary-teal);
+      accent-color: var(--ocean-mid);
       cursor: pointer;
-      flex-shrink: 0;
     }
 
-    .option-text {
-      flex: 1;
-    }
-
-    .analysis-box {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 10px;
-      font-size: 14px;
+    .explanation {
       display: none;
-      background: #f8fafc;
-      border-left: 4px solid var(--primary-teal);
+      margin-top: 18px;
+      padding: 16px 20px;
+      background: #fff1f2;
+      border-left: 4px solid var(--accent-coral);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #881337;
     }
 
-    .analysis-box.show {
+    .explanation.visible {
       display: block;
     }
 
-    .option-breakdown {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px dashed #cbd5e1;
+    .explanation-title {
+      font-weight: 700;
+      margin-bottom: 8px;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 6px;
     }
 
-    .option-breakdown li {
-      list-style-type: none;
-      padding-left: 18px;
-      position: relative;
-    }
-
-    .option-breakdown li.correct-hint::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      color: var(--correct-text);
-      font-weight: bold;
-    }
-
-    .option-breakdown li.wrong-hint::before {
-      content: "✖";
-      position: absolute;
-      left: 0;
-      color: var(--wrong-text);
-      font-weight: bold;
-    }
-
-    .action-panel {
-      position: sticky;
-      bottom: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      padding: 16px 24px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(203, 213, 225, 0.8);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 24px;
-    }
-
-    .score-summary {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--primary-teal);
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn {
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-    }
-
     .btn-submit {
-      background: linear-gradient(135deg, var(--primary-teal), #164e63);
-      color: #ffffff;
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(10, 37, 64, 0.25);
+      transition: transform 0.1s, box-shadow 0.2s;
+      margin-top: 20px;
     }
 
     .btn-submit:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(10, 37, 64, 0.35);
     }
 
-    .btn-reset {
-      background: #e2e8f0;
-      color: #475569;
-    }
-
-    .btn-reset:hover {
-      background: #cbd5e1;
-    }
-
-    /* 正誤狀態邊框與標記 */
-    .option-label.is-correct-selected {
-      background: var(--correct-bg);
-      border-color: var(--correct-border);
-      color: var(--correct-text);
-    }
-
-    .option-label.is-missed {
-      background: #f0fdf4;
-      border: 2px dashed var(--correct-border);
-      color: var(--correct-text);
-    }
-
-    .option-label.is-wrong-selected {
-      background: var(--wrong-bg);
-      border-color: var(--wrong-border);
-      color: var(--wrong-text);
-    }
-
-    .status-badge {
-      font-size: 13px;
+    #score-banner {
+      display: none;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.3rem;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-left: auto;
     }
 
-    .status-pass {
+    .score-high {
       background: #dcfce7;
       color: #166534;
+      border: 2px solid #86efac;
     }
 
-    .status-fail {
+    .score-need-work {
       background: #fee2e2;
       color: #991b1b;
+      border: 2px solid #fca5a5;
+    }
+
+    .correct-highlight {
+      background-color: #dcfce7 !important;
+      border-color: #4ade80 !important;
+    }
+
+    .wrong-highlight {
+      background-color: #fee2e2 !important;
+      border-color: #f87171 !important;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
     <header>
-      <h1>琦君《孔雀錯了》深度評量測驗</h1>
-      <p>涵蓋作者背景、核心概念、情節衝突、寓言象徵、修辭法與句型重點。</p>
-      <div class="notice-badge">高難度全方位複選題：每題皆有 5 個選項，且至少有 2 個正確答案，全對才得分！</div>
+      <h1>🌊 台灣海域奇觀深度挑戰測驗</h1>
+      <p style="color: var(--text-muted); font-size: 1rem; margin-top: 6px;">全範圍高難度複選題｜檢驗你對龜山島牛奶海與馬祖／金門方格海的全面理解</p>
     </header>
 
-    <form id="quizForm" class="quiz-form">
+    <div class="intro-banner">
+      <strong>⚠️ 測驗規則提示：</strong><br>
+      本測驗所有題目皆為<strong>高難度複選題</strong>。每題均有 <strong>5 個選項</strong>，且<strong>至少有 2 個或以上的正確答案</strong>。請細心審題，將所有完全符合原文陳述的選項全部勾選出！若未全對或答錯，送出後將顯示詳盡的選項解析。
+    </div>
+
+    <form id="quizForm">
+
       <!-- Q1 -->
-      <div class="question-card" data-qid="q1">
-        <div class="question-header">
-          <span class="q-number">第 1 題</span>
-          <span class="q-tag">作者背景與文體主旨</span>
-          <span class="q-title">關於琦君及其課文《孔雀錯了》的背景與寫作主旨，下列敘述哪些是完全正確的？</span>
+      <div class="question-block" id="block-q1">
+        <div class="q-title"><span class="q-badge">第 1 題</span> 依據簡報「執行摘要」與「結論」，關於台灣兩大海域奇觀之宏觀定位與科學本質，下列敘述哪些完全符合原文？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q1" value="A"> A. 牛奶海與方格海因獨特成因、視覺美感及感官體驗，已成為台灣海洋文化與自然教育之重要素材。</label>
+          <label class="option-label"><input type="checkbox" name="q1" value="B"> B. 牛奶海的形成核心源自地底火山活動誘發之「海底熱泉」機制，本質上牽涉化學與熱流反應。</label>
+          <label class="option-label"><input type="checkbox" name="q1" value="C"> C. 方格海本質上是由地形與海流交會所引發的物理現象，而非涉及化學成分質變之化學反應。</label>
+          <label class="option-label"><input type="checkbox" name="q1" value="D"> D. 簡報結論指出，深入探究這兩大海域成因僅在於增進對自然科學之認知，並未涉及本土認同層面。</label>
+          <label class="option-label"><input type="checkbox" name="q1" value="E"> E. 台灣多變的海洋景觀展現了大自然「千變萬化」的面貌，背後均根植於複雜的地球科學機制。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q1" value="A"><span class="option-text">A. 本文屬於記敘文本，素材取材自作者初中時期的同儕相處與切身經歷。</span></label>
-          <label class="option-label"><input type="checkbox" name="q1" value="B"><span class="option-text">B. 作者琦君本名為潘希真，文學風格平實溫潤，作品曾被翻譯成英、日、韓等多國語言。</span></label>
-          <label class="option-label"><input type="checkbox" name="q1" value="C"><span class="option-text">C. 琦君的文學成就全面，以散文創作名世，亦跨足小說、評論及兒童文學領域。</span></label>
-          <label class="option-label"><input type="checkbox" name="q1" value="D"><span class="option-text">D. 文章旨在宣導學生應徹底杜絕同儕間的任何競爭與求勝念頭，全面回歸純真友愛。</span></label>
-          <label class="option-label"><input type="checkbox" name="q1" value="E"><span class="option-text">E. 全文的核心宗旨是引導讀者反思因妒忌而來的惡性競爭，並體認「良性競爭」與「彼此欣賞」的價值。</span></label>
+        <div class="explanation" id="exp-q1">
+          <div class="explanation-title">📌 第 1 題 解析</div>
+          正確選項為 <strong>A、B、C、E</strong>。<br>
+          • <strong>A、B、C 正確</strong>：執行摘要明確提到兩者是自然教育與文化素材，牛奶海是火山海底熱泉，方格海是地形與海流交會的物理現象。<br>
+          • <strong>D 錯誤</strong>：結論中強調深入探索「不僅增進對自然科學的認知，也提升了對本土自然資源的認同感」，而非僅限於科學層面。<br>
+          • <strong>E 正確</strong>：結論段落指出兩者展現了大自然「千變萬化」的面貌，源於複雜的地球科學機制。
         </div>
-        <div class="analysis-box" id="analysis-q1"></div>
       </div>
 
       <!-- Q2 -->
-      <div class="question-card" data-qid="q2">
-        <div class="question-header">
-          <span class="q-number">第 2 題</span>
-          <span class="q-tag">情節與人物優勢對比</span>
-          <span class="q-title">課文中作者與同桌同學曹瑩玲在學業各展優勢並相互示威，下列關於兩人表現與心理的敘述哪些正確？</span>
+      <div class="question-block" id="block-q2">
+        <div class="q-title"><span class="q-badge">第 2 題</span> 關於龜山島「牛奶海（烏龜喝牛奶）」的地理空間、命名由來與感官特徵，下列敘述哪些正確？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q2" value="A"> A. 牛奶海坐落於宜蘭外海龜山島的尾部沙灘交會區。</label>
+          <label class="option-label"><input type="checkbox" name="q2" value="B"> B. 海面上呈現乳白色與淺藍色、墨藍色交織向外渲染，堆疊出深淺交錯的色彩層次。</label>
+          <label class="option-label"><input type="checkbox" name="q2" value="C"> C. 命名由來是因為從高空俯瞰時，視覺意象宛如烏龜在飲用牛奶。</label>
+          <label class="option-label"><input type="checkbox" name="q2" value="D"> D. 伴隨該美景的嗅覺體驗，為陣陣強烈且刺鼻的硫磺味，常被形容為「壞掉的雞蛋」味。</label>
+          <label class="option-label"><input type="checkbox" name="q2" value="E"> E. 該海域因底層火山釋放高溫熱泉，使周邊空氣始終瀰漫著清甜的牛奶芳香氣味。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q2" value="A"><span class="option-text">A. 作者的優勢學科是作文，發回的作文簿上常滿是象徵佳句的紅圈以及大大的「甲」字評語。</span></label>
-          <label class="option-label"><input type="checkbox" name="q2" value="B"><span class="option-text">B. 曹瑩玲擅長的學科為英文，其試卷書寫字體端正清楚，常獲得教師給予「Very good」的評語。</span></label>
-          <label class="option-label"><input type="checkbox" name="q2" value="C"><span class="option-text">C. 每當作者作文取得佳績時，便會索性將作文簿攤開以示領先與示威。</span></label>
-          <label class="option-label"><input type="checkbox" name="q2" value="D"><span class="option-text">D. 曹瑩玲對作者的示威毫不以為意，始終謙遜收納英文考卷，從不在作者眼前展示以求和氣。</span></label>
-          <label class="option-label"><input type="checkbox" name="q2" value="E"><span class="option-text">E. 作者內心曾動念：「如果她的英文沒那麼好，我不就是全班第一個『文學家』了嗎？」，反映了狹隘的妒忌競爭心態。</span></label>
+        <div class="explanation" id="exp-q2">
+          <div class="explanation-title">📌 第 2 題 解析</div>
+          正確選項為 <strong>B、C、D</strong>。<br>
+          • <strong>A 錯誤</strong>：原文指出牛奶海位於宜蘭外海的龜山島「前端」，並非尾部沙灘區。<br>
+          • <strong>B、C 正確</strong>：海水由乳白、淺藍與墨藍渲染交錯，高空俯瞰宛如烏龜飲用牛奶。<br>
+          • <strong>D 正確</strong>、<strong>E 錯誤</strong>：伴隨美景的是刺鼻強烈的「壞掉的雞蛋」味（硫磺味），絕無清甜牛奶芳香。
         </div>
-        <div class="analysis-box" id="analysis-q2"></div>
       </div>
 
       <!-- Q3 -->
-      <div class="question-card" data-qid="q3">
-        <div class="question-header">
-          <span class="q-number">第 3 題</span>
-          <span class="q-tag">寓言故事分析與教師引導</span>
-          <span class="q-title">教師察覺兩人心結後講述了孔雀互鬥的寓言，下列關於此寓言的情節與教師評價哪些是正確的？</span>
+      <div class="question-block" id="block-q3">
+        <div class="q-title"><span class="q-badge">第 3 題</span> 深入解析牛奶海「海底熱泉」的科學形成機制，下列哪些階段或特徵符合文中所述之具體細節？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q3" value="A"> A. 海水受重力或地質作用滲透進入地底深處，經過地底火山口的岩漿加熱。</label>
+          <label class="option-label"><input type="checkbox" name="q3" value="B"> B. 受熱加壓後的海水自地殼裂縫噴發而出，於海底形成高溫噴湧的「海底熱泉」。</label>
+          <label class="option-label"><input type="checkbox" name="q3" value="C"> C. 當噴出的高溫熱泉與外部相對低溫的海水相遇並產生物質轉化時，會生成白色物質。</label>
+          <label class="option-label"><input type="checkbox" name="q3" value="D"> D. 白色物質在熱泉噴發口持續沉澱與堆積，形成如同「小型煙囪」的特殊微地貌景觀。</label>
+          <label class="option-label"><input type="checkbox" name="q3" value="E"> E. 因熱泉口源源不絕釋放且具強烈鹼性，地質學家與當地人將該地景戲稱為「甘甜起司沉積岩」。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q3" value="A"><span class="option-text">A. 寓言中的兩隻孔雀各自擁有美麗的羽毛，本應在自然中展開優美的姿態（開屏）。</span></label>
-          <label class="option-label"><input type="checkbox" name="q3" value="B"><span class="option-text">B. 孔雀心生妒意，暗自認為只要同伴的羽毛沒有自己的美麗，自己便能成為「第一美」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q3" value="C"><span class="option-text">C. 兩隻孔雀為了求勝而互相攻擊啄對方的尾巴，最終造成一方徹底落敗身亡，另一方獨攬光芒。</span></label>
-          <label class="option-label"><input type="checkbox" name="q3" value="D"><span class="option-text">D. 互鬥的結果導致雙方的羽毛變得「七零八落」，不僅失去了原本的美麗，更造成兩敗俱傷。</span></label>
-          <label class="option-label"><input type="checkbox" name="q3" value="E"><span class="option-text">E. 老師直斥孔雀「太傻了」，並強調應當愛惜自己的羽毛，將尾巴張得漂亮去「比賽」，而非透過「傷害」對方來取勝。</span></label>
+        <div class="explanation" id="exp-q3">
+          <div class="explanation-title">📌 第 3 題 解析</div>
+          正確選項為 <strong>A、B、C、D</strong>。<br>
+          • <strong>A、B、C、D 正確</strong>：完整再現了熱泉四步驟：滲透與加熱（地底岩漿）、噴發（地殼裂縫噴發成海底熱泉）、物質轉化（遇低溫海水產出白色物質）、堆積（噴發口堆積成小型煙囪）。<br>
+          • <strong>E 錯誤</strong>：原文指噴發口源源不絕釋放白色物質，因而被戲稱為「酸牛奶製造機」，而非「甘甜起司沉積岩」。
         </div>
-        <div class="analysis-box" id="analysis-q3"></div>
       </div>
 
       <!-- Q4 -->
-      <div class="question-card" data-qid="q4">
-        <div class="question-header">
-          <span class="q-number">第 4 題</span>
-          <span class="q-tag">反思、和解與象徵意象</span>
-          <span class="q-title">聽完寓言故事後，作者與曹瑩玲的情感轉變與互動表現，下列敘述哪些切合課文情節？</span>
+      <div class="question-block" id="block-q4">
+        <div class="q-title"><span class="q-badge">第 4 題</span> 針對馬祖與金門海域的「方格海（海水畫表格）」，其分佈地點與視覺生態特色包含下列哪些？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q4" value="A"> A. 該景觀的主要目擊與分佈地點包含馬祖西莒島以及金門貴山海灘。</label>
+          <label class="option-label"><input type="checkbox" name="q4" value="B"> B. 海浪交錯在淺灘上自動排列，主要呈現圓形漩渦狀，大小完全固定不變。</label>
+          <label class="option-label"><input type="checkbox" name="q4" value="C"> C. 形成的方格主要呈現「正方形」或「菱形」，其格局大小會隨當前海象變化而有所不同。</label>
+          <label class="option-label"><input type="checkbox" name="q4" value="D"> D. 清晨時段常可見成群燕鷗於方格中覓食，其中包含稀有的「神話之鳥」——黑嘴端鳳頭燕鷗。</label>
+          <label class="option-label"><input type="checkbox" name="q4" value="E"> E. 入夜後隨著波浪的拍打與擾動，海面上會閃耀著淡藍色螢光，呈現著名的「藍眼淚」奇觀。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q4" value="A"><span class="option-text">A. 聽完老師的故事後，作者深感慚愧而低下頭，身旁的曹瑩玲亦產生了相同的羞愧與反省。</span></label>
-          <label class="option-label"><input type="checkbox" name="q4" value="B"><span class="option-text">B. 兩人隨即在課堂上起身公開向全班同學朗讀道歉信，承認彼此的錯誤與嫉妒。</span></label>
-          <label class="option-label"><input type="checkbox" name="q4" value="C"><span class="option-text">C. 下課後兩人一同相約到草地上拍球、踢毽子，以具體同樂的行動化解過往的隔閡。</span></label>
-          <label class="option-label"><input type="checkbox" name="q4" value="D"><span class="option-text">D. 當兩人在草地上對視時，眼神中已無敵意，而是流露出不好意思且彼此理解的微笑。</span></label>
-          <label class="option-label"><input type="checkbox" name="q4" value="E"><span class="option-text">E. 課文結尾將兩人比喻為一對在亮麗陽光下努力開屏的友愛孔雀，象徵追求自我成長的良性競爭。</span></label>
+        <div class="explanation" id="exp-q4">
+          <div class="explanation-title">📌 第 4 題 解析</div>
+          正確選項為 <strong>A、C、D、E</strong>。<br>
+          • <strong>A 正確</strong>：馬祖西莒島及金門貴山海灘為其主要分佈地點。<br>
+          • <strong>B 錯誤</strong>、<strong>C 正確</strong>：海浪是交錯形成「正方形」或「菱形」的格子，格子大小「隨海象變化」，而非固定不變的圓形漩渦。<br>
+          • <strong>D 正確</strong>：早晨有燕鷗覓食，包含「神話之鳥」黑嘴端鳳頭燕鷗。<br>
+          • <strong>E 正確</strong>：入夜後因波浪擾動會呈現淡藍色螢光的「藍眼淚」現象。
         </div>
-        <div class="analysis-box" id="analysis-q4"></div>
       </div>
 
       <!-- Q5 -->
-      <div class="question-card" data-qid="q5">
-        <div class="question-header">
-          <span class="q-number">第 5 題</span>
-          <span class="q-tag">詞彙涵義與特定語境應用</span>
-          <span class="q-title">課文中有許多語詞在特定語境中展現了特殊的生動比喻或意義，下列詞義與語境詮釋哪些完全正確？</span>
+      <div class="question-block" id="block-q5">
+        <div class="q-title"><span class="q-badge">第 5 題</span> 關於「方格海」的科學成因及流體物理機制，下列敘述哪些切合文本說明？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q5" value="A"> A. 方格海絕非化學物質質變反應，而是純粹的地形與流體力學相互作用之結果。</label>
+          <label class="option-label"><input type="checkbox" name="q5" value="B"> B. 馬祖西莒島的方格海發生於沙灘與近旁小島之間的特定海域（如西莒島沙灘與蛇島之間）。</label>
+          <label class="option-label"><input type="checkbox" name="q5" value="C"> C. 西莒島海域在「漲潮」時，海浪受到地形阻隔與折射影響，自不同方向湧入交會。</label>
+          <label class="option-label"><input type="checkbox" name="q5" value="D"> D. 當兩組交錯的波浪一行一行地對撞交會，即在海面上構築成特殊的方格陣列。</label>
+          <label class="option-label"><input type="checkbox" name="q5" value="E"> E. 金門貴山海灘的方格海現象形成機制，與西莒島完全相同，均嚴格發生於急速「滿潮」時刻。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q5" value="A"><span class="option-text">A. 「張燈結綵」本指懸掛燈籠彩帶的熱鬧景象，在課文中作者借以自嘲自己的試卷塗改痕跡多、不整潔。</span></label>
-          <label class="option-label"><input type="checkbox" name="q5" value="B"><span class="option-text">B. 「眉清目秀」本指人的面貌俊美清秀，本課借來形容曹瑩玲英文試卷字體端正、卷面清爽整潔。</span></label>
-          <label class="option-label"><input type="checkbox" name="q5" value="C"><span class="option-text">C. 「索性」在文中的語意為乾脆、直接了當，如作者「索性把作文簿攤開示威」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q5" value="D"><span class="option-text">D. 「七零八落」在文中是用來形容孔雀互鬥後，雙方羽毛殘損、散亂不完整的狼狽慘狀。</span></label>
-          <label class="option-label"><input type="checkbox" name="q5" value="E"><span class="option-text">E. 「評語」在文中特指考卷上的得分數字與等第，並不包含任何評價好壞的語言文字。</span></label>
+        <div class="explanation" id="exp-q5">
+          <div class="explanation-title">📌 第 5 題 解析</div>
+          正確選項為 <strong>A、B、C、D</strong>。<br>
+          • <strong>A、B、C、D 正確</strong>：方格海是流體力學與地形結果；西莒島發生在沙灘與蛇島間，漲潮時兩組不同方向湧入的波浪交會成方格陣列。<br>
+          • <strong>E 錯誤</strong>：原文特別強調「金門案例：金門貴山海灘的方格海現象則與『退潮』有關」，兩者潮汐條件有所差異。
         </div>
-        <div class="analysis-box" id="analysis-q5"></div>
       </div>
 
       <!-- Q6 -->
-      <div class="question-card" data-qid="q6">
-        <div class="question-header">
-          <span class="q-number">第 6 題</span>
-          <span class="q-tag">修辭技巧深層辨析</span>
-          <span class="q-title">下列關於《孔雀錯了》課文中修辭技法的判斷與解析，哪些完全符合修辭學與課文分析？</span>
+      <div class="question-block" id="block-q6">
+        <div class="q-title"><span class="q-badge">第 6 題</span> 對照簡報第三節「海洋奇觀對照分析表」，下列比較與屬性歸納哪些完全無誤？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q6" value="A"> A. 牛奶海的關鍵成因歸屬於「地底火山活動、海底熱泉」；方格海則為「地形與不同方向海流交會」。</label>
+          <label class="option-label"><input type="checkbox" name="q6" value="B"> B. 牛奶海的視覺特色為「乳白色與深淺藍色交織」；方格海則呈現「海水呈正方形或菱形格狀」。</label>
+          <label class="option-label"><input type="checkbox" name="q6" value="C"> C. 牛奶海的附加特徵為「強烈硫磺味（臭雞蛋味）」；方格海附加特徵為「燕鷗覓食、夜間藍眼淚」。</label>
+          <label class="option-label"><input type="checkbox" name="q6" value="D"> D. 主要分佈地點上，牛奶海位於宜蘭龜山島，方格海則僅限於金門貴山，馬祖無此現象。</label>
+          <label class="option-label"><input type="checkbox" name="q6" value="E"> E. 對照表顯示兩者附加特徵皆包含夜間會發出微光，且都會伴隨強烈硫磺刺激性氣體。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q6" value="A"><span class="option-text">A. 「尤其是那個大大的『甲』字，好像張著四四方的嘴在對我笑。」——運用了賦予無生命事物以人的神情動作的「擬人修辭」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q6" value="B"><span class="option-text">B. 「（我的卷子）看上去總沒她的卷子眉清目秀。」——將考卷以人的面貌神態來比擬，屬於「擬人修辭」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q6" value="C"><span class="option-text">C. 「我們一定是一對友愛的孔雀，在亮麗的陽光下努力開屏。」——以「是」作喻詞，將人直接比擬為孔雀，屬於譬喻中的「暗喻（隱喻）」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q6" value="D"><span class="option-text">D. 「我呢？老是張燈結綵的……」——作者自問而後自答，在修辭法上屬於「設問修辭」。</span></label>
-          <label class="option-label"><input type="checkbox" name="q6" value="E"><span class="option-text">E. 「如果同伴的羽毛沒有自己的美麗，自己不就是第一美了嗎？」——這是一個只有假設卻完全沒有設問或反詰語氣的純陳述修辭。</span></label>
+        <div class="explanation" id="exp-q6">
+          <div class="explanation-title">📌 第 6 題 解析</div>
+          正確選項為 <strong>A、B、C</strong>。<br>
+          • <strong>A、B、C 正確</strong>：完全符合對照表之分類（地點、視覺、成因、附加特徵）。<br>
+          • <strong>D 錯誤</strong>：方格海主要分佈地點包含馬祖西莒島與金門貴山。<br>
+          • <strong>E 錯誤</strong>：硫磺味僅屬於牛奶海，藍眼淚夜光僅屬於方格海，兩者附加特徵截然不同。
         </div>
-        <div class="analysis-box" id="analysis-q6"></div>
       </div>
 
       <!-- Q7 -->
-      <div class="question-card" data-qid="q7">
-        <div class="question-header">
-          <span class="q-number">第 7 題</span>
-          <span class="q-tag">關鍵句型與文意邏輯</span>
-          <span class="q-title">課文中運用了多種典型邏輯句型來刻畫內心與情境，下列分析與例句應用哪些正確？</span>
+      <div class="question-block" id="block-q7">
+        <div class="q-title"><span class="q-badge">第 7 題</span> 根據第四節「核心詞彙與語言表達重點」之字詞定義，下列詞彙釋義哪些精確符合教材規範？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q7" value="A"> A. 渲染：原為國畫用色技巧，於此簡報中借指海水顏色的擴散延伸。</label>
+          <label class="option-label"><input type="checkbox" name="q7" value="B"> B. 滲入：指固態物質在高溫下迅速溶解於熱水中。</label>
+          <label class="option-label"><input type="checkbox" name="q7" value="C"> C. 臭美：原意為諷刺人自誇，在本文中被作者用來轉折形容壯麗美景下的刺鼻氣味。</label>
+          <label class="option-label"><input type="checkbox" name="q7" value="D"> D. 星羅棋布：形容布列繁密、廣泛分佈。</label>
+          <label class="option-label"><input type="checkbox" name="q7" value="E"> E. 目眩神迷：形容所見情景令人驚異、震撼且眩惑。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q7" value="A"><span class="option-text">A. 「如果……那麼……」為假設句型，例如：「如果大家分工合作，那麼這項工作就可以輕鬆的完成。」</span></label>
-          <label class="option-label"><input type="checkbox" name="q7" value="B"><span class="option-text">B. 「如果……不就是……」兼具假設與反詰（反問）語氣，具有加強肯定語氣的效果。</span></label>
-          <label class="option-label"><input type="checkbox" name="q7" value="C"><span class="option-text">C. 「如果小芝今年真的獲得文學獎首獎，他不就是目前最年輕的得主嗎？」此句與課文中作者對「全班第一個文學家」的反詰思維邏輯句型相同。</span></label>
-          <label class="option-label"><input type="checkbox" name="q7" value="D"><span class="option-text">D. 「如果她的英文沒那麼好，我不就是全班第一個『文學家』了嗎？」句中的反詰其實暗含「若她表現不佳，我就能穩坐第一」的狹隘自我期許。</span></label>
-          <label class="option-label"><input type="checkbox" name="q7" value="E"><span class="option-text">E. 「如果……不就是……」在邏輯學上屬於因果倒置句型，代表前後兩件事毫無邏輯關聯，僅是單純的情緒抒發。</span></label>
+        <div class="explanation" id="exp-q7">
+          <div class="explanation-title">📌 第 7 題 解析</div>
+          正確選項為 <strong>A、C、D、E</strong>。<br>
+          • <strong>A 正確</strong>：渲染為國畫技巧，指顏色擴散。<br>
+          • <strong>B 錯誤</strong>：教材對「滲入」之嚴格定義為「液體慢慢進入物體裡面」，非溶解現象。<br>
+          • <strong>C、D、E 正確</strong>：臭美（諷刺自誇，轉折形容氣味）、星羅棋布（形容布列繁密）、目眩神迷（形容所見情景令人驚異）均與教材完全一致。
         </div>
-        <div class="analysis-box" id="analysis-q7"></div>
       </div>
 
       <!-- Q8 -->
-      <div class="question-card" data-qid="q8">
-        <div class="question-header">
-          <span class="q-number">第 8 題</span>
-          <span class="q-tag">哲理內涵與競爭型態比較</span>
-          <span class="q-title">依據課文分析，「良性競爭」與「惡性競爭」在本課中的對比與啟示，下列敘述哪些切合本文主旨？</span>
+      <div class="question-block" id="block-q8">
+        <div class="q-title"><span class="q-badge">第 8 題</span> 檢視簡報中的「句型與關係表達重點」，下列句型功能、關聯詞與其在文中的教學設計對應哪些完全正確？</div>
+        <div class="options-list">
+          <label class="option-label"><input type="checkbox" name="q8" value="A"> A. 選擇關係：運用「是……還是……」句型，旨在引發讀者對海洋第一印象的重新思考與反思。</label>
+          <label class="option-label"><input type="checkbox" name="q8" value="B"> B. 因果關係：運用「因為……因此……」句型，專注於剖析並說明特殊自然現象背後的科學成因。</label>
+          <label class="option-label"><input type="checkbox" name="q8" value="C"> C. 轉折關係：運用「不過」來引導讀者跳脫並發現常見海景之外的「特別的海」。</label>
+          <label class="option-label"><input type="checkbox" name="q8" value="D"> D. 遞進／延伸關係：採用「此外」、「另外」、「除此以外」等多重連接詞來串聯多個地理景點。</label>
+          <label class="option-label"><input type="checkbox" name="q8" value="E"> E. 假設關係：運用「如果……那麼……」推論如果沒有火山爆發，方格海便無法在沙灘形成。</label>
         </div>
-        <div class="options-group">
-          <label class="option-label"><input type="checkbox" name="q8" value="A"><span class="option-text">A. 惡性競爭的本質在於以削弱、否定或傷害競爭對手為手段，藉由對方的失敗來凸顯自身的優秀。</span></label>
-          <label class="option-label"><input type="checkbox" name="q8" value="B"><span class="option-text">B. 孔雀互啄尾羽的行徑正是惡性競爭的具體象徵，追求第一的結果往往導致雙方皆失去原本的光彩（兩敗俱傷）。</span></label>
-          <label class="option-label"><input type="checkbox" name="q8" value="C"><span class="option-text">C. 「良性競爭」是透過正當方式展現自身優點，並在競賽中追求共同進步與自我成長。</span></label>
-          <label class="option-label"><input type="checkbox" name="q8" value="D"><span class="option-text">D. 課文中「愛惜自己的羽毛，努力把尾巴張得漂亮去比賽」提醒我們：競爭的焦點應在於自我的精進與盛開。</span></label>
-          <label class="option-label"><input type="checkbox" name="q8" value="E"><span class="option-text">E. 故事最終說明：在人際競爭中，唯有徹底隱藏並壓抑自己的專長，才能真正維繫純粹無私的友誼。</span></label>
+        <div class="explanation" id="exp-q8">
+          <div class="explanation-title">📌 第 8 題 解析</div>
+          正確選項為 <strong>A、B、C、D</strong>。<br>
+          • <strong>A、B、C、D 正確</strong>：第四節第二款明載四大句型：選擇（是……還是……）、因果（因為……因此……）、轉折（不過）、遞進/延伸（此外、另外、除此以外）及其各別功能。<br>
+          • <strong>E 錯誤</strong>：教材中完全沒有提及假設關係「如果……那麼……」，且方格海成因是地形海流，與火山爆發無關。
         </div>
-        <div class="analysis-box" id="analysis-q8"></div>
       </div>
+
+      <button type="button" class="btn-submit" onclick="gradeQuiz()">送出測驗並檢視解析</button>
     </form>
 
-    <div class="action-panel">
-      <div class="score-summary" id="scoreDisplay">尚未送出測驗</div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-reset" onclick="resetQuiz()">重新作答</button>
-        <button type="button" class="btn btn-submit" onclick="submitQuiz()">送出測驗並查看詳解</button>
-      </div>
-    </div>
+    <div id="score-banner"></div>
   </div>
 
   <script>
-    // 測驗標準答案與詳細選項解析資料庫
-    const quizData = {
-      q1: {
-        correct: ["A", "B", "C", "E"],
-        explanations: {
-          A: { correct: true, text: "正確。本文為記敘文本，記錄琦君初中時期的同儕競爭親身經歷。" },
-          B: { correct: true, text: "正確。琦君本名潘希真，文筆溫潤平實，享譽文壇，譯本多國。" },
-          C: { correct: true, text: "正確。作品以散文為主，同時涵蓋小說、評論與兒童文學。" },
-          D: { correct: false, text: "錯誤。課文並非主張「杜絕一切競爭」，而是反對「惡性傷害」，提倡「健康向上的良性競爭與彼此欣賞」。" },
-          E: { correct: true, text: "正確。切合課文執行摘要與主旨，化解惡性競爭，走向互相友愛與良性成長。" }
-        }
-      },
-      q2: {
-        correct: ["A", "B", "C", "E"],
-        explanations: {
-          A: { correct: true, text: "正確。作者擅長作文，發回的作文簿有象徵佳句的滿篇紅圈與大大的「甲」字評語。" },
-          B: { correct: true, text: "正確。曹瑩玲擅長英文，字體清秀整潔，常獲得「Very good」評語。" },
-          C: { correct: true, text: "正確。作者每逢得意便「索性」攤開作文簿向對方示威。" },
-          D: { correct: false, text: "錯誤。課文明確描述曹瑩玲同樣會將英文卷子放在作者眼前以示領先，雙方皆有強烈求勝心。" },
-          E: { correct: true, text: "正確。作者曾暗自產生「如果她的英文沒那麼好，我不就是全班第一個文學家了嗎？」的念頭，體現狹隘的競爭心態。" }
-        }
-      },
-      q3: {
-        correct: ["A", "B", "D", "E"],
-        explanations: {
-          A: { correct: true, text: "正確。孔雀本該在陽光下展現優美姿態（開屏）。" },
-          B: { correct: true, text: "正確。孔雀因妒忌而認為只要貶損對方，自己就能名列第一美。" },
-          C: { correct: false, text: "錯誤。結果並非一方身亡一方獲勝，而是「互相啄對方尾巴，造成兩敗俱傷」。" },
-          D: { correct: true, text: "正確。羽毛變得「七零八落」，失去原貌且兩敗俱傷。" },
-          E: { correct: true, text: "正確。老師開導說孔雀「太傻了」，應當愛惜羽毛努力開屏比賽，而非靠傷害求勝。" }
-        }
-      },
-      q4: {
-        correct: ["A", "C", "D", "E"],
-        explanations: {
-          A: { correct: true, text: "正確。作者感到慚愧而低下頭，曹瑩玲亦有同感。" },
-          B: { correct: false, text: "錯誤。課文中並無「在課堂上起身公開向全班朗讀道歉信」的情節，而是透過神態心神領會並於下課後和解。" },
-          C: { correct: true, text: "正確。下課後兩人一同到草地上拍球、踢毽子，以行動自然化解心結。" },
-          D: { correct: true, text: "正確。相視一笑，不再有敵意，露出不好意思且理解的微笑。" },
-          E: { correct: true, text: "正確。文末以「一對友愛的孔雀，在亮麗的陽光下努力開屏」作結，象徵良性競爭。" }
-        }
-      },
-      q5: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: { correct: true, text: "正確。「張燈結綵」在課文中特殊引申形容考卷塗改痕跡多、不整潔。" },
-          B: { correct: true, text: "正確。「眉清目秀」原指容貌，文中生動借指考卷字體端正、卷面清秀乾淨。" },
-          C: { correct: true, text: "正確。「索性」即乾脆、直接了當。" },
-          D: { correct: true, text: "正確。「七零八落」形容羽毛散亂殘破的慘狀。" },
-          E: { correct: false, text: "錯誤。「評語」是用來評定好壞的語言文字（如「甲」、「Very good」），非僅限於單純的分數。" }
-        }
-      },
-      q6: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: { correct: true, text: "正確。「甲字張著四四方的嘴對我笑」賦予文字人的口與笑容，為典型擬人。" },
-          B: { correct: true, text: "正確。「卷子眉清目秀」以人的面目容顏比擬試卷，為擬人手法。" },
-          C: { correct: true, text: "正確。「我們一定是一對友愛的孔雀」是以「是」作繫詞的暗喻（隱喻）。" },
-          D: { correct: true, text: "正確。「我呢？老是張燈結綵的……」自問自答，屬設問修辭中的提問。" },
-          E: { correct: false, text: "錯誤。此句採用「如果……不就是……」的反詰（設問）句式，表達強烈的反問與特定心理肯定。" }
-        }
-      },
-      q7: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: { correct: true, text: "正確。「如果……那麼……」為常見假設關聯複句。" },
-          B: { correct: true, text: "正確。「如果……不就是……」藉由假設結合反詰，答案寓於反問之中，語氣強烈。" },
-          C: { correct: true, text: "正確。例句結構與課文「如果她的英文沒那麼好，我不就是全班第一個文學家了嗎？」同屬假設反詰句。" },
-          D: { correct: true, text: "正確。此句精準呈現了作者希望藉同儕失利來凸顯自身光芒的自私心理。" },
-          E: { correct: false, text: "錯誤。該句型在邏輯上具備明確的假設前提與反詰推論，非無邏輯的因果倒置。" }
-        }
-      },
-      q8: {
-        correct: ["A", "B", "C", "D"],
-        explanations: {
-          A: { correct: true, text: "正確。惡性競爭是以貶低或傷害他人作為獲勝策略。" },
-          B: { correct: true, text: "正確。互啄尾羽是惡性競爭的最佳隱喻，終局是七零八落的雙輸。" },
-          C: { correct: true, text: "正確。良性競爭的真義在於彼此欣賞、發揮所長並共同成長。" },
-          D: { correct: true, text: "正確。專注於自身的開屏與盛放，愛惜羽毛方能成就真正的大美。" },
-          E: { correct: false, text: "錯誤。課文提倡的是「在陽光下努力開屏」展現優點，而非壓抑或隱藏個人才華。" }
-        }
-      }
+    // 正確答案清單
+    const correctAnswers = {
+      q1: ['A', 'B', 'C', 'E'],
+      q2: ['B', 'C', 'D'],
+      q3: ['A', 'B', 'C', 'D'],
+      q4: ['A', 'C', 'D', 'E'],
+      q5: ['A', 'B', 'C', 'D'],
+      q6: ['A', 'B', 'C'],
+      q7: ['A', 'C', 'D', 'E'],
+      q8: ['A', 'B', 'C', 'D']
     };
 
-    function submitQuiz() {
-      let totalQuestions = Object.keys(quizData).length;
-      let totalScore = 0;
+    function gradeQuiz() {
+      let score = 0;
+      const totalQuestions = Object.keys(correctAnswers).length;
 
-      for (let qid in quizData) {
-        const qInfo = quizData[qid];
-        const card = document.querySelector(`.question-card[data-qid="${qid}"]`);
-        const checkboxes = card.querySelectorAll('input[type="checkbox"]');
-        const checkedValues = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+      for (let qKey in correctAnswers) {
+        const correctSet = correctAnswers[qKey];
+        const checkboxes = document.querySelectorAll(`input[name="${qKey}"]:checked`);
+        const userSelected = Array.from(checkboxes).map(cb => cb.value);
+        const block = document.getElementById(`block-${qKey}`);
+        const exp = document.getElementById(`exp-${qKey}`);
 
-        // 判斷是否完全命中
-        const isExactMatch = checkedValues.length === qInfo.correct.length &&
-          checkedValues.every(val => qInfo.correct.includes(val));
+        // 比對是否完全正確
+        const isAllCorrect = correctSet.length === userSelected.length && 
+                             correctSet.every(val => userSelected.includes(val));
 
-        // 清理原有樣式
-        card.querySelectorAll('.option-label').forEach(lbl => {
-          lbl.classList.remove('is-correct-selected', 'is-missed', 'is-wrong-selected');
-        });
-
-        // 標記各選項樣式
-        checkboxes.forEach(cb => {
-          const val = cb.value;
-          const label = cb.closest('.option-label');
-          const isCorrectOption = qInfo.correct.includes(val);
-
-          if (cb.checked) {
-            if (isCorrectOption) {
-              label.classList.add('is-correct-selected');
-            } else {
-              label.classList.add('is-wrong-selected');
-            }
-          } else {
-            if (isCorrectOption) {
-              label.classList.add('is-missed');
-            }
+        // 標記高亮選項
+        const allOptions = document.querySelectorAll(`input[name="${qKey}"]`);
+        allOptions.forEach(opt => {
+          const label = opt.parentElement;
+          label.classList.remove('correct-highlight', 'wrong-highlight');
+          
+          if (correctSet.includes(opt.value)) {
+            label.classList.add('correct-highlight'); // 正確應選項目標綠
+          } else if (opt.checked && !correctSet.includes(opt.value)) {
+            label.classList.add('wrong-highlight'); // 誤選項目標紅
           }
         });
 
-        // 構建選項詳解列表
-        let breakdownHtml = '<div class="option-breakdown">';
-        for (let optKey of ["A", "B", "C", "D", "E"]) {
-          const exp = qInfo.explanations[optKey];
-          const hintClass = exp.correct ? "correct-hint" : "wrong-hint";
-          const statusText = exp.correct ? "【正確選項】" : "【錯誤選項】";
-          breakdownHtml += `<li class="${hintClass}"><strong>選項 ${optKey} ${statusText}</strong>：${exp.text}</li>`;
-        }
-        breakdownHtml += '</div>';
-
-        // 顯示狀態徽章與解析
-        const header = card.querySelector('.question-header');
-        let existingBadge = header.querySelector('.status-badge');
-        if (existingBadge) existingBadge.remove();
-
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `status-badge ${isExactMatch ? 'status-pass' : 'status-fail'}`;
-        statusBadge.innerText = isExactMatch ? '✔ 完全正確' : '✖ 答案未齊全或含錯誤';
-        header.appendChild(statusBadge);
-
-        const analysisBox = document.getElementById(`analysis-${qid}`);
-        analysisBox.innerHTML = `<strong>【本題全解分析】：本題正確答案為 <u>${qInfo.correct.join(', ')}</u></strong><br>` +
-          `說明：請檢視各選項之判定原由，確保對課文文本細節徹底掌握。` +
-          breakdownHtml;
-        analysisBox.classList.add('show');
-
-        if (isExactMatch) {
-          totalScore += (100 / totalQuestions);
+        // 顯示解析
+        if (isAllCorrect) {
+          score++;
+          exp.classList.remove('visible');
+        } else {
+          exp.classList.add('visible'); // 答錯即顯示詳盡解析
         }
       }
 
-      // 更新得分
-      const roundedScore = Math.round(totalScore);
-      const scoreDisplay = document.getElementById('scoreDisplay');
-      scoreDisplay.innerHTML = `測驗完成！總得分：<span style="font-size:22px; color:${roundedScore >= 80 ? '#15803d' : '#b91c1c'}">${roundedScore} 分</span> / 100 分`;
+      // 結算橫幅
+      const banner = document.getElementById('score-banner');
+      banner.style.display = 'block';
+      const percentage = Math.round((score / totalQuestions) * 100);
 
-      // 平滑滾動至結果
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
+      if (score === totalQuestions) {
+        banner.className = 'score-high';
+        banner.innerHTML = `🎉 太優秀了！滿分！ (${score} / ${totalQuestions} 題全對，得分率 100%)<br><span style="font-size:0.95rem; font-weight:normal;">您對牛奶海與方格海的每一個科學成因、生態、視覺與語言知識點皆瞭若指掌！</span>`;
+      } else {
+        banner.className = 'score-need-work';
+        banner.innerHTML = `📝 測驗完成：得分 ${score} / ${totalQuestions} 題（得分率 ${percentage}%）<br><span style="font-size:0.95rem; font-weight:normal;">複選題標準較為嚴格，已為您標註綠色（應選項）與紅色（誤選項），請仔細研讀下方展開的題目解析！</span>`;
+      }
 
-    function resetQuiz() {
-      document.getElementById('quizForm').reset();
-      document.querySelectorAll('.analysis-box').forEach(box => {
-        box.classList.remove('show');
-        box.innerHTML = '';
-      });
-      document.querySelectorAll('.option-label').forEach(lbl => {
-        lbl.classList.remove('is-correct-selected', 'is-missed', 'is-wrong-selected');
-      });
-      document.querySelectorAll('.status-badge').forEach(badge => badge.remove());
-      document.getElementById('scoreDisplay').innerText = '測驗已重置，請重新作答。';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      banner.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
