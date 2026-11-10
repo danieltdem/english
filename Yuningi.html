@@ -1,68 +1,585 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>英語填空與單字測驗</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寧寧的單字挑戰 - 酷炫暗色特仕版</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
-        .answer-key { background: #f0f8ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bde0fe; }
-        .question { margin-bottom: 15px; }
-        input { border: 1px solid #ccc; padding: 5px; border-radius: 4px; width: 120px; }
-        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
-        #result { margin-top: 20px; white-space: pre-wrap; }
-        .explanation { color: #555; font-size: 0.9em; margin-top: 5px; font-style: italic; }
+        /* --- 全局暗色主題設定 --- */
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+            color: #e0e0e0;
+            transition: background-color 0.5s;
+        }
+
+        /* --- 通用容器樣式 --- */
+        .container {
+            text-align: center;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            position: relative;
+            overflow-y: auto; 
+        }
+
+        h1 { margin-top: 0; color: #00e676; text-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
+        h2 { color: #2979ff; margin-bottom: 10px; }
+
+        /* --- 按鈕通用樣式 --- */
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        button:active { transform: scale(0.95); }
+
+        /* --- 專屬單獨功能小按鈕 --- */
+        .small-btn {
+            background-color: #0277bd;
+            color: white;
+            font-size: 13px;
+            padding: 6px 12px;
+            margin: 0 8px 0 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .small-btn:hover { background-color: #0288d1; }
+        .small-btn.reveal { background-color: #607d8b; }
+        .small-btn.reveal:hover { background-color: #78909c; }
+
+        /* --- 發音按鈕樣式 (答錯提示區使用) --- */
+        .tts-btn {
+            background-color: #00bcd4;
+            color: white;
+            font-size: 14px;
+            padding: 6px 12px;
+            margin: 5px 0 0 0;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.4);
+        }
+        .tts-btn:hover { background-color: #0097a7; }
+
+        /* --- 首頁選單樣式 --- */
+        #menu-screen { display: block; }
+        .menu-btn {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            background-color: #2979ff; 
+            color: white;
+            box-shadow: 0 4px 15px rgba(41, 121, 255, 0.4);
+        }
+        .menu-btn:hover { background-color: #2264d1; }
+        .ruby-text { font-size: 0.8em; display: block; margin-bottom: 2px; color: #b3e5fc; font-weight: normal; }
+
+        /* --- 考試模式樣式 --- */
+        #exam-screen { display: none; }
+        .exam-input {
+            padding: 15px;
+            font-size: 20px;
+            width: 75%;
+            margin-bottom: 15px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            background-color: #2c2c2c;
+            color: #fff;
+            text-align: center;
+        }
+        .exam-input:focus { outline: none; border-color: #00e676; box-shadow: 0 0 10px rgba(0, 230, 118, 0.3); }
+        .exam-input:disabled { background-color: #1a1a1a; border-color: #f44336; color: #888; cursor: not-allowed; }
+        
+        .exam-btn { background-color: #00e676; color: #121212; }
+        .exam-btn:hover { background-color: #00c853; }
+        .exam-btn-next { background-color: #ff9100; color: #121212; }
+        
+        #mnemonic {
+            font-size: 16px;
+            margin-top: 15px;
+            color: #e0e0e0;
+            text-align: left;
+            padding: 15px;
+            border: 1px solid #444;
+            border-left: 5px solid #ff1744;
+            border-radius: 8px;
+            background-color: #2a1b1b;
+            line-height: 1.6;
+        }
+        
+        #wrong-words-summary { 
+            text-align: left; 
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .summary-item { padding: 8px 0; border-bottom: 1px dashed #444; }
+        .summary-item:last-child { border-bottom: none; }
+
+        /* --- 練習模式樣式 --- */
+        #practice-screen { display: none; flex-direction: column; padding: 0; overflow: hidden; }
+        
+        .practice-fixed-top {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-bottom: 2px solid #333;
+            z-index: 10;
+        }
+
+        .top-btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
+
+        #practice-list-container {
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding: 10px 20px 20px 20px;
+            scrollbar-width: thin;
+            scrollbar-color: #555 #1e1e1e;
+        }
+        
+        #practice-list-container::-webkit-scrollbar { width: 8px; }
+        #practice-list-container::-webkit-scrollbar-track { background: #1e1e1e; }
+        #practice-list-container::-webkit-scrollbar-thumb { background-color: #555; border-radius: 4px; }
+
+        .practice-row-container { border-bottom: 1px solid #333; padding: 15px 0; }
+        .practice-row { display: flex; justify-content: space-between; align-items: center; }
+        
+        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffeb3b; }
+        .col-input { width: 35%; text-align: left; }
+        .col-ans { width: 30%; text-align: right; color: #00e676; font-weight: bold; font-size: 18px; }
+
+        .practice-input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #2c2c2c;
+            color: white;
+            border: 2px solid #555;
+            border-radius: 5px;
+        }
+        .practice-input.correct { border-color: #00e676; background-color: #14301c; }
+        .practice-input.wrong { border-color: #ff1744; background-color: #3b1619; }
+        
+        .card-btns { display: flex; margin-top: 8px; }
+
+        .practice-mnemonic {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #b0bec5;
+            text-align: left;
+            background-color: #263238;
+            padding: 12px;
+            border-left: 4px solid #2979ff;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.5;
+        }
+
+        .global-toggle-btn { background-color: #ff1744; color: white; width: 100%; margin: 0; padding: 12px; }
+        .global-toggle-btn:hover { background-color: #d50000; }
+        .header-back-btn { background-color: #546e7a; color: white; width: 30%; margin: 0; font-size: 14px; padding: 10px; }
+
+        .answer-text { display: none; margin-bottom: 5px; }
+        .list-header { display: flex; justify-content: space-between; color: #888; font-size: 14px; margin-top: 15px; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <h2>英語填空測驗 (包含 image_adee2b.png 內容)</h2>
-    
-    <div class="answer-key">
-        <strong>參考答案：</strong><br>
-        meadow, cheerful, cabin, beautiful, spotless, colorful, peaceful, thankful, frightful, wonderful
+    <!-- 1. 首頁選單 -->
+    <div id="menu-screen" class="container">
+        <h1>寧寧的英文單字特訓</h1>
+        <p style="color: #aaa;">語音強化版</p>
+        <button class="menu-btn" onclick="goToExam()">
+            <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
+            開始考試
+        </button>
+        <button class="menu-btn" onclick="goToPractice()" style="background-color: #ff9100; box-shadow: 0 4px 15px rgba(255, 145, 0, 0.4);">
+            <span class="ruby-text">ㄨㄛˇ ㄧㄠˋ ㄌㄧㄢˋ ㄒㄧˊ</span>
+            我要練習
+        </button>
     </div>
 
-    <div id="quiz-container">
-        <p>Dear Ms. Johnson,</p>
-        <div class="question">I'm very <input type="text" id="q1"> to you for the <input type="text" id="q2"> time I had at your <input type="text" id="q3">.</div>
-        <div class="question">I didn't see any <input type="text" id="q4"> spiders; the cabin was so clean that it was truly <input type="text" id="q5">.</div>
-        <div class="question">The <input type="text" id="q6"> blend of blues and yellows inside the cabin always made me feel <input type="text" id="q7">.</div>
-        <div class="question">Also, the view of the <input type="text" id="q8"> <input type="text" id="q9"> was <input type="text" id="q10">.</div>
-        <button onclick="checkAnswers()">檢查答案</button>
+    <!-- 2. 考試模式 (已移除發音提示按鈕) -->
+    <div id="exam-screen" class="container">
+        <h2>單字拼寫嚴格測驗</h2>
+        <div id="question" style="font-size: 24px; margin: 20px 0; color: #ffeb3b;">載入題目中...</div>
+        
+        <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)" autocomplete="off">
+        <br>
+        <button id="exam-submit" class="exam-btn">提交</button>
+        <div id="exam-result" style="font-size: 22px; margin-top: 15px; font-weight: bold;"></div>
+        <div id="mnemonic" style="display: none;"></div>
+        <div id="score" style="font-size: 18px; margin-top: 20px; color: #aaa;">分數: 0 / 0</div>
+        
+        <div id="wrong-words-summary" style="display: none;"></div>
+        
+        <button id="exam-restart" class="exam-btn" style="display: none; margin-top: 20px;">重新開始</button>
+        <button id="exam-retest" class="exam-btn" style="display: none; background-color: #2979ff; margin-top: 20px;">重測錯題</button>
+        <button class="menu-btn" style="background-color:#546e7a; width: 60%; margin-top: 20px;" onclick="goHome()">回首頁</button>
     </div>
 
-    <div id="result"></div>
+    <!-- 3. 練習模式 -->
+    <div id="practice-screen" class="container">
+        <div class="practice-fixed-top">
+            <h2 style="margin: 0 0 15px 0;">單字練習室</h2>
+            <div class="top-btn-group">
+                <button class="header-back-btn" onclick="goHome()">回首頁</button>
+                <button id="toggle-all-btn" class="global-toggle-btn" style="width: 70%;" onclick="toggleAllAnswers()">
+                    顯示所有答案 / 批改
+                </button>
+            </div>
+            <div class="list-header">
+                <span style="width:35%; text-align:left;">中文意思 (含注音)</span>
+                <span style="width:35%">拼寫練習</span>
+                <span style="width:30%; text-align:right;">正確答案</span>
+            </div>
+        </div>
+        <div id="practice-list-container">
+            <div id="practice-list"></div>
+        </div>
+    </div>
 
     <script>
-        const correctAnswers = ["thankful", "wonderful", "cabin", "frightful", "spotless", "colorful", "cheerful", "peaceful", "meadow", "beautiful"];
-        const explanations = [
-            "Thankful：感激的 (thank + ful)。",
-            "Wonderful：極好的 (wonder + ful)。",
-            "Cabin：小木屋 (故事中的地點)。",
-            "Frightful：可怕的 (fright + ful)。",
-            "Spotless：無污點的 (spot + less)。",
-            "Colorful：色彩繽紛的 (color + ful)。",
-            "Cheerful：愉快的 (cheer + ful)。",
-            "Peaceful：平靜的 (peace + ful)。",
-            "Meadow：草地 (這裡指 view of the meadow)。",
-            "Beautiful：美麗的 (beauty + ful)。"
+        const words = [
+            { en: 'misfortune', zh: '不幸 (ㄅㄨˋ ㄒㄧㄥˋ)', mnemonic: 'mis (錯誤/不好) + fortune (運氣/財富)。不好的運氣就是不幸。' },
+            { en: 'celery', zh: '芹菜 (ㄑㄧㄣˊ ㄘㄞˋ)', mnemonic: '聽起來像 salary (薪水)。想像你拿到薪水後，跑去買了一大把健康的芹菜。' },
+            { en: 'issue', zh: '議題/發行 (ㄧˋ ㄊㄧˊ / ㄈㄚ ㄒㄧㄥˊ)', mnemonic: 'is + sue (控告)。這是一個嚴重的議題，導致人們互相控告 (sue)。' },
+            { en: 'visualize', zh: '想像/視覺化 (ㄒㄧㄤˇ ㄒㄧㄤˋ / ㄕˋ ㄐㄩㄝˊ ㄏㄨㄚˋ)', mnemonic: 'visual (視覺的) + ize (化)。在腦海中視覺化，也就是想像。' },
+            { en: 'waist', zh: '腰部 (ㄧㄠ ㄅㄨˋ)', mnemonic: '聽起來像 waste (浪費)。吃太多浪費的食物，脂肪都會長在腰部。' },
+            { en: 'graceful', zh: '優雅的 (ㄧㄡ ㄧㄚˇ ㄉㄜ˙)', mnemonic: 'grace (優雅) + ful (充滿...的)。充滿優雅氣質的。' },
+            { en: 'misplaced', zh: '放錯地方的 (ㄈㄤˋ ㄘㄨㄛˋ ㄉㄧˋ ㄈㄤ ㄉㄜ˙)', mnemonic: 'mis (錯誤) + place (放置) + d。把東西放置在錯誤的地方。' },
+            { en: 'latest', zh: '最新的 (ㄗㄨㄟˋ ㄒㄧㄣ ㄉㄜ˙)', mnemonic: 'late (晚) + est (最)。最晚出來的，也就是最新的。' },
+            { en: 'restless', zh: '焦躁不安的 (ㄐㄧㄠ ㄗㄠˋ ㄅㄨˋ ㄢ ㄉㄜ˙)', mnemonic: 'rest (休息) + less (缺乏)。缺乏休息，讓人感到焦躁不安。' },
+            { en: 'border', zh: '邊界 (ㄅㄧㄢ ㄐㄧㄝˋ)', mnemonic: '聽起來像 board (木板)。用木板圍起來的地方就是邊界。' },
+            { en: 'industry', zh: '工業/產業 (ㄍㄨㄥ ㄧㄝˋ / ㄔㄢˇ ㄧㄝˋ)', mnemonic: 'in (在裡面) + dust (灰塵) + ry。在充滿灰塵的工廠裡工作，代表傳統工業。' },
+            { en: 'disturb', zh: '打擾 (ㄉㄚˇ ㄖㄠˇ)', mnemonic: 'dis (分開) + turb (攪動)。去攪動並破壞別人的安靜，就是打擾。' },
+            { en: 'unaware', zh: '沒意識到的 (ㄇㄟˊ ㄧˋ ㄕˋ ㄉㄠˋ ㄉㄜ˙)', mnemonic: 'un (不) + aware (意識到的)。沒有意識到的。' },
+            { en: 'sure', zh: '確定的 (ㄑㄩㄝˋ ㄉㄧㄥˋ ㄉㄜ˙)', mnemonic: '聽起來像 shore (海岸)。船安全靠岸了，代表一切都是確定的。' },
+            { en: 'draft', zh: '草稿 (ㄘㄠˇ ㄍㄠˇ)', mnemonic: 'draw (畫) + ft。畫出來的初步草圖或草稿。' }
         ];
 
-        function checkAnswers() {
-            let score = 0;
-            let output = "<h3>測驗結果：</h3>";
-            for (let i = 0; i < correctAnswers.length; i++) {
-                let userVal = document.getElementById('q' + (i + 1)).value.toLowerCase().trim();
-                if (userVal === correctAnswers[i]) {
-                    score++;
-                    output += `<p>第 ${i+1} 題：✅ 正確 (${correctAnswers[i]})</p>`;
+        /* --- 語音朗讀 API --- */
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("很抱歉，您的瀏覽器目前不支援語音朗讀功能。");
+            }
+        }
+
+        /* --- 安全洗牌演算法 --- */
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        function goHome() {
+            document.getElementById('menu-screen').style.display = 'block';
+            document.getElementById('exam-screen').style.display = 'none';
+            document.getElementById('practice-screen').style.display = 'none'; 
+        }
+
+        function goToExam() {
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('exam-screen').style.display = 'block';
+            document.getElementById('practice-screen').style.display = 'none';
+            startGame(words);
+        }
+
+        function goToPractice() {
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('exam-screen').style.display = 'none';
+            document.getElementById('practice-screen').style.display = 'flex'; 
+            renderPracticeList();
+            resetPracticeState();
+        }
+
+        /* --- 練習模式邏輯 --- */
+        let areAnswersVisible = false;
+
+        function resetPracticeState() {
+            areAnswersVisible = false;
+            const btn = document.getElementById('toggle-all-btn');
+            btn.innerHTML = '顯示所有答案 / 批改';
+            btn.style.backgroundColor = '#ff1744';
+        }
+
+        function renderPracticeList() {
+            const listContainer = document.getElementById('practice-list');
+            listContainer.innerHTML = '';
+
+            words.forEach((word, index) => {
+                const rowContainer = document.createElement('div');
+                rowContainer.className = 'practice-row-container';
+                rowContainer.innerHTML = `
+                    <div class="practice-row">
+                        <div class="col-zh">${word.zh}</div>
+                        <div class="col-input">
+                            <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
+                            <div class="card-btns">
+                                <button class="small-btn" onclick="speakWord('${word.en}')" title="聽發音">🔊 聽發音</button>
+                                <button class="small-btn reveal" onclick="toggleSingleAnswer(${index})" title="看答案">👁️ 看答案</button>
+                            </div>
+                        </div>
+                        <div class="col-ans">
+                            <div id="ans-${index}" class="answer-text">${word.en}</div>
+                        </div>
+                    </div>
+                    <div id="p-mnemonic-${index}" class="practice-mnemonic">
+                        💡 <b>記憶提示：</b>${word.mnemonic}
+                    </div>
+                `;
+                listContainer.appendChild(rowContainer);
+            });
+        }
+
+        // 單題批改與顯示答案
+        function toggleSingleAnswer(index) {
+            const ansEl = document.getElementById(`ans-${index}`);
+            const inputEl = document.getElementById(`p-input-${index}`);
+            const mnemonicEl = document.getElementById(`p-mnemonic-${index}`);
+            
+            if (ansEl.style.display === 'block') {
+                ansEl.style.display = 'none';
+                mnemonicEl.style.display = 'none';
+                inputEl.classList.remove('correct', 'wrong');
+            } else {
+                ansEl.style.display = 'block';
+                const userWord = inputEl.value.trim().toLowerCase();
+                const correctWord = words[index].en.toLowerCase();
+                if (userWord === correctWord) {
+                    inputEl.classList.add('correct');
+                    inputEl.classList.remove('wrong');
+                    mnemonicEl.style.display = 'none';
                 } else {
-                    output += `<p>第 ${i+1} 題：❌ 錯誤 (正確答案是：${correctAnswers[i]})<br><span class="explanation">解析：${explanations[i]}</span></p>`;
+                    inputEl.classList.add('wrong');
+                    inputEl.classList.remove('correct');
+                    mnemonicEl.style.display = 'block';
                 }
             }
-            output += `<h4>總得分：${score} / 10</h4>`;
-            document.getElementById('result').innerHTML = output;
         }
+
+        // 全域批改
+        function toggleAllAnswers() {
+            const btn = document.getElementById('toggle-all-btn');
+            const answers = document.querySelectorAll('.answer-text');
+            const inputs = document.querySelectorAll('.practice-input');
+
+            areAnswersVisible = !areAnswersVisible;
+
+            if (areAnswersVisible) {
+                btn.innerHTML = '隱藏所有答案';
+                btn.style.backgroundColor = '#00e676';
+                btn.style.color = '#121212';
+                
+                answers.forEach(el => el.style.display = 'block');
+
+                inputs.forEach((input, index) => {
+                    const userWord = input.value.trim().toLowerCase();
+                    const correctWord = words[index].en.toLowerCase();
+                    const mnemonicDiv = document.getElementById(`p-mnemonic-${index}`);
+                    
+                    if (userWord === correctWord) {
+                        input.classList.add('correct');
+                        input.classList.remove('wrong');
+                        mnemonicDiv.style.display = 'none';
+                    } else {
+                        input.classList.add('wrong');
+                        input.classList.remove('correct');
+                        mnemonicDiv.style.display = 'block'; 
+                    }
+                });
+            } else {
+                btn.innerHTML = '顯示所有答案 / 批改';
+                btn.style.backgroundColor = '#ff1744';
+                btn.style.color = '#fff';
+                
+                answers.forEach(el => el.style.display = 'none');
+                words.forEach((_, index) => {
+                    document.getElementById(`p-mnemonic-${index}`).style.display = 'none';
+                    const inputEl = document.getElementById(`p-input-${index}`);
+                    inputEl.classList.remove('correct', 'wrong');
+                });
+            }
+        }
+
+        /* --- 考試模式邏輯 --- */
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = words.length;
+        let questions = [];
+        let wrongWords = [];
+        let isWaitingToContinue = false;
+
+        function startGame(wordList) {
+            let listToUse = wordList && Array.isArray(wordList) && wordList.length > 0 ? wordList : words;
+            
+            questions = [...listToUse];
+            totalQuestions = questions.length;
+            shuffle(questions);
+            currentQuestion = 0;
+            score = 0;
+            wrongWords = [];
+            isWaitingToContinue = false;
+            
+            document.getElementById('exam-restart').style.display = 'none';
+            document.getElementById('exam-retest').style.display = 'none';
+            document.getElementById('wrong-words-summary').style.display = 'none';
+            
+            const answerInput = document.getElementById('exam-answer');
+            answerInput.style.display = 'inline-block';
+            answerInput.disabled = false;
+            
+            const submitBtn = document.getElementById('exam-submit');
+            submitBtn.style.display = 'inline-block';
+            submitBtn.textContent = '提交';
+            submitBtn.className = 'exam-btn';
+            
+            document.getElementById('mnemonic').style.display = 'none';
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion >= totalQuestions) {
+                endGame();
+                return;
+            }
+            
+            const q = questions[currentQuestion];
+            if (!q) return; 
+
+            document.getElementById('mnemonic').style.display = 'none';
+            isWaitingToContinue = false;
+            
+            const submitBtn = document.getElementById('exam-submit');
+            submitBtn.textContent = '提交';
+            submitBtn.className = 'exam-btn';
+            
+            const answerInput = document.getElementById('exam-answer');
+            answerInput.disabled = false; 
+            answerInput.value = '';
+            
+            document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文：`;
+            document.getElementById('exam-result').textContent = '';
+            updateScore();
+            
+            setTimeout(() => { answerInput.focus(); }, 100);
+        }
+
+        function checkExamAnswer() {
+            if (isWaitingToContinue) {
+                currentQuestion++;
+                nextQuestion();
+                return;
+            }
+
+            const answerInput = document.getElementById('exam-answer');
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            const q = questions[currentQuestion];
+            const correctAnswer = q.en.toLowerCase();
+            const submitBtn = document.getElementById('exam-submit');
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById('exam-result').textContent = '✅ 完全正確！';
+                document.getElementById('exam-result').style.color = '#00e676';
+                
+                setTimeout(() => {
+                    currentQuestion++;
+                    nextQuestion();
+                }, 800);
+            } else {
+                answerInput.disabled = true; 
+                isWaitingToContinue = true;
+                
+                document.getElementById('exam-result').textContent = `❌ 錯誤。正確答案是：${q.en}`;
+                document.getElementById('exam-result').style.color = '#ff1744';
+                
+                const mnemonicEl = document.getElementById('mnemonic');
+                mnemonicEl.innerHTML = `
+                    <div style="font-size: 18px; margin-bottom: 10px;">💡 <b>記憶提示：</b><br>${q.mnemonic}</div>
+                    <button class="tts-btn" onclick="speakWord('${q.en}')">🔊 唸出正確單字</button>
+                `;
+                mnemonicEl.style.display = 'block';
+                
+                submitBtn.textContent = '下一題 ⏭';
+                submitBtn.className = 'exam-btn exam-btn-next';
+                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+            }
+            updateScore();
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions} (目前進度: 第 ${currentQuestion + 1} 題)`;
+        }
+
+        function endGame() {
+            document.getElementById('mnemonic').style.display = 'none';
+            document.getElementById('question').textContent = '🎯 測驗結束！';
+            
+            document.getElementById('exam-answer').style.display = 'none';
+            document.getElementById('exam-submit').style.display = 'none';
+            
+            document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
+            document.getElementById('exam-result').style.color = '#00e676';
+            document.getElementById('score').textContent = '';
+            
+            const summaryDiv = document.getElementById('wrong-words-summary');
+            if (score === totalQuestions) {
+                summaryDiv.innerHTML = '<h3 style="color:#00e676; margin:0;">🎉 太棒了！你全部答對，完美過關！</h3>';
+                summaryDiv.style.display = 'block';
+            } else {
+                let html = '<h3 style="color:#ff1744; margin-top:0;">📝 錯題總結報告：</h3>';
+                wrongWords.forEach((w, idx) => {
+                    html += `<div class="summary-item">
+                        <b>${idx + 1}. ${w.zh}</b><br>
+                        ✅ 正確答案：<span style="color:#00e676;">${w.en}</span><br>
+                        ❌ 你的輸入：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span>
+                    </div>`;
+                });
+                summaryDiv.innerHTML = html;
+                summaryDiv.style.display = 'block';
+                document.getElementById('exam-retest').style.display = 'inline-block';
+            }
+            document.getElementById('exam-restart').style.display = 'inline-block';
+        }
+
+        document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
+        document.getElementById('exam-answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkExamAnswer();
+        });
+        document.getElementById('exam-restart').addEventListener('click', () => startGame(words));
+        document.getElementById('exam-retest').addEventListener('click', () => {
+            if (wrongWords.length > 0) {
+                const retestWords = words.filter(w => wrongWords.some(ww => ww.en === w.en));
+                startGame(retestWords);
+            }
+        });
+
     </script>
 </body>
 </html>
