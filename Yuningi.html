@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寧寧的單字挑戰 - 酷炫暗色特仕版</title>
+    <title>寧寧的聽力拼寫與多選特訓</title>
     <style>
         /* --- 全局暗色主題設定 --- */
         body {
@@ -63,7 +63,6 @@
         .small-btn.reveal { background-color: #607d8b; }
         .small-btn.reveal:hover { background-color: #78909c; }
 
-        /* --- 發音按鈕樣式 (答錯提示區使用) --- */
         .tts-btn {
             background-color: #00bcd4;
             color: white;
@@ -96,8 +95,7 @@
         .exam-input {
             padding: 15px;
             font-size: 20px;
-            width: 75%;
-            margin-bottom: 15px;
+            width: 70%;
             border: 2px solid #555;
             border-radius: 8px;
             background-color: #2c2c2c;
@@ -111,6 +109,32 @@
         .exam-btn:hover { background-color: #00c853; }
         .exam-btn-next { background-color: #ff9100; color: #121212; }
         
+        /* 選擇題樣式 */
+        #exam-options {
+            text-align: left;
+            margin: 20px auto;
+            width: 75%;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .exam-checkbox-label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+            color: #e0e0e0;
+            padding: 10px;
+            background-color: #2c2c2c;
+            border-radius: 5px;
+            border: 1px solid #444;
+            transition: background-color 0.2s;
+        }
+        .exam-checkbox-label:hover { background-color: #3d3d3d; }
+        .exam-checkbox { margin-right: 10px; transform: scale(1.2); cursor: pointer; }
+        .exam-checkbox:disabled { cursor: not-allowed; }
+
         #mnemonic {
             font-size: 16px;
             margin-top: 15px;
@@ -132,7 +156,7 @@
             border-radius: 8px;
             border: 1px solid #333;
         }
-        .summary-item { padding: 8px 0; border-bottom: 1px dashed #444; }
+        .summary-item { padding: 10px 0; border-bottom: 1px dashed #444; }
         .summary-item:last-child { border-bottom: none; }
 
         /* --- 練習模式樣式 --- */
@@ -162,7 +186,7 @@
         .practice-row-container { border-bottom: 1px solid #333; padding: 15px 0; }
         .practice-row { display: flex; justify-content: space-between; align-items: center; }
         
-        .col-zh { width: 35%; text-align: left; font-size: 16px; color: #ffeb3b; }
+        .col-zh { width: 35%; text-align: left; font-size: 15px; color: #ffeb3b; line-height: 1.4; }
         .col-input { width: 35%; text-align: left; }
         .col-ans { width: 30%; text-align: right; color: #00e676; font-weight: bold; font-size: 18px; }
 
@@ -205,8 +229,8 @@
 
     <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
-        <h1>寧寧的英文單字特訓</h1>
-        <p style="color: #aaa;">語音強化版</p>
+        <h1>寧寧的英文聽寫多選特訓</h1>
+        <p style="color: #aaa;">暗色特仕版</p>
         <button class="menu-btn" onclick="goToExam()">
             <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
             開始考試
@@ -219,13 +243,23 @@
 
     <!-- 2. 考試模式 -->
     <div id="exam-screen" class="container">
-        <h2>單字拼寫嚴格測驗</h2>
-        <div id="question" style="font-size: 24px; margin: 20px 0; color: #ffeb3b;">載入題目中...</div>
+        <h2>🎧 聽寫與多重選擇測驗</h2>
+        <div id="question" style="font-size: 18px; margin: 10px 0; color: #b3e5fc;">
+            請聽發音，拼出單字，並勾選所有正確的中文意思：
+        </div>
         
-        <input type="text" id="exam-answer" class="exam-input" placeholder="輸入英文拼寫 (大小寫皆可)" autocomplete="off">
-        <br>
+        <div id="question-number" style="color:#ffeb3b; font-size:18px; margin-bottom:10px;"></div>
+
+        <button class="small-btn" onclick="speakCurrentExamWord()" style="margin-bottom: 15px; font-size: 15px; padding: 8px 16px;">🔊 聽發音提示</button><br>
+        
+        <input type="text" id="exam-answer" class="exam-input" placeholder="1. 輸入英文拼寫 (大小寫皆可)" autocomplete="off">
+        
+        <div id="exam-options">
+            <!-- 選擇題選項會動態產生在這裡 -->
+        </div>
+
         <button id="exam-submit" class="exam-btn">提交</button>
-        <div id="exam-result" style="font-size: 22px; margin-top: 15px; font-weight: bold;"></div>
+        <div id="exam-result" style="font-size: 18px; margin-top: 15px; font-weight: bold; line-height: 1.5;"></div>
         <div id="mnemonic" style="display: none;"></div>
         <div id="score" style="font-size: 18px; margin-top: 20px; color: #aaa;">分數: 0 / 0</div>
         
@@ -258,24 +292,25 @@
     </div>
 
     <script>
+        // 注意：為了支援多選題，現在 zh 欄位變成了「陣列 (Array)」
         const words = [
-            { en: 'faithful', zh: '忠誠的 (ㄓㄨㄥ ㄔㄥˊ ㄉㄜ˙)', mnemonic: 'faith (信仰/信任) + ful (充滿)。充滿信任與信仰，代表非常忠誠。' },
-            { en: 'harmless', zh: '無害的 (ㄨˊ ㄏㄞˋ ㄉㄜ˙)', mnemonic: 'harm (傷害) + less (沒有)。完全沒有傷害，也就是無害的。' },
-            { en: 'raise', zh: '舉起/提高 (ㄐㄩˇ ㄑㄧˇ / ㄊㄧˊ ㄍㄠ)', mnemonic: '聽起來像 rain (下雨) + se。看到快要下雨了，就把雨傘高高舉起。' },
-            { en: 'village', zh: '村莊 (ㄘㄨㄣ ㄓㄨㄤ)', mnemonic: 'villa (別墅) + ge (哥)。哥哥住在一個到處都是美麗別墅的村莊裡。' },
-            { en: 'parrot', zh: '鸚鵡 (ㄧㄥ ㄨˇ)', mnemonic: '聽起來像 carrot (胡蘿蔔)。這隻鸚鵡非常喜歡吃胡蘿蔔。' },
-            { en: 'range', zh: '範圍 (ㄈㄢˋ ㄨㄟˊ)', mnemonic: 'ran (跑) + ge (哥)。哥哥每天跑步的區域，就是他的活動範圍。' },
-            { en: 'branch', zh: '樹枝 (ㄕㄨˋ ㄓ)', mnemonic: '聽起來像 bench (長椅)。想像一張用粗壯樹枝做成的木製長椅。' },
-            { en: 'through', zh: '穿過/通過 (ㄔㄨㄢ ㄍㄨㄛˋ / ㄊㄨㄥ ㄍㄨㄛˋ)', mnemonic: 'throw (丟) 的過去式 threw 發音相似。用力一丟，球就穿過那個洞了。' },
-            { en: 'junk', zh: '垃圾 (ㄌㄜˋ ㄙㄜˋ)', mnemonic: 'jump (跳) + nk。小心不要跳進那堆會發臭的垃圾裡。' },
-            { en: 'wisely', zh: '明智地 (ㄇㄧㄥˊ ㄓˋ ㄉㄜ˙)', mnemonic: 'wise (聰明的) + ly (地)。用非常聰明、有智慧的方式做事，就是明智地。' },
-            { en: 'image', zh: '影像/形象 (ㄧㄥˇ ㄒㄧㄤˋ / ㄒㄧㄥˊ ㄒㄧㄤˋ)', mnemonic: 'I (我) + mage (法師)。我在遊戲裡選擇的形象是一個強大的魔法師。' },
-            { en: 'mural', zh: '壁畫 (ㄅㄧˋ ㄏㄨㄚˋ)', mnemonic: '聽起來像 rural (鄉村的)。鄉村的磚牆上常常畫著美麗的壁畫。' },
-            { en: 'attack', zh: '攻擊 (ㄍㄨㄥ ㄐㄧ)', mnemonic: 'at (在) + tack (圖釘)。偷偷在別人的椅子上放圖釘，是一種攻擊行為。' },
-            { en: 'troop', zh: '軍隊/部隊 (ㄐㄩㄣ ㄉㄨㄟˋ / ㄅㄨˋ ㄉㄨㄟˋ)', mnemonic: 'tree (樹) + loop (繞圈)。軍隊在樹林裡面繞著圈巡邏。' },
-            { en: 'breathless', zh: '喘不過氣的 (ㄔㄨㄢˇ ㄅㄨˊ ㄍㄨㄛˋ ㄑㄧˋ ㄉㄜ˙)', mnemonic: 'breath (呼吸) + less (沒有)。沒有辦法好好呼吸，也就是喘不過氣。' },
-            { en: 'rise', zh: '上升/升起 (ㄕㄤˋ ㄕㄥ / ㄕㄥ ㄑㄧˇ)', mnemonic: '聽起來像 rice (米飯)。剛煮熟的米飯會冒出往上升的熱氣。' },
-            { en: 'silver', zh: '銀色的 (ㄧㄣˊ ㄙㄜˋ ㄉㄜ˙)', mnemonic: '聽起來像 river (河流)。月光照在河流上，閃爍著美麗的銀色光芒。' }
+            { en: 'faithful', zh: ['忠誠的 (ㄓㄨㄥ ㄔㄥˊ ㄉㄜ˙)'], mnemonic: 'faith (信仰/忠誠) + ful (充滿的)。充滿信仰也就是忠誠的。' },
+            { en: 'harmless', zh: ['無害的 (ㄨˊ ㄏㄞˋ ㄉㄜ˙)'], mnemonic: 'harm (傷害) + less (無)。沒有傷害的，就是無害的。' },
+            { en: 'raise', zh: ['舉起 (ㄐㄩˇ ㄑㄧˇ)', '增加 (ㄗㄥ ㄐㄧㄚ)', '飼養 (ㄙˋ ㄧㄤˇ)'], mnemonic: '聽起來像 rain (雨) + se。植物需要雨水才能被「飼養」長大並「舉起」枝葉。' },
+            { en: 'village', zh: ['村莊 (ㄘㄨㄣ ㄓㄨㄤ)'], mnemonic: 'villa (別墅) + age (時代)。很多古老別墅聚集的地方就是村莊。' },
+            { en: 'parrot', zh: ['鸚鵡 (ㄧㄥ ㄨˇ)'], mnemonic: '聽起來像 carrot (胡蘿蔔)。這隻鸚鵡非常喜歡吃胡蘿蔔。' },
+            { en: 'range', zh: ['範圍 (ㄈㄢˋ ㄨㄟˊ)'], mnemonic: '聽起來像 rain (雨) + ge。氣象局預報了這場雨的降雨「範圍」。' },
+            { en: 'branch', zh: ['樹枝 (ㄕㄨˋ ㄓ)', '分支 (ㄈㄣ ㄓ)'], mnemonic: '聽起來像 bench (長椅)。想像一張用粗壯「樹枝」做成的木製長椅。' },
+            { en: 'through', zh: ['穿過 (ㄔㄨㄢ ㄍㄨㄛˋ)', '透過 (ㄊㄡˋ ㄍㄨㄛˋ)'], mnemonic: '與 throw (丟) 拼法相似。把球丟「穿過」窗戶。' },
+            { en: 'junk', zh: ['垃圾 (ㄌㄜˋ ㄙㄜˋ)', '廢棄物 (ㄈㄟˋ ㄑㄧˋ ㄨˋ)'], mnemonic: '聽起來像 jump (跳)。這些「垃圾」多到連跳都跳不過去。' },
+            { en: 'wisely', zh: ['明智地 (ㄇㄧㄥˊ ㄓˋ ㄉㄜ˙)'], mnemonic: 'wise (明智的) + ly (副詞字尾)。以明智的方式做事。' },
+            { en: 'image', zh: ['影像 (ㄧㄥˇ ㄒㄧㄤˋ)', '形象 (ㄒㄧㄥˊ ㄒㄧㄤˋ)'], mnemonic: 'imagine (想像) 的名詞形式。在腦海中想像出的「影像」或「形象」。' },
+            { en: 'mural', zh: ['壁畫 (ㄅㄧˋ ㄏㄨㄚˋ)'], mnemonic: 'mur (牆壁, 來源如拉丁文) + al。畫在牆壁上的圖畫就是壁畫。' },
+            { en: 'attack', zh: ['攻擊 (ㄍㄨㄥ ㄐㄧˊ)'], mnemonic: 'at (對著) + tack (釘子)。對著敵人丟釘子發起「攻擊」。' },
+            { en: 'troop', zh: ['軍隊 (ㄐㄩㄣ ㄉㄨㄟˋ)', '部隊 (ㄅㄨˋ ㄉㄨㄟˋ)'], mnemonic: '聽起來像 loop (迴圈)。「部隊」在操場上繞著迴圈行軍。' },
+            { en: 'breathless', zh: ['氣喘吁吁的 (ㄑㄧˋ ㄔㄨㄢˇ ㄒㄩ ㄒㄩ ㄉㄜ˙)'], mnemonic: 'breath (呼吸) + less (少/沒有)。快沒有呼吸了，也就是「氣喘吁吁的」。' },
+            { en: 'rise', zh: ['上升 (ㄕㄤˋ ㄕㄥ)', '升起 (ㄕㄥ ㄑㄧˇ)'], mnemonic: '聽起來像 rice (米飯)。煮飯的時候，熱蒸氣會從鍋子裡「升起」。' },
+            { en: 'silver', zh: ['銀色 (ㄧㄣˊ ㄙㄜˋ)', '銀 (ㄧㄣˊ)'], mnemonic: '聽起來像 river (河流)。月光照在河流上，閃爍著「銀色」的光芒。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -284,8 +319,12 @@
                 const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
                 window.speechSynthesis.speak(utterance);
-            } else {
-                alert("很抱歉，您的瀏覽器目前不支援語音朗讀功能。");
+            }
+        }
+
+        function speakCurrentExamWord() {
+            if (questions[currentQuestion] && !isWaitingToContinue) {
+                speakWord(questions[currentQuestion].en);
             }
         }
 
@@ -335,11 +374,13 @@
             listContainer.innerHTML = '';
 
             words.forEach((word, index) => {
+                // 將陣列轉換成字串顯示 (用 / 隔開)
+                const zhText = word.zh.join('<br> / ');
                 const rowContainer = document.createElement('div');
                 rowContainer.className = 'practice-row-container';
                 rowContainer.innerHTML = `
                     <div class="practice-row">
-                        <div class="col-zh">${word.zh}</div>
+                        <div class="col-zh">${zhText}</div>
                         <div class="col-input">
                             <input type="text" class="practice-input" id="p-input-${index}" placeholder="拼寫..." autocomplete="off">
                             <div class="card-btns">
@@ -359,7 +400,7 @@
             });
         }
 
-        // 單題批改與顯示答案
+        // 練習模式單題批改
         function toggleSingleAnswer(index) {
             const ansEl = document.getElementById(`ans-${index}`);
             const inputEl = document.getElementById(`p-input-${index}`);
@@ -385,7 +426,7 @@
             }
         }
 
-        // 全域批改
+        // 練習模式全域批改
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
@@ -437,6 +478,31 @@
         let wrongWords = [];
         let isWaitingToContinue = false;
 
+        // 產生選擇題選項（混淆器）
+        function generateOptions(correctZhs, currentEn) {
+            let options = [...correctZhs]; // 放入所有正確選項
+            let allOtherZhs = [];
+            
+            // 抓取其他字的所有意思
+            words.forEach(w => {
+                if (w.en !== currentEn) {
+                    allOtherZhs.push(...w.zh);
+                }
+            });
+            shuffle(allOtherZhs); // 洗牌錯誤選項
+            
+            // 補足至少 4 個選項（如果該單字本身正確意思就有3個，就變成 3+1=4個選項）
+            let targetCount = Math.max(4, correctZhs.length + 1);
+            while (options.length < targetCount && allOtherZhs.length > 0) {
+                let distractor = allOtherZhs.pop();
+                if (!options.includes(distractor)) {
+                    options.push(distractor);
+                }
+            }
+            shuffle(options); // 最後再把全部選項洗牌一次
+            return options;
+        }
+
         function startGame(wordList) {
             let listToUse = wordList && Array.isArray(wordList) && wordList.length > 0 ? wordList : words;
             
@@ -485,10 +551,25 @@
             answerInput.disabled = false; 
             answerInput.value = '';
             
-            document.getElementById('question').innerHTML = `輸入 <b>"${q.zh}"</b> 的英文：`;
+            document.getElementById('question-number').textContent = `第 ${currentQuestion + 1} 題 / 共 ${totalQuestions} 題`;
             document.getElementById('exam-result').textContent = '';
+            
+            // 產生選擇題 UI
+            const optionsDiv = document.getElementById('exam-options');
+            optionsDiv.innerHTML = '<div style="color:#aaa; font-size:14px; margin-bottom:10px;">2. 請勾選所有正確的意思 (可能不只一個)：</div>';
+            const options = generateOptions(q.zh, q.en);
+            options.forEach((opt, idx) => {
+                optionsDiv.innerHTML += `
+                    <label class="exam-checkbox-label">
+                        <input type="checkbox" value="${opt}" class="exam-checkbox"> ${opt}
+                    </label>
+                `;
+            });
+            
             updateScore();
             
+            // 自動播放語音提示
+            setTimeout(() => { speakCurrentExamWord(); }, 300);
             setTimeout(() => { answerInput.focus(); }, 100);
         }
 
@@ -504,21 +585,38 @@
             const q = questions[currentQuestion];
             const correctAnswer = q.en.toLowerCase();
             const submitBtn = document.getElementById('exam-submit');
+            
+            // 檢查多選題
+            const checkboxes = document.querySelectorAll('.exam-checkbox');
+            const selectedOptions = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+            const correctZhs = q.zh;
+            
+            const isSpellingCorrect = userAnswer === correctAnswer;
+            const isMeaningCorrect = selectedOptions.length === correctZhs.length && correctZhs.every(zh => selectedOptions.includes(zh));
 
-            if (userAnswer === correctAnswer) {
+            if (isSpellingCorrect && isMeaningCorrect) {
                 score++;
-                document.getElementById('exam-result').textContent = '✅ 完全正確！';
+                document.getElementById('exam-result').textContent = '✅ 拼寫與意思完全正確！';
                 document.getElementById('exam-result').style.color = '#00e676';
                 
                 setTimeout(() => {
                     currentQuestion++;
                     nextQuestion();
-                }, 800);
+                }, 1000);
             } else {
                 answerInput.disabled = true; 
+                checkboxes.forEach(cb => cb.disabled = true); // 鎖定多選題
                 isWaitingToContinue = true;
                 
-                document.getElementById('exam-result').textContent = `❌ 錯誤。正確答案是：${q.en}`;
+                let errorMsg = '❌ 錯誤。<br>';
+                if (!isSpellingCorrect) {
+                    errorMsg += `正確拼寫是：<span style="color:#fff;">${q.en}</span><br>`;
+                }
+                if (!isMeaningCorrect) {
+                    errorMsg += `正確意思是：<span style="color:#fff;">${correctZhs.join(' / ')}</span>`;
+                }
+                
+                document.getElementById('exam-result').innerHTML = errorMsg;
                 document.getElementById('exam-result').style.color = '#ff1744';
                 
                 const mnemonicEl = document.getElementById('mnemonic');
@@ -530,20 +628,22 @@
                 
                 submitBtn.textContent = '下一題 ⏭';
                 submitBtn.className = 'exam-btn exam-btn-next';
-                wrongWords.push({ zh: q.zh, en: q.en, user: userAnswer });
+                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.join(' / ') });
             }
             updateScore();
         }
 
         function updateScore() {
-            document.getElementById('score').textContent = `分數: ${score} / ${totalQuestions} (目前進度: 第 ${currentQuestion + 1} 題)`;
+            document.getElementById('score').textContent = `目前總分: ${score}`;
         }
 
         function endGame() {
             document.getElementById('mnemonic').style.display = 'none';
             document.getElementById('question').textContent = '🎯 測驗結束！';
+            document.getElementById('question-number').textContent = '';
             
             document.getElementById('exam-answer').style.display = 'none';
+            document.getElementById('exam-options').style.display = 'none'; // 隱藏選擇題區塊
             document.getElementById('exam-submit').style.display = 'none';
             
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
@@ -552,15 +652,16 @@
             
             const summaryDiv = document.getElementById('wrong-words-summary');
             if (score === totalQuestions) {
-                summaryDiv.innerHTML = '<h3 style="color:#00e676; margin:0;">🎉 太棒了！你全部答對，完美過關！</h3>';
+                summaryDiv.innerHTML = '<h3 style="color:#00e676; margin:0;">🎉 太棒了！拼寫與中文全對，完美過關！</h3>';
                 summaryDiv.style.display = 'block';
             } else {
                 let html = '<h3 style="color:#ff1744; margin-top:0;">📝 錯題總結報告：</h3>';
                 wrongWords.forEach((w, idx) => {
                     html += `<div class="summary-item">
-                        <b>${idx + 1}. ${w.zh}</b><br>
-                        ✅ 正確答案：<span style="color:#00e676;">${w.en}</span><br>
-                        ❌ 你的輸入：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span>
+                        <b>${idx + 1}. 正確答案：<span style="color:#00e676;">${w.en}</span></b><br>
+                        ✅ 正確意思：${w.zh}<br>
+                        ❌ 你的拼寫：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span><br>
+                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh || '(未選擇)'}</span>
                     </div>`;
                 });
                 summaryDiv.innerHTML = html;
@@ -574,9 +675,13 @@
         document.getElementById('exam-answer').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkExamAnswer();
         });
-        document.getElementById('exam-restart').addEventListener('click', () => startGame(words));
+        document.getElementById('exam-restart').addEventListener('click', () => {
+            document.getElementById('exam-options').style.display = 'block';
+            startGame(words);
+        });
         document.getElementById('exam-retest').addEventListener('click', () => {
             if (wrongWords.length > 0) {
+                document.getElementById('exam-options').style.display = 'block';
                 const retestWords = words.filter(w => wrongWords.some(ww => ww.en === w.en));
                 startGame(retestWords);
             }
