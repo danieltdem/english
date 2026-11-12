@@ -292,25 +292,19 @@
     </div>
 
     <script>
-        // 注意：為了支援多選題，現在 zh 欄位變成了「陣列 (Array)」
         const words = [
-            { en: 'faithful', zh: ['忠誠的 (ㄓㄨㄥ ㄔㄥˊ ㄉㄜ˙)'], mnemonic: 'faith (信仰/忠誠) + ful (充滿的)。充滿信仰也就是忠誠的。' },
-            { en: 'harmless', zh: ['無害的 (ㄨˊ ㄏㄞˋ ㄉㄜ˙)'], mnemonic: 'harm (傷害) + less (無)。沒有傷害的，就是無害的。' },
-            { en: 'raise', zh: ['舉起 (ㄐㄩˇ ㄑㄧˇ)', '增加 (ㄗㄥ ㄐㄧㄚ)', '飼養 (ㄙˋ ㄧㄤˇ)'], mnemonic: '聽起來像 rain (雨) + se。植物需要雨水才能被「飼養」長大並「舉起」枝葉。' },
-            { en: 'village', zh: ['村莊 (ㄘㄨㄣ ㄓㄨㄤ)'], mnemonic: 'villa (別墅) + age (時代)。很多古老別墅聚集的地方就是村莊。' },
-            { en: 'parrot', zh: ['鸚鵡 (ㄧㄥ ㄨˇ)'], mnemonic: '聽起來像 carrot (胡蘿蔔)。這隻鸚鵡非常喜歡吃胡蘿蔔。' },
-            { en: 'range', zh: ['範圍 (ㄈㄢˋ ㄨㄟˊ)'], mnemonic: '聽起來像 rain (雨) + ge。氣象局預報了這場雨的降雨「範圍」。' },
-            { en: 'branch', zh: ['樹枝 (ㄕㄨˋ ㄓ)', '分支 (ㄈㄣ ㄓ)'], mnemonic: '聽起來像 bench (長椅)。想像一張用粗壯「樹枝」做成的木製長椅。' },
-            { en: 'through', zh: ['穿過 (ㄔㄨㄢ ㄍㄨㄛˋ)', '透過 (ㄊㄡˋ ㄍㄨㄛˋ)'], mnemonic: '與 throw (丟) 拼法相似。把球丟「穿過」窗戶。' },
-            { en: 'junk', zh: ['垃圾 (ㄌㄜˋ ㄙㄜˋ)', '廢棄物 (ㄈㄟˋ ㄑㄧˋ ㄨˋ)'], mnemonic: '聽起來像 jump (跳)。這些「垃圾」多到連跳都跳不過去。' },
-            { en: 'wisely', zh: ['明智地 (ㄇㄧㄥˊ ㄓˋ ㄉㄜ˙)'], mnemonic: 'wise (明智的) + ly (副詞字尾)。以明智的方式做事。' },
-            { en: 'image', zh: ['影像 (ㄧㄥˇ ㄒㄧㄤˋ)', '形象 (ㄒㄧㄥˊ ㄒㄧㄤˋ)'], mnemonic: 'imagine (想像) 的名詞形式。在腦海中想像出的「影像」或「形象」。' },
-            { en: 'mural', zh: ['壁畫 (ㄅㄧˋ ㄏㄨㄚˋ)'], mnemonic: 'mur (牆壁, 來源如拉丁文) + al。畫在牆壁上的圖畫就是壁畫。' },
-            { en: 'attack', zh: ['攻擊 (ㄍㄨㄥ ㄐㄧˊ)'], mnemonic: 'at (對著) + tack (釘子)。對著敵人丟釘子發起「攻擊」。' },
-            { en: 'troop', zh: ['軍隊 (ㄐㄩㄣ ㄉㄨㄟˋ)', '部隊 (ㄅㄨˋ ㄉㄨㄟˋ)'], mnemonic: '聽起來像 loop (迴圈)。「部隊」在操場上繞著迴圈行軍。' },
-            { en: 'breathless', zh: ['氣喘吁吁的 (ㄑㄧˋ ㄔㄨㄢˇ ㄒㄩ ㄒㄩ ㄉㄜ˙)'], mnemonic: 'breath (呼吸) + less (少/沒有)。快沒有呼吸了，也就是「氣喘吁吁的」。' },
-            { en: 'rise', zh: ['上升 (ㄕㄤˋ ㄕㄥ)', '升起 (ㄕㄥ ㄑㄧˇ)'], mnemonic: '聽起來像 rice (米飯)。煮飯的時候，熱蒸氣會從鍋子裡「升起」。' },
-            { en: 'silver', zh: ['銀色 (ㄧㄣˊ ㄙㄜˋ)', '銀 (ㄧㄣˊ)'], mnemonic: '聽起來像 river (河流)。月光照在河流上，閃爍著「銀色」的光芒。' }
+            { en: 'result', zh: ['結果 (ㄐㄧㄝˊ ㄍㄨㄛˇ)'], mnemonic: 're (再) + sult (跳)。事情發生後跳出來的最終狀態，也就是結果。' },
+            { en: 'tourist', zh: ['遊客 (ㄧㄡˊ ㄎㄜˋ)', '觀光客 (ㄍㄨㄢ ㄍㄨㄤ ㄎㄜˋ)'], mnemonic: 'tour (旅遊) + ist (的人)。去旅行的人就是遊客。' },
+            { en: 'heritage', zh: ['遺產 (ㄧˊ ㄔㄢˇ)', '傳統 (ㄔㄨㄢˊ ㄊㄨㄥˇ)'], mnemonic: 'herit (繼承) + age。從祖先那裡繼承下來的東西，就是遺產或傳統。' },
+            { en: 'interested', zh: ['感興趣的 (ㄍㄢˇ ㄒㄧㄥˋ ㄑㄩˋ ㄉㄜ˙)'], mnemonic: 'interest (興趣) + ed (形容詞字尾)。對某事物感到有興趣的。' },
+            { en: 'material', zh: ['材料 (ㄘㄞˊ ㄌㄧㄠˋ)', '物質 (ㄨˋ ㄓˊ)'], mnemonic: 'mater (母親/來源) + ial。構成事物的來源，也就是材料或物質。' },
+            { en: 'frightful', zh: ['可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)'], mnemonic: 'fright (驚嚇) + ful (充滿)。充滿驚嚇的，令人覺得非常可怕。' },
+            { en: 'plunge', zh: ['投入 (ㄊㄡˊ ㄖㄨˋ)', '暴跌 (ㄅㄠˋ ㄉㄧㄝˊ)', '跳入 (ㄊㄧㄠˋ ㄖㄨˋ)'], mnemonic: '聽起來像 plug (插頭)。把插頭用力「插入/投入」插座裡。' },
+            { en: 'success', zh: ['成功 (ㄔㄥˊ ㄍㄨㄥ)'], mnemonic: 'suc (在...之後) + cess (走)。堅持走到最後，就會獲得成功。' },
+            { en: 'limb', zh: ['肢體 (ㄓ ㄊㄧˇ)', '樹枝 (ㄕㄨˋ ㄓ)'], mnemonic: '聽起來像 climb (攀爬)。攀爬樹木的時候，需要用到你的「肢體」去抓「樹枝」。' },
+            { en: 'certainly', zh: ['必定 (ㄅㄧˋ ㄉㄧㄥˋ)', '當然 (ㄉㄤ ㄖㄢˊ)'], mnemonic: 'certain (確定的) + ly (副詞字尾)。非常確定地，也就是必定或當然。' },
+            { en: 'jumble', zh: ['混亂 (ㄏㄨㄣˋ ㄌㄨㄢˋ)', '摻雜 (ㄘㄢ ㄗㄚˊ)'], mnemonic: 'jump (跳) + tumble (跌倒)。大家跳來跳去又跌倒撞在一起，場面一片「混亂」。' },
+            { en: 'harsh', zh: ['嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', '刺耳的 (ㄘˋ ㄦˇ ㄉㄜ˙)'], mnemonic: '聽起來像 hard (困難/堅硬) + sh (噓聲)。用堅硬無情的態度要求別人，非常「嚴厲」。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -374,7 +368,6 @@
             listContainer.innerHTML = '';
 
             words.forEach((word, index) => {
-                // 將陣列轉換成字串顯示 (用 / 隔開)
                 const zhText = word.zh.join('<br> / ');
                 const rowContainer = document.createElement('div');
                 rowContainer.className = 'practice-row-container';
@@ -400,7 +393,6 @@
             });
         }
 
-        // 練習模式單題批改
         function toggleSingleAnswer(index) {
             const ansEl = document.getElementById(`ans-${index}`);
             const inputEl = document.getElementById(`p-input-${index}`);
@@ -426,7 +418,6 @@
             }
         }
 
-        // 練習模式全域批改
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
@@ -478,28 +469,25 @@
         let wrongWords = [];
         let isWaitingToContinue = false;
 
-        // 產生選擇題選項（混淆器）
         function generateOptions(correctZhs, currentEn) {
-            let options = [...correctZhs]; // 放入所有正確選項
+            let options = [...correctZhs]; 
             let allOtherZhs = [];
             
-            // 抓取其他字的所有意思
             words.forEach(w => {
                 if (w.en !== currentEn) {
                     allOtherZhs.push(...w.zh);
                 }
             });
-            shuffle(allOtherZhs); // 洗牌錯誤選項
+            shuffle(allOtherZhs); 
             
-            // 補足至少 4 個選項（如果該單字本身正確意思就有3個，就變成 3+1=4個選項）
-            let targetCount = Math.max(4, correctZhs.length + 1);
+            let targetCount = Math.max(4, correctZhs.length + 2); // 至少混淆2個錯誤選項
             while (options.length < targetCount && allOtherZhs.length > 0) {
                 let distractor = allOtherZhs.pop();
                 if (!options.includes(distractor)) {
                     options.push(distractor);
                 }
             }
-            shuffle(options); // 最後再把全部選項洗牌一次
+            shuffle(options);
             return options;
         }
 
@@ -554,7 +542,6 @@
             document.getElementById('question-number').textContent = `第 ${currentQuestion + 1} 題 / 共 ${totalQuestions} 題`;
             document.getElementById('exam-result').textContent = '';
             
-            // 產生選擇題 UI
             const optionsDiv = document.getElementById('exam-options');
             optionsDiv.innerHTML = '<div style="color:#aaa; font-size:14px; margin-bottom:10px;">2. 請勾選所有正確的意思 (可能不只一個)：</div>';
             const options = generateOptions(q.zh, q.en);
@@ -568,7 +555,6 @@
             
             updateScore();
             
-            // 自動播放語音提示
             setTimeout(() => { speakCurrentExamWord(); }, 300);
             setTimeout(() => { answerInput.focus(); }, 100);
         }
@@ -586,7 +572,6 @@
             const correctAnswer = q.en.toLowerCase();
             const submitBtn = document.getElementById('exam-submit');
             
-            // 檢查多選題
             const checkboxes = document.querySelectorAll('.exam-checkbox');
             const selectedOptions = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
             const correctZhs = q.zh;
@@ -605,7 +590,7 @@
                 }, 1000);
             } else {
                 answerInput.disabled = true; 
-                checkboxes.forEach(cb => cb.disabled = true); // 鎖定多選題
+                checkboxes.forEach(cb => cb.disabled = true);
                 isWaitingToContinue = true;
                 
                 let errorMsg = '❌ 錯誤。<br>';
@@ -628,7 +613,7 @@
                 
                 submitBtn.textContent = '下一題 ⏭';
                 submitBtn.className = 'exam-btn exam-btn-next';
-                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.join(' / ') });
+                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.length > 0 ? selectedOptions.join(' / ') : '(未選擇任何意思)' });
             }
             updateScore();
         }
@@ -643,7 +628,7 @@
             document.getElementById('question-number').textContent = '';
             
             document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-options').style.display = 'none'; // 隱藏選擇題區塊
+            document.getElementById('exam-options').style.display = 'none';
             document.getElementById('exam-submit').style.display = 'none';
             
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
@@ -661,7 +646,7 @@
                         <b>${idx + 1}. 正確答案：<span style="color:#00e676;">${w.en}</span></b><br>
                         ✅ 正確意思：${w.zh}<br>
                         ❌ 你的拼寫：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span><br>
-                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh || '(未選擇)'}</span>
+                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh}</span>
                     </div>`;
                 });
                 summaryDiv.innerHTML = html;
