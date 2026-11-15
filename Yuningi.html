@@ -293,18 +293,32 @@
 
     <script>
         const words = [
-            { en: 'result', zh: ['結果 (ㄐㄧㄝˊ ㄍㄨㄛˇ)'], mnemonic: 're (再) + sult (跳)。事情發生後跳出來的最終狀態，也就是結果。' },
-            { en: 'tourist', zh: ['遊客 (ㄧㄡˊ ㄎㄜˋ)', '觀光客 (ㄍㄨㄢ ㄍㄨㄤ ㄎㄜˋ)'], mnemonic: 'tour (旅遊) + ist (的人)。去旅行的人就是遊客。' },
-            { en: 'heritage', zh: ['遺產 (ㄧˊ ㄔㄢˇ)', '傳統 (ㄔㄨㄢˊ ㄊㄨㄥˇ)'], mnemonic: 'herit (繼承) + age。從祖先那裡繼承下來的東西，就是遺產或傳統。' },
-            { en: 'interested', zh: ['感興趣的 (ㄍㄢˇ ㄒㄧㄥˋ ㄑㄩˋ ㄉㄜ˙)'], mnemonic: 'interest (興趣) + ed (形容詞字尾)。對某事物感到有興趣的。' },
-            { en: 'material', zh: ['材料 (ㄘㄞˊ ㄌㄧㄠˋ)', '物質 (ㄨˋ ㄓˊ)'], mnemonic: 'mater (母親/來源) + ial。構成事物的來源，也就是材料或物質。' },
-            { en: 'frightful', zh: ['可怕的 (ㄎㄜˇ ㄆㄚˋ ㄉㄜ˙)'], mnemonic: 'fright (驚嚇) + ful (充滿)。充滿驚嚇的，令人覺得非常可怕。' },
-            { en: 'plunge', zh: ['投入 (ㄊㄡˊ ㄖㄨˋ)', '暴跌 (ㄅㄠˋ ㄉㄧㄝˊ)', '跳入 (ㄊㄧㄠˋ ㄖㄨˋ)'], mnemonic: '聽起來像 plug (插頭)。把插頭用力「插入/投入」插座裡。' },
-            { en: 'success', zh: ['成功 (ㄔㄥˊ ㄍㄨㄥ)'], mnemonic: 'suc (在...之後) + cess (走)。堅持走到最後，就會獲得成功。' },
-            { en: 'limb', zh: ['肢體 (ㄓ ㄊㄧˇ)', '樹枝 (ㄕㄨˋ ㄓ)'], mnemonic: '聽起來像 climb (攀爬)。攀爬樹木的時候，需要用到你的「肢體」去抓「樹枝」。' },
-            { en: 'certainly', zh: ['必定 (ㄅㄧˋ ㄉㄧㄥˋ)', '當然 (ㄉㄤ ㄖㄢˊ)'], mnemonic: 'certain (確定的) + ly (副詞字尾)。非常確定地，也就是必定或當然。' },
-            { en: 'jumble', zh: ['混亂 (ㄏㄨㄣˋ ㄌㄨㄢˋ)', '摻雜 (ㄘㄢ ㄗㄚˊ)'], mnemonic: 'jump (跳) + tumble (跌倒)。大家跳來跳去又跌倒撞在一起，場面一片「混亂」。' },
-            { en: 'harsh', zh: ['嚴厲的 (ㄧㄢˊ ㄌㄧˋ ㄉㄜ˙)', '刺耳的 (ㄘˋ ㄦˇ ㄉㄜ˙)'], mnemonic: '聽起來像 hard (困難/堅硬) + sh (噓聲)。用堅硬無情的態度要求別人，非常「嚴厲」。' }
+            { en: 'soldier', zh: ['士兵 (ㄕˋ ㄅㄧㄥ)'], mnemonic: 'sold (賣) + ier (人)。為國家賣命的人就是士兵。' },
+            { en: 'groan', zh: ['呻吟 (ㄕㄣ ㄧㄣˊ)'], mnemonic: '聽起來像 grown (長大)。長大的過程中總是伴隨著痛苦的呻吟。' },
+            { en: 'purpose', zh: ['目的 (ㄇㄨˋ ㄉㄧˋ)'], mnemonic: 'pur (向前) + pose (放)。放在前方讓你去追求的，就是目的。' },
+            { en: 'mild', zh: ['溫和的 (ㄨㄣ ㄏㄜˊ ㄉㄜ˙)', '輕微的 (ㄑㄧㄥ ㄨㄟˊ ㄉㄜ˙)'], mnemonic: '聽起來像 milk (牛奶)。牛奶喝起來給人溫和的感覺。' },
+            { en: 'racket', zh: ['球拍 (ㄑㄧㄡˊ ㄆㄞ)', '喧鬧 (ㄒㄩㄢ ㄋㄠˋ)'], mnemonic: 'rack (架子)。用網子和架子做成，打球會發出喧鬧聲的球拍。' },
+            { en: 'pale', zh: ['蒼白的 (ㄘㄤ ㄅㄞˊ ㄉㄜ˙)'], mnemonic: '聽起來像 pail (水桶)。提著重水桶累到臉色蒼白。' },
+            { en: 'design', zh: ['設計 (ㄕㄜˋ ㄐㄧˋ)'], mnemonic: 'de (向下) + sign (畫記號)。把腦海中的想法畫下來，就是設計。' },
+            { en: 'force', zh: ['力量 (ㄌㄧˋ ㄌㄧㄤˋ)', '強迫 (ㄑㄧㄤˇ ㄆㄛˋ)'], mnemonic: '聽起來像 fall (落下)。蘋果被地心引力這股力量強迫落下。' },
+            { en: 'pronouns', zh: ['代名詞 (ㄉㄞˋ ㄇㄧㄥˊ ㄘˊ)'], mnemonic: 'pro (代替) + nouns (名詞)。用來代替名詞的詞就是代名詞。' },
+            { en: 'mouse', zh: ['老鼠 (ㄌㄠˇ ㄕㄨˇ)', '滑鼠 (ㄏㄨㄚˊ ㄕㄨˇ)'], mnemonic: '電腦用的滑鼠，長得就像一隻有長長尾巴的老鼠。' },
+            { en: 'port', zh: ['港口 (ㄍㄤˇ ㄎㄡˇ)'], mnemonic: 'import (進口) 和 export (出口) 的貨物都需要經過港口。' },
+            { en: 'volunteer', zh: ['志願者 (ㄓˋ ㄩㄢˋ ㄓㄜˇ)', '自願 (ㄗˋ ㄩㄢˋ)'], mnemonic: 'volunt (意願) + eer (人)。憑著自身意願去幫忙的人。' },
+            { en: 'calendar', zh: ['日曆 (ㄖˋ ㄌㄧˋ)'], mnemonic: '聽起來像 call (呼叫) + endar (結尾)。到了年底就要呼叫新的日曆。' },
+            { en: 'patch', zh: ['補丁 (ㄅㄨˇ ㄉㄧㄥ)', '修補 (ㄒㄧㄡ ㄅㄨˇ)'], mnemonic: '聽起來像 catch (抓住)。用一塊布抓住衣服的破洞，就是打補丁。' },
+            { en: 'unusual', zh: ['不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)'], mnemonic: 'un (不) + usual (尋常的)。加在一起就是不尋常的。' },
+            { en: 'spotless', zh: ['無瑕的 (ㄨˊ ㄒㄧㄚˊ ㄉㄜ˙)', '一塵不染的 (ㄧˋ ㄔㄣˊ ㄅㄨˋ ㄖㄢˇ ㄉㄜ˙)'], mnemonic: 'spot (污點) + less (沒有)。沒有任何污點，就是一塵不染的。' },
+            { en: 'lodge', zh: ['小屋 (ㄒㄧㄠˇ ㄨ)', '安頓 (ㄢ ㄉㄨㄣˋ)'], mnemonic: '聽起來像 log (原木)。用原木蓋成的山林小屋，讓人安頓休息。' },
+            { en: 'attic', zh: ['閣樓 (ㄍㄜˊ ㄌㄡˊ)'], mnemonic: '聽起來像 attack (攻擊)。躲在屋頂的閣樓裡，準備從高處發動攻擊。' },
+            { en: 'landform', zh: ['地形 (ㄉㄧˋ ㄒㄧㄥˊ)'], mnemonic: 'land (土地) + form (形狀)。土地的形狀，也就是地形。' },
+            { en: 'Easter', zh: ['復活節 (ㄈㄨˋ ㄏㄨㄛˊ ㄐㄧㄝˊ)'], mnemonic: 'East (東方)。太陽從東方升起，象徵重生與復活。' },
+            { en: 'brain', zh: ['大腦 (ㄉㄚˋ ㄋㄠˇ)'], mnemonic: '聽起來像 rain (雨)。想像大腦裡下了一場知識的雨 (brainstorming)。' },
+            { en: 'bunch', zh: ['一束 (ㄧˊ ㄕㄨˋ)', '一群 (ㄧˋ ㄑㄩㄣˊ)'], mnemonic: '聽起來像 punch (出拳)。把一群人綁成一束，像拳頭一樣緊握。' },
+            { en: 'hang', zh: ['懸掛 (ㄒㄩㄢˊ ㄍㄨㄚˋ)'], mnemonic: '聽起來像 hand (手)。用手把東西懸掛在牆上。' },
+            { en: 'disagree', zh: ['不同意 (ㄅㄨˋ ㄊㄨㄥˊ ㄧˋ)'], mnemonic: 'dis (不) + agree (同意)。也就是不同意的意思。' },
+            { en: 'manage', zh: ['管理 (ㄍㄨㄢˇ ㄌㄧˇ)', '設法做到 (ㄕㄜˋ ㄈㄚˇ ㄗㄨㄛˋ ㄉㄠˋ)'], mnemonic: 'man (人) + age (年紀)。有年紀和經驗的人，才能好好管理公司。' },
+            { en: 'weight', zh: ['重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)'], mnemonic: 'weigh (秤重) 的名詞形式。秤出來的結果就是重量。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -393,6 +407,7 @@
             });
         }
 
+        // 練習模式單題批改
         function toggleSingleAnswer(index) {
             const ansEl = document.getElementById(`ans-${index}`);
             const inputEl = document.getElementById(`p-input-${index}`);
@@ -418,6 +433,7 @@
             }
         }
 
+        // 練習模式全域批改
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
@@ -469,8 +485,9 @@
         let wrongWords = [];
         let isWaitingToContinue = false;
 
+        // 產生選擇題選項（混淆器）
         function generateOptions(correctZhs, currentEn) {
-            let options = [...correctZhs]; 
+            let options = [...correctZhs];
             let allOtherZhs = [];
             
             words.forEach(w => {
@@ -480,7 +497,7 @@
             });
             shuffle(allOtherZhs); 
             
-            let targetCount = Math.max(4, correctZhs.length + 2); // 至少混淆2個錯誤選項
+            let targetCount = Math.max(4, correctZhs.length + 1);
             while (options.length < targetCount && allOtherZhs.length > 0) {
                 let distractor = allOtherZhs.pop();
                 if (!options.includes(distractor)) {
@@ -542,6 +559,7 @@
             document.getElementById('question-number').textContent = `第 ${currentQuestion + 1} 題 / 共 ${totalQuestions} 題`;
             document.getElementById('exam-result').textContent = '';
             
+            // 產生選擇題 UI
             const optionsDiv = document.getElementById('exam-options');
             optionsDiv.innerHTML = '<div style="color:#aaa; font-size:14px; margin-bottom:10px;">2. 請勾選所有正確的意思 (可能不只一個)：</div>';
             const options = generateOptions(q.zh, q.en);
@@ -613,7 +631,7 @@
                 
                 submitBtn.textContent = '下一題 ⏭';
                 submitBtn.className = 'exam-btn exam-btn-next';
-                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.length > 0 ? selectedOptions.join(' / ') : '(未選擇任何意思)' });
+                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.join(' / ') });
             }
             updateScore();
         }
@@ -628,7 +646,7 @@
             document.getElementById('question-number').textContent = '';
             
             document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-options').style.display = 'none';
+            document.getElementById('exam-options').style.display = 'none'; 
             document.getElementById('exam-submit').style.display = 'none';
             
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
@@ -646,7 +664,7 @@
                         <b>${idx + 1}. 正確答案：<span style="color:#00e676;">${w.en}</span></b><br>
                         ✅ 正確意思：${w.zh}<br>
                         ❌ 你的拼寫：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span><br>
-                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh}</span>
+                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh || '(未選擇)'}</span>
                     </div>`;
                 });
                 summaryDiv.innerHTML = html;
