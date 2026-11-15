@@ -1,431 +1,1705 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>五年級數學第二單元：倍數與因數大冒險｜互動檢測站</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第 6 單元 重點 2：分配律 錯題特訓測驗</title>
   <style>
+    /* ==========================================================================
+       全域設計變數與基礎重置（純原生 CSS，無任何外部依賴）
+       ========================================================================== */
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
-      --success: #10b981;
-      --danger: #ef4444;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --accent: #f59e0b;
+      --bg-page: #f4f7fb;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --text-main: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #bfdbfe;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --amber-text: #92400e;
+      --amber-accent: #d97706;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --border-light: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.07);
+      --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.14);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --font-sans: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; }
-    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px 16px; }
-    .container { max-width: 860px; margin: 0 auto; }
-    header { background: var(--card-bg); padding: 32px 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; text-align: center; }
-    header h1 { font-size: 1.8rem; color: #312e81; margin-bottom: 8px; }
-    header p { color: var(--muted); font-size: 1rem; margin-bottom: 16px; }
-    .badge { display: inline-block; padding: 4px 12px; background: #e0e7ff; color: #3730a3; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin: 4px; }
-    
-    .status-bar { position: sticky; top: 12px; z-index: 100; background: var(--card-bg); padding: 14px 20px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border: 1px solid var(--border); }
-    .progress-track { flex-grow: 1; height: 10px; background: #e2e8f0; border-radius: 999px; margin: 0 16px; overflow: hidden; }
-    .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
-    
-    .card { background: var(--card-bg); border-radius: 14px; padding: 22px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s; }
-    .q-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
-    .q-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 16px; color: #0f172a; }
-    .options { display: flex; flex-direction: column; gap: 10px; }
-    .option-label { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: background 0.15s, border-color 0.15s; font-size: 1rem; }
-    .option-label:hover { background: #f1f5f9; border-color: #cbd5e1; }
-    .option-label input { margin-top: 4px; accent-color: var(--primary); cursor: pointer; }
-    
-    .action-panel { text-align: center; margin: 32px 0 60px; }
-    .btn { padding: 14px 32px; font-size: 1.05rem; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; }
-    .btn-submit { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(79,70,229,0.3); }
-    .btn-submit:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    .btn-reset { background: #e2e8f0; color: #334155; margin-left: 12px; }
-    .btn-reset:hover { background: #cbd5e1; }
-    
-    .score-card { display: none; background: #eef2ff; border: 2px solid #818cf8; border-radius: 16px; padding: 28px; text-align: center; margin-bottom: 24px; animation: fadeIn 0.4s ease; }
-    .score-card h2 { color: #312e81; font-size: 1.8rem; margin-bottom: 10px; }
-    .score-number { font-size: 3rem; font-weight: 800; color: var(--primary); margin: 8px 0; }
-    .score-detail { color: #4338ca; font-size: 1.1rem; }
-    
-    /* 詳解區域 */
-    .explanation-box { display: none; margin-top: 16px; padding: 14px 18px; border-radius: 10px; background: #f8fafc; border-left: 4px solid var(--primary); font-size: 0.95rem; color: #334155; }
-    .explanation-box strong { color: #0f172a; }
-    
-    /* 批改後樣式 */
-    .graded .correct-answer { background: #dcfce7 !important; border-color: var(--success) !important; color: #14532d; font-weight: 600; }
-    .graded .wrong-choice { background: #fee2e2 !important; border-color: var(--danger) !important; color: #7f1d1d; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.65;
+      min-height: 100vh;
+      padding-bottom: 4rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 算式數字等寬對齊，讓學生更容易看清加減乘號與位數 */
+    .math-expr {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
+    }
+
+    /* ==========================================================================
+       主容器版面
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+
+    /* ==========================================================================
+       1. 頂部標題區與可展開/收合的「考前觀念小抄」
+       ========================================================================== */
+    .hero-card {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .unit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 0.65rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-title {
+      font-size: clamp(1.35rem, 3.6vw, 1.85rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 0.45rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: #dbeafe;
+      font-weight: 500;
+    }
+
+    /* 考前觀念小抄折疊卡片 */
+    .cheat-sheet {
+      background-color: var(--amber-bg);
+      border: 2px solid var(--amber-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .cheat-sheet-toggle {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      color: var(--amber-text);
+      min-height: 54px;
+    }
+
+    .cheat-sheet-toggle:hover {
+      background-color: rgba(251, 191, 36, 0.12);
+    }
+
+    .cheat-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .cheat-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #fef3c7;
+      color: var(--amber-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .chevron-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--amber-accent);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .cheat-sheet.is-open .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    .cheat-sheet-body {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px dashed #fcd34d;
+    }
+
+    .cheat-sheet.is-open .cheat-sheet-body {
+      display: block;
+      animation: fadeInDown 0.22s ease;
+    }
+
+    .tip-list {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    .tip-item {
+      background: #ffffff;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.95rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+
+    .tip-num {
+      background: #f59e0b;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.8rem;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .tip-formula {
+      display: inline-block;
+      background: #fef3c7;
+      color: #78350f;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 6px;
+      margin-top: 0.2rem;
+      font-size: 0.92rem;
+    }
+
+    /* ==========================================================================
+       2. 置頂即時進度列與快速跳轉按鈕
+       ========================================================================== */
+    .sticky-progress {
+      position: sticky;
+      top: 0.5rem;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .progress-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .progress-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mode-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .progress-hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .nav-btn {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 0.55rem;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* 作答後變色 */
+    .nav-btn.is-answered {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 交卷後依對錯變色 */
+    .nav-btn.is-correct {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .nav-btn.is-wrong {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       成績單卡片（交卷後顯示）
+       ========================================================================== */
+    .result-card {
+      display: none;
+      background: #ffffff;
+      border: 2px solid var(--primary-border);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.4rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card.is-visible {
+      display: block;
+      animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .badge-excellent {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge-good {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-keep-going {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .score-display {
+      font-size: 3.1rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .score-unit {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-left: 0.2rem;
+    }
+
+    .result-message {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 1.15rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+      max-width: 460px;
+      margin: 0 auto 1.35rem;
+    }
+
+    .stat-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 0.5rem;
+    }
+
+    .stat-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .stat-num.green { color: var(--success); }
+    .stat-num.red { color: var(--danger); }
+    .stat-num.blue { color: var(--primary); }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 0.15rem;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    /* ==========================================================================
+       3. 單選題卡片與選項按鈕
+       ========================================================================== */
+    .questions-list {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .question-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 1.35rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 135px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .question-card.highlight-pulse {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.22);
+    }
+
+    .question-card.graded-correct {
+      border-color: var(--success-border);
+    }
+
+    .question-card.graded-wrong {
+      border-color: var(--danger-border);
+    }
+
+    .question-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .q-meta-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .q-number {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 0.25rem 0.75rem;
+      border-radius: 8px;
+    }
+
+    .q-tag {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .q-status-badge {
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .q-status-badge.correct {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .q-status-badge.wrong {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+    }
+
+    .q-stem {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.65;
+      margin-bottom: 1.05rem;
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-subtle);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-height: 52px;
+      transition: all 0.16s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: #93c5fd;
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: scale(0.995);
+    }
+
+    .option-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: var(--text-secondary);
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      transition: all 0.16s ease;
+    }
+
+    .option-text {
+      font-weight: 600;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+
+    .option-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* 交卷前：已選取樣式 */
+    .option-btn.is-selected {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
+    }
+
+    .option-btn.is-selected .option-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .option-btn.is-selected .option-tag {
+      background: #dbeafe;
+      color: var(--primary);
+    }
+
+    /* 交卷後：正確答案樣式 */
+    .option-btn.is-correct-opt {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: #065f46;
+    }
+
+    .option-btn.is-correct-opt .option-letter {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.is-correct-opt .option-tag {
+      background: #a7f3d0;
+      color: #065f46;
+    }
+
+    /* 交卷後：誤選答案樣式 */
+    .option-btn.is-wrong-opt {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+      color: #991b1b;
+    }
+
+    .option-btn.is-wrong-opt .option-letter {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #ffffff;
+    }
+
+    .option-btn.is-wrong-opt .option-tag {
+      background: #fecaca;
+      color: #991b1b;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* 詳解區塊（交卷後自動展開） */
+    .explanation-box {
+      display: none;
+      margin-top: 1rem;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 0.9rem 1rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .explanation-box.is-visible {
+      display: block;
+      animation: fadeInDown 0.25s ease;
+    }
+
+    .explanation-title {
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ==========================================================================
+       底部按鈕列與通用按鈕樣式
+       ========================================================================== */
+    .bottom-actions {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 0.85rem 1.55rem;
+      font-family: inherit;
+      font-size: 1.02rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 50px;
+      transition: all 0.18s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      transform: translateY(-1px);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    .btn-warning:hover {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 2px solid #cbd5e1;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       溫馨確認提示框（自訂 Modal，絕不使用瀏覽器原生 alert/confirm）
+       ========================================================================== */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.52);
+      backdrop-filter: blur(3px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-dialog {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      max-width: 430px;
+      width: 100%;
+      padding: 1.6rem 1.4rem;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: popIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #d97706;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .modal-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-desc {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.35rem;
+      line-height: 1.6;
+    }
+
+    .modal-unanswered-list {
+      font-weight: 800;
+      color: #d97706;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .modal-actions .btn {
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       動畫定義
+       ========================================================================== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* ==========================================================================
+       手機與平板響應式微調
+       ========================================================================== */
+    @media (max-width: 600px) {
+      .container {
+        padding: 0.85rem 0.75rem 2rem;
+      }
+
+      .hero-card {
+        padding: 1.25rem 1.15rem;
+      }
+
+      .question-card {
+        padding: 1.1rem 1rem;
+        scroll-margin-top: 150px;
+      }
+
+      .q-stem {
+        font-size: 1.02rem;
+      }
+
+      .option-btn {
+        padding: 0.75rem 0.85rem;
+        font-size: 0.96rem;
+      }
+
+      .stats-grid {
+        gap: 0.45rem;
+      }
+
+      .score-display {
+        font-size: 2.6rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🌸 萌萌數學特攻隊：第二單元【倍數與因數】30 題全方位檢測試卷 🌸</h1>
-      <p>涵蓋主題：撲克牌曆法密碼、倍數找法、百數表速判 (2/5/10)、整除與 1 的超能力、彩虹成對找因數、生活應用題</p>
-      <div>
-        <span class="badge">🎯 總題數：30 題</span>
-        <span class="badge">⏱️ 建議時間：35 分鐘</span>
-        <span class="badge">🐾 專屬講義評量</span>
+  <main class="container">
+    <!-- 1. 頂部標題區 -->
+    <header class="hero-card">
+      <div class="unit-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        國小數學・觀念特訓
       </div>
+      <h1 class="hero-title">第 6 單元 重點 2：分配律 錯題特訓測驗</h1>
+      <p class="hero-subtitle">針對學習單上的 4 個易錯觀念設計（共 8 題單選題，滿分 100 分）。</p>
     </header>
 
-    <div class="status-bar">
-      <div>已完成：<span id="answered-count">0</span> / 30 題</div>
-      <div class="progress-track">
-        <div id="progress-fill" class="progress-fill"></div>
-      </div>
-      <span id="progress-percent" style="font-weight: 600; color: var(--primary);">0%</span>
-    </div>
+    <!-- 可展開/收合的「考前觀念小抄」 -->
+    <section class="cheat-sheet is-open" id="cheatSheet">
+      <button type="button" class="cheat-sheet-toggle" id="cheatSheetToggle" aria-expanded="true" aria-controls="cheatSheetBody">
+        <span class="cheat-title-wrap">
+          <span class="cheat-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </span>
+          <span>考前觀念小抄（4 個易錯重點提醒）</span>
+        </span>
+        <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
 
-    <div id="score-card" class="score-card">
-      <h2>🏆 測驗評量結果公布 🏆</h2>
-      <div class="score-number" id="final-score">0 分</div>
-      <p class="score-detail" id="score-desc"></p>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-list"></div>
-      <div class="action-panel">
-        <button type="button" class="btn btn-submit" id="submit-btn" onclick="submitQuiz()">送出試卷並查看詳解</button>
-        <button type="button" class="btn btn-reset" id="reset-btn" onclick="resetQuiz()">重新挑戰</button>
+      <div class="cheat-sheet-body" id="cheatSheetBody">
+        <ul class="tip-list">
+          <li class="tip-item">
+            <span class="tip-num">1</span>
+            <div>
+              <strong>提出相同乘數時，括號內要保留原本的「＋」或「－」</strong>，千萬別把減號看成乘號！<br />
+              <span class="tip-formula math-expr">如：39×19－39×9 ＝ 39×(19－9) ＝ 39×10</span>
+            </div>
+          </li>
+          <li class="tip-item">
+            <span class="tip-num">2</span>
+            <div>
+              <strong>拆成整百減零頭後，一定要把乘數「分配」給括號裡的兩個數</strong>，零頭也要乘到喔！<br />
+              <span class="tip-formula math-expr">如：199×15 ＝ (200－1)×15 ＝ 200×15－1×15</span>
+            </div>
+          </li>
+          <li class="tip-item">
+            <span class="tip-num">3</span>
+            <div>
+              <strong>拆成整百加零頭後，兩邊都要分別相乘再相加</strong>，算完記得核對位數與抄寫。<br />
+              <span class="tip-formula math-expr">如：406×12 ＝ 400×12＋6×12 ＝ 4800＋72</span>
+            </div>
+          </li>
+          <li class="tip-item">
+            <span class="tip-num">4</span>
+            <div>
+              <strong>遇到 699、799 這種「差 1 到整百」的價錢</strong>，多算的 1 元要記得乘上總件數再扣掉！<br />
+              <span class="tip-formula math-expr">如：699×7 ＝ 700×7－1×7</span>
+            </div>
+          </li>
+        </ul>
       </div>
-    </form>
+    </section>
+
+    <!-- 2. 置頂即時進度列 -->
+    <nav class="sticky-progress" aria-label="作答進度與題號導覽">
+      <div class="progress-top">
+        <div class="progress-label">
+          <span id="progressText">已作答 0 / 8 題</span>
+          <span class="mode-pill" id="modeBadge" style="display: none;">錯題重練模式</span>
+        </div>
+        <span class="progress-hint" id="progressHint">點選已選選項可取消選擇</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="nav-pills" id="navPills"></div>
+    </nav>
+
+    <!-- 成績單卡片（交卷後顯示） -->
+    <section class="result-card" id="resultCard" aria-live="polite">
+      <div class="result-badge badge-excellent" id="resultBadge">表現超棒！</div>
+      <div class="score-display math-expr"><span id="scoreValue">100</span><span class="score-unit">分</span></div>
+      <p class="result-message" id="resultMessage">太厲害了！你已經完全掌握分配律的訣竅囉！</p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num blue math-expr" id="statTotal">8</div>
+          <div class="stat-label">測驗題數</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num green math-expr" id="statCorrect">8</div>
+          <div class="stat-label">答對題數</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num red math-expr" id="statWrong">0</div>
+          <div class="stat-label">答錯題數</div>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" class="btn btn-warning" id="btnRetryWrongTop" style="display: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          只重練錯題（<span id="wrongCountText">0</span> 題）
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnResetAllTop">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          全部重新測驗
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. 題目列表容器 -->
+    <section class="questions-list" id="questionsList" aria-label="測驗題目列表"></section>
+
+    <!-- 底部操作按鈕 -->
+    <div class="bottom-actions" id="bottomActions">
+      <button type="button" class="btn btn-primary" id="btnSubmit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        交卷看成績
+      </button>
+    </div>
+  </main>
+
+  <!-- 溫馨確認提示框（尚未作答完畢時跳出） -->
+  <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h2 class="modal-title" id="modalTitle">還有題目還沒作答喔！</h2>
+      <p class="modal-desc">
+        你還有 <span class="modal-unanswered-list" id="modalUnansweredCount">0</span> 題尚未作答（第 <span class="modal-unanswered-list" id="modalUnansweredNums"></span> 題）。<br />
+        要先回去檢查寫完，還是直接交卷呢？
+      </p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="btnJumpUnanswered">
+          跳至未作答題目
+        </button>
+        <button type="button" class="btn btn-secondary" id="btnForceSubmit">
+          直接交卷
+        </button>
+      </div>
+    </div>
   </div>
 
   <script>
-    const questions = [
-      {
-        id: 1,
-        title: "一打飲料有 12 瓶，進貨 5 打共有 60 瓶 (12 × 5 = 60)。請問下列敘述何者正確？",
-        options: ["A. 12 是 60 的倍數", "B. 60 是 12 的倍數", "C. 5 是 12 的倍數", "D. 60 是 5 的因數"],
-        ans: 1,
-        exp: "算式 12 × 5 = 60 中，被乘數與乘數皆為整數時，積是兩數的倍數，因此 60 是 12 的倍數，也是 5 的倍數。"
-      },
-      {
-        id: 2,
-        title: "大於 0 的整數中，關於「6 的倍數」有幾個？最小的倍數是誰？",
-        options: ["A. 有 6 個，最小是 1", "B. 有 12 個，最小是 6", "C. 有無限多個，最小是 6", "D. 有無限多個，最小是 0"],
-        ans: 2,
-        exp: "整數有無窮多個，因此某數的倍數可以一直乘下去，有『無限多個』；而任何大於 0 整數最小的倍數就是『自己本身』(6 × 1 = 6)。"
-      },
-      {
-        id: 3,
-        title: "根據乘法交換律，8 × 20 = 160，則 160 是誰的倍數？",
-        options: ["A. 只是 8 的倍數", "B. 只是 20 的倍數", "C. 同時是 8 和 20 的倍數", "D. 不是 8 也不是 20 的倍數"],
-        ans: 2,
-        exp: "因為 8 × 20 = 20 × 8 = 160，根據定義，乘積 160 同時是 8 的倍數，也是 20 的倍數。"
-      },
-      {
-        id: 4,
-        title: "在 100 以內，9 的倍數共有幾個？",
-        options: ["A. 9 個", "B. 10 個", "C. 11 個", "D. 12 個"],
-        ans: 2,
-        exp: "利用除法：100 ÷ 9 = 11...1，商是 11，表示 100 以內有 11 個 9 的倍數 (9, 18, 27... 直到 99)。"
-      },
-      {
-        id: 5,
-        title: "在 120 以內，9 的倍數中「最大」的是多少？",
-        options: ["A. 117", "B. 118", "C. 120", "D. 126"],
-        ans: 0,
-        exp: "120 ÷ 9 = 13... 餘 3。最大倍數為 9 × 13 = 117（或 120 - 3 = 117）。126 已經超過 120。"
-      },
-      {
-        id: 6,
-        title: "要判斷 84 是不是 4 的倍數，下列計算與結論何者正確？",
-        options: ["A. 84 ÷ 4 = 21...0，因為能整除，所以 84 是 4 的倍數", "B. 84 ÷ 4 = 20...4，有餘數所以不是", "C. 84 比 4 大所以一定不是", "D. 84 + 4 = 88，不是整除關係"],
-        ans: 0,
-        exp: "判斷甲是否為乙的倍數，就用甲 ÷ 乙。84 ÷ 4 = 21...0，餘數為 0 代表能整除，所以 84 是 4 的倍數。"
-      },
-      {
-        id: 7,
-        title: "隨堂練習：125 是 3 的倍數嗎？為什麼？",
-        options: ["A. 是，因為個位數是 5", "B. 是，因為 125 ÷ 3 = 41...0", "C. 不是，因為 125 ÷ 3 = 41...餘 2，餘數不為 0", "D. 不是，因為 125 是偶數"],
-        ans: 2,
-        exp: "計算 125 ÷ 3 = 41...餘 2。餘數不為 0 表示無法整除，找不到整數乘以 3 等於 125，因此 125 不是 3 的倍數。"
-      },
-      {
-        id: 8,
-        title: "在百數表中，凡是「2 的倍數（偶數）」，其個位數字必定是哪一組？",
-        options: ["A. 1, 3, 5, 7, 9", "B. 2, 4, 6, 8, 0", "C. 只有 0", "D. 0 或 5"],
-        ans: 1,
-        exp: "2 的倍數即為偶數，特徵是個位數字為 2、4、6、8 或 0。"
-      },
-      {
-        id: 9,
-        title: "一個整數的個位數字是「0 或 5」，它一定是誰的倍數？",
-        options: ["A. 2 的倍數", "B. 3 的倍數", "C. 5 的倍數", "D. 10 的倍數"],
-        ans: 2,
-        exp: "百數表速判特徵：5 的倍數尾數必定是 0 或 5。"
-      },
-      {
-        id: 10,
-        title: "下列哪一個數同時是 2 的倍數、5 的倍數，也是 10 的倍數？",
-        options: ["A. 45", "B. 62", "C. 120", "D. 135"],
-        ans: 2,
-        exp: "個位數字為 0 的整數，同時符合 2 的倍數（偶數）、5 的倍數（尾數 0 或 5）以及 10 的倍數（尾數 0）。"
-      },
-      {
-        id: 11,
-        title: "算式「20 ÷ 5 = 4 ... 0」，下列哪種說法在數學上是正確的？",
-        options: ["A. 5 可以整除 20", "B. 20 可以整除 5", "C. 5 不能整除 20", "D. 4 是 20 的倍數"],
-        ans: 0,
-        exp: "餘數為 0 時，我們說除數可以整除被除數，即『5 可以整除 20』或『20 可以被 5 整除』。"
-      },
-      {
-        id: 12,
-        title: "請問「6 可以整除 62 嗎？」理由是什麼？",
-        options: ["A. 可以，因為 62 ÷ 6 = 10...0", "B. 不可以，因為 62 ÷ 6 = 10...餘 2", "C. 可以，因為十位數字是 6", "D. 不可以，因為 62 是偶數"],
-        ans: 1,
-        exp: "62 ÷ 6 = 10...餘 2，餘數不為 0，表示無法整除，所以 6 不能整除 62。"
-      },
-      {
-        id: 13,
-        title: "「數字 1」的因數超能力是什麼？下列敘述何者完全正確？",
-        options: ["A. 1 只能整除它自己", "B. 1 可以整除任何大於 0 的整數，且 1 是所有正整數最小的因數", "C. 1 是所有數最大的因數", "D. 1 沒有因數"],
-        ans: 1,
-        exp: "任何大於 0 的整數除以 1 都等於自己本身且餘數為 0，因此 1 是所有正整數的因數，也是最小的因數。"
-      },
-      {
-        id: 14,
-        title: "皮皮有 8 顆糖果，每幾顆裝一包時剛好裝完（餘數為 0）？請選出 8 的所有因數：",
-        options: ["A. 1, 2, 4, 8", "B. 2, 4, 8", "C. 1, 8", "D. 1, 2, 3, 4, 8"],
-        ans: 0,
-        exp: "8 ÷ 1 = 8、8 ÷ 2 = 4、8 ÷ 4 = 2、8 ÷ 8 = 1 皆能整除。8 的所有因數為 1, 2, 4, 8 共 4 個。"
-      },
-      {
-        id: 15,
-        title: "老師有 12 張貼紙，每袋裝一樣多且剛好分完。12 的所有因數共有幾個？",
-        options: ["A. 4 個", "B. 5 個", "C. 6 個", "D. 8 個"],
-        ans: 2,
-        exp: "12 的因數配對：1×12、2×6、3×4，共有 1, 2, 3, 4, 6, 12，共 6 個。"
-      },
-      {
-        id: 16,
-        title: "課本習題：算式「18 ÷ 3 = 6 ... 0」，請問 3 是 18 的因數嗎？",
-        options: ["A. 是", "B. 不是", "C. 無法確定", "D. 6 才是，3 不是"],
-        ans: 0,
-        exp: "因為餘數為 0，除數 3 能整除 18，所以 3 是 18 的因數（商 6 也同樣是 18 的因數）。"
-      },
-      {
-        id: 17,
-        title: "課本習題：請問「27 是 42 的因數嗎？」",
-        options: ["A. 是，因為都有數字 2", "B. 不是，因為 42 ÷ 27 = 1...餘 15，不能整除", "C. 是，因為 42 - 27 = 15", "D. 是，因為 27 是奇數"],
-        ans: 1,
-        exp: "42 ÷ 27 = 1...餘 15，餘數不為 0，無法整除，所以 27 不是 42 的因數。"
-      },
-      {
-        id: 18,
-        title: "運用「彩虹成對找因數法」尋找 32 的所有因數，下列哪一組是正確的？",
-        options: ["A. 1, 2, 4, 16, 32", "B. 1, 2, 4, 8, 16, 32", "C. 2, 4, 8, 16", "D. 1, 32"],
-        ans: 1,
-        exp: "成對乘積：1×32 = 32, 2×16 = 32, 4×8 = 32。由小到大排列為 1, 2, 4, 8, 16, 32。"
-      },
-      {
-        id: 19,
-        title: "課本練習題：45 的「所有因數」依序列出為？",
-        options: ["A. 1, 5, 9, 45", "B. 1, 3, 5, 9, 15, 45", "C. 3, 5, 9, 15", "D. 1, 45"],
-        ans: 1,
-        exp: "45 的成對配對：1×45、3×15、5×9。所以所有因數為 1, 3, 5, 9, 15, 45。"
-      },
-      {
-        id: 20,
-        title: "關於大於 0 的整數，其「因數」與「倍數」特徵比較，下列何者正確？",
-        options: ["A. 因數有無限多個，倍數個數有限", "B. 最小的因數是自己，最大的因數是 1", "C. 一個數的因數個數是有限的，倍數個數是無限多的", "D. 倍數一定比因數小"],
-        ans: 2,
-        exp: "因數個數是有限的（介於 1 到自己本身）；而倍數可以一直乘下去，個數有無限多個。"
-      },
-      {
-        id: 21,
-        title: "（易錯陷阱題）下列敘述何者犯了方向顛倒的錯誤？",
-        options: ["A. 10 是 5 的倍數", "B. 5 是 10 的倍數", "C. 5 是 10 的因數", "D. 10 可以被 5 整除"],
-        ans: 1,
-        exp: "口訣『大的是倍數，小的是因數』。10 比 5 大，所以 10 是 5 的倍數，5 是 10 的因數。選項 B 說『5 是 10 的倍數』是錯誤的。"
-      },
-      {
-        id: 22,
-        title: "（易錯陷阱題）看到 105 有數字 0，小明說「105 一定是 10 的倍數」，他的說法正確嗎？為什麼？",
-        options: ["A. 正確，只要含有 0 就是 10 的倍數", "B. 不正確，必須『個位數字』是 0 才是 10 的倍數，105 個位是 5 所以不是", "C. 正確，因為 105 能被 10 整除", "D. 不正確，因為 105 是偶數"],
-        ans: 1,
-        exp: "10 的倍數判別條件是『個位數字必須為 0』。105 的個位是 5（十位才是 0），所以它是 5 的倍數而非 10 的倍數。"
-      },
-      {
-        id: 23,
-        title: "隨堂挑戰題：請問「91 是 7 的倍數嗎？」",
-        options: ["A. 是，因為 91 ÷ 7 = 13...0 能整除", "B. 不是，因為 91 是奇數", "C. 不是，因為 91 ÷ 7 有餘數", "D. 無法判別"],
-        ans: 0,
-        exp: "91 ÷ 7 = 13...0，餘數為 0，代表能整除，因此 91 是 7 的倍數。"
-      },
-      {
-        id: 24,
-        title: "在 150 以內，13 的倍數中「最大」的是多少？",
-        options: ["A. 130", "B. 143", "C. 147", "D. 156"],
-        ans: 1,
-        exp: "150 ÷ 13 = 11...餘 7。最大倍數為 13 × 11 = 143（或 150 - 7 = 143）。156 已經超過 150。"
-      },
-      {
-        id: 25,
-        title: "一副 52 張撲克牌，平分給 4 個人每人 13 張剛好分完 (52 ÷ 4 = 13)。請問下列何者正確？",
-        options: ["A. 只有 4 是 52 的因數", "B. 只有 13 是 52 的因數", "C. 4 和 13 都是 52 的因數", "D. 52 是 4 的因數"],
-        ans: 2,
-        exp: "因為 52 ÷ 4 = 13...0 且 52 ÷ 13 = 4...0，除數與商都可以整除 52，因此 4 和 13 都是 52 的因數。"
-      },
-      {
-        id: 26,
-        title: "習作題型：媽媽將 24 顆柚子裝進箱子，每箱顆數一樣多且剛好裝完。「每箱顆數」是 24 的什麼數？",
-        options: ["A. 倍數", "B. 因數", "C. 奇數", "D. 質數"],
-        ans: 1,
-        exp: "列式：24 ÷ 每箱幾顆 = 幾箱。求平分分裝的份量且剛好分完，代表能整除 24，所以每箱顆數是 24 的「因數」。"
-      },
-      {
-        id: 27,
-        title: "課本應用題：48 個月餅裝盒，每盒一樣多且都要裝「10 幾 個」，每盒可能裝幾個？",
-        options: ["A. 10 或 12 個", "B. 12 或 16 個", "C. 16 或 24 個", "D. 14 或 18 個"],
-        ans: 1,
-        exp: "「10 幾 個」代表介於 10 到 19 之間。48 的因數有 1, 2, 3, 4, 6, 8, 12, 16, 24, 48。落在 10~19 之間的只有 12 和 16。"
-      },
-      {
-        id: 28,
-        title: "課本例題：72 片手工餅乾分盤，盤子數量在 10 到 20 個之間且剛好分完，盤子可能有多少個？",
-        options: ["A. 12 或 18 個", "B. 10 或 15 個", "C. 16 或 20 個", "D. 8 或 24 個"],
-        ans: 0,
-        exp: "盤子數量是 72 的因數。72 的因數有 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72。介於 10 到 20 之間的只有 12 與 18。"
-      },
-      {
-        id: 29,
-        title: "素養題：媽媽烤了 40 幾片餅乾，試吃 1 片後，每位同學分 5 片剛好分完。媽媽可能烤了幾片餅乾？",
-        options: ["A. 40 片或 45 片", "B. 41 片或 46 片", "C. 42 片或 47 片", "D. 44 片或 49 片"],
-        ans: 1,
-        exp: "扣掉試吃的 1 片後必須是 5 的倍數。40 幾片介於 41~49 之間。若剩 40 片則烤了 40+1=41 片；若剩 45 片則烤了 45+1=46 片。"
-      },
-      {
-        id: 30,
-        title: "習作題型：皮皮家 4 人用餐，每人都點價格一樣的餐點，全家一共花了多少元？這題是求 4 的：",
-        options: ["A. 因數（因為要把錢平分）", "B. 倍數（因為是每人餐費乘以 4 倍累積出來的總價）", "C. 質數", "D. 餘數"],
-        ans: 1,
-        exp: "全家花費 = 單人餐費 × 4。求整體放大累積的「總金額」，是求 4 的「倍數」。"
-      }
-    ];
+    (function () {
+      "use strict";
 
-    let userAnswers = new Array(questions.length).fill(null);
-    let isGraded = false;
+      /* ========================================================================
+         題庫資料（完整 8 題單選題，含題型標籤、選項、正解索引與詳解）
+         ======================================================================== */
+      const ALL_QUESTIONS = [
+        {
+          id: 1,
+          tag: "題型一：提出相同乘數・注意減號",
+          stem: "計算 48 × 27 － 48 × 17 時，利用分配律改寫後，哪一個計算過程和答案是正確的？",
+          options: [
+            "48 × (27 ＋ 17) ＝ 48 × 44 ＝ 2112",
+            "48 × (27 － 17) ＝ 48 × 10 ＝ 480",
+            "48 × (27 × 17) ＝ 48 × 459 ＝ 22032",
+            "48 × 27 － 17 ＝ 1296 － 17 ＝ 1279"
+          ],
+          correctIndex: 1,
+          explanation:
+            "兩邊都有「× 48」，把 48 提出來後，括號裡面要保留原本的「減號」變成 (27 － 17) ＝ 10，所以 48 × 10 ＝ 480。選項 (A) 把減號看成加號；選項 (C) 不小心把 27 － 17 算成 27 × 17 了；選項 (D) 忘記 17 也有乘以 48。"
+        },
+        {
+          id: 2,
+          tag: "題型一：提出相同乘數・注意減號",
+          stem: "關於算式 65 × 34 － 65 × 24，下列哪一個說法「正確」？",
+          options: [
+            "提出 65 後，括號裡面應該算 34 × 24",
+            "提出 65 後，括號裡面應該算 34 － 24 ＝ 10，答案是 650",
+            "可以改寫成 65 × (34 ＋ 24)，答案是 3770",
+            "提出 65 後，算式會變成 65 － (34 × 24)"
+          ],
+          correctIndex: 1,
+          explanation:
+            "65 × 34 － 65 × 24 表示「34 個 65」減掉「24 個 65」，還剩下 (34 － 24) ＝ 10 個 65，也就是 65 × 10 ＝ 650。注意括號裡是減法，不是乘法也不是加法喔！"
+        },
+        {
+          id: 3,
+          tag: "題型二：拆成整百減零頭・確實分配",
+          stem: "想用分配律快速算出 299 × 14，將 299 改寫成 (300 － 1) 後，下一步應該怎麼展開才算真正用到分配律？",
+          options: [
+            "(300 － 1) × 14 ＝ 299 × 14",
+            "(300 － 1) × 14 ＝ 300 × 14 － 1 × 14 ＝ 4200 － 14 ＝ 4186",
+            "(300 － 1) × 14 ＝ 300 × 14 ＋ 1 × 14 ＝ 4200 ＋ 14 ＝ 4214",
+            "(300 － 1) × 14 ＝ 300 × 14 － 1 ＝ 4200 － 1 ＝ 4199"
+          ],
+          correctIndex: 1,
+          explanation:
+            "把 299 拆成 (300 － 1) 的目的，就是為了讓括號裡的 300 和 1「分別」去乘以 14！選項 (A) 又把 300 － 1 算回 299，就沒用到分配律了；選項 (C) 符號寫反；選項 (D) 忘記 1 也要乘以 14。"
+        },
+        {
+          id: 4,
+          tag: "題型二：拆成整百減零頭・確實分配",
+          stem: "計算 198 × 25 時，哪一個算式的分配律拆法與計算結果都正確？",
+          options: [
+            "(200 － 2) × 25 ＝ 200 × 25 － 2 × 25 ＝ 5000 － 50 ＝ 4950",
+            "(200 － 2) × 25 ＝ 200 × 25 － 2 ＝ 5000 － 2 ＝ 4998",
+            "(200 ＋ 2) × 25 ＝ 200 × 25 ＋ 2 × 25 ＝ 5000 ＋ 50 ＝ 5050",
+            "(200 － 2) × 25 ＝ 200 × 25 － 2 × 25 ＝ 500 － 50 ＝ 450"
+          ],
+          correctIndex: 0,
+          explanation:
+            "198 比 200 少 2，所以拆成 (200 － 2) × 25，接著把 25 分配給兩邊：200 × 25 ＝ 5000，減掉 2 × 25 ＝ 50，得到 4950。選項 (B) 忘記把 2 乘以 25；選項 (C) 寫成 200 ＋ 2（變成 202 了）；選項 (D) 把 200 × 25 少算一個 0。"
+        },
+        {
+          id: 5,
+          tag: "題型三：拆成整百加零頭・細心對位",
+          stem: "利用分配律計算 304 × 15，把 304 拆成 (300 ＋ 4) 後，正確的展開與計算結果是多少？",
+          options: [
+            "300 × 15 ＋ 4 ＝ 4500 ＋ 4 ＝ 4504",
+            "300 × 15 － 4 × 15 ＝ 4500 － 60 ＝ 4440",
+            "300 × 15 ＋ 4 × 15 ＝ 4500 ＋ 60 ＝ 4560",
+            "300 × 15 ＋ 4 × 15 ＝ 1500 ＋ 60 ＝ 1560"
+          ],
+          correctIndex: 2,
+          explanation:
+            "(300 ＋ 4) × 15 展開後是 300 × 15 ＋ 4 × 15。先算 300 × 15 ＝ 4500，再加上 4 × 15 ＝ 60，總和是 4560。選項 (A) 漏乘 15；選項 (B) 誤用減號；選項 (D) 算 300 × 15 時進位或抄寫出錯（4500 誤寫成 1500）。"
+        },
+        {
+          id: 6,
+          tag: "題型三：拆成整百加零頭・細心對位",
+          stem: "計算 508 × 12 時，小華寫成 (500 ＋ 8) × 12 ＝ 500 × 12 ＋ 8 × 12。請問接下來哪一個計算結果是正確的？",
+          options: [
+            "600 ＋ 96 ＝ 696",
+            "6000 ＋ 96 ＝ 6096",
+            "6000 ＋ 20 ＝ 6020",
+            "6000 － 96 ＝ 5904"
+          ],
+          correctIndex: 1,
+          explanation:
+            "500 × 12 ＝ 6000（5 × 12 ＝ 60，後面補兩個 0），8 × 12 ＝ 96，兩個加起來就是 6000 ＋ 96 ＝ 6096。選項 (A) 少補了一個 0；選項 (C) 把 8 × 12 誤算成 8 ＋ 12；選項 (D) 把加號算成減號。"
+        },
+        {
+          id: 7,
+          tag: "題型四：生活應用題・差 1 到整百",
+          stem: "一本百科全書特價 799 元，圖書館買了 6 本，利用分配律計算共要付多少元，下列哪一個算式與答案完全正確？",
+          options: [
+            "799 × 6 ＝ (800 － 1) × 6 ＝ 800 × 6 － 1 ＝ 4800 － 1 ＝ 4799 元",
+            "799 × 6 ＝ (800 － 1) × 6 ＝ 800 × 6 － 1 × 6 ＝ 4800 － 6 ＝ 4794 元",
+            "799 × 6 ＝ (800 ＋ 1) × 6 ＝ 800 × 6 ＋ 1 × 6 ＝ 4800 ＋ 6 ＝ 4806 元",
+            "799 × 6 ＝ (700 － 1) × 6 ＝ 700 × 6 － 1 × 6 ＝ 4200 － 6 ＝ 4194 元"
+          ],
+          correctIndex: 1,
+          explanation:
+            "每本 799 元可以看成「800 元少 1 元」，買 6 本就是先付 800 × 6 ＝ 4800 元，再扣掉 6 本多算的 1 × 6 ＝ 6 元，4800 － 6 ＝ 4794 元！選項 (A) 只扣了 1 元，忘記買 6 本要扣 6 元；選項 (C) 變成多加 6 元；選項 (D) 把 799 誤看成 699。"
+        },
+        {
+          id: 8,
+          tag: "題型四：生活應用題・接近整百",
+          stem: "一盒精美積木售價 495 元，老師買了 8 盒當作獎品，利用分配律怎麼算最快速又正確？",
+          options: [
+            "(500 － 5) × 8 ＝ 500 × 8 － 5 × 8 ＝ 4000 － 40 ＝ 3960 元",
+            "(500 － 5) × 8 ＝ 500 × 8 － 5 ＝ 4000 － 5 ＝ 3995 元",
+            "(500 － 5) × 8 ＝ 500 × 8 ＋ 5 × 8 ＝ 4000 ＋ 40 ＝ 4040 元",
+            "(400 ＋ 95) × 8 ＝ 400 × 8 ＋ 95 ＝ 3200 ＋ 95 ＝ 3295 元"
+          ],
+          correctIndex: 0,
+          explanation:
+            "495 元比 500 元少 5 元，拆成 (500 － 5) × 8，展開變成 500 × 8 － 5 × 8 ＝ 4000 － 40 ＝ 3960 元。選項 (B) 和 (D) 都漏掉把零頭乘以 8；選項 (C) 把減號寫成加號。"
+        }
+      ];
 
-    function renderQuiz() {
-      const container = document.getElementById('quiz-list');
-      container.innerHTML = '';
-      
-      questions.forEach((q, idx) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.id = `q-card-${idx}`;
-        
-        let optionsHtml = '';
-        q.options.forEach((opt, optIdx) => {
-          optionsHtml += `
-            <label class="option-label" id="label-${idx}-${optIdx}">
-              <input type="radio" name="question-${idx}" value="${optIdx}" onchange="selectOption(${idx}, ${optIdx})">
-              <span>${opt}</span>
-            </label>
-          `;
-        });
+      const OPTION_LETTERS = ["A", "B", "C", "D"];
 
-        card.innerHTML = `
-          <div class="q-meta">
-            <span>第 ${idx + 1} 題 / 共 30 題</span>
-            <span>單一選擇題</span>
-          </div>
-          <div class="q-title">${idx + 1}. ${q.title}</div>
-          <div class="options">${optionsHtml}</div>
-          <div class="explanation-box" id="exp-${idx}">
-            <strong>【名師詳解】</strong><br>
-            ${q.exp}
-          </div>
-        `;
-        container.appendChild(card);
+      /* ========================================================================
+         測驗狀態管理
+         ======================================================================== */
+      let activeQuestions = [...ALL_QUESTIONS];
+      let userAnswers = {}; // key: question.id, value: optionIndex (0..3)
+      let isSubmitted = false;
+      let isWrongOnlyMode = false;
+
+      /* ========================================================================
+         DOM 元素參照
+         ======================================================================== */
+      const cheatSheetEl = document.getElementById("cheatSheet");
+      const cheatSheetToggleBtn = document.getElementById("cheatSheetToggle");
+      const progressTextEl = document.getElementById("progressText");
+      const modeBadgeEl = document.getElementById("modeBadge");
+      const progressHintEl = document.getElementById("progressHint");
+      const progressBarEl = document.getElementById("progressBar");
+      const progressFillEl = document.getElementById("progressFill");
+      const navPillsEl = document.getElementById("navPills");
+      const resultCardEl = document.getElementById("resultCard");
+      const resultBadgeEl = document.getElementById("resultBadge");
+      const scoreValueEl = document.getElementById("scoreValue");
+      const resultMessageEl = document.getElementById("resultMessage");
+      const statTotalEl = document.getElementById("statTotal");
+      const statCorrectEl = document.getElementById("statCorrect");
+      const statWrongEl = document.getElementById("statWrong");
+      const btnRetryWrongTop = document.getElementById("btnRetryWrongTop");
+      const wrongCountTextEl = document.getElementById("wrongCountText");
+      const btnResetAllTop = document.getElementById("btnResetAllTop");
+      const questionsListEl = document.getElementById("questionsList");
+      const bottomActionsEl = document.getElementById("bottomActions");
+
+      // Modal 元素
+      const confirmModalEl = document.getElementById("confirmModal");
+      const modalUnansweredCountEl = document.getElementById("modalUnansweredCount");
+      const modalUnansweredNumsEl = document.getElementById("modalUnansweredNums");
+      const btnJumpUnanswered = document.getElementById("btnJumpUnanswered");
+      const btnForceSubmit = document.getElementById("btnForceSubmit");
+
+      /* ========================================================================
+         考前觀念小抄折疊切換
+         ======================================================================== */
+      cheatSheetToggleBtn.addEventListener("click", function () {
+        const isOpen = cheatSheetEl.classList.toggle("is-open");
+        cheatSheetToggleBtn.setAttribute("aria-expanded", String(isOpen));
       });
-    }
 
-    function selectOption(qIdx, optIdx) {
-      if (isGraded) return;
-      userAnswers[qIdx] = optIdx;
-      updateProgress();
-    }
+      /* ========================================================================
+         渲染進度列與題號快速跳轉按鈕
+         ======================================================================== */
+      function renderProgress() {
+        const total = activeQuestions.length;
+        const answeredCount = activeQuestions.filter(
+          (q) => typeof userAnswers[q.id] === "number"
+        ).length;
 
-    function updateProgress() {
-      const answered = userAnswers.filter(a => a !== null).length;
-      document.getElementById('answered-count').innerText = answered;
-      const pct = Math.round((answered / questions.length) * 100);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-percent').innerText = pct + '%';
-    }
+        progressTextEl.textContent = `已作答 ${answeredCount} / ${total} 題`;
+        modeBadgeEl.style.display = isWrongOnlyMode ? "inline-block" : "none";
+        progressHintEl.textContent = isSubmitted
+          ? "點擊題號可快速查看詳解"
+          : "點選已選選項可取消選擇";
 
-    function submitQuiz() {
-      if (isGraded) return;
-      const unanswered = userAnswers.filter(a => a === null).length;
-      if (unanswered > 0) {
-        if (!confirm(`尚有 ${unanswered} 題未作答，確定現在交卷計分嗎？`)) {
+        const percent = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
+        progressBarEl.setAttribute("aria-valuemax", String(total));
+        progressBarEl.setAttribute("aria-valuenow", String(answeredCount));
+        progressFillEl.style.width = `${percent}%`;
+
+        // 渲染快速跳轉按鈕
+        navPillsEl.innerHTML = "";
+        activeQuestions.forEach((q) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "nav-btn";
+          btn.textContent = String(q.id);
+          btn.setAttribute("aria-label", `跳至第 ${q.id} 題`);
+
+          const chosen = userAnswers[q.id];
+          if (!isSubmitted) {
+            if (typeof chosen === "number") {
+              btn.classList.add("is-answered");
+            }
+          } else {
+            if (chosen === q.correctIndex) {
+              btn.classList.add("is-correct");
+            } else {
+              btn.classList.add("is-wrong");
+            }
+          }
+
+          btn.addEventListener("click", function () {
+            scrollToQuestion(q.id);
+          });
+
+          navPillsEl.appendChild(btn);
+        });
+      }
+
+      /* ========================================================================
+         平滑滾動至指定題目並短暫高亮提示
+         ======================================================================== */
+      function scrollToQuestion(questionId) {
+        const target = document.getElementById(`question-card-${questionId}`);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.classList.remove("highlight-pulse");
+        void target.offsetWidth; // 觸發 reflow 重新播放動畫
+        target.classList.add("highlight-pulse");
+        setTimeout(() => {
+          target.classList.remove("highlight-pulse");
+        }, 1600);
+      }
+
+      /* ========================================================================
+         渲染題目卡片
+         ======================================================================== */
+      function renderQuestions() {
+        questionsListEl.innerHTML = "";
+
+        activeQuestions.forEach((q) => {
+          const card = document.createElement("article");
+          card.className = "question-card";
+          card.id = `question-card-${q.id}`;
+
+          const chosen = userAnswers[q.id];
+          const isCorrect = isSubmitted && chosen === q.correctIndex;
+
+          if (isSubmitted) {
+            card.classList.add(isCorrect ? "graded-correct" : "graded-wrong");
+          }
+
+          // 題目頁首（題號 + 題型標籤 + 交卷後對錯徽章）
+          const header = document.createElement("div");
+          header.className = "question-header";
+
+          const metaLeft = document.createElement("div");
+          metaLeft.className = "q-meta-left";
+
+          const numBadge = document.createElement("span");
+          numBadge.className = "q-number";
+          numBadge.textContent = `第 ${q.id} 題`;
+
+          const tagBadge = document.createElement("span");
+          tagBadge.className = "q-tag";
+          tagBadge.textContent = q.tag;
+
+          metaLeft.appendChild(numBadge);
+          metaLeft.appendChild(tagBadge);
+          header.appendChild(metaLeft);
+
+          if (isSubmitted) {
+            const statusBadge = document.createElement("span");
+            statusBadge.className = `q-status-badge ${isCorrect ? "correct" : "wrong"}`;
+            statusBadge.textContent = isCorrect
+              ? "✓ 答對了"
+              : typeof chosen === "number"
+              ? "✕ 答錯囉"
+              : "！未作答";
+            header.appendChild(statusBadge);
+          }
+
+          card.appendChild(header);
+
+          // 題幹
+          const stemEl = document.createElement("div");
+          stemEl.className = "q-stem math-expr";
+          stemEl.textContent = q.stem;
+          card.appendChild(stemEl);
+
+          // 選項列表
+          const optionsGrid = document.createElement("div");
+          optionsGrid.className = "options-grid";
+          optionsGrid.setAttribute("role", "radiogroup");
+          optionsGrid.setAttribute("aria-label", `第 ${q.id} 題選項`);
+
+          q.options.forEach((optText, optIdx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option-btn";
+
+            const isThisSelected = chosen === optIdx;
+            const isThisCorrect = q.correctIndex === optIdx;
+
+            if (!isSubmitted) {
+              if (isThisSelected) {
+                btn.classList.add("is-selected");
+              }
+              btn.setAttribute("aria-pressed", String(isThisSelected));
+            } else {
+              btn.disabled = true;
+              if (isThisCorrect) {
+                btn.classList.add("is-correct-opt");
+              } else if (isThisSelected && !isThisCorrect) {
+                btn.classList.add("is-wrong-opt");
+              }
+            }
+
+            // 選項左側（代號圓圈 + 算式文字）
+            const leftDiv = document.createElement("div");
+            leftDiv.className = "option-left";
+
+            const letterSpan = document.createElement("span");
+            letterSpan.className = "option-letter";
+            letterSpan.textContent = OPTION_LETTERS[optIdx];
+
+            const textSpan = document.createElement("span");
+            textSpan.className = "option-text math-expr";
+            textSpan.textContent = optText;
+
+            leftDiv.appendChild(letterSpan);
+            leftDiv.appendChild(textSpan);
+            btn.appendChild(leftDiv);
+
+            // 選項右側狀態標籤
+            if (!isSubmitted && isThisSelected) {
+              const tagSpan = document.createElement("span");
+              tagSpan.className = "option-tag";
+              tagSpan.textContent = "已選擇";
+              btn.appendChild(tagSpan);
+            } else if (isSubmitted) {
+              if (isThisCorrect) {
+                const tagSpan = document.createElement("span");
+                tagSpan.className = "option-tag";
+                tagSpan.textContent = isThisSelected ? "✓ 正確答案（你的選擇）" : "✓ 正確答案";
+                btn.appendChild(tagSpan);
+              } else if (isThisSelected) {
+                const tagSpan = document.createElement("span");
+                tagSpan.className = "option-tag";
+                tagSpan.textContent = "✕ 你的選擇";
+                btn.appendChild(tagSpan);
+              }
+            }
+
+            // 交卷前：點擊可選取，若再次點擊同一選項則取消選取
+            if (!isSubmitted) {
+              btn.addEventListener("click", function () {
+                if (userAnswers[q.id] === optIdx) {
+                  delete userAnswers[q.id];
+                } else {
+                  userAnswers[q.id] = optIdx;
+                }
+                renderProgress();
+                renderQuestions();
+              });
+            }
+
+            optionsGrid.appendChild(btn);
+          });
+
+          card.appendChild(optionsGrid);
+
+          // 詳解區（交卷後自動展開）
+          const expBox = document.createElement("div");
+          expBox.className = `explanation-box${isSubmitted ? " is-visible" : ""}`;
+
+          const expTitle = document.createElement("div");
+          expTitle.className = "explanation-title";
+          expTitle.innerHTML = `
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <span>解題小老師（正解：${OPTION_LETTERS[q.correctIndex]}）</span>
+          `;
+
+          const expText = document.createElement("div");
+          expText.className = "math-expr";
+          expText.textContent = q.explanation;
+
+          expBox.appendChild(expTitle);
+          expBox.appendChild(expText);
+          card.appendChild(expBox);
+
+          questionsListEl.appendChild(card);
+        });
+      }
+
+      /* ========================================================================
+         更新底部操作按鈕區
+         ======================================================================== */
+      function renderBottomActions() {
+        bottomActionsEl.innerHTML = "";
+
+        if (!isSubmitted) {
+          const submitBtn = document.createElement("button");
+          submitBtn.type = "button";
+          submitBtn.className = "btn btn-primary";
+          submitBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            交卷看成績
+          `;
+          submitBtn.addEventListener("click", handleSubmitClick);
+          bottomActionsEl.appendChild(submitBtn);
+        } else {
+          const wrongQuestions = getWrongQuestions();
+          if (wrongQuestions.length > 0) {
+            const retryWrongBtn = document.createElement("button");
+            retryWrongBtn.type = "button";
+            retryWrongBtn.className = "btn btn-warning";
+            retryWrongBtn.innerHTML = `
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+              只重練錯題（${wrongQuestions.length} 題）
+            `;
+            retryWrongBtn.addEventListener("click", startWrongOnlyQuiz);
+            bottomActionsEl.appendChild(retryWrongBtn);
+          }
+
+          const resetAllBtn = document.createElement("button");
+          resetAllBtn.type = "button";
+          resetAllBtn.className = "btn btn-secondary";
+          resetAllBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            全部重新測驗
+          `;
+          resetAllBtn.addEventListener("click", resetFullQuiz);
+          bottomActionsEl.appendChild(resetAllBtn);
+        }
+      }
+
+      /* ========================================================================
+         取得答錯（含未作答）的題目列表
+         ======================================================================== */
+      function getWrongQuestions() {
+        return activeQuestions.filter((q) => userAnswers[q.id] !== q.correctIndex);
+      }
+
+      /* ========================================================================
+         點擊「交卷看成績」處理流程
+         ======================================================================== */
+      function handleSubmitClick() {
+        const unanswered = activeQuestions.filter(
+          (q) => typeof userAnswers[q.id] !== "number"
+        );
+
+        if (unanswered.length > 0) {
+          modalUnansweredCountEl.textContent = String(unanswered.length);
+          modalUnansweredNumsEl.textContent = unanswered.map((q) => q.id).join("、");
+          openConfirmModal(unanswered[0].id);
           return;
         }
+
+        finalizeGrade();
       }
 
-      isGraded = true;
-      let score = 0;
+      /* ========================================================================
+         開啟與關閉未作答提醒視窗
+         ======================================================================== */
+      let firstUnansweredId = null;
 
-      questions.forEach((q, idx) => {
-        const userChoice = userAnswers[idx];
-        const card = document.getElementById(`q-card-${idx}`);
-        card.classList.add('graded');
+      function openConfirmModal(firstId) {
+        firstUnansweredId = firstId;
+        confirmModalEl.classList.add("is-open");
+        btnJumpUnanswered.focus();
+      }
 
-        // 標示正確答案
-        const correctLabel = document.getElementById(`label-${idx}-${q.ans}`);
-        correctLabel.classList.add('correct-answer');
+      function closeConfirmModal() {
+        confirmModalEl.classList.remove("is-open");
+      }
 
-        if (userChoice === q.ans) {
-          score += (100 / questions.length);
-        } else if (userChoice !== null) {
-          const wrongLabel = document.getElementById(`label-${idx}-${userChoice}`);
-          wrongLabel.classList.add('wrong-choice');
+      btnJumpUnanswered.addEventListener("click", function () {
+        closeConfirmModal();
+        if (firstUnansweredId !== null) {
+          scrollToQuestion(firstUnansweredId);
         }
-
-        // 顯示詳解
-        document.getElementById(`exp-${idx}`).style.display = 'block';
-
-        // 禁用選項點擊
-        const inputs = card.querySelectorAll('input[type="radio"]');
-        inputs.forEach(input => input.disabled = true);
       });
 
-      const finalScoreRound = Math.round(score);
-      const scoreCard = document.getElementById('score-card');
-      const finalScoreEl = document.getElementById('final-score');
-      const scoreDescEl = document.getElementById('score-desc');
+      btnForceSubmit.addEventListener("click", function () {
+        closeConfirmModal();
+        finalizeGrade();
+      });
 
-      finalScoreEl.innerText = `${finalScoreRound} 分`;
-      if (finalScoreRound === 100) {
-        scoreDescEl.innerText = "太完美了！因數與倍數大滿貫通關，觀念無懈可擊！🌟";
-      } else if (finalScoreRound >= 80) {
-        scoreDescEl.innerText = "表現非常優秀！請仔細閱讀答錯題目的名師解析，觀念會更純熟喔！💪";
-      } else {
-        scoreDescEl.innerText = "完成了一次紮實的練習！對照詳解重點重新複習一次，一定會大進步！加油！🐰";
+      confirmModalEl.addEventListener("click", function (e) {
+        if (e.target === confirmModalEl) {
+          closeConfirmModal();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && confirmModalEl.classList.contains("is-open")) {
+          closeConfirmModal();
+        }
+      });
+
+      /* ========================================================================
+         執行批改與顯示成績單
+         ======================================================================== */
+      function finalizeGrade() {
+        isSubmitted = true;
+
+        const total = activeQuestions.length;
+        const correctCount = activeQuestions.filter(
+          (q) => userAnswers[q.id] === q.correctIndex
+        ).length;
+        const wrongCount = total - correctCount;
+        const score = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        // 設定鼓勵評語與徽章樣式
+        resultBadgeEl.className = "result-badge";
+        if (score === 100) {
+          resultBadgeEl.classList.add("badge-excellent");
+          resultBadgeEl.textContent = "🏆 滿分達陣！分配律小高手";
+          resultMessageEl.textContent =
+            "太厲害了！每一題都算得又快又準，完全避開了所有計算陷阱！";
+        } else if (score >= 75) {
+          resultBadgeEl.classList.add("badge-good");
+          resultBadgeEl.textContent = "🌟 表現很棒！觀念越來越穩囉";
+          resultMessageEl.textContent =
+            "大部分題目都答對了！往下看看錯題的「解題小老師」提示，再挑戰一次就能拿滿分！";
+        } else {
+          resultBadgeEl.classList.add("badge-keep-going");
+          resultBadgeEl.textContent = "💪 加油！從錯題中學習最有效";
+          resultMessageEl.textContent =
+            "別灰心！先仔細閱讀每題下方的詳解，看清楚符號與零頭怎麼分配，再按「只重練錯題」練習一次吧！";
+        }
+
+        scoreValueEl.textContent = String(score);
+        statTotalEl.textContent = String(total);
+        statCorrectEl.textContent = String(correctCount);
+        statWrongEl.textContent = String(wrongCount);
+
+        if (wrongCount > 0) {
+          btnRetryWrongTop.style.display = "inline-flex";
+          wrongCountTextEl.textContent = String(wrongCount);
+        } else {
+          btnRetryWrongTop.style.display = "none";
+        }
+
+        resultCardEl.classList.add("is-visible");
+
+        renderProgress();
+        renderQuestions();
+        renderBottomActions();
+
+        // 平滑滾動到成績單卡片
+        resultCardEl.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      scoreCard.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+      /* ========================================================================
+         只重練錯題
+         ======================================================================== */
+      function startWrongOnlyQuiz() {
+        const wrongQuestions = getWrongQuestions();
+        if (wrongQuestions.length === 0) return;
 
-    function resetQuiz() {
-      userAnswers = new Array(questions.length).fill(null);
-      isGraded = false;
-      renderQuiz();
-      updateProgress();
-      document.getElementById('score-card').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        activeQuestions = wrongQuestions;
+        userAnswers = {};
+        isSubmitted = false;
+        isWrongOnlyMode = true;
 
-    // 初始化網頁
-    renderQuiz();
+        resultCardEl.classList.remove("is-visible");
+        renderProgress();
+        renderQuestions();
+        renderBottomActions();
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* ========================================================================
+         全部重新測驗
+         ======================================================================== */
+      function resetFullQuiz() {
+        activeQuestions = [...ALL_QUESTIONS];
+        userAnswers = {};
+        isSubmitted = false;
+        isWrongOnlyMode = false;
+
+        resultCardEl.classList.remove("is-visible");
+        renderProgress();
+        renderQuestions();
+        renderBottomActions();
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      btnRetryWrongTop.addEventListener("click", startWrongOnlyQuiz);
+      btnResetAllTop.addEventListener("click", resetFullQuiz);
+
+      /* ========================================================================
+         初始化渲染
+         ======================================================================== */
+      renderProgress();
+      renderQuestions();
+      renderBottomActions();
+    })();
   </script>
 </body>
 </html>
