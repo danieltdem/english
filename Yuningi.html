@@ -293,32 +293,19 @@
 
     <script>
         const words = [
-            { en: 'soldier', zh: ['士兵 (ㄕˋ ㄅㄧㄥ)'], mnemonic: 'sold (賣) + ier (人)。為國家賣命的人就是士兵。' },
-            { en: 'groan', zh: ['呻吟 (ㄕㄣ ㄧㄣˊ)'], mnemonic: '聽起來像 grown (長大)。長大的過程中總是伴隨著痛苦的呻吟。' },
-            { en: 'purpose', zh: ['目的 (ㄇㄨˋ ㄉㄧˋ)'], mnemonic: 'pur (向前) + pose (放)。放在前方讓你去追求的，就是目的。' },
-            { en: 'mild', zh: ['溫和的 (ㄨㄣ ㄏㄜˊ ㄉㄜ˙)', '輕微的 (ㄑㄧㄥ ㄨㄟˊ ㄉㄜ˙)'], mnemonic: '聽起來像 milk (牛奶)。牛奶喝起來給人溫和的感覺。' },
-            { en: 'racket', zh: ['球拍 (ㄑㄧㄡˊ ㄆㄞ)', '喧鬧 (ㄒㄩㄢ ㄋㄠˋ)'], mnemonic: 'rack (架子)。用網子和架子做成，打球會發出喧鬧聲的球拍。' },
-            { en: 'pale', zh: ['蒼白的 (ㄘㄤ ㄅㄞˊ ㄉㄜ˙)'], mnemonic: '聽起來像 pail (水桶)。提著重水桶累到臉色蒼白。' },
-            { en: 'design', zh: ['設計 (ㄕㄜˋ ㄐㄧˋ)'], mnemonic: 'de (向下) + sign (畫記號)。把腦海中的想法畫下來，就是設計。' },
-            { en: 'force', zh: ['力量 (ㄌㄧˋ ㄌㄧㄤˋ)', '強迫 (ㄑㄧㄤˇ ㄆㄛˋ)'], mnemonic: '聽起來像 fall (落下)。蘋果被地心引力這股力量強迫落下。' },
-            { en: 'pronouns', zh: ['代名詞 (ㄉㄞˋ ㄇㄧㄥˊ ㄘˊ)'], mnemonic: 'pro (代替) + nouns (名詞)。用來代替名詞的詞就是代名詞。' },
-            { en: 'mouse', zh: ['老鼠 (ㄌㄠˇ ㄕㄨˇ)', '滑鼠 (ㄏㄨㄚˊ ㄕㄨˇ)'], mnemonic: '電腦用的滑鼠，長得就像一隻有長長尾巴的老鼠。' },
-            { en: 'port', zh: ['港口 (ㄍㄤˇ ㄎㄡˇ)'], mnemonic: 'import (進口) 和 export (出口) 的貨物都需要經過港口。' },
-            { en: 'volunteer', zh: ['志願者 (ㄓˋ ㄩㄢˋ ㄓㄜˇ)', '自願 (ㄗˋ ㄩㄢˋ)'], mnemonic: 'volunt (意願) + eer (人)。憑著自身意願去幫忙的人。' },
-            { en: 'calendar', zh: ['日曆 (ㄖˋ ㄌㄧˋ)'], mnemonic: '聽起來像 call (呼叫) + endar (結尾)。到了年底就要呼叫新的日曆。' },
-            { en: 'patch', zh: ['補丁 (ㄅㄨˇ ㄉㄧㄥ)', '修補 (ㄒㄧㄡ ㄅㄨˇ)'], mnemonic: '聽起來像 catch (抓住)。用一塊布抓住衣服的破洞，就是打補丁。' },
-            { en: 'unusual', zh: ['不尋常的 (ㄅㄨˋ ㄒㄩㄣˊ ㄔㄤˊ ㄉㄜ˙)'], mnemonic: 'un (不) + usual (尋常的)。加在一起就是不尋常的。' },
-            { en: 'spotless', zh: ['無瑕的 (ㄨˊ ㄒㄧㄚˊ ㄉㄜ˙)', '一塵不染的 (ㄧˋ ㄔㄣˊ ㄅㄨˋ ㄖㄢˇ ㄉㄜ˙)'], mnemonic: 'spot (污點) + less (沒有)。沒有任何污點，就是一塵不染的。' },
-            { en: 'lodge', zh: ['小屋 (ㄒㄧㄠˇ ㄨ)', '安頓 (ㄢ ㄉㄨㄣˋ)'], mnemonic: '聽起來像 log (原木)。用原木蓋成的山林小屋，讓人安頓休息。' },
-            { en: 'attic', zh: ['閣樓 (ㄍㄜˊ ㄌㄡˊ)'], mnemonic: '聽起來像 attack (攻擊)。躲在屋頂的閣樓裡，準備從高處發動攻擊。' },
-            { en: 'landform', zh: ['地形 (ㄉㄧˋ ㄒㄧㄥˊ)'], mnemonic: 'land (土地) + form (形狀)。土地的形狀，也就是地形。' },
-            { en: 'Easter', zh: ['復活節 (ㄈㄨˋ ㄏㄨㄛˊ ㄐㄧㄝˊ)'], mnemonic: 'East (東方)。太陽從東方升起，象徵重生與復活。' },
-            { en: 'brain', zh: ['大腦 (ㄉㄚˋ ㄋㄠˇ)'], mnemonic: '聽起來像 rain (雨)。想像大腦裡下了一場知識的雨 (brainstorming)。' },
-            { en: 'bunch', zh: ['一束 (ㄧˊ ㄕㄨˋ)', '一群 (ㄧˋ ㄑㄩㄣˊ)'], mnemonic: '聽起來像 punch (出拳)。把一群人綁成一束，像拳頭一樣緊握。' },
-            { en: 'hang', zh: ['懸掛 (ㄒㄩㄢˊ ㄍㄨㄚˋ)'], mnemonic: '聽起來像 hand (手)。用手把東西懸掛在牆上。' },
-            { en: 'disagree', zh: ['不同意 (ㄅㄨˋ ㄊㄨㄥˊ ㄧˋ)'], mnemonic: 'dis (不) + agree (同意)。也就是不同意的意思。' },
-            { en: 'manage', zh: ['管理 (ㄍㄨㄢˇ ㄌㄧˇ)', '設法做到 (ㄕㄜˋ ㄈㄚˇ ㄗㄨㄛˋ ㄉㄠˋ)'], mnemonic: 'man (人) + age (年紀)。有年紀和經驗的人，才能好好管理公司。' },
-            { en: 'weight', zh: ['重量 (ㄓㄨㄥˋ ㄌㄧㄤˋ)'], mnemonic: 'weigh (秤重) 的名詞形式。秤出來的結果就是重量。' }
+            { en: 'niece', zh: ['姪女 (ㄓˊ ㄋㄩˇ)', '外甥女 (ㄨㄞˋ ㄕㄥ ㄋㄩˇ)'], mnemonic: 'niece 聽起來像 nice (美好的)。你有一個非常美好的 (nice) 姪女。' },
+            { en: 'argue', zh: ['爭論 (ㄓㄥ ㄌㄨㄣˋ)', '主張 (ㄓㄨˇ ㄓㄤ)'], mnemonic: 'ar (發音似: 啊) + gue (發音似: 舅)。你因為意見不合，正在跟「阿舅」大聲爭論。' },
+            { en: 'rubber', zh: ['橡膠 (ㄒㄧㄤˋ ㄐㄧㄠ)', '橡皮擦 (ㄒㄧㄤˋ ㄆㄧˊ ㄘㄚ)'], mnemonic: 'rub (摩擦) + er (物品)。可以用來摩擦擦去字跡的物品就是橡皮擦，材質通常是橡膠。' },
+            { en: 'disappoint', zh: ['使失望 (ㄕˇ ㄕ ㄨㄤˋ)'], mnemonic: 'dis (不) + appoint (任命/指派)。因為沒有被指派到喜歡的工作，所以覺得很失望。' },
+            { en: 'poem', zh: ['詩 (ㄕ)'], mnemonic: 'poet (詩人) 寫出來的文學作品就是 poem (詩)。' },
+            { en: 'aircraft', zh: ['飛行器 (ㄈㄟ ㄒㄧㄥˊ ㄑㄧˋ)', '航空器 (ㄏㄤˊ ㄎㄨㄥ ㄑㄧˋ)', '飛機 (ㄈㄟ ㄐㄧ)'], mnemonic: 'air (空氣/空中) + craft (工藝/船隻)。在空中航行的交通工具，就是飛行器或飛機。' },
+            { en: 'sank', zh: ['下沉 (ㄒㄧㄚˋ ㄔㄣˊ)'], mnemonic: 'sink 的過去式。聽起來像 thank (謝謝)。船下沉之前，船長對大家說了聲謝謝 (thank)。' },
+            { en: 'misery', zh: ['悲慘 (ㄅㄟ ㄘㄢˇ)', '痛苦 (ㄊㄨㄥˋ ㄎㄨˇ)'], mnemonic: 'miser (吝嗇鬼) + y。守財奴 (miser) 雖然有錢，但卻過著悲慘 (misery) 又痛苦的生活。' },
+            { en: 'discover', zh: ['發現 (ㄈㄚ ㄒㄧㄢˋ)'], mnemonic: 'dis (打開/除去) + cover (蓋子/遮蔽物)。把蓋子打開，就是「發現」了裡面的東西。' },
+            { en: 'throne', zh: ['王座 (ㄨㄤˊ ㄗㄨㄛˋ)', '王位 (ㄨㄤˊ ㄨㄟˋ)'], mnemonic: '聽起來像 throw (丟) + n (恩)。國王坐在王座上，向下丟出恩典。' },
+            { en: 'circus', zh: ['馬戲團 (ㄇㄚˇ ㄒㄧˋ ㄊㄨㄢˊ)'], mnemonic: 'circle (圓圈) + us (我們)。我們 (us) 圍成一個大圓圈 (circle) 來看馬戲團表演。' },
+            { en: 'refuse', zh: ['拒絕 (ㄐㄩˋ ㄐㄩㄝˊ)'], mnemonic: 're (回退) + fuse (保險絲/熔化)。把給他的東西退回去，代表你拒絕了他。' },
+            { en: 'still', zh: ['仍然 (ㄖㄥˊ ㄖㄢˊ)', '靜止的 (ㄐㄧㄥˋ ㄓˇ ㄉㄜ˙)'], mnemonic: '形似 steel (鋼鐵)。他像鋼鐵一樣靜止不動，而且直到現在「仍然」站在那裡。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -382,6 +369,7 @@
             listContainer.innerHTML = '';
 
             words.forEach((word, index) => {
+                // 將陣列轉換成字串顯示 (用 / 隔開)
                 const zhText = word.zh.join('<br> / ');
                 const rowContainer = document.createElement('div');
                 rowContainer.className = 'practice-row-container';
@@ -487,16 +475,18 @@
 
         // 產生選擇題選項（混淆器）
         function generateOptions(correctZhs, currentEn) {
-            let options = [...correctZhs];
+            let options = [...correctZhs]; // 放入所有正確選項
             let allOtherZhs = [];
             
+            // 抓取其他字的所有意思
             words.forEach(w => {
                 if (w.en !== currentEn) {
                     allOtherZhs.push(...w.zh);
                 }
             });
-            shuffle(allOtherZhs); 
+            shuffle(allOtherZhs); // 洗牌錯誤選項
             
+            // 補足至少 4 個選項（如果該單字本身正確意思就有3個，就變成 3+1=4個選項）
             let targetCount = Math.max(4, correctZhs.length + 1);
             while (options.length < targetCount && allOtherZhs.length > 0) {
                 let distractor = allOtherZhs.pop();
@@ -504,7 +494,7 @@
                     options.push(distractor);
                 }
             }
-            shuffle(options);
+            shuffle(options); // 最後再把全部選項洗牌一次
             return options;
         }
 
@@ -573,6 +563,7 @@
             
             updateScore();
             
+            // 自動播放語音提示
             setTimeout(() => { speakCurrentExamWord(); }, 300);
             setTimeout(() => { answerInput.focus(); }, 100);
         }
@@ -590,6 +581,7 @@
             const correctAnswer = q.en.toLowerCase();
             const submitBtn = document.getElementById('exam-submit');
             
+            // 檢查多選題
             const checkboxes = document.querySelectorAll('.exam-checkbox');
             const selectedOptions = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
             const correctZhs = q.zh;
@@ -608,7 +600,7 @@
                 }, 1000);
             } else {
                 answerInput.disabled = true; 
-                checkboxes.forEach(cb => cb.disabled = true);
+                checkboxes.forEach(cb => cb.disabled = true); // 鎖定多選題
                 isWaitingToContinue = true;
                 
                 let errorMsg = '❌ 錯誤。<br>';
@@ -646,7 +638,7 @@
             document.getElementById('question-number').textContent = '';
             
             document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-options').style.display = 'none'; 
+            document.getElementById('exam-options').style.display = 'none'; // 隱藏選擇題區塊
             document.getElementById('exam-submit').style.display = 'none';
             
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
