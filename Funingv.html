@@ -292,23 +292,23 @@
     </div>
 
     <script>
-        // 全新 15 個單字題庫，包含多重意思與注音
+        // 最新的 15 個單字與注音題庫
         const words = [
-            { en: 'wing', zh: ['翅膀 (ㄔˋ ㄅㄤˇ)'], mnemonic: '聽起來像 win (贏)。擁有一雙強壯的翅膀就能在飛行比賽中贏 (win) 得冠軍。' },
-            { en: 'wiggle', zh: ['扭動 (ㄋㄧㄡˇ ㄉㄨㄥˋ)'], mnemonic: '與 jiggle (抖動) 類似。蟲子在泥土裡不停地扭動身體。' },
-            { en: 'forward', zh: ['向前 (ㄒㄧㄤˋ ㄑㄧㄢˊ)'], mnemonic: 'for (為了/向) + ward (方向)。朝著前方的方向前進。' },
-            { en: 'backward', zh: ['向後 (ㄒㄧㄤˋ ㄏㄡˋ)'], mnemonic: 'back (後面) + ward (方向)。朝著後面的方向退後。' },
-            { en: 'shell', zh: ['殼 (ㄎㄜˊ)', '貝殼 (ㄅㄟˋ ㄎㄜˊ)'], mnemonic: '聽起來像 sell (賣)。小女孩在海灘上賣 (sell) 美麗的貝殼。' },
-            { en: 'soft', zh: ['柔軟的 (ㄖㄡˊ ㄖㄨㄢˇ ㄉㄜ˙)'], mnemonic: '聽起來像 sofa (沙發)。這張客廳裡的沙發坐起來非常柔軟。' },
-            { en: 'sauce', zh: ['醬汁 (ㄐㄧㄤˋ ㄓ)'], mnemonic: '聽起來像 sausage (香腸)。吃香腸的時候沾一點醬汁會更好吃。' },
-            { en: 'draw', zh: ['畫 (ㄏㄨㄚˋ)', '吸引 (ㄒㄧ ㄧㄣˇ)', '拉 (ㄌㄚ)'], mnemonic: '畫家 (drawer) 用畫筆在紙上畫畫，吸引了大家的目光。' },
-            { en: 'prawn', zh: ['明蝦 (ㄇㄧㄥˊ ㄒㄧㄚ)', '大蝦 (ㄉㄚˋ ㄒㄧㄚ)'], mnemonic: '聽起來像 crown (皇冠)。這隻大明蝦頭上的殼長得就像皇冠一樣。' },
-            { en: 'august', zh: ['八月 (ㄅㄚ ㄩㄝˋ)', '威嚴的 (ㄨㄟ ㄧㄢˊ ㄉㄜ˙)'], mnemonic: '源自羅馬皇帝奧古斯都 (Augustus)。他是一位非常威嚴的皇帝，八月也是以他命名的。' },
-            { en: 'ghost', zh: ['鬼魂 (ㄍㄨㄟˇ ㄏㄨㄣˊ)'], mnemonic: '聽起來像 host (主人)。在這棟廢棄的鬼屋裡，鬼魂就是這裡的主人。' },
-            { en: 'hike', zh: ['徒步健行 (ㄊㄨˊ ㄅㄨˋ ㄐㄧㄢˋ ㄒㄧㄥˊ)'], mnemonic: '聽起來像 high (高)。我們週末要去徒步健行，爬上一座很高 (high) 的山。' },
-            { en: 'jacket', zh: ['夾克 (ㄐㄧㄚˊ ㄎㄜˋ)', '外套 (ㄨㄞˋ ㄊㄠˋ)'], mnemonic: 'Jack (傑克) + et。傑克 (Jack) 買了一件非常帥氣的夾克外套。' },
-            { en: 'kangaroo', zh: ['袋鼠 (ㄉㄞˋ ㄕㄨˇ)'], mnemonic: '來自澳洲原住民語。袋鼠在草原上跳躍，肚子裡還有一個育兒袋。' },
-            { en: 'kingdom', zh: ['王國 (ㄨㄤˊ ㄍㄨㄛˊ)'], mnemonic: 'king (國王) + dom (領土/領域)。由國王所統治的領土，就稱為王國。' }
+            { en: 'creep', zh: ['爬行 (ㄆㄚˊ ㄒㄧㄥˊ)', '悄悄地走 (ㄑㄧㄠˇ ㄑㄧㄠˇ ㄉㄜ˙ ㄗㄡˇ)'], mnemonic: '聽起來像 creepy (令人毛骨悚然的)。令人害怕的東西總是「悄悄地走」或在暗處「爬行」。' },
+            { en: 'sloth', zh: ['樹懶 (ㄕㄨˋ ㄌㄢˇ)', '怠惰 (ㄉㄞˋ ㄉㄨㄛˋ)'], mnemonic: 'slow (緩慢) + th。動作非常緩慢的動物，所以也代表著「怠惰」。' },
+            { en: 'hang', zh: ['懸掛 (ㄒㄩㄢˊ ㄍㄨㄚˋ)', '吊著 (ㄉㄧㄠˋ ㄓㄜ˙)'], mnemonic: '聽起來像 hand (手)。你用雙手 (hand) 把東西「懸掛」在牆上。' },
+            { en: 'claws', zh: ['爪子 (ㄓㄠˇ ㄗ˙)'], mnemonic: '聽起來像 crawl (爬行)。許多動物利用牠們銳利的「爪子」來幫助爬行或抓取。' },
+            { en: 'dolphin', zh: ['海豚 (ㄏㄞˇ ㄊㄨㄣˊ)'], mnemonic: 'dol (像 doll 洋娃娃) + phin (像 fin 魚鰭)。有著魚鰭就像可愛洋娃娃一樣的海洋生物是「海豚」。' },
+            { en: 'gently', zh: ['溫柔地 (ㄨㄣ ㄖㄡˊ ㄉㄧˋ)', '輕輕地 (ㄑㄧㄥ ㄑㄧㄥ ㄉㄧˋ)'], mnemonic: 'gentle (溫和的) + ly。像紳士 (gentleman) 一樣「溫柔地」、「輕輕地」對待別人。' },
+            { en: 'ball', zh: ['球 (ㄑㄧㄡˊ)', '舞會 (ㄨˇ ㄏㄨㄟˋ)'], mnemonic: 'Cinderella 去參加「舞會」(ball)，在那裡人們也可以玩「球」。' },
+            { en: 'water', zh: ['水 (ㄕㄨㄟˇ)', '澆水 (ㄐㄧㄠ ㄕㄨㄟˇ)'], mnemonic: '每個人每天都需要喝「水」，植物也需要我們幫忙「澆水」。' },
+            { en: 'tall', zh: ['高的 (ㄍㄠ ㄉㄜ˙)'], mnemonic: '聽起來像 all (全部)。他的身高比我們全部 (all) 的人都要「高的」。' },
+            { en: 'walk', zh: ['走路 (ㄗㄡˇ ㄌㄨˋ)', '散步 (ㄙㄢˋ ㄅㄨˋ)'], mnemonic: '聽起來像 work (工作)。我每天「走路」或「散步」去工作。' },
+            { en: 'let', zh: ['讓 (ㄖㄤˋ)', '允許 (ㄩㄣˇ ㄒㄩˇ)'], mnemonic: '聽起來像 late (遲到)。不要「允許」或「讓」他遲到。' },
+            { en: 'aid', zh: ['幫助 (ㄅㄤ ㄓㄨˋ)', '援助 (ㄩㄢˊ ㄓㄨˋ)'], mnemonic: '常見的 first aid (急救)，意思就是在第一時間給予的「幫助」或「援助」。' },
+            { en: 'but', zh: ['但是 (ㄉㄢˋ ㄕˋ)', '除了...之外 (ㄔㄨˊ ㄌㄜ˙ ... ㄓ ㄨㄞˋ)'], mnemonic: '表示語氣轉折。我想買它，「但是」(but) 沒有錢。' },
+            { en: 'case', zh: ['情況 (ㄑㄧㄥˊ ㄎㄨㄤˋ)', '箱子/盒子 (ㄒㄧㄤ ㄗ˙ / ㄏㄜˊ ㄗ˙)', '案件 (ㄢˋ ㄐㄧㄢˋ)'], mnemonic: '偵探帶著裝滿文件的「箱子」(suitcase)，去調查這個「案件」的各種「情況」。' },
+            { en: 'day', zh: ['白天 (ㄅㄞˊ ㄊㄧㄢ)', '日子 (ㄖˋ ㄗ˙)'], mnemonic: '對應 night (夜晚)。太陽升起的那一刻，新的一天「日子」或「白天」就開始了。' }
         ];
 
         /* --- 語音朗讀 API --- */
@@ -372,7 +372,6 @@
             listContainer.innerHTML = '';
 
             words.forEach((word, index) => {
-                // 將陣列轉換成字串顯示 (用 / 隔開)
                 const zhText = word.zh.join('<br> / ');
                 const rowContainer = document.createElement('div');
                 rowContainer.className = 'practice-row-container';
@@ -398,7 +397,6 @@
             });
         }
 
-        // 練習模式單題批改
         function toggleSingleAnswer(index) {
             const ansEl = document.getElementById(`ans-${index}`);
             const inputEl = document.getElementById(`p-input-${index}`);
@@ -424,7 +422,6 @@
             }
         }
 
-        // 練習模式全域批改
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
@@ -476,20 +473,17 @@
         let wrongWords = [];
         let isWaitingToContinue = false;
 
-        // 產生選擇題選項（混淆器）
         function generateOptions(correctZhs, currentEn) {
-            let options = [...correctZhs]; // 放入所有正確選項
+            let options = [...correctZhs]; 
             let allOtherZhs = [];
             
-            // 抓取其他字的所有意思
             words.forEach(w => {
                 if (w.en !== currentEn) {
                     allOtherZhs.push(...w.zh);
                 }
             });
-            shuffle(allOtherZhs); // 洗牌錯誤選項
+            shuffle(allOtherZhs); 
             
-            // 補足至少 4 個選項（如果該單字本身正確意思就有3個，就變成 3+1=4個選項）
             let targetCount = Math.max(4, correctZhs.length + 1);
             while (options.length < targetCount && allOtherZhs.length > 0) {
                 let distractor = allOtherZhs.pop();
@@ -497,7 +491,7 @@
                     options.push(distractor);
                 }
             }
-            shuffle(options); // 最後再把全部選項洗牌一次
+            shuffle(options); 
             return options;
         }
 
@@ -552,7 +546,6 @@
             document.getElementById('question-number').textContent = `第 ${currentQuestion + 1} 題 / 共 ${totalQuestions} 題`;
             document.getElementById('exam-result').textContent = '';
             
-            // 產生選擇題 UI
             const optionsDiv = document.getElementById('exam-options');
             optionsDiv.innerHTML = '<div style="color:#aaa; font-size:14px; margin-bottom:10px;">2. 請勾選所有正確的意思 (可能不只一個)：</div>';
             const options = generateOptions(q.zh, q.en);
@@ -566,7 +559,6 @@
             
             updateScore();
             
-            // 自動播放語音提示
             setTimeout(() => { speakCurrentExamWord(); }, 300);
             setTimeout(() => { answerInput.focus(); }, 100);
         }
@@ -584,7 +576,6 @@
             const correctAnswer = q.en.toLowerCase();
             const submitBtn = document.getElementById('exam-submit');
             
-            // 檢查多選題
             const checkboxes = document.querySelectorAll('.exam-checkbox');
             const selectedOptions = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
             const correctZhs = q.zh;
@@ -603,7 +594,7 @@
                 }, 1000);
             } else {
                 answerInput.disabled = true; 
-                checkboxes.forEach(cb => cb.disabled = true); // 鎖定多選題
+                checkboxes.forEach(cb => cb.disabled = true);
                 isWaitingToContinue = true;
                 
                 let errorMsg = '❌ 錯誤。<br>';
@@ -641,7 +632,7 @@
             document.getElementById('question-number').textContent = '';
             
             document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-options').style.display = 'none'; // 隱藏選擇題區塊
+            document.getElementById('exam-options').style.display = 'none'; 
             document.getElementById('exam-submit').style.display = 'none';
             
             document.getElementById('exam-result').textContent = `你的最終分數：${score} / ${totalQuestions}`;
