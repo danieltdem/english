@@ -1,452 +1,2485 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>台灣海域奇觀深度測驗：牛奶海與方格海</title>
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="moderne">
+  <title>第八課《嘗嘗我的家鄉味》互動學習網</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lexend:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ocean-deep: #0a2540;
-      --ocean-mid: #0077b6;
-      --ocean-light: #90e0ef;
-      --milk-sea: #e0f2fe;
-      --accent-coral: #ff6b6b;
-      --accent-green: #2ec4b6;
-      --card-bg: #ffffff;
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --border-color: #cbd5e1;
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #f4ecdc;
+      --surface-container-low: #fbf6ea;
+      --surface-container: #e9dcc0;
+      --surface-container-high: #e0cfaa;
+
+      /* Ink */
+      --on-surface: #2b2a26;
+      --on-surface-variant: #55524a;
+
+      /* Rules */
+      --outline: #2b2a26;
+      --outline-variant: #d9cdb3;
+
+      /* Accents */
+      --primary: #1f6f6b;
+      --on-primary: #ffffff;
+      --primary-container: #bcd9d2;
+      --on-primary-container: #17504d;
+      --secondary: #ad431b;
+      --tertiary: #e0a526;
+      --error: #9a1f3a;
+      --on-error: #ffffff;
+      --error-container: #f5d6dd;
+
+      /* Data series */
+      --data-1: #1f6f6b;
+      --data-2: #d9572b;
+      --data-3: #a87710;
+      --data-4: #6b4a2e;
+      --data-context: #a39880;
+
+      /* Semantic */
+      --positive: #1f6f6b;
+      --positive-container: #bcd9d2;
+      --warning: #a87710;
+      --warning-container: #f7e4b4;
+      --focus: #1f6f6b;
+
+      /* Fonts (Non-Latin first per foundation rules) */
+      --font-headline: 'Noto Serif TC', 'DM Serif Display', serif;
+      --font-body: 'Noto Sans TC', 'Lexend', sans-serif;
+      --font-label: 'Noto Sans TC', 'Lexend', sans-serif;
+
+      /* Shape */
+      --rounded: 9999px;
+      --rounded-lg: 2.25rem 0.5rem 2.25rem 0.5rem;
+      --rounded-panel: 1.25rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --ink-border: 2px solid var(--outline);
+      --hairline-border: 1px solid var(--outline-variant);
+      --leaf-mirror: 0.5rem 2.25rem 0.5rem 2.25rem;
+      --mustard-wash: color-mix(in srgb, var(--tertiary) 45%, var(--background));
+      --mustard-soft: color-mix(in srgb, var(--tertiary) 22%, var(--surface-container-low));
+      --sage-soft: color-mix(in srgb, var(--primary-container) 55%, var(--surface-container-low));
+      --orb-r: 2.25rem;
+      --orb-r-small: 1.75rem;
+      --orb-clearance: 10rem;
+      --orbs:
+        radial-gradient(circle at calc(100% - 4.375rem) 4.5rem, color-mix(in srgb, var(--data-2) 90%, transparent) var(--orb-r-small), transparent calc(var(--orb-r-small) + 1px)),
+        radial-gradient(circle at calc(100% - 6.25rem) 3.625rem, color-mix(in srgb, var(--primary) 85%, transparent) var(--orb-r), transparent calc(var(--orb-r) + 1px)),
+        radial-gradient(circle at calc(100% - 8.75rem) 4.375rem, var(--tertiary) var(--orb-r), transparent calc(var(--orb-r) + 1px));
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.15rem, 1.4rem + 2.8vw, 3.5rem);
+      --headline-size: clamp(1.625rem, 1.25rem + 1.4vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.8125rem, 0.78rem + 0.12vw, 0.875rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
     }
 
-    * {
-      box-sizing: border-box;
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
       margin: 0;
       padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      letter-spacing: 0;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: 0;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
-      background: linear-gradient(180deg, #e0f7fa 0%, #b2ebf2 40%, #80deea 100%);
-      color: var(--text-main);
-      padding: 30px 15px;
-      min-height: 100vh;
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
     }
 
-    .container {
-      max-width: 900px;
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1080px;
       margin: 0 auto;
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 15px 35px rgba(10, 37, 64, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: var(--space-sm);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      z-index: 100;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .skip-link:focus {
+      left: var(--space-md);
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 35px;
-      border-bottom: 2px dashed var(--ocean-light);
-      padding-bottom: 25px;
+    /* Title block with Moderne multiplied orbs */
+    .title-block {
+      background-color: var(--background);
+      background-image: var(--orbs);
+      background-blend-mode: multiply;
+      background-repeat: no-repeat;
+      padding: var(--space-xl) var(--space-lg) var(--space-lg);
+      border-bottom: var(--ink-border);
     }
-
-    h1 {
-      font-size: 2.2rem;
-      color: var(--ocean-deep);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
+    .title-block > * {
+      padding-inline-end: var(--orb-clearance);
     }
-
-    .intro-banner {
-      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-      padding: 16px 20px;
-      border-radius: 12px;
-      border-left: 5px solid var(--ocean-mid);
-      margin-bottom: 25px;
-      font-size: 0.95rem;
-      color: var(--ocean-deep);
-      line-height: 1.6;
+    .kicker-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
     }
-
-    .question-block {
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 30px;
-      transition: all 0.2s ease;
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--secondary);
+      color: var(--on-primary);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
     }
-
-    .question-block:hover {
-      border-color: var(--ocean-mid);
-      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.08);
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded-full);
+      background: var(--on-surface);
+      color: var(--background);
+      padding: var(--space-xs) var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
     }
-
-    .q-title {
-      font-size: 1.15rem;
+    .chip-outline {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: var(--hairline-border);
+    }
+    .hero-title {
+      font-family: var(--font-headline);
       font-weight: 700;
-      color: var(--ocean-deep);
-      margin-bottom: 16px;
-      line-height: 1.5;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    .hero-title .accent-word {
+      color: var(--secondary);
+    }
+    .hero-subtitle {
+      font-size: var(--subhead-size);
+      color: var(--primary);
+      font-weight: 500;
+      margin: 0 0 var(--space-md) 0;
+      max-width: 60ch;
+    }
+    .hero-lead {
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin: 0;
     }
 
-    .q-badge {
-      display: inline-block;
-      background: var(--ocean-mid);
-      color: white;
-      font-size: 0.8rem;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-right: 8px;
-      vertical-align: middle;
+    /* Leaf cards */
+    .leaf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-lg);
     }
-
-    .options-list {
+    .leaf {
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      background: var(--mustard-wash);
+      color: var(--on-surface);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      justify-content: space-between;
+      gap: var(--space-sm);
     }
-
-    .option-label {
-      display: flex;
-      align-items: flex-start;
-      padding: 12px 16px;
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.98rem;
-      line-height: 1.5;
-      transition: background 0.15s, border-color 0.15s;
+    .leaf:nth-child(even) {
+      border-radius: var(--leaf-mirror);
+      background: var(--primary-container);
     }
-
-    .option-label:hover {
-      background: #f0fdf4;
-      border-color: #86efac;
+    .leaf-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
     }
-
-    .option-label input[type="checkbox"] {
-      margin-top: 4px;
-      margin-right: 12px;
-      width: 18px;
-      height: 18px;
-      accent-color: var(--ocean-mid);
-      cursor: pointer;
-    }
-
-    .explanation {
-      display: none;
-      margin-top: 18px;
-      padding: 16px 20px;
-      background: #fff1f2;
-      border-left: 4px solid var(--accent-coral);
-      border-radius: 8px;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: #881337;
-    }
-
-    .explanation.visible {
-      display: block;
-    }
-
-    .explanation-title {
+    .leaf-figure {
+      font-family: var(--font-headline);
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
       font-weight: 700;
-      margin-bottom: 8px;
+      line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+    .leaf-caption {
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+
+    /* Chapter quick navigation pills */
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-panel);
+    }
+    .nav-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+      margin-inline-end: var(--space-xs);
+    }
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline);
+      background: var(--background);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: var(--label-size);
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .nav-pill:hover {
+      background: var(--surface-container);
+    }
+    .nav-pill.is-done {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Chapter Section Shell */
+    .chapter-section {
+      padding-top: var(--space-xl);
+      border-top: var(--ink-border);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .chapter-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--space-md);
+    }
+    .chapter-heading-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .chapter-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .chapter-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .chapter-title .accent-word {
+      color: var(--secondary);
+    }
+    .chapter-summary {
+      margin: 0;
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+    .chapter-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      font-weight: 500;
+      border: 1.5px solid var(--outline);
+    }
+    .chapter-status-badge.is-mastered {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+
+    /* Two-column asymmetric reading + interactive layout */
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Poem Card */
+    .poem-panel {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .poem-panel-head {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--hairline-border);
     }
-
-    .btn-submit {
-      display: block;
-      width: 100%;
-      background: linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
-      color: white;
-      font-size: 1.25rem;
+    .panel-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
       font-weight: 700;
-      padding: 18px;
-      border: none;
-      border-radius: 12px;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .poem-lines {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .poem-line {
+      margin: 0;
+      line-height: 1.85;
+      color: var(--on-surface);
+    }
+    .poem-line.is-refrain {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .clue-trigger {
+      display: inline;
+      padding: 2px 8px;
+      margin: 0 2px;
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--primary);
+      background: var(--sage-soft);
+      color: var(--on-primary-container);
+      font-weight: 500;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(10, 37, 64, 0.25);
-      transition: transform 0.1s, box-shadow 0.2s;
-      margin-top: 20px;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .clue-trigger:hover {
+      background: var(--primary-container);
+    }
+    .clue-trigger.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
     }
 
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(10, 37, 64, 0.35);
+    /* Clue Insight Drawer (in-place beside poem) */
+    .clue-box {
+      background: var(--surface-container);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      border-left: 4px solid var(--secondary);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .clue-box-kicker {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .clue-box-title {
+      font-weight: 700;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .clue-box-body {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--on-surface);
     }
 
-    #score-banner {
-      display: none;
-      padding: 20px;
-      margin-top: 30px;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 1.3rem;
+    /* Interactive Explorer Card */
+    .explorer-panel {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--leaf-mirror);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .illustration-stage {
+      background: var(--background);
+      border: var(--hairline-border);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .illustration-stage svg {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+    }
+    .svg-teal { fill: var(--primary); }
+    .svg-sage { fill: var(--primary-container); }
+    .svg-orange { fill: var(--secondary); }
+    .svg-bright-orange { fill: var(--data-2); }
+    .svg-mustard { fill: var(--tertiary); }
+    .svg-cream { fill: var(--surface-container-low); }
+    .svg-sand { fill: var(--surface-container); }
+    .svg-walnut { fill: var(--data-4); }
+    .svg-ink { fill: var(--on-surface); }
+    .svg-stroke-ink { stroke: var(--outline); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .svg-stroke-teal { stroke: var(--primary); stroke-width: 2.5; stroke-linecap: round; }
+    .svg-stroke-orange { stroke: var(--secondary); stroke-width: 2.5; stroke-linecap: round; }
+
+    .interactive-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .tab-pill {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline);
+      background: var(--background);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .tab-pill:hover {
+      background: var(--surface-container);
+    }
+    .tab-pill[aria-selected="true"],
+    .tab-pill.is-active {
+      background: var(--on-surface);
+      color: var(--background);
+    }
+
+    .explorer-detail {
+      background: var(--mustard-soft);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .explorer-detail-title {
+      font-weight: 700;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .explorer-detail-text {
+      margin: 0;
+      color: var(--on-surface);
+      font-size: 0.98rem;
+    }
+
+    /* Interactive Pizza SVG hotspots */
+    .pizza-slice-btn {
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+      transform-origin: center;
+    }
+    .pizza-slice-btn:hover {
+      opacity: 0.88;
+    }
+
+    /* Kimchi Stepper */
+    .step-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .step-btn {
+      min-height: 48px;
+      padding: var(--space-sm);
+      border-radius: var(--rounded-panel);
+      border: 1.5px solid var(--outline);
+      background: var(--background);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: var(--label-size);
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .step-btn:hover {
+      background: var(--surface-container);
+    }
+    .step-btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .step-num {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* Chapter 5: Language Focus Modules */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .focus-card {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .rhetoric-compare {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-md);
+    }
+    .rhetoric-col {
+      background: var(--background);
+      border: var(--hairline-border);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .rhetoric-list {
+      margin: 0;
+      padding-inline-start: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    /* Polyphone & Similar Char interactive cards */
+    .char-switch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .char-detail-box {
+      background: var(--sage-soft);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .pronunciation-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-sm);
+      padding: var(--space-sm);
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-panel);
+      border: var(--hairline-border);
+    }
+    .zhuyin-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: var(--rounded);
+      background: var(--secondary);
+      color: var(--on-primary);
+      font-size: var(--label-size);
       font-weight: 700;
     }
-
-    .score-high {
-      background: #dcfce7;
-      color: #166534;
-      border: 2px solid #86efac;
+    .idiom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .idiom-table th {
+      text-align: left;
+      padding: var(--space-sm);
+      border-bottom: var(--ink-border);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .idiom-table td {
+      padding: var(--space-sm);
+      border-bottom: var(--hairline-border);
+      vertical-align: top;
+    }
+    .idiom-table tr:hover td {
+      background: var(--mustard-soft);
     }
 
-    .score-need-work {
-      background: #fee2e2;
-      color: #991b1b;
-      border: 2px solid #fca5a5;
+    /* Quiz Module */
+    .quiz-card {
+      background: var(--surface-container-low);
+      border: var(--ink-border);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .quiz-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--ink-border);
+    }
+    .quiz-head-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .quiz-score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      border: 1.5px solid var(--outline);
+      font-weight: 700;
+      font-size: var(--label-size);
+      font-variant-numeric: tabular-nums;
+    }
+    .quiz-questions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .question-block {
+      background: var(--background);
+      border: var(--hairline-border);
+      border-radius: var(--rounded-panel);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .question-stem {
+      margin: 0;
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+    .question-type-tag {
+      display: inline-block;
+      margin-inline-end: var(--space-sm);
+      padding: 2px 8px;
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .option-btn {
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .option-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+    }
+    .option-btn:disabled {
+      cursor: default;
+    }
+    .option-btn.is-correct {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary);
+      font-weight: 700;
+    }
+    .option-btn.is-wrong {
+      background: var(--error-container);
+      color: var(--error);
+      border-color: var(--error);
+      box-shadow: 0 0 0 2px var(--error);
+    }
+    .option-btn.is-dimmed {
+      opacity: 0.65;
+    }
+    .feedback-banner {
+      padding: var(--space-md);
+      border-radius: var(--rounded-panel);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      border-left: 4px solid var(--primary);
+      background: var(--sage-soft);
+    }
+    .feedback-banner.is-wrong {
+      border-left-color: var(--error);
+      background: var(--error-container);
+    }
+    .feedback-status {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .feedback-banner.is-correct .feedback-status { color: var(--on-primary-container); }
+    .feedback-banner.is-wrong .feedback-status { color: var(--error); }
+    .feedback-explain {
+      margin: 0;
+      font-size: 0.96rem;
+      color: var(--on-surface);
     }
 
-    .correct-highlight {
-      background-color: #dcfce7 !important;
-      border-color: #4ade80 !important;
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-lg);
+      font-family: var(--font-label);
+      font-weight: 500;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+    .btn-secondary:hover {
+      background: var(--error);
+    }
+    .btn-tertiary {
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-tertiary:hover {
+      background: var(--surface-container-high);
     }
 
-    .wrong-highlight {
-      background-color: #fee2e2 !important;
-      border-color: #f87171 !important;
+    /* Summary & Footer */
+    .summary-leaf {
+      border: var(--ink-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      background: var(--primary-container);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+    .summary-text {
+      max-width: 55ch;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .summary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .status-note {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .source-footer {
+      border-top: var(--hairline-border);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: var(--label-size);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile breakpoint */
+    @media (max-width: 780px) {
+      .chapter-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .rhetoric-compare {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .step-timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .title-block {
+        padding: var(--space-lg) var(--space-md);
+        background-image: none;
+      }
+      .title-block > * {
+        padding-inline-end: 0;
+      }
+      .summary-leaf {
+        padding: var(--space-lg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳至主要學習內容</a>
 
-  <div class="container">
-    <header>
-      <h1>🌊 台灣海域奇觀深度挑戰測驗</h1>
-      <p style="color: var(--text-muted); font-size: 1rem; margin-top: 6px;">全範圍高難度複選題｜檢驗你對龜山島牛奶海與馬祖／金門方格海的全面理解</p>
+  <div class="page-grid">
+    <!-- Hero Title Block -->
+    <header class="title-block">
+      <div class="kicker-row">
+        <span class="stamp">國小五上國語・第八課</span>
+        <span class="chip">作者：王宗仁</span>
+        <span class="chip chip-outline">文體：童詩（詩歌）</span>
+      </div>
+      <h1 class="hero-title">嘗嘗我的<span class="accent-word">家鄉味</span></h1>
+      <p class="hero-subtitle">跟隨「來，讓我用家鄉味招待你」的反覆吟誦，展開四國餐桌與童詩修辭之旅</p>
+      <p class="hero-lead">
+        作者王宗仁用充滿童趣的擬人與疊字修辭，將四道異國美食化作活潑的角色與遊戲。本網站依課文結構分為五個學習章節，每個章節均結合「詩句線索探索」與「即時互動測驗」，協助你掌握飲食文化意涵與字詞修辭重點。
+      </p>
     </header>
 
-    <div class="intro-banner">
-      <strong>⚠️ 測驗規則提示：</strong><br>
-      本測驗所有題目皆為<strong>高難度複選題</strong>。每題均有 <strong>5 個選項</strong>，且<strong>至少有 2 個或以上的正確答案</strong>。請細心審題，將所有完全符合原文陳述的選項全部勾選出！若未全對或答錯，送出後將顯示詳盡的選項解析。
-    </div>
-
-    <form id="quizForm">
-
-      <!-- Q1 -->
-      <div class="question-block" id="block-q1">
-        <div class="q-title"><span class="q-badge">第 1 題</span> 依據簡報「執行摘要」與「結論」，關於台灣兩大海域奇觀之宏觀定位與科學本質，下列敘述哪些完全符合原文？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q1" value="A"> A. 牛奶海與方格海因獨特成因、視覺美感及感官體驗，已成為台灣海洋文化與自然教育之重要素材。</label>
-          <label class="option-label"><input type="checkbox" name="q1" value="B"> B. 牛奶海的形成核心源自地底火山活動誘發之「海底熱泉」機制，本質上牽涉化學與熱流反應。</label>
-          <label class="option-label"><input type="checkbox" name="q1" value="C"> C. 方格海本質上是由地形與海流交會所引發的物理現象，而非涉及化學成分質變之化學反應。</label>
-          <label class="option-label"><input type="checkbox" name="q1" value="D"> D. 簡報結論指出，深入探究這兩大海域成因僅在於增進對自然科學之認知，並未涉及本土認同層面。</label>
-          <label class="option-label"><input type="checkbox" name="q1" value="E"> E. 台灣多變的海洋景觀展現了大自然「千變萬化」的面貌，背後均根植於複雜的地球科學機制。</label>
-        </div>
-        <div class="explanation" id="exp-q1">
-          <div class="explanation-title">📌 第 1 題 解析</div>
-          正確選項為 <strong>A、B、C、E</strong>。<br>
-          • <strong>A、B、C 正確</strong>：執行摘要明確提到兩者是自然教育與文化素材，牛奶海是火山海底熱泉，方格海是地形與海流交會的物理現象。<br>
-          • <strong>D 錯誤</strong>：結論中強調深入探索「不僅增進對自然科學的認知，也提升了對本土自然資源的認同感」，而非僅限於科學層面。<br>
-          • <strong>E 正確</strong>：結論段落指出兩者展現了大自然「千變萬化」的面貌，源於複雜的地球科學機制。
-        </div>
+    <!-- Progress Dashboard Leaves -->
+    <section aria-label="學習進度摘要" class="leaf-grid">
+      <div class="leaf reveal">
+        <span class="leaf-label">已探索家鄉味線索</span>
+        <span class="leaf-figure" id="stat-clues">0 / 14</span>
+        <span class="leaf-caption">點擊詩句中的高亮詞語解鎖解析</span>
       </div>
-
-      <!-- Q2 -->
-      <div class="question-block" id="block-q2">
-        <div class="q-title"><span class="q-badge">第 2 題</span> 關於龜山島「牛奶海（烏龜喝牛奶）」的地理空間、命名由來與感官特徵，下列敘述哪些正確？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q2" value="A"> A. 牛奶海坐落於宜蘭外海龜山島的尾部沙灘交會區。</label>
-          <label class="option-label"><input type="checkbox" name="q2" value="B"> B. 海面上呈現乳白色與淺藍色、墨藍色交織向外渲染，堆疊出深淺交錯的色彩層次。</label>
-          <label class="option-label"><input type="checkbox" name="q2" value="C"> C. 命名由來是因為從高空俯瞰時，視覺意象宛如烏龜在飲用牛奶。</label>
-          <label class="option-label"><input type="checkbox" name="q2" value="D"> D. 伴隨該美景的嗅覺體驗，為陣陣強烈且刺鼻的硫磺味，常被形容為「壞掉的雞蛋」味。</label>
-          <label class="option-label"><input type="checkbox" name="q2" value="E"> E. 該海域因底層火山釋放高溫熱泉，使周邊空氣始終瀰漫著清甜的牛奶芳香氣味。</label>
-        </div>
-        <div class="explanation" id="exp-q2">
-          <div class="explanation-title">📌 第 2 題 解析</div>
-          正確選項為 <strong>B、C、D</strong>。<br>
-          • <strong>A 錯誤</strong>：原文指出牛奶海位於宜蘭外海的龜山島「前端」，並非尾部沙灘區。<br>
-          • <strong>B、C 正確</strong>：海水由乳白、淺藍與墨藍渲染交錯，高空俯瞰宛如烏龜飲用牛奶。<br>
-          • <strong>D 正確</strong>、<strong>E 錯誤</strong>：伴隨美景的是刺鼻強烈的「壞掉的雞蛋」味（硫磺味），絕無清甜牛奶芳香。
-        </div>
+      <div class="leaf reveal">
+        <span class="leaf-label">章節測驗總分</span>
+        <span class="leaf-figure" id="stat-score">0 / 16</span>
+        <span class="leaf-caption" id="stat-accuracy">尚未開始作答，立即挑戰各章節題目</span>
       </div>
-
-      <!-- Q3 -->
-      <div class="question-block" id="block-q3">
-        <div class="q-title"><span class="q-badge">第 3 題</span> 深入解析牛奶海「海底熱泉」的科學形成機制，下列哪些階段或特徵符合文中所述之具體細節？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q3" value="A"> A. 海水受重力或地質作用滲透進入地底深處，經過地底火山口的岩漿加熱。</label>
-          <label class="option-label"><input type="checkbox" name="q3" value="B"> B. 受熱加壓後的海水自地殼裂縫噴發而出，於海底形成高溫噴湧的「海底熱泉」。</label>
-          <label class="option-label"><input type="checkbox" name="q3" value="C"> C. 當噴出的高溫熱泉與外部相對低溫的海水相遇並產生物質轉化時，會生成白色物質。</label>
-          <label class="option-label"><input type="checkbox" name="q3" value="D"> D. 白色物質在熱泉噴發口持續沉澱與堆積，形成如同「小型煙囪」的特殊微地貌景觀。</label>
-          <label class="option-label"><input type="checkbox" name="q3" value="E"> E. 因熱泉口源源不絕釋放且具強烈鹼性，地質學家與當地人將該地景戲稱為「甘甜起司沉積岩」。</label>
-        </div>
-        <div class="explanation" id="exp-q3">
-          <div class="explanation-title">📌 第 3 題 解析</div>
-          正確選項為 <strong>A、B、C、D</strong>。<br>
-          • <strong>A、B、C、D 正確</strong>：完整再現了熱泉四步驟：滲透與加熱（地底岩漿）、噴發（地殼裂縫噴發成海底熱泉）、物質轉化（遇低溫海水產出白色物質）、堆積（噴發口堆積成小型煙囪）。<br>
-          • <strong>E 錯誤</strong>：原文指噴發口源源不絕釋放白色物質，因而被戲稱為「酸牛奶製造機」，而非「甘甜起司沉積岩」。
-        </div>
+      <div class="leaf reveal">
+        <span class="leaf-label">精熟完成章節</span>
+        <span class="leaf-figure" id="stat-chapters">0 / 5</span>
+        <span class="leaf-caption">每章答對全部題目即獲得精熟標記</span>
       </div>
+    </section>
 
-      <!-- Q4 -->
-      <div class="question-block" id="block-q4">
-        <div class="q-title"><span class="q-badge">第 4 題</span> 針對馬祖與金門海域的「方格海（海水畫表格）」，其分佈地點與視覺生態特色包含下列哪些？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q4" value="A"> A. 該景觀的主要目擊與分佈地點包含馬祖西莒島以及金門貴山海灘。</label>
-          <label class="option-label"><input type="checkbox" name="q4" value="B"> B. 海浪交錯在淺灘上自動排列，主要呈現圓形漩渦狀，大小完全固定不變。</label>
-          <label class="option-label"><input type="checkbox" name="q4" value="C"> C. 形成的方格主要呈現「正方形」或「菱形」，其格局大小會隨當前海象變化而有所不同。</label>
-          <label class="option-label"><input type="checkbox" name="q4" value="D"> D. 清晨時段常可見成群燕鷗於方格中覓食，其中包含稀有的「神話之鳥」——黑嘴端鳳頭燕鷗。</label>
-          <label class="option-label"><input type="checkbox" name="q4" value="E"> E. 入夜後隨著波浪的拍打與擾動，海面上會閃耀著淡藍色螢光，呈現著名的「藍眼淚」奇觀。</label>
-        </div>
-        <div class="explanation" id="exp-q4">
-          <div class="explanation-title">📌 第 4 題 解析</div>
-          正確選項為 <strong>A、C、D、E</strong>。<br>
-          • <strong>A 正確</strong>：馬祖西莒島及金門貴山海灘為其主要分佈地點。<br>
-          • <strong>B 錯誤</strong>、<strong>C 正確</strong>：海浪是交錯形成「正方形」或「菱形」的格子，格子大小「隨海象變化」，而非固定不變的圓形漩渦。<br>
-          • <strong>D 正確</strong>：早晨有燕鷗覓食，包含「神話之鳥」黑嘴端鳳頭燕鷗。<br>
-          • <strong>E 正確</strong>：入夜後因波浪擾動會呈現淡藍色螢光的「藍眼淚」現象。
-        </div>
-      </div>
+    <!-- Chapter Quick Navigation -->
+    <nav class="chapter-nav" aria-label="章節快速導覽">
+      <span class="nav-label">章節跳轉：</span>
+      <a class="nav-pill" href="#ch1" id="nav-ch1">一、日本壽司</a>
+      <a class="nav-pill" href="#ch2" id="nav-ch2">二、印度咖哩與麥餅</a>
+      <a class="nav-pill" href="#ch3" id="nav-ch3">三、義大利披薩</a>
+      <a class="nav-pill" href="#ch4" id="nav-ch4">四、韓國辛奇</a>
+      <a class="nav-pill" href="#ch5" id="nav-ch5">五、修辭與字詞焦點</a>
+    </nav>
 
-      <!-- Q5 -->
-      <div class="question-block" id="block-q5">
-        <div class="q-title"><span class="q-badge">第 5 題</span> 關於「方格海」的科學成因及流體物理機制，下列敘述哪些切合文本說明？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q5" value="A"> A. 方格海絕非化學物質質變反應，而是純粹的地形與流體力學相互作用之結果。</label>
-          <label class="option-label"><input type="checkbox" name="q5" value="B"> B. 馬祖西莒島的方格海發生於沙灘與近旁小島之間的特定海域（如西莒島沙灘與蛇島之間）。</label>
-          <label class="option-label"><input type="checkbox" name="q5" value="C"> C. 西莒島海域在「漲潮」時，海浪受到地形阻隔與折射影響，自不同方向湧入交會。</label>
-          <label class="option-label"><input type="checkbox" name="q5" value="D"> D. 當兩組交錯的波浪一行一行地對撞交會，即在海面上構築成特殊的方格陣列。</label>
-          <label class="option-label"><input type="checkbox" name="q5" value="E"> E. 金門貴山海灘的方格海現象形成機制，與西莒島完全相同，均嚴格發生於急速「滿潮」時刻。</label>
+    <main id="main-content">
+      <!-- ==================== CHAPTER 1: JAPAN SUSHI ==================== -->
+      <section class="chapter-section" id="ch1" aria-labelledby="ch1-title">
+        <div class="chapter-header">
+          <div class="chapter-heading-group">
+            <div class="chapter-tag-row">
+              <span class="stamp">第一章・第一段</span>
+              <span class="chip">代表國家：日本</span>
+            </div>
+            <h2 class="chapter-title" id="ch1-title">一口漫開海洋鮮味的日本<span class="accent-word">壽司</span></h2>
+            <p class="chapter-summary">段意：到日本來，嘗嘗各種口味的壽司，讓海洋在嘴巴漫開，流下感動的淚。</p>
+          </div>
+          <div class="chapter-status-badge" id="badge-ch1">測驗進度：0 / 3 題</div>
         </div>
-        <div class="explanation" id="exp-q5">
-          <div class="explanation-title">📌 第 5 題 解析</div>
-          正確選項為 <strong>A、B、C、D</strong>。<br>
-          • <strong>A、B、C、D 正確</strong>：方格海是流體力學與地形結果；西莒島發生在沙灘與蛇島間，漲潮時兩組不同方向湧入的波浪交會成方格陣列。<br>
-          • <strong>E 錯誤</strong>：原文特別強調「金門案例：金門貴山海灘的方格海現象則與『退潮』有關」，兩者潮汐條件有所差異。
-        </div>
-      </div>
 
-      <!-- Q6 -->
-      <div class="question-block" id="block-q6">
-        <div class="q-title"><span class="q-badge">第 6 題</span> 對照簡報第三節「海洋奇觀對照分析表」，下列比較與屬性歸納哪些完全無誤？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q6" value="A"> A. 牛奶海的關鍵成因歸屬於「地底火山活動、海底熱泉」；方格海則為「地形與不同方向海流交會」。</label>
-          <label class="option-label"><input type="checkbox" name="q6" value="B"> B. 牛奶海的視覺特色為「乳白色與深淺藍色交織」；方格海則呈現「海水呈正方形或菱形格狀」。</label>
-          <label class="option-label"><input type="checkbox" name="q6" value="C"> C. 牛奶海的附加特徵為「強烈硫磺味（臭雞蛋味）」；方格海附加特徵為「燕鷗覓食、夜間藍眼淚」。</label>
-          <label class="option-label"><input type="checkbox" name="q6" value="D"> D. 主要分佈地點上，牛奶海位於宜蘭龜山島，方格海則僅限於金門貴山，馬祖無此現象。</label>
-          <label class="option-label"><input type="checkbox" name="q6" value="E"> E. 對照表顯示兩者附加特徵皆包含夜間會發出微光，且都會伴隨強烈硫磺刺激性氣體。</label>
-        </div>
-        <div class="explanation" id="exp-q6">
-          <div class="explanation-title">📌 第 6 題 解析</div>
-          正確選項為 <strong>A、B、C</strong>。<br>
-          • <strong>A、B、C 正確</strong>：完全符合對照表之分類（地點、視覺、成因、附加特徵）。<br>
-          • <strong>D 錯誤</strong>：方格海主要分佈地點包含馬祖西莒島與金門貴山。<br>
-          • <strong>E 錯誤</strong>：硫磺味僅屬於牛奶海，藍眼淚夜光僅屬於方格海，兩者附加特徵截然不同。
-        </div>
-      </div>
+        <div class="chapter-grid">
+          <!-- Poem & Interactive Clue Triggers -->
+          <article class="poem-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">課文賞析・點擊藍色線索詞</h3>
+              <span class="chip chip-outline">擬人・味覺聯想</span>
+            </div>
+            <div class="poem-lines">
+              <p class="poem-line is-refrain">來，讓我用家鄉味招待你</p>
+              <p class="poem-line">
+                和調味料<button type="button" class="clue-trigger is-active" data-ch="1" data-clue="sumo" onclick="selectClue('1', 'sumo', this)">相撲</button>過後的米飯
+              </p>
+              <p class="poem-line">戴上魚蝦螺貝，還有</p>
+              <p class="poem-line">盯著你直看</p>
+              <p class="poem-line">
+                滿滿的晶晶亮亮的<button type="button" class="clue-trigger" data-ch="1" data-clue="roe" onclick="selectClue('1', 'roe', this)">鮭魚子</button>
+              </p>
+              <p class="poem-line">一入口</p>
+              <p class="poem-line">海洋在嘴巴中漫開</p>
+              <p class="poem-line">
+                有時<button type="button" class="clue-trigger" data-ch="1" data-clue="wasabi" onclick="selectClue('1', 'wasabi', this)">山葵</button>還會跟著衝進鼻子裡
+              </p>
+              <p class="poem-line">
+                讓眼底流出一池<button type="button" class="clue-trigger" data-ch="1" data-clue="tears" onclick="selectClue('1', 'tears', this)">感動的鹹水</button>
+              </p>
+            </div>
+            <div class="clue-box" id="clue-box-1" aria-live="polite">
+              <span class="clue-box-kicker">文化與修辭線索</span>
+              <h4 class="clue-box-title" id="clue-title-1">「和調味料相撲過後的米飯」</h4>
+              <p class="clue-box-body" id="clue-body-1">
+                「相撲」是流行於日本的傳統競技運動，由兩名力士互相角力。作者用來比喻醋飯與調味料充分拌勻的過程（擬人修辭），也巧妙透露這道家鄉味來自日本！
+              </p>
+            </div>
+          </article>
 
-      <!-- Q7 -->
-      <div class="question-block" id="block-q7">
-        <div class="q-title"><span class="q-badge">第 7 題</span> 根據第四節「核心詞彙與語言表達重點」之字詞定義，下列詞彙釋義哪些精確符合教材規範？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q7" value="A"> A. 渲染：原為國畫用色技巧，於此簡報中借指海水顏色的擴散延伸。</label>
-          <label class="option-label"><input type="checkbox" name="q7" value="B"> B. 滲入：指固態物質在高溫下迅速溶解於熱水中。</label>
-          <label class="option-label"><input type="checkbox" name="q7" value="C"> C. 臭美：原意為諷刺人自誇，在本文中被作者用來轉折形容壯麗美景下的刺鼻氣味。</label>
-          <label class="option-label"><input type="checkbox" name="q7" value="D"> D. 星羅棋布：形容布列繁密、廣泛分佈。</label>
-          <label class="option-label"><input type="checkbox" name="q7" value="E"> E. 目眩神迷：形容所見情景令人驚異、震撼且眩惑。</label>
+          <!-- Chapter 1 Interactive SVG & Cultural Breakdown -->
+          <aside class="explorer-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">壽司食材料理圖解</h3>
+              <span class="chip chip-outline">點擊零件探索</span>
+            </div>
+            <div class="illustration-stage">
+              <svg viewBox="0 0 280 180" role="img" aria-label="日本壽司與鮭魚子、山葵插畫">
+                <!-- Wooden geta plate -->
+                <rect x="30" y="132" width="220" height="16" rx="4" class="svg-walnut svg-stroke-ink" />
+                <rect x="55" y="148" width="22" height="14" rx="2" class="svg-walnut svg-stroke-ink" />
+                <rect x="203" y="148" width="22" height="14" rx="2" class="svg-walnut svg-stroke-ink" />
+                <!-- Nigiri Rice Base -->
+                <rect x="55" y="90" width="90" height="42" rx="18" class="svg-cream svg-stroke-ink" />
+                <!-- Salmon / Seafood Topping -->
+                <path d="M48 92 C58 64, 142 64, 152 92 C130 98, 70 98, 48 92 Z" class="svg-bright-orange svg-stroke-ink" />
+                <path d="M72 78 Q88 86 104 75" fill="none" class="svg-stroke-ink" />
+                <path d="M106 76 Q120 85 134 77" fill="none" class="svg-stroke-ink" />
+                <!-- Ikura Gunkan (鮭魚子軍艦) -->
+                <rect x="168" y="82" width="64" height="50" rx="8" class="svg-ink svg-stroke-ink" />
+                <circle cx="182" cy="78" r="8" class="svg-bright-orange svg-stroke-ink" />
+                <circle cx="199" cy="76" r="8" class="svg-mustard svg-stroke-ink" />
+                <circle cx="216" cy="79" r="8" class="svg-bright-orange svg-stroke-ink" />
+                <circle cx="191" cy="66" r="7" class="svg-bright-orange svg-stroke-ink" />
+                <circle cx="208" cy="67" r="7" class="svg-mustard svg-stroke-ink" />
+                <!-- Wasabi dollop -->
+                <path d="M224 128 C226 112, 244 112, 246 128 Z" class="svg-teal svg-stroke-ink" />
+                <!-- Eyes looking at you (盯著你直看) -->
+                <circle cx="182" cy="78" r="2.2" class="svg-cream" />
+                <circle cx="216" cy="79" r="2.2" class="svg-cream" />
+              </svg>
+              <div class="interactive-tabs" role="tablist" aria-label="壽司知識切換">
+                <button type="button" class="tab-pill is-active" onclick="showSushiTab('rice', this)">醋飯相撲</button>
+                <button type="button" class="tab-pill" onclick="showSushiTab('ocean', this)">鮭魚子與螺貝</button>
+                <button type="button" class="tab-pill" onclick="showSushiTab('wasabi', this)">山葵與淚水</button>
+              </div>
+            </div>
+            <div class="explorer-detail" id="sushi-detail">
+              <h4 class="explorer-detail-title" id="sushi-detail-title">日本國技「相撲」入詩</h4>
+              <p class="explorer-detail-text" id="sushi-detail-body">
+                壽司飯需要加入壽司醋拌勻。作者不直接寫「攪拌」，而寫米飯與調味料「相撲」，既寫出拌飯時來回翻攪的力道，也暗示料理來自日本。
+              </p>
+            </div>
+          </aside>
         </div>
-        <div class="explanation" id="exp-q7">
-          <div class="explanation-title">📌 第 7 題 解析</div>
-          正確選項為 <strong>A、C、D、E</strong>。<br>
-          • <strong>A 正確</strong>：渲染為國畫技巧，指顏色擴散。<br>
-          • <strong>B 錯誤</strong>：教材對「滲入」之嚴格定義為「液體慢慢進入物體裡面」，非溶解現象。<br>
-          • <strong>C、D、E 正確</strong>：臭美（諷刺自誇，轉折形容氣味）、星羅棋布（形容布列繁密）、目眩神迷（形容所見情景令人驚異）均與教材完全一致。
-        </div>
-      </div>
 
-      <!-- Q8 -->
-      <div class="question-block" id="block-q8">
-        <div class="q-title"><span class="q-badge">第 8 題</span> 檢視簡報中的「句型與關係表達重點」，下列句型功能、關聯詞與其在文中的教學設計對應哪些完全正確？</div>
-        <div class="options-list">
-          <label class="option-label"><input type="checkbox" name="q8" value="A"> A. 選擇關係：運用「是……還是……」句型，旨在引發讀者對海洋第一印象的重新思考與反思。</label>
-          <label class="option-label"><input type="checkbox" name="q8" value="B"> B. 因果關係：運用「因為……因此……」句型，專注於剖析並說明特殊自然現象背後的科學成因。</label>
-          <label class="option-label"><input type="checkbox" name="q8" value="C"> C. 轉折關係：運用「不過」來引導讀者跳脫並發現常見海景之外的「特別的海」。</label>
-          <label class="option-label"><input type="checkbox" name="q8" value="D"> D. 遞進／延伸關係：採用「此外」、「另外」、「除此以外」等多重連接詞來串聯多個地理景點。</label>
-          <label class="option-label"><input type="checkbox" name="q8" value="E"> E. 假設關係：運用「如果……那麼……」推論如果沒有火山爆發，方格海便無法在沙灘形成。</label>
+        <!-- Chapter 1 Quiz -->
+        <div class="quiz-card" id="quiz-ch1">
+          <div class="quiz-head">
+            <div class="quiz-head-left">
+              <h3 class="panel-title">第一章即時測驗：日本壽司理解度檢核</h3>
+              <span class="leaf-caption">點選選項後立即獲得批改與課文解析</span>
+            </div>
+            <div class="summary-actions">
+              <span class="quiz-score-pill" id="quiz-score-ch1">本節得分：0 / 3</span>
+              <button type="button" class="btn btn-tertiary" onclick="resetChapterQuiz('ch1')">重做本章</button>
+            </div>
+          </div>
+          <div class="quiz-questions" id="quiz-container-ch1"></div>
         </div>
-        <div class="explanation" id="exp-q8">
-          <div class="explanation-title">📌 第 8 題 解析</div>
-          正確選項為 <strong>A、B、C、D</strong>。<br>
-          • <strong>A、B、C、D 正確</strong>：第四節第二款明載四大句型：選擇（是……還是……）、因果（因為……因此……）、轉折（不過）、遞進/延伸（此外、另外、除此以外）及其各別功能。<br>
-          • <strong>E 錯誤</strong>：教材中完全沒有提及假設關係「如果……那麼……」，且方格海成因是地形海流，與火山爆發無關。
+      </section>
+
+      <!-- ==================== CHAPTER 2: INDIA CURRY ==================== -->
+      <section class="chapter-section" id="ch2" aria-labelledby="ch2-title">
+        <div class="chapter-header">
+          <div class="chapter-heading-group">
+            <div class="chapter-tag-row">
+              <span class="stamp">第二章・第二段</span>
+              <span class="chip">代表國家：印度</span>
+            </div>
+            <h2 class="chapter-title" id="ch2-title">濃稠辛香與瑜伽麥餅的印度<span class="accent-word">咖哩</span></h2>
+            <p class="chapter-summary">段意：到印度來，嘗嘗飽含辛香味的咖哩和麥餅。</p>
+          </div>
+          <div class="chapter-status-badge" id="badge-ch2">測驗進度：0 / 3 題</div>
         </div>
-      </div>
 
-      <button type="button" class="btn-submit" onclick="gradeQuiz()">送出測驗並檢視解析</button>
-    </form>
+        <div class="chapter-grid">
+          <article class="poem-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">課文賞析・點擊藍色線索詞</h3>
+              <span class="chip chip-outline">擬人・疊字・飲食習慣</span>
+            </div>
+            <div class="poem-lines">
+              <p class="poem-line is-refrain">來，讓我用家鄉味招待你</p>
+              <p class="poem-line">先請青菜和肉塊</p>
+              <p class="poem-line">
+                洗一場熱熱的濃濃稠稠的<button type="button" class="clue-trigger is-active" data-ch="2" data-clue="bath" onclick="selectClue('2', 'bath', this)">香料澡</button>
+              </p>
+              <p class="poem-line">搭配酸奶油柔美的旋律</p>
+              <p class="poem-line">
+                讓專精<button type="button" class="clue-trigger" data-ch="2" data-clue="yoga" onclick="selectClue('2', 'yoga', this)">瑜伽</button>的麥餅
+              </p>
+              <p class="poem-line">慢慢環繞靠近</p>
+              <p class="poem-line">
+                <button type="button" class="clue-trigger" data-ch="2" data-clue="grab" onclick="selectClue('2', 'grab', this)">一把抓起</button>辛香的味道
+              </p>
+            </div>
+            <div class="clue-box" id="clue-box-2" aria-live="polite">
+              <span class="clue-box-kicker">文化與修辭線索</span>
+              <h4 class="clue-box-title" id="clue-title-2">「洗一場熱熱的濃濃稠稠的香料澡」</h4>
+              <p class="clue-box-body" id="clue-body-2">
+                作者把青菜與肉塊在咖哩鍋中燉煮的過程，比喻成洗「香料澡」，既富有童趣，又用「熱熱的」「濃濃稠稠的」疊字描繪出咖哩醬汁的溫度與濃郁質感。
+              </p>
+            </div>
+          </article>
 
-    <div id="score-banner"></div>
+          <aside class="explorer-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">印度餐桌雙重奏</h3>
+              <span class="chip chip-outline">視覺與文化拆解</span>
+            </div>
+            <div class="illustration-stage">
+              <svg viewBox="0 0 280 180" role="img" aria-label="印度咖哩碗與烤麥餅插畫">
+                <!-- Serving Tray -->
+                <ellipse cx="140" cy="142" rx="115" ry="20" class="svg-sand svg-stroke-ink" />
+                <!-- Curry Bowl -->
+                <path d="M52 95 C52 142, 152 142, 152 95 Z" class="svg-teal svg-stroke-ink" />
+                <ellipse cx="102" cy="95" rx="50" ry="15" class="svg-mustard svg-stroke-ink" />
+                <!-- Veggies & meat in curry -->
+                <circle cx="86" cy="94" r="6" class="svg-bright-orange svg-stroke-ink" />
+                <circle cx="114" cy="96" r="7" class="svg-walnut svg-stroke-ink" />
+                <circle cx="100" cy="89" r="5" class="svg-sage svg-stroke-ink" />
+                <!-- Sour cream swirl -->
+                <path d="M84 100 Q102 106 122 97" fill="none" class="svg-stroke-ink" />
+                <!-- Steam lines -->
+                <path d="M85 68 Q90 58 84 48" fill="none" class="svg-stroke-orange" />
+                <path d="M105 64 Q110 54 104 44" fill="none" class="svg-stroke-orange" />
+                <!-- Yoga Naan / Flatbread curving flexibly -->
+                <path d="M168 126 C158 95, 182 54, 224 58 C246 60, 250 96, 232 122 C214 134, 180 136, 168 126 Z" class="svg-cream svg-stroke-ink" />
+                <circle cx="198" cy="85" r="4" class="svg-walnut" />
+                <circle cx="218" cy="98" r="5" class="svg-walnut" />
+                <circle cx="192" cy="108" r="3.5" class="svg-walnut" />
+              </svg>
+              <div class="interactive-tabs" role="tablist" aria-label="印度美食文化切換">
+                <button type="button" class="tab-pill is-active" onclick="showIndiaTab('curry', this)">濃稠香料澡</button>
+                <button type="button" class="tab-pill" onclick="showIndiaTab('naan', this)">瑜伽與麥餅</button>
+                <button type="button" class="tab-pill" onclick="showIndiaTab('hand', this)">徒手進食文化</button>
+              </div>
+            </div>
+            <div class="explorer-detail" id="india-detail">
+              <h4 class="explorer-detail-title" id="india-detail-title">辛香料與酸奶油的交響</h4>
+              <p class="explorer-detail-text" id="india-detail-body">
+                「稠稠」形容濃厚有黏性的醬汁。加入酸奶油就像為強烈的辛香味配上「柔美的旋律」，讓口感更溫潤有層次。
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Chapter 2 Quiz -->
+        <div class="quiz-card" id="quiz-ch2">
+          <div class="quiz-head">
+            <div class="quiz-head-left">
+              <h3 class="panel-title">第二章即時測驗：印度咖哩與麥餅理解度檢核</h3>
+              <span class="leaf-caption">點選選項後立即獲得批改與課文解析</span>
+            </div>
+            <div class="summary-actions">
+              <span class="quiz-score-pill" id="quiz-score-ch2">本節得分：0 / 3</span>
+              <button type="button" class="btn btn-tertiary" onclick="resetChapterQuiz('ch2')">重做本章</button>
+            </div>
+          </div>
+          <div class="quiz-questions" id="quiz-container-ch2"></div>
+        </div>
+      </section>
+
+      <!-- ==================== CHAPTER 3: ITALY PIZZA ==================== -->
+      <section class="chapter-section" id="ch3" aria-labelledby="ch3-title">
+        <div class="chapter-header">
+          <div class="chapter-heading-group">
+            <div class="chapter-tag-row">
+              <span class="stamp">第三章・第三段</span>
+              <span class="chip">代表國家：義大利</span>
+            </div>
+            <h2 class="chapter-title" id="ch3-title">帶著火山脾氣出窯的義大利<span class="accent-word">披薩</span></h2>
+            <p class="chapter-summary">段意：到義大利來，嘗嘗窯裡剛烤好的披薩，一定讓你讚不絕口。</p>
+          </div>
+          <div class="chapter-status-badge" id="badge-ch3">測驗進度：0 / 3 題</div>
+        </div>
+
+        <div class="chapter-grid">
+          <article class="poem-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">課文賞析・點擊藍色線索詞</h3>
+              <span class="chip chip-outline">破折號・擬聲詞・雙關</span>
+            </div>
+            <div class="poem-lines">
+              <p class="poem-line is-refrain">來，讓我用家鄉味招待你</p>
+              <p class="poem-line">
+                <button type="button" class="clue-trigger is-active" data-ch="3" data-clue="dash" onclick="selectClue('3', 'dash', this)">噓——靜靜看！</button>
+              </p>
+              <p class="poem-line">軟軟的麵團們正呼著氣睡得香甜</p>
+              <p class="poem-line">突然一雙大手，硬是把他們搖醒</p>
+              <p class="poem-line">用力甩啊，甩得</p>
+              <p class="poem-line">身體都變成大大的圓圓扁扁的</p>
+              <p class="poem-line">
+                氣得他們臉上一陣<button type="button" class="clue-trigger" data-ch="3" data-clue="colors" onclick="selectClue('3', 'colors', this)">紅、一陣白、一陣綠</button>
+              </p>
+              <p class="poem-line">
+                帶著<button type="button" class="clue-trigger" data-ch="3" data-clue="volcano" onclick="selectClue('3', 'volcano', this)">維蘇威火山</button>爆發的起床氣
+              </p>
+              <p class="poem-line">
+                在窯裡<button type="button" class="clue-trigger" data-ch="3" data-clue="sound" onclick="selectClue('3', 'sound', this)">劈里啪啦</button>的發火
+              </p>
+              <p class="poem-line">出窯——啊！這些抗議</p>
+              <p class="poem-line">將在你口中化作多采多姿的讚美</p>
+            </div>
+            <div class="clue-box" id="clue-box-3" aria-live="polite">
+              <span class="clue-box-kicker">文化與修辭線索</span>
+              <h4 class="clue-box-title" id="clue-title-3">「噓——靜靜看！」與「出窯——啊！」</h4>
+              <p class="clue-box-body" id="clue-body-3">
+                本段前後使用了兩個破折號（——），刻意拉長並改變詩句的節奏變化，讓讀者跟著屏息以待，也作為麵團「睡醒前」與「出窯後」的情緒及場景轉換。
+              </p>
+            </div>
+          </article>
+
+          <aside class="explorer-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">瑪格麗特披薩三色密碼</h3>
+              <span class="chip chip-outline">紅・白・綠對應義大利國旗</span>
+            </div>
+            <div class="illustration-stage">
+              <svg viewBox="0 0 280 185" role="img" aria-label="義大利瑪格麗特披薩紅白綠三色圖解">
+                <!-- Pizza Crust -->
+                <circle cx="140" cy="92" r="76" class="svg-mustard svg-stroke-ink" />
+                <!-- Tomato Sauce (Red) -->
+                <circle cx="140" cy="92" r="62" class="svg-bright-orange svg-stroke-ink" />
+                <!-- Mozzarella Cheese Patches (White/Cream) -->
+                <circle cx="115" cy="70" r="14" class="svg-cream svg-stroke-ink" />
+                <circle cx="164" cy="74" r="13" class="svg-cream svg-stroke-ink" />
+                <circle cx="140" cy="118" r="15" class="svg-cream svg-stroke-ink" />
+                <circle cx="106" cy="108" r="11" class="svg-cream svg-stroke-ink" />
+                <!-- Basil Leaves (Green/Teal) -->
+                <path d="M135 80 C145 70, 158 76, 148 90 C138 92, 132 88, 135 80 Z" class="svg-teal svg-stroke-ink" />
+                <path d="M114 92 C124 85, 132 95, 122 104 C112 102, 110 96, 114 92 Z" class="svg-teal svg-stroke-ink" />
+                <path d="M156 104 C168 98, 174 110, 162 118 C154 115, 152 109, 156 104 Z" class="svg-teal svg-stroke-ink" />
+                <!-- Slice lines -->
+                <line x1="140" y1="30" x2="140" y2="154" class="svg-stroke-ink" opacity="0.35" />
+                <line x1="78" y1="92" x2="202" y2="92" class="svg-stroke-ink" opacity="0.35" />
+              </svg>
+              <div class="interactive-tabs" role="tablist" aria-label="瑪格麗特披薩配料顏色切換">
+                <button type="button" class="tab-pill is-active" onclick="showPizzaTab('red', this)">一陣紅：番茄醬</button>
+                <button type="button" class="tab-pill" onclick="showPizzaTab('white', this)">一陣白：起司</button>
+                <button type="button" class="tab-pill" onclick="showPizzaTab('green', this)">一陣綠：羅勒</button>
+              </div>
+            </div>
+            <div class="explorer-detail" id="pizza-detail">
+              <h4 class="explorer-detail-title" id="pizza-detail-title">紅色：酸甜濃郁的番茄醬</h4>
+              <p class="explorer-detail-text" id="pizza-detail-body">
+                「紅、白、綠」三色表面上是麵團被搖醒甩扁後的生氣臉色，其實暗指義大利經典「瑪格麗特披薩」，紅色正是鋪滿餅皮的番茄醬，也呼應義大利國旗三色之一。
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Chapter 3 Quiz -->
+        <div class="quiz-card" id="quiz-ch3">
+          <div class="quiz-head">
+            <div class="quiz-head-left">
+              <h3 class="panel-title">第三章即時測驗：義大利披薩理解度檢核</h3>
+              <span class="leaf-caption">點選選項後立即獲得批改與課文解析</span>
+            </div>
+            <div class="summary-actions">
+              <span class="quiz-score-pill" id="quiz-score-ch3">本節得分：0 / 3</span>
+              <button type="button" class="btn btn-tertiary" onclick="resetChapterQuiz('ch3')">重做本章</button>
+            </div>
+          </div>
+          <div class="quiz-questions" id="quiz-container-ch3"></div>
+        </div>
+      </section>
+
+      <!-- ==================== CHAPTER 4: KOREA KIMCHI ==================== -->
+      <section class="chapter-section" id="ch4" aria-labelledby="ch4-title">
+        <div class="chapter-header">
+          <div class="chapter-heading-group">
+            <div class="chapter-tag-row">
+              <span class="stamp">第四章・第四段</span>
+              <span class="chip">代表國家：韓國</span>
+            </div>
+            <h2 class="chapter-title" id="ch4-title">大缸裡玩躲貓貓的韓國<span class="accent-word">辛奇</span></h2>
+            <p class="chapter-summary">段意：到韓國來，嘗嘗用大白菜、鹽、辣椒、大蒜、菜頭慢慢醃製的辛奇。</p>
+          </div>
+          <div class="chapter-status-badge" id="badge-ch4">測驗進度：0 / 3 題</div>
+        </div>
+
+        <div class="chapter-grid">
+          <article class="poem-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">課文賞析・點擊藍色線索詞</h3>
+              <span class="chip chip-outline">擬人・先……再……・懸念結尾</span>
+            </div>
+            <div class="poem-lines">
+              <p class="poem-line is-refrain">來，讓我用家鄉味招待你</p>
+              <p class="poem-line">圓滾滾的大白菜</p>
+              <p class="poem-line">呼朋引伴 在大缸裡玩遊戲</p>
+              <p class="poem-line">
+                先和鹽巴來個<button type="button" class="clue-trigger is-active" data-ch="4" data-clue="stretch" onclick="selectClue('4', 'stretch', this)">暖身操</button>
+              </p>
+              <p class="poem-line">拉拉筋、出出汗</p>
+              <p class="poem-line">
+                再與辣椒、大蒜和菜頭 / 一層一層<button type="button" class="clue-trigger" data-ch="4" data-clue="stack" onclick="selectClue('4', 'stack', this)">疊羅漢</button>
+              </p>
+              <p class="poem-line">啊！你看！白菜的臉</p>
+              <p class="poem-line">變得紅紅的溼溼黏黏的</p>
+              <p class="poem-line">快用蓋子蓋起來</p>
+              <p class="poem-line">
+                <button type="button" class="clue-trigger" data-ch="4" data-clue="hide" onclick="selectClue('4', 'hide', this)">躲貓貓遊戲還沒結束呢！</button>
+              </p>
+            </div>
+            <div class="clue-box" id="clue-box-4" aria-live="polite">
+              <span class="clue-box-kicker">文化與修辭線索</span>
+              <h4 class="clue-box-title" id="clue-title-4">「先和鹽巴來個暖身操／拉拉筋、出出汗」</h4>
+              <p class="clue-box-body" id="clue-body-4">
+                「拉拉筋、出出汗」原指運動前伸展身體，在課文中則是生動比喻醃辛奇的第一步——把白菜葉展開，均勻抹上鹽巴使白菜「脫水軟化」。
+              </p>
+            </div>
+          </article>
+
+          <aside class="explorer-panel">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">辛奇醃製四步驟對照機</h3>
+              <span class="chip chip-outline">正名小知識：辛奇</span>
+            </div>
+            <div class="illustration-stage">
+              <svg viewBox="0 0 280 170" role="img" aria-label="韓國辛奇醃製大缸與大白菜插畫">
+                <!-- Clay Onggi Jar -->
+                <path d="M84 56 L196 56 L212 102 C214 134, 196 154, 140 154 C84 154, 66 134, 68 102 Z" class="svg-walnut svg-stroke-ink" />
+                <!-- Jar Lid -->
+                <ellipse cx="140" cy="48" rx="64" ry="12" class="svg-orange svg-stroke-ink" />
+                <rect x="128" y="34" width="24" height="10" rx="5" class="svg-walnut svg-stroke-ink" />
+                <!-- Cabbage & Chili layers visible badge -->
+                <ellipse cx="140" cy="105" rx="44" ry="26" class="svg-cream svg-stroke-ink" />
+                <path d="M112 102 C122 86, 158 86, 168 102 C156 120, 124 120, 112 102 Z" class="svg-sage svg-stroke-ink" />
+                <path d="M126 98 Q140 110 154 98" fill="none" class="svg-stroke-orange" />
+                <circle cx="124" cy="106" r="4" class="svg-bright-orange" />
+                <circle cx="155" cy="106" r="4" class="svg-bright-orange" />
+              </svg>
+              <div class="step-timeline" role="tablist" aria-label="辛奇製作步驟">
+                <button type="button" class="step-btn is-active" onclick="showKimchiStep(1, this)">
+                  <span class="step-num">01</span>
+                  <span>大缸集合</span>
+                </button>
+                <button type="button" class="step-btn" onclick="showKimchiStep(2, this)">
+                  <span class="step-num">02</span>
+                  <span>先・暖身操</span>
+                </button>
+                <button type="button" class="step-btn" onclick="showKimchiStep(3, this)">
+                  <span class="step-num">03</span>
+                  <span>再・疊羅漢</span>
+                </button>
+                <button type="button" class="step-btn" onclick="showKimchiStep(4, this)">
+                  <span class="step-num">04</span>
+                  <span>蓋蓋發酵</span>
+                </button>
+              </div>
+            </div>
+            <div class="explorer-detail" id="kimchi-detail">
+              <h4 class="explorer-detail-title" id="kimchi-detail-title">步驟一：為什麼改名為「辛奇」？</h4>
+              <p class="explorer-detail-text" id="kimchi-detail-body">
+                辛奇原稱「韓式泡菜」，為了避免與中式泡菜混淆，韓國將中文譯名變更為「辛奇」。圓滾滾的大白菜「呼朋引伴」跳進大缸裡，準備開始醃製。
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Chapter 4 Quiz -->
+        <div class="quiz-card" id="quiz-ch4">
+          <div class="quiz-head">
+            <div class="quiz-head-left">
+              <h3 class="panel-title">第四章即時測驗：韓國辛奇理解度檢核</h3>
+              <span class="leaf-caption">點選選項後立即獲得批改與課文解析</span>
+            </div>
+            <div class="summary-actions">
+              <span class="quiz-score-pill" id="quiz-score-ch4">本節得分：0 / 3</span>
+              <button type="button" class="btn btn-tertiary" onclick="resetChapterQuiz('ch4')">重做本章</button>
+            </div>
+          </div>
+          <div class="quiz-questions" id="quiz-container-ch4"></div>
+        </div>
+      </section>
+
+      <!-- ==================== CHAPTER 5: RHETORIC & LANGUAGE FOCUS ==================== -->
+      <section class="chapter-section" id="ch5" aria-labelledby="ch5-title">
+        <div class="chapter-header">
+          <div class="chapter-heading-group">
+            <div class="chapter-tag-row">
+              <span class="stamp">第五章・語文焦點</span>
+              <span class="chip">修辭・字音字形・成語句型</span>
+            </div>
+            <h2 class="chapter-title" id="ch5-title">童詩<span class="accent-word">修辭</span>與字詞焦點練習</h2>
+            <p class="chapter-summary">掌握本課反覆吟誦結構、擬人與疊字修辭，並辨析「旋、扁」多音字與六組形近字、短語句型及成語。</p>
+          </div>
+          <div class="chapter-status-badge" id="badge-ch5">測驗進度：0 / 4 題</div>
+        </div>
+
+        <!-- Rhetoric Comparison -->
+        <div class="focus-card">
+          <div class="poem-panel-head">
+            <h3 class="panel-title">一、本課修辭舉要：擬人與疊字</h3>
+            <span class="chip chip-outline">全詩開頭：反覆吟誦</span>
+          </div>
+          <div class="rhetoric-compare">
+            <div class="rhetoric-col">
+              <span class="stamp">擬人修辭（把食物當成有情緒動作的人）</span>
+              <ul class="rhetoric-list">
+                <li><strong>日本壽司</strong>：和調味料「相撲」、魚蝦螺貝「戴上」、鮭魚子「盯著你直看」</li>
+                <li><strong>印度咖哩</strong>：青菜和肉塊洗「香料澡」、麥餅「專精瑜伽」</li>
+                <li><strong>義大利披薩</strong>：麵團「睡得香甜」、氣得臉紅白綠、帶著起床氣「發火、抗議」</li>
+                <li><strong>韓國辛奇</strong>：大白菜「呼朋引伴玩遊戲」、做暖身操「拉拉筋、出出汗」、一層層「疊羅漢」</li>
+              </ul>
+            </div>
+            <div class="rhetoric-col">
+              <span class="stamp">疊字修辭（增加畫面感與音樂節奏）</span>
+              <ul class="rhetoric-list">
+                <li><strong>晶晶亮亮</strong>的鮭魚子（視覺光澤）</li>
+                <li><strong>熱熱</strong>的、<strong>濃濃稠稠</strong>的香料澡（溫度與質感）</li>
+                <li><strong>軟軟</strong>的麵團／<strong>大大</strong>的、<strong>圓圓扁扁</strong>的（觸感與形狀）</li>
+                <li><strong>圓滾滾</strong>的大白菜／<strong>紅紅</strong>的、<strong>溼溼黏黏</strong>的（外形與醃漬變化）</li>
+                <li><strong>慢慢</strong>環繞／<strong>一層一層</strong>／<strong>呼朋引伴</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polyphonic & Similar Characters -->
+        <div class="focus-grid">
+          <div class="focus-card">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">二、多音字辨析（點擊切換）</h3>
+              <span class="chip chip-outline">旋・扁</span>
+            </div>
+            <div class="char-switch-row">
+              <button type="button" class="tab-pill is-active" onclick="showPolyphone('xuan', this)">旋（ㄒㄩㄢˊ / ㄒㄩㄢˋ）</button>
+              <button type="button" class="tab-pill" onclick="showPolyphone('bian', this)">扁（ㄅㄧㄢˇ / ㄆㄧㄢ）</button>
+            </div>
+            <div class="char-detail-box" id="polyphone-box">
+              <div class="pronunciation-row">
+                <span class="zhuyin-badge">ㄒㄩㄢˊ</span>
+                <div>
+                  <strong>立刻 / 繞著轉動 / 返回</strong><br>
+                  <span>例詞：旋即（立刻）、旋轉、凱旋、旋律</span>
+                </div>
+              </div>
+              <div class="pronunciation-row">
+                <span class="zhuyin-badge">ㄒㄩㄢˋ</span>
+                <div>
+                  <strong>如螺旋狀的</strong><br>
+                  <span>例詞：旋風（旋風式訪臺）</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="focus-card">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">三、形近字家族檢視</h3>
+              <span class="chip chip-outline">六組必考形近字</span>
+            </div>
+            <div class="char-switch-row">
+              <button type="button" class="tab-pill is-active" onclick="showSimilarGroup('pu', this)">撲／樸／僕</button>
+              <button type="button" class="tab-pill" onclick="showSimilarGroup('xuan', this)">旋／旅</button>
+              <button type="button" class="tab-pill" onclick="showSimilarGroup('lu', this)">律／津／建</button>
+              <button type="button" class="tab-pill" onclick="showSimilarGroup('ying', this)">硬／便</button>
+              <button type="button" class="tab-pill" onclick="showSimilarGroup('bian', this)">扁／扇</button>
+              <button type="button" class="tab-pill" onclick="showSimilarGroup('kang', this)">抗／坑／航</button>
+            </div>
+            <div class="char-detail-box" id="similar-box">
+              <div class="pronunciation-row">
+                <span class="zhuyin-badge">撲（手部）</span>
+                <div>相撲、撲滿、撲滅</div>
+              </div>
+              <div class="pronunciation-row">
+                <span class="zhuyin-badge">樸（木部）</span>
+                <div>樸素、純樸</div>
+              </div>
+              <div class="pronunciation-row">
+                <span class="zhuyin-badge">僕（人部）</span>
+                <div>僕人、僕役</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sentence Patterns & Idioms -->
+        <div class="focus-grid">
+          <div class="focus-card">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">四、短語、造句與連貫複句</h3>
+              <span class="chip chip-outline">讀寫練習</span>
+            </div>
+            <div class="explorer-detail">
+              <h4 class="explorer-detail-title">短語結構練習</h4>
+              <p class="explorer-detail-text">
+                1. <strong>流出一池感動的鹹水</strong> → 寫出一篇精采的感想 / 織出一條保暖的圍巾 / 譜出一曲動人的樂章<br>
+                2. <strong>在窯裡劈里啪啦的發火</strong> → 在天空中自由自在的翱翔 / 在書桌前孜孜不倦的學習
+              </p>
+            </div>
+            <div class="explorer-detail">
+              <h4 class="explorer-detail-title">句型「先……再……」（連貫複句）與造句「呼朋引伴」</h4>
+              <p class="explorer-detail-text">
+                <strong>句型範例</strong>：工作人員<strong>先</strong>在入口處驗票，<strong>再</strong>發放本次限定海報。<br>
+                <strong>造句範例</strong>：小鳥在樹葉間<strong>呼朋引伴</strong>，嬉戲玩耍。
+              </p>
+            </div>
+          </div>
+
+          <div class="focus-card">
+            <div class="poem-panel-head">
+              <h3 class="panel-title">五、用生字學成語</h3>
+              <span class="chip chip-outline">含近義 / 反義對照</span>
+            </div>
+            <table class="idiom-table">
+              <thead>
+                <tr>
+                  <th>成語</th>
+                  <th>解釋與對比詞</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>衣錦還鄉</strong></td>
+                  <td>形容人功成名就後榮歸故鄉。（反：衣錦夜行）</td>
+                </tr>
+                <tr>
+                  <td><strong>撲朔迷離</strong></td>
+                  <td>形容事物錯綜複雜，難以辨明真相。（反：一目了然）</td>
+                </tr>
+                <tr>
+                  <td><strong>千篇一律</strong></td>
+                  <td>形容事物形式呆板而毫無變化。（近：一成不變；反：千變萬化）</td>
+                </tr>
+                <tr>
+                  <td><strong>分庭抗禮</strong></td>
+                  <td>比喻能力或地位相當。（近：不相上下；反：天壤之別）</td>
+                </tr>
+                <tr>
+                  <td><strong>欲蓋彌彰</strong></td>
+                  <td>想掩飾過失，反而使過失更明顯。（近：弄巧成拙）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Chapter 5 Quiz -->
+        <div class="quiz-card" id="quiz-ch5">
+          <div class="quiz-head">
+            <div class="quiz-head-left">
+              <h3 class="panel-title">第五章即時測驗：修辭、多音字與語詞綜合挑戰</h3>
+              <span class="leaf-caption">點選選項後立即獲得批改與課文解析</span>
+            </div>
+            <div class="summary-actions">
+              <span class="quiz-score-pill" id="quiz-score-ch5">本節得分：0 / 4</span>
+              <button type="button" class="btn btn-tertiary" onclick="resetChapterQuiz('ch5')">重做本章</button>
+            </div>
+          </div>
+          <div class="quiz-questions" id="quiz-container-ch5"></div>
+        </div>
+      </section>
+
+      <!-- Final Learning Summary & Reset -->
+      <section class="summary-leaf" aria-label="學習成果總結">
+        <div class="summary-text">
+          <span class="stamp">學習成果檢核</span>
+          <h2 class="chapter-title" id="summary-headline">繼續探索四國美食的詩意與文化！</h2>
+          <p class="chapter-summary" id="summary-desc">
+            完成五個章節共 16 題的即時測驗後，你的作答紀錄會自動保存於本學習頁面中。隨時可以針對單一章節重做複習，或重設全部紀錄重新挑戰。
+          </p>
+        </div>
+        <div class="summary-actions">
+          <button type="button" class="btn btn-secondary" id="reset-all-btn" onclick="handleResetAll(this)">重設全部測驗進度</button>
+          <a class="btn btn-primary" href="#ch1">回到第一章</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="source-footer">
+      <span>內容來源：南一版國小五年級上學期國語第八課《嘗嘗我的家鄉味》（王宗仁）課文與隨堂語文資料。</span>
+      <span>學習紀錄由 Gemini Notebook 狀態保存介面即時同步。</span>
+    </footer>
   </div>
 
+  <api-shim></api-shim>
   <script>
-    // 正確答案清單
-    const correctAnswers = {
-      q1: ['A', 'B', 'C', 'E'],
-      q2: ['B', 'C', 'D'],
-      q3: ['A', 'B', 'C', 'D'],
-      q4: ['A', 'C', 'D', 'E'],
-      q5: ['A', 'B', 'C', 'D'],
-      q6: ['A', 'B', 'C'],
-      q7: ['A', 'C', 'D', 'E'],
-      q8: ['A', 'B', 'C', 'D']
+    // ==================== DATA SOURCES (Grounded strictly in P5上國語Unit8.pdf) ====================
+    const CLUE_DATA = {
+      '1': {
+        sumo: {
+          title: `「和調味料相撲過後的米飯」`,
+          body: `「相撲」是流行於日本的傳統競技運動，由兩名力士互相角力。作者用來比喻醋飯與調味料充分拌勻的過程（擬人修辭），也巧妙透露這道家鄉味來自日本！`
+        },
+        roe: {
+          title: `「盯著你直看 / 滿滿的晶晶亮亮的鮭魚子」`,
+          body: `鮭魚子是鮭魚的魚卵，為一顆顆橙紅色球體。「盯著你直看」運用擬人手法讓魚卵彷彿長了眼睛，再用疊字「晶晶亮亮」寫出新鮮發亮的色澤。`
+        },
+        wasabi: {
+          title: `「有時山葵還會跟著衝進鼻子裡」`,
+          body: `「山葵」是一種植物，磨成泥後常搭配壽司食用。它刺鼻辛辣的味道容易嗆鼻，作者用「衝進鼻子裡」生動寫出入口時的刺激感。`
+        },
+        tears: {
+          title: `「讓眼底流出一池感動的鹹水」`,
+          body: `作者不直接說「被山葵嗆得流淚」，而是承接上一句的「海洋」，把眼淚聯想成「一池感動的鹹水」。將味覺刺激結合對家鄉味的讚嘆與感動，極富詩意！`
+        }
+      },
+      '2': {
+        bath: {
+          title: `「洗一場熱熱的濃濃稠稠的香料澡」`,
+          body: `作者把青菜與肉塊在咖哩鍋中燉煮的過程，比喻成洗「香料澡」，既富有童趣，又用「熱熱的」「濃濃稠稠的」疊字描繪出咖哩醬汁的溫度與濃郁質感。`
+        },
+        yoga: {
+          title: `「讓專精瑜伽的麥餅 / 慢慢環繞靠近」`,
+          body: `瑜伽起源於印度，是藉由調節呼吸與伸展姿勢來強健身體的運動。作者形容麥餅「專精瑜伽」，是擬人手法，同時寫出印度烤餅柔軟有彈性的特質。`
+        },
+        grab: {
+          title: `「一把抓起辛香的味道」`,
+          body: `「一把抓起」充滿偷襲成功的喜悅童趣，同時巧妙暗示了印度傳統「徒手進食」的飲食習慣——用手撕下麥餅再抓起咖哩一起吃！`
+        }
+      },
+      '3': {
+        dash: {
+          title: `「噓——靜靜看！」與「出窯——啊！」`,
+          body: `本段前後使用了兩個破折號（——），刻意拉長並改變詩句的節奏變化，讓讀者跟著屏息以待，也作為麵團「睡醒前」與「出窯後」的情緒及場景轉換。`
+        },
+        colors: {
+          title: `「氣得他們臉上一陣紅、一陣白、一陣綠」`,
+          body: `表面寫麵團被搖醒甩扁後的生氣臉色，其實暗指「瑪格麗特披薩」的三種經典配料：紅色的番茄醬、白色的莫札瑞拉起司、綠色的羅勒，恰好與義大利國旗顏色相同！`
+        },
+        volcano: {
+          title: `「帶著維蘇威火山爆發的起床氣」`,
+          body: `維蘇威火山位於義大利，作者以火山爆發比喻麵團的起床氣與窯烤的高溫能量，再次提供「義大利」的地理線索。`
+        },
+        sound: {
+          title: `「在窯裡劈里啪啦的發火」`,
+          body: `「劈里啪啦」是擬聲詞，形容窯烤柴火與披薩高溫烘烤的聲響；原本生氣的抗議，出窯後全化為大家口中「多采多姿的讚美」。`
+        }
+      },
+      '4': {
+        stretch: {
+          title: `「先和鹽巴來個暖身操 / 拉拉筋、出出汗」`,
+          body: `「拉拉筋、出出汗」原指運動前伸展身體，在課文中則是生動比喻醃辛奇的第一步——把大白菜的菜葉伸展開來，均勻抹上鹽巴使其脫水軟化。`
+        },
+        stack: {
+          title: `「再與辣椒、大蒜和菜頭 / 一層一層疊羅漢」`,
+          body: `「疊羅漢」原是一種人上架人的雜技表演；作者用來形容把辣椒、大蒜、白蘿蔔（菜頭）等醬料一層層均勻鋪抹在大白菜之間的製作工序。`
+        },
+        hide: {
+          title: `「躲貓貓遊戲還沒結束呢！」`,
+          body: `蓋上蓋子讓白菜在缸裡慢慢發酵，就像玩躲貓貓！全詩停在充滿期待的高潮，除了期待辛奇完成，也意味著未完待續，還有更多世界美食等著品嘗。`
+        }
+      }
     };
 
-    function gradeQuiz() {
-      let score = 0;
-      const totalQuestions = Object.keys(correctAnswers).length;
+    const SUSHI_TABS = {
+      rice: {
+        title: `日本國技「相撲」入詩`,
+        body: `壽司飯需要加入壽司醋拌勻。作者不直接寫「攪拌」，而寫米飯與調味料「相撲」，既寫出拌飯時來回翻攪的力道，也暗示料理來自日本。`
+      },
+      ocean: {
+        title: `海洋的鮮味與視覺亮點`,
+        body: `魚蝦螺貝與一顆顆橙紅色的「鮭魚子」鋪滿醋飯，入口後鮮味瞬間擴散，彷彿「海洋在嘴巴中漫開」。`
+      },
+      wasabi: {
+        title: `從嗆鼻到感動的詩意轉折`,
+        body: `山葵嗆辣衝進鼻子令人流淚，作者將這滴眼淚連結回前文的海洋，寫成「一池感動的鹹水」，兼具味覺震撼與情感溫度。`
+      }
+    };
 
-      for (let qKey in correctAnswers) {
-        const correctSet = correctAnswers[qKey];
-        const checkboxes = document.querySelectorAll(`input[name="${qKey}"]:checked`);
-        const userSelected = Array.from(checkboxes).map(cb => cb.value);
-        const block = document.getElementById(`block-${qKey}`);
-        const exp = document.getElementById(`exp-${qKey}`);
+    const INDIA_TABS = {
+      curry: {
+        title: `辛香料與酸奶油的交響`,
+        body: `「稠稠」形容濃厚有黏性的醬汁。加入酸奶油就像為強烈的辛香味配上「柔美的旋律」，讓口感更溫潤有層次。`
+      },
+      naan: {
+        title: `起源於印度的「瑜伽」線索`,
+        body: `瑜伽是印度傳統的身心修練運動。用「專精瑜伽」形容麥餅（印度烤餅），既點出國籍，也展現餅皮柔軟能彎曲包覆醬汁的特點。`
+      },
+      hand: {
+        title: `「一把抓起」背後的飲食習慣`,
+        body: `在印度傳統飲食文化中，常以右手直接撕取麥餅、沾裹濃稠的咖哩送入口中。「一把抓起辛香的味道」生動捕捉了這份童趣與真實文化。`
+      }
+    };
 
-        // 比對是否完全正確
-        const isAllCorrect = correctSet.length === userSelected.length && 
-                             correctSet.every(val => userSelected.includes(val));
+    const PIZZA_TABS = {
+      red: {
+        title: `紅色：酸甜濃郁的番茄醬`,
+        body: `「紅、白、綠」三色表面上是麵團被搖醒甩扁後的生氣臉色，其實暗指義大利經典「瑪格麗特披薩」，紅色正是鋪滿餅皮的番茄醬，也呼應義大利國旗三色之一。`
+      },
+      white: {
+        title: `白色：香濃牽絲的莫札瑞拉起司`,
+        body: `白色代表瑪格麗特披薩上融化的莫札瑞拉起司，和高溫窯烤出的餅皮完美融合，讓原本「抗議」的麵團變成眾人的「讚美」。`
+      },
+      green: {
+        title: `綠色：清香點綴的羅勒葉`,
+        body: `綠色是新鮮的羅勒葉。紅（番茄醬）、白（起司）、綠（羅勒）不僅美味，更正好與義大利國旗的三個顏色一模一樣！`
+      }
+    };
 
-        // 標記高亮選項
-        const allOptions = document.querySelectorAll(`input[name="${qKey}"]`);
-        allOptions.forEach(opt => {
-          const label = opt.parentElement;
-          label.classList.remove('correct-highlight', 'wrong-highlight');
-          
-          if (correctSet.includes(opt.value)) {
-            label.classList.add('correct-highlight'); // 正確應選項目標綠
-          } else if (opt.checked && !correctSet.includes(opt.value)) {
-            label.classList.add('wrong-highlight'); // 誤選項目標紅
+    const KIMCHI_STEPS = {
+      1: {
+        title: `步驟一：為什麼改名為「辛奇」？`,
+        body: `辛奇原稱「韓式泡菜」，為了避免與中式泡菜混淆，韓國將中文譯名變更為「辛奇」。圓滾滾的大白菜「呼朋引伴」跳進大缸裡，準備開始醃製。`
+      },
+      2: {
+        title: `步驟二：「先」和鹽巴做暖身操（抹鹽脫水）`,
+        body: `使用連貫複句「先……再……」。第一步先將菜葉伸展開來抹鹽（拉拉筋），讓多餘的水分排出（出出汗），白菜才能變得柔軟入味。`
+      },
+      3: {
+        title: `步驟三：「再」與辛香料疊羅漢（塗抹醬料）`,
+        body: `第二步再加入辣椒、大蒜與菜頭（白蘿蔔），一層一層把醬料均勻塗抹在菜葉間，就像雜技「疊羅漢」，白菜的臉因此變得紅紅的、溼溼黏黏的。`
+      },
+      4: {
+        title: `步驟四：蓋上蓋子玩躲貓貓（發酵等待）`,
+        body: `發酵食品需要時間熟成。蓋上缸蓋後「躲貓貓遊戲還沒結束呢！」，讓全詩停在充滿期待的高潮，也象徵還有更多家鄉味待續。`
+      }
+    };
+
+    const POLYPHONE_DATA = {
+      xuan: [
+        { zhuyin: `ㄒㄩㄢˊ`, meaning: `1. 立刻　2. 繞著轉動　3. 返回、回來`, examples: `旋即（立刻）、旋轉、凱旋、旋律` },
+        { zhuyin: `ㄒㄩㄢˋ`, meaning: `如螺旋狀的（風勢急速旋轉）`, examples: `旋風（明星旋風式訪臺）` }
+      ],
+      bian: [
+        { zhuyin: `ㄅㄧㄢˇ`, meaning: `形狀寬而薄`, examples: `扁平、扁食、扁擔、圓圓扁扁` },
+        { zhuyin: `ㄆㄧㄢ`, meaning: `小的（常用於形容小船）`, examples: `一葉扁舟` }
+      ]
+    };
+
+    const SIMILAR_DATA = {
+      pu: [
+        { tag: `撲（手部）`, words: `相撲、撲滿、撲滅` },
+        { tag: `樸（木部）`, words: `樸素、純樸` },
+        { tag: `僕（人部）`, words: `僕人、僕役` }
+      ],
+      xuan: [
+        { tag: `旋（方部）`, words: `盤旋、螺旋、凱旋` },
+        { tag: `旅（方部）`, words: `旅客、旅館、旅行` }
+      ],
+      lu: [
+        { tag: `律（彳部）`, words: `一律、規律、旋律` },
+        { tag: `津（水部）`, words: `津津有味、天津` },
+        { tag: `建（廴部）`, words: `建造、建設、建議` }
+      ],
+      ying: [
+        { tag: `硬（石部）`, words: `僵硬、硬朗、硬是` },
+        { tag: `便（人部）`, words: `便利、方便、便宜` }
+      ],
+      bian: [
+        { tag: `扁（戶部）`, words: `扁食、扁擔、扁平` },
+        { tag: `扇（戶部）`, words: `扇子、電扇、搧風` }
+      ],
+      kang: [
+        { tag: `抗（手部）`, words: `對抗、抗議、分庭抗禮` },
+        { tag: `坑（土部）`, words: `坑洞、沙坑、路面坑洞` },
+        { tag: `航（舟部）`, words: `航行、導航、航空` }
+      ]
+    };
+
+    const QUIZZES = {
+      ch1: [
+        {
+          id: `ch1_q1`,
+          tag: `文化線索`,
+          stem: `1. 在〈日本壽司〉這一段中，作者透過哪一個關鍵詞語暗示了料理來自日本，並形容米飯與調味料攪拌的過程？`,
+          options: [
+            `A. 呼朋引伴`,
+            `B. 相撲`,
+            `C. 瑜伽`,
+            `D. 疊羅漢`
+          ],
+          correct: 1,
+          explain: `「相撲」是流行於日本的傳統競技運動，作者用來比喻醋飯與調味料均勻拌合的過程，是這道食物來自日本的重要線索。`
+        },
+        {
+          id: `ch1_q2`,
+          tag: `詩意聯想`,
+          stem: `2. 「有時山葵還會跟著衝進鼻子裡 / 讓眼底流出一池感動的鹹水」，這句詩中「感動的鹹水」真正的意思是什麼？`,
+          options: [
+            `A. 壽司上面加了太多海鹽`,
+            `B. 吃飯前去海邊玩耍濺到的海水`,
+            `C. 既是被山葵嗆出的眼淚，也代表對家鄉味的讚嘆與感動`,
+            `D. 鮭魚子不小心掉進湯碗裡`
+          ],
+          correct: 2,
+          explain: `作者不直接寫被山葵嗆得流淚，而是從前文的「海洋」聯想到鹹鹹的淚水，將味覺刺激與對家鄉味的深厚情感結合在一起。`
+        },
+        {
+          id: `ch1_q3`,
+          tag: `字詞與修辭`,
+          stem: `3. 關於第一段詩句的寫作手法，下列哪一項敘述「正確」？`,
+          options: [
+            `A. 「盯著你直看」把鮭魚子當成有眼睛的人，屬於擬人修辭`,
+            `B. 「晶晶亮亮」是形容山葵辛辣的味道`,
+            `C. 「魚蝦螺貝」是印度咖哩的固定配料`,
+            `D. 本段開頭沒有使用「來，讓我用家鄉味招待你」`
+          ],
+          correct: 0,
+          explain: `全詩四段皆以「來，讓我用家鄉味招待你」反覆吟誦開頭；「盯著你直看」運用擬人修辭寫一顆顆圓亮的鮭魚子，生動又具童趣。`
+        }
+      ],
+      ch2: [
+        {
+          id: `ch2_q1`,
+          tag: `童趣比喻`,
+          stem: `1. 作者寫「先請青菜和肉塊 / 洗一場熱熱的濃濃稠稠的香料澡」，是在描寫哪一個料理步驟？`,
+          options: [
+            `A. 把青菜和肉塊放進冷水裡清洗`,
+            `B. 青菜與肉塊在濃郁的咖哩醬汁中一起燉煮`,
+            `C. 將麥餅放進烤箱裡高溫烘烤`,
+            `D. 用酸奶油幫食材做表面裝飾`
+          ],
+          correct: 1,
+          explain: `「洗香料澡」是作者富有童趣的比喻，用「熱熱的」「濃濃稠稠的」形容青菜與肉塊被厚實香濃的咖哩醬汁包覆熬煮。`
+        },
+        {
+          id: `ch2_q2`,
+          tag: `文化線索`,
+          stem: `2. 為什麼作者要形容印度麥餅「專精瑜伽」？`,
+          options: [
+            `A. 因為瑜伽起源於印度，且能形象化麥餅柔軟有彈性的特質`,
+            `B. 因為吃印度料理前必須先做三十分鐘體操`,
+            `C. 因為麥餅烤熟後會變得又硬又脆`,
+            `D. 因為「瑜伽」是一種印度特有的香辛料名稱`
+          ],
+          correct: 0,
+          explain: `瑜伽起源於印度，作者藉此暗示料理的國別，同時以擬人手法描繪出印度烤餅柔軟、可彎曲捲起醬汁的彈性。`
+        },
+        {
+          id: `ch2_q3`,
+          tag: `飲食習慣`,
+          stem: `3. 「慢慢環繞靠近 / 一把抓起辛香的味道」這兩句詩，暗示了印度哪一項傳統飲食文化？`,
+          options: [
+            `A. 習慣用長長的筷子夾取食物`,
+            `B. 只吃生冷不加熱的涼拌菜`,
+            `C. 習慣直接徒手撕取麥餅抓起咖哩進食`,
+            `D. 必須把食物全部打成飲料喝下`
+          ],
+          correct: 2,
+          explain: `「一把抓起」除了傳達偷襲成功的喜悅，也呼應了印度傳統用手抓食、以麥餅搭配濃稠咖哩享用的飲食習慣。`
+        }
+      ],
+      ch3: [
+        {
+          id: `ch3_q1`,
+          tag: `標點節奏`,
+          stem: `1. 第三段詩句「噓——靜靜看！」與「出窯——啊！」前後兩個破折號，在詩歌中有什麼作用？`,
+          options: [
+            `A. 單純用來裝飾版面，沒有任何語氣意義`,
+            `B. 改變詩句的節奏變化，讓讀者屏息以待並轉換情緒與場景`,
+            `C. 表示作者忘記這裡原本要寫什麼字`,
+            `D. 代表這兩句必須跳過不念`
+          ],
+          correct: 1,
+          explain: `課文解說指出，前後兩個破折號能改變詩句的節奏，營造屏息等待麵團醒來與等待披薩出窯的驚喜感，作為情緒與場景轉換。`
+        },
+        {
+          id: `ch3_q2`,
+          tag: `文化密碼`,
+          stem: `2. 麵團「氣得他們臉上一陣紅、一陣白、一陣綠」，這三種顏色暗指瑪格麗特披薩上的哪三種配料（同時也是義大利國旗顏色）？`,
+          options: [
+            `A. 辣椒粉、白蘿蔔、小黃瓜`,
+            `B. 鮭魚子、醋飯、山葵`,
+            `C. 紅番茄醬、白莫札瑞拉起司、綠羅勒`,
+            `D. 紅豆、牛奶、抹茶`
+          ],
+          correct: 2,
+          explain: `瑪格麗特披薩上頭有紅色的番茄醬、白色的莫札瑞拉起司與綠色的羅勒葉，正好和義大利國旗的紅白綠三色相同！`
+        },
+        {
+          id: `ch3_q3`,
+          tag: `詞語與修辭`,
+          stem: `3. 「突然一雙大手，硬是把他們搖醒」中的「硬是」，以及「在窯裡劈里啪啦的發火」中的「劈里啪啦」，分別是什麼意思與詞性？`,
+          options: [
+            `A. 「硬是」＝堅持去做；「劈里啪啦」＝形容窯烤聲音的擬聲詞`,
+            `B. 「硬是」＝麵團烤得太硬；「劈里啪啦」＝形容顏色很鮮豔`,
+            `C. 「硬是」＝輕輕的觸碰；「劈里啪啦」＝疊字名詞`,
+            `D. 「硬是」＝立刻；「劈里啪啦」＝表示反對意見`
+          ],
+          correct: 0,
+          explain: `「硬是」意為堅持去做；「劈里啪啦」則是擬聲詞，生動描繪柴火在窯中燃燒與披薩高溫烘烤的聲響。`
+        }
+      ],
+      ch4: [
+        {
+          id: `ch4_q1`,
+          tag: `文化常識`,
+          stem: `1. 韓國將原本稱為「韓式泡菜」的傳統發酵蔬菜料理，在中文裡正式更名為「辛奇」，最主要的原因是什麼？`,
+          options: [
+            `A. 因為大白菜改種成新品種`,
+            `B. 為了避免與「中式泡菜」的名稱混淆`,
+            `C. 因為裡面不放任何辣椒和鹽巴`,
+            `D. 因為只有夏天才可以製作`
+          ],
+          correct: 1,
+          explain: `為了避免與中式泡菜名稱混淆，韓國將中文譯名變更為「辛奇」，是用大白菜、白蘿蔔（菜頭）、小黃瓜等蔬菜加醬料醃製的發酵食品。`
+        },
+        {
+          id: `ch4_q2`,
+          tag: `工序理解`,
+          stem: `2. 詩句中先寫大白菜「和鹽巴來個暖身操 / 拉拉筋、出出汗」，這對應實際醃製辛奇的哪個動作？`,
+          options: [
+            `A. 把大白菜放進窯裡烤熟`,
+            `B. 將菜葉伸展開來抹鹽，使其脫水軟化`,
+            `C. 把白蘿蔔切成小塊直接生吃`,
+            `D. 馬上開大火煮成蔬菜湯`
+          ],
+          correct: 1,
+          explain: `「拉拉筋、出出汗」比喻醃製前將大白菜菜葉展開、均勻抹鹽脫水的步驟，做完後才能「再」與辣椒、大蒜和菜頭一層層醃漬。`
+        },
+        {
+          id: `ch4_q3`,
+          tag: `結構與懸念`,
+          stem: `3. 全詩最後停在「快用蓋子蓋起來 / 躲貓貓遊戲還沒結束呢！」，作者這樣安排結尾有什麼用意？`,
+          options: [
+            `A. 表示作者還沒寫完就忘記後面的內容`,
+            `B. 說明這道菜失敗了不能吃`,
+            `C. 留下期待辛奇發酵完成的懸念，也意味還有更多家鄉味未完待續`,
+            `D. 提醒讀者吃完飯要記得玩躲貓貓`
+          ],
+          correct: 2,
+          explain: `結尾把發酵等待轉化成未結束的「躲貓貓遊戲」，既讓讀者期待辛奇熟成，也留下「未完待續」的想像空間，象徵世界還有更多美食饗宴。`
+        }
+      ],
+      ch5: [
+        {
+          id: `ch5_q1`,
+          tag: `多音字辨析`,
+          stem: `1. 選出「旋」字讀音與詞義完全正確的句子：「明星（甲）旋風式的訪臺，在記者會短暫露面後，（乙）旋即趕往下一個行程。」`,
+          options: [
+            `A. 甲讀 ㄒㄩㄢˊ；乙讀 ㄒㄩㄢˋ`,
+            `B. 甲讀 ㄒㄩㄢˋ（如螺旋狀的）；乙讀 ㄒㄩㄢˊ（立刻）`,
+            `C. 甲和乙都讀作 ㄒㄩㄢˊ`,
+            `D. 甲和乙都讀作 ㄒㄩㄢˋ`
+          ],
+          correct: 1,
+          explain: `「旋風」的旋讀作 ㄒㄩㄢˋ，形容如螺旋狀的風勢；「旋即」的旋讀作 ㄒㄩㄢˊ，意思是立刻。`
+        },
+        {
+          id: `ch5_q2`,
+          tag: `形近字選填`,
+          stem: `2. 請依句意選出最適合的形近字填入括號：「路面出現不明（　）洞，造成機車騎士摔倒，引起民眾強烈（　）議。」`,
+          options: [
+            `A. 抗 / 坑`,
+            `B. 航 / 抗`,
+            `C. 坑 / 抗`,
+            `D. 坑 / 航`
+          ],
+          correct: 2,
+          explain: `「坑洞」是土部的「坑」；「抗議」是手部的「抗」，表示對意見或措施表達反對。`
+        },
+        {
+          id: `ch5_q3`,
+          tag: `形近字與多音`,
+          stem: `3. 「阿公一邊大口吃著熱呼呼的（　）食，一邊拿著（　）子搧風。」括號中依序應填入哪兩個字？`,
+          options: [
+            `A. 扁（ㄅㄧㄢˇ）/ 扇`,
+            `B. 扇 / 扁（ㄆㄧㄢ）`,
+            `C. 扁（ㄆㄧㄢ）/ 扁（ㄅㄧㄢˇ）`,
+            `D. 便 / 扇`
+          ],
+          correct: 0,
+          explain: `「扁食」的扁讀作 ㄅㄧㄢˇ，形狀寬而薄；「扇子」是戶下加羽的「扇」。另外，「扁舟」才讀作 ㄆㄧㄢ。`
+        },
+        {
+          id: `ch5_q4`,
+          tag: `成語運用`,
+          stem: `4. 課本提醒「寫文章不能（　），要有創意和巧思才能引起讀者興趣。」請問括號裡最適合填入哪個成語？`,
+          options: [
+            `A. 欲蓋彌彰`,
+            `B. 衣錦還鄉`,
+            `C. 分庭抗禮`,
+            `D. 千篇一律`
+          ],
+          correct: 3,
+          explain: `「千篇一律」形容事物的形式呆板而毫無變化（反義詞：千變萬化），最符合提醒寫作要有創意巧思的語境。`
+        }
+      ]
+    };
+
+    // ==================== PERSISTENT STATE ====================
+    const DEFAULT_STATE = {
+      exploredClues: [],
+      answers: {}
+    };
+
+    let appState = {
+      exploredClues: [],
+      answers: {}
+    };
+
+    function getTotalQuestionsCount() {
+      let total = 0;
+      const keys = Object.keys(QUIZZES);
+      for (let i = 0; i < keys.length; i++) {
+        total += QUIZZES[keys[i]].length;
+      }
+      return total;
+    }
+
+    function getAllCluesCount() {
+      let total = 0;
+      const keys = Object.keys(CLUE_DATA);
+      for (let i = 0; i < keys.length; i++) {
+        total += Object.keys(CLUE_DATA[keys[i]]).length;
+      }
+      return total;
+    }
+
+    async function saveState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Graceful fallback if host rejects transient write
+        }
+      }
+    }
+
+    // ==================== CLUE & TAB INTERACTIONS ====================
+    function selectClue(ch, clueKey, btnEl) {
+      const chapterClues = CLUE_DATA[ch];
+      if (!chapterClues || !chapterClues[clueKey]) return;
+
+      const data = chapterClues[clueKey];
+      const titleEl = document.getElementById(`clue-title-${ch}`);
+      const bodyEl = document.getElementById(`clue-body-${ch}`);
+      if (titleEl) titleEl.textContent = data.title;
+      if (bodyEl) bodyEl.textContent = data.body;
+
+      // Update active button styling within this chapter
+      const allBtns = document.querySelectorAll(`.clue-trigger[data-ch="${ch}"]`);
+      for (let i = 0; i < allBtns.length; i++) {
+        allBtns[i].classList.remove('is-active');
+      }
+      if (btnEl) btnEl.classList.add('is-active');
+
+      const clueToken = `${ch}_${clueKey}`;
+      if (appState.exploredClues.indexOf(clueToken) === -1) {
+        appState.exploredClues.push(clueToken);
+        updateStatsDisplay();
+        saveState();
+      }
+    }
+
+    function setTabGroupActive(btnEl) {
+      if (!btnEl || !btnEl.parentElement) return;
+      const siblings = btnEl.parentElement.querySelectorAll('button');
+      for (let i = 0; i < siblings.length; i++) {
+        siblings[i].classList.remove('is-active');
+      }
+      btnEl.classList.add('is-active');
+    }
+
+    function showSushiTab(key, btnEl) {
+      const data = SUSHI_TABS[key];
+      if (!data) return;
+      setTabGroupActive(btnEl);
+      const t = document.getElementById('sushi-detail-title');
+      const b = document.getElementById('sushi-detail-body');
+      if (t) t.textContent = data.title;
+      if (b) b.textContent = data.body;
+    }
+
+    function showIndiaTab(key, btnEl) {
+      const data = INDIA_TABS[key];
+      if (!data) return;
+      setTabGroupActive(btnEl);
+      const t = document.getElementById('india-detail-title');
+      const b = document.getElementById('india-detail-body');
+      if (t) t.textContent = data.title;
+      if (b) b.textContent = data.body;
+    }
+
+    function showPizzaTab(key, btnEl) {
+      const data = PIZZA_TABS[key];
+      if (!data) return;
+      setTabGroupActive(btnEl);
+      const t = document.getElementById('pizza-detail-title');
+      const b = document.getElementById('pizza-detail-body');
+      if (t) t.textContent = data.title;
+      if (b) b.textContent = data.body;
+    }
+
+    function showKimchiStep(stepNum, btnEl) {
+      const data = KIMCHI_STEPS[stepNum];
+      if (!data) return;
+      setTabGroupActive(btnEl);
+      const t = document.getElementById('kimchi-detail-title');
+      const b = document.getElementById('kimchi-detail-body');
+      if (t) t.textContent = data.title;
+      if (b) b.textContent = data.body;
+    }
+
+    function showPolyphone(key, btnEl) {
+      const rows = POLYPHONE_DATA[key];
+      const box = document.getElementById('polyphone-box');
+      if (!rows || !box) return;
+      setTabGroupActive(btnEl);
+
+      box.innerHTML = '';
+      for (let i = 0; i < rows.length; i++) {
+        const row = document.createElement('div');
+        row.className = 'pronunciation-row';
+
+        const badge = document.createElement('span');
+        badge.className = 'zhuyin-badge';
+        badge.textContent = rows[i].zhuyin;
+
+        const content = document.createElement('div');
+        const strong = document.createElement('strong');
+        strong.textContent = rows[i].meaning;
+        const br = document.createElement('br');
+        const span = document.createElement('span');
+        span.textContent = `例詞：${rows[i].examples}`;
+
+        content.appendChild(strong);
+        content.appendChild(br);
+        content.appendChild(span);
+        row.appendChild(badge);
+        row.appendChild(content);
+        box.appendChild(row);
+      }
+    }
+
+    function showSimilarGroup(key, btnEl) {
+      const rows = SIMILAR_DATA[key];
+      const box = document.getElementById('similar-box');
+      if (!rows || !box) return;
+      setTabGroupActive(btnEl);
+
+      box.innerHTML = '';
+      for (let i = 0; i < rows.length; i++) {
+        const row = document.createElement('div');
+        row.className = 'pronunciation-row';
+
+        const badge = document.createElement('span');
+        badge.className = 'zhuyin-badge';
+        badge.textContent = rows[i].tag;
+
+        const textDiv = document.createElement('div');
+        textDiv.textContent = rows[i].words;
+
+        row.appendChild(badge);
+        row.appendChild(textDiv);
+        box.appendChild(row);
+      }
+    }
+
+    // ==================== QUIZ ENGINE ====================
+    function renderChapterQuiz(chKey) {
+      const container = document.getElementById(`quiz-container-${chKey}`);
+      const questions = QUIZZES[chKey];
+      if (!container || !questions) return;
+
+      container.innerHTML = '';
+
+      for (let qIdx = 0; qIdx < questions.length; qIdx++) {
+        const q = questions[qIdx];
+        const savedChoice = appState.answers[q.id];
+        const hasAnswered = typeof savedChoice === 'number';
+
+        const block = document.createElement('div');
+        block.className = 'question-block';
+        block.id = `block-${q.id}`;
+
+        const stem = document.createElement('p');
+        stem.className = 'question-stem';
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'question-type-tag';
+        tagSpan.textContent = q.tag;
+        stem.appendChild(tagSpan);
+        stem.appendChild(document.createTextNode(q.stem));
+        block.appendChild(stem);
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'options-grid';
+
+        for (let oIdx = 0; oIdx < q.options.length; oIdx++) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option-btn';
+          btn.textContent = q.options[oIdx];
+
+          if (hasAnswered) {
+            btn.disabled = true;
+            if (oIdx === q.correct) {
+              btn.classList.add('is-correct');
+            } else if (oIdx === savedChoice && savedChoice !== q.correct) {
+              btn.classList.add('is-wrong');
+            } else {
+              btn.classList.add('is-dimmed');
+            }
+          } else {
+            btn.setAttribute('onclick', `answerQuestion('${chKey}', '${q.id}', ${oIdx})`);
           }
-        });
+          optionsGrid.appendChild(btn);
+        }
+        block.appendChild(optionsGrid);
 
-        // 顯示解析
-        if (isAllCorrect) {
-          score++;
-          exp.classList.remove('visible');
-        } else {
-          exp.classList.add('visible'); // 答錯即顯示詳盡解析
+        if (hasAnswered) {
+          const isCorrect = savedChoice === q.correct;
+          const fb = document.createElement('div');
+          fb.className = `feedback-banner ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+          fb.setAttribute('role', 'status');
+
+          const statusEl = document.createElement('div');
+          statusEl.className = 'feedback-status';
+          statusEl.textContent = isCorrect
+            ? `答對了！完全掌握這題的課文重點。`
+            : `再想一想！正確答案是「${q.options[q.correct]}」。`;
+
+          const explainEl = document.createElement('p');
+          explainEl.className = 'feedback-explain';
+          explainEl.textContent = `解析：${q.explain}`;
+
+          fb.appendChild(statusEl);
+          fb.appendChild(explainEl);
+          block.appendChild(fb);
+        }
+
+        container.appendChild(block);
+      }
+
+      updateChapterHeaderScore(chKey);
+    }
+
+    function answerQuestion(chKey, qId, optionIdx) {
+      appState.answers[qId] = optionIdx;
+      renderChapterQuiz(chKey);
+      updateStatsDisplay();
+      saveState();
+    }
+
+    function resetChapterQuiz(chKey) {
+      const questions = QUIZZES[chKey];
+      if (!questions) return;
+      for (let i = 0; i < questions.length; i++) {
+        delete appState.answers[questions[i].id];
+      }
+      renderChapterQuiz(chKey);
+      updateStatsDisplay();
+      saveState();
+    }
+
+    function updateChapterHeaderScore(chKey) {
+      const questions = QUIZZES[chKey];
+      if (!questions) return;
+      let answered = 0;
+      let correct = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const choice = appState.answers[questions[i].id];
+        if (typeof choice === 'number') {
+          answered += 1;
+          if (choice === questions[i].correct) {
+            correct += 1;
+          }
         }
       }
 
-      // 結算橫幅
-      const banner = document.getElementById('score-banner');
-      banner.style.display = 'block';
-      const percentage = Math.round((score / totalQuestions) * 100);
-
-      if (score === totalQuestions) {
-        banner.className = 'score-high';
-        banner.innerHTML = `🎉 太優秀了！滿分！ (${score} / ${totalQuestions} 題全對，得分率 100%)<br><span style="font-size:0.95rem; font-weight:normal;">您對牛奶海與方格海的每一個科學成因、生態、視覺與語言知識點皆瞭若指掌！</span>`;
-      } else {
-        banner.className = 'score-need-work';
-        banner.innerHTML = `📝 測驗完成：得分 ${score} / ${totalQuestions} 題（得分率 ${percentage}%）<br><span style="font-size:0.95rem; font-weight:normal;">複選題標準較為嚴格，已為您標註綠色（應選項）與紅色（誤選項），請仔細研讀下方展開的題目解析！</span>`;
+      const scorePill = document.getElementById(`quiz-score-${chKey}`);
+      if (scorePill) {
+        scorePill.textContent = `本節得分：${correct} / ${questions.length}`;
       }
 
-      banner.scrollIntoView({ behavior: 'smooth' });
+      const badge = document.getElementById(`badge-${chKey}`);
+      const navPill = document.getElementById(`nav-${chKey}`);
+      const mastered = answered === questions.length && correct === questions.length;
+
+      if (badge) {
+        if (mastered) {
+          badge.textContent = `本章精熟（${correct} / ${questions.length}）`;
+          badge.classList.add('is-mastered');
+        } else {
+          badge.textContent = `測驗進度：${answered} / ${questions.length} 題`;
+          badge.classList.remove('is-mastered');
+        }
+      }
+      if (navPill) {
+        if (mastered) {
+          navPill.classList.add('is-done');
+        } else {
+          navPill.classList.remove('is-done');
+        }
+      }
     }
+
+    function updateStatsDisplay() {
+      const totalClues = getAllCluesCount();
+      const totalQuestions = getTotalQuestionsCount();
+      let answeredTotal = 0;
+      let correctTotal = 0;
+      let masteredChapters = 0;
+
+      const chKeys = Object.keys(QUIZZES);
+      for (let c = 0; c < chKeys.length; c++) {
+        const qs = QUIZZES[chKeys[c]];
+        let chAnswered = 0;
+        let chCorrect = 0;
+        for (let i = 0; i < qs.length; i++) {
+          const choice = appState.answers[qs[i].id];
+          if (typeof choice === 'number') {
+            answeredTotal += 1;
+            chAnswered += 1;
+            if (choice === qs[i].correct) {
+              correctTotal += 1;
+              chCorrect += 1;
+            }
+          }
+        }
+        if (chAnswered === qs.length && chCorrect === qs.length) {
+          masteredChapters += 1;
+        }
+      }
+
+      const cluesEl = document.getElementById('stat-clues');
+      if (cluesEl) cluesEl.textContent = `${appState.exploredClues.length} / ${totalClues}`;
+
+      const scoreEl = document.getElementById('stat-score');
+      if (scoreEl) scoreEl.textContent = `${correctTotal} / ${totalQuestions}`;
+
+      const accEl = document.getElementById('stat-accuracy');
+      if (accEl) {
+        if (answeredTotal === 0) {
+          accEl.textContent = `尚未開始作答，立即挑戰各章節題目`;
+        } else {
+          const pct = Math.round((correctTotal / answeredTotal) * 100);
+          accEl.textContent = `已作答 ${answeredTotal} 題・正確率 ${pct}%`;
+        }
+      }
+
+      const chapEl = document.getElementById('stat-chapters');
+      if (chapEl) chapEl.textContent = `${masteredChapters} / ${chKeys.length}`;
+
+      const sumHead = document.getElementById('summary-headline');
+      const sumDesc = document.getElementById('summary-desc');
+      if (sumHead && sumDesc) {
+        if (masteredChapters === chKeys.length) {
+          sumHead.textContent = `太棒了！你已經完全精熟《嘗嘗我的家鄉味》！`;
+          sumDesc.textContent = `五個章節共 ${totalQuestions} 題全數答對，成功掌握日本壽司、印度咖哩、義大利披薩與韓國辛奇的文化線索及童詩修辭。`;
+        } else if (answeredTotal > 0) {
+          sumHead.textContent = `已累積答對 ${correctTotal} 題，繼續完成其餘章節挑戰！`;
+          sumDesc.textContent = `目前精熟 ${masteredChapters} / ${chKeys.length} 個章節，並探索了 ${appState.exploredClues.length} / ${totalClues} 個詩句線索。`;
+        } else {
+          sumHead.textContent = `繼續探索四國美食的詩意與文化！`;
+          sumDesc.textContent = `完成五個章節共 ${totalQuestions} 題的即時測驗後，你的作答紀錄會自動保存於本學習頁面中。`;
+        }
+      }
+    }
+
+    // Two-step inline reset (never use confirm())
+    function handleResetAll(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = `確定重設？請再點一次`;
+        setTimeout(function () {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = `重設全部測驗進度`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = `已重設所有進度`;
+      appState = {
+        exploredClues: [],
+        answers: {}
+      };
+      const chKeys = Object.keys(QUIZZES);
+      for (let i = 0; i < chKeys.length; i++) {
+        renderChapterQuiz(chKeys[i]);
+      }
+      updateStatsDisplay();
+      saveState();
+      setTimeout(function () {
+        btn.textContent = `重設全部測驗進度`;
+      }, 2000);
+    }
+
+    // ==================== INITIALIZATION & OBSERVER ====================
+    function setupRevealObserver() {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        for (let i = 0; i < items.length; i++) {
+          items[i].classList.add('is-visible');
+        }
+        return;
+      }
+      const observer = new IntersectionObserver(function (entries, obs) {
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            entries[i].target.classList.add('is-visible');
+            obs.unobserve(entries[i].target);
+          }
+        }
+      }, { threshold: 0.1 });
+
+      for (let i = 0; i < items.length; i++) {
+        observer.observe(items[i]);
+      }
+    }
+
+    async function initApp() {
+      // Seed default initial clues into exploredClues if empty or restore from shim
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const loaded = await window.notebookAppApi.getAppState();
+          if (loaded && typeof loaded === 'object') {
+            appState.exploredClues = Array.isArray(loaded.exploredClues) ? loaded.exploredClues : [];
+            appState.answers = (loaded.answers && typeof loaded.answers === 'object') ? loaded.answers : {};
+          }
+        } catch (err) {
+          // Use clean default state on read error
+        }
+      }
+
+      const chKeys = Object.keys(QUIZZES);
+      for (let i = 0; i < chKeys.length; i++) {
+        renderChapterQuiz(chKeys[i]);
+      }
+
+      updateStatsDisplay();
+      setupRevealObserver();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
