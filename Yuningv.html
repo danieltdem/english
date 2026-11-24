@@ -156,7 +156,7 @@
             border-radius: 8px;
             border: 1px solid #333;
         }
-        .summary-item { padding: 10px 0; border-bottom: 1px dashed #444; }
+        .summary-item { padding: 10px 0; border-bottom: 1px dashed #444; line-height: 1.6; }
         .summary-item:last-child { border-bottom: none; }
 
         /* --- 練習模式樣式 --- */
@@ -230,7 +230,7 @@
     <!-- 1. 首頁選單 -->
     <div id="menu-screen" class="container">
         <h1>寧寧的英文聽寫多選特訓</h1>
-        <p style="color: #aaa;">暗色特仕版</p>
+        <p style="color: #aaa;">共 35 個單字・暗色特仕版</p>
         <button class="menu-btn" onclick="goToExam()">
             <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>
             開始考試
@@ -293,46 +293,52 @@
 
     <script>
         const words = [
-            { en: 'stable', zh: ['穩定的 (ㄨㄣˇ ㄉㄧㄥˋ ㄉㄜ˙)', '馬廄 (ㄇㄚˇ ㄐㄧㄡˋ)'], mnemonic: 'stand (站) + able (能)。能好好站著不倒的，就是穩定的。' },
-            { en: 'flow', zh: ['流動 (ㄌㄧㄡˊ ㄉㄨㄥˋ)'], mnemonic: '聽起來像 fly (飛) + low (低)。水在低處像飛一樣快速流動。' },
-            { en: 'ingredient', zh: ['成分 (ㄔㄥˊ ㄈㄣˋ)', '原料 (ㄩㄢˊ ㄌㄧㄠˋ)'], mnemonic: 'in (進入) + greed (貪婪) + ient。貪吃的人什麼成分都往肚子裡塞。' },
-            { en: 'contain', zh: ['包含 (ㄅㄠ ㄏㄢˊ)', '容納 (ㄖㄨㄥˊ ㄋㄚˋ)'], mnemonic: 'con (一起) + tain (拿/保持)。全部一起拿在裡面，就是包含。' },
-            { en: 'motion', zh: ['動作 (ㄉㄨㄥˋ ㄗㄨㄛˋ)', '運動 (ㄩㄣˋ ㄉㄨㄥˋ)'], mnemonic: 'motor (馬達) + ion。像馬達一樣不斷運轉產生動作。' },
-            { en: 'knapsack', zh: ['背包 (ㄅㄟ ㄅㄠ)'], mnemonic: '聽起來像 nap (小睡) + sack (袋子)。出外旅行適合小睡時拿來當枕頭的背包。' },
-            { en: 'rewrite', zh: ['重寫 (ㄔㄨㄥˊ ㄒㄧㄝˇ)'], mnemonic: 're (重新) + write (寫)。也就是重新再寫一次。' },
-            { en: 'knead', zh: ['揉捏 (ㄖㄡˊ ㄋㄧㄝ)', '按摩 (ㄢˋ ㄇㄛˊ)'], mnemonic: '聽起來像 need (需要)，k不發音。做麵包時非常「需要」用力揉捏麵團。' },
-            { en: 'climber', zh: ['攀登者 (ㄆㄢ ㄉㄥ ㄓㄜˇ)', '登山客 (ㄉㄥ ㄕㄢ ㄎㄜˋ)'], mnemonic: 'climb (攀爬) + er (人)。喜歡攀爬高山的人。' },
-            { en: 'wreath', zh: ['花圈 (ㄏㄨㄚ ㄑㄩㄢ)', '花環 (ㄏㄨㄚ ㄏㄨㄢˊ)'], mnemonic: '聽起來像 breath (呼吸)。戴上美麗的花圈，深呼吸聞聞花香。' },
-            { en: 'knee', zh: ['膝蓋 (ㄒㄧ ㄍㄞˋ)'], mnemonic: 'k不發音，nee 聽起來像你。指著「你」的膝蓋。' },
-            { en: 'wren', zh: ['鷦鷯 (ㄐㄧㄠ ㄌㄧㄠˊ)'], mnemonic: '聽起來像 run (跑)。這是一種常在灌木叢裡跑來跑去的小鳥。' },
-            { en: 'knock', zh: ['敲擊 (ㄑㄧㄠ ㄐㄧˊ)', '敲門 (ㄑㄧㄠ ㄇㄣˊ)'], mnemonic: 'k不發音，聽起來像 lock (鎖)。發現門上鎖(lock)了，只好敲門(knock)。' },
-            { en: 'numb', zh: ['麻木的 (ㄇㄚˊ ㄇㄨˋ ㄉㄜ˙)'], mnemonic: '聽起來像 number (數字) 的前面。算數學算到一堆數字，腦袋都麻木了。' },
-            { en: 'wrestle', zh: ['摔角 (ㄕㄨㄞ ㄐㄧㄠˇ)', '扭打 (ㄋㄧㄡˇ ㄉㄚˇ)'], mnemonic: '與 wrist (手腕) 相關。摔角扭打時常常要抓住對方的手腕。' },
-            { en: 'knot', zh: ['結 (ㄐㄧㄝˊ)', '打結 (ㄉㄚˇ ㄐㄧㄝˊ)'], mnemonic: '聽起來像 not (不)，k不發音。繩子打結了，解都解「不」開。' },
-            { en: 'wrist', zh: ['手腕 (ㄕㄡˇ ㄨㄢˋ)'], mnemonic: '聽起來像 risk (風險)。轉動手腕過度是有受傷風險的。' },
-            { en: 'know', zh: ['知道 (ㄓ ㄉㄠˋ)'], mnemonic: 'k不發音，聽起來像 no (不)。雖然發音像 no，但意思是我知道。' },
-            { en: 'plumber', zh: ['水管工 (ㄕㄨㄟˇ ㄍㄨㄢˇ ㄍㄨㄥ)'], mnemonic: 'plumb (鉛/測錘) + er (人)。早期水管是鉛做的，修理的人就是水管工 (b不發音)。' },
-            { en: 'wrong', zh: ['錯誤的 (ㄘㄨㄛˋ ㄨˋ ㄉㄜ˙)'], mnemonic: 'w不發音，聽起來像 long (長)。這個錯誤的狀態持續了很長(long)一段時間。' },
-            { en: 'friendly', zh: ['友好的 (ㄧㄡˇ ㄏㄠˇ ㄉㄜ˙)'], mnemonic: 'friend (朋友) + ly (地)。像朋友一樣，很友好的。' },
-            { en: 'April', zh: ['四月 (ㄙˋ ㄩㄝˋ)'], mnemonic: '聽起來像 apple (蘋果)。四月是春天，適合吃蘋果。' },
-            { en: 'nobody', zh: ['沒有人 (ㄇㄟˊ ㄧㄡˇ ㄖㄣˊ)'], mnemonic: 'no (沒有) + body (身體/人)。現場連一個人的身體都沒有。' },
-            { en: 'thought', zh: ['想法 (ㄒㄧㄤˇ ㄈㄚˇ)', '思考 (ㄙ ㄎㄠˇ)'], mnemonic: '聽起來像 sort (分類)。把腦中的想法好好分類整理。' },
-            { en: 'investigate', zh: ['調查 (ㄉㄧㄠˋ ㄔㄚˊ)'], mnemonic: 'in (進入) + vest (背心) + igate (大門)。穿著警用背心進入大門進行調查。' },
-            { en: 'arrange', zh: ['安排 (ㄢ ㄆㄞˊ)', '整理 (ㄓㄥˇ ㄌㄧˇ)'], mnemonic: 'ar (一再) + range (範圍)。一再確認活動範圍，把一切都安排好。' },
-            { en: 'clarify', zh: ['澄清 (ㄔㄥˊ ㄑㄧㄥ)', '闡明 (ㄔㄢˇ ㄇㄧㄥˊ)'], mnemonic: 'clear (清楚的) 的動詞變化。把事情講清楚，就是澄清。' },
-            { en: 'usually', zh: ['通常 (ㄊㄨㄥ ㄔㄤˊ)'], mnemonic: 'usual (尋常的) + ly (地)。' },
-            { en: 'around', zh: ['在...周圍 (ㄗㄞˋ ... ㄓㄡ ㄨㄟˊ)', '到處 (ㄉㄠˋ ㄔㄨˋ)'], mnemonic: 'a (一個) + round (圓圈)。畫一個圓圈，就在這圓圈的周圍。' },
-            { en: 'likely', zh: ['可能的 (ㄎㄜˇ ㄋㄥˊ ㄉㄜ˙)'], mnemonic: 'like (喜歡/像) + ly。看起來「像」是會發生的，也就是可能的。' },
-            { en: 'situation', zh: ['情況 (ㄑㄧㄥˊ ㄎㄨㄤˋ)', '處境 (ㄔㄨˇ ㄐㄧㄥˋ)'], mnemonic: 'sit (坐) + uation (名詞尾)。你坐的位置與環境，代表你目前的處境與情況。' },
-            { en: 'kilometers', zh: ['公里 (ㄍㄨㄥ ㄌㄧˇ)'], mnemonic: 'kilo (千) + meters (公尺)。一千公尺就是一公里。' }
+            { en: 'describe', zh: ['描述 (ㄇㄧㄠˊ ㄕㄨˋ)', '形容 (ㄒㄧㄥˊ ㄖㄨㄥˊ)'], mnemonic: 'de (向下) + scribe (寫)。把看到的樣子一五一十寫下來，就是「描述、形容」。' },
+            { en: 'cause', zh: ['原因 (ㄩㄢˊ ㄧㄣ)', '引起 (ㄧㄣˇ ㄑㄧˇ)'], mnemonic: '聽起來像 because (因為)。事情發生「因為」有這個「原因」所「引起」。' },
+            { en: 'effect', zh: ['效果 (ㄒㄧㄠˋ ㄍㄨㄛˇ)', '影響 (ㄧㄥˇ ㄒㄧㄤˇ)'], mnemonic: 'ef (向外) + fect (做)。做出來之後向外產生的「效果、影響」。' },
+            { en: 'alike', zh: ['相像的 (ㄒㄧㄤ ㄒㄧㄤˋ ㄉㄜ˙)', '相似地 (ㄒㄧㄤ ㄙˋ ㄉㄜ˙)'], mnemonic: 'a + like (像)。兩個人長得非常像 (like)，就是「相像的」。' },
+            { en: 'mixture', zh: ['混合物 (ㄏㄨㄣˋ ㄏㄜˊ ㄨˋ)'], mnemonic: 'mix (混合) + ture (名詞字尾)。把各種材料混合在一起的東西就是「混合物」。' },
+            { en: 'blend', zh: ['混合 (ㄏㄨㄣˋ ㄏㄜˊ)', '融合 (ㄖㄨㄥˊ ㄏㄜˊ)'], mnemonic: '想像用 blender (果汁機) 把各種水果「混合、融合」在一起。' },
+            { en: 'major', zh: ['主要的 (ㄓㄨˇ ㄧㄠˋ ㄉㄜ˙)', '重大的 (ㄓㄨㄥˋ ㄉㄚˋ ㄉㄜ˙)'], mnemonic: 'maj (大，跟 mega 類似) + or。佔最大部分的，就是「主要的、重大的」。' },
+            { en: 'ginger', zh: ['薑 (ㄐㄧㄤ)'], mnemonic: '想到薑餅人 (gingerbread man)，裡面辛辣香甜的材料就是「薑」。' },
+            { en: 'kitten', zh: ['小貓 (ㄒㄧㄠˇ ㄇㄠ)'], mnemonic: '聽起來像 Hello Kitty 的 Kitty！可愛的 Kitty 就是一隻「小貓」。' },
+            { en: 'character', zh: ['角色 (ㄐㄩㄝˊ ㄙㄜˋ)', '性格 (ㄒㄧㄥˋ ㄍㄜˊ)'], mnemonic: '故事裡每一個「角色」，都有自己獨特的「性格」。' },
+            { en: 'speech', zh: ['演講 (ㄧㄢˇ ㄐㄧㄤˇ)', '言語 (ㄧㄢˊ ㄩˇ)'], mnemonic: '由 speak (說話) 演變而來。在台上對大家說話就是「演講」。' },
+            { en: 'phone', zh: ['電話 (ㄉㄧㄢˋ ㄏㄨㄚˋ)'], mnemonic: 'telephone 或 smartphone 的簡稱，每天都會看到的「電話」。' },
+            { en: 'shutter', zh: ['快門 (ㄎㄨㄞˋ ㄇㄣˊ)', '百葉窗 (ㄅㄞˇ ㄧㄝˋ ㄔㄨㄤ)'], mnemonic: 'shut (關閉) + ter。拍照時「咔嚓」快速開關的是「快門」，窗戶上可開關的是「百葉窗」。' },
+            { en: 'width', zh: ['寬度 (ㄎㄨㄢ ㄉㄨˋ)'], mnemonic: 'wide (寬的) + th (名詞字尾)。代表東西有多寬，也就是「寬度」。' },
+            { en: 'whistle', zh: ['口哨 (ㄎㄡˇ ㄕㄠˋ)', '吹口哨 (ㄔㄨㄟ ㄎㄡˇ ㄕㄠˋ)'], mnemonic: '唸起來「威索～」的聲音，就像吹「口哨」發出的清脆聲響。' },
+            { en: 'pitch', zh: ['投擲 (ㄊㄡˊ ㄓˊ)', '音高 (ㄧㄣ ㄍㄠ)'], mnemonic: '棒球裡的投手叫 pitcher，他把球「投擲」出去；在音樂裡則代表「音高」。' },
+            { en: 'wren', zh: ['鷦鷯 (ㄐㄧㄠ ㄌㄧㄠˊ)'], mnemonic: 'w 不發音，聽起來像 ran (跑的過去式)。這種嬌小的「鷦鷯」鳥在樹枝間跑得很快。' },
+            { en: 'breakfast', zh: ['早餐 (ㄗㄠˇ ㄘㄢ)'], mnemonic: 'break (打破) + fast (禁食)。打破一整晚沒吃東西的狀態，就是吃「早餐」。' },
+            { en: 'flight', zh: ['飛行 (ㄈㄟ ㄒㄧㄥˊ)', '班機 (ㄅㄢ ㄐㄧ)'], mnemonic: '由 fly (飛) 變化而來的名詞，代表在空中「飛行」或搭乘的「班機」。' },
+            { en: 'knot', zh: ['結 (ㄐㄧㄝˊ)', '打結 (ㄉㄚˇ ㄐㄧㄝˊ)'], mnemonic: 'k 不發音，唸起來像 not (不)。繩子「打結」了，怎麼解也解「不」開！' },
+            { en: 'branch', zh: ['樹枝 (ㄕㄨˋ ㄓ)', '分支 (ㄈㄣ ㄓ)'], mnemonic: '聽起來像 bench (長椅)。想像一張用粗壯「樹枝」做成的木製長椅。' },
+            { en: 'wreath', zh: ['花環 (ㄏㄨㄚ ㄏㄨㄢˊ)'], mnemonic: 'w 不發音，長得很像 breath (呼吸)。聖誕節門上掛著清香的「花環」，讓人忍不住深呼吸。' },
+            { en: 'know', zh: ['知道 (ㄓ ㄉㄠˋ)', '認識 (ㄖㄣˋ ㄕˋ)'], mnemonic: 'k 不發音，唸起來像 no (不)。這題太簡單了，沒有人會說「不」知道！' },
+            { en: 'blame', zh: ['責怪 (ㄗㄜˊ ㄍㄨㄞˋ)', '歸咎 (ㄍㄨㄟ ㄐㄧㄡˋ)'], mnemonic: 'b + lame (跛腳的/站不住腳的)。找一個站不住腳的藉口，把錯都「責怪」到別人頭上。' },
+            { en: 'country', zh: ['國家 (ㄍㄨㄛˊ ㄐㄧㄚ)', '鄉村 (ㄒㄧㄤ ㄘㄨㄣ)'], mnemonic: 'count (計算) + try (嘗試)。在這個「國家」裡，嘗試計算一下「鄉村」有多少座農場。' },
+            { en: 'blank', zh: ['空白的 (ㄎㄨㄥˋ ㄅㄞˊ ㄉㄜ˙)'], mnemonic: '長得很像 black (黑色)，但把 c 換成 n，反而是什麼都沒寫、一片「空白的」。' },
+            { en: 'achieve', zh: ['達成 (ㄉㄚˊ ㄔㄥˊ)', '實現 (ㄕˊ ㄒㄧㄢˋ)'], mnemonic: 'a + chieve (像 chief 首領)。經過努力，終於「達成」目標成為首領！' },
+            { en: 'clean', zh: ['乾淨的 (ㄍㄢ ㄐㄧㄥˋ ㄉㄜ˙)', '清潔 (ㄑㄧㄥ ㄐㄧㄝˊ)'], mnemonic: 'c + lean (傾斜)。彎腰傾斜身體把地板擦得「乾淨」又「清潔」。' },
+            { en: 'clear', zh: ['清楚的 (ㄑㄧㄥ ㄔㄨˇ ㄉㄜ˙)', '清除 (ㄑㄧㄥ ㄔㄨˊ)'], mnemonic: 'c + ear (耳朵)。把耳朵「清除」乾淨，聽聲音就變得很「清楚」了。' },
+            { en: 'again', zh: ['再一次 (ㄗㄞˋ ㄧ ㄘˋ)', '又 (ㄧㄡˋ)'], mnemonic: 'a + gain (獲得)。想要「再一次」獲得好成績！' },
+            { en: 'greatness', zh: ['偉大 (ㄨㄟˇ ㄉㄚˋ)'], mnemonic: 'great (偉大的) + ness (名詞字尾)。代表一種「偉大」的特質。' },
+            { en: 'contain', zh: ['包含 (ㄅㄠ ㄏㄢˊ)', '容納 (ㄖㄨㄥˊ ㄋㄚˋ)'], mnemonic: 'con (一起) + tain (拿住)。把所有東西一起拿住在裡面，就是「包含、容納」（貨櫃叫 container）。' },
+            { en: 'child', zh: ['小孩 (ㄒㄧㄠˇ ㄏㄞˊ)'], mnemonic: '複數是 children，代表充滿活力的「小孩」。' },
+            { en: 'narrator', zh: ['旁白 (ㄆㄤˊ ㄅㄞˊ)', '敘述者 (ㄒㄩˋ ㄕㄨˋ ㄓㄜˇ)'], mnemonic: 'narrate (敘述故事) + or (的人)。在電影或故事裡負責講故事的人就是「旁白、敘述者」。' },
+            { en: 'heaven', zh: ['天堂 (ㄊㄧㄢ ㄊㄤˊ)'], mnemonic: 'he + a + ven (像 seven 七)。傳說中飛過七重雲霄就能到達美麗的「天堂」。' }
         ];
 
         /* --- 語音朗讀 API --- */
         function speakWord(word) {
             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
                 window.speechSynthesis.speak(utterance);
+            } else {
+                alert("很抱歉，您的瀏覽器目前不支援語音朗讀功能。");
             }
         }
 
@@ -362,6 +368,7 @@
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('exam-screen').style.display = 'block';
             document.getElementById('practice-screen').style.display = 'none';
+            document.getElementById('exam-options').style.display = 'block';
             startGame(words);
         }
 
@@ -381,6 +388,7 @@
             const btn = document.getElementById('toggle-all-btn');
             btn.innerHTML = '顯示所有答案 / 批改';
             btn.style.backgroundColor = '#ff1744';
+            btn.style.color = '#fff';
         }
 
         function renderPracticeList() {
@@ -413,7 +421,6 @@
             });
         }
 
-        // 練習模式單題批改
         function toggleSingleAnswer(index) {
             const ansEl = document.getElementById(`ans-${index}`);
             const inputEl = document.getElementById(`p-input-${index}`);
@@ -439,7 +446,6 @@
             }
         }
 
-        // 練習模式全域批改
         function toggleAllAnswers() {
             const btn = document.getElementById('toggle-all-btn');
             const answers = document.querySelectorAll('.answer-text');
@@ -491,7 +497,6 @@
         let wrongWords = [];
         let isWaitingToContinue = false;
 
-        // 產生選擇題選項（混淆器）
         function generateOptions(correctZhs, currentEn) {
             let options = [...correctZhs];
             let allOtherZhs = [];
@@ -503,7 +508,7 @@
             });
             shuffle(allOtherZhs);
             
-            let targetCount = Math.max(4, correctZhs.length + 1);
+            let targetCount = Math.max(4, correctZhs.length + 2);
             while (options.length < targetCount && allOtherZhs.length > 0) {
                 let distractor = allOtherZhs.pop();
                 if (!options.includes(distractor)) {
@@ -525,6 +530,7 @@
             wrongWords = [];
             isWaitingToContinue = false;
             
+            document.getElementById('question').textContent = '請聽發音，拼出單字，並勾選所有正確的中文意思：';
             document.getElementById('exam-restart').style.display = 'none';
             document.getElementById('exam-retest').style.display = 'none';
             document.getElementById('wrong-words-summary').style.display = 'none';
@@ -568,7 +574,7 @@
             const optionsDiv = document.getElementById('exam-options');
             optionsDiv.innerHTML = '<div style="color:#aaa; font-size:14px; margin-bottom:10px;">2. 請勾選所有正確的意思 (可能不只一個)：</div>';
             const options = generateOptions(q.zh, q.en);
-            options.forEach((opt, idx) => {
+            options.forEach((opt) => {
                 optionsDiv.innerHTML += `
                     <label class="exam-checkbox-label">
                         <input type="checkbox" value="${opt}" class="exam-checkbox"> ${opt}
@@ -636,7 +642,7 @@
                 
                 submitBtn.textContent = '下一題 ⏭';
                 submitBtn.className = 'exam-btn exam-btn-next';
-                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.join(' / ') });
+                wrongWords.push({ zh: q.zh.join(' / '), en: q.en, user: userAnswer, selectedZh: selectedOptions.join(' / '), mnemonic: q.mnemonic });
             }
             updateScore();
         }
@@ -666,10 +672,12 @@
                 let html = '<h3 style="color:#ff1744; margin-top:0;">📝 錯題總結報告：</h3>';
                 wrongWords.forEach((w, idx) => {
                     html += `<div class="summary-item">
-                        <b>${idx + 1}. 正確答案：<span style="color:#00e676;">${w.en}</span></b><br>
+                        <b>${idx + 1}. 正確答案：<span style="color:#00e676;">${w.en}</span></b>
+                        <button class="small-btn" onclick="speakWord('${w.en}')" style="margin-left:8px;">🔊 發音</button><br>
                         ✅ 正確意思：${w.zh}<br>
                         ❌ 你的拼寫：<span style="color:#ff5252; text-decoration: line-through;">${w.user || '(未輸入)'}</span><br>
-                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh || '(未選擇)'}</span>
+                        ❌ 你的選擇：<span style="color:#ff5252;">${w.selectedZh || '(未選擇)'}</span><br>
+                        💡 <span style="color:#b0bec5; font-size:14px;">${w.mnemonic}</span>
                     </div>`;
                 });
                 summaryDiv.innerHTML = html;
