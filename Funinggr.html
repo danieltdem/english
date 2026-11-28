@@ -1,965 +1,2338 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文單複數變化大挑戰</title>
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #181826 0%, #222238 50%, #1a1a2e 100%);
-            --card-bg: rgba(30, 30, 48, 0.85);
-            --card-border: rgba(255, 255, 255, 0.12);
-            --text-main: #f0f0f5;
-            --text-sub: rgba(240, 240, 245, 0.7);
-            --accent: #ff9800;
-            --accent-hover: #ffb74d;
-            --accent-bg: rgba(255, 152, 0, 0.15);
-            --success: #4caf50;
-            --danger: #f44336;
-            --purple: #7c4dff;
-            --purple-hover: #9e75ff;
-            --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.55);
-            --shadow-glow: 0 0 20px rgba(255, 152, 0, 0.35);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Unit 7 互動文法學習指南：Have got / Has got &amp; How much / How many</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
 
-        * { box-sizing: border-box; }
+      /* Page and surfaces: warm stone-white paper (Briefing) */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            padding: 16px;
-        }
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
 
-        .container {
-            text-align: center;
-            background: var(--card-bg);
-            padding: 32px 28px;
-            border-radius: 24px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 100%;
-            max-width: 680px;
-            max-height: 92vh;
-            overflow-y: auto;
-            position: relative;
-        }
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-subtle: #c8c4b8;
 
-        .container::-webkit-scrollbar { width: 6px; }
-        .container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-container: #e4eef2;
+      --tertiary: #785008;
+      --tag-warm-bg: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-container: #fdeceb;
 
-        h1 { font-size: 26px; margin: 0 0 8px 0; color: #fff; }
-        h2 { font-size: 22px; margin: 0 0 16px 0; color: #fff; }
+      /* Semantic tokens */
+      --positive: #1f6b47;
+      --positive-container: #e3f3eb;
+      --warning: #9a5b00;
+      --warning-container: #fdf3dc;
+      --focus: var(--secondary);
 
-        .ruby-text { font-size: 11px; opacity: 0.8; display: block; margin-bottom: 2px; }
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            background: var(--accent-bg);
-            color: var(--accent-hover);
-            border: 1px solid rgba(255, 152, 0, 0.3);
-            margin-bottom: 12px;
-        }
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
 
-        button {
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            margin: 6px;
-            background-color: var(--accent);
-            color: #fff;
-            box-shadow: var(--shadow-glow);
-            transition: all 0.2s ease;
-        }
-        button:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
-        button:active { transform: scale(0.97); }
+      /* Fonts */
+      --font-headline: 'Source Serif 4', 'Noto Sans TC', serif;
+      --font-body: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
 
-        .btn-purple { background-color: var(--purple); box-shadow: 0 0 20px rgba(124, 77, 255, 0.35); }
-        .btn-purple:hover { background-color: var(--purple-hover); }
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
 
-        .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: none;
-            color: #e0e0f0;
-        }
-        .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
 
-        .btn-danger { background-color: var(--danger); box-shadow: 0 0 20px rgba(244, 67, 54, 0.3); }
-        .btn-danger:hover { background-color: #e53935; }
+      /* Narrative Type Scale */
+      --display-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.25rem);
+      --headline-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.125rem);
+      --subhead-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
 
-        .tts-btn {
-            background-color: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 4px 8px;
-            font-size: 12px;
-            border-radius: 20px;
-            margin-left: 6px;
-            cursor: pointer;
-            box-shadow: none;
-            vertical-align: middle;
-        }
-        .tts-btn:hover { background-color: var(--accent); border-color: var(--accent); }
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
 
-        .filter-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            margin: 14px 0 20px;
-        }
-        .filter-chip {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            color: rgba(255, 255, 255, 0.85);
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: none;
-            margin: 2px;
-        }
-        .filter-chip:hover, .filter-chip.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 2px 10px rgba(255, 152, 0, 0.3);
-            transform: none;
-        }
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
 
-        input[type="text"] {
-            padding: 13px 16px;
-            font-size: 18px;
-            width: 75%;
-            max-width: 360px;
-            margin: 12px auto 14px auto;
-            background: rgba(0, 0, 0, 0.35);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border-radius: 12px;
-            outline: none;
-            text-align: center;
-            font-weight: 500;
-        }
-        input[type="text"]:focus { border-color: var(--accent); box-shadow: var(--shadow-glow); }
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
 
-        .word-visual {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 14px auto;
-        }
-        .word-img {
-            max-width: 130px;
-            max-height: 130px;
-            object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-        }
-        .word-emoji { font-size: 52px; line-height: 1.2; margin-bottom: 4px; }
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
 
-        #mnemonic, .rule-card {
-            font-size: 14px;
-            margin-top: 14px;
-            color: #cfd6f5;
-            text-align: left;
-            padding: 14px 16px;
-            border-left: 4px solid var(--accent);
-            border-radius: 0 10px 10px 0;
-            background: rgba(255, 255, 255, 0.05);
-            line-height: 1.6;
-        }
-        .rule-card { border-left-color: var(--purple); margin-bottom: 12px; }
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
 
-        #wrong-words {
-            text-align: left;
-            margin-top: 18px;
-            line-height: 1.6;
-            max-height: 240px;
-            overflow-y: auto;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    /* Dossier bar */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-pill--zh {
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.04em;
+    }
 
-        .practice-row-container {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 14px 6px;
-            text-align: left;
-        }
-        .practice-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        .col-singular { width: 36%; display: flex; align-items: center; gap: 8px; font-size: 14px; }
-        .col-input { width: 32%; }
-        .col-ans { width: 32%; text-align: right; font-size: 14px; }
+    /* Typography */
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 62ch;
+      line-height: 1.5;
+    }
+    h2.section-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs);
+    }
+    h3.card-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.3;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm);
+    }
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+    }
+    p:last-child { margin-bottom: 0; }
 
-        .practice-input {
-            width: 100% !important;
-            padding: 8px 10px !important;
-            margin: 0 !important;
-            font-size: 14px !important;
-            border-radius: 8px !important;
-        }
-        .practice-input.correct {
-            border-color: var(--success) !important;
-            background: rgba(76, 175, 80, 0.15) !important;
-            color: #a5d6a7 !important;
-        }
-        .practice-input.wrong {
-            border-color: var(--danger) !important;
-            background: rgba(244, 67, 54, 0.15) !important;
-            color: #ef9a9a !important;
-        }
+    .en-inline {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--secondary);
+      padding: 0 var(--space-xs);
+      background: var(--secondary-container);
+      border-radius: var(--badge-radius);
+    }
+    .en-warn {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--error);
+      background: var(--error-container);
+      padding: 0 var(--space-xs);
+      border-radius: var(--badge-radius);
+    }
+    .en-ok {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      color: var(--positive);
+      background: var(--positive-container);
+      padding: 0 var(--space-xs);
+      border-radius: var(--badge-radius);
+    }
 
-        .list-header {
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            margin-top: 14px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        }
+    /* Cards & Callouts */
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
 
-        .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0 16px;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), #ffca28);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
+    /* Overview dashboard strip */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.1;
+    }
+    .progress-track {
+      height: 8px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin-top: var(--space-md);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0%;
+      transition: width var(--dur-long) var(--ease-out);
+    }
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 14px 0;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 10px;
-        }
-        .stat-number { font-size: 20px; font-weight: 700; color: var(--accent); }
-        .stat-label { font-size: 12px; color: var(--text-sub); }
-    </style>
+    /* Chapter Jump Index */
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .toc-link-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-width: 0;
+    }
+    .toc-status {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-status.is-complete {
+      color: var(--positive);
+      font-weight: 600;
+    }
+
+    /* Part Banner */
+    .part-divider {
+      margin-top: var(--space-xl);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--rounded-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .part-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary-container);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+    }
+    .part-heading {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* Chapter Section */
+    .chapter-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+      scroll-margin-top: var(--space-lg);
+    }
+    .chapter-grid-asym {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .chapter-grid-even {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Grammar Tables */
+    .grammar-table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table.grammar-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    .grammar-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface-variant);
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    .grammar-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+    }
+    .grammar-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Interactive Lab Panels */
+    .lab-card {
+      background: var(--surface-container-low);
+      border: 1.5px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .lab-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .lab-tag {
+      background: var(--secondary-container);
+      color: var(--secondary);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .choice-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .choice-chip:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .choice-chip[aria-pressed="true"],
+    .choice-chip.is-active {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .sentence-stage {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .sentence-en {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+      font-weight: 700;
+      color: var(--on-surface);
+      line-height: 1.35;
+    }
+    .sentence-zh {
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+    .sentence-rule {
+      color: var(--tertiary);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    /* Controls & Forms */
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    select.briefing-select {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-xl) var(--space-xs) var(--space-md);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    select.briefing-select:hover {
+      border-color: var(--outline);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--border-subtle);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-danger-outline {
+      background: var(--surface-container-low);
+      color: var(--error);
+      border-color: var(--error);
+    }
+    .btn-danger-outline:hover {
+      background: var(--error-container);
+    }
+    .btn-danger-outline[data-armed="true"] {
+      background: var(--error);
+      color: var(--on-error);
+    }
+
+    /* Noun Sorter */
+    .noun-sorter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .noun-tile {
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .noun-tile-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-xs);
+    }
+    .noun-word {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.0625rem;
+    }
+    .noun-zh {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+    .noun-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xs);
+    }
+    .noun-btn {
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .noun-btn:hover { background: var(--surface-container-high); }
+    .noun-btn.is-correct {
+      background: var(--positive-container);
+      color: var(--positive);
+      border-color: var(--positive);
+    }
+    .noun-btn.is-wrong {
+      background: var(--error-container);
+      color: var(--error);
+      border-color: var(--error);
+    }
+    .noun-feedback {
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      min-height: 1.2em;
+    }
+
+    /* Quiz Block */
+    .quiz-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--primary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .quiz-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--card-border);
+      padding-bottom: var(--space-sm);
+    }
+    .quiz-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .quiz-badge {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .quiz-score-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .question-list {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .question-item {
+      display: grid;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-md);
+      border-bottom: var(--card-border);
+    }
+    .question-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .question-prompt {
+      font-weight: 600;
+      color: var(--on-surface);
+      display: flex;
+      gap: var(--space-sm);
+      align-items: baseline;
+    }
+    .q-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .option-btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      background: var(--background);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .option-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .option-btn:disabled {
+      cursor: default;
+    }
+    .option-btn.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--positive);
+      font-weight: 600;
+    }
+    .option-btn.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      color: var(--error);
+      font-weight: 600;
+    }
+    .option-btn.is-dimmed {
+      opacity: 0.65;
+    }
+    .option-letter {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--badge-radius);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      flex-shrink: 0;
+    }
+    .option-btn.is-correct .option-letter {
+      background: var(--positive);
+      color: var(--on-error);
+    }
+    .option-btn.is-wrong .option-letter {
+      background: var(--error);
+      color: var(--on-error);
+    }
+    .explain-box {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      display: none;
+    }
+    .explain-box.is-visible {
+      display: block;
+    }
+    .explain-box.is-correct {
+      background: var(--positive-container);
+      color: var(--positive);
+      border-left: 3px solid var(--positive);
+    }
+    .explain-box.is-wrong {
+      background: var(--error-container);
+      color: var(--error);
+      border-left: 3px solid var(--error);
+    }
+
+    /* Summary Breakdown */
+    .summary-bars {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .summary-bar-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) auto;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.9375rem;
+    }
+    .summary-track {
+      height: 10px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .summary-fill {
+      height: 100%;
+      background: var(--data-1);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+    .summary-fill.is-perfect { background: var(--data-3); }
+    .summary-fill.is-needs-work { background: var(--data-4); }
+
+    /* Flip steps (Chapter 3) */
+    .step-transform {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .token-pill {
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+    }
+    .token-pill.is-moved {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--tertiary);
+    }
+    .token-pill.is-got {
+      background: var(--secondary-container);
+      color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-lg);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Scroll reveal */
+    .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Container & Media queries */
+    .card-wrapper { container-type: inline-size; }
+    @media (max-width: 780px) {
+      .overview-grid,
+      .chapter-grid-asym,
+      .chapter-grid-even {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .kpi-row {
+        grid-template-columns: 1fr;
+      }
+      .summary-bar-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page-grid">
+    <!-- Dossier Header -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">UNIT 07</span>
+          <span class="dossier-meta">HAVE GOT / HAS GOT &middot; HOW MUCH / HOW MANY</span>
+        </div>
+        <span class="dossier-meta">6 個核心章節 &middot; 18 題即時隨堂測驗</span>
+      </div>
 
-    <!-- 1. 首頁選單 -->
-    <div id="menu-screen" class="container">
-        <span class="badge">英文名詞規則變身室</span>
-        <h1>英文單複數變化大挑戰</h1>
-        <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 18px;">
-            共收錄 56 個精選核心單字 ✦ 掌握 6 大名詞複數規則
-        </p>
+      <h1 class="title">Have got / Has got 與 How much / How many 互動文法指南</h1>
+      <p class="standfirst">從「表達擁有與特徵」到「可數名詞與數量價格問答」——依循單元知識脈絡拆解為六個小章節，搭配互動句型實驗室與即時批改測驗，邊學邊檢驗觀念。</p>
 
-        <div class="stat-grid">
-            <div class="stat-card">
-                <div class="stat-number">6</div>
-                <div class="stat-label">文法規則庫</div>
+      <!-- Overview KPI & Progress -->
+      <div class="overview-grid">
+        <div class="figure-card">
+          <div class="kpi-row">
+            <div>
+              <span class="kpi-label">已作答題數</span>
+              <div class="kpi-value" id="kpi-answered">0 / 18</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">56</div>
-                <div class="stat-label">重點單字量</div>
+            <div>
+              <span class="kpi-label">目前答對題數</span>
+              <div class="kpi-value" id="kpi-correct">0</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">真人家教發音</div>
+            <div>
+              <span class="kpi-label">測驗正確率</span>
+              <div class="kpi-value" id="kpi-accuracy">--%</div>
             </div>
+          </div>
+          <div class="progress-track" aria-label="Unit 7 總體學習進度">
+            <div class="progress-fill" id="overall-progress-bar"></div>
+          </div>
         </div>
 
-        <div style="margin: 18px 0 10px;">
-            <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 6px;">請選擇測驗範圍：</p>
-            <div class="filter-container" id="menu-filter-chips">
-                <button class="filter-chip active" onclick="selectRuleFilter('all', this)">全部 56 題綜合</button>
-                <button class="filter-chip" onclick="selectRuleFilter(1, this)">規則一：加 -s</button>
-                <button class="filter-chip" onclick="selectRuleFilter(2, this)">規則二：加 -es</button>
-                <button class="filter-chip" onclick="selectRuleFilter(3, this)">-o 結尾例外</button>
-                <button class="filter-chip" onclick="selectRuleFilter(4, this)">規則三：-y 結尾</button>
-                <button class="filter-chip" onclick="selectRuleFilter(5, this)">規則四：-f/-fe</button>
-                <button class="filter-chip" onclick="selectRuleFilter(6, this)">規則五：不規則</button>
-            </div>
+        <div class="aside-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:var(--space-sm); margin-bottom:var(--space-xs);">
+            <span class="field-label">單元學習導航</span>
+            <span class="dossier-meta" id="mastered-chapters-label">0 / 6 章節全對</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--on-surface-variant); margin-bottom:var(--space-sm);">建議依序閱讀 Part I 與 Part II，每章讀完後立刻作答 3 題即時測驗，系統會自動保存你的作答紀錄。</p>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm);">
+            <button type="button" class="btn btn-secondary" onclick="exportProgressCSV()">匯出學習紀錄 (CSV)</button>
+            <button type="button" class="btn btn-danger-outline" id="btn-reset-all" onclick="handleResetAll(this)">重設全部作答</button>
+          </div>
         </div>
-        
-        <button onclick="goToExam()" style="width: 85%; font-size: 16px;">
-            <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>開始挑戰測驗
-        </button>
+      </div>
 
-        <button onclick="goToPractice()" class="btn-purple" style="width: 85%; font-size: 16px;">
-            <span class="ruby-text">ㄨㄛˇ ㄧㄠˋ ㄌㄧㄢˋ ㄒㄧˊ</span>全字庫自由練習
-        </button>
+      <!-- Chapter Index -->
+      <nav class="toc-grid" aria-label="章節目錄">
+        <a class="toc-link" href="#ch-01">
+          <span class="toc-link-left"><span class="index-num">01</span><span>肯定句與縮寫</span></span>
+          <span class="toc-status" id="toc-status-1">0/3</span>
+        </a>
+        <a class="toc-link" href="#ch-02">
+          <span class="toc-link-left"><span class="index-num">02</span><span>否定句與陷阱</span></span>
+          <span class="toc-status" id="toc-status-2">0/3</span>
+        </a>
+        <a class="toc-link" href="#ch-03">
+          <span class="toc-link-left"><span class="index-num">03</span><span>疑問句與簡答</span></span>
+          <span class="toc-status" id="toc-status-3">0/3</span>
+        </a>
+        <a class="toc-link" href="#ch-04">
+          <span class="toc-link-left"><span class="index-num">04</span><span>可數與不可數</span></span>
+          <span class="toc-status" id="toc-status-4">0/3</span>
+        </a>
+        <a class="toc-link" href="#ch-05">
+          <span class="toc-link-left"><span class="index-num">05</span><span>詢問數量句型</span></span>
+          <span class="toc-status" id="toc-status-5">0/3</span>
+        </a>
+        <a class="toc-link" href="#ch-06">
+          <span class="toc-link-left"><span class="index-num">06</span><span>詢問價格與總結</span></span>
+          <span class="toc-status" id="toc-status-6">0/3</span>
+        </a>
+      </nav>
+    </header>
 
-        <button onclick="goToRules()" class="btn-secondary" style="width: 85%; font-size: 14px;">
-            <span class="ruby-text">ㄍㄨㄟ ㄗㄜˊ ㄗㄨㄥˇ ㄌㄢˇ</span>6 大單複數規則寶典
-        </button>
-    </div>
-
-    <!-- 2. 考試模式 -->
-    <div id="exam-screen" class="container" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span id="exam-category-badge" class="badge">綜合測驗</span>
-            <span id="score" style="font-size: 14px; color: var(--text-sub);">分數: 0 / 0</span>
-        </div>
-        
-        <div class="progress-bar-container">
-            <div id="exam-progress-bar" class="progress-bar"></div>
-        </div>
-
-        <h2>英文複數變身測驗</h2>
-
-        <div id="word-visual-box" class="word-visual">
-            <img id="exam-word-img" class="word-img" src="" alt="word" style="display: none;">
-            <div id="exam-word-emoji" class="word-emoji">📦</div>
-        </div>
-
-        <div id="question" style="font-size: 20px; margin: 14px 0; color: #ffd54f;">載入題目中...</div>
-        
+    <main style="display:grid; gap:var(--space-2xl);">
+      <!-- PART I -->
+      <div class="part-divider">
         <div>
-            <button class="tts-btn" id="exam-tts-singular" style="font-size: 13px; padding: 6px 14px;">🔊 聽單數發音</button>
+          <div class="part-kicker">PART I &middot; POSSESSION &amp; APPEARANCE</div>
+          <h2 class="part-heading">Have got / Has got：表達「擁有」與「特徵」</h2>
+        </div>
+        <span style="font-size:0.9375rem;">涵蓋 Chapter 01 – 03</span>
+      </div>
+
+      <!-- CHAPTER 01 -->
+      <section class="chapter-section" id="ch-01" aria-labelledby="ch-01-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 01</span>
+            <span class="dossier-meta">肯定句與縮寫規則</span>
+          </div>
+          <span class="dossier-meta">核心：主詞決定 have / has</span>
         </div>
 
-        <input type="text" id="exam-answer" placeholder="輸入英文複數變化..." autocomplete="off" autocapitalize="off" spellcheck="false">
-        <br>
-        <button id="exam-submit" style="min-width: 140px;">提交答案</button>
+        <h2 class="section-title" id="ch-01-title">肯定句看主詞：第三人稱單數用 has got，其餘用 have got</h2>
 
-        <div id="exam-result" style="font-size: 18px; margin-top: 14px; font-weight: bold; min-height: 26px;"></div>
-        <div id="mnemonic" style="display: none;"></div>
+        <div class="chapter-grid-asym">
+          <div class="figure-card">
+            <h3 class="card-title">基本概念與主詞搭配</h3>
+            <p>在英文口語與日常對話中，<span class="en-inline">have got</span> 與 <span class="en-inline">has got</span> 用來表示「擁有某物」、「外貌特徵（如長髮、藍眼睛）」或「親屬／寵物關係」，意思等同於一般動詞 <span class="en-inline">have / has</span>。</p>
+            <div class="grammar-table-wrap" style="margin-top:var(--space-md);">
+              <table class="grammar-table">
+                <thead>
+                  <tr>
+                    <th>主詞類型</th>
+                    <th>完整句型</th>
+                    <th>常見縮寫</th>
+                    <th>例句</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>I / You / We / They</strong><br><span style="color:var(--on-surface-variant); font-size:0.875rem;">或複數名詞 (Tom and Amy)</span></td>
+                    <td><span class="en-inline">have got</span></td>
+                    <td><span class="en-inline">'ve got</span></td>
+                    <td>I<strong>'ve got</strong> two sisters.<br>They <strong>have got</strong> new bikes.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>He / She / It</strong><br><span style="color:var(--on-surface-variant); font-size:0.875rem;">或單數名詞 (My dog, Leo)</span></td>
+                    <td><span class="en-inline">has got</span></td>
+                    <td><span class="en-inline">'s got</span></td>
+                    <td>She<strong>'s got</strong> long hair.<br>Leo <strong>has got</strong> a blue cap.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-        <div id="wrong-words" style="display: none;"></div>
-
-        <div style="margin-top: 18px;">
-            <button id="exam-restart" style="display: none;">重新開始</button>
-            <button id="exam-retest" class="btn-danger" style="display: none;">重測錯題</button>
-            <button class="btn-secondary" style="width: 65%; margin-top: 12px;" onclick="goHome()">回首頁選單</button>
-        </div>
-    </div>
-
-    <!-- 3. 練習模式 -->
-    <div id="practice-screen" class="container" style="display: none; max-width: 820px; padding: 24px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin: 0;">名詞單複數練習室</h2>
-            <button class="btn-secondary" onclick="goHome()" style="margin: 0; padding: 6px 14px;">回首頁</button>
-        </div>
-
-        <div class="filter-container" id="practice-filter-chips" style="margin: 14px 0 10px;">
-            <button class="filter-chip active" onclick="filterPracticeList('all', this)">全部 (56)</button>
-            <button class="filter-chip" onclick="filterPracticeList(1, this)">規則一：加 -s</button>
-            <button class="filter-chip" onclick="filterPracticeList(2, this)">規則二：加 -es</button>
-            <button class="filter-chip" onclick="filterPracticeList(3, this)">-o 結尾例外</button>
-            <button class="filter-chip" onclick="filterPracticeList(4, this)">規則三：-y 結尾</button>
-            <button class="filter-chip" onclick="filterPracticeList(5, this)">規則四：-f/-fe</button>
-            <button class="filter-chip" onclick="filterPracticeList(6, this)">規則五：不規則</button>
-        </div>
-
-        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-            <button id="toggle-all-btn" class="btn-danger" onclick="toggleAllAnswers()" style="flex: 2; margin: 0;">
-                顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
-            </button>
-            <button class="btn-secondary" onclick="clearPracticeInputs()" style="flex: 1; margin: 0;">
-                清空輸入<br><span class="ruby-text">ㄑㄧㄥ ㄎㄨㄥ</span>
-            </button>
-        </div>
-
-        <div class="list-header">
-            <span style="width: 36%; text-align: left;">單數原形與中文</span>
-            <span style="width: 32%; text-align: center;">輸入複數形式</span>
-            <span style="width: 32%; text-align: right;">正確複數答案</span>
+          <aside class="aside-box">
+            <h3 class="card-title">必考辨析：別把 's 當成 is！</h3>
+            <p style="font-size:0.9375rem;">縮寫 <span class="en-inline">'s</span> 在英文裡有兩種常見身分，判斷關鍵在於「後面有沒有接 <span class="en-inline">got</span>」：</p>
+            <ul style="padding-left:1.25rem; margin:var(--space-sm) 0 0; display:grid; gap:var(--space-sm); font-size:0.9375rem;">
+              <li><strong>He's got a cat.</strong><br>後面有 <span class="en-inline">got</span> &rarr; <strong>'s = has</strong>（他有一隻貓）</li>
+              <li><strong>He's a student.</strong><br>後面是名詞或形容詞 &rarr; <strong>'s = is</strong>（他是一位學生）</li>
+            </ul>
+          </aside>
         </div>
 
-        <div id="practice-list"></div>
-    </div>
-
-    <!-- 4. 規則寶典 -->
-    <div id="rules-screen" class="container" style="display: none; max-width: 760px; text-align: left;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <h2 style="margin: 0;">📚 英文名詞 6 大單複數變化寶典</h2>
-            <button class="btn-secondary" onclick="goHome()" style="margin: 0; padding: 6px 14px;">回首頁</button>
+        <!-- Interactive Lab 1 -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <h3 class="card-title" style="margin:0;">互動句型切換器：主詞與縮寫即時轉換</h3>
+            <span class="lab-tag">CHAPTER 01 LAB</span>
+          </div>
+          <div style="display:grid; gap:var(--space-sm);">
+            <span class="field-label">1. 點選主詞（Subject）：</span>
+            <div class="chip-group" id="ch1-subject-chips" role="group" aria-label="選擇主詞"></div>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--space-sm);">
+            <div class="chip-group" role="group" aria-label="選擇顯示形式">
+              <button type="button" class="choice-chip is-active" id="ch1-mode-full" onclick="setCh1Contract(false)">完整形式 (have / has got)</button>
+              <button type="button" class="choice-chip" id="ch1-mode-short" onclick="setCh1Contract(true)">縮寫形式 ('ve / 's got)</button>
+            </div>
+          </div>
+          <div class="sentence-stage" aria-live="polite">
+            <div class="sentence-en" id="ch1-preview-en"></div>
+            <div class="sentence-zh" id="ch1-preview-zh"></div>
+            <div class="sentence-rule" id="ch1-preview-rule"></div>
+          </div>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">1. 規則一：一般名詞直接加 -s</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                最標準的規則，絕大多數英文名詞直接在單數後加 <code>-s</code>。<br>
-                例如：egg ➔ <b>eggs</b>、bottle ➔ <b>bottles</b>、star ➔ <b>stars</b>、cat ➔ <b>cats</b>、dog ➔ <b>dogs</b>。
-            </p>
+        <!-- Quiz 1 -->
+        <div class="quiz-panel" id="quiz-ch-1"></div>
+      </section>
+
+      <!-- CHAPTER 02 -->
+      <section class="chapter-section" id="ch-02" aria-labelledby="ch-02-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 02</span>
+            <span class="dossier-meta">否定句與縮寫規則</span>
+          </div>
+          <span class="dossier-meta">核心：在 have / has 後直接加 not</span>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">2. 規則二：字尾 -s, -sh, -ch, -x, -o 加 -es</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                當字尾發出「噝音」（-s, -sh, -ch, -x）或多數「子音 + o」時加 <code>-es</code>。<br>
-                例如：bus ➔ <b>buses</b>、dish ➔ <b>dishes</b>、watch ➔ <b>watches</b>、box ➔ <b>boxes</b>、potato ➔ <b>potatoes</b>、tomato ➔ <b>tomatoes</b>。
-            </p>
+        <h2 class="section-title" id="ch-02-title">否定句直接加 not：絕對不可借用 don't 或 doesn't</h2>
+
+        <div class="chapter-grid-even">
+          <div class="figure-card">
+            <h3 class="card-title">否定句結構與縮寫</h3>
+            <p>使用 <span class="en-inline">have got / has got</span> 造否定句時，<span class="en-inline">have / has</span> 本身就扮演助動詞的角色，因此只要直接在後方加上 <span class="en-inline">not</span> 即可：</p>
+            <ul style="padding-left:1.25rem; margin:var(--space-sm) 0 0; display:grid; gap:var(--space-xs);">
+              <li><span class="en-inline">have not got</span> &rarr; <span class="en-inline">haven't got</span></li>
+              <li><span class="en-inline">has not got</span> &rarr; <span class="en-inline">hasn't got</span></li>
+            </ul>
+            <p style="margin-top:var(--space-md); font-size:0.9375rem; color:var(--on-surface-variant);">另外，若受詞為複數名詞或不可數名詞，肯定句常用的 <span class="en-inline">some</span> 在否定句通常要改成 <span class="en-inline">any</span>（如：<em>We haven't got <strong>any</strong> milk.</em>）。</p>
+          </div>
+
+          <div class="aside-box">
+            <h3 class="card-title">最常扣分地雷：混用 don't / doesn't</h3>
+            <p style="font-size:0.9375rem;">同學常會不小心把兩種「擁有」的句型混在一起寫：</p>
+            <div style="display:grid; gap:var(--space-sm); margin-top:var(--space-sm);">
+              <div style="background:var(--surface-container-low); padding:var(--space-sm) var(--space-md); border-radius:var(--rounded); border-left:3px solid var(--error);">
+                <div class="en-warn" style="display:inline-block;">&times; She doesn't have got a bike.</div>
+                <div style="font-size:0.875rem; color:var(--on-surface-variant); margin-top:var(--space-xs);">錯誤原因：<span class="en-inline">doesn't</span> 後面只能接原形動詞 <span class="en-inline">have</span>，不能留著 <span class="en-inline">got</span>。</div>
+              </div>
+              <div style="background:var(--surface-container-low); padding:var(--space-sm) var(--space-md); border-radius:var(--rounded); border-left:3px solid var(--positive);">
+                <div class="en-ok" style="display:inline-block;">&#10003; She hasn't got a bike.</div>
+                <div style="font-size:0.875rem; color:var(--on-surface-variant); margin-top:var(--space-xs);">等義寫法：<em>She doesn't have a bike.</em>（不含 got）</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">3. -o 結尾特例：樂器、科技、簡稱只加 -s</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                樂器（piano）、科技（radio, video）、外來語簡稱（photo）或雙母音（zoo），<b>只加 -s</b>。<br>
-                例如：piano ➔ <b>pianos</b>、radio ➔ <b>radios</b>、photo ➔ <b>photos</b>、video ➔ <b>videos</b>、zoo ➔ <b>zoos</b>。
-            </p>
+        <!-- Interactive Lab 2 -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <h3 class="card-title" style="margin:0;">肯否定變身器：觀察動詞與 some / any 連動變化</h3>
+            <span class="lab-tag">CHAPTER 02 LAB</span>
+          </div>
+          <div class="control-row">
+            <div class="field-group">
+              <label class="field-label" for="ch2-example-select">選擇情境例句：</label>
+              <select class="briefing-select" id="ch2-example-select" onchange="renderCh2Lab()">
+                <option value="0">1. 第一人稱 I + 單數物品 (a dictionary)</option>
+                <option value="1">2. 第三人稱單數 She + 外表特徵 (blue eyes)</option>
+                <option value="2">3. 複數主詞 They + some/any 複數名詞 (comics)</option>
+                <option value="3">4. 第三人稱單數 Tom + 不可數名詞 (time)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <span class="field-label">切換句型極性：</span>
+              <div class="chip-group">
+                <button type="button" class="choice-chip is-active" id="ch2-btn-pos" onclick="setCh2Polarity('pos')">肯定句</button>
+                <button type="button" class="choice-chip" id="ch2-btn-neg" onclick="setCh2Polarity('neg')">否定句 (縮寫)</button>
+                <button type="button" class="choice-chip" id="ch2-btn-neg-full" onclick="setCh2Polarity('negFull')">否定句 (完整)</button>
+              </div>
+            </div>
+          </div>
+          <div class="sentence-stage" aria-live="polite">
+            <div class="sentence-en" id="ch2-preview-en"></div>
+            <div class="sentence-zh" id="ch2-preview-zh"></div>
+            <div class="sentence-rule" id="ch2-preview-rule"></div>
+          </div>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">4. 規則三：字尾 -y 的兩大陣營</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                ✦ <b>【子音 + y】➔ 去 y 變 -ies</b>：baby ➔ <b>babies</b>、party ➔ <b>parties</b>、puppy ➔ <b>puppies</b>、strawberry ➔ <b>strawberries</b>。<br>
-                ✦ <b>【母音 + y】➔ 直接加 -s</b>：boy ➔ <b>boys</b>、toy ➔ <b>toys</b>、monkey ➔ <b>monkeys</b>、day ➔ <b>days</b>。
-            </p>
+        <!-- Quiz 2 -->
+        <div class="quiz-panel" id="quiz-ch-2"></div>
+      </section>
+
+      <!-- CHAPTER 03 -->
+      <section class="chapter-section" id="ch-03" aria-labelledby="ch-03-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 03</span>
+            <span class="dossier-meta">疑問句與簡答鐵則</span>
+          </div>
+          <span class="dossier-meta">核心：Have / Has 移句首，簡答不縮寫也不加 got</span>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">5. 規則四：字尾 -f 或 -fe 變身 -ves</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                字尾為 -f 或 -fe 時，將 -f / -fe 變成 <code>-ves</code>。<br>
-                例如：leaf ➔ <b>leaves</b>、knife ➔ <b>knives</b>、shelf ➔ <b>shelves</b>、wolf ➔ <b>wolves</b>、life ➔ <b>lives</b>。
-            </p>
+        <h2 class="section-title" id="ch-03-title">疑問句把 Have / Has 搬到句首，簡答記住「兩不原則」</h2>
+
+        <div class="chapter-grid-asym">
+          <div class="figure-card">
+            <h3 class="card-title">Yes / No 疑問句與簡答規則</h3>
+            <p>把肯定句中的 <span class="en-inline">have</span> 或 <span class="en-inline">has</span> 直接移到句首，而 <span class="en-inline">got</span> 依然留在主詞後方：</p>
+            <div class="grammar-table-wrap" style="margin-top:var(--space-md);">
+              <table class="grammar-table">
+                <thead>
+                  <tr>
+                    <th>疑問句</th>
+                    <th>肯定簡答</th>
+                    <th>否定簡答</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Have</strong> you <strong>got</strong> a ruler?</td>
+                    <td>Yes, I <strong>have</strong>.</td>
+                    <td>No, I <strong>haven't</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Has</strong> Eric <strong>got</strong> a pet?</td>
+                    <td>Yes, he <strong>has</strong>.</td>
+                    <td>No, he <strong>hasn't</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Have</strong> the kids <strong>got</strong> toys?</td>
+                    <td>Yes, they <strong>have</strong>.</td>
+                    <td>No, they <strong>haven't</strong>.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="aside-box">
+            <h3 class="card-title">簡答必考「兩不原則」與代名詞</h3>
+            <ol style="padding-left:1.25rem; margin:0; display:grid; gap:var(--space-sm); font-size:0.9375rem;">
+              <li><strong>簡答不加 got：</strong>只能回答 <em>Yes, I have.</em>，不可說 <span class="en-warn">&times; Yes, I have got.</span></li>
+              <li><strong>肯定簡答不縮寫：</strong>不可說 <span class="en-warn">&times; Yes, he's.</span> 或 <span class="en-warn">&times; Yes, I've.</span>（否定簡答才可縮寫為 <em>haven't / hasn't</em>）。</li>
+              <li><strong>人名／名詞要改代名詞：</strong>問句主詞是 <em>Amy</em>，簡答必須改為 <em>she</em>；問句是 <em>your parents</em>，簡答改為 <em>they</em>。</li>
+            </ol>
+          </aside>
         </div>
 
-        <div class="rule-card">
-            <strong style="color: #ffb74d; font-size: 15px;">6. 規則五：不規則複數天王</strong>
-            <p style="margin: 4px 0 0 0; color: #ddd;">
-                內部母音音變或特殊形式，需直接熟記：<br>
-                • man ➔ <b>men</b>、woman ➔ <b>women</b>、policeman ➔ <b>policemen</b><br>
-                • foot ➔ <b>feet</b>、tooth ➔ <b>teeth</b>、goose ➔ <b>geese</b>（oo 變 ee）<br>
-                • child ➔ <b>children</b>、mouse ➔ <b>mice</b>
-            </p>
+        <!-- Interactive Lab 3 -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <h3 class="card-title" style="margin:0;">語序搬移模擬器：看看疑問句是怎麼變出來的</h3>
+            <span class="lab-tag">CHAPTER 03 LAB</span>
+          </div>
+          <div class="chip-group">
+            <button type="button" class="choice-chip is-active" id="ch3-btn-0" onclick="selectCh3Case(0)">例 1：You have got a pen.</button>
+            <button type="button" class="choice-chip" id="ch3-btn-1" onclick="selectCh3Case(1)">例 2：Linda has got a brother.</button>
+            <button type="button" class="choice-chip" id="ch3-btn-2" onclick="selectCh3Case(2)">例 3：Your dogs have got long ears.</button>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-sm);">
+            <button type="button" class="btn btn-primary" id="ch3-flip-btn" onclick="toggleCh3Question()">轉換為疑問句 + 簡答</button>
+            <span style="font-size:0.875rem; color:var(--on-surface-variant);">點擊按鈕觀察 <span class="en-inline">Have / Has</span> 移到句首的過程</span>
+          </div>
+          <div class="sentence-stage" aria-live="polite" id="ch3-stage"></div>
         </div>
 
-        <div style="text-align: center; margin-top: 16px;">
-            <button onclick="goToExam()" style="width: 70%;">立即進入測驗</button>
-        </div>
-    </div>
+        <!-- Quiz 3 -->
+        <div class="quiz-panel" id="quiz-ch-3"></div>
+      </section>
 
-    <script>
-        // 音效引擎 (Web Audio API)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playSound(type) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            if (type === 'correct') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.4);
-            } else if (type === 'wrong') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(180, audioCtx.currentTime);
-                osc.frequency.linearRampToValueAtTime(110, audioCtx.currentTime + 0.25);
-                gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.3);
-            }
+      <!-- PART II -->
+      <div class="part-divider">
+        <div>
+          <div class="part-kicker">PART II &middot; QUANTITY &amp; PRICE</div>
+          <h2 class="part-heading">How much / How many：詢問「數量」與「價格」</h2>
+        </div>
+        <span style="font-size:0.9375rem;">涵蓋 Chapter 04 – 06</span>
+      </div>
+
+      <!-- CHAPTER 04 -->
+      <section class="chapter-section" id="ch-04" aria-labelledby="ch-04-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 04</span>
+            <span class="dossier-meta">關鍵前置觀念</span>
+          </div>
+          <span class="dossier-meta">核心：名詞的可數性決定疑問詞</span>
+        </div>
+
+        <h2 class="section-title" id="ch-04-title">選對 How many / How much 的第一步：先辨別名詞是否可數</h2>
+
+        <div class="chapter-grid-even">
+          <div class="figure-card">
+            <h3 class="card-title">可數名詞 (Countable Nouns)</h3>
+            <p>可以用數字「一個、兩個」直接計算的個體名詞。單數前面可加 <span class="en-inline">a / an</span>，複數名詞字尾通常加 <span class="en-inline">-s / -es</span>（少數為不規則變化）。</p>
+            <p style="font-size:0.9375rem; color:var(--secondary); font-weight:600;">常見字例：apple(s), book(s), box(es), brother(s), sandwich(es), child &rarr; children, tooth &rarr; teeth</p>
+          </div>
+
+          <div class="figure-card">
+            <h3 class="card-title">不可數名詞 (Uncountable Nouns)</h3>
+            <p>沒有固定形狀的液體、氣體、食物粉末、材質或抽象概念。<strong>不可加 a/an，也絕對沒有複數 -s</strong>，動詞一律配合單數！</p>
+            <p style="font-size:0.9375rem; color:var(--tertiary); font-weight:600;">常見陷阱字：water, milk, juice, bread, rice, cheese, money（錢）, homework（功課）, time（時間）</p>
+          </div>
+        </div>
+
+        <div class="aside-box">
+          <h3 class="card-title">量詞橋樑觀念：不可數名詞也能用容器計算</h3>
+          <p style="font-size:0.9375rem;">想表達「兩杯水」或「三片麵包」時，英文改數前面的「容器／單位詞」：<span class="en-inline">two glasses of water</span>、<span class="en-inline">three slices of bread</span>。此時要問「幾杯水」，因為數的是 <span class="en-inline">glasses</span>（可數複數），所以問句要改用 <span class="en-inline">How many glasses of water...?</span>！</p>
+        </div>
+
+        <!-- Interactive Lab 4: Noun Sorter -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <h3 class="card-title" style="margin:0;">名詞可數性快篩訓練機（點擊判斷 8 個高頻考點字）</h3>
+            <span class="lab-tag" id="ch4-sorter-score">已辨識 0 / 8</span>
+          </div>
+          <div class="noun-sorter-grid" id="ch4-noun-grid"></div>
+        </div>
+
+        <!-- Quiz 4 -->
+        <div class="quiz-panel" id="quiz-ch-4"></div>
+      </section>
+
+      <!-- CHAPTER 05 -->
+      <section class="chapter-section" id="ch-05" aria-labelledby="ch-05-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 05</span>
+            <span class="dossier-meta">詢問數量句型</span>
+          </div>
+          <span class="dossier-meta">核心：How many + 複數名詞 vs. How much + 不可數名詞</span>
+        </div>
+
+        <h2 class="section-title" id="ch-05-title">詢問「多少數量」：How many 必接複數，How much 接不可數</h2>
+
+        <div class="chapter-grid-asym">
+          <div class="grammar-table-wrap">
+            <table class="grammar-table">
+              <thead>
+                <tr>
+                  <th>比較項目</th>
+                  <th>How many（多少個）</th>
+                  <th>How much（多少量）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>後方名詞</strong></td>
+                  <td>必須接<strong>可數名詞複數</strong><br><span class="en-inline">apples / pens / cousins</span></td>
+                  <td>必須接<strong>不可數名詞</strong><br><span class="en-inline">water / rice / money</span></td>
+                </tr>
+                <tr>
+                  <td><strong>搭配 there be</strong></td>
+                  <td>How many books <strong>are there</strong>?</td>
+                  <td>How much juice <strong>is there</strong>?</td>
+                </tr>
+                <tr>
+                  <td><strong>搭配 have got</strong></td>
+                  <td>How many sisters <strong>have you got</strong>?</td>
+                  <td>How much homework <strong>has he got</strong>?</td>
+                </tr>
+                <tr>
+                  <td><strong>搭配一般動詞</strong></td>
+                  <td>How many eggs <strong>do you need</strong>?</td>
+                  <td>How much sugar <strong>does she want</strong>?</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <aside class="aside-box">
+            <h3 class="card-title">極重要考點：即使答案只有 1 個</h3>
+            <p style="font-size:0.9375rem;">問句時還不知道對方有幾個，所以 <span class="en-inline">How many</span> 後面的名詞<strong>永遠用複數</strong>！</p>
+            <p style="font-size:0.9375rem; margin-top:var(--space-sm);"><span class="en-ok">&#10003; How many brothers has Leo got?</span><br>就算回答是 <em>He has got only one brother.</em>，問句仍然要用 <strong>brothers</strong>。</p>
+          </aside>
+        </div>
+
+        <!-- Interactive Lab 5: Sentence Builder -->
+        <div class="lab-card">
+          <div class="lab-header">
+            <h3 class="card-title" style="margin:0;">Unit 7 數量問句組合實驗室：自己組句子，系統即時檢查文法</h3>
+            <span class="lab-tag">CHAPTER 05 LAB</span>
+          </div>
+          <div class="control-row">
+            <div class="field-group">
+              <label class="field-label" for="sb-wh">1. 選擇疑問詞</label>
+              <select class="briefing-select" id="sb-wh" onchange="evaluateSentenceBuilder()">
+                <option value="How many">How many</option>
+                <option value="How much">How much</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="sb-noun">2. 選擇名詞</label>
+              <select class="briefing-select" id="sb-noun" onchange="evaluateSentenceBuilder()">
+                <option value="apples|plural">apples (可數複數)</option>
+                <option value="apple|singular">apple (可數單數)</option>
+                <option value="water|uncountable">water (不可數名詞)</option>
+                <option value="money|uncountable">money (不可數名詞)</option>
+                <option value="bottles of milk|plural">bottles of milk (單位詞複數)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="sb-verb">3. 選擇後方結構</label>
+              <select class="briefing-select" id="sb-verb" onchange="evaluateSentenceBuilder()">
+                <option value="are there|plural">are there in the box?</option>
+                <option value="is there|singular">is there on the table?</option>
+                <option value="have you got|any">have you got?</option>
+                <option value="has she got|any">has she got?</option>
+              </select>
+            </div>
+          </div>
+          <div class="sentence-stage" aria-live="polite" id="sb-result-stage"></div>
+        </div>
+
+        <!-- Quiz 5 -->
+        <div class="quiz-panel" id="quiz-ch-5"></div>
+      </section>
+
+      <!-- CHAPTER 06 -->
+      <section class="chapter-section" id="ch-06" aria-labelledby="ch-06-title">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="index-num">CHAPTER 06</span>
+            <span class="dossier-meta">詢問價格與單元總複習</span>
+          </div>
+          <span class="dossier-meta">核心：How much 直接問價錢的單複數搭配</span>
+        </div>
+
+        <h2 class="section-title" id="ch-06-title">How much 單獨問「多少錢」：單數物品用 is，複數物品用 are</h2>
+
+        <div class="chapter-grid-asym">
+          <div class="figure-card">
+            <h3 class="card-title">How much 問價格的兩大句型</h3>
+            <p>當 <span class="en-inline">How much</span> 後面<strong>沒有接不可數名詞</strong>，而是直接接 <span class="en-inline">is / are</span> 或 <span class="en-inline">does / do ... cost</span> 時，就是在詢問「多少錢？」（因為金錢 money 本身是不可數概念）。</p>
+            <div class="grammar-table-wrap" style="margin-top:var(--space-md);">
+              <table class="grammar-table">
+                <thead>
+                  <tr>
+                    <th>商品單複數</th>
+                    <th>問句句型</th>
+                    <th>標準回答</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>單數或不可數名詞</td>
+                    <td>How much <strong>is</strong> this bag?<br>How much <strong>is</strong> the milk?</td>
+                    <td><strong>It is</strong> 500 dollars.<br>（或 <em>It costs 500 dollars.</em>）</td>
+                  </tr>
+                  <tr>
+                    <td>複數名詞<br><span style="color:var(--on-surface-variant); font-size:0.8125rem;">如 shoes, socks, glasses</span></td>
+                    <td>How much <strong>are</strong> those shoes?<br>How much <strong>are</strong> the apples?</td>
+                    <td><strong>They are</strong> 1,200 dollars.<br>（或 <em>They cost 1,200 dollars.</em>）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="aside-box">
+            <h3 class="card-title">超級對照：都是 How much，意思大不同</h3>
+            <ul style="padding-left:1.25rem; margin:0; display:grid; gap:var(--space-sm); font-size:0.9375rem;">
+              <li><strong>問數量：</strong><span class="en-inline">How much water</span> is there?<br>（那裡有多少水？&rarr; 後面緊接不可數名詞）</li>
+              <li><strong>問價格：</strong><span class="en-inline">How much is</span> the water?<br>（這瓶水多少錢？&rarr; 後面直接接 be 動詞 is）</li>
+            </ul>
+            <p style="font-size:0.875rem; color:var(--on-surface-variant); margin-top:var(--space-md);">小提醒：成雙成對的物品（<em>shoes, pants, socks, glasses</em>）在英文裡通常是複數，問價錢要用 <span class="en-inline">How much are ...?</span> 喔！</p>
+          </aside>
+        </div>
+
+        <!-- Quiz 6 -->
+        <div class="quiz-panel" id="quiz-ch-6"></div>
+      </section>
+
+      <!-- SUMMARY SECTION -->
+      <section class="figure-card" id="summary" aria-labelledby="summary-title" style="border-top: 3px solid var(--secondary);">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">MASTERY REPORT</span>
+            <span class="dossier-meta">UNIT 07 綜合診斷報告</span>
+          </div>
+          <span class="dossier-meta" id="summary-badge-status">持續作答中</span>
+        </div>
+        <h2 class="section-title" id="summary-title">各章節觀念掌握度總覽</h2>
+        <p id="summary-advice" style="color:var(--on-surface-variant);">完成上方各章節的即時測驗題目後，系統會自動計算 Part I 與 Part II 的得分率，並標記建議優先複習的章節。</p>
+
+        <div class="summary-bars" id="summary-bars" style="margin-top:var(--space-md);"></div>
+      </section>
+    </main>
+
+    <footer class="doc-footer">
+      <span>資料脈絡與單元架構：楊馥寧文法 Unit 7（Have got / Has got &amp; How much / How many）</span>
+      <span>互動練習進度將自動保存於目前筆記本工作區</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // 1. DATA DEFINITIONS (All strings use backticks to avoid quote/apostrophe traps)
+    // =========================================================================
+    const CH1_SUBJECTS = [
+      { id: `I`, label: `I`, verbFull: `have got`, verbShort: `'ve got`, obj: `a new skateboard`, zh: `我有一塊新滑板。`, rule: `第一人稱單數 I 固定搭配 have got。` },
+      { id: `You`, label: `You`, verbFull: `have got`, verbShort: `'ve got`, obj: `big brown eyes`, zh: `你有一雙大大的棕色眼睛。`, rule: `第二人稱 You（無論單複數）固定搭配 have got。` },
+      { id: `He`, label: `He`, verbFull: `has got`, verbShort: `'s got`, obj: `a cute puppy`, zh: `他有一隻可愛的小狗。`, rule: `第三人稱單數 He 必須使用 has got（縮寫為 He's got）。` },
+      { id: `She`, label: `She`, verbFull: `has got`, verbShort: `'s got`, obj: `long black hair`, zh: `她有一頭長黑髮。`, rule: `第三人稱單數 She 必須使用 has got（縮寫為 She's got）。` },
+      { id: `It`, label: `It`, verbFull: `has got`, verbShort: `'s got`, obj: `four short legs`, zh: `牠有四條短短的腿。`, rule: `第三人稱單數 It 必須使用 has got（縮寫為 It's got）。` },
+      { id: `We`, label: `We`, verbFull: `have got`, verbShort: `'ve got`, obj: `English class today`, zh: `我們今天有英文課。`, rule: `第一人稱複數 We 搭配 have got。` },
+      { id: `They`, label: `They`, verbFull: `have got`, verbShort: `'ve got`, obj: `many comic books`, zh: `他們有很多漫畫書。`, rule: `第三人稱複數 They 搭配 have got。` },
+      { id: `Tom and Amy`, label: `Tom and Amy`, verbFull: `have got`, verbShort: `have got`, obj: `a nice teacher`, zh: `Tom 和 Amy 有一位好老師。`, rule: `兩個人合起來是複數主詞，視同 They，須用 have got（人名通常不縮寫 've）。` },
+      { id: `My sister`, label: `My sister`, verbFull: `has got`, verbShort: `'s got`, obj: `a pink umbrella`, zh: `我姊姊有一把粉紅色的雨傘。`, rule: `單數名詞 My sister 視同 She，須用 has got。` }
+    ];
+
+    const CH2_EXAMPLES = [
+      {
+        pos: `I have got a dictionary.`,
+        posZh: `我有一本字典。`,
+        neg: `I haven't got a dictionary.`,
+        negFull: `I have not got a dictionary.`,
+        negZh: `我沒有字典。`,
+        rule: `I 搭配 have got，否定直接在 have 後加 not（haven't got），不可用 don't have got。`
+      },
+      {
+        pos: `She's got blue eyes.`,
+        posZh: `她有藍色的眼睛。`,
+        neg: `She hasn't got blue eyes.`,
+        negFull: `She has not got blue eyes.`,
+        negZh: `她沒有藍色的眼睛。`,
+        rule: `第三人稱單數 She 用 has got，否定縮寫為 hasn't got。`
+      },
+      {
+        pos: `They have got some comics.`,
+        posZh: `他們有一些漫畫書。`,
+        neg: `They haven't got any comics.`,
+        negFull: `They have not got any comics.`,
+        negZh: `他們沒有任何漫畫書。`,
+        rule: `注意變化！肯定句的 some 在改為否定句時，通常要改成 any。`
+      },
+      {
+        pos: `Tom has got some time.`,
+        posZh: `Tom 有一些時間。`,
+        neg: `Tom hasn't got any time.`,
+        negFull: `Tom has not got any time.`,
+        negZh: `Tom 沒有任何時間。`,
+        rule: `Tom 為第三人稱單數，否定用 hasn't got，且 some 改為 any。`
+      }
+    ];
+
+    const CH3_CASES = [
+      {
+        tokensPos: [`You`, `have`, `got`, `a pen.`],
+        tokensQ: [`Have`, `you`, `got`, `a pen?`],
+        movedIndexQ: 0,
+        gotIndexQ: 2,
+        yes: `Yes, I have.`,
+        no: `No, I haven't.`,
+        zh: `你有筆嗎？／是的，我有。／不，我沒有。`,
+        rule: `將 have 移到句首大寫 Have，you 對答改為 I；簡答不加 got，肯定不縮寫。`
+      },
+      {
+        tokensPos: [`Linda`, `has`, `got`, `a brother.`],
+        tokensQ: [`Has`, `Linda`, `got`, `a brother?`],
+        movedIndexQ: 0,
+        gotIndexQ: 2,
+        yes: `Yes, she has.`,
+        no: `No, she hasn't.`,
+        zh: `Linda 有兄弟嗎？／是的，她有。／不，她沒有。`,
+        rule: `第三人稱單數將 has 移到句首 Has；簡答時 Linda 必須換成代名詞 she！`
+      },
+      {
+        tokensPos: [`Your dogs`, `have`, `got`, `long ears.`],
+        tokensQ: [`Have`, `your dogs`, `got`, `long ears?`],
+        movedIndexQ: 0,
+        gotIndexQ: 2,
+        yes: `Yes, they have.`,
+        no: `No, they haven't.`,
+        zh: `你的狗有長耳朵嗎？／是的，牠們有。／不，牠們沒有。`,
+        rule: `複數名詞 your dogs 簡答時須換成代名詞 they；不可說 Yes, they've.。`
+      }
+    ];
+
+    const CH4_NOUNS = [
+      { id: `apple`, word: `apple`, zh: `蘋果`, type: `countable`, hint: `可數名詞（apples），用 How many` },
+      { id: `money`, word: `money`, zh: `錢`, type: `uncountable`, hint: `不可數名詞（沒有 moneys），用 How much` },
+      { id: `homework`, word: `homework`, zh: `功課`, type: `uncountable`, hint: `不可數名詞（沒有 homeworks），用 How much` },
+      { id: `sandwich`, word: `sandwich`, zh: `三明治`, type: `countable`, hint: `可數名詞（sandwiches），用 How many` },
+      { id: `bread`, word: `bread`, zh: `麵包`, type: `uncountable`, hint: `英文中屬不可數名詞，論片要說 a slice of bread` },
+      { id: `child`, word: `child`, zh: `小孩`, type: `countable`, hint: `可數名詞，複數為不規則變化 children` },
+      { id: `water`, word: `water`, zh: `水`, type: `uncountable`, hint: `液體類皆為不可數名詞，用 How much` },
+      { id: `box`, word: `box`, zh: `盒子`, type: `countable`, hint: `可數名詞（boxes），用 How many` }
+    ];
+
+    const QUIZZES = {
+      1: {
+        title: `Chapter 01 即時測驗：肯定句與縮寫`,
+        questions: [
+          {
+            id: `c1q1`,
+            prompt: `My cousin ____ got a cool robot in his room.`,
+            options: [`have`, `has`, `is`, `are`],
+            answer: 1,
+            explain: `主詞 My cousin（我的表／堂兄弟姊妹）為第三人稱單數，後面又有 got，因此必須搭配 has。`
+          },
+          {
+            id: `c1q2`,
+            prompt: `Ben and his sister ____ got two cute rabbits.`,
+            options: [`has`, `have`, `'s`, `is`],
+            answer: 1,
+            explain: `主詞「Ben and his sister」是兩個人，屬於複數主詞（等於 they），所以動詞必須用 have。`
+          },
+          {
+            id: `c1q3`,
+            prompt: `關於縮寫句子「She's got short hair.」，下列說明何者正確？`,
+            options: [
+              `句中的 's 是 is 的縮寫`,
+              `句中的 's 是 has 的縮寫`,
+              `可以改寫成 She've got short hair.`,
+              `句意是「她是一個短頭髮」`
+            ],
+            answer: 1,
+            explain: `因為 's 後面接著 got，所以這裡的 's 是 has 的縮寫（She has got short hair.），意指「她留著短髮」。`
+          }
+        ]
+      },
+      2: {
+        title: `Chapter 02 即時測驗：否定句與陷阱排除`,
+        questions: [
+          {
+            id: `c2q1`,
+            prompt: `下列哪一個句子是「文法正確」的否定句？`,
+            options: [
+              `He don't have got a pencil.`,
+              `He doesn't have got a pencil.`,
+              `He hasn't got a pencil.`,
+              `He haven't got a pencil.`
+            ],
+            answer: 2,
+            explain: `have got / has got 造否定句時不可借用 don't 或 doesn't，必須直接在 has 後加 not，縮寫為 hasn't got。`
+          },
+          {
+            id: `c2q2`,
+            prompt: `We ____ got ____ juice in the fridge.`,
+            options: [
+              `hasn't / some`,
+              `haven't / any`,
+              `don't have / any`,
+              `haven't / a`
+            ],
+            answer: 1,
+            explain: `主詞 We 搭配 haven't got；且否定句中表達「一些／任何」不可數名詞 juice 時，要用 any 取代 some。`
+          },
+          {
+            id: `c2q3`,
+            prompt: `將肯定句「Kevin has got a red bike.」改為否定句，下列何者正確？`,
+            options: [
+              `Kevin not has got a red bike.`,
+              `Kevin isn't got a red bike.`,
+              `Kevin hasn't got a red bike.`,
+              `Kevin doesn't has got a red bike.`
+            ],
+            answer: 2,
+            explain: `否定詞 not 要放在 has 的「後面」，即 has not got（縮寫 hasn't got）。`
+          }
+        ]
+      },
+      3: {
+        title: `Chapter 03 即時測驗：疑問句與簡答規則`,
+        questions: [
+          {
+            id: `c3q1`,
+            prompt: `____ your brother got a bicycle?`,
+            options: [`Does`, `Is`, `Has`, `Have`],
+            answer: 2,
+            explain: `句中有 got，因此句首應將對應單數主詞 your brother 的 Has 移至句首，構成「Has + 主詞 + got ...?」。`
+          },
+          {
+            id: `c3q2`,
+            prompt: `A: Have you got any erasers?　B: Yes, ____.`,
+            options: [`I've`, `I have got`, `I have`, `you have`],
+            answer: 2,
+            explain: `簡答必須遵守「兩不原則」：1. 不加 got；2. 肯定簡答不可縮寫（不能選 I've），故正確答案為 Yes, I have.。`
+          },
+          {
+            id: `c3q3`,
+            prompt: `A: Has Amy got a cat?　B: No, ____.`,
+            options: [`Amy hasn't`, `she hasn't got`, `she hasn't`, `she doesn't`],
+            answer: 2,
+            explain: `問句主詞 Amy 在簡答時必須改為代名詞 she，且簡答不加 got，因此選 No, she hasn't.。`
+          }
+        ]
+      },
+      4: {
+        title: `Chapter 04 即時測驗：可數 vs. 不可數名詞`,
+        questions: [
+          {
+            id: `c4q1`,
+            prompt: `下列哪一組名詞「全部都是不可數名詞」？`,
+            options: [
+              `apple, box, egg`,
+              `water, money, homework`,
+              `milk, sandwich, bread`,
+              `juice, child, time`
+            ],
+            answer: 1,
+            explain: `water（水）、money（錢）、homework（功課）在英文中皆屬於不可數名詞，不能加 a/an 也沒有複數形。`
+          },
+          {
+            id: `c4q2`,
+            prompt: `想表達「桌子上有兩片麵包」，正確的英文寫法是？`,
+            options: [
+              `two breads`,
+              `two bread`,
+              `two slices of bread`,
+              `two slice of breads`
+            ],
+            answer: 2,
+            explain: `bread 不可數，不能加 s；要計算數量須加上單位詞複數 slices，寫成 two slices of bread。`
+          },
+          {
+            id: `c4q3`,
+            prompt: `「How many ____ are there in the park?」空格應填入哪一個字？`,
+            options: [`child`, `children`, `childs`, `water`],
+            answer: 1,
+            explain: `How many 後面要接「可數名詞複數」。child 的複數是不規則變化 children。`
+          }
+        ]
+      },
+      5: {
+        title: `Chapter 05 即時測驗：How many / How much 問數量`,
+        questions: [
+          {
+            id: `c5q1`,
+            prompt: `____ milk is there in the glass?`,
+            options: [`How many`, `How much`, `How old`, `What many`],
+            answer: 1,
+            explain: `milk（牛奶）是不可數名詞，後方動詞也是單數 is there，因此詢問數量要用 How much。`
+          },
+          {
+            id: `c5q2`,
+            prompt: `____ comic books ____ you got?`,
+            options: [
+              `How much / have`,
+              `How many / has`,
+              `How many / have`,
+              `How much / has`
+            ],
+            answer: 2,
+            explain: `comic books 是可數名詞複數，疑問詞用 How many；主詞是 you，搭配 have got。`
+          },
+          {
+            id: `c5q3`,
+            prompt: `下列哪一個問數量的句子「完全正確」？`,
+            options: [
+              `How many sister has Tom got?`,
+              `How much apples are there on the desk?`,
+              `How many bottles of water are there?`,
+              `How much money are there in your bag?`
+            ],
+            answer: 2,
+            explain: `bottles 是可數名詞複數，所以用 How many bottles of water + are there 完全正確！A 的 sister 應改複數 sisters；B 的 apples 要配 How many；D 的 money 應配 is there。`
+          }
+        ]
+      },
+      6: {
+        title: `Chapter 06 即時測驗：問價格與綜合應用`,
+        questions: [
+          {
+            id: `c6q1`,
+            prompt: `A: How much ____ these blue socks?　B: ____ 150 dollars.`,
+            options: [
+              `is / It's`,
+              `are / They're`,
+              `is / They're`,
+              `are / It's`
+            ],
+            answer: 1,
+            explain: `socks（襪子）通常成雙出現，屬於複數名詞，問價格時要用 are，回答也用複數代名詞 They're。`
+          },
+          {
+            id: `c6q2`,
+            prompt: `「How much is the orange juice?」這句話是在問什麼？`,
+            options: [
+              `這裡有多少柳橙汁（問數量）`,
+              `這杯柳橙汁有多少卡路里`,
+              `這瓶／杯柳橙汁多少錢（問價格）`,
+              `你有幾瓶柳橙汁（問數量）`
+            ],
+            answer: 2,
+            explain: `How much 後面直接接 be 動詞 is（沒有緊接不可數名詞），表示「多少錢」，是在詢問價格。`
+          },
+          {
+            id: `c6q3`,
+            prompt: `綜合挑戰：下列哪一組問答完全符合 Unit 7 的文法規則？`,
+            options: [
+              `A: How much books has she got?  B: She's got three.`,
+              `A: Has Leo got any money?  B: Yes, he's.`,
+              `A: How many brothers have you got?  B: I've got one brother.`,
+              `A: How much is those glasses?  B: They are 800 dollars.`
+            ],
+            answer: 2,
+            explain: `C 完全正確！就算只有一個弟弟，問句 How many brothers 仍要用複數。A 應改 How many；B 簡答不可縮寫 he's；D 的 those glasses 為複數應改 are。`
+          }
+        ]
+      }
+    };
+
+    const CHAPTER_LABELS = {
+      1: `01｜肯定句與縮寫`,
+      2: `02｜否定句與陷阱`,
+      3: `03｜疑問句與簡答`,
+      4: `04｜可數與不可數`,
+      5: `05｜詢問數量句型`,
+      6: `06｜詢問價格與總結`
+    };
+
+    // =========================================================================
+    // 2. APPLICATION STATE
+    // =========================================================================
+    let appState = {
+      ch1SubjectIdx: 0,
+      ch1Contract: false,
+      ch2ExampleIdx: 0,
+      ch2Polarity: `pos`,
+      ch3CaseIdx: 0,
+      ch3IsQuestion: false,
+      ch4Guesses: {},   // { nounId: 'countable' | 'uncountable' }
+      quizAnswers: {}   // { questionId: selectedOptionIndex }
+    };
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Ignore persistence errors in standalone preview
+      }
+    }
+
+    // =========================================================================
+    // 3. CHAPTER 1 LAB RENDERING
+    // =========================================================================
+    function renderCh1Lab() {
+      const chipsWrap = document.getElementById(`ch1-subject-chips`);
+      const enEl = document.getElementById(`ch1-preview-en`);
+      const zhEl = document.getElementById(`ch1-preview-zh`);
+      const ruleEl = document.getElementById(`ch1-preview-rule`);
+      const btnFull = document.getElementById(`ch1-mode-full`);
+      const btnShort = document.getElementById(`ch1-mode-short`);
+
+      if (!chipsWrap || !enEl || !zhEl || !ruleEl) return;
+
+      chipsWrap.innerHTML = ``;
+      CH1_SUBJECTS.forEach((item, idx) => {
+        const btn = document.createElement(`button`);
+        btn.type = `button`;
+        btn.className = `choice-chip` + (idx === appState.ch1SubjectIdx ? ` is-active` : ``);
+        btn.setAttribute(`aria-pressed`, idx === appState.ch1SubjectIdx ? `true` : `false`);
+        btn.textContent = item.label;
+        btn.onclick = function() {
+          appState.ch1SubjectIdx = idx;
+          renderCh1Lab();
+          persistState();
+        };
+        chipsWrap.appendChild(btn);
+      });
+
+      if (btnFull && btnShort) {
+        btnFull.classList.toggle(`is-active`, !appState.ch1Contract);
+        btnShort.classList.toggle(`is-active`, appState.ch1Contract);
+      }
+
+      const current = CH1_SUBJECTS[appState.ch1SubjectIdx] || CH1_SUBJECTS[0];
+      const verb = appState.ch1Contract ? current.verbShort : current.verbFull;
+      const space = verb.startsWith(`'`) ? `` : ` `;
+      enEl.innerHTML = `${current.label}${space}<span class="en-inline">${verb}</span> ${current.obj}.`;
+      zhEl.textContent = `中文語意：${current.zh}`;
+      ruleEl.textContent = `文法重點：${current.rule}`;
+    }
+
+    function setCh1Contract(isShort) {
+      appState.ch1Contract = Boolean(isShort);
+      renderCh1Lab();
+      persistState();
+    }
+
+    // =========================================================================
+    // 4. CHAPTER 2 LAB RENDERING
+    // =========================================================================
+    function renderCh2Lab() {
+      const select = document.getElementById(`ch2-example-select`);
+      const enEl = document.getElementById(`ch2-preview-en`);
+      const zhEl = document.getElementById(`ch2-preview-zh`);
+      const ruleEl = document.getElementById(`ch2-preview-rule`);
+      const btnPos = document.getElementById(`ch2-btn-pos`);
+      const btnNeg = document.getElementById(`ch2-btn-neg`);
+      const btnNegFull = document.getElementById(`ch2-btn-neg-full`);
+
+      if (!select || !enEl || !zhEl || !ruleEl) return;
+
+      const idx = Number(select.value);
+      appState.ch2ExampleIdx = Number.isNaN(idx) ? 0 : idx;
+      const item = CH2_EXAMPLES[appState.ch2ExampleIdx] || CH2_EXAMPLES[0];
+
+      if (btnPos && btnNeg && btnNegFull) {
+        btnPos.classList.toggle(`is-active`, appState.ch2Polarity === `pos`);
+        btnNeg.classList.toggle(`is-active`, appState.ch2Polarity === `neg`);
+        btnNegFull.classList.toggle(`is-active`, appState.ch2Polarity === `negFull`);
+      }
+
+      if (appState.ch2Polarity === `pos`) {
+        enEl.textContent = item.pos;
+        zhEl.textContent = `中文語意：${item.posZh}`;
+      } else if (appState.ch2Polarity === `neg`) {
+        enEl.textContent = item.neg;
+        zhEl.textContent = `中文語意：${item.negZh}`;
+      } else {
+        enEl.textContent = item.negFull;
+        zhEl.textContent = `中文語意：${item.negZh}`;
+      }
+      ruleEl.textContent = `文法重點：${item.rule}`;
+    }
+
+    function setCh2Polarity(pol) {
+      appState.ch2Polarity = pol;
+      renderCh2Lab();
+      persistState();
+    }
+
+    // =========================================================================
+    // 5. CHAPTER 3 LAB RENDERING
+    // =========================================================================
+    function renderCh3Lab() {
+      const stage = document.getElementById(`ch3-stage`);
+      const flipBtn = document.getElementById(`ch3-flip-btn`);
+      if (!stage || !flipBtn) return;
+
+      [0, 1, 2].forEach((i) => {
+        const b = document.getElementById(`ch3-btn-${i}`);
+        if (b) b.classList.toggle(`is-active`, i === appState.ch3CaseIdx);
+      });
+
+      const item = CH3_CASES[appState.ch3CaseIdx] || CH3_CASES[0];
+      flipBtn.textContent = appState.ch3IsQuestion ? `還原為直述肯定句` : `轉換為疑問句 + 簡答`;
+
+      if (!appState.ch3IsQuestion) {
+        const pills = item.tokensPos.map((tok, i) => {
+          const cls = i === 1 ? `token-pill is-moved` : (i === 2 ? `token-pill is-got` : `token-pill`);
+          return `<span class="${cls}">${tok}</span>`;
+        }).join(` `);
+        stage.innerHTML = `
+          <div class="step-transform">${pills}</div>
+          <div class="sentence-zh">目前為直述句：注意亮黃色標記的 <strong>${item.tokensPos[1]}</strong>，等一下會直接移到最前面！</div>
+        `;
+      } else {
+        const pills = item.tokensQ.map((tok, i) => {
+          const cls = i === item.movedIndexQ ? `token-pill is-moved` : (i === item.gotIndexQ ? `token-pill is-got` : `token-pill`);
+          return `<span class="${cls}">${tok}</span>`;
+        }).join(` `);
+        stage.innerHTML = `
+          <div class="step-transform">${pills}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-md); margin-top:var(--space-xs); font-family:var(--font-headline); font-weight:600;">
+            <span class="en-ok">肯定簡答：${item.yes}</span>
+            <span class="en-inline">否定簡答：${item.no}</span>
+          </div>
+          <div class="sentence-zh">${item.zh}</div>
+          <div class="sentence-rule">文法重點：${item.rule}</div>
+        `;
+      }
+    }
+
+    function selectCh3Case(idx) {
+      appState.ch3CaseIdx = idx;
+      renderCh3Lab();
+      persistState();
+    }
+
+    function toggleCh3Question() {
+      appState.ch3IsQuestion = !appState.ch3IsQuestion;
+      renderCh3Lab();
+      persistState();
+    }
+
+    // =========================================================================
+    // 6. CHAPTER 4 NOUN SORTER
+    // =========================================================================
+    function renderCh4Sorter() {
+      const grid = document.getElementById(`ch4-noun-grid`);
+      const scoreEl = document.getElementById(`ch4-sorter-score`);
+      if (!grid) return;
+
+      grid.innerHTML = ``;
+      let solvedCount = 0;
+
+      CH4_NOUNS.forEach((item) => {
+        const guess = appState.ch4Guesses[item.id];
+        if (guess === item.type) solvedCount++;
+
+        const tile = document.createElement(`div`);
+        tile.className = `noun-tile`;
+
+        const head = document.createElement(`div`);
+        head.className = `noun-tile-head`;
+        head.innerHTML = `<span class="noun-word">${item.word}</span><span class="noun-zh">${item.zh}</span>`;
+
+        const actions = document.createElement(`div`);
+        actions.className = `noun-actions`;
+
+        const btnC = document.createElement(`button`);
+        btnC.type = `button`;
+        btnC.className = `noun-btn` + (guess === `countable` ? (item.type === `countable` ? ` is-correct` : ` is-wrong`) : ``);
+        btnC.textContent = `可數`;
+        btnC.onclick = function() {
+          appState.ch4Guesses[item.id] = `countable`;
+          renderCh4Sorter();
+          persistState();
+        };
+
+        const btnU = document.createElement(`button`);
+        btnU.type = `button`;
+        btnU.className = `noun-btn` + (guess === `uncountable` ? (item.type === `uncountable` ? ` is-correct` : ` is-wrong`) : ``);
+        btnU.textContent = `不可數`;
+        btnU.onclick = function() {
+          appState.ch4Guesses[item.id] = `uncountable`;
+          renderCh4Sorter();
+          persistState();
+        };
+
+        actions.appendChild(btnC);
+        actions.appendChild(btnU);
+
+        const fb = document.createElement(`div`);
+        fb.className = `noun-feedback`;
+        if (!guess) {
+          fb.style.color = `var(--on-surface-variant)`;
+          fb.textContent = `請點選分類`;
+        } else if (guess === item.type) {
+          fb.style.color = `var(--positive)`;
+          fb.textContent = `正確！${item.hint}`;
+        } else {
+          fb.style.color = `var(--error)`;
+          fb.textContent = `再想一下！提示：這不是${guess === `countable` ? `可數` : `不可數`}名詞。`;
         }
 
-        function speakWord(word) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
-            }
+        tile.appendChild(head);
+        tile.appendChild(actions);
+        tile.appendChild(fb);
+        grid.appendChild(tile);
+      });
+
+      if (scoreEl) {
+        scoreEl.textContent = `已辨識 ${solvedCount} / ${CH4_NOUNS.length}`;
+      }
+    }
+
+    // =========================================================================
+    // 7. CHAPTER 5 SENTENCE BUILDER
+    // =========================================================================
+    function evaluateSentenceBuilder() {
+      const whEl = document.getElementById(`sb-wh`);
+      const nounEl = document.getElementById(`sb-noun`);
+      const verbEl = document.getElementById(`sb-verb`);
+      const stage = document.getElementById(`sb-result-stage`);
+      if (!whEl || !nounEl || !verbEl || !stage) return;
+
+      const wh = whEl.value;
+      const [nounText, nounKind] = nounEl.value.split(`|`);
+      const [verbText, verbNeed] = verbEl.value.split(`|`);
+
+      const fullSentence = `${wh} ${nounText} ${verbText}`;
+      const issues = [];
+
+      if (nounKind === `singular`) {
+        issues.push(`名詞「${nounText}」為可數單數！無論用 How many 或 How much，後面都不能接可數單數名詞（How many 必須接複數 apples）。`);
+      }
+      if (wh === `How many` && nounKind === `uncountable`) {
+        issues.push(`「${nounText}」是不可數名詞，不能搭配 How many，請改用 How much。`);
+      }
+      if (wh === `How much` && nounKind === `plural`) {
+        issues.push(`「${nounText}」是可數名詞複數，不能用 How much 問數量，請改用 How many。`);
+      }
+      if (verbNeed === `plural` && nounKind === `uncountable`) {
+        issues.push(`不可數名詞「${nounText}」視為單數，there be 必須用 is there，不可用 are there。`);
+      }
+      if (verbNeed === `singular` && nounKind === `plural`) {
+        issues.push(`複數名詞「${nounText}」搭配 there be 時，必須用 are there，不可用 is there。`);
+      }
+
+      if (issues.length === 0) {
+        stage.innerHTML = `
+          <div class="sentence-en"><span class="en-ok">&#10003; 文法正確：</span> ${fullSentence}</div>
+          <div class="sentence-rule">完全符合搭配規則！${nounKind === `plural` ? `可數複數名詞使用 How many` : `不可數名詞使用 How much`}${verbNeed !== `any` ? `，且 there be 單複數一致` : `，且搭配 have/has got 結構正確`}。</div>
+        `;
+      } else {
+        stage.innerHTML = `
+          <div class="sentence-en"><span class="en-warn">&times; 需修正：</span> ${fullSentence}</div>
+          <ul style="margin:var(--space-xs) 0 0; padding-left:1.25rem; color:var(--error); font-size:0.9375rem;">
+            ${issues.map((msg) => `<li>${msg}</li>`).join(``)}
+          </ul>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // 8. CHAPTER QUIZZES & GLOBAL PROGRESS
+    // =========================================================================
+    const LETTERS = [`A`, `B`, `C`, `D`];
+
+    function renderChapterQuiz(chapterNum) {
+      const container = document.getElementById(`quiz-ch-${chapterNum}`);
+      const quizData = QUIZZES[chapterNum];
+      if (!container || !quizData) return;
+
+      let answeredInCh = 0;
+      let correctInCh = 0;
+      quizData.questions.forEach((q) => {
+        const picked = appState.quizAnswers[q.id];
+        if (picked !== undefined) {
+          answeredInCh++;
+          if (picked === q.answer) correctInCh++;
         }
+      });
 
-        // 完整 56 題題庫
-        const words = [
-            // 規則一：加 -s (10)
-            { id: 1, ruleId: 1, ruleName: '規則一：加 -s', singular: 'egg', plural: 'eggs', zh: '雞蛋', emoji: '🥚', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 2, ruleId: 1, ruleName: '規則一：加 -s', singular: 'bottle', plural: 'bottles', zh: '瓶子', emoji: '🍼', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 3, ruleId: 1, ruleName: '規則一：加 -s', singular: 'star', plural: 'stars', zh: '星星', emoji: '⭐', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 4, ruleId: 1, ruleName: '規則一：加 -s', singular: 'balloon', plural: 'balloons', zh: '氣球', emoji: '🎈', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 5, ruleId: 1, ruleName: '規則一：加 -s', singular: 'cup', plural: 'cups', zh: '茶杯', emoji: '☕', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 6, ruleId: 1, ruleName: '規則一：加 -s', singular: 'cat', plural: 'cats', zh: '貓', emoji: '🐱', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 7, ruleId: 1, ruleName: '規則一：加 -s', singular: 'dog', plural: 'dogs', zh: '狗', emoji: '🐶', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 8, ruleId: 1, ruleName: '規則一：加 -s', singular: 'book', plural: 'books', zh: '書本', emoji: '📖', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 9, ruleId: 1, ruleName: '規則一：加 -s', singular: 'tree', plural: 'trees', zh: '樹木', emoji: '🌳', tip: '一般名詞直接在字尾加 -s。' },
-            { id: 10, ruleId: 1, ruleName: '規則一：加 -s', singular: 'window', plural: 'windows', zh: '窗戶', emoji: '🪟', tip: '一般名詞直接在字尾加 -s。' },
+      container.innerHTML = ``;
 
-            // 規則二：加 -es (14)
-            { id: 11, ruleId: 2, ruleName: '規則二：加 -es', singular: 'bus', plural: 'buses', zh: '公車', emoji: '🚌', tip: '字尾為 -s，發噝音，字尾加 -es。' },
-            { id: 12, ruleId: 2, ruleName: '規則二：加 -es', singular: 'class', plural: 'classes', zh: '班級', emoji: '🏫', tip: '字尾為 -ss，發噝音，字尾加 -es。' },
-            { id: 13, ruleId: 2, ruleName: '規則二：加 -es', singular: 'dress', plural: 'dresses', zh: '洋裝', emoji: '👗', tip: '字尾為 -ss，發噝音，字尾加 -es。' },
-            { id: 14, ruleId: 2, ruleName: '規則二：加 -es', singular: 'brush', plural: 'brushes', zh: '刷子／梳子', emoji: '🪥', tip: '字尾為 -sh，發噝音，字尾加 -es。' },
-            { id: 15, ruleId: 2, ruleName: '規則二：加 -es', singular: 'dish', plural: 'dishes', zh: '盤子', emoji: '🍽️', tip: '字尾為 -sh，發噝音，字尾加 -es。' },
-            { id: 16, ruleId: 2, ruleName: '規則二：加 -es', singular: 'sandwich', plural: 'sandwiches', zh: '三明治', emoji: '🥪', tip: '字尾為 -ch，字尾加 -es。' },
-            { id: 17, ruleId: 2, ruleName: '規則二：加 -es', singular: 'watch', plural: 'watches', zh: '手錶', emoji: '⌚', tip: '字尾為 -ch，字尾加 -es。' },
-            { id: 18, ruleId: 2, ruleName: '規則二：加 -es', singular: 'church', plural: 'churches', zh: '教堂', emoji: '⛪', tip: '字尾為 -ch，字尾加 -es。' },
-            { id: 19, ruleId: 2, ruleName: '規則二：加 -es', singular: 'match', plural: 'matches', zh: '火柴／比賽', emoji: '🔥', tip: '字尾為 -ch，字尾加 -es。' },
-            { id: 20, ruleId: 2, ruleName: '規則二：加 -es', singular: 'glass', plural: 'glasses', zh: '玻璃杯', emoji: '🥛', tip: '字尾為 -ss，發噝音，字尾加 -es。' },
-            { id: 21, ruleId: 2, ruleName: '規則二：加 -es', singular: 'fox', plural: 'foxes', zh: '狐狸', emoji: '🦊', tip: '字尾為 -x，發 /ks/ 噝音，字尾加 -es。' },
-            { id: 22, ruleId: 2, ruleName: '規則二：加 -es', singular: 'box', plural: 'boxes', zh: '盒子／包裹', emoji: '📦', tip: '字尾為 -x，發 /ks/ 噝音，字尾加 -es。' },
-            { id: 23, ruleId: 2, ruleName: '規則二：加 -es', singular: 'potato', plural: 'potatoes', zh: '馬鈴薯', emoji: '🥔', tip: '字尾為「子音 (t) + o」，字尾加 -es。' },
-            { id: 24, ruleId: 2, ruleName: '規則二：加 -es', singular: 'tomato', plural: 'tomatoes', zh: '番茄', emoji: '🍅', tip: '字尾為「子音 (t) + o」，字尾加 -es。' },
+      const head = document.createElement(`div`);
+      head.className = `quiz-head`;
+      head.innerHTML = `
+        <div class="quiz-title-wrap">
+          <span class="quiz-badge">隨堂即時測驗</span>
+          <h3 class="card-title" style="margin:0;">${quizData.title}</h3>
+        </div>
+        <span class="quiz-score-pill">本章得分：${correctInCh} / ${quizData.questions.length}（已答 ${answeredInCh} 題）</span>
+      `;
+      container.appendChild(head);
 
-            // -o 結尾例外 (5)
-            { id: 25, ruleId: 3, ruleName: '-o 結尾例外 (+s)', singular: 'radio', plural: 'radios', zh: '收音機', emoji: '📻', tip: '科技與電子產品的 -o 結尾名詞，例外只加 -s。' },
-            { id: 26, ruleId: 3, ruleName: '-o 結尾例外 (+s)', singular: 'piano', plural: 'pianos', zh: '鋼琴', emoji: '🎹', tip: '樂器類的 -o 結尾名詞，例外只加 -s。' },
-            { id: 27, ruleId: 3, ruleName: '-o 結尾例外 (+s)', singular: 'photo', plural: 'photos', zh: '照片', emoji: '📷', tip: 'photograph 簡稱，-o 結尾只加 -s。' },
-            { id: 28, ruleId: 3, ruleName: '-o 結尾例外 (+s)', singular: 'video', plural: 'videos', zh: '影片', emoji: '📹', tip: '科技影音名詞，字尾為母音+o，只加 -s。' },
-            { id: 29, ruleId: 3, ruleName: '-o 結尾例外 (+s)', singular: 'zoo', plural: 'zoos', zh: '動物園', emoji: '🦁', tip: '雙母音 -oo 結尾，直接加 -s。' },
+      const qList = document.createElement(`div`);
+      qList.className = `question-list`;
 
-            // 規則三：-y 結尾 (10)
-            { id: 30, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'baby', plural: 'babies', zh: '嬰兒', emoji: '👶', tip: '字尾為「子音 (b) + y」，去 y 加上 -ies。' },
-            { id: 31, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'party', plural: 'parties', zh: '派對', emoji: '🎉', tip: '字尾為「子音 (t) + y」，去 y 加上 -ies。' },
-            { id: 32, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'body', plural: 'bodies', zh: '身體', emoji: '🧍', tip: '字尾為「子音 (d) + y」，去 y 加上 -ies。' },
-            { id: 33, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'family', plural: 'families', zh: '家庭／家人', emoji: '👨‍👩‍👧', tip: '字尾為「子音 (l) + y」，去 y 加上 -ies。' },
-            { id: 34, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'strawberry', plural: 'strawberries', zh: '草莓', emoji: '🍓', tip: '字尾為「子音 (r) + y」，去 y 加上 -ies。' },
-            { id: 35, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'puppy', plural: 'puppies', zh: '小狗', emoji: '🐶', tip: '字尾為「子音 (p) + y」，去 y 加上 -ies。' },
-            { id: 36, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'boy', plural: 'boys', zh: '男孩', emoji: '👦', tip: '字尾為「母音 (o) + y」，直接加 -s 即可。' },
-            { id: 37, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'monkey', plural: 'monkeys', zh: '猴子', emoji: '🐒', tip: '字尾為「母音 (e) + y」，直接加 -s 即可。' },
-            { id: 38, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'toy', plural: 'toys', zh: '玩具', emoji: '🧸', tip: '字尾為「母音 (o) + y」，直接加 -s 即可。' },
-            { id: 39, ruleId: 4, ruleName: '規則三：-y 結尾', singular: 'day', plural: 'days', zh: '日子／天', emoji: '☀️', tip: '字尾為「母音 (a) + y」，直接加 -s 即可。' },
+      quizData.questions.forEach((q, qIdx) => {
+        const picked = appState.quizAnswers[q.id];
+        const isAnswered = picked !== undefined;
+        const isCorrect = picked === q.answer;
 
-            // 規則四：-f/-fe 變 -ves (7)
-            { id: 40, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'leaf', plural: 'leaves', zh: '樹葉', emoji: '🍃', tip: '字尾為 -f，去 f 變 -ves。' },
-            { id: 41, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'knife', plural: 'knives', zh: '刀子', emoji: '🔪', tip: '字尾為 -fe，去 fe 變 -ves。' },
-            { id: 42, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'shelf', plural: 'shelves', zh: '架子／書架', emoji: '📚', tip: '字尾為 -f，去 f 變 -ves。' },
-            { id: 43, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'wolf', plural: 'wolves', zh: '狼', emoji: '🐺', tip: '字尾為 -f，去 f 變 -ves。' },
-            { id: 44, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'scarf', plural: 'scarves', zh: '圍巾', emoji: '🧣', tip: '字尾為 -f，去 f 變 -ves。' },
-            { id: 45, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'thief', plural: 'thieves', zh: '小偷', emoji: '🦹', tip: '字尾為 -f，去 f 變 -ves。' },
-            { id: 46, ruleId: 5, ruleName: '規則四：-f/-fe 變 -ves', singular: 'life', plural: 'lives', zh: '生命', emoji: '❤️', tip: '字尾為 -fe，去 fe 變 -ves。' },
+        const qItem = document.createElement(`div`);
+        qItem.className = `question-item`;
 
-            // 規則五：不規則複數 (10)
-            { id: 47, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'man', plural: 'men', zh: '男人／先生', emoji: '👨', tip: '內部母音音變，man 變 men。' },
-            { id: 48, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'woman', plural: 'women', zh: '女人／女士', emoji: '👩', tip: '內部母音音變，woman 變 women。' },
-            { id: 49, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'policeman', plural: 'policemen', zh: '男警察', emoji: '👮‍♂️', tip: '複合字中的 -man 變成了 -men。' },
-            { id: 50, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'policewoman', plural: 'policewomen', zh: '女警察', emoji: '👮‍♀️', tip: '複合字中的 -woman 變成了 -women。' },
-            { id: 51, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'postman', plural: 'postmen', zh: '郵差', emoji: '📮', tip: '複合字中的 -man 變成了 -men。' },
-            { id: 52, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'child', plural: 'children', zh: '小孩／兒童', emoji: '🧒', tip: '特殊不規則歷史變化，字尾加 -ren。' },
-            { id: 53, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'mouse', plural: 'mice', zh: '老鼠', emoji: '🐭', tip: '特殊母音音變，mouse 變 mice。' },
-            { id: 54, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'foot', plural: 'feet', zh: '腳／腳掌', emoji: '🦶', tip: '雙母音 oo 變 ee，foot 變 feet。' },
-            { id: 55, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'tooth', plural: 'teeth', zh: '牙齒', emoji: '🦷', tip: '雙母音 oo 變 ee，tooth 變 teeth。' },
-            { id: 56, ruleId: 6, ruleName: '規則五：不規則複數', singular: 'goose', plural: 'geese', zh: '鵝', emoji: '🪿', tip: '雙母音 oo 變 ee，goose 變 geese。' }
-        ];
+        const promptEl = document.createElement(`div`);
+        promptEl.className = `question-prompt`;
+        promptEl.innerHTML = `<span class="q-num">Q${qIdx + 1}</span><span>${q.prompt}</span>`;
+        qItem.appendChild(promptEl);
 
-        function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
+        const optGrid = document.createElement(`div`);
+        optGrid.className = `options-grid`;
 
-        function hideAllScreens() {
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'none';
-            document.getElementById('rules-screen').style.display = 'none';
-        }
-
-        function goHome() {
-            hideAllScreens();
-            document.getElementById('menu-screen').style.display = 'block';
-        }
-
-        function goToRules() {
-            hideAllScreens();
-            document.getElementById('rules-screen').style.display = 'block';
-        }
-
-        let selectedFilterRule = 'all';
-
-        function selectRuleFilter(ruleId, btnEl) {
-            selectedFilterRule = ruleId;
-            const chips = document.querySelectorAll('#menu-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (btnEl) btnEl.classList.add('active');
-        }
-
-        function getFilteredWords(filter) {
-            if (filter === 'all') return words;
-            return words.filter(w => w.ruleId === Number(filter));
-        }
-
-        // 測驗模式
-        let currentQuestion = 0;
-        let score = 0;
-        let totalQuestions = 0;
-        let questions = [];
-        let wrongWords = [];
-        let isWaitingToContinue = false;
-
-        function goToExam() {
-            hideAllScreens();
-            document.getElementById('exam-screen').style.display = 'block';
-            startExam(getFilteredWords(selectedFilterRule));
-        }
-
-        function startExam(wordList) {
-            questions = shuffle(wordList && wordList.length > 0 ? wordList : words);
-            totalQuestions = questions.length;
-            currentQuestion = 0;
-            score = 0;
-            wrongWords = [];
-            isWaitingToContinue = false;
-
-            const categoryBadge = document.getElementById('exam-category-badge');
-            if (selectedFilterRule === 'all') {
-                categoryBadge.textContent = `綜合挑戰 (共 ${totalQuestions} 題)`;
+        q.options.forEach((optText, oIdx) => {
+          const btn = document.createElement(`button`);
+          btn.type = `button`;
+          btn.className = `option-btn`;
+          if (isAnswered) {
+            btn.disabled = true;
+            if (oIdx === q.answer) {
+              btn.classList.add(`is-correct`);
+            } else if (oIdx === picked) {
+              btn.classList.add(`is-wrong`);
             } else {
-                categoryBadge.textContent = `${questions[0].ruleName} (共 ${totalQuestions} 題)`;
+              btn.classList.add(`is-dimmed`);
             }
-
-            document.getElementById('exam-restart').style.display = 'none';
-            document.getElementById('exam-retest').style.display = 'none';
-            document.getElementById('wrong-words').innerHTML = '';
-            document.getElementById('wrong-words').style.display = 'none';
-            document.getElementById('exam-answer').style.display = 'inline-block';
-            document.getElementById('exam-submit').style.display = 'inline-block';
-            document.getElementById('exam-tts-singular').style.display = 'inline-block';
-            document.getElementById('word-visual-box').style.display = 'flex';
-            document.getElementById('exam-submit').textContent = '提交答案';
-            document.getElementById('mnemonic').style.display = 'none';
-
-            nextQuestion();
-        }
-
-        function nextQuestion() {
-            if (currentQuestion >= totalQuestions) {
-                endExam();
-                return;
-            }
-
-            const q = questions[currentQuestion];
-            document.getElementById('mnemonic').style.display = 'none';
-            isWaitingToContinue = false;
-
-            const progress = (currentQuestion / totalQuestions) * 100;
-            document.getElementById('exam-progress-bar').style.width = `${progress}%`;
-
-            const submitBtn = document.getElementById('exam-submit');
-            submitBtn.textContent = '提交答案';
-            submitBtn.style.backgroundColor = 'var(--accent)';
-
-            const imgEl = document.getElementById('exam-word-img');
-            const emojiEl = document.getElementById('exam-word-emoji');
-            imgEl.src = `./${q.singular}.png`;
-            imgEl.style.display = 'none';
-            imgEl.onload = function() {
-                imgEl.style.display = 'block';
-                emojiEl.style.display = 'none';
-            };
-            imgEl.onerror = function() {
-                imgEl.style.display = 'none';
-                emojiEl.style.display = 'block';
-            };
-            emojiEl.textContent = q.emoji;
-            emojiEl.style.display = 'block';
-
-            document.getElementById('question').innerHTML = `
-                請輸入 <b>"${q.singular}"</b>（${q.zh}）的複數形式：
-            `;
-
-            document.getElementById('exam-tts-singular').onclick = () => speakWord(q.singular);
-
-            const inputEl = document.getElementById('exam-answer');
-            inputEl.value = '';
-            inputEl.disabled = false;
-            document.getElementById('exam-result').textContent = '';
-            document.getElementById('score').textContent = `得分: ${score} / ${totalQuestions} (第 ${currentQuestion + 1} 題)`;
-
-            setTimeout(() => inputEl.focus(), 50);
-        }
-
-        function checkExamAnswer() {
-            if (isWaitingToContinue) {
-                currentQuestion++;
-                nextQuestion();
-                return;
-            }
-
-            const inputEl = document.getElementById('exam-answer');
-            const userAnswer = inputEl.value.trim().toLowerCase();
-            const q = questions[currentQuestion];
-            const correctAnswer = q.plural.toLowerCase();
-
-            if (!userAnswer) {
-                inputEl.focus();
-                return;
-            }
-
-            if (userAnswer === correctAnswer) {
-                score++;
-                playSound('correct');
-                inputEl.disabled = true;
-                const resEl = document.getElementById('exam-result');
-                resEl.textContent = `✨ 太棒了，完全正確！ (${q.singular} ➔ ${q.plural})`;
-                resEl.style.color = 'var(--success)';
-                speakWord(q.plural);
-
-                setTimeout(() => {
-                    currentQuestion++;
-                    nextQuestion();
-                }, 1000);
-            } else {
-                playSound('wrong');
-                inputEl.disabled = true;
-                const resEl = document.getElementById('exam-result');
-                resEl.textContent = `❌ 答錯了！正確複數是：${q.plural}`;
-                resEl.style.color = 'var(--danger)';
-
-                const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `
-                    💡 <b>【${q.ruleName}】規則說明：</b><br>${q.tip}
-                    <div style="margin-top: 8px;">
-                        <button class="tts-btn" onclick="speakWord('${q.plural}')">🔊 唸出正確複數 (${q.plural})</button>
-                    </div>
-                `;
-                mnemonicEl.style.display = 'block';
-
-                const submitBtn = document.getElementById('exam-submit');
-                submitBtn.textContent = '繼續下一題 ➔';
-                submitBtn.style.backgroundColor = '#5c6bc0';
-
-                wrongWords.push({
-                    singular: q.singular,
-                    plural: q.plural,
-                    zh: q.zh,
-                    tip: q.tip,
-                    user: userAnswer
-                });
-
-                isWaitingToContinue = true;
-            }
-
-            document.getElementById('score').textContent = `得分: ${score} / ${totalQuestions} (第 ${currentQuestion + 1} 題)`;
-        }
-
-        function endExam() {
-            document.getElementById('exam-progress-bar').style.width = '100%';
-            document.getElementById('mnemonic').style.display = 'none';
-            document.getElementById('word-visual-box').style.display = 'none';
-            document.getElementById('exam-tts-singular').style.display = 'none';
-            document.getElementById('question').innerHTML = `🎉 <b>測驗完成！</b>`;
-            document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-submit').style.display = 'none';
-            
-            const percentage = Math.round((score / totalQuestions) * 100);
-            const resEl = document.getElementById('exam-result');
-            resEl.textContent = `最終總分：${score} / ${totalQuestions} (${percentage}分)`;
-            resEl.style.color = '#fff';
-
-            const wrongContainer = document.getElementById('wrong-words');
-            wrongContainer.style.display = 'block';
-
-            if (score === totalQuestions) {
-                wrongContainer.innerHTML = '<div style="color: var(--success); font-size: 16px; text-align: center; padding: 12px;">🏆 太強了！全部答對！</div>';
-            } else {
-                let wrongHtml = `<b>需複習的錯題筆記 (${wrongWords.length} 題)：</b><br><br>`;
-                wrongWords.forEach((w, idx) => {
-                    wrongHtml += `
-                        <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.15);">
-                            ${idx + 1}. <b>${w.singular}</b>（${w.zh}）➔ 正確複數: <span style="color: var(--success); font-weight: bold;">${w.plural}</span> 
-                            <button class="tts-btn" onclick="speakWord('${w.plural}')">🔊</button><br>
-                            &nbsp;&nbsp;&nbsp;你的輸入: <span style="color: var(--danger); text-decoration: line-through;">${w.user || '(空白)'}</span><br>
-                            &nbsp;&nbsp;&nbsp;<span style="font-size: 12px; color: #b0bec5;">💡 ${w.tip}</span>
-                        </div>
-                    `;
-                });
-                wrongContainer.innerHTML = wrongHtml;
-                document.getElementById('exam-retest').style.display = 'inline-block';
-            }
-
-            document.getElementById('exam-restart').style.display = 'inline-block';
-        }
-
-        // 練習模式
-        let practiceFilter = 'all';
-        let areAnswersVisible = false;
-
-        function goToPractice() {
-            hideAllScreens();
-            document.getElementById('practice-screen').style.display = 'block';
-            practiceFilter = 'all';
-            const chips = document.querySelectorAll('#practice-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (chips[0]) chips[0].classList.add('active');
-            renderPracticeList();
-            resetPracticeState();
-        }
-
-        function filterPracticeList(filter, chipEl) {
-            practiceFilter = filter;
-            const chips = document.querySelectorAll('#practice-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (chipEl) chipEl.classList.add('active');
-            renderPracticeList();
-            resetPracticeState();
-        }
-
-        function resetPracticeState() {
-            areAnswersVisible = false;
-            const btn = document.getElementById('toggle-all-btn');
-            btn.innerHTML = '顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.className = 'btn-danger';
-        }
-
-        function renderPracticeList() {
-            const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = '';
-            const targetWords = getFilteredWords(practiceFilter);
-
-            targetWords.forEach((word, index) => {
-                const rowContainer = document.createElement('div');
-                rowContainer.className = 'practice-row-container';
-                rowContainer.innerHTML = `
-                    <div class="practice-row">
-                        <div class="col-singular">
-                            <span style="font-size: 20px;">${word.emoji}</span>
-                            <div>
-                                <b>${word.singular}</b> <span style="font-size: 12px; color: var(--text-sub);">(${word.zh})</span>
-                                <button class="tts-btn" onclick="speakWord('${word.singular}')" title="聽單數發音">🔊</button>
-                            </div>
-                        </div>
-                        <div class="col-input">
-                            <input type="text" class="practice-input" id="p-input-${index}" placeholder="輸入複數..." autocomplete="off" autocapitalize="off" spellcheck="false">
-                        </div>
-                        <div class="col-ans">
-                            <div id="p-ans-${index}" style="display: none;">
-                                <span style="color: var(--success); font-weight: bold;">${word.plural}</span>
-                                <button class="tts-btn" onclick="speakWord('${word.plural}')" title="聽複數發音">🔊</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                listContainer.appendChild(rowContainer);
-
-                setTimeout(() => {
-                    const inp = document.getElementById(`p-input-${index}`);
-                    if (inp) {
-                        inp.addEventListener('keydown', (e) => {
-                            if (e.key === 'Enter') {
-                                checkSinglePractice(index, word);
-                            }
-                        });
-                    }
-                }, 0);
-            });
-        }
-
-        function checkSinglePractice(index, word) {
-            const input = document.getElementById(`p-input-${index}`);
-            const ansDiv = document.getElementById(`p-ans-${index}`);
-            const userVal = input.value.trim().toLowerCase();
-            ansDiv.style.display = 'block';
-
-            if (userVal === word.plural.toLowerCase()) {
-                input.classList.add('correct');
-                input.classList.remove('wrong');
-                playSound('correct');
-            } else {
-                input.classList.add('wrong');
-                input.classList.remove('correct');
-                playSound('wrong');
-            }
-        }
-
-        function toggleAllAnswers() {
-            const btn = document.getElementById('toggle-all-btn');
-            areAnswersVisible = !areAnswersVisible;
-            const targetWords = getFilteredWords(practiceFilter);
-
-            if (areAnswersVisible) {
-                btn.innerHTML = '隱藏答案<br><span class="ruby-text">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.className = 'btn-secondary';
-
-                let allCorrect = true;
-                targetWords.forEach((word, index) => {
-                    const ansDiv = document.getElementById(`p-ans-${index}`);
-                    const input = document.getElementById(`p-input-${index}`);
-                    if (!ansDiv || !input) return;
-                    ansDiv.style.display = 'block';
-
-                    const userVal = input.value.trim().toLowerCase();
-                    if (userVal === word.plural.toLowerCase()) {
-                        input.classList.add('correct');
-                        input.classList.remove('wrong');
-                    } else {
-                        input.classList.add('wrong');
-                        input.classList.remove('correct');
-                        allCorrect = false;
-                    }
-                });
-
-                if (allCorrect) playSound('correct');
-            } else {
-                btn.innerHTML = '顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.className = 'btn-danger';
-
-                targetWords.forEach((_, index) => {
-                    const ansDiv = document.getElementById(`p-ans-${index}`);
-                    if (ansDiv) ansDiv.style.display = 'none';
-                });
-            }
-        }
-
-        function clearPracticeInputs() {
-            const targetWords = getFilteredWords(practiceFilter);
-            targetWords.forEach((_, index) => {
-                const input = document.getElementById(`p-input-${index}`);
-                const ansDiv = document.getElementById(`p-ans-${index}`);
-                if (input) {
-                    input.value = '';
-                    input.classList.remove('correct', 'wrong');
-                }
-                if (ansDiv) ansDiv.style.display = 'none';
-            });
-            resetPracticeState();
-        }
-
-        // 事件綁定
-        document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
-        document.getElementById('exam-answer').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') checkExamAnswer();
+          }
+          btn.innerHTML = `<span class="option-letter">${LETTERS[oIdx]}</span><span>${optText}</span>`;
+          btn.onclick = function() {
+            appState.quizAnswers[q.id] = oIdx;
+            renderChapterQuiz(chapterNum);
+            updateProgressAndSummary();
+            persistState();
+          };
+          optGrid.appendChild(btn);
         });
-        document.getElementById('exam-restart').addEventListener('click', () => startExam(getFilteredWords(selectedFilterRule)));
-        document.getElementById('exam-retest').addEventListener('click', () => {
-            if (wrongWords.length > 0) {
-                const retestList = wrongWords.map(w => words.find(orig => orig.singular === w.singular)).filter(Boolean);
-                startExam(retestList);
+        qItem.appendChild(optGrid);
+
+        const explainEl = document.createElement(`div`);
+        explainEl.className = `explain-box` + (isAnswered ? ` is-visible ` + (isCorrect ? `is-correct` : `is-wrong`) : ``);
+        if (isAnswered) {
+          const prefix = isCorrect ? `答對了！` : `答錯了（正確選項為 ${LETTERS[q.answer]}）。`;
+          explainEl.textContent = `${prefix}解析：${q.explain}`;
+        }
+        qItem.appendChild(explainEl);
+
+        qList.appendChild(qItem);
+      });
+
+      container.appendChild(qList);
+    }
+
+    function updateProgressAndSummary() {
+      let totalQ = 0;
+      let totalAnswered = 0;
+      let totalCorrect = 0;
+      let masteredChapters = 0;
+      const weakChapters = [];
+
+      const summaryBars = document.getElementById(`summary-bars`);
+      if (summaryBars) summaryBars.innerHTML = ``;
+
+      [1, 2, 3, 4, 5, 6].forEach((ch) => {
+        const qs = QUIZZES[ch].questions;
+        let chAnswered = 0;
+        let chCorrect = 0;
+        qs.forEach((q) => {
+          totalQ++;
+          const ans = appState.quizAnswers[q.id];
+          if (ans !== undefined) {
+            totalAnswered++;
+            chAnswered++;
+            if (ans === q.answer) {
+              totalCorrect++;
+              chCorrect++;
             }
+          }
         });
-    </script>
+
+        if (chAnswered === qs.length && chCorrect === qs.length) {
+          masteredChapters++;
+        } else if (chAnswered > 0 && chCorrect < chAnswered) {
+          weakChapters.push({ ch: ch, label: CHAPTER_LABELS[ch] });
+        }
+
+        const tocEl = document.getElementById(`toc-status-${ch}`);
+        if (tocEl) {
+          if (chAnswered === 0) {
+            tocEl.textContent = `0/${qs.length}`;
+            tocEl.classList.remove(`is-complete`);
+          } else if (chCorrect === qs.length) {
+            tocEl.textContent = `全對 ${chCorrect}/${qs.length}`;
+            tocEl.classList.add(`is-complete`);
+          } else {
+            tocEl.textContent = `${chCorrect}/${qs.length} (已答${chAnswered})`;
+            tocEl.classList.remove(`is-complete`);
+          }
+        }
+
+        if (summaryBars) {
+          const pct = chAnswered > 0 ? Math.round((chCorrect / qs.length) * 100) : 0;
+          const row = document.createElement(`div`);
+          row.className = `summary-bar-row`;
+
+          let fillCls = `summary-fill`;
+          if (chAnswered === qs.length && chCorrect === qs.length) fillCls += ` is-perfect`;
+          else if (chAnswered > 0 && chCorrect < chAnswered) fillCls += ` is-needs-work`;
+
+          row.innerHTML = `
+            <a href="#ch-0${ch}" style="color:var(--secondary); font-weight:600; text-decoration:none;">${CHAPTER_LABELS[ch]}</a>
+            <div class="summary-track"><div class="${fillCls}" style="width:${pct}%"></div></div>
+            <span style="font-family:var(--font-label); font-size:var(--label-size); font-variant-numeric:tabular-nums;">${chCorrect} / ${qs.length} 題 (${pct}%)</span>
+          `;
+          summaryBars.appendChild(row);
+        }
+      });
+
+      const kpiAnswered = document.getElementById(`kpi-answered`);
+      const kpiCorrect = document.getElementById(`kpi-correct`);
+      const kpiAcc = document.getElementById(`kpi-accuracy`);
+      const bar = document.getElementById(`overall-progress-bar`);
+      const masteredEl = document.getElementById(`mastered-chapters-label`);
+      const adviceEl = document.getElementById(`summary-advice`);
+      const badgeEl = document.getElementById(`summary-badge-status`);
+
+      if (kpiAnswered) kpiAnswered.textContent = `${totalAnswered} / ${totalQ}`;
+      if (kpiCorrect) kpiCorrect.textContent = `${totalCorrect}`;
+      if (kpiAcc) kpiAcc.textContent = totalAnswered > 0 ? `${Math.round((totalCorrect / totalAnswered) * 100)}%` : `--%`;
+      if (bar) bar.style.width = `${Math.round((totalAnswered / totalQ) * 100)}%`;
+      if (masteredEl) masteredEl.textContent = `${masteredChapters} / 6 章節全對`;
+
+      if (adviceEl && badgeEl) {
+        if (totalAnswered === 0) {
+          badgeEl.textContent = `尚未開始測驗`;
+          adviceEl.textContent = `完成上方各章節的即時測驗題目後，系統會自動計算 Part I 與 Part II 的得分率，並標記建議優先複習的章節。`;
+        } else if (totalAnswered === totalQ && totalCorrect === totalQ) {
+          badgeEl.textContent = `100% 滿分精熟`;
+          adviceEl.textContent = `太棒了！你已經完全掌握 Unit 7 的 Have got / Has got 與 How much / How many 全部六大重點！`;
+        } else if (weakChapters.length > 0) {
+          badgeEl.textContent = `已作答 ${totalAnswered} / ${totalQ} 題`;
+          adviceEl.textContent = `建議優先點擊下方章節回頭複習錯題解析：${weakChapters.map((w) => w.label).join(`、`) }。`;
+        } else {
+          badgeEl.textContent = `目前作答全對 (${totalAnswered}/${totalQ})`;
+          adviceEl.textContent = `目前作答的題目全部正確！請繼續完成剩餘章節的隨堂測驗。`;
+        }
+      }
+    }
+
+    // =========================================================================
+    // 9. ACTIONS: RESET & EXPORT
+    // =========================================================================
+    function handleResetAll(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `再點一次確認重設`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `重設全部作答`;
+
+      appState = {
+        ch1SubjectIdx: 0,
+        ch1Contract: false,
+        ch2ExampleIdx: 0,
+        ch2Polarity: `pos`,
+        ch3CaseIdx: 0,
+        ch3IsQuestion: false,
+        ch4Guesses: {},
+        quizAnswers: {}
+      };
+      const ch2Sel = document.getElementById(`ch2-example-select`);
+      if (ch2Sel) ch2Sel.value = `0`;
+
+      renderAll();
+      persistState();
+    }
+
+    function exportProgressCSV() {
+      const rows = [`Chapter,QuestionID,Prompt,SelectedOption,CorrectOption,Result`];
+      [1, 2, 3, 4, 5, 6].forEach((ch) => {
+        QUIZZES[ch].questions.forEach((q) => {
+          const picked = appState.quizAnswers[q.id];
+          const pickedText = picked !== undefined ? q.options[picked] : `Not Answered`;
+          const correctText = q.options[q.answer];
+          const result = picked === undefined ? `Pending` : (picked === q.answer ? `Correct` : `Wrong`);
+          const safePrompt = `"${q.prompt.replace(/"/g, `""`)}"`;
+          const safePicked = `"${pickedText.replace(/"/g, `""`)}"`;
+          const safeCorrect = `"${correctText.replace(/"/g, `""`)}"`;
+          rows.push(`Chapter ${ch},${q.id},${safePrompt},${safePicked},${safeCorrect},${result}`);
+        });
+      });
+      const csvContent = `\uFEFF` + rows.join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: csvContent,
+          contentType: `text/csv`,
+          encoding: `UTF-8`,
+          filename: `unit7_grammar_progress.csv`
+        });
+      }
+    }
+
+    // =========================================================================
+    // 10. INITIALIZATION
+    // =========================================================================
+    function renderAll() {
+      const ch2Sel = document.getElementById(`ch2-example-select`);
+      if (ch2Sel) ch2Sel.value = String(appState.ch2ExampleIdx || 0);
+
+      renderCh1Lab();
+      renderCh2Lab();
+      renderCh3Lab();
+      renderCh4Sorter();
+      evaluateSentenceBuilder();
+      [1, 2, 3, 4, 5, 6].forEach((ch) => renderChapterQuiz(ch));
+      updateProgressAndSummary();
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = Object.assign({}, appState, saved);
+            if (!appState.ch4Guesses) appState.ch4Guesses = {};
+            if (!appState.quizAnswers) appState.quizAnswers = {};
+          }
+        }
+      } catch (err) {
+        // Fallback to clean initial state
+      }
+
+      renderAll();
+
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+          window.notebookAppApi.notifyAppReady();
+        }
+      } catch (err) {
+        // Ignore outside host
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
 </body>
 </html>
