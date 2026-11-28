@@ -1,1387 +1,2500 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英文動詞變化大挑戰（過去式與進行式）</title>
-    <meta name="description" content="英文過去簡單式與現在分詞/過去進行式（-ing）動詞變化測驗挑戰，包含規則變化、不規則變化與詳細文法口訣。" />
-    <meta property="og:title" content="英文動詞變化大挑戰（過去式與進行式）" />
-    <meta property="og:description" content="英文過去簡單式與現在分詞/過去進行式（-ing）動詞變化測驗挑戰，包含規則變化、不規則變化與詳細文法口訣。" />
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #12141f 0%, #1a1c2e 50%, #151728 100%);
-            --card-bg: rgba(26, 28, 46, 0.88);
-            --card-border: rgba(255, 255, 255, 0.12);
-            --text-main: #f3f4f8;
-            --text-sub: rgba(243, 244, 248, 0.72);
-            --accent: #ff9800;
-            --accent-hover: #ffa726;
-            --accent-bg: rgba(255, 152, 0, 0.16);
-            --cyan: #00bcd4;
-            --cyan-bg: rgba(0, 188, 212, 0.16);
-            --success: #4caf50;
-            --danger: #f44336;
-            --purple: #7c4dff;
-            --purple-hover: #9e75ff;
-            --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.55);
-            --shadow-glow: 0 0 20px rgba(255, 152, 0, 0.35);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Unit 7：動名詞 (-ing form) 完全攻略 — 楊友寧文法講義互動教室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
 
-        * { box-sizing: border-box; }
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            padding: 16px;
-        }
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
 
-        .container {
-            text-align: center;
-            background: var(--card-bg);
-            padding: 32px 26px;
-            border-radius: 24px;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 100%;
-            max-width: 720px;
-            max-height: 92vh;
-            overflow-y: auto;
-            position: relative;
-        }
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
 
-        .container::-webkit-scrollbar { width: 6px; }
-        .container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --secondary-container: #e3eff3;
+      --tertiary: #785008;
+      --tertiary-container: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-container: #fdeceb;
 
-        h1 { font-size: 26px; margin: 0 0 8px 0; color: #fff; font-weight: 700; }
-        h2 { font-size: 22px; margin: 0 0 16px 0; color: #fff; }
+      /* Semantic */
+      --positive: #2b6e52;
+      --positive-container: #e6f3ec;
+      --warning: #d99000;
+      --warning-container: #fdf4dc;
+      --focus: #1f4e5f;
 
-        .ruby-text { font-size: 11px; opacity: 0.82; display: block; margin-bottom: 2px; }
-        
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            background: var(--accent-bg);
-            color: var(--accent-hover);
-            border: 1px solid rgba(255, 152, 0, 0.3);
-            margin-bottom: 12px;
-        }
-        .badge-cyan {
-            background: var(--cyan-bg);
-            color: #4dd0e1;
-            border-color: rgba(0, 188, 212, 0.3);
-        }
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
 
-        button {
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            margin: 6px;
-            background-color: var(--accent);
-            color: #fff;
-            box-shadow: var(--shadow-glow);
-            transition: all 0.2s ease;
-        }
-        button:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
-        button:active { transform: scale(0.97); }
+      /* Fonts (Non-Latin first per foundation rules) */
+      --font-headline: 'Noto Serif TC', 'Source Serif 4', serif;
+      --font-body: 'Noto Sans TC', 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
 
-        .btn-purple { background-color: var(--purple); box-shadow: 0 0 20px rgba(124, 77, 255, 0.35); }
-        .btn-purple:hover { background-color: var(--purple-hover); }
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.125rem, 1.35rem + 2.8vw, 3.25rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.125rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
 
-        .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: none;
-            color: #e0e0f0;
-        }
-        .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
 
-        .btn-danger { background-color: var(--danger); box-shadow: 0 0 20px rgba(244, 67, 54, 0.3); }
-        .btn-danger:hover { background-color: #e53935; }
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: 0em;
+      --label-tracking: 0.06em;
+      --focus-ring: 0 0 0 3px var(--secondary-container);
 
-        .tts-btn {
-            background-color: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 4px 10px;
-            font-size: 12px;
-            border-radius: 20px;
-            margin-left: 6px;
-            cursor: pointer;
-            box-shadow: none;
-            vertical-align: middle;
-            transition: all 0.15s ease;
-        }
-        .tts-btn:hover { background-color: var(--accent); border-color: var(--accent); }
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
 
-        .filter-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            margin: 14px 0 20px;
-        }
-        .filter-chip {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            color: rgba(255, 255, 255, 0.85);
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: none;
-            margin: 2px;
-            transition: all 0.15s ease;
-        }
-        .filter-chip:hover, .filter-chip.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            box-shadow: 0 2px 10px rgba(255, 152, 0, 0.3);
-            transform: none;
-        }
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
 
-        input[type="text"] {
-            padding: 13px 16px;
-            font-size: 19px;
-            width: 80%;
-            max-width: 380px;
-            margin: 12px auto 14px auto;
-            background: rgba(0, 0, 0, 0.35);
-            border: 2px solid rgba(255, 255, 255, 0.18);
-            color: #fff;
-            border-radius: 12px;
-            outline: none;
-            text-align: center;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        input[type="text"]:focus { border-color: var(--accent); box-shadow: var(--shadow-glow); }
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
 
-        .word-visual {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 14px auto;
-        }
-        .word-img {
-            max-width: 130px;
-            max-height: 130px;
-            object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 6px;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-        }
-        .word-emoji { font-size: 52px; line-height: 1.2; margin-bottom: 4px; }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .prompt-tense-tag {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .tag-past {
-            background: rgba(255, 152, 0, 0.2);
-            color: #ffb74d;
-            border: 1px solid rgba(255, 152, 0, 0.4);
-        }
-        .tag-ing {
-            background: rgba(0, 188, 212, 0.2);
-            color: #4dd0e1;
-            border: 1px solid rgba(0, 188, 212, 0.4);
-        }
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+    }
 
-        #mnemonic, .rule-card {
-            font-size: 14px;
-            margin-top: 14px;
-            color: #cfd6f5;
-            text-align: left;
-            padding: 14px 16px;
-            border-left: 4px solid var(--accent);
-            border-radius: 0 10px 10px 0;
-            background: rgba(255, 255, 255, 0.05);
-            line-height: 1.65;
-        }
-        .rule-card { border-left-color: var(--purple); margin-bottom: 12px; }
-        .rule-card-past { border-left-color: var(--accent); }
-        .rule-card-ing { border-left-color: var(--cyan); }
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
 
-        #wrong-words {
-            text-align: left;
-            margin-top: 18px;
-            line-height: 1.6;
-            max-height: 240px;
-            overflow-y: auto;
-            padding: 14px;
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    /* Briefing Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .dossier-pill--secondary {
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+    }
+    .dossier-pill--pine {
+      background: var(--positive-container);
+      color: var(--positive);
+    }
+    .dossier-pill--alert {
+      background: var(--error-container);
+      color: var(--error);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.03em;
+    }
 
-        .practice-row-container {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 12px 6px;
-            text-align: left;
-        }
-        .practice-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        .col-base { width: 38%; display: flex; align-items: center; gap: 8px; font-size: 14px; }
-        .col-input { width: 32%; }
-        .col-ans { width: 30%; text-align: right; font-size: 14px; }
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.22;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .subhead {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.35;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0 0;
+      max-width: 65ch;
+      line-height: 1.55;
+    }
 
-        .practice-input {
-            width: 100% !important;
-            padding: 8px 10px !important;
-            margin: 0 !important;
-            font-size: 14px !important;
-            border-radius: 8px !important;
-        }
-        .practice-input.correct {
-            border-color: var(--success) !important;
-            background: rgba(76, 175, 80, 0.18) !important;
-            color: #a5d6a7 !important;
-        }
-        .practice-input.wrong {
-            border-color: var(--danger) !important;
-            background: rgba(244, 67, 54, 0.18) !important;
-            color: #ef9a9a !important;
-        }
+    .prose {
+      max-width: 65ch;
+      margin: 0;
+    }
 
-        .list-header {
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 13px;
-            margin-top: 14px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
 
-        .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0 16px;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), #ffca28);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 14px 0;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 10px;
-        }
-        .stat-number { font-size: 20px; font-weight: 700; color: var(--accent); }
-        .stat-label { font-size: 12px; color: var(--text-sub); }
-    </style>
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--surface-container);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+
+    /* Layout grids */
+    .split-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .even-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    /* Navigation & Progress Map */
+    .hero-panel {
+      padding-top: var(--space-md);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(1.625rem, 1.35rem + 1vw, 2.25rem);
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.15;
+      margin: var(--space-xs) 0;
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: block;
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin-top: var(--space-sm);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--secondary);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    .toc-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(165px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .toc-link {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      text-decoration: none;
+      color: var(--on-surface);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+    }
+    .toc-link:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .toc-link-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .toc-status {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+    }
+    .toc-status.is-done {
+      color: var(--positive);
+      font-weight: 600;
+    }
+    .toc-title {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      line-height: 1.3;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+      box-shadow: var(--focus-ring);
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--outline-variant);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+    .btn-secondary.is-active {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn-sm {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.875rem;
+    }
+
+    /* Grammar Dialogue & Interactive Highlights */
+    .dialogue-box {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .dialogue-line {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: var(--space-sm);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .dialogue-line:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .speaker-tag {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      color: var(--secondary);
+      padding-top: 0.15rem;
+    }
+    .dialogue-en {
+      font-weight: 600;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs) 0;
+    }
+    .dialogue-zh {
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+      margin: 0;
+    }
+
+    .token-btn {
+      display: inline-block;
+      background: var(--tertiary-container);
+      color: var(--on-surface);
+      border: 1px solid var(--warning);
+      border-radius: var(--badge-radius);
+      padding: 0 0.35rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1.45;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .token-btn:hover,
+    .token-btn.is-selected {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--outline);
+    }
+    .token-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+      font-weight: 600;
+    }
+    td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+    }
+    tr:last-child td {
+      border-bottom: 0;
+    }
+    .en-phrase {
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    /* Interactive Spelling Transformer & Fork Demo */
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+    .field-label {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+    .text-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1.5px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      transition: border-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .text-input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: var(--focus-ring);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .chip-btn {
+      min-height: 38px;
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .chip-btn:hover {
+      background: var(--surface-container-high);
+      border-color: var(--secondary);
+    }
+    .chip-btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .chip-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Trigger cards */
+    .trigger-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .verb-pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .verb-pill {
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      background: var(--surface-container);
+      color: var(--on-surface);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--badge-radius);
+    }
+    .verb-pill--highlight {
+      background: var(--error-container);
+      color: var(--error);
+    }
+
+    /* Mnemonic / Alert Callout */
+    .callout-rule {
+      border-left: 4px solid var(--secondary);
+      background: var(--secondary-container);
+      padding: var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+    .callout-warning {
+      border-left: 4px solid var(--error);
+      background: var(--error-container);
+      padding: var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+    }
+
+    /* Collapsible details for textbook exercises */
+    .exercise-details {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .exercise-summary {
+      list-style: none;
+      cursor: pointer;
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      font-weight: 700;
+      background: var(--surface-container-low);
+      min-height: 52px;
+    }
+    .exercise-summary::-webkit-details-marker { display: none; }
+    .exercise-summary:hover {
+      background: var(--surface-container);
+    }
+    .exercise-summary:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+    }
+    .exercise-body {
+      padding: var(--space-md) var(--space-lg) var(--space-lg);
+      border-top: 1px solid var(--outline-variant);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .ex-item {
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .ex-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .answer-reveal {
+      margin-top: var(--space-xs);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-left: 3px solid var(--positive);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      font-size: 0.9375rem;
+    }
+
+    /* Chapter Interactive Quiz Module */
+    .quiz-section {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .quiz-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .quiz-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .quiz-q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .quiz-q-text {
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .quiz-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      text-align: left;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1.5px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-opt-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+    }
+    .quiz-opt-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .quiz-opt-btn.is-correct {
+      background: var(--positive-container);
+      border-color: var(--positive);
+      color: var(--positive);
+    }
+    .quiz-opt-btn.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .quiz-opt-key {
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      padding: 0.1rem 0.4rem;
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border-radius: var(--badge-radius);
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      display: none;
+    }
+    .quiz-feedback.is-visible {
+      display: block;
+    }
+    .quiz-feedback.is-correct {
+      background: var(--positive-container);
+      border-left: 4px solid var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-feedback.is-wrong {
+      background: var(--error-container);
+      border-left: 4px solid var(--error);
+      color: var(--on-surface);
+    }
+    .quiz-feedback-title {
+      font-weight: 700;
+      margin: 0 0 var(--space-xs) 0;
+    }
+    .quiz-feedback-title.is-correct { color: var(--positive); }
+    .quiz-feedback-title.is-wrong { color: var(--error); }
+
+    /* Diagrams */
+    .diagram-box {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--section-rule);
+      padding: var(--space-lg) 0 var(--space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 760px) {
+      .split-2,
+      .even-2,
+      .stats-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .dialogue-line {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xs);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page-grid">
 
-    <!-- 1. 首頁選單 -->
-    <div id="menu-screen" class="container">
-        <span class="badge">國中英語文法精熟挑戰</span>
-        <h1>英文動詞變化大挑戰</h1>
-        <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 18px;">
-            掌握「過去簡單式」與「過去進行式 -ing」核心動詞變化規則
-        </p>
+    <!-- HERO & PROGRESS OVERVIEW -->
+    <header class="hero-panel">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">UNIT 07 DOSSIER</span>
+          <span class="dossier-meta">楊友寧文法課堂 / 課本 P.43–48 全攻略</span>
+        </div>
+        <span class="dossier-meta" id="header-status-label">學習進度即時追蹤</span>
+      </div>
 
-        <div class="stat-grid">
-            <div class="stat-card">
-                <div class="stat-number">32</div>
-                <div class="stat-label">必備動詞題庫</div>
+      <h1 class="title">動名詞 (The -ing form) 完全攻略</h1>
+      <p class="standfirst">
+        從編輯室與海洋環保的課文劇場出發，掌握動詞變身名詞的兩大角色、五大使用時機、to V 與 -ing 語意對決，並附課本 P.43–48 Activity A–G 逐題破案與隨堂互動測驗。
+      </p>
+
+      <!-- Live Mastery Dashboard -->
+      <div class="stats-grid" style="margin-top: var(--space-lg);">
+        <div class="figure-card">
+          <span class="kpi-label">隨堂測驗完成題數</span>
+          <div class="kpi-value" id="kpi-answered">0 / 18</div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="kpi-progress-bar"></div>
+          </div>
+        </div>
+        <div class="figure-card">
+          <span class="kpi-label">累積答對率</span>
+          <div class="kpi-value" id="kpi-accuracy">--</div>
+          <span class="kpi-label" id="kpi-accuracy-hint">完成任一章節測驗後即時計算</span>
+        </div>
+        <div class="figure-card">
+          <span class="kpi-label">通關徽章狀態</span>
+          <div class="kpi-value" id="kpi-badge-status">探索中</div>
+          <span class="kpi-label" id="kpi-badge-hint">完成 6 大單元隨堂考驗解鎖結業勳章</span>
+        </div>
+      </div>
+
+      <!-- Chapter Jump Strip -->
+      <nav aria-label="章節導覽" class="toc-strip">
+        <a href="#ch1" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">01</span>
+            <span class="toc-status" id="toc-status-1">0/3 題</span>
+          </div>
+          <span class="toc-title">課文情境劇場 (P.43)</span>
+        </a>
+        <a href="#ch2" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">02</span>
+            <span class="toc-status" id="toc-status-2">0/3 題</span>
+          </div>
+          <span class="toc-title">核心定義與拼字規則</span>
+        </a>
+        <a href="#ch3" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">03</span>
+            <span class="toc-status" id="toc-status-3">0/4 題</span>
+          </div>
+          <span class="toc-title">五大使用時機與片語</span>
+        </a>
+        <a href="#ch4" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">04</span>
+            <span class="toc-status" id="toc-status-4">0/4 題</span>
+          </div>
+          <span class="toc-title">to V vs -ing 語意對決</span>
+        </a>
+        <a href="#ch5" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">05</span>
+            <span class="toc-status" id="toc-status-5">0/4 題</span>
+          </div>
+          <span class="toc-title">課本習題 A–G 全解析</span>
+        </a>
+        <a href="#ch6" class="toc-link">
+          <div class="toc-link-top">
+            <span class="index-num">06</span>
+            <span class="toc-status" id="toc-status-6">總結</span>
+          </div>
+          <span class="toc-title">三大黃金口訣與結業</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- =========================================================
+         CHAPTER 1: CONTEXT DIALOGUE (P.43)
+         ========================================================= -->
+    <section id="ch1" aria-labelledby="ch1-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">01</span>
+          <span class="dossier-pill">CONTEXT THEATRE</span>
+          <span class="dossier-meta">課本 P.43 / 9 大動名詞實戰填空</span>
+        </div>
+      </div>
+      <h2 class="section-title" id="ch1-heading">課文情境劇場：Onnie 歸來與海洋污染調查</h2>
+      <p class="prose" style="margin-top: var(--space-sm);">
+        小記者 Onnie 搭乘「雷霆號 (Thunder)」環遊地中海調查海洋垃圾問題。從她與編輯長官的對話中，我們能看見動名詞在真實英語對話裡的 9 個關鍵出現時機。點擊下方對話中標示的黃色詞組，即可在右側檢視文法破案說明。
+      </p>
+
+      <div class="split-2" style="margin-top: var(--space-lg);">
+        <!-- Dialogue Panel -->
+        <div class="figure-card">
+          <h3 class="subhead">課文對白實況（點擊黃色詞組看解析）</h3>
+          <div class="dialogue-box">
+            <div class="dialogue-line">
+              <span class="speaker-tag">Assistant</span>
+              <div>
+                <p class="dialogue-en">
+                  "Sir, Onnie is back. Do you want to see her <button type="button" class="token-btn is-selected" data-token="1" onclick="selectDialogueToken(1)">before leaving</button> the office?"
+                </p>
+                <p class="dialogue-zh">長官，Onnie 回來了。你想在離開辦公室前見她一面嗎？</p>
+              </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">7 大</div>
-                <div class="stat-label">變化規則解構</div>
+
+            <div class="dialogue-line">
+              <span class="speaker-tag">Editor</span>
+              <div>
+                <p class="dialogue-en">
+                  "OK. <button type="button" class="token-btn" data-token="2" onclick="selectDialogueToken(2)">How about starting</button> from the beginning?"
+                </p>
+                <p class="dialogue-zh">好啊，那何不從頭開始說起呢？</p>
+              </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">美式真人發音</div>
+
+            <div class="dialogue-line">
+              <span class="speaker-tag">Onnie</span>
+              <div>
+                <p class="dialogue-en">
+                  "People <button type="button" class="token-btn" data-token="3" onclick="selectDialogueToken(3)">don't mind throwing</button> rubbish into the sea because they don't realise the problems it causes."
+                </p>
+                <p class="dialogue-zh">人們不在乎把垃圾丟進海裡，因為他們沒意識到這會造成多大問題。</p>
+              </div>
             </div>
-        </div>
 
-        <div style="margin: 18px 0 10px;">
-            <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 6px;">請選擇測驗主題與範圍：</p>
-            <div class="filter-container" id="menu-filter-chips">
-                <button class="filter-chip active" onclick="selectRuleFilter('all', this)">全部 32 題綜合挑戰</button>
-                <button class="filter-chip" onclick="selectRuleFilter('past_all', this)">一、過去簡單式 (全部 18 題)</button>
-                <button class="filter-chip" onclick="selectRuleFilter('past_reg', this)">過去式：規則變化 (6 題)</button>
-                <button class="filter-chip" onclick="selectRuleFilter('past_irreg', this)">過去式：不規則變化 (12 題)</button>
-                <button class="filter-chip" onclick="selectRuleFilter('ing_all', this)">二、進行式 -ing (全部 14 題)</button>
-                <button class="filter-chip" onclick="selectRuleFilter('ing_drop_e', this)">去 e 加 -ing (6 題)</button>
-                <button class="filter-chip" onclick="selectRuleFilter('ing_double', this)">重複字尾加 -ing (4 題)</button>
+            <div class="dialogue-line">
+              <span class="speaker-tag">Onnie</span>
+              <div>
+                <p class="dialogue-en">
+                  "We <button type="button" class="token-btn" data-token="4" onclick="selectDialogueToken(4)">continued travelling</button> until we reached our destination. There, I <button type="button" class="token-btn" data-token="5" onclick="selectDialogueToken(5)">began interviewing</button> many people but they <button type="button" class="token-btn" data-token="6" onclick="selectDialogueToken(6)">avoided answering</button> my questions..."
+                </p>
+                <p class="dialogue-zh">我們繼續航行抵達目的地。在那裡我開始採訪大家，但他們都避而不答……</p>
+              </div>
             </div>
-        </div>
-        
-        <button onclick="goToExam()" style="width: 85%; font-size: 16px;">
-            <span class="ruby-text">ㄎㄞ ㄕˇ ㄎㄠˇ ㄕˋ</span>開始挑戰測驗
-        </button>
 
-        <button onclick="goToPractice()" class="btn-purple" style="width: 85%; font-size: 16px;">
-            <span class="ruby-text">ㄨㄛˇ ㄧㄠˋ ㄌㄧㄢˋ ㄒㄧˊ</span>全題庫自由練習室
-        </button>
+            <div class="dialogue-line">
+              <span class="speaker-tag">Onnie</span>
+              <div>
+                <p class="dialogue-en">
+                  "I <button type="button" class="token-btn" data-token="7" onclick="selectDialogueToken(7)">remember feeling</button> very angry. Later, I met a scientist... some factories <button type="button" class="token-btn" data-token="8" onclick="selectDialogueToken(8)">keep throwing</button> their waste into the sea!"
+                </p>
+                <p class="dialogue-zh">我記得那時感到很生氣。後來我遇到一位科學家……有些工廠竟然一直不斷把廢物排進海中！</p>
+              </div>
+            </div>
 
-        <button onclick="goToRules()" class="btn-secondary" style="width: 85%; font-size: 14px;">
-            <span class="ruby-text">ㄍㄨㄟ ㄗㄜˊ ㄗㄨㄥˇ ㄌㄢˇ</span>動詞變化規則寶典
-        </button>
-    </div>
-
-    <!-- 2. 考試模式 -->
-    <div id="exam-screen" class="container" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span id="exam-category-badge" class="badge">綜合測驗</span>
-            <span id="score" style="font-size: 14px; color: var(--text-sub);">分數: 0 / 0</span>
-        </div>
-        
-        <div class="progress-bar-container">
-            <div id="exam-progress-bar" class="progress-bar"></div>
+            <div class="dialogue-line">
+              <span class="speaker-tag">Editor</span>
+              <div>
+                <p class="dialogue-en">
+                  "Well, Onnie, <button type="button" class="token-btn" data-token="9" onclick="selectDialogueToken(9)">after listening</button> to your report I've decided to..."
+                </p>
+                <p class="dialogue-zh">Onnie，聽完妳的報告後，我決定要……</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <h2 style="margin-bottom: 8px;">動詞時態變化測驗</h2>
+        <!-- Inspector Panel (Spatial Contiguity) -->
+        <div class="aside-box" id="dialogue-inspector">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+            <span class="dossier-pill" id="inspector-badge">填空 1 / 9</span>
+            <span class="dossier-meta" id="inspector-category">介系詞鐵律</span>
+          </div>
+          <h3 class="subhead" id="inspector-phrase">before leaving</h3>
+          <p id="inspector-rule" style="margin: 0 0 var(--space-md) 0;">
+            before 是「介系詞」，後面遇到動詞 leave 時，一定要去 e 加上 -ing 變身成動名詞 leaving！
+          </p>
+          <div class="callout-rule">
+            <strong>友寧思考提示：</strong>
+            <span id="inspector-tip">介系詞是名詞的守護者，動詞想跟在介系詞後面，就必須戴上 -ing 帽子變身為名詞。</span>
+          </div>
 
-        <div id="word-visual-box" class="word-visual">
-            <img id="exam-word-img" class="word-img" src="" alt="verb" style="display: none;">
-            <div id="exam-word-emoji" class="word-emoji">⚡</div>
+          <div style="margin-top: var(--space-lg);">
+            <span class="kpi-label" style="margin-bottom: var(--space-xs);">快速切換課文 9 大考點：</span>
+            <div class="chip-row" id="token-quick-list">
+              <button type="button" class="chip-btn is-active" data-qtoken="1" onclick="selectDialogueToken(1)">1. before leaving</button>
+              <button type="button" class="chip-btn" data-qtoken="2" onclick="selectDialogueToken(2)">2. How about starting</button>
+              <button type="button" class="chip-btn" data-qtoken="3" onclick="selectDialogueToken(3)">3. mind throwing</button>
+              <button type="button" class="chip-btn" data-qtoken="4" onclick="selectDialogueToken(4)">4. continued travelling</button>
+              <button type="button" class="chip-btn" data-qtoken="5" onclick="selectDialogueToken(5)">5. began interviewing</button>
+              <button type="button" class="chip-btn" data-qtoken="6" onclick="selectDialogueToken(6)">6. avoided answering</button>
+              <button type="button" class="chip-btn" data-qtoken="7" onclick="selectDialogueToken(7)">7. remember feeling</button>
+              <button type="button" class="chip-btn" data-qtoken="8" onclick="selectDialogueToken(8)">8. keep throwing</button>
+              <button type="button" class="chip-btn" data-qtoken="9" onclick="selectDialogueToken(9)">9. after listening</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 1 Interactive Quiz -->
+      <div class="quiz-section" style="margin-top: var(--space-lg);">
+        <div class="quiz-header">
+          <div>
+            <span class="dossier-pill dossier-pill--secondary">CHAPTER 01 CHECK</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">單元一隨堂檢核：課文情境應用</h3>
+          </div>
+          <span class="dossier-meta" id="ch1-quiz-score">本單元得分：0 / 3</span>
+        </div>
+        <div id="quiz-container-ch1" class="dialogue-box"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CHAPTER 2: CORE DEFINITION & SPELLING (P.44)
+         ========================================================= -->
+    <section id="ch2" aria-labelledby="ch2-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">02</span>
+          <span class="dossier-pill">CORE MECHANICS</span>
+          <span class="dossier-meta">課本 P.44 / 動名詞本質與拼字規則</span>
+        </div>
+      </div>
+      <h2 class="section-title" id="ch2-heading">核心定義：動詞變身名詞的兩大角色</h2>
+      <p class="prose" style="margin-top: var(--space-sm);">
+        課本開篇明確指出：<em>We use the -ing form (infinitive + -ing) as a noun!</em> 原本表示動作的動詞（例如 travel、swim、read），只要加上 -ing，就不再當動詞使用，而是變身為代表「一項活動或概念」的名詞。
+      </p>
+
+      <!-- Structural Diagram + Two Roles -->
+      <div class="split-2" style="margin-top: var(--space-lg);">
+        <div class="even-2" style="grid-template-columns: minmax(0, 1fr);">
+          <div class="figure-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-xs);">
+              <span class="dossier-pill">角色一：主詞 (Subject)</span>
+              <span class="dossier-pill dossier-pill--alert">必考單數規則</span>
+            </div>
+            <p class="en-phrase" style="font-size: 1.125rem; margin: var(--space-xs) 0;">
+              Travelling by aeroplane is wonderful.
+            </p>
+            <p style="margin: 0 0 var(--space-sm) 0; color: var(--on-surface-variant);">
+              搭乘飛機旅行是一件美好的事。這裡的 <strong>Travelling by aeroplane</strong> 是整個句子的主詞。
+            </p>
+            <div class="callout-warning">
+              <strong>友寧必背考點：</strong>動名詞當主詞時，視為「單數第三人稱」，後面的 Be 動詞必須用 <strong>is</strong> 或 <strong>was</strong>，絕對不能用 are！
+            </div>
+          </div>
+
+          <div class="figure-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-xs);">
+              <span class="dossier-pill dossier-pill--pine">角色二：受詞 (Object)</span>
+            </div>
+            <p class="en-phrase" style="font-size: 1.125rem; margin: var(--space-xs) 0;">
+              I love travelling by aeroplane.
+            </p>
+            <p style="margin: 0 0 var(--space-sm) 0; color: var(--on-surface-variant);">
+              主詞是 I，一般動詞是 love，而 <strong>travelling</strong> 是接收喜愛動作的受詞。
+            </p>
+            <ul style="margin: 0; padding-left: 1.25rem; color: var(--on-surface-variant);">
+              <li>She enjoys <strong>playing</strong> the piano.（她享受彈鋼琴。）</li>
+              <li>We finished <strong>doing</strong> our homework.（我們寫完功課了。）</li>
+            </ul>
+          </div>
         </div>
 
-        <div id="exam-tense-badge-container">
-            <span id="exam-tense-badge" class="prompt-tense-tag tag-past">請輸入過去簡單式</span>
+        <!-- SVG Schematic & Spelling Lab -->
+        <div class="diagram-box">
+          <h3 class="subhead">動名詞變身公式與三寶典實驗室</h3>
+          <svg class="diagram-svg" viewBox="0 0 460 155" aria-hidden="true" style="margin-bottom: var(--space-md);">
+            <rect x="8" y="12" width="128" height="50" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" />
+            <text x="72" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--on-surface)">原形動詞 Infinitive</text>
+            <text x="72" y="51" text-anchor="middle" font-size="11" fill="var(--on-surface-variant)">travel / write / swim</text>
+
+            <text x="154" y="42" text-anchor="middle" font-size="18" font-weight="700" fill="var(--secondary)">+</text>
+
+            <rect x="172" y="12" width="76" height="50" rx="4" fill="var(--primary-container)" stroke="var(--outline)" />
+            <text x="210" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="var(--on-primary-container)">-ing</text>
+
+            <text x="266" y="42" text-anchor="middle" font-size="18" font-weight="700" fill="var(--secondary)">=</text>
+
+            <rect x="284" y="12" width="168" height="50" rx="4" fill="var(--secondary)" />
+            <text x="368" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="var(--on-primary)">動名詞 Gerund (名詞)</text>
+            <text x="368" y="51" text-anchor="middle" font-size="11" fill="var(--primary-container)">視為活動 / 概念</text>
+
+            <line x1="368" y1="62" x2="368" y2="82" stroke="var(--secondary)" stroke-width="2" />
+            <line x1="120" y1="82" x2="368" y2="82" stroke="var(--secondary)" stroke-width="2" />
+            <line x1="120" y1="82" x2="120" y2="96" stroke="var(--secondary)" stroke-width="2" />
+            <line x1="368" y1="82" x2="368" y2="96" stroke="var(--secondary)" stroke-width="2" />
+
+            <rect x="16" y="96" width="208" height="46" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)" />
+            <text x="120" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-surface)">句首作主詞 (Subject)</text>
+            <text x="120" y="133" text-anchor="middle" font-size="11" fill="var(--error)">單數第三人稱：配 is / was</text>
+
+            <rect x="244" y="96" width="208" height="46" rx="4" fill="var(--surface-container-low)" stroke="var(--outline-variant)" />
+            <text x="348" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="var(--on-surface)">動詞或介系詞後作受詞</text>
+            <text x="348" y="133" text-anchor="middle" font-size="11" fill="var(--positive)">love / mind / before + V-ing</text>
+          </svg>
+
+          <!-- Interactive Spelling Tester -->
+          <div class="aside-box">
+            <div class="control-row">
+              <div class="field-group">
+                <label for="spell-input" class="field-label">拼字規則即時驗證（輸入原形動詞，例如 write, swim, dance）：</label>
+                <input type="text" id="spell-input" class="text-input" value="write" oninput="updateSpellingDemo(this.value)">
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSpellingSample('order')">order</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSpellingSample('exercise')">exercise</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSpellingSample('stop')">stop</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="setSpellingSample('get')">get</button>
+            </div>
+            <div id="spell-result" style="margin-top: var(--space-md); font-size: 0.95rem;">
+              <strong>結果：</strong> <span class="en-phrase" style="font-size: 1.15rem;">writing</span> — 規則 2：字尾是不發音的 e，去 e 加 -ing（切勿寫成 writeing）。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 2 Interactive Quiz -->
+      <div class="quiz-section" style="margin-top: var(--space-lg);">
+        <div class="quiz-header">
+          <div>
+            <span class="dossier-pill dossier-pill--secondary">CHAPTER 02 CHECK</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">單元二隨堂檢核：主詞單數與拼字變形</h3>
+          </div>
+          <span class="dossier-meta" id="ch2-quiz-score">本單元得分：0 / 3</span>
+        </div>
+        <div id="quiz-container-ch2" class="dialogue-box"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CHAPTER 3: FIVE TRIGGERS & PREPOSITIONS (P.44)
+         ========================================================= -->
+    <section id="ch3" aria-labelledby="ch3-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">03</span>
+          <span class="dossier-pill">FIVE TRIGGERS</span>
+          <span class="dossier-meta">課本 P.44 / 五大必加 -ing 時機與特殊片語</span>
+        </div>
+      </div>
+      <h2 class="section-title" id="ch3-heading">動名詞五大使用時機與介系詞鐵律</h2>
+      <p class="prose" style="margin-top: var(--space-sm);">
+        課本 P.44 歸納出五大必定或常接動名詞的情境。除了特定動詞與慣用語之外，最容易失分的「介系詞後面必加 -ing」與「look forward to」陷阱也收錄於此。
+      </p>
+
+      <!-- Filter Chips for Quick Focus (all cards remain visible or highlighted) -->
+      <div class="chip-row" style="margin-top: var(--space-md);" role="group" aria-label="篩選動名詞時機">
+        <button type="button" class="chip-btn is-active" data-filter="all" onclick="filterTriggers('all', this)">顯示全部五大時機</button>
+        <button type="button" class="chip-btn" data-filter="1" onclick="filterTriggers('1', this)">時機 1：喜好偏好</button>
+        <button type="button" class="chip-btn" data-filter="2" onclick="filterTriggers('2', this)">時機 2：開始結束</button>
+        <button type="button" class="chip-btn" data-filter="3" onclick="filterTriggers('3', this)">時機 3：九大特定動詞</button>
+        <button type="button" class="chip-btn" data-filter="4" onclick="filterTriggers('4', this)">時機 4：八大特殊片語</button>
+        <button type="button" class="chip-btn" data-filter="5" onclick="filterTriggers('5', this)">時機 5：介系詞鐵律</button>
+      </div>
+
+      <div class="card-grid" style="margin-top: var(--space-md);" id="triggers-grid">
+        <!-- Trigger 1 -->
+        <article class="trigger-card" data-trigger="1">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="index-num">時機 01</span>
+            <span class="dossier-meta">Preference</span>
+          </div>
+          <h3 class="subhead">表達「喜好與偏好」動詞</h3>
+          <div class="verb-pill-list">
+            <span class="verb-pill">adore</span>
+            <span class="verb-pill">love</span>
+            <span class="verb-pill">like</span>
+            <span class="verb-pill">prefer</span>
+            <span class="verb-pill">enjoy</span>
+            <span class="verb-pill">dislike</span>
+            <span class="verb-pill">hate</span>
+          </div>
+          <p style="margin:0; font-size:0.9375rem;">
+            課本例句：<strong class="en-phrase">She hates waking up in the morning.</strong>（她討厭早上醒來。）
+          </p>
+          <p style="margin:0; font-size:0.875rem; color:var(--on-surface-variant);">
+            注意 wake 去 e 加 -ing。此類動詞中 like、love、hate、prefer 亦可接 to V（見單元四）。
+          </p>
+        </article>
+
+        <!-- Trigger 2 -->
+        <article class="trigger-card" data-trigger="2">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="index-num">時機 02</span>
+            <span class="dossier-meta">Beginning / End</span>
+          </div>
+          <h3 class="subhead">表達「開始與結束」動詞</h3>
+          <div class="verb-pill-list">
+            <span class="verb-pill">begin</span>
+            <span class="verb-pill">start</span>
+            <span class="verb-pill">continue</span>
+            <span class="verb-pill verb-pill--highlight">finish (只接 V-ing)</span>
+            <span class="verb-pill verb-pill--highlight">stop (語意不同)</span>
+          </div>
+          <!-- Compact SVG Action Timeline -->
+          <svg viewBox="0 0 320 56" class="diagram-svg" aria-hidden="true">
+            <line x1="20" y1="22" x2="300" y2="22" stroke="var(--data-context)" stroke-width="3" />
+            <circle cx="38" cy="22" r="7" fill="var(--data-3)" />
+            <text x="38" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="var(--on-surface)">begin / start</text>
+            <circle cx="160" cy="22" r="7" fill="var(--data-1)" />
+            <text x="160" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="var(--on-surface)">continue</text>
+            <circle cx="276" cy="22" r="7" fill="var(--data-4)" />
+            <text x="276" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="var(--error)">finish / stop</text>
+          </svg>
+          <p style="margin:0; font-size:0.9375rem;">
+            課本例句：<strong class="en-phrase">I started doing my homework at 6:00 p.m.</strong><br>
+            陷阱提醒：<strong>finish</strong> 後面只能接 V-ing（如 finished painting）。
+          </p>
+        </article>
+
+        <!-- Trigger 3 -->
+        <article class="trigger-card" data-trigger="3">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="index-num">時機 03</span>
+            <span class="dossier-meta">Specific Verbs</span>
+          </div>
+          <h3 class="subhead">九大特定動詞天王團</h3>
+          <div class="verb-pill-list">
+            <span class="verb-pill">avoid</span>
+            <span class="verb-pill">forgive</span>
+            <span class="verb-pill">imagine</span>
+            <span class="verb-pill">remember</span>
+            <span class="verb-pill">practise</span>
+            <span class="verb-pill">risk</span>
+            <span class="verb-pill">suggest</span>
+            <span class="verb-pill">mind</span>
+            <span class="verb-pill">keep</span>
+          </div>
+          <div class="callout-rule" style="padding: var(--space-sm) var(--space-md); font-size: 0.9rem;">
+            <strong>通關口訣：</strong>「建議 (suggest) 練習 (practise) 想像 (imagine)，避免 (avoid) 介意 (mind) 冒險 (risk)，保持 (keep) 原諒 (forgive) 與記憶 (remember)。」
+          </div>
+          <p style="margin:0; font-size:0.9rem; color:var(--on-surface-variant);">
+            例：My daughter practises <strong>driving</strong> a car once a week. / Sam suggested <strong>going</strong> to the match.
+          </p>
+        </article>
+
+        <!-- Trigger 4 -->
+        <article class="trigger-card" data-trigger="4">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="index-num">時機 04</span>
+            <span class="dossier-meta">Expressions</span>
+          </div>
+          <h3 class="subhead">八大必背特殊片語與表達</h3>
+          <ul style="margin:0; padding-left:1.15rem; font-size:0.9375rem; display:flex; flex-direction:column; gap:0.25rem;">
+            <li><strong>can't help + V-ing</strong>（忍不住）：I can't help eating chocolate.</li>
+            <li><strong>can't stand + V-ing</strong>（受不了）：can't stand washing the dishes.</li>
+            <li><strong>It's no good / no use + V-ing</strong>（無益 / 沒用）：It's no use buying tickets.</li>
+            <li><strong>It's worth + V-ing</strong>（值得）：It's worth visiting it.</li>
+            <li><strong>How / What about + V-ing?</strong>（……怎麼樣？）：How about ordering a pizza?</li>
+          </ul>
+          <div class="callout-warning" style="padding: var(--space-sm) var(--space-md); font-size: 0.9rem;">
+            <strong>大考第一魔王：look forward to + V-ing！</strong><br>
+            這裡的 to 是「介系詞」而非不定詞，必須接 V-ing：I am looking forward to <strong>seeing</strong> you soon.
+          </div>
+        </article>
+
+        <!-- Trigger 5 -->
+        <article class="trigger-card" data-trigger="5" style="grid-column: 1 / -1;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="index-num">時機 05</span>
+            <span class="dossier-meta">Preposition Rule</span>
+          </div>
+          <h3 class="subhead">黃金鐵律：介系詞 (Preposition) 後面必加 -ing！</h3>
+          <p style="margin:0; max-width: 72ch;">
+            介系詞的天生使命是連接名詞。當動詞想放在介系詞（before, after, of, about, for, in, at, without）後面時，必須穿上 -ing 外套變身為動名詞。
+          </p>
+          <div class="table-wrap" style="margin-top: var(--space-xs);">
+            <table>
+              <thead>
+                <tr>
+                  <th>介系詞 / 片語</th>
+                  <th>中文意義</th>
+                  <th>課本與習題經典例句</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="en-phrase">before / after + V-ing</td>
+                  <td>在……之前 / 之後</td>
+                  <td>I'd like to meet her <strong>before leaving</strong> the country.</td>
+                </tr>
+                <tr>
+                  <td class="en-phrase">be afraid of + V-ing</td>
+                  <td>害怕……</td>
+                  <td>I'm afraid of <strong>making</strong> her sad.</td>
+                </tr>
+                <tr>
+                  <td class="en-phrase">about / without + V-ing</td>
+                  <td>關於…… / 沒有……</td>
+                  <td>He talked about <strong>selling</strong> his car. / It's no good without <strong>knowing</strong> how to dance.</td>
+                </tr>
+                <tr>
+                  <td class="en-phrase">thank sb for + V-ing</td>
+                  <td>感謝某人做……</td>
+                  <td>Thank you for <strong>helping</strong> me with housework.</td>
+                </tr>
+                <tr>
+                  <td class="en-phrase">be good at + V-ing</td>
+                  <td>擅長……</td>
+                  <td>Chris is good at <strong>writing</strong> poems.</td>
+                </tr>
+                <tr>
+                  <td class="en-phrase">succeed in / interested in + V-ing</td>
+                  <td>成功於…… / 對……有興趣</td>
+                  <td>The girl succeeded in <strong>getting</strong> the job. / Diana is interested in <strong>learning</strong> the guitar.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+
+      <!-- Chapter 3 Interactive Quiz -->
+      <div class="quiz-section" style="margin-top: var(--space-lg);">
+        <div class="quiz-header">
+          <div>
+            <span class="dossier-pill dossier-pill--secondary">CHAPTER 03 CHECK</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">單元三隨堂檢核：特定動詞、片語與介系詞</h3>
+          </div>
+          <span class="dossier-meta" id="ch3-quiz-score">本單元得分：0 / 4</span>
+        </div>
+        <div id="quiz-container-ch3" class="dialogue-box"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CHAPTER 4: TO V VS -ING SHOWDOWN (P.44)
+         ========================================================= -->
+    <section id="ch4" aria-labelledby="ch4-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">04</span>
+          <span class="dossier-pill">SEMANTIC DUEL</span>
+          <span class="dossier-meta">課本 P.44 NOTE / 語意相同 vs 截然不同</span>
+        </div>
+      </div>
+      <h2 class="section-title" id="ch4-heading">觀念大對決：to V 與 -ing 語意比較</h2>
+      <p class="prose" style="margin-top: var(--space-sm);">
+        有些動詞後面接 to V 或 V-ing 意思完全一樣；但遇到「大魔王」stop 和 remember 時，選錯形式整句話的意思就會南轅北轍！
+      </p>
+
+      <div class="split-2" style="margin-top: var(--space-lg);">
+        <!-- 7 Peace Verbs -->
+        <div class="figure-card">
+          <span class="dossier-pill dossier-pill--pine">和平組：意思完全相同</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">七大隨和天王（零差別）</h3>
+          <p style="margin:0 0 var(--space-sm) 0; color: var(--on-surface-variant);">
+            課本例句：<strong class="en-phrase">They hate watching cartoons. = They hate to watch cartoons.</strong>
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>分類</th>
+                  <th>動詞</th>
+                  <th>對照範例</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>喜好組 (4)</td>
+                  <td class="en-phrase">like, love, hate, prefer</td>
+                  <td>I like <strong>swimming</strong>. = I like <strong>to swim</strong>.</td>
+                </tr>
+                <tr>
+                  <td>始末組 (3)</td>
+                  <td class="en-phrase">begin, start, continue</td>
+                  <td>It began <strong>raining</strong>. = It began <strong>to rain</strong>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <div id="question" style="font-size: 20px; margin: 10px 0 14px; color: #ffd54f;">載入題目中...</div>
-        
+        <!-- Interactive Fork Visualizer for stop & remember -->
+        <div class="figure-card">
+          <span class="dossier-pill dossier-pill--alert">魔王組：意思截然不同</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">stop & remember 語意分岔切換器</h3>
+          <div class="chip-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn btn-secondary btn-sm is-active" data-fork="stop-ing" onclick="selectSemanticFork('stop-ing', this)">stop + V-ing</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-fork="stop-to" onclick="selectSemanticFork('stop-to', this)">stop + to V</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-fork="rem-ing" onclick="selectSemanticFork('rem-ing', this)">remember + V-ing</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-fork="rem-to" onclick="selectSemanticFork('rem-to', this)">remember + to V</button>
+          </div>
+
+          <div class="aside-box" id="fork-display">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:var(--space-sm);">
+              <strong class="en-phrase" id="fork-formula" style="font-size: 1.15rem;">stop + V-ing（停止正在做的事）</strong>
+              <span class="dossier-pill" id="fork-time-tag">當下動作畫句點</span>
+            </div>
+            <p id="fork-example" style="margin: var(--space-sm) 0 var(--space-xs) 0; font-weight: 700;">
+              I stopped swimming. ➔ I did not swim anymore.
+            </p>
+            <p id="fork-explain" style="margin: 0; color: var(--on-surface-variant);">
+              中文：我停止游泳了。（原本正在游，現在決定不游了。）課本實戰：The baby stopped crying.（小寶寶停止哭泣。）
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 4 Interactive Quiz -->
+      <div class="quiz-section" style="margin-top: var(--space-lg);">
+        <div class="quiz-header">
+          <div>
+            <span class="dossier-pill dossier-pill--secondary">CHAPTER 04 CHECK</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">單元四隨堂檢核：to V 與 -ing 語意辨析</h3>
+          </div>
+          <span class="dossier-meta" id="ch4-quiz-score">本單元得分：0 / 4</span>
+        </div>
+        <div id="quiz-container-ch4" class="dialogue-box"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CHAPTER 5: TEXTBOOK EXERCISES P.45-48 (ACTIVITIES A-G)
+         ========================================================= -->
+    <section id="ch5" aria-labelledby="ch5-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">05</span>
+          <span class="dossier-pill">TEXTBOOK KEY</span>
+          <span class="dossier-meta">課本 P.45–48 / Activity A–G 逐題破案</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap: var(--space-md);">
         <div>
-            <button class="tts-btn" id="exam-tts-base" style="font-size: 13px; padding: 6px 14px;">🔊 聽原形發音</button>
+          <h2 class="section-title" id="ch5-heading">課本習題全題破案 (Activity A – G)</h2>
+          <p class="prose" style="margin-top: var(--space-xs);">
+            以下完整收錄課本 P.45 至 P.48 所有題組。建議先閱讀題目自行思考，再展開解析或點擊「全部展開 / 全部收合」核對破案關鍵。
+          </p>
         </div>
-
-        <input type="text" id="exam-answer" placeholder="輸入動詞變化..." autocomplete="off" autocapitalize="off" spellcheck="false">
-        <br>
-        <button id="exam-submit" style="min-width: 140px;">提交答案</button>
-
-        <div id="exam-result" style="font-size: 18px; margin-top: 14px; font-weight: bold; min-height: 26px;"></div>
-        <div id="mnemonic" style="display: none;"></div>
-
-        <div id="wrong-words" style="display: none;"></div>
-
-        <div style="margin-top: 18px;">
-            <button id="exam-restart" style="display: none;">重新開始</button>
-            <button id="exam-retest" class="btn-danger" style="display: none;">重測錯題</button>
-            <button class="btn-secondary" style="width: 65%; margin-top: 12px;" onclick="goHome()">回首頁選單</button>
+        <div class="chip-row">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllExercises(true)">全部展開解析</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="toggleAllExercises(false)">全部收合</button>
         </div>
-    </div>
+      </div>
 
-    <!-- 3. 練習模式 -->
-    <div id="practice-screen" class="container" style="display: none; max-width: 840px; padding: 24px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin: 0;">動詞變化練習室</h2>
-            <button class="btn-secondary" onclick="goHome()" style="margin: 0; padding: 6px 14px;">回首頁</button>
+      <div class="dialogue-box" style="margin-top: var(--space-lg);">
+        <!-- Activity A -->
+        <details class="exercise-details" open>
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT A</span> 雙人訪談 5 大句型實戰 (課本 P.45)</span>
+            <span class="dossier-meta">5 題示範造句</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item">
+              <strong>1. What do you like doing in your free time?</strong> (like + V-ing)
+              <div class="answer-reveal">示範造句：I like <strong>playing</strong> basketball and <strong>reading</strong> comic books in my free time.</div>
+            </div>
+            <div class="ex-item">
+              <strong>2. Where do you enjoy going during your holidays?</strong> (enjoy + V-ing)
+              <div class="answer-reveal">示範造句：I enjoy <strong>going</strong> to the seaside and <strong>swimming</strong> during my holidays.</div>
+            </div>
+            <div class="ex-item">
+              <strong>3. What are you good at doing?</strong> (be good at + V-ing)
+              <div class="answer-reveal">示範造句：I am good at <strong>solving</strong> difficult math problems and <strong>drawing</strong>.</div>
+            </div>
+            <div class="ex-item">
+              <strong>4. What are you looking forward to doing next week?</strong> (look forward to + V-ing)
+              <div class="answer-reveal">示範造句：I am looking forward to <strong>visiting</strong> the museum with my friends.</div>
+            </div>
+            <div class="ex-item">
+              <strong>5. What can't you stand doing?</strong> (can't stand + V-ing)
+              <div class="answer-reveal">示範造句：I can't stand <strong>washing</strong> greasy dishes after dinner.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Activity B -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT B</span> 句型轉換挑戰 1–7 題 (課本 P.45)</span>
+            <span class="dossier-meta">7 題完整改寫</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item"><strong>1. (示範) Why don't we order a pizza?</strong><div class="answer-reveal"><strong>How about ordering a pizza?</strong> — Why don't we + 原形V ＝ How about + V-ing。</div></div>
+            <div class="ex-item"><strong>2. I laugh every time I see that film. I can't control myself.</strong><div class="answer-reveal"><strong>I can't help laughing every time I see that film.</strong> — can't control myself ＝ can't help + V-ing（忍不住）。</div></div>
+            <div class="ex-item"><strong>3. Don't buy any tickets for the concert. We won't be able to go.</strong><div class="answer-reveal"><strong>It's no use buying tickets for the concert.</strong> — 白費心力 ＝ It's no use + V-ing。</div></div>
+            <div class="ex-item"><strong>4. It was kind of you to help me with the housework. Thank you.</strong><div class="answer-reveal"><strong>Thank you for helping me with the housework.</strong> — 介系詞 for + V-ing。</div></div>
+            <div class="ex-item"><strong>5. Chris writes poems. He's good at it.</strong><div class="answer-reveal"><strong>Chris is good at writing poems.</strong> — at + V-ing，write 去 e 加 -ing。</div></div>
+            <div class="ex-item"><strong>6. My brother exercises all the time. He never stops.</strong><div class="answer-reveal"><strong>My brother keeps exercising all the time.</strong> — never stops ＝ keep + V-ing，exercise 去 e 加 -ing。</div></div>
+            <div class="ex-item"><strong>7. Wendy must do her homework. It's 8:00 p.m.. She must start.</strong><div class="answer-reveal"><strong>Wendy must start doing her homework.</strong> — start 接 doing（亦可接 to do）。</div></div>
+          </div>
+        </details>
+
+        <!-- Activity C -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT C</span> 看圖對話填空 1–6 題 (課本 P.46)</span>
+            <span class="dossier-meta">6 題情境轉述</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item"><strong>1. (示範) "Let's go to the football match." ➔ Sam suggested...</strong><div class="answer-reveal"><strong>Sam suggested going to the football match.</strong> — suggest 後必接 V-ing。</div></div>
+            <div class="ex-item"><strong>2. "I don't like washing the dishes. I hate it." ➔ The boys can't stand...</strong><div class="answer-reveal"><strong>The boys can't stand washing the dishes.</strong> — can't stand + V-ing。</div></div>
+            <div class="ex-item"><strong>3. "Did you get the job?" "Yes, I did." ➔ The girl succeeded in...</strong><div class="answer-reveal"><strong>The girl succeeded in getting the job.</strong> — in + V-ing，get 重複 t 加 -ing。</div></div>
+            <div class="ex-item"><strong>4. "Diana, would you like to learn how to play the guitar?" ➔ Diana is interested in...</strong><div class="answer-reveal"><strong>Diana is interested in learning how to play the guitar.</strong> — be interested in + V-ing。</div></div>
+            <div class="ex-item"><strong>5. "I'm too busy at the moment to answer your question." ➔ The man avoided...</strong><div class="answer-reveal"><strong>The man avoided answering the question (or her question).</strong> — avoid + V-ing。</div></div>
+            <div class="ex-item"><strong>6. "Hooray! I'm going on holiday tomorrow!" ➔ Maria and Nick are looking forward to...</strong><div class="answer-reveal"><strong>Maria and Nick are looking forward to going on holiday.</strong> — look forward to + V-ing。</div></div>
+          </div>
+        </details>
+
+        <!-- Activity D -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT D</span> stop 與 remember 實戰填空 1–5 題 (課本 P.47)</span>
+            <span class="dossier-meta">5 題語意判斷</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item"><strong>1. The baby stopped ______ (cry) when he saw his parents.</strong><div class="answer-reveal"><strong>crying</strong> — 原本正在哭，停止哭泣動作。</div></div>
+            <div class="ex-item"><strong>2. Kelly remembered ______ (take) the books back to the library last Tuesday. She didn't forget.</strong><div class="answer-reveal"><strong>to take</strong> — 提示 "She didn't forget" 代表記得去執行還書任務。</div></div>
+            <div class="ex-item"><strong>3. I remember ______ (play) chess with my cousin when I was younger.</strong><div class="answer-reveal"><strong>playing</strong> — 小時候（過去回憶）曾做過的事。</div></div>
+            <div class="ex-item"><strong>4. On my way home from work, I stopped ______ (buy) some bread at the baker's.</strong><div class="answer-reveal"><strong>to buy</strong> — 回家途中停下腳步，目的是去買麵包。</div></div>
+            <div class="ex-item"><strong>5. Dad: Did you remember ______ (phone) aunt Kelly? / Well, stop ______ (watch) TV and call her now.</strong><div class="answer-reveal"><strong>1. to phone</strong>（記得去完成通話任務）；<strong>2. watching</strong>（命令停止當下正在看的電視）。</div></div>
+          </div>
+        </details>
+
+        <!-- Activity E -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT E</span> 劇團導演爆笑對話 13 空全破案 ＆ 章魚笑話 (課本 P.47)</span>
+            <span class="dossier-meta">混合 to V / 原形 / V-ing</span>
+          </summary>
+          <div class="exercise-body">
+            <p style="margin:0; color: var(--on-surface-variant);">情境：導演誤把新來的燈光水電技術員 Bill 當成前來試鏡的演員！</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>題號與空格</th>
+                    <th>正確答案</th>
+                    <th>破案文法關鍵</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1. arranged ___ (see)</td><td class="en-phrase">to see</td><td>arrange + to V（安排去做某事）</td></tr>
+                  <tr><td>2. must ___ (leave)</td><td class="en-phrase">leave</td><td>情態助動詞 must + 原形動詞</td></tr>
+                  <tr><td>3. start ___ (sing)</td><td class="en-phrase">singing / to sing</td><td>start 可接 V-ing 或 to V，意思相同</td></tr>
+                  <tr><td>4. come here ___ (check)</td><td class="en-phrase">to check</td><td>不定詞 to V 表「目的」（為了檢查）</td></tr>
+                  <tr><td>5. love ___ (dance)</td><td class="en-phrase">dancing / to dance</td><td>love 可接 V-ing 或 to V，意思相同</td></tr>
+                  <tr><td>6. It's no good ___ (be)</td><td class="en-phrase">being</td><td>It's no good + V-ing 固定片語</td></tr>
+                  <tr><td>7. without ___ (know)</td><td class="en-phrase">knowing</td><td>介系詞 without + V-ing</td></tr>
+                  <tr><td>8. want someone new ___ (act)</td><td class="en-phrase">to act</td><td>want sb + to V（想要某人去做）</td></tr>
+                  <tr><td>9. decided ___ (put)</td><td class="en-phrase">to put</td><td>decide + to V（決定去做）</td></tr>
+                  <tr><td>10. how about ___ (dance)</td><td class="en-phrase">dancing</td><td>How about + V-ing（提議）</td></tr>
+                  <tr><td>11. let you ___ (come)</td><td class="en-phrase">come</td><td>使役動詞 let + 原形動詞</td></tr>
+                  <tr><td>12. a chance ___ (explain)</td><td class="en-phrase">to explain</td><td>不定詞 to V 修飾名詞 chance</td></tr>
+                  <tr><td>13. kept ___ (talk) about ___ (dance)</td><td class="en-phrase">talking / dancing</td><td>keep + V-ing；介系詞 about + V-ing</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout-rule">
+              <strong>課本角落彩蛋笑話 (Joke Corner)：</strong><br>
+              Q: What's an octopus's worst nightmare?（章魚最可怕的惡夢是什麼？）<br>
+              A: <strong>A leg-ache!</strong>（腳痛！因為章魚有八隻觸手，一旦腳痛就是八隻腳同時痛！）
+            </div>
+          </div>
+        </details>
+
+        <!-- Activity F -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT F</span> 提示字造句挑戰 1–6 題 (課本 P.48)</span>
+            <span class="dossier-meta">留意時態與使役動詞</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item"><strong>1. (示範) Sam / refuse / wear / a hat / yesterday</strong><div class="answer-reveal"><strong>Sam refused to wear a hat yesterday.</strong> — refuse + to V；yesterday 用過去式 refused。</div></div>
+            <div class="ex-item"><strong>2. The boy / finish / paint / the wardrobe / yesterday</strong><div class="answer-reveal"><strong>The boy finished painting the wardrobe yesterday.</strong> — finish 必接 V-ing；yesterday 用過去式 finished。</div></div>
+            <div class="ex-item"><strong>3. Mrs Brown / make / the children / tidy up / their room / every Saturday</strong><div class="answer-reveal"><strong>Mrs Brown makes the children tidy up their room every Saturday.</strong> — 使役動詞 make + 原形V；every Saturday 主詞單數用 makes。</div></div>
+            <div class="ex-item"><strong>4. Jill / be interested in / explore / caves</strong><div class="answer-reveal"><strong>Jill is interested in exploring caves.</strong> — in + V-ing；explore 去 e 加 -ing。</div></div>
+            <div class="ex-item"><strong>5. Tony / practise / play / the drums / every day</strong><div class="answer-reveal"><strong>Tony practises playing the drums every day.</strong> — practise + V-ing；主詞單數用 practises (美式 practices)。</div></div>
+            <div class="ex-item"><strong>6. They / be surprised / see / a monkey / on a busy street / yesterday</strong><div class="answer-reveal"><strong>They were surprised to see a monkey on a busy street yesterday.</strong> — be surprised + to V 表情緒原因；yesterday 配 were。</div></div>
+          </div>
+        </details>
+
+        <!-- Activity G -->
+        <details class="exercise-details">
+          <summary class="exercise-summary">
+            <span><span class="index-num">ACT G</span> 綜合選擇題 1–7 題 (課本 P.48)</span>
+            <span class="dossier-meta">7 題考點全解析</span>
+          </summary>
+          <div class="exercise-body">
+            <div class="ex-item"><strong>1. (示範) I don't mind ___ this film for a second time.</strong><div class="answer-reveal"><strong>(b) watching</strong> — mind 後必接 V-ing。</div></div>
+            <div class="ex-item"><strong>2. ___ Japanese is difficult.</strong><div class="answer-reveal"><strong>(c) Learning</strong> — 句首作主詞須用動名詞（To learning 語法錯誤，Learn 原形不可作主詞）。</div></div>
+            <div class="ex-item"><strong>3. It's good for you ___ a glass of milk every day.</strong><div class="answer-reveal"><strong>(c) to drink</strong> — 經典虛主詞句型 It is + adj. + for sb + to V。</div></div>
+            <div class="ex-item"><strong>4. The Art Gallery is fantastic. It's worth ___ it.</strong><div class="answer-reveal"><strong>(a) visiting</strong> — be worth + V-ing（值得做某事）。</div></div>
+            <div class="ex-item"><strong>5. My sister is thinking of ___ a dog.</strong><div class="answer-reveal"><strong>(c) buying</strong> — 介系詞 of + V-ing。</div></div>
+            <div class="ex-item"><strong>6. ___ to parties is great fun!</strong><div class="answer-reveal"><strong>(b) Going</strong> — 動名詞放句首作主詞。</div></div>
+            <div class="ex-item"><strong>7. Peter went to the library ___ a book on Egyptian History.</strong><div class="answer-reveal"><strong>(c) to borrow</strong> — 去圖書館的「目的是為了借書」，表目的用不定詞 to V。</div></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Chapter 5 Interactive Quiz -->
+      <div class="quiz-section" style="margin-top: var(--space-lg);">
+        <div class="quiz-header">
+          <div>
+            <span class="dossier-pill dossier-pill--secondary">CHAPTER 05 CHECK</span>
+            <h3 class="subhead" style="margin-top: var(--space-xs); margin-bottom: 0;">單元五隨堂檢核：課本習題實戰驗收</h3>
+          </div>
+          <span class="dossier-meta" id="ch5-quiz-score">本單元得分：0 / 4</span>
         </div>
+        <div id="quiz-container-ch5" class="dialogue-box"></div>
+      </div>
+    </section>
 
-        <div class="filter-container" id="practice-filter-chips" style="margin: 14px 0 10px;">
-            <button class="filter-chip active" onclick="filterPracticeList('all', this)">全部 (32)</button>
-            <button class="filter-chip" onclick="filterPracticeList('past_all', this)">過去式 (18)</button>
-            <button class="filter-chip" onclick="filterPracticeList('past_reg', this)">規則過去式 (6)</button>
-            <button class="filter-chip" onclick="filterPracticeList('past_irreg', this)">不規則過去式 (12)</button>
-            <button class="filter-chip" onclick="filterPracticeList('ing_all', this)">進行式 -ing (14)</button>
+    <!-- =========================================================
+         CHAPTER 6: GOLDEN RULES & GRADUATION CERTIFICATE
+         ========================================================= -->
+    <section id="ch6" aria-labelledby="ch6-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="index-num">06</span>
+          <span class="dossier-pill">MASTERY SUMMARY</span>
+          <span class="dossier-meta">結業總整理 / 三大通關口訣</span>
         </div>
+      </div>
+      <h2 class="section-title" id="ch6-heading">三大黃金通關口訣 ＆ 學習結業報告</h2>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-            <button id="toggle-all-btn" class="btn-danger" onclick="toggleAllAnswers()" style="flex: 2; margin: 0;">
-                顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>
-            </button>
-            <button class="btn-secondary" onclick="clearPracticeInputs()" style="flex: 1; margin: 0;">
-                清空輸入<br><span class="ruby-text">ㄑㄧㄥ ㄎㄨㄥ</span>
-            </button>
+      <div class="card-grid" style="margin-top: var(--space-lg);">
+        <div class="figure-card">
+          <span class="dossier-pill">口訣一：名詞本質</span>
+          <p style="font-weight: 700; margin: var(--space-sm) 0 0 0;">
+            動詞變名詞，當主當受加 -ing；當主詞視為單數，Be 動詞配 is / was 最穩當！
+          </p>
         </div>
-
-        <div class="list-header">
-            <span style="width: 38%; text-align: left;">動詞原形、目標時態與釋義</span>
-            <span style="width: 32%; text-align: center;">輸入動詞變化形式</span>
-            <span style="width: 30%; text-align: right;">正確答案與發音</span>
+        <div class="figure-card">
+          <span class="dossier-pill">口訣二：介系詞與片語</span>
+          <p style="font-weight: 700; margin: var(--space-sm) 0 0 0;">
+            介系詞後面必加 -ing；特殊片語 can't help / worth / look forward to 永遠跟緊緊！
+          </p>
         </div>
-
-        <div id="practice-list"></div>
-    </div>
-
-    <!-- 4. 規則寶典 -->
-    <div id="rules-screen" class="container" style="display: none; max-width: 780px; text-align: left;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <h2 style="margin: 0;">📚 英文動詞變化核心文法寶典</h2>
-            <button class="btn-secondary" onclick="goHome()" style="margin: 0; padding: 6px 14px;">回首頁</button>
+        <div class="figure-card">
+          <span class="dossier-pill">口訣三：雙面魔王</span>
+          <p style="font-weight: 700; margin: var(--space-sm) 0 0 0;">
+            stop 與 remember 分清楚：停止與過去回憶用 -ing；停下去做與未忘任務用 to V！
+          </p>
         </div>
+      </div>
 
-        <h3 style="color: #ffb74d; margin: 16px 0 8px;">一、 過去簡單式動詞變化（Past Simple）</h3>
-
-        <div class="rule-card rule-card-past">
-            <strong style="color: #ffb74d; font-size: 15px;">1. 規則動詞變化</strong>
-            <p style="margin: 6px 0 0 0; color: #ddd;">
-                ✦ <b>一般直接加 -ed：</b><br>
-                • work ➔ <b>worked</b>（工作）、cook ➔ <b>cooked</b>（烹飪、煮）<br><br>
-                ✦ <b>字尾有 e 直接加 -d：</b><br>
-                • decide ➔ <b>decided</b>（決定）、arrive ➔ <b>arrived</b>（抵達）<br><br>
-                ✦ <b>子音 + y，去 y 加 -ied：</b><br>
-                • study ➔ <b>studied</b>（研讀、學習）<br><br>
-                ✦ <b>短母音 + 單子音，重複字尾加 -ed：</b><br>
-                • stop ➔ <b>stopped</b>（停止）
+      <!-- Graduation Summary & Controls -->
+      <div class="figure-card" style="margin-top: var(--space-lg); border-top: 3px solid var(--primary);" id="graduation-panel">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap: var(--space-md);">
+          <div>
+            <span class="dossier-pill dossier-pill--pine" id="cert-pill">學習紀錄報告</span>
+            <h3 class="subhead" style="margin-top: var(--space-sm);" id="cert-title">完成五個單元的 18 題隨堂測驗，即可解鎖 Unit 7 結業勳章！</h3>
+            <p id="cert-message" style="margin: 0; color: var(--on-surface-variant); max-width: 65ch;">
+              目前尚未完成所有隨堂題目。系統會自動記錄妳的作答進度與詳解，隨時可以繼續挑戰或匯出學習紀錄。
             </p>
+          </div>
+          <div class="chip-row">
+            <button type="button" class="btn btn-primary" onclick="exportSummary()">匯出學習成績單 (.txt)</button>
+            <button type="button" class="btn btn-secondary" id="reset-all-btn" onclick="handleResetProgress(this)">重設全部測驗進度</button>
+          </div>
         </div>
+        <div id="action-status-msg" class="dossier-meta" style="margin-top: var(--space-sm);" aria-live="polite"></div>
+      </div>
+    </section>
 
-        <div class="rule-card rule-card-past">
-            <strong style="color: #ffb74d; font-size: 15px;">2. 不規則動詞變化（課本精選必背）</strong>
-            <p style="margin: 6px 0 0 0; color: #ddd;">
-                • make ➔ <b>made</b>（製作）&nbsp;&nbsp;|&nbsp;&nbsp;• lay ➔ <b>laid</b>（擺放餐桌）<br>
-                • go ➔ <b>went</b>（去）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;• come ➔ <b>came</b>（來）<br>
-                • see ➔ <b>saw</b>（看見）&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;• find ➔ <b>found</b>（找到）<br>
-                • get ➔ <b>got</b>（得到／到達）&nbsp;|&nbsp;&nbsp;• have ➔ <b>had</b>（有／吃）<br>
-                • feel ➔ <b>felt</b>（感覺）&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;• run ➔ <b>ran</b>（跑）<br>
-                • break ➔ <b>broke</b>（損壞）&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;• put ➔ <b>put</b>（放置／撲滅；三態同形）
-            </p>
-        </div>
+    <footer class="site-footer">
+      <span>資料來源：楊友寧文法講義《Unit 7: The -ing form (動名詞) 完全攻略》（課本 P.43–48 全解析）</span>
+      <span>互動練習與進度將自動保存於目前筆記本環境中</span>
+    </footer>
 
-        <h3 style="color: #4dd0e1; margin: 20px 0 8px;">二、 動詞加 -ing 規則變化（Past Progressive / 過去進行式）</h3>
+  </div>
 
-        <div class="rule-card rule-card-ing">
-            <strong style="color: #4dd0e1; font-size: 15px;">規則 1：一般動詞直接加 -ing</strong>
-            <p style="margin: 6px 0 0 0; color: #ddd;">
-                • work ➔ <b>working</b>（工作）<br>
-                • play ➔ <b>playing</b>（玩耍／打球）<br>
-                • listen ➔ <b>listening</b>（聆聽）<br>
-                • talk ➔ <b>talking</b>（說話）
-            </p>
-        </div>
+  <api-shim></api-shim>
+  <script>
+    /* =====================================================================
+       DATA: Dialogue Tokens (Ch 1), Semantic Forks (Ch 4), and 18 Quiz Items
+       (All strings use backticks to safely preserve apostrophes/quotes)
+       ===================================================================== */
+    const DIALOGUE_TOKENS = {
+      1: {
+        badge: `填空 1 / 9`,
+        category: `介系詞鐵律`,
+        phrase: `before leaving`,
+        rule: `before 是「介系詞」，後面遇到動詞 leave 時，必須去 e 加上 -ing 變身成動名詞 leaving！`,
+        tip: `介系詞是名詞的守護者，動詞想跟在介系詞後面，就必須戴上 -ing 帽子變身為名詞。`
+      },
+      2: {
+        badge: `填空 2 / 9`,
+        category: `提議片語`,
+        phrase: `How about starting`,
+        rule: `How about...? 是極常用的提議句型（……怎麼樣？/ 何不……？），其中的 about 是介系詞，後面必須接 V-ing！`,
+        tip: `What about + V-ing 與 How about + V-ing 用法完全相同，皆表提議。`
+      },
+      3: {
+        badge: `填空 3 / 9`,
+        category: `特定動詞 mind`,
+        phrase: `don't mind throwing`,
+        rule: `動詞 mind（介意 / 在乎）是特定動詞天王之一，後面只能接動名詞 V-ing，不可接 to V。`,
+        tip: `否定句 don't mind 後面一樣緊接 throwing（把垃圾丟進海裡）。`
+      },
+      4: {
+        badge: `填空 4 / 9`,
+        category: `始末動詞 continue`,
+        phrase: `continued travelling`,
+        rule: `continue（繼續）表達動作延續，後面接 V-ing。課本採用英式拼法 travelling（美式可作 traveling）。`,
+        tip: `continue 屬於七大隨和天王之一，接 travelling 或 to travel 意思完全相同。`
+      },
+      5: {
+        badge: `填空 5 / 9`,
+        category: `始末動詞 begin`,
+        phrase: `began interviewing`,
+        rule: `begin（開始，過去式為 began）後面接動名詞 interviewing，表達「開始進行採訪」。`,
+        tip: `begin 亦可接不定詞 to interview，語意無差別。`
+      },
+      6: {
+        badge: `填空 6 / 9`,
+        category: `特定動詞 avoid`,
+        phrase: `avoided answering`,
+        rule: `avoid（避免 / 迴避）後面接動名詞 answering，屬於絕對只能接 V-ing 的特定動詞。`,
+        tip: `Activity C 第 5 題也考了這個考點：The man avoided answering the question.`
+      },
+      7: {
+        badge: `填空 7 / 9`,
+        category: `回憶過去 remember`,
+        phrase: `remember feeling`,
+        rule: `Onnie 回憶「當時感到很生氣」這件已經發生過的事，所以 remember 後面接 V-ing（feeling）！`,
+        tip: `若是指「記得未來要去做的事」，才會用 remember + to V。`
+      },
+      8: {
+        badge: `填空 8 / 9`,
+        category: `特定動詞 keep`,
+        phrase: `keep throwing`,
+        rule: `keep（一直 / 持續不斷）後面只能接動名詞 V-ing，強調工廠一直不停排放廢物。`,
+        tip: `Activity B 第 6 題：He never stops. ➔ My brother keeps exercising all the time.`
+      },
+      9: {
+        badge: `填空 9 / 9`,
+        category: `介系詞鐵律`,
+        phrase: `after listening`,
+        rule: `after 在此作為「介系詞」，後面動詞 listen 直接加上 -ing 變成 listening。`,
+        tip: `time prepositions（before / after）後若直接接動作，一律使用 V-ing！`
+      }
+    };
 
-        <div class="rule-card rule-card-ing">
-            <strong style="color: #4dd0e1; font-size: 15px;">規則 2：字尾是不發音的 e，去 e 加 -ing</strong>
-            <p style="margin: 6px 0 0 0; color: #ddd;">
-                • make ➔ <b>making</b>（製作）<br>
-                • drive ➔ <b>driving</b>（駕駛）<br>
-                • prepare ➔ <b>preparing</b>（準備）<br>
-                • live ➔ <b>living</b>（居住）<br>
-                • write ➔ <b>writing</b>（寫信）<br>
-                • skate ➔ <b>skating</b>（溜冰）
-            </p>
-        </div>
+    const SEMANTIC_FORKS = {
+      'stop-ing': {
+        formula: `stop + V-ing（停止正在做的事）`,
+        tag: `當下動作畫句點`,
+        example: `I stopped swimming. ➔ I did not swim anymore.`,
+        explain: `中文：我停止游泳了。（原本正在游，現在不游了。）課本實戰：The baby stopped crying.（小寶寶停止哭泣。）`
+      },
+      'stop-to': {
+        formula: `stop + to V（停下手邊事，去進行另一件事）`,
+        tag: `不定詞 to V 表目的`,
+        example: `I stopped to swim. ➔ I stopped what I was doing and started swimming.`,
+        explain: `中文：我停下手中的事，去游泳。課本實戰：On my way home, I stopped to buy some bread.（停下腳步去買麵包。）`
+      },
+      'rem-ing': {
+        formula: `remember + V-ing（記得過去曾做過的事）`,
+        tag: `回憶已發生的經驗`,
+        example: `I remember closing the door. ➔ I closed the door and I remember that I did so.`,
+        explain: `中文：我記得我有去關過門。（事情已經做了，記憶中有這個畫面。）課本實戰：I remember playing chess when I was younger.`
+      },
+      'rem-to': {
+        formula: `remember + to V（記得去做某件事）`,
+        tag: `提醒未完成的任務`,
+        example: `I remembered to close the door. ➔ I did not forget to close the door.`,
+        explain: `中文：我記得要去關門。（沒有忘記要執行這項責任。）課本實戰：Kelly remembered to take the books back.`
+      }
+    };
 
-        <div class="rule-card rule-card-ing">
-            <strong style="color: #4dd0e1; font-size: 15px;">規則 3：短母音 + 單子音結尾，重複字尾加 -ing</strong>
-            <p style="margin: 6px 0 0 0; color: #ddd;">
-                • get ➔ <b>getting</b>（得到／準備）<br>
-                • run ➔ <b>running</b>（跑步）<br>
-                • sit ➔ <b>sitting</b>（坐著）<br>
-                • swim ➔ <b>swimming</b>（游泳）
-            </p>
-        </div>
+    const QUIZ_DATA = [
+      /* Chapter 1 (3 items) */
+      {
+        id: `q1_1`,
+        chapter: 1,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Do you want to see her before ______ the office?`,
+        options: [
+          { key: `A`, text: `leave` },
+          { key: `B`, text: `leaving` },
+          { key: `C`, text: `to leave` }
+        ],
+        answer: `B`,
+        explanation: `before 在此為介系詞，後面遇到動詞 leave 必須變身為動名詞 leaving（同時字尾不發音的 e 要去掉再加 -ing）。`
+      },
+      {
+        id: `q1_2`,
+        chapter: 1,
+        type: `fill`,
+        typeLabel: `填空題`,
+        prompt: `How about ______ (start) from the beginning?（請填入正確動詞變化）`,
+        answer: `starting`,
+        placeholder: `例如：starting`,
+        explanation: `How about...? 為提議句型，about 是介系詞，後面動詞 start 必須加上 -ing 變成 starting。`
+      },
+      {
+        id: `q1_3`,
+        chapter: 1,
+        type: `tf`,
+        typeLabel: `判斷題`,
+        prompt: `判斷此句文法是否正確：「People don't mind to throw rubbish into the sea.」`,
+        options: [
+          { key: `T`, text: `正確（符合文法）` },
+          { key: `F`, text: `錯誤（文法有誤）` }
+        ],
+        answer: `F`,
+        explanation: `錯誤！動詞 mind（介意 / 在乎）後面只能接動名詞 V-ing，正確寫法應為 don't mind throwing rubbish into the sea。`
+      },
 
-        <div style="text-align: center; margin-top: 18px;">
-            <button onclick="goToExam()" style="width: 70%;">立即進入測驗</button>
-        </div>
-    </div>
+      /* Chapter 2 (3 items) */
+      {
+        id: `q2_1`,
+        chapter: 2,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `______ Japanese is difficult.（課本 Activity G 第 2 題）`,
+        options: [
+          { key: `A`, text: `To learning` },
+          { key: `B`, text: `Learn` },
+          { key: `C`, text: `Learning` }
+        ],
+        answer: `C`,
+        explanation: `動詞放在句首擔任整個句子的「主詞」時，必須使用動名詞 Learning（To learning 結構錯誤；原形 Learn 不能作主詞）。`
+      },
+      {
+        id: `q2_2`,
+        chapter: 2,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Travelling by aeroplane ______ wonderful.`,
+        options: [
+          { key: `A`, text: `is` },
+          { key: `B`, text: `are` },
+          { key: `C`, text: `be` }
+        ],
+        answer: `A`,
+        explanation: `動名詞片語 Travelling by aeroplane 作主詞時，視為「單數第三人稱」，因此 Be 動詞必須使用單數的 is（過去式則用 was）。`
+      },
+      {
+        id: `q2_3`,
+        chapter: 2,
+        type: `fill`,
+        typeLabel: `填空題`,
+        prompt: `Chris is good at ______ (write) poems.（請留意字尾去 e 拼字規則）`,
+        answer: `writing`,
+        placeholder: `請輸入 write 的 -ing 形式`,
+        explanation: `be good at 後面須接動名詞；write 字尾有不發音的 e，必須先去 e 再加 -ing，拼作 writing（切勿寫成 writeing）。`
+      },
 
-    <script>
-        // Web Audio API 音效引擎
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
+      /* Chapter 3 (4 items) */
+      {
+        id: `q3_1`,
+        chapter: 3,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `I am really looking forward to ______ from you soon.`,
+        options: [
+          { key: `A`, text: `hear` },
+          { key: `B`, text: `hearing` },
+          { key: `C`, text: `to hear` }
+        ],
+        answer: `B`,
+        explanation: `大考第一魔王陷阱！look forward to 中的 to 是「介系詞」而非不定詞，因此後面絕對要接動名詞 hearing。`
+      },
+      {
+        id: `q3_2`,
+        chapter: 3,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `The Art Gallery is fantastic. It's worth ______ it.（課本 Activity G 第 4 題）`,
+        options: [
+          { key: `A`, text: `visiting` },
+          { key: `B`, text: `to visit` },
+          { key: `C`, text: `to visiting` }
+        ],
+        answer: `A`,
+        explanation: `be worth + V-ing 是必背慣用片語，表示「值得做某事」，因此直接選 (A) visiting。`
+      },
+      {
+        id: `q3_3`,
+        chapter: 3,
+        type: `fill`,
+        typeLabel: `填空題`,
+        prompt: `She walked into the classroom without ______ (say) a single word.`,
+        answer: `saying`,
+        placeholder: `請輸入正確動詞形式`,
+        explanation: `without（沒有）是介系詞，根據「介系詞後面必加 -ing」鐵律，say 須變成動名詞 saying。`
+      },
+      {
+        id: `q3_4`,
+        chapter: 3,
+        type: `tf`,
+        typeLabel: `判斷題`,
+        prompt: `判斷此句文法是否正確：「Sam suggested to go to the football match.」`,
+        options: [
+          { key: `T`, text: `正確（符合文法）` },
+          { key: `F`, text: `錯誤（文法有誤）` }
+        ],
+        answer: `F`,
+        explanation: `錯誤！suggest（建議）屬於只能接動名詞 V-ing 的九大特定動詞天王，正確應為 Sam suggested going to the football match。`
+      },
 
-        function getAudioContext() {
-            if (!audioCtx && AudioContextClass) {
-                audioCtx = new AudioContextClass();
-            }
-            if (audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            return audioCtx;
+      /* Chapter 4 (4 items) */
+      {
+        id: `q4_1`,
+        chapter: 4,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Mr. White was very tired, so he stopped ______ a short break.`,
+        options: [
+          { key: `A`, text: `taking` },
+          { key: `B`, text: `to take` },
+          { key: `C`, text: `take` }
+        ],
+        answer: `B`,
+        explanation: `太累了，所以「停下手邊的工作，去休息一下」，不定詞表目的，因此選 stop + to V ➔ to take。`
+      },
+      {
+        id: `q4_2`,
+        chapter: 4,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Please remember ______ the door before you go to sleep tonight.`,
+        options: [
+          { key: `A`, text: `locking` },
+          { key: `B`, text: `to lock` },
+          { key: `C`, text: `lock` }
+        ],
+        answer: `B`,
+        explanation: `提醒今晚睡前「記得要去鎖門」，屬於還沒做、未來需執行的任務，用 remember + to V ➔ to lock。`
+      },
+      {
+        id: `q4_3`,
+        chapter: 4,
+        type: `tf`,
+        typeLabel: `判斷題`,
+        prompt: `判斷觀念是否正確：「I like swimming.」和「I like to swim.」這兩句話在課本中的意思完全相同。`,
+        options: [
+          { key: `T`, text: `正確（意思無差別）` },
+          { key: `F`, text: `錯誤（意思截然不同）` }
+        ],
+        answer: `T`,
+        explanation: `正確！like 屬於「七大隨和天王」（like, love, hate, prefer, begin, start, continue），後接 V-ing 或 to V 語意完全相同。`
+      },
+      {
+        id: `q4_4`,
+        chapter: 4,
+        type: `fill`,
+        typeLabel: `填空題`,
+        prompt: `I remember ______ (play) chess with my cousin when I was younger.（課本 Activity D 第 3 題）`,
+        answer: `playing`,
+        placeholder: `請輸入 playing 或 to play`,
+        explanation: `句尾提示 when I was younger（小時候），表示回憶「過去曾經做過的事」，因此使用 remember + V-ing ➔ playing。`
+      },
+
+      /* Chapter 5 (4 items) */
+      {
+        id: `q5_1`,
+        chapter: 5,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Director: "Technician? Who let you ______ on stage?"（課本 Activity E 劇團對話）`,
+        options: [
+          { key: `A`, text: `come` },
+          { key: `B`, text: `to come` },
+          { key: `C`, text: `coming` }
+        ],
+        answer: `A`,
+        explanation: `let 是「使役動詞」（與 Activity F 的 make 相同），後面受詞後必須接「原形動詞」come！`
+      },
+      {
+        id: `q5_2`,
+        chapter: 5,
+        type: `fill`,
+        typeLabel: `填空題`,
+        prompt: `句型轉換：My brother exercises all the time. He never stops. ➔ My brother keeps ______ all the time.`,
+        answer: `exercising`,
+        placeholder: `請填入正確動詞變化`,
+        explanation: `never stops 表示「一直持續不斷」，改寫為 keep + V-ing；注意 exercise 字尾有不發音的 e，須去 e 加 -ing 變成 exercising。`
+      },
+      {
+        id: `q5_3`,
+        chapter: 5,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `Peter went to the library ______ a book on Egyptian History.（課本 Activity G 第 7 題）`,
+        options: [
+          { key: `A`, text: `borrow` },
+          { key: `B`, text: `borrowing` },
+          { key: `C`, text: `to borrow` }
+        ],
+        answer: `C`,
+        explanation: `去圖書館的「目的是為了借書」，表達動作目的時要使用不定詞 (to V) ➔ to borrow。`
+      },
+      {
+        id: `q5_4`,
+        chapter: 5,
+        type: `mcq`,
+        typeLabel: `單選題`,
+        prompt: `The boy ______ the wardrobe yesterday.（課本 Activity F 第 2 題）`,
+        options: [
+          { key: `A`, text: `finished to paint` },
+          { key: `B`, text: `finished painting` },
+          { key: `C`, text: `finish painting` }
+        ],
+        answer: `B`,
+        explanation: `雙重考點！第一，時間是 yesterday 須用過去式 finished；第二，動詞 finish 後面絕對只能接動名詞 painting。`
+      }
+    ];
+
+    /* =====================================================================
+       STATE MANAGEMENT (notebookAppApi)
+       ===================================================================== */
+    let appState = {
+      answers: {}, // { qId: { userVal: string, isCorrect: boolean } }
+      selectedToken: 1,
+      selectedFork: `stop-ing`
+    };
+
+    async function saveState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Ignore transient host persistence errors
         }
+      }
+    }
 
-        function playSound(type) {
-            try {
-                const ctx = getAudioContext();
-                if (!ctx) return;
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
+    /* =====================================================================
+       INTERACTIVE HANDLERS (Hoisted function declarations)
+       ===================================================================== */
+    function selectDialogueToken(tokenId) {
+      const idNum = Number(tokenId);
+      const data = DIALOGUE_TOKENS[idNum];
+      if (!data) return;
 
-                if (type === 'correct') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.22, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.35);
-                } else if (type === 'wrong') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(180, ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(110, ctx.currentTime + 0.25);
-                    gain.gain.setValueAtTime(0.22, ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.3);
-                }
-            } catch (e) {
-                // AudioContext not allowed before user gesture
-            }
+      appState.selectedToken = idNum;
+
+      const badge = document.getElementById(`inspector-badge`);
+      const cat = document.getElementById(`inspector-category`);
+      const phrase = document.getElementById(`inspector-phrase`);
+      const rule = document.getElementById(`inspector-rule`);
+      const tip = document.getElementById(`inspector-tip`);
+
+      if (badge) badge.textContent = data.badge;
+      if (cat) cat.textContent = data.category;
+      if (phrase) phrase.textContent = data.phrase;
+      if (rule) rule.textContent = data.rule;
+      if (tip) tip.textContent = data.tip;
+
+      const inlineBtns = document.querySelectorAll(`.token-btn`);
+      inlineBtns.forEach(function (btn) {
+        if (Number(btn.dataset.token) === idNum) {
+          btn.classList.add(`is-selected`);
+        } else {
+          btn.classList.remove(`is-selected`);
         }
+      });
 
-        // Web Speech API 真人發音
-        function speakWord(word) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.88;
-                window.speechSynthesis.speak(utterance);
-            }
+      const quickBtns = document.querySelectorAll(`[data-qtoken]`);
+      quickBtns.forEach(function (btn) {
+        if (Number(btn.dataset.qtoken) === idNum) {
+          btn.classList.add(`is-active`);
+        } else {
+          btn.classList.remove(`is-active`);
         }
+      });
 
-        // 完整測驗動詞題庫 (共 32 題，完全對應使用者要求的清單)
-        const verbs = [
-            // 一、過去簡單式 (Past Simple) - 1. 規則動詞 (6)
-            {
-                id: 1,
-                base: 'work',
-                target: 'worked',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：一般直接加 -ed',
-                zh: '工作',
-                emoji: '💼',
-                tip: '一般規則動詞直接加 -ed：work ➔ worked。'
-            },
-            {
-                id: 2,
-                base: 'cook',
-                target: 'cooked',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：一般直接加 -ed',
-                zh: '烹飪、煮',
-                emoji: '🍳',
-                tip: '一般規則動詞直接加 -ed：cook ➔ cooked。'
-            },
-            {
-                id: 3,
-                base: 'decide',
-                target: 'decided',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：字尾有 e 直接加 -d',
-                zh: '決定',
-                emoji: '⚖️',
-                tip: '字尾已有 e，直接加 -d 即可：decide ➔ decided。'
-            },
-            {
-                id: 4,
-                base: 'arrive',
-                target: 'arrived',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：字尾有 e 直接加 -d',
-                zh: '抵達',
-                emoji: '🛬',
-                tip: '字尾已有 e，直接加 -d 即可：arrive ➔ arrived。'
-            },
-            {
-                id: 5,
-                base: 'study',
-                target: 'studied',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：子音 + y，去 y 加 -ied',
-                zh: '研讀、學習',
-                emoji: '📚',
-                tip: '字尾為「子音 (d) + y」，去掉 y 改加 -ied：study ➔ studied。'
-            },
-            {
-                id: 6,
-                base: 'stop',
-                target: 'stopped',
-                tenseType: 'past',
-                category: 'past_reg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '規則動詞：短母音 + 單子音，重複字尾加 -ed',
-                zh: '停止',
-                emoji: '🛑',
-                tip: '單音節「短母音 (o) + 單子音 (p)」，重複字尾 p 再加 -ed：stop ➔ stopped。'
-            },
+      saveState();
+    }
 
-            // 一、過去簡單式 (Past Simple) - 2. 不規則動詞 (12)
-            {
-                id: 7,
-                base: 'make',
-                target: 'made',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '製作',
-                emoji: '🛠️',
-                tip: '不規則變化必背：make ➔ made。'
-            },
-            {
-                id: 8,
-                base: 'lay',
-                target: 'laid',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '擺放餐桌',
-                emoji: '🍽️',
-                tip: '不規則變化必背：lay ➔ laid（擺放餐桌／下蛋）。'
-            },
-            {
-                id: 9,
-                base: 'go',
-                target: 'went',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '去',
-                emoji: '🚶',
-                tip: '不規則變化必背：go ➔ went。'
-            },
-            {
-                id: 10,
-                base: 'come',
-                target: 'came',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '來',
-                emoji: '🏃',
-                tip: '不規則變化必背：come ➔ came。'
-            },
-            {
-                id: 11,
-                base: 'see',
-                target: 'saw',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '看見',
-                emoji: '👁️',
-                tip: '不規則變化必背：see ➔ saw。'
-            },
-            {
-                id: 12,
-                base: 'find',
-                target: 'found',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '找到',
-                emoji: '🔍',
-                tip: '不規則變化必背：find ➔ found。'
-            },
-            {
-                id: 13,
-                base: 'get',
-                target: 'got',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '得到／到達',
-                emoji: '🎁',
-                tip: '不規則變化必背：get ➔ got。'
-            },
-            {
-                id: 14,
-                base: 'have',
-                target: 'had',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '有／吃',
-                emoji: '🥪',
-                tip: '不規則變化必背：have ➔ had。'
-            },
-            {
-                id: 15,
-                base: 'feel',
-                target: 'felt',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '感覺',
-                emoji: '💭',
-                tip: '不規則變化必背：feel ➔ felt。'
-            },
-            {
-                id: 16,
-                base: 'run',
-                target: 'ran',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '跑',
-                emoji: '🏃‍♂️',
-                tip: '不規則變化必背：run ➔ ran。'
-            },
-            {
-                id: 17,
-                base: 'break',
-                target: 'broke',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化',
-                zh: '損壞',
-                emoji: '💔',
-                tip: '不規則變化必背：break ➔ broke。'
-            },
-            {
-                id: 18,
-                base: 'put',
-                target: 'put',
-                tenseType: 'past',
-                category: 'past_irreg',
-                formName: '過去簡單式 (Past Simple)',
-                ruleTitle: '不規則動詞變化（三態同形）',
-                zh: '放置／撲滅',
-                emoji: '📥',
-                tip: '不規則變化（三態同形）：put ➔ put（現在式與過去式皆為 put）。'
-            },
+    function setSpellingSample(word) {
+      const input = document.getElementById(`spell-input`);
+      if (input) {
+        input.value = word;
+        updateSpellingDemo(word);
+      }
+    }
 
-            // 二、動詞加 -ing 規則變化 (Past Progressive / 過去進行式) (14)
-            // 規則 1：一般動詞直接加 -ing (4)
-            {
-                id: 19,
-                base: 'work',
-                target: 'working',
-                tenseType: 'ing',
-                category: 'ing_all',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 1：一般動詞直接加 -ing',
-                zh: '工作',
-                emoji: '💼',
-                tip: '一般動詞直接加 -ing：work ➔ working。'
-            },
-            {
-                id: 20,
-                base: 'play',
-                target: 'playing',
-                tenseType: 'ing',
-                category: 'ing_all',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 1：一般動詞直接加 -ing',
-                zh: '玩耍／打球',
-                emoji: '⚽',
-                tip: '一般動詞直接加 -ing：play ➔ playing。'
-            },
-            {
-                id: 21,
-                base: 'listen',
-                target: 'listening',
-                tenseType: 'ing',
-                category: 'ing_all',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 1：一般動詞直接加 -ing',
-                zh: '聆聽',
-                emoji: '🎧',
-                tip: '一般動詞直接加 -ing：listen ➔ listening。'
-            },
-            {
-                id: 22,
-                base: 'talk',
-                target: 'talking',
-                tenseType: 'ing',
-                category: 'ing_all',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 1：一般動詞直接加 -ing',
-                zh: '說話',
-                emoji: '🗣️',
-                tip: '一般動詞直接加 -ing：talk ➔ talking。'
-            },
+    function updateSpellingDemo(rawValue) {
+      const out = document.getElementById(`spell-result`);
+      if (!out) return;
 
-            // 規則 2：字尾是不發音的 e，去 e 加 -ing (6)
-            {
-                id: 23,
-                base: 'make',
-                target: 'making',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '製作',
-                emoji: '🛠️',
-                tip: '字尾是不發音的 e，去 e 加 -ing：make ➔ making。'
-            },
-            {
-                id: 24,
-                base: 'drive',
-                target: 'driving',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '駕駛',
-                emoji: '🚗',
-                tip: '字尾是不發音的 e，去 e 加 -ing：drive ➔ driving。'
-            },
-            {
-                id: 25,
-                base: 'prepare',
-                target: 'preparing',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '準備',
-                emoji: '📝',
-                tip: '字尾是不發音的 e，去 e 加 -ing：prepare ➔ preparing。'
-            },
-            {
-                id: 26,
-                base: 'live',
-                target: 'living',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '居住',
-                emoji: '🏡',
-                tip: '字尾是不發音的 e，去 e 加 -ing：live ➔ living。'
-            },
-            {
-                id: 27,
-                base: 'write',
-                target: 'writing',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '寫信',
-                emoji: '✍️',
-                tip: '字尾是不發音的 e，去 e 加 -ing：write ➔ writing。'
-            },
-            {
-                id: 28,
-                base: 'skate',
-                target: 'skating',
-                tenseType: 'ing',
-                category: 'ing_drop_e',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 2：字尾不發音 e，去 e 加 -ing',
-                zh: '溜冰',
-                emoji: '⛸️',
-                tip: '字尾是不發音的 e，去 e 加 -ing：skate ➔ skating。'
-            },
+      const word = String(rawValue || ``).trim().toLowerCase().replace(/[^a-z]/g, ``);
+      if (!word) {
+        out.innerHTML = `<strong>提示：</strong> 請輸入英文原形動詞（例如 write、swim、order）以檢視動名詞拼字規則。`;
+        return;
+      }
 
-            // 規則 3：短母音 + 單子音結尾，重複字尾加 -ing (4)
-            {
-                id: 29,
-                base: 'get',
-                target: 'getting',
-                tenseType: 'ing',
-                category: 'ing_double',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 3：短母音+單子音，重複字尾加 -ing',
-                zh: '得到／準備',
-                emoji: '🎁',
-                tip: '短母音 (e) + 單子音 (t) 結尾，重複字尾 t 再加 -ing：get ➔ getting。'
-            },
-            {
-                id: 30,
-                base: 'run',
-                target: 'running',
-                tenseType: 'ing',
-                category: 'ing_double',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 3：短母音+單子音，重複字尾加 -ing',
-                zh: '跑步',
-                emoji: '🏃‍♂️',
-                tip: '短母音 (u) + 單子音 (n) 結尾，重複字尾 n 再加 -ing：run ➔ running。'
-            },
-            {
-                id: 31,
-                base: 'sit',
-                target: 'sitting',
-                tenseType: 'ing',
-                category: 'ing_double',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 3：短母音+單子音，重複字尾加 -ing',
-                zh: '坐著',
-                emoji: '🪑',
-                tip: '短母音 (i) + 單子音 (t) 結尾，重複字尾 t 再加 -ing：sit ➔ sitting。'
-            },
-            {
-                id: 32,
-                base: 'swim',
-                target: 'swimming',
-                tenseType: 'ing',
-                category: 'ing_double',
-                formName: '進行式 (-ing 形)',
-                ruleTitle: '進行式規則 3：短母音+單子音，重複字尾加 -ing',
-                zh: '游泳',
-                emoji: '🏊',
-                tip: '短母音 (i) + 單子音 (m) 結尾，重複字尾 m 再加 -ing：swim ➔ swimming。'
-            }
-        ];
+      const doubleConsonantList = [`swim`, `stop`, `get`, `run`, `sit`, `put`, `plan`, `chat`, `shop`, `cut`];
+      const keepEExceptions = [`be`, `see`, `agree`, `flee`];
+      let result = ``;
+      let ruleDesc = ``;
 
-        function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
+      if (doubleConsonantList.indexOf(word) !== -1) {
+        const lastChar = word.charAt(word.length - 1);
+        result = word + lastChar + `ing`;
+        ruleDesc = `規則 3（短母音＋單子音）：字尾重複「` + lastChar + `」再加 -ing。`;
+      } else if (word.endsWith(`ie`) && word.length > 2) {
+        result = word.slice(0, -2) + `ying`;
+        ruleDesc = `延伸規則：字尾為 ie 時，將 ie 改為 y 再加 -ing（如 lie ➔ lying）。`;
+      } else if (word.endsWith(`e`) && keepEExceptions.indexOf(word) === -1 && !word.endsWith(`ee`)) {
+        result = word.slice(0, -1) + `ing`;
+        ruleDesc = `規則 2（去 e 加 -ing）：字尾是不發音的 e，去掉 e 再加 -ing。`;
+      } else if (word === `travel`) {
+        result = `travelling (英) / traveling (美)`;
+        ruleDesc = `課本採用英式拼法 travelling（雙寫 l），美式作 traveling。`;
+      } else {
+        result = word + `ing`;
+        ruleDesc = `規則 1（一般直接加 -ing）：直接在原形動詞字尾加上 -ing。`;
+      }
+
+      out.innerHTML = `<strong>結果：</strong> <span class="en-phrase" style="font-size: 1.15rem;">` + result + `</span> — ` + ruleDesc;
+    }
+
+    function filterTriggers(category, btnEl) {
+      const chips = document.querySelectorAll(`[data-filter]`);
+      chips.forEach(function (c) {
+        c.classList.remove(`is-active`);
+      });
+      if (btnEl) btnEl.classList.add(`is-active`);
+
+      const cards = document.querySelectorAll(`[data-trigger]`);
+      cards.forEach(function (card) {
+        if (category === `all` || card.dataset.trigger === category) {
+          card.style.display = `flex`;
+        } else {
+          card.style.display = `none`;
         }
+      });
+    }
 
-        function hideAllScreens() {
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('exam-screen').style.display = 'none';
-            document.getElementById('practice-screen').style.display = 'none';
-            document.getElementById('rules-screen').style.display = 'none';
+    function selectSemanticFork(forkKey, btnEl) {
+      const data = SEMANTIC_FORKS[forkKey];
+      if (!data) return;
+
+      appState.selectedFork = forkKey;
+
+      const btns = document.querySelectorAll(`[data-fork]`);
+      btns.forEach(function (b) {
+        b.classList.remove(`is-active`);
+      });
+      if (btnEl) {
+        btnEl.classList.add(`is-active`);
+      } else {
+        const targetBtn = document.querySelector(`[data-fork="` + forkKey + `"]`);
+        if (targetBtn) targetBtn.classList.add(`is-active`);
+      }
+
+      const fEl = document.getElementById(`fork-formula`);
+      const tEl = document.getElementById(`fork-time-tag`);
+      const eEl = document.getElementById(`fork-example`);
+      const xEl = document.getElementById(`fork-explain`);
+
+      if (fEl) fEl.textContent = data.formula;
+      if (tEl) tEl.textContent = data.tag;
+      if (eEl) eEl.textContent = data.example;
+      if (xEl) xEl.textContent = data.explain;
+
+      saveState();
+    }
+
+    function toggleAllExercises(shouldOpen) {
+      const detailsList = document.querySelectorAll(`.exercise-details`);
+      detailsList.forEach(function (det) {
+        det.open = Boolean(shouldOpen);
+      });
+    }
+
+    function answerOptionQuestion(qId, selectedKey) {
+      const item = QUIZ_DATA.find(function (q) { return q.id === qId; });
+      if (!item) return;
+
+      const isCorrect = selectedKey === item.answer;
+      appState.answers[qId] = { userVal: selectedKey, isCorrect: isCorrect };
+
+      renderQuestionState(item);
+      updateAllProgressMetrics();
+      saveState();
+    }
+
+    function submitFillQuestion(qId) {
+      const item = QUIZ_DATA.find(function (q) { return q.id === qId; });
+      if (!item) return;
+
+      const inputEl = document.getElementById(`input-` + qId);
+      const hintEl = document.getElementById(`fill-err-` + qId);
+      if (!inputEl) return;
+
+      const cleaned = String(inputEl.value || ``).trim().toLowerCase();
+      if (!cleaned) {
+        if (hintEl) {
+          hintEl.textContent = `請先輸入答案再點擊送出檢查。`;
+          hintEl.style.display = `block`;
         }
+        inputEl.focus();
+        return;
+      }
+      if (hintEl) hintEl.style.display = `none`;
 
-        function goHome() {
-            hideAllScreens();
-            document.getElementById('menu-screen').style.display = 'block';
-        }
+      const isCorrect = cleaned === item.answer.toLowerCase();
+      appState.answers[qId] = { userVal: cleaned, isCorrect: isCorrect };
 
-        function goToRules() {
-            hideAllScreens();
-            document.getElementById('rules-screen').style.display = 'block';
-        }
+      renderQuestionState(item);
+      updateAllProgressMetrics();
+      saveState();
+    }
 
-        let selectedFilterRule = 'all';
+    function handleFillKeydown(event, qId) {
+      if (event.key === `Enter`) {
+        event.preventDefault();
+        submitFillQuestion(qId);
+      }
+    }
 
-        function selectRuleFilter(category, btnEl) {
-            selectedFilterRule = category;
-            const chips = document.querySelectorAll('#menu-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (btnEl) btnEl.classList.add('active');
-        }
+    function renderAllQuizzes() {
+      for (let ch = 1; ch <= 5; ch++) {
+        const container = document.getElementById(`quiz-container-ch` + ch);
+        if (!container) continue;
 
-        function getFilteredVerbs(filter) {
-            if (filter === 'all') return verbs;
-            if (filter === 'past_all') return verbs.filter(v => v.tenseType === 'past');
-            if (filter === 'past_reg') return verbs.filter(v => v.category === 'past_reg');
-            if (filter === 'past_irreg') return verbs.filter(v => v.category === 'past_irreg');
-            if (filter === 'ing_all') return verbs.filter(v => v.tenseType === 'ing');
-            if (filter === 'ing_drop_e') return verbs.filter(v => v.category === 'ing_drop_e');
-            if (filter === 'ing_double') return verbs.filter(v => v.category === 'ing_double');
-            return verbs;
-        }
+        const items = QUIZ_DATA.filter(function (q) { return q.chapter === ch; });
+        let html = ``;
 
-        // 測驗模式
-        let currentQuestion = 0;
-        let score = 0;
-        let totalQuestions = 0;
-        let questions = [];
-        let wrongWords = [];
-        let isWaitingToContinue = false;
+        items.forEach(function (q, idx) {
+          html += `<div class="quiz-card" id="card-` + q.id + `">`;
+          html += `  <div class="quiz-q-meta">`;
+          html += `    <span class="index-num">第 ` + (idx + 1) + ` 題 · ` + q.typeLabel + `</span>`;
+          html += `    <span class="dossier-meta" id="status-` + q.id + `">尚未作答</span>`;
+          html += `  </div>`;
+          html += `  <p class="quiz-q-text">` + q.prompt + `</p>`;
 
-        function goToExam() {
-            hideAllScreens();
-            document.getElementById('exam-screen').style.display = 'block';
-            startExam(getFilteredVerbs(selectedFilterRule));
-        }
-
-        function startExam(verbList) {
-            questions = shuffle(verbList && verbList.length > 0 ? verbList : verbs);
-            totalQuestions = questions.length;
-            currentQuestion = 0;
-            score = 0;
-            wrongWords = [];
-            isWaitingToContinue = false;
-
-            const categoryBadge = document.getElementById('exam-category-badge');
-            if (selectedFilterRule === 'all') {
-                categoryBadge.textContent = `動詞時態綜合挑戰 (共 ${totalQuestions} 題)`;
-            } else if (selectedFilterRule === 'past_all') {
-                categoryBadge.textContent = `過去簡單式專題 (共 ${totalQuestions} 題)`;
-            } else if (selectedFilterRule === 'ing_all') {
-                categoryBadge.textContent = `過去進行式 -ing 專題 (共 ${totalQuestions} 題)`;
-            } else {
-                categoryBadge.textContent = `${questions[0].ruleTitle} (共 ${totalQuestions} 題)`;
-            }
-
-            document.getElementById('exam-restart').style.display = 'none';
-            document.getElementById('exam-retest').style.display = 'none';
-            document.getElementById('wrong-words').innerHTML = '';
-            document.getElementById('wrong-words').style.display = 'none';
-            document.getElementById('exam-answer').style.display = 'inline-block';
-            document.getElementById('exam-submit').style.display = 'inline-block';
-            document.getElementById('exam-tts-base').style.display = 'inline-block';
-            document.getElementById('word-visual-box').style.display = 'flex';
-            document.getElementById('exam-tense-badge-container').style.display = 'block';
-            document.getElementById('exam-submit').textContent = '提交答案';
-            document.getElementById('mnemonic').style.display = 'none';
-
-            nextQuestion();
-        }
-
-        function nextQuestion() {
-            if (currentQuestion >= totalQuestions) {
-                endExam();
-                return;
-            }
-
-            const q = questions[currentQuestion];
-            document.getElementById('mnemonic').style.display = 'none';
-            isWaitingToContinue = false;
-
-            const progress = (currentQuestion / totalQuestions) * 100;
-            document.getElementById('exam-progress-bar').style.width = `${progress}%`;
-
-            const submitBtn = document.getElementById('exam-submit');
-            submitBtn.textContent = '提交答案';
-            submitBtn.style.backgroundColor = 'var(--accent)';
-
-            const imgEl = document.getElementById('exam-word-img');
-            const emojiEl = document.getElementById('exam-word-emoji');
-            
-            // 嘗試載入既有的 png 檔（如 ./work.png），若無則自動優雅切換回 emoji
-            imgEl.src = `./${q.base}.png`;
-            imgEl.style.display = 'none';
-            imgEl.onload = function() {
-                imgEl.style.display = 'block';
-                emojiEl.style.display = 'none';
-            };
-            imgEl.onerror = function() {
-                imgEl.style.display = 'none';
-                emojiEl.style.display = 'block';
-            };
-            emojiEl.textContent = q.emoji;
-            emojiEl.style.display = 'block';
-
-            // 設定時態標籤
-            const tenseBadge = document.getElementById('exam-tense-badge');
-            if (q.tenseType === 'past') {
-                tenseBadge.textContent = '請輸入【過去簡單式 (Past Simple)】';
-                tenseBadge.className = 'prompt-tense-tag tag-past';
-            } else {
-                tenseBadge.textContent = '請輸入【進行式 (-ing 形)】';
-                tenseBadge.className = 'prompt-tense-tag tag-ing';
-            }
-
-            document.getElementById('question').innerHTML = `
-                動詞原形：<b style="font-size: 26px; color: #fff;">"${q.base}"</b>（${q.zh}）
-            `;
-
-            document.getElementById('exam-tts-base').onclick = () => speakWord(q.base);
-
-            const inputEl = document.getElementById('exam-answer');
-            inputEl.value = '';
-            inputEl.disabled = false;
-            document.getElementById('exam-result').textContent = '';
-            document.getElementById('score').textContent = `得分: ${score} / ${totalQuestions} (第 ${currentQuestion + 1} 題)`;
-
-            setTimeout(() => inputEl.focus(), 50);
-        }
-
-        function checkExamAnswer() {
-            if (isWaitingToContinue) {
-                currentQuestion++;
-                nextQuestion();
-                return;
-            }
-
-            const inputEl = document.getElementById('exam-answer');
-            const userAnswer = inputEl.value.trim().toLowerCase();
-            const q = questions[currentQuestion];
-            const correctAnswer = q.target.toLowerCase();
-
-            if (!userAnswer) {
-                inputEl.focus();
-                return;
-            }
-
-            if (userAnswer === correctAnswer) {
-                score++;
-                playSound('correct');
-                inputEl.disabled = true;
-                const resEl = document.getElementById('exam-result');
-                resEl.textContent = `✨ 太棒了，完全正確！ (${q.base} ➔ ${q.target})`;
-                resEl.style.color = 'var(--success)';
-                speakWord(q.target);
-
-                setTimeout(() => {
-                    currentQuestion++;
-                    nextQuestion();
-                }, 1000);
-            } else {
-                playSound('wrong');
-                inputEl.disabled = true;
-                const resEl = document.getElementById('exam-result');
-                resEl.textContent = `❌ 答錯了！正確答案是：${q.target}`;
-                resEl.style.color = 'var(--danger)';
-
-                const mnemonicEl = document.getElementById('mnemonic');
-                mnemonicEl.innerHTML = `
-                    💡 <b>【${q.ruleTitle}】文法解析：</b><br>${q.tip}
-                    <div style="margin-top: 8px;">
-                        <button class="tts-btn" onclick="speakWord('${q.target}')">🔊 聆聽正確發音 (${q.target})</button>
-                    </div>
-                `;
-                mnemonicEl.style.display = 'block';
-
-                const submitBtn = document.getElementById('exam-submit');
-                submitBtn.textContent = '繼續下一題 ➔';
-                submitBtn.style.backgroundColor = '#5c6bc0';
-
-                wrongWords.push({
-                    base: q.base,
-                    target: q.target,
-                    formName: q.formName,
-                    zh: q.zh,
-                    tip: q.tip,
-                    user: userAnswer
-                });
-
-                isWaitingToContinue = true;
-            }
-
-            document.getElementById('score').textContent = `得分: ${score} / ${totalQuestions} (第 ${currentQuestion + 1} 題)`;
-        }
-
-        function endExam() {
-            document.getElementById('exam-progress-bar').style.width = '100%';
-            document.getElementById('mnemonic').style.display = 'none';
-            document.getElementById('word-visual-box').style.display = 'none';
-            document.getElementById('exam-tense-badge-container').style.display = 'none';
-            document.getElementById('exam-tts-base').style.display = 'none';
-            document.getElementById('question').innerHTML = `🎉 <b>測驗完成！</b>`;
-            document.getElementById('exam-answer').style.display = 'none';
-            document.getElementById('exam-submit').style.display = 'none';
-            
-            const percentage = Math.round((score / totalQuestions) * 100);
-            const resEl = document.getElementById('exam-result');
-            resEl.textContent = `最終總分：${score} / ${totalQuestions} (${percentage}分)`;
-            resEl.style.color = '#fff';
-
-            const wrongContainer = document.getElementById('wrong-words');
-            wrongContainer.style.display = 'block';
-
-            if (score === totalQuestions) {
-                wrongContainer.innerHTML = '<div style="color: var(--success); font-size: 16px; text-align: center; padding: 12px;">🏆 太強了！全部動詞變化皆答對！</div>';
-            } else {
-                let wrongHtml = `<b>需加強複習的錯題筆記 (${wrongWords.length} 題)：</b><br><br>`;
-                wrongWords.forEach((w, idx) => {
-                    wrongHtml += `
-                        <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.15);">
-                            ${idx + 1}. <b>${w.base}</b>（${w.zh}）➔ 【${w.formName}】正確變化: <span style="color: var(--success); font-weight: bold;">${w.target}</span> 
-                            <button class="tts-btn" onclick="speakWord('${w.target}')">🔊</button><br>
-                            &nbsp;&nbsp;&nbsp;你的輸入: <span style="color: var(--danger); text-decoration: line-through;">${w.user || '(空白)'}</span><br>
-                            &nbsp;&nbsp;&nbsp;<span style="font-size: 12px; color: #b0bec5;">💡 ${w.tip}</span>
-                        </div>
-                    `;
-                });
-                wrongContainer.innerHTML = wrongHtml;
-                document.getElementById('exam-retest').style.display = 'inline-block';
-            }
-
-            document.getElementById('exam-restart').style.display = 'inline-block';
-        }
-
-        // 練習模式
-        let practiceFilter = 'all';
-        let areAnswersVisible = false;
-
-        function goToPractice() {
-            hideAllScreens();
-            document.getElementById('practice-screen').style.display = 'block';
-            practiceFilter = 'all';
-            const chips = document.querySelectorAll('#practice-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (chips[0]) chips[0].classList.add('active');
-            renderPracticeList();
-            resetPracticeState();
-        }
-
-        function filterPracticeList(filter, chipEl) {
-            practiceFilter = filter;
-            const chips = document.querySelectorAll('#practice-filter-chips .filter-chip');
-            chips.forEach(c => c.classList.remove('active'));
-            if (chipEl) chipEl.classList.add('active');
-            renderPracticeList();
-            resetPracticeState();
-        }
-
-        function resetPracticeState() {
-            areAnswersVisible = false;
-            const btn = document.getElementById('toggle-all-btn');
-            btn.innerHTML = '顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-            btn.className = 'btn-danger';
-        }
-
-        function renderPracticeList() {
-            const listContainer = document.getElementById('practice-list');
-            listContainer.innerHTML = '';
-            const targetVerbs = getFilteredVerbs(practiceFilter);
-
-            targetVerbs.forEach((verb, index) => {
-                const rowContainer = document.createElement('div');
-                rowContainer.className = 'practice-row-container';
-                const tagColor = verb.tenseType === 'past' ? '#ffb74d' : '#4dd0e1';
-                const formShort = verb.tenseType === 'past' ? '過去式' : '進行式 -ing';
-
-                rowContainer.innerHTML = `
-                    <div class="practice-row">
-                        <div class="col-base">
-                            <span style="font-size: 20px;">${verb.emoji}</span>
-                            <div>
-                                <b>${verb.base}</b> <span style="font-size: 11px; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.08); color: ${tagColor};">${formShort}</span>
-                                <div style="font-size: 12px; color: var(--text-sub); margin-top: 2px;">${verb.zh}</div>
-                            </div>
-                            <button class="tts-btn" onclick="speakWord('${verb.base}')" title="聽原形發音">🔊</button>
-                        </div>
-                        <div class="col-input">
-                            <input type="text" class="practice-input" id="p-input-${index}" placeholder="輸入 ${formShort}..." autocomplete="off" autocapitalize="off" spellcheck="false">
-                        </div>
-                        <div class="col-ans">
-                            <div id="p-ans-${index}" style="display: none;">
-                                <span style="color: var(--success); font-weight: bold;">${verb.target}</span>
-                                <button class="tts-btn" onclick="speakWord('${verb.target}')" title="聽變化發音">🔊</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                listContainer.appendChild(rowContainer);
-
-                setTimeout(() => {
-                    const inp = document.getElementById(`p-input-${index}`);
-                    if (inp) {
-                        inp.addEventListener('keydown', (e) => {
-                            if (e.key === 'Enter') {
-                                checkSinglePractice(index, verb);
-                            }
-                        });
-                    }
-                }, 0);
+          if (q.type === `mcq` || q.type === `tf`) {
+            html += `  <div class="quiz-options">`;
+            q.options.forEach(function (opt) {
+              html += `    <button type="button" class="quiz-opt-btn" id="opt-` + q.id + `-` + opt.key + `" onclick="answerOptionQuestion('` + q.id + `', '` + opt.key + `')">`;
+              html += `      <span class="quiz-opt-key">` + opt.key + `</span>`;
+              html += `      <span>` + opt.text + `</span>`;
+              html += `    </button>`;
             });
-        }
+            html += `  </div>`;
+          } else {
+            html += `  <div class="control-row">`;
+            html += `    <div class="field-group">`;
+            html += `      <label for="input-` + q.id + `" class="field-label">作答欄位（請輸入英文單字）：</label>`;
+            html += `      <input type="text" id="input-` + q.id + `" class="text-input" placeholder="` + (q.placeholder || ``) + `" onkeydown="handleFillKeydown(event, '` + q.id + `')">`;
+            html += `    </div>`;
+            html += `    <button type="button" class="btn btn-primary" onclick="submitFillQuestion('` + q.id + `')">檢查答案</button>`;
+            html += `  </div>`;
+            html += `  <div id="fill-err-` + q.id + `" class="dossier-meta" style="color: var(--error); display: none;"></div>`;
+          }
 
-        function checkSinglePractice(index, verb) {
-            const input = document.getElementById(`p-input-${index}`);
-            const ansDiv = document.getElementById(`p-ans-${index}`);
-            const userVal = input.value.trim().toLowerCase();
-            ansDiv.style.display = 'block';
-
-            if (userVal === verb.target.toLowerCase()) {
-                input.classList.add('correct');
-                input.classList.remove('wrong');
-                playSound('correct');
-            } else {
-                input.classList.add('wrong');
-                input.classList.remove('correct');
-                playSound('wrong');
-            }
-        }
-
-        function toggleAllAnswers() {
-            const btn = document.getElementById('toggle-all-btn');
-            areAnswersVisible = !areAnswersVisible;
-            const targetVerbs = getFilteredVerbs(practiceFilter);
-
-            if (areAnswersVisible) {
-                btn.innerHTML = '隱藏答案<br><span class="ruby-text">ㄧㄣˇ ㄘㄤˊ ㄉㄚˊ ㄢˋ</span>';
-                btn.className = 'btn-secondary';
-
-                let allCorrect = true;
-                targetVerbs.forEach((verb, index) => {
-                    const ansDiv = document.getElementById(`p-ans-${index}`);
-                    const input = document.getElementById(`p-input-${index}`);
-                    if (!ansDiv || !input) return;
-                    ansDiv.style.display = 'block';
-
-                    const userVal = input.value.trim().toLowerCase();
-                    if (userVal === verb.target.toLowerCase()) {
-                        input.classList.add('correct');
-                        input.classList.remove('wrong');
-                    } else {
-                        input.classList.add('wrong');
-                        input.classList.remove('correct');
-                        allCorrect = false;
-                    }
-                });
-
-                if (allCorrect) playSound('correct');
-            } else {
-                btn.innerHTML = '顯示正確答案 / 批改<br><span class="ruby-text">ㄒㄧㄢˇ ㄕˋ ㄉㄚˊ ㄢˋ</span>';
-                btn.className = 'btn-danger';
-
-                targetVerbs.forEach((_, index) => {
-                    const ansDiv = document.getElementById(`p-ans-${index}`);
-                    if (ansDiv) ansDiv.style.display = 'none';
-                });
-            }
-        }
-
-        function clearPracticeInputs() {
-            const targetVerbs = getFilteredVerbs(practiceFilter);
-            targetVerbs.forEach((_, index) => {
-                const input = document.getElementById(`p-input-${index}`);
-                const ansDiv = document.getElementById(`p-ans-${index}`);
-                if (input) {
-                    input.value = '';
-                    input.classList.remove('correct', 'wrong');
-                }
-                if (ansDiv) ansDiv.style.display = 'none';
-            });
-            resetPracticeState();
-        }
-
-        // 事件監聽綁定
-        document.getElementById('exam-submit').addEventListener('click', checkExamAnswer);
-        document.getElementById('exam-answer').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') checkExamAnswer();
+          html += `  <div class="quiz-feedback" id="feedback-` + q.id + `" aria-live="polite"></div>`;
+          html += `</div>`;
         });
-        document.getElementById('exam-restart').addEventListener('click', () => startExam(getFilteredVerbs(selectedFilterRule)));
-        document.getElementById('exam-retest').addEventListener('click', () => {
-            if (wrongWords.length > 0) {
-                const retestList = wrongWords.map(w => verbs.find(orig => orig.base === w.base && orig.target === w.target)).filter(Boolean);
-                startExam(retestList);
-            }
+
+        container.innerHTML = html;
+        items.forEach(function (q) {
+          renderQuestionState(q);
         });
-    </script>
+      }
+    }
+
+    function renderQuestionState(q) {
+      const saved = appState.answers[q.id];
+      const statusEl = document.getElementById(`status-` + q.id);
+      const fbEl = document.getElementById(`feedback-` + q.id);
+
+      if (q.type === `mcq` || q.type === `tf`) {
+        q.options.forEach(function (opt) {
+          const btn = document.getElementById(`opt-` + q.id + `-` + opt.key);
+          if (!btn) return;
+          btn.classList.remove(`is-correct`, `is-wrong`);
+          if (saved) {
+            if (opt.key === q.answer) {
+              btn.classList.add(`is-correct`);
+            } else if (opt.key === saved.userVal && !saved.isCorrect) {
+              btn.classList.add(`is-wrong`);
+            }
+          }
+        });
+      } else {
+        const inputEl = document.getElementById(`input-` + q.id);
+        if (inputEl) {
+          inputEl.value = saved ? saved.userVal : ``;
+        }
+      }
+
+      if (!saved) {
+        if (statusEl) {
+          statusEl.textContent = `尚未作答`;
+          statusEl.style.color = `var(--on-surface-variant)`;
+        }
+        if (fbEl) {
+          fbEl.className = `quiz-feedback`;
+          fbEl.innerHTML = ``;
+        }
+        return;
+      }
+
+      if (statusEl) {
+        statusEl.textContent = saved.isCorrect ? `作答正確` : `再思考一下（已顯示詳解）`;
+        statusEl.style.color = saved.isCorrect ? `var(--positive)` : `var(--error)`;
+      }
+
+      if (fbEl) {
+        fbEl.className = `quiz-feedback is-visible ` + (saved.isCorrect ? `is-correct` : `is-wrong`);
+        const heading = saved.isCorrect
+          ? `答對了！正確答案：` + q.answer
+          : `這題不對喔（你的作答：` + saved.userVal + ` ／ 正確答案：` + q.answer + `）`;
+        fbEl.innerHTML = `<p class="quiz-feedback-title ` + (saved.isCorrect ? `is-correct` : `is-wrong`) + `">` + heading + `</p><p style="margin:0;"><strong>詳解：</strong>` + q.explanation + `</p>`;
+      }
+    }
+
+    function updateAllProgressMetrics() {
+      const total = QUIZ_DATA.length;
+      let answeredCount = 0;
+      let correctCount = 0;
+
+      for (let ch = 1; ch <= 5; ch++) {
+        const chItems = QUIZ_DATA.filter(function (q) { return q.chapter === ch; });
+        let chAns = 0;
+        let chCor = 0;
+        chItems.forEach(function (q) {
+          const rec = appState.answers[q.id];
+          if (rec) {
+            answeredCount++;
+            chAns++;
+            if (rec.isCorrect) {
+              correctCount++;
+              chCor++;
+            }
+          }
+        });
+
+        const chScoreEl = document.getElementById(`ch` + ch + `-quiz-score`);
+        if (chScoreEl) chScoreEl.textContent = `本單元得分：` + chCor + ` / ` + chItems.length;
+
+        const tocEl = document.getElementById(`toc-status-` + ch);
+        if (tocEl) {
+          tocEl.textContent = chAns + `/` + chItems.length + ` 題`;
+          if (chAns === chItems.length) {
+            tocEl.classList.add(`is-done`);
+          } else {
+            tocEl.classList.remove(`is-done`);
+          }
+        }
+      }
+
+      const kpiAns = document.getElementById(`kpi-answered`);
+      const kpiBar = document.getElementById(`kpi-progress-bar`);
+      const kpiAcc = document.getElementById(`kpi-accuracy`);
+      const kpiAccHint = document.getElementById(`kpi-accuracy-hint`);
+      const kpiBadge = document.getElementById(`kpi-badge-status`);
+      const kpiBadgeHint = document.getElementById(`kpi-badge-hint`);
+
+      if (kpiAns) kpiAns.textContent = answeredCount + ` / ` + total;
+      if (kpiBar) kpiBar.style.width = Math.round((answeredCount / total) * 100) + `%`;
+
+      if (answeredCount === 0) {
+        if (kpiAcc) kpiAcc.textContent = `--`;
+        if (kpiAccHint) kpiAccHint.textContent = `完成任一章節測驗後即時計算`;
+      } else {
+        const pct = Math.round((correctCount / answeredCount) * 100);
+        if (kpiAcc) kpiAcc.textContent = pct + `%`;
+        if (kpiAccHint) kpiAccHint.textContent = `已答對 ` + correctCount + ` 題（共作答 ` + answeredCount + ` 題）`;
+      }
+
+      const certPill = document.getElementById(`cert-pill`);
+      const certTitle = document.getElementById(`cert-title`);
+      const certMsg = document.getElementById(`cert-message`);
+
+      if (answeredCount === total) {
+        const finalPct = Math.round((correctCount / total) * 100);
+        if (kpiBadge) kpiBadge.textContent = finalPct >= 80 ? `文法達人` : `全數通關`;
+        if (kpiBadgeHint) kpiBadgeHint.textContent = `已完成 Unit 7 全部 18 題測驗！`;
+        if (certPill) certPill.textContent = finalPct >= 80 ? `UNLOCKED · 優等結業勳章` : `UNLOCKED · 完賽學習勳章`;
+        if (certTitle) certTitle.textContent = `恭喜完成 Unit 7 動名詞全部考驗！（總成績：` + correctCount + ` / ` + total + ` 題，` + finalPct + `%）`;
+        if (certMsg) certMsg.textContent = `從 Onnie 的海上環保報告、動名詞兩大角色與五大時機，到 stop / remember 語意對決與課本 P.43–48 習題，妳已經一步一腳印完全掌握！Keep up the great work!`;
+      } else {
+        if (kpiBadge) kpiBadge.textContent = `探索中`;
+        if (kpiBadgeHint) kpiBadgeHint.textContent = `尚餘 ` + (total - answeredCount) + ` 題即可解鎖結業勳章`;
+        if (certPill) certPill.textContent = `學習紀錄報告`;
+        if (certTitle) certTitle.textContent = `完成五個單元的 ` + total + ` 題隨堂測驗，即可解鎖 Unit 7 結業勳章！`;
+        if (certMsg) certMsg.textContent = `目前已完成 ` + answeredCount + ` / ` + total + ` 題。你可以隨時回到上方各章節繼續作答或檢視詳解。`;
+      }
+    }
+
+    function exportSummary() {
+      const total = QUIZ_DATA.length;
+      let answered = 0;
+      let correct = 0;
+      const lines = [
+        `楊友寧文法課堂 — Unit 7 動名詞 (-ing form) 學習成績單`,
+        `========================================================`,
+        ``
+      ];
+
+      QUIZ_DATA.forEach(function (q, index) {
+        const rec = appState.answers[q.id];
+        if (rec) {
+          answered++;
+          if (rec.isCorrect) correct++;
+          lines.push((index + 1) + `. [單元 ` + q.chapter + `] ` + q.prompt);
+          lines.push(`   你的答案：` + rec.userVal + ` ｜ 正確答案：` + q.answer + ` ｜ 結果：` + (rec.isCorrect ? `正確` : `需複習`));
+        } else {
+          lines.push((index + 1) + `. [單元 ` + q.chapter + `] ` + q.prompt);
+          lines.push(`   狀態：尚未作答`);
+        }
+      });
+
+      lines.push(``);
+      lines.push(`總結：已完成 ` + answered + ` / ` + total + ` 題，答對 ` + correct + ` 題。`);
+      const content = lines.join(`\n`);
+
+      const statusMsg = document.getElementById(`action-status-msg`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `Unit7_Gerunds_Study_Report.txt`
+        });
+        if (statusMsg) statusMsg.textContent = `已匯出學習成績單 Unit7_Gerunds_Study_Report.txt。`;
+      } else {
+        if (statusMsg) statusMsg.textContent = `已整理共 ` + answered + ` 題作答紀錄（目前環境未提供檔案下載介面）。`;
+      }
+    }
+
+    function handleResetProgress(btn) {
+      if (!btn) return;
+      const statusMsg = document.getElementById(`action-status-msg`);
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `請再點擊一次確認重設`;
+        if (statusMsg) statusMsg.textContent = `確認提示：再次點擊按鈕將會清除所有 18 題測驗作答紀錄。`;
+        return;
+      }
+
+      btn.dataset.armed = `false`;
+      btn.textContent = `重設全部測驗進度`;
+      appState.answers = {};
+      appState.selectedToken = 1;
+      appState.selectedFork = `stop-ing`;
+
+      renderAllQuizzes();
+      updateAllProgressMetrics();
+      selectDialogueToken(1);
+      selectSemanticFork(`stop-ing`, null);
+      saveState();
+
+      if (statusMsg) statusMsg.textContent = `已重設全部學習與測驗進度。`;
+    }
+
+    /* =====================================================================
+       BOOT & INITIALIZATION
+       ===================================================================== */
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.answers && typeof saved.answers === `object`) {
+              appState.answers = saved.answers;
+            }
+            if (saved.selectedToken) {
+              appState.selectedToken = saved.selectedToken;
+            }
+            if (saved.selectedFork) {
+              appState.selectedFork = saved.selectedFork;
+            }
+          }
+        } catch (err) {
+          // Proceed with fresh default state
+        }
+      }
+
+      renderAllQuizzes();
+      updateAllProgressMetrics();
+      selectDialogueToken(appState.selectedToken || 1);
+      selectSemanticFork(appState.selectedFork || `stop-ing`, null);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
 </body>
 </html>
